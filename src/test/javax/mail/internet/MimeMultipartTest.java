@@ -28,7 +28,6 @@ import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import javax.mail.MessagingException;
 import javax.activation.CommandMap;
-import javax.activation.DataHandler;
 import javax.activation.MailcapCommandMap;
 import javax.activation.DataContentHandler;
 import javax.activation.DataSource;
@@ -44,6 +43,7 @@ public class MimeMultipartTest extends TestCase {
     public void testWriteTo() throws MessagingException, IOException {
         MimeMultipart mp = new MimeMultipart();
         MimeBodyPart part1 = new MimeBodyPart();
+        part1.setHeader("foo", "bar");
         part1.setContent("Hello World", "text/plain");
         mp.addBodyPart(part1);
         MimeBodyPart part2 = new MimeBodyPart();
@@ -56,6 +56,7 @@ public class MimeMultipartTest extends TestCase {
         defaultMap = CommandMap.getDefaultCommandMap();
         MailcapCommandMap myMap = new MailcapCommandMap();
         myMap.addMailcap("text/plain;;    x-java-content-handler=" + DummyTextHandler.class.getName());
+        myMap.addMailcap("multipart/*;;    x-java-content-handler=" + DummyMultipartHandler.class.getName());
         CommandMap.setDefaultCommandMap(myMap);
     }
 
@@ -83,19 +84,24 @@ public class MimeMultipartTest extends TestCase {
 
     public static class DummyMultipartHandler implements DataContentHandler {
         public DataFlavor[] getTransferDataFlavors() {
-            return new DataFlavor[0];  //To change body of implemented methods use File | Settings | File Templates.
+            throw new UnsupportedOperationException();
         }
 
         public Object getTransferData(DataFlavor df, DataSource ds) throws UnsupportedFlavorException, IOException {
-            return null;  //To change body of implemented methods use File | Settings | File Templates.
+            throw new UnsupportedOperationException();
         }
 
         public Object getContent(DataSource ds) throws IOException {
-            return null;  //To change body of implemented methods use File | Settings | File Templates.
+            throw new UnsupportedOperationException();
         }
 
         public void writeTo(Object obj, String mimeType, OutputStream os) throws IOException {
-            os.write(((String)obj).getBytes());
+            MimeMultipart mp = (MimeMultipart) obj;
+            try {
+                mp.writeTo(os);
+            } catch (MessagingException e) {
+                throw (IOException) new IOException(e.getMessage()).initCause(e);
+            }
         }
     }
 }
