@@ -1,0 +1,23 @@
+<assembly>
+  <id>j2ee</id>
+  <formats>
+    <format>jar</format>
+  </formats>
+  <includeBaseDirectory>false</includeBaseDirectory>
+  <dependencySets>
+    <dependencySet>
+      <outputDirectory>/</outputDirectory>
+      <unpack>true</unpack>
+      <scope>runtime</scope>
+      <excludes>
+        <exclude>junit:junit</exclude>
+        <exclude>scout:scout</exclude>
+        <exclude>mx4j:mx4j</exclude>
+        <exclude>mockobjects:mockobjects-jdk1.4-j2ee1.3</exclude>
+        <exclude>mockobjects:mockobjects-core</exclude>
+        <exclude>org.apache.geronimo.specs:activation</exclude>
+        <exclude>org.apache.geronimo.specs:javamail</exclude>                
+      </excludes>
+    </dependencySet>
+  </dependencySets>
+</assembly>
