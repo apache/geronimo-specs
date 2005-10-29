@@ -145,7 +145,6 @@
     <module>corba</module>
     -->
     <module>ejb</module>
-    <module>j2ee</module>
     <module>j2ee-connector</module>
     <module>j2ee-deployment</module>
     <module>j2ee-jacc</module>
