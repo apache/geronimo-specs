@@ -38,67 +38,67 @@
     <dependencies>
       <dependency>
         <groupId>org.apache.geronimo.specs</groupId>
-        <artifactId>activation</artifactId>
+        <artifactId>geronimo-spec-activation</artifactId>
         <version>${activationVersion}</version>
       </dependency>
       <dependency>
         <groupId>org.apache.geronimo.specs</groupId>
-        <artifactId>ejb</artifactId>
+        <artifactId>geronimo-spec-ejb</artifactId>
         <version>${ejbVersion}</version>
       </dependency>                        
       <dependency>
         <groupId>org.apache.geronimo.specs</groupId>
-        <artifactId>j2ee</artifactId>
+        <artifactId>geronimo-spec-j2ee</artifactId>
         <version>${j2eeVersion}</version>
       </dependency>                        
       <dependency>
         <groupId>org.apache.geronimo.specs</groupId>
-        <artifactId>j2ee-connector</artifactId>
+        <artifactId>geronimo-spec-j2ee-connector</artifactId>
         <version>${j2eeConnectorVersion}</version>
       </dependency>                        
       <dependency>
         <groupId>org.apache.geronimo.specs</groupId>
-        <artifactId>j2ee-deployment</artifactId>
+        <artifactId>geronimo-spec-j2ee-deployment</artifactId>
         <version>${j2eeDeploymentVersion}</version>
       </dependency>                        
       <dependency>
         <groupId>org.apache.geronimo.specs</groupId>
-        <artifactId>j2ee-jacc</artifactId>
+        <artifactId>geronimo-spec-j2ee-jacc</artifactId>
         <version>${j2eeJaccVersion}</version>
       </dependency>                              
       <dependency>
         <groupId>org.apache.geronimo.specs</groupId>
-        <artifactId>j2ee-management</artifactId>
+        <artifactId>geronimo-spec-j2ee-management</artifactId>
         <version>${j2eeManagementVersion}</version>
       </dependency>
       <dependency>
         <groupId>org.apache.geronimo.specs</groupId>
-        <artifactId>javamail</artifactId>
+        <artifactId>geronimo-spec-javamail</artifactId>
         <version>${javamailVersion}</version>
       </dependency>                                                
       <dependency>
         <groupId>org.apache.geronimo.specs</groupId>
-        <artifactId>jaxr</artifactId>
+        <artifactId>geronimo-spec-jaxr</artifactId>
         <version>${jaxrVersion}</version>
       </dependency>                                                
       <dependency>
         <groupId>org.apache.geronimo.specs</groupId>
-        <artifactId>jaxrpc</artifactId>
+        <artifactId>geronimo-spec-jaxrpc</artifactId>
         <version>${jaxrpcVersion}</version>
       </dependency>                                                
       <dependency>
         <groupId>org.apache.geronimo.specs</groupId>
-        <artifactId>jsp</artifactId>
+        <artifactId>geronimo-spec-jsp</artifactId>
         <version>${jspVersion}</version>
       </dependency>                                          
       <dependency>
         <groupId>org.apache.geronimo.specs</groupId>
-        <artifactId>jms</artifactId>
+        <artifactId>geronimo-spec-jms</artifactId>
         <version>${jmsVersion}</version>
       </dependency>                                    
       <dependency>
         <groupId>org.apache.geronimo.specs</groupId>
-        <artifactId>jta</artifactId>
+        <artifactId>geronimo-spec-jta</artifactId>
         <version>${jtaVersion}</version>
       </dependency>                                          
       <dependency>
@@ -118,17 +118,17 @@
       </dependency>                                    
       <dependency>
         <groupId>org.apache.geronimo.specs</groupId>
-        <artifactId>qname</artifactId>
+        <artifactId>geronimo-spec-qname</artifactId>
         <version>${qnameVersion}</version>
       </dependency>            
       <dependency>
         <groupId>org.apache.geronimo.specs</groupId>
-        <artifactId>saaj</artifactId>
+        <artifactId>geronimo-spec-saaj</artifactId>
         <version>${saajVersion}</version>
       </dependency>                  
       <dependency>
         <groupId>org.apache.geronimo.specs</groupId>
-        <artifactId>servlet</artifactId>
+        <artifactId>geronimo-spec-servlet</artifactId>
         <version>${servletVersion}</version>
       </dependency>            
       <dependency>

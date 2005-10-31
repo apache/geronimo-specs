@@ -11,7 +11,7 @@
   <dependencies>
     <dependency>
       <groupId>org.apache.geronimo.specs</groupId>
-      <artifactId>jta</artifactId>
+      <artifactId>geronimo-spec-jta</artifactId>
     </dependency>
   </dependencies>
 </project>
