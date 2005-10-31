@@ -24,7 +24,7 @@
     <geronimoSpecJaxrVersion>1.0-SNAPSHOT</geronimoSpecJaxrVersion>
     <geronimoSpecJaxrpcVersion>1.0-SNAPSHOT</geronimoSpecJaxrpcVersion>
     <geronimoSpecJmsVersion>1.0-SNAPSHOT</geronimoSpecJmsVersion>
-    <jspVersion>1.0-SNAPSHOT</jspVersion>
+    <geronimoSpecJspVersiona>1.0-SNAPSHOT</geronimoSpecJspVersiona>
     <geronimoSpecJtaVersion>1.0-SNAPSHOT</geronimoSpecJtaVersion>
     <mockobjectsVersion>0.09</mockobjectsVersion>
     <mx4jVersion>3.0.1</mx4jVersion>
@@ -89,7 +89,7 @@
       <dependency>
         <groupId>org.apache.geronimo.specs</groupId>
         <artifactId>geronimo-spec-jsp</artifactId>
-        <version>${jspVersion}</version>
+        <version>${geronimoSpecJspVersiona}</version>
       </dependency>                                          
       <dependency>
         <groupId>org.apache.geronimo.specs</groupId>
