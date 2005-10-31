@@ -7,7 +7,7 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>geronimo-spec-jms</artifactId>
   <name>JMS</name>
-  <version>${jmsVersion}</version>
+  <version>${geronimoSpecJmsVersion}</version>
   <dependencies>
     <dependency>
       <groupId>mockobjects</groupId>
