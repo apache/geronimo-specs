@@ -7,7 +7,7 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>geronimo-spec-jaxrpc</artifactId>
   <name></name>
-  <version>${jaxrpcVersion}</version>
+  <version>${geronimoSpecJaxrpcVersion}</version>
   <dependencies>
     <dependency>
       <groupId>org.apache.geronimo.specs</groupId>
