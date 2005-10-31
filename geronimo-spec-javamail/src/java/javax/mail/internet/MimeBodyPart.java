@@ -29,7 +29,7 @@ import javax.mail.MessagingException;
 import javax.mail.Multipart;
 
 /**
- * @version $Rev: 154541 $ $Date: 2005-02-20 13:01:49 -0500 (Sun, 20 Feb 2005) $
+ * @version $Rev$ $Date$
  */
 public class MimeBodyPart extends BodyPart implements MimePart {
     /**
