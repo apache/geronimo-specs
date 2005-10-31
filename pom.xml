@@ -139,7 +139,7 @@
     </dependencies>
   </dependencyManagement>
 
-  <Modules>
+  <modules>
     <module>geronimo-spec-activation</module>
     <!--
     <module>geronimo-spec-corba</module>
