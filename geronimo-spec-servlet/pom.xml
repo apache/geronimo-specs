@@ -7,5 +7,5 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>geronimo-spec-servlet</artifactId>
   <name>Servlet</name>
-  <version>${servletVersion}</version>
+  <version>${geronimoSpecServletVersion}</version>
 </project>

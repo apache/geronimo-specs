@@ -7,7 +7,7 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>geronimo-spec-j2ee</artifactId>
   <name>J2EE</name>
-  <version>${j2eeVersion}</version>
+  <version>${geronimoSpecJ2eeVersion}</version>
   <dependencies>
     <dependency>
       <groupId>org.apache.geronimo.specs</groupId>

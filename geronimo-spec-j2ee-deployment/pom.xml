@@ -7,5 +7,5 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>geronimo-spec-j2ee-deployment</artifactId>
   <name>J2EE Deployment</name>
-  <version>${j2eeDeploymentVersion}</version>
+  <version>${geronimoSpecJ2eeDeploymentVersion}</version>
 </project>

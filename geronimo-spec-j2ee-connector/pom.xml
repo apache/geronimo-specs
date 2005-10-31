@@ -7,7 +7,7 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>geronimo-spec-j2ee-connector</artifactId>
   <name>J2EE Connector</name>
-  <version>${j2eeConnectorVersion}</version>
+  <version>${geronimoSpecJ2eeConnectorVersion}</version>
   <dependencies>
     <dependency>
       <groupId>org.apache.geronimo.specs</groupId>

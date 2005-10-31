@@ -7,5 +7,5 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>geronimo-spec-activation</artifactId>
   <name>Geronimo Activation</name>
-  <version>${activationVersion}</version>
+  <version>${geronimoSpecActivationVersion}</version>
 </project>

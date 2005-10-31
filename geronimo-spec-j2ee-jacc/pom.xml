@@ -7,7 +7,7 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>geronimo-spec-j2ee-jacc</artifactId>
   <name>J2EE JACC</name>
-  <version>${j2eeJaccVersion}</version>
+  <version>${geronimoSpecJ2eeJaccVersion}</version>
   <dependencies>
     <dependency>
       <groupId>org.apache.geronimo.specs</groupId>
