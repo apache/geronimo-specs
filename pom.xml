@@ -5,7 +5,7 @@
     <version>1.0-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>j2ee-connector</artifactId>
+  <artifactId>geronimo-spec-j2ee-connector</artifactId>
   <name>J2EE Connector</name>
   <version>${j2eeConnectorVersion}</version>
   <dependencies>
