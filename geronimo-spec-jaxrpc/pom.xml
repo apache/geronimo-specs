@@ -11,15 +11,15 @@
   <dependencies>
     <dependency>
       <groupId>org.apache.geronimo.specs</groupId>
-      <artifactId>qname</artifactId>
+      <artifactId>geronimo-spec-qname</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.geronimo.specs</groupId>
-      <artifactId>saaj</artifactId>
+      <artifactId>geronimo-spec-saaj</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.geronimo.specs</groupId>
-      <artifactId>servlet</artifactId>
+      <artifactId>geronimo-spec-servlet</artifactId>
     </dependency>
   </dependencies>
 </project>

@@ -11,63 +11,63 @@
   <dependencies>
     <dependency>
       <groupId>org.apache.geronimo.specs</groupId>
-      <artifactId>activation</artifactId>
+      <artifactId>geronimo-spec-activation</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.geronimo.specs</groupId>
-      <artifactId>ejb</artifactId>
+      <artifactId>geronimo-spec-ejb</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.geronimo.specs</groupId>
-      <artifactId>j2ee-connector</artifactId>
+      <artifactId>geronimo-spec-j2ee-connector</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.geronimo.specs</groupId>
-      <artifactId>j2ee-deployment</artifactId>
+      <artifactId>geronimo-spec-j2ee-deployment</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.geronimo.specs</groupId>
-      <artifactId>j2ee-jacc</artifactId>
+      <artifactId>geronimo-spec-j2ee-jacc</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.geronimo.specs</groupId>
-      <artifactId>j2ee-management</artifactId>
+      <artifactId>geronimo-spec-j2ee-management</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.geronimo.specs</groupId>
-      <artifactId>jms</artifactId>
+      <artifactId>geronimo-spec-jms</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.geronimo.specs</groupId>
-      <artifactId>javamail</artifactId>
+      <artifactId>geronimo-spec-javamail</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.geronimo.specs</groupId>
-      <artifactId>jaxr</artifactId>
+      <artifactId>geronimo-spec-jaxr</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.geronimo.specs</groupId>
-      <artifactId>jsp</artifactId>
+      <artifactId>geronimo-spec-jsp</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.geronimo.specs</groupId>
-      <artifactId>jta</artifactId>
+      <artifactId>geronimo-spec-jta</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.geronimo.specs</groupId>
-      <artifactId>servlet</artifactId>
+      <artifactId>geronimo-spec-servlet</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.geronimo.specs</groupId>
-      <artifactId>jaxrpc</artifactId>
+      <artifactId>geronimo-spec-jaxrpc</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.geronimo.specs</groupId>
-      <artifactId>saaj</artifactId>
+      <artifactId>geronimo-spec-saaj</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.geronimo.specs</groupId>
-      <artifactId>qname</artifactId>
+      <artifactId>geronimo-spec-qname</artifactId>
     </dependency>
   </dependencies>
   <build>
