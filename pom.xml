@@ -7,7 +7,7 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>geronimo-spec-jsp</artifactId>
   <name>JSP</name>
-  <version>${jspVersion}</version>
+  <version>${geronimoSpecJspVersiona}</version>
   <dependencies>
     <dependency>
       <groupId>org.apache.geronimo.specs</groupId>
