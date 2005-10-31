@@ -139,25 +139,25 @@
     </dependencies>
   </dependencyManagement>
 
-  <modules>
-    <module>activation</module>
+  <Modules>
+    <module>geronimo-spec-activation</module>
     <!--
-    <module>corba</module>
+    <module>geronimo-spec-corba</module>
     -->
-    <module>ejb</module>
-    <module>j2ee-connector</module>
-    <module>j2ee-deployment</module>
-    <module>j2ee-jacc</module>
-    <module>j2ee-management</module>
-    <module>javamail</module>
-    <module>jaxr</module>
-    <module>jaxrpc</module>
-    <module>jms</module>
-    <module>jsp</module>
-    <module>jta</module>
-    <module>qname</module>
-    <module>saaj</module>
-    <module>servlet</module>
+    <module>geronimo-spec-ejb</module>
+    <module>geronimo-spec-j2ee-connector</module>
+    <module>geronimo-spec-j2ee-deployment</module>
+    <module>geronimo-spec-j2ee-jacc</module>
+    <module>geronimo-spec-j2ee-management</module>
+    <module>geronimo-spec-javamail</module>
+    <module>geronimo-spec-jaxr</module>
+    <module>geronimo-spec-jaxrpc</module>
+    <module>geronimo-spec-jms</module>
+    <module>geronimo-spec-jsp</module>
+    <module>geronimo-spec-jta</module>
+    <module>geronimo-spec-qname</module>
+    <module>geronimo-spec-saaj</module>
+    <module>geronimo-spec-servlet</module>
   </modules>
 
   <build>
