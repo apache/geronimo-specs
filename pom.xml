@@ -30,4 +30,12 @@
     <module>geronimo-spec-saaj</module>
     <module>geronimo-spec-servlet</module>
   </modules>
+
+  <build>
+    <resources>
+      <resource>
+        <directory>src/resources</directory>
+      </resource>
+    </resources>
+  </build>
 </project>

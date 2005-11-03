@@ -7,11 +7,43 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>geronimo-spec-jsp</artifactId>
   <name>JSP</name>
-  <version>${geronimoSpecJspVersiona}</version>
+  <version>${geronimoSpecJspVersion}</version>
   <dependencies>
     <dependency>
       <groupId>org.apache.geronimo.specs</groupId>
       <artifactId>geronimo-spec-servlet</artifactId>
     </dependency>
   </dependencies>
+
+  <build>
+    <resources>
+      <resource>
+        <directory>${basedir}/src/schema</directory>
+        <targetPath>javax/servlet/jsp/resources</targetPath>
+        <includes>
+          <include>*.dtd</include>
+          <include>*.xsd</include>
+        </includes>
+      </resource>
+      <!-- Jetty needs the jsp_2_0.xsd file located at javax/servlet/resources/jsp_2_0.xsd -->
+      <resource>
+        <directory>${basedir}/src/schema</directory>
+        <targetPath>javax/servlet/resources</targetPath>
+        <includes>
+          <include>jsp_2_0.xsd</include>
+        </includes>
+      </resource>
+      <!--
+         - Tomcat 5.0.28 needs the web-jsptaglibrary_2_0.xsd file
+         - located at javax/servlet/resources/web-jsptaglibrary_2_0.xsd
+         -->
+      <resource>
+        <directory>${basedir}/src/schema</directory>
+        <targetPath>javax/servlet/resources</targetPath>
+        <includes>
+          <include>web-jsptaglibrary_2_0.xsd</include>
+        </includes>
+      </resource>
+    </resources>
+  </build>
 </project>

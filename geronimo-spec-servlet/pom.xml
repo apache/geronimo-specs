@@ -8,4 +8,24 @@
   <artifactId>geronimo-spec-servlet</artifactId>
   <name>Servlet</name>
   <version>${geronimoSpecServletVersion}</version>
+
+  <build>
+    <resources>
+      <resource>
+        <directory>src/java/javax/servlet</directory>
+        <targetPath>javax/servlet</targetPath>
+        <includes>
+          <include>**/*.properties</include>
+        </includes>
+      </resource>
+      <resource>
+        <directory>src/schema</directory>
+        <targetPath>javax/servlet/resources</targetPath>
+        <includes>
+          <include>*.dtd</include>
+          <include>*.xsd</include>
+        </includes>
+      </resource>
+    </resources>
+  </build>
 </project>
