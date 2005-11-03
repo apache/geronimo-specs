@@ -6,6 +6,6 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>geronimo-spec-activation</artifactId>
-  <name>Geronimo Activation</name>
+  <name>Activation</name>
   <version>${geronimoSpecActivationVersion}</version>
 </project>
