@@ -1,0 +1,23 @@
+
+// CosTransactions Module
+// OMG Transaction Service v1.1, November 1997.
+
+#ifndef __CURRENT_IDL__
+#define __CURRENT_IDL__
+
+#include "CosTransactions.idl"
+#include <Current.idl>
+
+#pragma prefix "omg.org"
+
+module CosTransactions {
+      
+  interface TransactionPolicy : CORBA::Policy {
+    readonly attribute TransactionPolicyValue value;
+  };
+  
+}; // End of CosTransactions Module
+
+#endif
+
+
