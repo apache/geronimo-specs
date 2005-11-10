@@ -13,7 +13,7 @@
     <plugins>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
-        <artifactId>idlj-maven-plugin</artifactId>
+        <artifactId>maven-idlj-plugin</artifactId>
         <executions>
           <execution>
             <goals>
