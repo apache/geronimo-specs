@@ -12,9 +12,7 @@
   <version>1.0-SNAPSHOT</version>
   <modules>
     <module>geronimo-spec-activation</module>
-    <!--
     <module>geronimo-spec-corba</module>
-    -->
     <module>geronimo-spec-ejb</module>
     <module>geronimo-spec-j2ee-connector</module>
     <module>geronimo-spec-j2ee-deployment</module>
