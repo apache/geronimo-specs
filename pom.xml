@@ -10,6 +10,7 @@
   <packaging>pom</packaging>  
   <name>Geronimo Specifications</name>
   <version>1.0-SNAPSHOT</version>
+
   <modules>
     <module>geronimo-spec-activation</module>
     <module>geronimo-spec-corba</module>
@@ -18,6 +19,7 @@
     <module>geronimo-spec-j2ee-deployment</module>
     <module>geronimo-spec-j2ee-jacc</module>
     <module>geronimo-spec-j2ee-management</module>
+    <module>geronimo-spec-j2ee</module>
     <module>geronimo-spec-javamail</module>
     <module>geronimo-spec-jaxr</module>
     <module>geronimo-spec-jaxrpc</module>
