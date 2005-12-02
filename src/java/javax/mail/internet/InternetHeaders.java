@@ -330,7 +330,7 @@ public class InternetHeaders {
         List list = new ArrayList(addresses.length);
         for (int i = 0; i < addresses.length; i++) {
             Address address = addresses[i];
-            list.add(address.toString());
+            list.add(new InternetHeader(name, address.toString()));
         }
         headers.put(name, list);
     }
