@@ -56,7 +56,9 @@ module IOP {
 	const ServiceId	INVOCATION_POLICIES = 7;
 	const ServiceId	FORWARDED_IDENTITY = 8;
 	const ServiceId	UnknownExceptionInfo = 9;
-
+	const ServiceId RTCorbaPriority = 10;
+	const ServiceId RTCorbaPriorityRange = 11;
+	const ServiceId ExceptionDetailMessage = 14;
 
   typedef sequence<IOP::TaggedComponent> TaggedComponentSeq;
 
