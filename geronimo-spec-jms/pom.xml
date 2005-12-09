@@ -1,21 +1,21 @@
 <project>
   <parent>
-    <groupId>org.apache.geronimo.specs</groupId>
     <artifactId>specs</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <groupId>org.apache.geronimo.specs</groupId>
+    <version>1.0</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>geronimo-jms_1.1_spec</artifactId>
   <name>JMS</name>
-  <version>${geronimoSpecJmsVersion}</version>
+  <version>1.0</version>
   <dependencies>
+    <dependency>
+      <groupId>mockobjects</groupId>
+      <artifactId>mockobjects-core</artifactId>
+    </dependency>
     <dependency>
       <groupId>mockobjects</groupId>
       <artifactId>mockobjects-jdk1.4-j2ee1.3</artifactId>
     </dependency>
-    <dependency>
-      <groupId>mockobjects</groupId>
-      <artifactId>mockobjects-core</artifactId>
-    </dependency>    
   </dependencies>
 </project>

@@ -1,13 +1,13 @@
 <project>
   <parent>
-    <groupId>org.apache.geronimo.specs</groupId>
     <artifactId>specs</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <groupId>org.apache.geronimo.specs</groupId>
+    <version>1.0</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>geronimo-j2ee-management_1.0_spec</artifactId>
   <name>J2EE Management</name>
-  <version>${geronimoSpecJ2eeManagementVersion}</version>
+  <version>1.0</version>
   <dependencies>
     <dependency>
       <groupId>org.apache.geronimo.specs</groupId>
@@ -16,6 +16,6 @@
     <dependency>
       <groupId>mx4j</groupId>
       <artifactId>mx4j</artifactId>
-    </dependency>    
+    </dependency>
   </dependencies>
 </project>

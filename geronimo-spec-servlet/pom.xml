@@ -1,26 +1,25 @@
 <project>
   <parent>
-    <groupId>org.apache.geronimo.specs</groupId>
     <artifactId>specs</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <groupId>org.apache.geronimo.specs</groupId>
+    <version>1.0</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>geronimo-servlet_2.4_spec</artifactId>
   <name>Servlet</name>
-  <version>${geronimoSpecServletVersion}</version>
-
+  <version>1.0</version>
   <build>
     <resources>
       <resource>
-        <directory>src/java/javax/servlet</directory>
         <targetPath>javax/servlet</targetPath>
+        <directory>src/java/javax/servlet</directory>
         <includes>
           <include>**/*.properties</include>
         </includes>
       </resource>
       <resource>
-        <directory>src/schema</directory>
         <targetPath>javax/servlet/resources</targetPath>
+        <directory>src/schema</directory>
         <includes>
           <include>*.dtd</include>
           <include>*.xsd</include>
