@@ -1,21 +1,21 @@
 <project>
   <parent>
-    <groupId>org.apache.geronimo.specs</groupId>
     <artifactId>specs</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <groupId>org.apache.geronimo.specs</groupId>
+    <version>1.0</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>geronimo-jaxrpc_1.1_spec</artifactId>
   <name>JAXRPC</name>
-  <version>${geronimoSpecJaxrpcVersion}</version>
+  <version>1.0</version>
   <dependencies>
     <dependency>
       <groupId>org.apache.geronimo.specs</groupId>
-      <artifactId>geronimo-qname_1.1_spec</artifactId>
+      <artifactId>geronimo-saaj_1.1_spec</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.geronimo.specs</groupId>
-      <artifactId>geronimo-saaj_1.1_spec</artifactId>
+      <artifactId>geronimo-qname_1.1_spec</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.geronimo.specs</groupId>
