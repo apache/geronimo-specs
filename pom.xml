@@ -5,13 +5,13 @@
     <version>1.0-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>geronimo-spec-j2ee-connector</artifactId>
+  <artifactId>geronimo-j2ee-connector_1.5_spec</artifactId>
   <name>J2EE Connector</name>
   <version>${geronimoSpecJ2eeConnectorVersion}</version>
   <dependencies>
     <dependency>
       <groupId>org.apache.geronimo.specs</groupId>
-      <artifactId>geronimo-spec-jta</artifactId>
+      <artifactId>geronimo-jta_1.0.1B_spec</artifactId>
     </dependency>
   </dependencies>
 </project>
