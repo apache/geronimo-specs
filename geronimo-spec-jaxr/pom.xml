@@ -5,13 +5,13 @@
     <version>1.0-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>geronimo-spec-jaxr</artifactId>
+  <artifactId>geronimo-jaxr_1.0_spec</artifactId>
   <name>JAXR</name>
   <version>${geronimoSpecJaxrVersion}</version>
   <dependencies>
     <dependency>
       <groupId>org.apache.geronimo.specs</groupId>
-      <artifactId>geronimo-spec-activation</artifactId>
+      <artifactId>geronimo-activation_1.0.2_spec</artifactId>
     </dependency>
     <dependency>
       <groupId>scout</groupId>

@@ -15,8 +15,8 @@
         <exclude>mx4j:mx4j</exclude>
         <exclude>mockobjects:mockobjects-jdk1.4-j2ee1.3</exclude>
         <exclude>mockobjects:mockobjects-core</exclude>
-        <exclude>org.apache.geronimo.specs:activation</exclude>
-        <exclude>org.apache.geronimo.specs:javamail</exclude>                
+        <exclude>org.apache.geronimo.specs:geronimo-activation_1.0.2_spec</exclude>
+        <exclude>org.apache.geronimo.specs:geronimo-javamail_1.3.1_spec</exclude>                
       </excludes>
     </dependencySet>
   </dependencySets>

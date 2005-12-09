@@ -5,13 +5,13 @@
     <version>1.0-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>geronimo-spec-javamail</artifactId>
+  <artifactId>geronimo-javamail_1.3.1_spec</artifactId>
   <name>Java Mail</name>
   <version>${geronimoSpecJavamailVersion}</version>
   <dependencies>
     <dependency>
       <groupId>org.apache.geronimo.specs</groupId>
-      <artifactId>geronimo-spec-activation</artifactId>
+      <artifactId>geronimo-activation_1.0.2_spec</artifactId>
     </dependency>
   </dependencies>
 </project>

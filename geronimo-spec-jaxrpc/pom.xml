@@ -5,21 +5,21 @@
     <version>1.0-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>geronimo-spec-jaxrpc</artifactId>
+  <artifactId>geronimo-jaxrpc_1.1_spec</artifactId>
   <name>JAXRPC</name>
   <version>${geronimoSpecJaxrpcVersion}</version>
   <dependencies>
     <dependency>
       <groupId>org.apache.geronimo.specs</groupId>
-      <artifactId>geronimo-spec-qname</artifactId>
+      <artifactId>geronimo-qname_1.1_spec</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.geronimo.specs</groupId>
-      <artifactId>geronimo-spec-saaj</artifactId>
+      <artifactId>geronimo-saaj_1.1_spec</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.geronimo.specs</groupId>
-      <artifactId>geronimo-spec-servlet</artifactId>
+      <artifactId>geronimo-servlet_2.4_spec</artifactId>
     </dependency>
   </dependencies>
 </project>
