@@ -1,5 +1,4 @@
 <assembly>
-  <id>j2ee</id>
   <formats>
     <format>jar</format>
   </formats>
