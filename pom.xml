@@ -27,7 +27,7 @@
             </goals>
             <configuration>
               <remoteRepositoryId>apache</remoteRepositoryId>
-              <remoteRepositoryUrl>scpexe://cvs.apache.org/www/cvs.apache.org/maven-snapshot-repository</remoteRepositoryUrl>
+              <remoteRepositoryUrl>scpexe://cvs.apache.org/www/cvs.apache.org/repository</remoteRepositoryUrl>
             </configuration>
           </execution>
         </executions>
