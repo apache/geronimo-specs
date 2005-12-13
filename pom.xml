@@ -1,16 +1,23 @@
 <project>
-  <parent>
-    <artifactId>geronimo</artifactId>
-    <groupId>org.apache.geronimo</groupId>
-    <version>1.0</version>
-  </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.apache.geronimo.specs</groupId>
   <artifactId>specs</artifactId>
   <packaging>pom</packaging>
   <name>Geronimo Specifications</name>
   <version>1.0</version>
+
+  <properties>
+    <!--
+     |
+     | Geronimo module versions
+     |
+     -->
+    <geronimoSpecsVersion>1.0</geronimoSpecsVersion>
+  </properties>
+
   <build>
+    <sourceDirectory>src/java</sourceDirectory>
+    <testSourceDirectory>src/test</testSourceDirectory>
     <resources>
       <resource>
         <directory>src/resources</directory>
@@ -34,6 +41,7 @@
       </plugin>
     </plugins>
   </build>
+
   <modules>
     <module>geronimo-spec-activation</module>
     <module>geronimo-spec-corba</module>
@@ -53,4 +61,136 @@
     <module>geronimo-spec-saaj</module>
     <module>geronimo-spec-servlet</module>
   </modules>
+
+  <dependencyManagement>
+    <dependencies>
+      <!--
+       |
+       | Geronimo specification versions
+       |
+       -->          
+      <dependency>
+        <groupId>org.apache.geronimo.specs</groupId>
+        <artifactId>geronimo-activation_1.0.2_spec</artifactId>
+        <version>${geronimoSpecsVersion}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.geronimo.specs</groupId>
+        <artifactId>geronimo-corba_2.3_spec</artifactId>
+        <version>${geronimoSpecsVersion}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.geronimo.specs</groupId>
+        <artifactId>geronimo-ejb_2.1_spec</artifactId>
+        <version>${geronimoSpecsVersion}</version>
+      </dependency>                        
+      <dependency>
+        <groupId>org.apache.geronimo.specs</groupId>
+        <artifactId>geronimo-j2ee_1.4_spec</artifactId>
+        <version>${geronimoSpecsVersion}</version>
+      </dependency>                        
+      <dependency>
+        <groupId>org.apache.geronimo.specs</groupId>
+        <artifactId>geronimo-j2ee-connector_1.5_spec</artifactId>
+        <version>${geronimoSpecsVersion}</version>
+      </dependency>                        
+      <dependency>
+        <groupId>org.apache.geronimo.specs</groupId>
+        <artifactId>geronimo-j2ee-deployment_1.1_spec</artifactId>
+        <version>${geronimoSpecsVersion}</version>
+      </dependency>                        
+      <dependency>
+        <groupId>org.apache.geronimo.specs</groupId>
+        <artifactId>geronimo-j2ee-jacc_1.0_spec</artifactId>
+        <version>${geronimoSpecsVersion}</version>
+      </dependency>                              
+      <dependency>
+        <groupId>org.apache.geronimo.specs</groupId>
+        <artifactId>geronimo-j2ee-management_1.0_spec</artifactId>
+        <version>${geronimoSpecsVersion}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.geronimo.specs</groupId>
+        <artifactId>geronimo-javamail_1.3.1_spec</artifactId>
+        <version>${geronimoSpecsVersion}</version>
+      </dependency>                                                
+      <dependency>
+        <groupId>org.apache.geronimo.specs</groupId>
+        <artifactId>geronimo-jaxr_1.0_spec</artifactId>
+        <version>${geronimoSpecsVersion}</version>
+      </dependency>                                                
+      <dependency>
+        <groupId>org.apache.geronimo.specs</groupId>
+        <artifactId>geronimo-jaxrpc_1.1_spec</artifactId>
+        <version>${geronimoSpecsVersion}</version>
+      </dependency>                                                
+      <dependency>
+        <groupId>org.apache.geronimo.specs</groupId>
+        <artifactId>geronimo-jsp_2.0_spec</artifactId>
+        <version>${geronimoSpecsVersion}</version>
+      </dependency>                                          
+      <dependency>
+        <groupId>org.apache.geronimo.specs</groupId>
+        <artifactId>geronimo-jms_1.1_spec</artifactId>
+        <version>${geronimoSpecsVersion}</version>
+      </dependency>                                    
+      <dependency>
+        <groupId>org.apache.geronimo.specs</groupId>
+        <artifactId>geronimo-jta_1.0.1B_spec</artifactId>
+        <version>${geronimoSpecsVersion}</version>
+      </dependency>                                          
+      <dependency>
+        <groupId>org.apache.geronimo.specs</groupId>
+        <artifactId>geronimo-qname_1.1_spec</artifactId>
+        <version>${geronimoSpecsVersion}</version>
+      </dependency>            
+      <dependency>
+        <groupId>org.apache.geronimo.specs</groupId>
+        <artifactId>geronimo-saaj_1.1_spec</artifactId>
+        <version>${geronimoSpecsVersion}</version>
+      </dependency>                  
+      <dependency>
+        <groupId>org.apache.geronimo.specs</groupId>
+        <artifactId>geronimo-servlet_2.4_spec</artifactId>
+        <version>${geronimoSpecsVersion}</version>
+      </dependency>            
+
+      <dependency>
+        <groupId>mx4j</groupId>
+        <artifactId>mx4j</artifactId>
+        <version>3.0.1</version>
+      </dependency>                        
+      <dependency>
+        <groupId>mockobjects</groupId>
+        <artifactId>mockobjects-jdk1.4-j2ee1.3</artifactId>
+        <version>0.09</version>
+      </dependency>                              
+      <dependency>
+        <groupId>mockobjects</groupId>
+        <artifactId>mockobjects-core</artifactId>
+        <version>0.09</version>
+      </dependency>                                    
+      <dependency>
+        <groupId>scout</groupId>
+        <artifactId>scout</artifactId>
+        <version>0.5</version>
+      </dependency>                        
+   </dependencies>
+  </dependencyManagement>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+    </dependency>
+  </dependencies>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>snapshots</id>
+      <name>Maven Central Plugins Development Repository</name>
+      <url>http://snapshots.maven.codehaus.org/maven2</url>
+    </pluginRepository>
+  </pluginRepositories>
 </project>
