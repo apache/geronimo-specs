@@ -47,6 +47,13 @@
         </configuration>
       </plugin>
     </plugins>
+    <extensions>
+      <extension>
+        <groupId>org.apache.maven.wagon</groupId>
+        <artifactId>wagon-ssh-external</artifactId>
+        <version>1.0-alpha-5</version>
+      </extension>
+    </extensions>
   </build>
 
   <modules>
@@ -200,7 +207,7 @@
       <url>http://snapshots.maven.codehaus.org/maven2</url>
     </pluginRepository>
   </pluginRepositories>
-  
+
   <distributionManagement>
     <repository>
       <id>apache-repo</id>
@@ -217,15 +224,5 @@
       <url>scpexe://minotaur.apache.org/www/geronimo.apache.org/maven/</url>
     </site>
   </distributionManagement>
-
-  <build>
-    <extensions>
-      <extension>
-        <groupId>org.apache.maven.wagon</groupId>
-        <artifactId>wagon-ssh-external</artifactId>
-        <version>1.0-alpha-5</version>
-      </extension>
-    </extensions>
-  </build>
 
 </project>
