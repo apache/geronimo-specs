@@ -8,6 +8,7 @@
   <artifactId>geronimo-j2ee_1.4_spec</artifactId>
   <name>J2EE</name>
   <version>1.0</version>
+  <packaging>pom</packaging>
   <build>
     <defaultGoal>assembly:assembly</defaultGoal>
     <plugins>
