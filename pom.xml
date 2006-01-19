@@ -16,29 +16,12 @@
   </properties>
 
   <build>
-    <sourceDirectory>src/java</sourceDirectory>
-    <testSourceDirectory>src/test</testSourceDirectory>
     <resources>
       <resource>
         <directory>src/resources</directory>
       </resource>
     </resources>
     <plugins>
-      <plugin>
-        <artifactId>maven-one-plugin</artifactId>
-        <executions>
-          <execution>
-            <goals>
-              <goal>install-maven-one-repository</goal>
-              <goal>deploy-maven-one-repository</goal>
-            </goals>
-            <configuration>
-              <remoteRepositoryId>apache</remoteRepositoryId>
-              <remoteRepositoryUrl>scpexe://cvs.apache.org/www/cvs.apache.org/repository</remoteRepositoryUrl>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
@@ -58,7 +41,8 @@
 
   <modules>
     <module>geronimo-spec-activation</module>
-    <module>geronimo-spec-corba</module>
+    <module>geronimo-spec-corba-3.0</module>
+    <module>geronimo-spec-corba-2.3</module>
     <module>geronimo-spec-ejb</module>
     <module>geronimo-spec-j2ee-connector</module>
     <module>geronimo-spec-j2ee-deployment</module>
