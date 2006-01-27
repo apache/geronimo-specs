@@ -20,6 +20,11 @@ module CSIIOP {
     typeprefix CSIIOP "omg.org";
 #endif // _PRE_3_0_COMPILER_
 
+	// As of CORBA 3.0, these have been moved to module IOP.
+	// Retained for backwards compatibility.
+    const IOP::ComponentId           TAG_CSI_SEC_MECH_LIST       = 33;
+    const IOP::ComponentId           TAG_NULL_TAG                = 34;
+
     // Association options
     
     typedef unsigned short AssociationOptions;

@@ -49,6 +49,7 @@
                 <include>**/SECIOP.idl</include>
                 <include>**/SSLIOP.idl</include>
                 <include>**/CosNaming.idl</include>
+                <include>**/CosTransactions.idl</include>
                 <include>**/corba.idl</include>
                 <include>**/CompletionStatus.idl</include>
               </includes>
