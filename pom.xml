@@ -7,5 +7,5 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>geronimo-qname_1.1_spec</artifactId>
   <name>QName</name>
-  <version>${geronimoSpecsVersion}s</version>
+  <version>${geronimoSpecsVersion}</version>
 </project>
