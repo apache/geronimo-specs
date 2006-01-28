@@ -14,16 +14,15 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
+
 package javax.mail.internet;
 
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Array;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
-
 import javax.mail.Address;
 import javax.mail.Session;
 
@@ -65,17 +64,10 @@ public class InternetAddress extends Address implements Cloneable {
     }
 
     public InternetAddress(String address, boolean strict) throws AddressException {
-        // use the parse method to process the address.  This has the wierd side effect of creating a new
-        // InternetAddress instance to create an InternetAddress, but these are lightweight objects and
-        // we need access to multiple pieces of data from the parsing process.
-        AddressParser parser = new AddressParser(address, strict ? AddressParser.STRICT : AddressParser.NONSTRICT);
-
-        InternetAddress parsedAddress = parser.parseAddress();
-        // copy the important information, which right now is just the address and
-        // personal info.
-        this.address = parsedAddress.address;
-        this.personal = parsedAddress.personal;
-        this.encodedPersonal = parsedAddress.encodedPersonal;
+        init(this, address);
+        if (strict) {
+            validate();
+        }
     }
 
     public InternetAddress(String address, String personal) throws UnsupportedEncodingException {
@@ -198,6 +190,34 @@ public class InternetAddress extends Address implements Cloneable {
         return encodedPersonal;
     }
 
+    /**
+     * Add RFC822 quotes to a String if needed.
+     * It is assumed the text passed in has already been converted to US-ASCII.
+     *
+     * @param buf  a buffer to write into
+     * @param text the text to quote
+     * @return the supplied buffer
+     */
+    private StringBuffer quote(StringBuffer buf, String text) {
+        boolean noQuotesNeeded = true;
+        for (int i = 0; i < text.length() && noQuotesNeeded; i++) {
+            noQuotesNeeded = isAtom(text.charAt(i));
+        }
+        if (noQuotesNeeded) {
+            buf.append(text);
+        } else {
+            buf.append('"');
+            for (int i = 0; i < text.length(); i++) {
+                char c = text.charAt(i);
+                if (c == '"' || c == '\\') {
+                    buf.append('\\');
+                }
+                buf.append(c);
+            }
+            buf.append('"');
+        }
+        return buf;
+    }
 
     /**
      * Return a string representation of this address using only US-ASCII characters.
@@ -205,49 +225,14 @@ public class InternetAddress extends Address implements Cloneable {
      * @return a string representation of this address
      */
     public String toString() {
-        // group addresses are always returned without modification.
-        if (isGroup()) {
-            return address;
-        }
-
-        // if we have personal information, then we need to return this in the route-addr form:
-        // "personal <address>".  If there is no personal information, then we typically return
-        // the address without the angle brackets.  However, if the address contains anything other
-        // than atoms, '@', and '.' (e.g., uses domain literals, has specified routes, or uses
-        // quoted strings in the local-part), we bracket the address.
         String p = getEncodedPersonal();
         if (p == null) {
-            return formatAddress(address);
-        }
-        else {
-            StringBuffer buf = new StringBuffer(p.length() + 8 + address.length() + 3);
-            buf.append(AddressParser.quoteString(p));
-            buf.append(" <").append(address).append(">");
-            return buf.toString();
-        }
-    }
-
-    /**
-     * Check the form of an address, and enclose it within brackets
-     * if they are required for this address form.
-     *
-     * @param a      The source address.
-     *
-     * @return A formatted address, which can be the original address string.
-     */
-    private String formatAddress(String a)
-    {
-        // this could be a group address....we don't muck with those.
-        if (address.endsWith(";") && address.indexOf(":") > 0) {
             return address;
-        }
-
-        if (AddressParser.containsCharacters(a, "()<>,;:\"[]")) {
-            StringBuffer buf = new StringBuffer(address.length() + 3);
-            buf.append("<").append(address).append(">");
+        } else {
+            StringBuffer buf = new StringBuffer(p.length() + 8 + address.length() + 3);
+            quote(buf, p).append("< ").append(address).append(">");
             return buf.toString();
         }
-        return address;
     }
 
     /**
@@ -256,28 +241,12 @@ public class InternetAddress extends Address implements Cloneable {
      * @return a string representation of this address
      */
     public String toUnicodeString() {
-        // group addresses are always returned without modification.
-        if (isGroup()) {
-            return address;
-        }
-
-        // if we have personal information, then we need to return this in the route-addr form:
-        // "personal <address>".  If there is no personal information, then we typically return
-        // the address without the angle brackets.  However, if the address contains anything other
-        // than atoms, '@', and '.' (e.g., uses domain literals, has specified routes, or uses
-        // quoted strings in the local-part), we bracket the address.
-
-        // NB:  The difference between toString() and toUnicodeString() is the use of getPersonal()
-        // vs. getEncodedPersonal() for the personal portion.  If the personal information contains only
-        // ASCII-7 characters, these are the same.
         String p = getPersonal();
         if (p == null) {
-            return formatAddress(address);
-        }
-        else {
+            return address;
+        } else {
             StringBuffer buf = new StringBuffer(p.length() + 8 + address.length() + 3);
-            buf.append(AddressParser.quoteString(p));
-            buf.append(" <").append(address).append(">");
+            quote(buf, p).append("< ").append(address).append(">");
             return buf.toString();
         }
     }
@@ -313,8 +282,9 @@ public class InternetAddress extends Address implements Cloneable {
     /**
      * Return true is this address is an RFC822 group address in the format
      * <code>phrase ":" [#mailbox] ";"</code>.
-     * We check this by using the presense of a ':' character in the address, and a
-     * ';' as the very last character.
+     * We check this by seeing stripping the leading phrase (which, for tolerance,
+     * we consider optional) and then checking if the first and last characters are
+     * ':' and ';' respectively.
      *
      * @return true is this address represents a group
      */
@@ -323,7 +293,13 @@ public class InternetAddress extends Address implements Cloneable {
             return false;
         }
 
-        return address.endsWith(";") && address.indexOf(":") > 0;
+        int start = skipSpace(address, 0);
+        int index = expectPhrase(address, start);
+        if (index > start) {
+            start = skipSpace(address, index);
+        }
+
+        return address.charAt(start) == ':' && address.charAt(address.length() - 1) == ';';
     }
 
     /**
@@ -342,10 +318,18 @@ public class InternetAddress extends Address implements Cloneable {
         if (address == null) {
             return null;
         }
-
-        // create an address parser and use it to extract the group information.
-        AddressParser parser = new AddressParser(address, strict ? AddressParser.STRICT : AddressParser.NONSTRICT);
-        return parser.extractGroupList();
+        int start = skipSpace(address, 0);
+        int index = expectPhrase(address, start);
+        if (index == start && strict) {
+            throw new AddressException("Missing phrase");
+        } else if (index > start) {
+            start = skipSpace(address, index);
+        }
+        if (address.charAt(start) == ':' && address.charAt(address.length() - 1) == ';') {
+            return parseHeader(address.substring(1, address.length() - 1), strict);
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -481,7 +465,7 @@ public class InternetAddress extends Address implements Cloneable {
      * @throws AddressException if addresses checking fails
      */
     public static InternetAddress[] parse(String addresses) throws AddressException {
-        return parse(addresses, true);
+        return parse(addresses, true, false);
     }
 
     /**
@@ -493,7 +477,7 @@ public class InternetAddress extends Address implements Cloneable {
      * @throws AddressException if address checking fails
      */
     public static InternetAddress[] parse(String addresses, boolean strict) throws AddressException {
-        return parse(addresses, strict ? AddressParser.STRICT : AddressParser.NONSTRICT);
+        return parse(addresses, strict, false);
     }
 
     /**
@@ -505,36 +489,156 @@ public class InternetAddress extends Address implements Cloneable {
      * @throws AddressException if address checking fails
      */
     public static InternetAddress[] parseHeader(String addresses, boolean strict) throws AddressException {
-        return parse(addresses, strict ? AddressParser.STRICT : AddressParser.PARSE_HEADER);
+        return parse(addresses, strict, true);
     }
 
     /**
      * Parse addresses with increasing degrees of RFC822 compliance checking.
      *
      * @param addresses the string to parse
-     * @param level     The required strictness level.
-     *
+     * @param strict if true, performs basic address checking
+     * @param veryStrict if true performs detailed address checking
      * @return an array of InternetAddresses parsed from the string
-     * @throws AddressException
-     *                if address checking fails
+     * @throws AddressException if address checking fails
      */
-    private static InternetAddress[] parse(String addresses, int level) throws AddressException {
-        // create a parser and have it extract the list using the requested strictness leve.
-        AddressParser parser = new AddressParser(addresses, level);
-        return parser.parseAddressList();
+    private static InternetAddress[] parse(String addresses, boolean strict, boolean veryStrict) throws AddressException {
+        List addrs = new ArrayList();
+        parseHeader(addrs, addresses, strict, veryStrict);
+        return (InternetAddress[]) addrs.toArray(new InternetAddress[addrs.size()]);
     }
 
-    /**
-     * Validate the address portion of an internet address to ensure
-     * validity.   Throws an AddressException if any validity
-     * problems are encountered.
-     *
-     * @exception AddressException
-     */
-    public void validate() throws AddressException {
+    static void parseHeader(List target, String addresses, boolean strict, boolean veryStrict) throws AddressException {
+        // todo we need to parse the addresses per the RFC822 spec with certain relaxations which are not documented by JavaMail
+        // for now, we ignore all flags and simply tokenize based on commas
 
-        // create a parser using the strictest validation level.
-        AddressParser parser = new AddressParser(formatAddress(address), AddressParser.STRICT);
-        parser.validateAddress();
+        StringTokenizer tok = new StringTokenizer(addresses, ",");
+        while (tok.hasMoreTokens()) {
+            String text = tok.nextToken().trim();
+            InternetAddress addr = new InternetAddress();
+            init(addr, text);
+            if (strict || veryStrict) {
+                addr.validate();
+            }
+            target.add(addr);
+        }
+    }
+
+    private static void init(InternetAddress addr, String text) {
+        addr.address = text;
+        addr.personal = null;
+        addr.encodedPersonal = null;
+    }
+
+    public void validate() throws AddressException {
+        // TODO Not implemented
+    }
+
+    private int expectPhrase(String s, int index) {
+        int start = index;
+        index = expectWord(s, index);
+        while (index != start) {
+            start = skipSpace(s, index);
+            index = expectWord(s, start);
+        }
+        return index;
+    }
+
+    private int expectWord(String s, int index) {
+        if (index == s.length()) {
+            return index;
+        }
+        char c = s.charAt(index);
+        if (c == '"') {
+            index++;
+            while (index < s.length()) {
+                c = s.charAt(index);
+                if (c == '"') {
+                    index++;
+                    break;
+                } else if (c == '\\') {
+                    if (index != s.length()) {
+                        index++;
+                    }
+                } else if (c == '\r') {
+                    return index;
+                }
+                index++;
+            }
+        } else {
+            while (index < s.length() && isAtom(s.charAt(index))) {
+                index++;
+            }
+        }
+        return index;
+    }
+
+    private int skipSpace(String s, int index) {
+        while (index < s.length()) {
+            char c = s.charAt(index);
+            if (isSpace(c)) {
+                index++;
+            } else if (c == '(') {
+                index = skipComment(s, index);
+            } else {
+                return index;
+            }
+        }
+        return index;
+    }
+
+    private int skipComment(String s, int index) {
+        index++;
+        int nest = 1;
+        while (index < s.length() && nest > 0) {
+            char c = s.charAt(index++);
+            if (c == ')') {
+                nest -= 1;
+            } else if (c == '\\') {
+                if (index == s.length()) {
+                    return index;
+                }
+                index++;
+            } else if (c == '(') {
+                nest += 1;
+            } else if (c == '\r') {
+                index -= 1;
+                return index;
+            }
+        }
+        return index;
+    }
+
+    private static final byte[] CHARMAP = {
+        0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02,  0x06, 0x02, 0x06, 0x02, 0x02, 0x06, 0x02, 0x02,
+        0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02,  0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02,
+        0x04, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00,  0x01, 0x01, 0x00, 0x00, 0x01, 0x00, 0x01, 0x00,
+        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  0x00, 0x00, 0x01, 0x01, 0x01, 0x00, 0x01, 0x00,
+
+        0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  0x00, 0x00, 0x00, 0x01, 0x01, 0x01, 0x00, 0x00,
+        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02,
+    };
+
+    private static final byte FLG_SPECIAL = 1;
+    private static final byte FLG_CONTROL = 2;
+    private static final byte FLG_SPACE = 4;
+
+    private static boolean isSpace(char c) {
+        if (c > '\u007f') {
+            return false;
+        } else {
+            return (CHARMAP[c] & FLG_SPACE) != 0;
+        }
+    }
+
+    private static boolean isAtom(char c) {
+        if (c > '\u007f') {
+            return true;
+        } else if (c == ' ') {
+            return false;
+        } else {
+            return (CHARMAP[c] & (FLG_SPECIAL | FLG_CONTROL)) == 0;
+        }
     }
 }
