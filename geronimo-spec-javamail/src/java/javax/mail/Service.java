@@ -17,7 +17,11 @@
 
 package javax.mail;
 
+import java.net.InetAddress;
+import java.net.URL;
+import java.net.UnknownHostException;
 import java.util.Vector;
+
 import javax.mail.event.ConnectionEvent;
 import javax.mail.event.ConnectionListener;
 import javax.mail.event.MailEvent;
@@ -93,19 +97,163 @@ public abstract class Service {
      * @throws IllegalStateException if this service is already connected
      */
     public void connect(String host, int port, String user, String password) throws MessagingException {
+
         if (isConnected()) {
             throw new IllegalStateException("Already connected");
         }
 
-        // todo figure out what this is really meant to do
-        // todo get default
-        boolean connected = protocolConnect(host, port, user, password);
-        if (!connected) {
-            // todo get info from session
-            connected = protocolConnect(host, port, user, password);
-            // todo call setURLName
-            // todo save password if obtained from user
+        // before we try to connect, we need to derive values for some parameters that may not have
+        // been explicitly specified.  For example, the normal connect() method leaves us to derive all
+        // of these from other sources.  Some of the values are derived from our URLName value, others
+        // from session parameters.  We need to go through all of these to develop a set of values we
+        // can connect with.
+
+        // this is the protocol we're connecting with.  We use this largely to derive configured values from
+        // session properties.
+        String protocol = null;
+
+        // if we're working with the URL form, then we can retrieve the protocol from the URL.
+        if (url != null) {
+            protocol = url.getProtocol();
         }
+
+        // now try to derive values for any of the arguments we've been given as defaults
+        if (host == null) {
+            // first choice is from the url, if we have
+            if (url != null) {
+                host = url.getHost();
+                // it is possible that this could return null (rare).  If it does, try to get a
+                // value from a protocol specific session variable.
+                if (host == null) {
+                    host = session.getProperty("mail." + protocol + ".host");
+                }
+            }
+            // this may still be null...get the global mail property
+            if (host == null) {
+                host = session.getProperty("mail.host");
+            }
+        }
+
+        // ok, go after userid information next.
+        if (user == null) {
+            // first choice is from the url, if we have
+            if (url != null) {
+                user = url.getUsername();
+                // make sure we get the password from the url, if we can.
+                if (password == null) {
+                    password = url.getPassword();
+                }
+                // user still null?  We have several levels of properties to try yet
+                if (user == null) {
+                    user = session.getProperty("mail." + protocol + ".user");
+                }
+            }
+
+            // this may still be null...get the global mail property
+            if (user == null) {
+                user = session.getProperty("mail.user");
+            }
+
+            // finally, we try getting the system defined user name
+            try {
+                user = System.getProperty("user.name");
+            } catch (SecurityException e) {
+                // we ignore this, and just us a null username.
+            }
+        }
+        // if we have an explicitly given user name, we need to see if this matches the url one and
+        // grab the password from there.
+        else {
+            if (url != null && user.equals(url.getUsername())) {
+                password = url.getPassword();
+            }
+        }
+
+        // we need to update the URLName associated with this connection once we have all of the information,
+        // which means we also need to propogate the file portion of the URLName if we have this form when
+        // we start.
+        String file = null;
+        if (url != null) {
+            file = url.getFile();
+        }
+
+        // see if we have cached security information to use.  If this is not cached, we'll save it
+        // after we successfully connect.
+        boolean cachePassword = false;
+
+
+        // still have a null password to this point, and using a url form?
+        if (password == null && url != null) {
+            // construct a new URL, filling in any pieces that may have been explicitly specified.
+            setURLName(new URLName(protocol, host, port, file, user, password));
+            // now see if we have a saved password from a previous request.
+            PasswordAuthentication cachedPassword = session.getPasswordAuthentication(getURLName());
+
+            // if we found a saved one, see if we need to get any the pieces from here.
+            if (cachedPassword != null) {
+                // not even a resolved userid?  Then use both bits.
+                if (user == null) {
+                    user = cachedPassword.getUserName();
+                    password = cachedPassword.getPassword();
+                }
+                // our user name must match the cached name to be valid.
+                else if (user.equals(cachedPassword.getUserName())) {
+                    password = cachedPassword.getPassword();
+                }
+            }
+            else
+            {
+                // nothing found in the cache, so we need to save this if we can connect successfully.
+                cachePassword = true;
+            }
+        }
+
+        // we've done our best up to this point to obtain all of the information needed to make the
+        // connection.  Now we pass this off to the protocol handler to see if it works.  If we get a
+        // connection failure, we may need to prompt for a password before continuing.
+        try {
+            connected = protocolConnect(host, port, user, password);
+        boolean connected = protocolConnect(host, port, user, password);
+        }
+        catch (AuthenticationFailedException e) {
+        }
+
+        if (!connected) {
+            InetAddress ipAddress = null;
+
+            try {
+                ipAddress = InetAddress.getByName(host);
+            } catch (UnknownHostException e) {
+            }
+
+            // now ask the session to try prompting for a password.
+            PasswordAuthentication promptPassword = session.requestPasswordAuthentication(ipAddress, port, protocol, null, user);
+
+            // if we were able to obtain new information from the session, then try again using the
+            // provided information .
+            if (promptPassword != null) {
+                user = promptPassword.getUserName();
+                password = promptPassword.getPassword();
+            }
+
+            connected = protocolConnect(host, port, user, password);
+        }
+
+
+        // if we're still not connected, then this is an exception.
+        if (!connected) {
+            throw new AuthenticationFailedException();
+        }
+
+        // the URL name needs to reflect the most recent information.
+        setURLName(new URLName(protocol, host, port, file, user, password));
+
+        // we need to update the global password cache with this information.
+        if (cachePassword) {
+            session.setPasswordAuthentication(getURLName(), new PasswordAuthentication(user, password));
+        }
+
+        // we're now connected....broadcast this to any interested parties.
         setConnected(connected);
         notifyConnectionListeners(ConnectionEvent.OPENED);
     }
