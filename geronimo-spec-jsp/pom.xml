@@ -13,7 +13,7 @@
     <resources>
       <resource>
         <targetPath>javax/servlet/jsp/resources</targetPath>
-        <directory>${basedir}/src/schema</directory>
+        <directory>${basedir}/src/main/schema</directory>
         <includes>
           <include>*.dtd</include>
           <include>*.xsd</include>
@@ -21,14 +21,14 @@
       </resource>
       <resource>
         <targetPath>javax/servlet/resources</targetPath>
-        <directory>${basedir}/src/schema</directory>
+        <directory>${basedir}/src/main/schema</directory>
         <includes>
           <include>jsp_2_0.xsd</include>
         </includes>
       </resource>
       <resource>
         <targetPath>javax/servlet/resources</targetPath>
-        <directory>${basedir}/src/schema</directory>
+        <directory>${basedir}/src/main/schema</directory>
         <includes>
           <include>web-jsptaglibrary_2_0.xsd</include>
         </includes>
