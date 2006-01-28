@@ -23,6 +23,21 @@
     </resources>
     <plugins>
       <plugin>
+        <artifactId>maven-one-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>install-maven-one-repository</goal>
+              <goal>deploy-maven-one-repository</goal>
+            </goals>
+            <configuration>
+              <remoteRepositoryId>apache</remoteRepositoryId>
+              <remoteRepositoryUrl>scpexe://cvs.apache.org/www/cvs.apache.org/repository</remoteRepositoryUrl>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
           <source>1.4</source>
