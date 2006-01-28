@@ -2,12 +2,13 @@
   <parent>
     <artifactId>specs</artifactId>
     <groupId>org.apache.geronimo.specs</groupId>
-    <version>1.0</version>
+    <version>1.1-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>geronimo-corba_2.3_spec</artifactId>
   <name>CORBA</name>
-  <version>1.0</version>
+  <version>${geronimoSpecsVersion}</version>
+
   <build>
     <plugins>
       <plugin>
@@ -31,6 +32,7 @@
               </includes>
               <excludes>
                 <exclude>**/orb.idl</exclude>
+                <exclude>**/CosTSPortability.idl</exclude>
               </excludes>
               <packagePrefix>org.omg</packagePrefix>
             </source>
