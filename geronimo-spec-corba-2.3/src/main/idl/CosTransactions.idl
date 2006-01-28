@@ -1,14 +1,4 @@
-
-// CosTransactions Module
-// OMG Transaction Service v1.1, November 1997.
-
-#ifndef __COSTRANSACTIONS_IDL__
-#define __COSTRANSACTIONS_IDL__
-
-// #include <Corba.idl>
-#include <IOP.idl>
-
-#pragma prefix "omg.org"
+#include "geronimo-orb.idl"
 
 module CosTransactions {
 // DATATYPES
@@ -31,9 +21,22 @@ enum Vote {
 	VoteReadOnly
 };
 
+typedef unsigned short TransactionPolicyValue;
+
+// TransactionPolicyValue definitions are deprecated and replaced //
+// with new InvocationPolicy and OTSPolicy definitions. They are //
+// retained for backward compatibility. //
+const TransactionPolicyValue Allows_shared = 0;
+const TransactionPolicyValue Allows_none = 1;
+const TransactionPolicyValue Requires_shared = 2;
+const TransactionPolicyValue Allows_unshared = 3;
+const TransactionPolicyValue Allows_either = 4;
+const TransactionPolicyValue Requires_unshared = 5;
+const TransactionPolicyValue Requires_either = 6;
+
 // Forward references for interfaces defined later in module
 interface Current;
-interface TransactionFactory; 
+interface TransactionFactory;
 interface Control;
 interface Terminator;
 interface Coordinator;
@@ -41,7 +44,6 @@ interface RecoveryCoordinator;
 interface Resource;
 interface Synchronization;
 interface SubtransactionAwareResource;
-interface TransactionalObject;
 
 // Structure definitions
 struct otid_t {
@@ -49,17 +51,22 @@ struct otid_t {
 	long bqual_length;
 	sequence <octet> tid;
 };
+
 struct TransIdentity {
 	Coordinator coord;
 	Terminator term;
 	otid_t otid;
 };
+
 struct PropagationContext {
 	unsigned long timeout;
 	TransIdentity current;
 	sequence <TransIdentity> parents;
 	any implementation_specific_data;
 };
+
+// TransactionalObject has been deprecated. See 10.3.10.
+interface TransactionalObject;
 
 // Heuristic exceptions
 exception HeuristicRollback {};
@@ -75,168 +82,166 @@ exception NotPrepared {};
 exception NoTransaction {};
 exception InvalidControl {};
 exception Unavailable {};
-exception SynchronizationUnavailable {}; 
+exception SynchronizationUnavailable {};
 
-// Current is a pseudo object. It cannot be marshaled outside the process 
-// in which it was created.
-// Commented out to prevent IDL compiler from generating stubs etc.
-//
-  interface Current : CORBA::Current {
-    void begin()
-      raises(SubtransactionsUnavailable);
-    void commit(in boolean report_heuristics)
-      raises(
-	     NoTransaction,
-	     HeuristicMixed,
-	     HeuristicHazard
-	     );
-    void rollback()
-      raises(NoTransaction);
-    void rollback_only()
-      raises(NoTransaction);
-    
-    Status get_status();
-    string get_transaction_name();
-    void set_timeout(in unsigned long seconds);
-    
-    Control get_control();
-    Control suspend();
-    void resume(in Control which)
-      raises(InvalidControl);
-  };
+// Current transaction
+interface Current : CORBA::Current {
+	void begin()
+	raises(SubtransactionsUnavailable);
+	void commit(in boolean report_heuristics)
+		raises(
+			NoTransaction,
+			HeuristicMixed,
+			HeuristicHazard
+	);
+	void rollback()
+		raises(NoTransaction);
+	void rollback_only()
+		raises(NoTransaction);
+	Status get_status();
+	string get_transaction_name();
+	void set_timeout(in unsigned long seconds);
+	unsigned long get_timeout ();
+	Control get_control();
+	Control suspend();
+	void resume(in Control which)
+		raises(InvalidControl);
+};
 
-    interface TransactionFactory {
+interface TransactionFactory {
 	Control create(in unsigned long time_out);
 	Control recreate(in PropagationContext ctx);
-    };
+};
 
 interface Control {
 	Terminator get_terminator()
-		raises (Unavailable);
+		raises(Unavailable);
 	Coordinator get_coordinator()
-		raises (Unavailable);
+		raises(Unavailable);
 };
 
 interface Terminator {
 	void commit(in boolean report_heuristics)
-		raises (HeuristicMixed,
-			HeuristicHazard);
+		raises(
+			HeuristicMixed,
+			HeuristicHazard
+	);
 	void rollback();
 };
-
 
 interface Coordinator {
 
 	Status get_status();
 	Status get_parent_status();
 	Status get_top_level_status();
-
+	
 	boolean is_same_transaction(in Coordinator tc);
 	boolean is_related_transaction(in Coordinator tc);
 	boolean is_ancestor_transaction(in Coordinator tc);
 	boolean is_descendant_transaction(in Coordinator tc);
 	boolean is_top_level_transaction();
-
+	
 	unsigned long hash_transaction();
 	unsigned long hash_top_level_tran();
-
-	RecoveryCoordinator register_resource(in Resource rr)
-		raises (Inactive);
-
-	void register_synchronization(in Synchronization sync)
-		raises (Inactive, 
-			SynchronizationUnavailable);
-
-	void register_subtran_aware(in SubtransactionAwareResource rr)
-		raises (Inactive, 
-			NotSubtransaction);
-
+	
+	RecoveryCoordinator register_resource(in Resource r)
+		raises(Inactive);
+		
+	void register_synchronization (in Synchronization sync)
+		raises(Inactive, SynchronizationUnavailable);
+		
+	void register_subtran_aware(in SubtransactionAwareResource r)
+		raises(Inactive, NotSubtransaction);
+		
 	void rollback_only()
-		raises (Inactive);
-
+		raises(Inactive);
+		
 	string get_transaction_name();
-
 	Control create_subtransaction()
-		raises (SubtransactionsUnavailable, 
-			Inactive);
+		raises(SubtransactionsUnavailable, Inactive);
 
-	PropagationContext get_txcontext()
-		raises (Unavailable);
+	PropagationContext get_txcontext ()
+		raises(Unavailable);
 };
 
 interface RecoveryCoordinator {
-	Status replay_completion(in Resource rr)
-		raises(NotPrepared);
+	Status replay_completion(in Resource r)
+raises(NotPrepared);
 };
 
 interface Resource {
-	Vote prepare ()
-		raises (HeuristicMixed,
-			HeuristicHazard);
-	void rollback ()
-	  	raises (HeuristicCommit, 
-			HeuristicMixed, 
-			HeuristicHazard);
-	void commit ()
-	  	raises (NotPrepared, 
-			HeuristicRollback, 
-			HeuristicMixed, 
-			HeuristicHazard);
-	void commit_one_phase ()
-	  	raises (HeuristicHazard);
-	void forget ();
+	Vote prepare()
+		raises(
+			HeuristicMixed,
+			HeuristicHazard
+		);
+	void rollback()
+	raises(
+	HeuristicCommit,
+	HeuristicMixed,
+	HeuristicHazard
+	);
+	void commit()
+	raises(
+	NotPrepared,
+	HeuristicRollback,
+	HeuristicMixed,
+	HeuristicHazard
+	);
+	void commit_one_phase()
+	raises(
+	HeuristicHazard
+	);
+	void forget();
 };
 
+// TransactionalObject has been deprecated. See 10.3.10.
 interface TransactionalObject {
 };
 
-interface Synchronization : TransactionalObject {
-	void before_completion ();
-	void after_completion (in Status stat);
+// TransactionalObject has been deprecated //
+// and replaced by the OTSPolicy component //
+// Synchronization will use the OTSPolicy of ADAPTS //
+// Inheritance from TransactionalObject is for backward compatability //
+
+interface Synchronization :TransactionalObject {
+	void before_completion();
+	void after_completion(in Status s);
 };
 
 interface SubtransactionAwareResource : Resource {
-	void commit_subtransaction (in Coordinator parent);
-	void rollback_subtransaction ();
+	void commit_subtransaction(in Coordinator parent);
+	void rollback_subtransaction();
 };
 
-typedef unsigned short TransactionPolicyValue;
-const TransactionPolicyValue Allows_shared = 0;
-const TransactionPolicyValue Allows_none = 1;
-const TransactionPolicyValue Requires_shared = 2;
-const TransactionPolicyValue Allows_unshared = 3;
-const TransactionPolicyValue Allows_either = 4;
-const TransactionPolicyValue Requires_unshared = 5;
-const TransactionPolicyValue Requires_either = 6;
-const CORBA::PolicyType TRANSACTION_POLICY_TYPE = 36;
-
-    typedef unsigned short OTSPolicyValue;
-    const OTSPolicyValue ADAPTS = 3;
-    const OTSPolicyValue FORBIDS = 2;
-    const OTSPolicyValue REQUIRES = 1;
-
-    const CORBA::PolicyType OTS_POLICY_TYPE = 56;
-
-    interface OTSPolicy : CORBA::Policy {
-	readonly attribute OTSPolicyValue value;
-    };
-
+// TransactionPolicyType is deprecated and replaced //
+// by InvocationPolicyType and OTSPolicyType //
+// It is retained for backward compatibility. //
+const CORBA::PolicyType TransactionPolicyType = 46;
+interface TransactionPolicy : CORBA::Policy {
+	readonly attribute TransactionPolicyValue tpv;
+};
+typedef unsigned short InvocationPolicyValue;
+const InvocationPolicyValue EITHER = 0;
+const InvocationPolicyValue SHARED = 1;
+const InvocationPolicyValue UNSHARED =2;
+typedef unsigned short OTSPolicyValue;
+const OTSPolicyValue REQUIRES = 1;
+const OTSPolicyValue FORBIDS =2;
+const OTSPolicyValue ADAPTS =3;
+typedef unsigned short NonTxTargetPolicyValue;
+const NonTxTargetPolicyValue PREVENT = 0;
+const NonTxTargetPolicyValue PERMIT = 1;
+const CORBA::PolicyType INVOCATION_POLICY_TYPE = 55;
+interface InvocationPolicy : CORBA::Policy {
+readonly attribute InvocationPolicyValue ipv;
+};
+const CORBA::PolicyType OTS_POLICY_TYPE = 56;
+interface OTSPolicy : CORBA::Policy {
+readonly attribute OTSPolicyValue tpv;
+};
+const CORBA::PolicyType NON_TX_TARGET_POLICY_TYPE = 57;
+interface NonTxTargetPolicy : CORBA::Policy {
+readonly attribute NonTxTargetPolicyValue tpv;
+};
 }; // End of CosTransactions Module
-
-
-//  stored in the IOR of a transactional 
-module CosTSInteroperation {
-    const IOP::ComponentId TAG_TRANSACTION_POLICY = 26;
-    struct TransactionPolicyComponent {
-        CosTransactions::TransactionPolicyValue tpv;
-    };
-
-    const IOP::ComponentId TAG_OTS_POLICY = 31;
-    const IOP::ComponentId TAG_INV_POLICY= 32;
-    struct OTSPolicyComponent {
-        CosTransactions::OTSPolicyValue opv;
-    };
-};
-
-
-#endif
