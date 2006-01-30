@@ -42,6 +42,8 @@ import javax.mail.MessagingException;
 public class InternetHeaders {
     // RFC822 imposes an ordering on its headers so we use a LinkedHashedMap
     private final LinkedHashMap headers = new LinkedHashMap();
+    
+    private transient String lastHeaderName;
 
     /**
      * Create an empty InternetHeaders
@@ -264,11 +266,28 @@ public class InternetHeaders {
         return Collections.enumeration(result);
     }
 
+    /**
+     * Return all matching Header objects.
+     */
     public Enumeration getMatchingHeaders(String[] names) {
-        // todo implement
-        throw new UnsupportedOperationException();
+        Set include = new HashSet(names.length);
+        for (int i = 0; i < names.length; i++) {
+            String name = names[i];
+            include.add(name.toLowerCase());
+        }
+        List result = new ArrayList(headers.size());
+        for (Iterator i = headers.entrySet().iterator(); i.hasNext();) {
+            Map.Entry entry = (Map.Entry) i.next();
+            if (entry.getValue() != null && include.contains(((String)entry.getKey()).toLowerCase())) {
+                result.addAll((List)entry.getValue());
+            }
+        }
+        return Collections.enumeration(result);
     }
 
+    /**
+     * Return all non matching Header objects.
+     */
     public Enumeration getNonMatchingHeaders(String[] names) {
         Set exclude = new HashSet(names.length);
         for (int i = 0; i < names.length; i++) {
@@ -278,31 +297,70 @@ public class InternetHeaders {
         List result = new ArrayList(headers.size());
         for (Iterator i = headers.entrySet().iterator(); i.hasNext();) {
             Map.Entry entry = (Map.Entry) i.next();
-            if (!exclude.contains(((String)entry.getKey()).toLowerCase())) {
+            if (entry.getValue() != null && !exclude.contains(((String)entry.getKey()).toLowerCase())) {
                 result.addAll((List)entry.getValue());
             }
         }
         return Collections.enumeration(result);
     }
 
+    /**
+     * Add an RFC822 header line to the header store. 
+     * If the line starts with a space or tab (a continuation line), 
+     * add it to the last header line in the list. 
+     * Otherwise, append the new header line to the list.
+     * 
+     * Note that RFC822 headers can only contain US-ASCII characters
+     * @param line raw RFC822 header line
+     */
     public void addHeaderLine(String line) {
-        // todo implement
-        throw new UnsupportedOperationException();
+        StringBuffer name = new StringBuffer(32);
+        StringBuffer value = new StringBuffer(128);
+        boolean inName = true;
+        boolean continuation = false;
+        if (Character.isWhitespace(line.charAt(0))) {
+        	continuation = true;
+        	inName = false;
+        } 
+        for (int i = 0; i < line.length(); i++) {
+        	char c = line.charAt(i);
+        	if (inName && c == ':') {
+        		inName = false;
+        	} else if (inName) {
+        		name.append(c);
+        	} else {
+        		value.append(c);
+        	}
+        }
+        if (continuation) {
+            List list = getHeaderList(lastHeaderName);
+            Header h = (Header) list.remove(list.size() - 1);
+            list.add(new InternetHeader(lastHeaderName, (h.getValue() + value.toString()).trim()));
+        } else {
+        	lastHeaderName = name.toString().trim();
+            addHeader(lastHeaderName, value.toString().trim());
+        }
     }
 
+    /**
+     * Return all the header lines as an Enumeration of Strings.
+     */         
     public Enumeration getAllHeaderLines() {
-        // todo implement
-        throw new UnsupportedOperationException();
+        return new HeaderLineEnumeration(getAllHeaders());
     }
 
+    /**
+     * Return all matching header lines as an Enumeration of Strings.
+     */
     public Enumeration getMatchingHeaderLines(String[] names) {
-        // todo implement
-        throw new UnsupportedOperationException();
+        return new HeaderLineEnumeration(getMatchingHeaders(names));
     }
 
+    /**
+     * Return all non-matching header lines.
+     */
     public Enumeration getNonMatchingHeaderLines(String[] names) {
-        // todo implement
-        throw new UnsupportedOperationException();
+        return new HeaderLineEnumeration(getNonMatchingHeaders(names));
     }
 
 
@@ -383,5 +441,22 @@ public class InternetHeaders {
         public int hashCode() {
             return getName().toLowerCase().hashCode();
         }
+    }
+    
+    private static class HeaderLineEnumeration implements Enumeration {
+    	private Enumeration headers;
+    	
+		public HeaderLineEnumeration(Enumeration headers) {
+			this.headers = headers;
+		}
+
+		public boolean hasMoreElements() {
+			return headers.hasMoreElements();
+		}
+
+		public Object nextElement() {
+			Header h = (Header) headers.nextElement();
+			return h.getName() + ": " + h.getValue();
+		}
     }
 }
