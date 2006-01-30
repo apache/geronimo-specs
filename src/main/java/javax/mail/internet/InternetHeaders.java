@@ -321,7 +321,10 @@ public class InternetHeaders {
         }
         for (Iterator i = headers.iterator(); i.hasNext();) {
             InternetHeader header = (InternetHeader) i.next();
-            InternetAddress.parseHeader(addrs, header.getValue(), strict, true);
+            InternetAddress[] addresses = InternetAddress.parseHeader(header.getValue(), strict);
+            for (int j = 0; j < addresses.length; j++) {
+                addrs.add(addresses[j]);
+            }
         }
         return (InternetAddress[]) addrs.toArray(new InternetAddress[addrs.size()]);
     }
