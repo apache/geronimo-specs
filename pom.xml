@@ -7,7 +7,7 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>geronimo-jaxrpc_1.1_spec</artifactId>
   <name>JAXRPC</name>
-  <version>${geronimoSpecsVersion}</version>
+  <version>${geronimoSpecsJaxrpcVersion}</version>
 
   <dependencies>
     <dependency>
