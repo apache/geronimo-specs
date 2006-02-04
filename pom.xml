@@ -7,7 +7,7 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>geronimo-jms_1.1_spec</artifactId>
   <name>JMS</name>
-  <version>${geronimoSpecsVersion}</version>
+  <version>${geronimoSpecsJmsVersion}</version>
 
   <dependencies>
     <dependency>
