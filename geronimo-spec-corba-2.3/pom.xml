@@ -7,7 +7,7 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>geronimo-corba_2.3_spec</artifactId>
   <name>CORBA</name>
-  <version>${geronimoSpecsVersion}</version>
+  <version>${geronimoSpecsCorba23Version}</version>
 
   <build>
     <plugins>

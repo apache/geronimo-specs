@@ -7,7 +7,7 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>geronimo-j2ee-management_1.0_spec</artifactId>
   <name>J2EE Management</name>
-  <version>${geronimoSpecsVersion}</version>
+  <version>${geronimoSpecsJ2eeManagementVersion}</version>
 
   <dependencies>
     <dependency>

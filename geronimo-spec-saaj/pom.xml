@@ -7,7 +7,7 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>geronimo-saaj_1.1_spec</artifactId>
   <name>SAAJ</name>
-  <version>${geronimoSpecsVersion}</version>
+  <version>${geronimoSpecsSaajVersion}</version>
   
   <dependencies>
     <dependency>
