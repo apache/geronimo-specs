@@ -7,5 +7,5 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>geronimo-jta_1.0.1B_spec</artifactId>
   <name>JTA</name>
-  <version>${geronimoSpecsVersion}</version>
+  <version>${geronimoSpecsJtaVersion}</version>
 </project>
