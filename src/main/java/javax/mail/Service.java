@@ -213,7 +213,6 @@ public abstract class Service {
         // connection failure, we may need to prompt for a password before continuing.
         try {
             connected = protocolConnect(host, port, user, password);
-        boolean connected = protocolConnect(host, port, user, password);
         }
         catch (AuthenticationFailedException e) {
         }
