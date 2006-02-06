@@ -393,7 +393,7 @@ public class InternetHeaders {
             Address address = addresses[i];
             list.add(new InternetHeader(name, address.toString()));
         }
-        headers.put(name, list);
+        headers.put(name.toLowerCase(), list);
     }
 
     private List getHeaderList(String name) {
