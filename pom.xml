@@ -1,11 +1,11 @@
 <project>
   <parent>
-    <artifactId>specs</artifactId>
+    <artifactId>jee5_exp_specs</artifactId>
     <groupId>org.apache.geronimo.specs</groupId>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>geronimo-ejb_2.1_spec</artifactId>
+  <artifactId>geronimo-ejb_3.0_spec</artifactId>
   <name>EJB</name>
   <version>${geronimoSpecsEjbVersion}</version>
 
