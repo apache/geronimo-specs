@@ -1,0 +1,18 @@
+<project>
+  <parent>
+    <artifactId>jee5_exp_specs</artifactId>
+    <groupId>org.apache.geronimo.specs</groupId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>geronimo-ejb_3.0_spec</artifactId>
+  <name>EJB</name>
+  <version>${geronimoSpecsEjbVersion}</version>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.geronimo.specs</groupId>
+      <artifactId>geronimo-jta_1.0.1B_spec</artifactId>
+    </dependency>
+  </dependencies>
+</project>
