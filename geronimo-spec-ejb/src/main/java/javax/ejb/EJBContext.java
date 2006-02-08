@@ -32,7 +32,7 @@ import javax.transaction.UserTransaction;
  *
  *
  *
- * @version $Rev$ $Date$
+ * @version $Rev: 46019 $ $Date: 2004-09-14 02:56:06 -0700 (Tue, 14 Sep 2004) $
  */
 public interface EJBContext {
     EJBHome getEJBHome();
@@ -65,4 +65,7 @@ public interface EJBContext {
     boolean getRollbackOnly() throws IllegalStateException;
 
     TimerService getTimerService() throws IllegalStateException;
+
+    Object lookup(String name);
+
 }
