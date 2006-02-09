@@ -13,6 +13,7 @@
      |
      -->
     <geronimoSpecsEjbVersion>1.0-SNAPSHOT</geronimoSpecsEjbVersion>
+    <geronimoSpecsJpaVersion>1.0-SNAPSHOT</geronimoSpecsJpaVersion>
     <geronimoSpecsJtaVersion>1.0</geronimoSpecsJtaVersion>
   </properties>
 
@@ -57,6 +58,7 @@
 
   <modules>
     <module>geronimo-spec-ejb</module>
+    <module>geronimo-spec-jpa</module>
   </modules>
 
   <dependencyManagement>
@@ -70,6 +72,11 @@
         <groupId>org.apache.geronimo.specs</groupId>
         <artifactId>geronimo-ejb_3.0_spec</artifactId>
         <version>${geronimoSpecsEjbVersion}</version>
+      </dependency>                        
+      <dependency>
+        <groupId>org.apache.geronimo.specs</groupId>
+        <artifactId>geronimo-jpa_3.0_spec</artifactId>
+        <version>${geronimoSpecsJpaVersion}</version>
       </dependency>                        
       <dependency>
         <groupId>org.apache.geronimo.specs</groupId>
