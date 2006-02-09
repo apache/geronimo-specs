@@ -11,9 +11,9 @@
   <packaging>pom</packaging>
   
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/gbuild/trunk/</connection>
-    <developerConnection>scm:svn:http://svn.apache.org/repos/asf/geronimo/gbuild/trunk/</developerConnection>
-    <url>http://svn.apache.org/viewcvs.cgi/geronimo/gbuild/trunk/</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-spec-j2ee/</connection>
+    <developerConnection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-spec-j2ee/</developerConnection>
+    <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-spec-j2ee/</url>
   </scm>
 
   <build>
