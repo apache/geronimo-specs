@@ -6,10 +6,34 @@
   <name>Geronimo Specifications</name>
   <version>1.1-SNAPSHOT</version>
 
+  <!--
+   |
+   | Continuum configuration for GBuild
+   |
+   -->
+  <issueManagement>
+    <system>jira</system>
+    <url>http://issues.apache.org/jira/browse/GERONIMO</url>
+  </issueManagement>
+  <ciManagement>
+    <system>continuum</system>
+    <url>http://ci.gbuild.org/continuum</url>
+    <notifiers>
+      <notifier>
+        <configuration>
+          <address>scm@geronimo.apache.org</address>
+        </configuration>
+      </notifier>
+    </notifiers>
+  </ciManagement> 
+
   <properties>
     <!--
      |
      | Geronimo module versions
+     | 
+     | Note: when modules move from SNAPSHOT to an official release, they
+     | should be removed from GBuild (assuming they were added to GBuild).
      |
      -->
     <geronimoSpecsVersion>1.1-SNAPSHOT</geronimoSpecsVersion>

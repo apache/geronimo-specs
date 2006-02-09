@@ -9,6 +9,12 @@
   <name>J2EE JACC</name>
   <version>${geronimoSpecsJ2eeJaccVersion}</version>
 
+  <scm>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/gbuild/trunk/</connection>
+    <developerConnection>scm:svn:http://svn.apache.org/repos/asf/geronimo/gbuild/trunk/</developerConnection>
+    <url>http://svn.apache.org/viewcvs.cgi/geronimo/gbuild/trunk/</url>
+  </scm>
+
   <dependencies>
     <dependency>
       <groupId>org.apache.geronimo.specs</groupId>

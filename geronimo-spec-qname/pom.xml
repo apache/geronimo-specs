@@ -8,4 +8,11 @@
   <artifactId>geronimo-qname_1.1_spec</artifactId>
   <name>QName</name>
   <version>${geronimoSpecsQnameVersion}</version>
+
+  <scm>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/gbuild/trunk/</connection>
+    <developerConnection>scm:svn:http://svn.apache.org/repos/asf/geronimo/gbuild/trunk/</developerConnection>
+    <url>http://svn.apache.org/viewcvs.cgi/geronimo/gbuild/trunk/</url>
+  </scm>
+
 </project>

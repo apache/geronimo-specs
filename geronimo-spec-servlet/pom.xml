@@ -9,6 +9,12 @@
   <name>Servlet</name>
   <version>${geronimoSpecsServletVersion}</version>
   
+  <scm>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/gbuild/trunk/</connection>
+    <developerConnection>scm:svn:http://svn.apache.org/repos/asf/geronimo/gbuild/trunk/</developerConnection>
+    <url>http://svn.apache.org/viewcvs.cgi/geronimo/gbuild/trunk/</url>
+  </scm>
+
   <build>
     <resources>
       <resource>
