@@ -29,7 +29,7 @@ import javax.xml.rpc.handler.MessageContext;
  *
  *
  *
- * @version $Rev$ $Date$
+ * @version $Rev: 46019 $ $Date: 2004-09-14 02:56:06 -0700 (Tue, 14 Sep 2004) $
  */
 public interface SessionContext extends EJBContext {
     EJBLocalObject getEJBLocalObject() throws IllegalStateException;
@@ -37,4 +37,9 @@ public interface SessionContext extends EJBContext {
     EJBObject getEJBObject() throws IllegalStateException;
 
     MessageContext getMessageContext() throws IllegalStateException;
+
+    Object getBusinessObject(Class businessInterface);
+
+    Class getInvokedBusinessInterface();
+
 }
