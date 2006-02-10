@@ -87,12 +87,17 @@ public class ParameterList {
         while (it.hasNext()) {
             Map.Entry entry = (Map.Entry) it.next();
             result.append(";");
-            result.append(entry.getKey());
+            String key = (String)entry.getKey();
+            // we occasionally end up with null entries.  If we encounter one, just skip over it.
+            if (key == null || key.length() == 0) {
+                continue;
+            }
+            result.append(key);
             result.append("=");
-            result.append(entry.getValue());
+            // this could contain special characters, so make sure it gets quoted if required.
+            result.append(MimeUtility.quote((String)entry.getValue(), HeaderTokenizer.MIME));
         }
         return result.toString();
-        // TODO Return in same list as parsed format
     }
 
     private static String[] split(String str, char separatorChar) {
