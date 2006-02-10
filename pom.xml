@@ -39,6 +39,7 @@
     <geronimoSpecsVersion>1.1-SNAPSHOT</geronimoSpecsVersion>
     
     <geronimoSpecsActivationVersion>1.0</geronimoSpecsActivationVersion>
+    <geronimoSpecsCommonjVersion>1.0-SNAPSHOT</geronimoSpecsCommonjVersion>
     <geronimoSpecsCorba30Version>1.0</geronimoSpecsCorba30Version>
     <geronimoSpecsCorba23Version>1.1-SNAPSHOT</geronimoSpecsCorba23Version>
     <geronimoSpecsEjbVersion>1.0</geronimoSpecsEjbVersion>
@@ -98,6 +99,7 @@
 
   <modules>
     <module>geronimo-spec-activation</module>
+    <module>geronimo-spec-commonj</module>
     <module>geronimo-spec-corba-3.0</module>
     <module>geronimo-spec-corba-2.3</module>
     <module>geronimo-spec-ejb</module>
@@ -128,6 +130,11 @@
         <groupId>org.apache.geronimo.specs</groupId>
         <artifactId>geronimo-activation_1.0.2_spec</artifactId>
         <version>${geronimoSpecsActivationVersion}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.geronimo.specs</groupId>
+        <artifactId>geronimo-commonj_1.1_spec</artifactId>
+        <version>${geronimoSpecsCommonjVersion}</version>
       </dependency>
       <dependency>
         <groupId>org.apache.geronimo.specs</groupId>

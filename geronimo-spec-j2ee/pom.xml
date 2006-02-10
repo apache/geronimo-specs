@@ -93,5 +93,9 @@
       <groupId>org.apache.geronimo.specs</groupId>
       <artifactId>geronimo-javamail_1.3.1_spec</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.apache.geronimo.specs</groupId>
+      <artifactId>geronimo-commonj_1.1_spec</artifactId>
+    </dependency>
   </dependencies>
 </project>
