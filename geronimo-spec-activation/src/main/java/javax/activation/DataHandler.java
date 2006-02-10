@@ -241,19 +241,39 @@ public class DataHandler implements Transferable {
             localFactory = originalFactory;
         }
         if (dch == null) {
-            String contentType = ds.getContentType();
+            // get the main mime-type portion of the content.
+            String mimeType = getMimeType(ds.getContentType());
             if (localFactory != null) {
-                dch = localFactory.createDataContentHandler(contentType);
+                dch = localFactory.createDataContentHandler(mimeType);
             }
             if (dch == null) {
                 if (commandMap != null) {
-                    dch = commandMap.createDataContentHandler(contentType);
+                    dch = commandMap.createDataContentHandler(mimeType);
                 } else {
-                    dch = CommandMap.getDefaultCommandMap().createDataContentHandler(contentType);
+                    dch = CommandMap.getDefaultCommandMap().createDataContentHandler(mimeType);
                 }
             }
         }
         return dch;
+    }
+
+    /**
+     * Retrieve the base MIME type from a content type.  This parses
+     * the type into its base components, stripping off any parameter
+     * information.
+     *
+     * @param contentType
+     *               The content type string.
+     *
+     * @return The MIME type identifier portion of the content type.
+     */
+    private String getMimeType(String contentType) {
+        try {
+            MimeType mimeType = new MimeType(contentType);
+            return mimeType.getBaseType();
+        } catch (MimeTypeParseException e) {
+        }
+        return contentType;
     }
 
     /**

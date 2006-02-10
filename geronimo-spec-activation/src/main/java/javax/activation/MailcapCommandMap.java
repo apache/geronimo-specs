@@ -26,12 +26,14 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
+import java.security.Security;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Collections;
 
 /**
  * @version $Rev$ $Date$
@@ -39,10 +41,12 @@ import java.util.Collections;
 public class MailcapCommandMap extends CommandMap {
     private final Map preferredCommands = new HashMap();
     private final Map allCommands = new HashMap();
+    // commands identified as fallbacks...these are used last, and also used as wildcards.
+    private final Map fallbackCommands = new HashMap();
     private URL url;
-    private ClassLoader cl;
 
     public MailcapCommandMap() {
+        ClassLoader contextLoader = Thread.currentThread().getContextClassLoader();
         // process /META-INF/mailcap.default
         try {
             InputStream is = MailcapCommandMap.class.getResourceAsStream("/META-INF/mailcap.default");
@@ -59,8 +63,7 @@ public class MailcapCommandMap extends CommandMap {
 
         // process /META-INF/mailcap resources
         try {
-            cl = MailcapCommandMap.class.getClassLoader();
-            Enumeration e = cl.getResources("META-INF/mailcap");
+            Enumeration e = contextLoader.getResources("META-INF/mailcap");
             while (e.hasMoreElements()) {
                 url = ((URL) e.nextElement());
                 try {
@@ -171,8 +174,12 @@ public class MailcapCommandMap extends CommandMap {
             index = getToken(mail_cap, index);
             mimeType = mimeType + '/' + mail_cap.substring(start, index);
         } else {
+
             mimeType = mimeType + "/*";
         }
+
+        // we record all mappings using the lowercase version.
+        mimeType = mimeType.toLowerCase();
 
         // skip spaces after mime type
         index = skipSpace(mail_cap, index);
@@ -186,6 +193,12 @@ public class MailcapCommandMap extends CommandMap {
         if (index == mail_cap.length() || mail_cap.charAt(index) != ';') {
             return;
         }
+
+        // we don't know which list this will be added to until we finish parsing, as there
+        // can be an x-java-fallback-entry parameter that moves this to the fallback list.
+        List commandList = new ArrayList();
+        // but by default, this is not a fallback.
+        boolean fallback = false;
 
         // parse fields
         while (index < mail_cap.length() && mail_cap.charAt(index) == ';') {
@@ -202,30 +215,69 @@ public class MailcapCommandMap extends CommandMap {
                 index = skipSpace(mail_cap, index);
                 if (fieldName.startsWith("x-java-") && fieldName.length() > 7) {
                     String command = fieldName.substring(7);
-                    addCommand(mimeType, command, value.trim());
+                    value = value.trim();
+                    if (command.equals("fallback-entry")) {
+                        if (value.equals("true")) {
+                            fallback = true;
+                        }
+                    }
+                    else {
+                        // create a CommandInfo item and add it the accumulator
+                        CommandInfo info = new CommandInfo(command, value);
+                        commandList.add(info);
+                    }
                 }
             }
         }
-
+        addCommands(mimeType, commandList, fallback);
     }
 
-    private void addCommand(String mimeType, String cmdName, String commandClass) {
-        CommandInfo info = new CommandInfo(cmdName, commandClass);
+    /**
+     * Add a parsed list of commands to the appropriate command list.
+     *
+     * @param mimeType The mimeType name this is added under.
+     * @param commands A List containing the command information.
+     * @param fallback The target list identifier.
+     */
+    private void addCommands(String mimeType, List commands, boolean fallback) {
+        // the target list changes based on the type of entry.
+        Map target = fallback ? fallbackCommands : preferredCommands;
 
-        Map commands = (Map) preferredCommands.get(mimeType);
+        // now process
+        for (Iterator i = commands.iterator(); i.hasNext();) {
+            CommandInfo info = (CommandInfo)i.next();
+            addCommand(target, mimeType, info);
+            // if this is not a fallback position, then this to the allcommands list.
+            if (!fallback) {
+                List cmdList = (List) allCommands.get(mimeType);
+                if (cmdList == null) {
+                    cmdList = new ArrayList();
+                    allCommands.put(mimeType, cmdList);
+                }
+                cmdList.add(info);
+            }
+        }
+    }
+
+
+    /**
+     * Add a command to a target command list (preferred or fallback).
+     *
+     * @param commandList
+     *                 The target command list.
+     * @param mimeType The MIME type the command is associated with.
+     * @param command  The command information.
+     */
+    private void addCommand(Map commandList, String mimeType, CommandInfo command) {
+
+        Map commands = (Map) commandList.get(mimeType);
         if (commands == null) {
             commands = new HashMap();
-            preferredCommands.put(mimeType, commands);
+            commandList.put(mimeType, commands);
         }
-        commands.put(info.getCommandName(), info);
-
-        List cmdList = (List) allCommands.get(mimeType);
-        if (cmdList == null) {
-            cmdList = new ArrayList();
-            allCommands.put(mimeType, cmdList);
-        }
-        cmdList.add(info);
+        commands.put(command.getCommandName(), command);
     }
+
 
     private int skipSpace(String s, int index) {
         while (index < s.length() && Character.isWhitespace(s.charAt(index))) {
@@ -259,14 +311,57 @@ public class MailcapCommandMap extends CommandMap {
     }
 
     public synchronized CommandInfo[] getPreferredCommands(String mimeType) {
-        Map commands = (Map) preferredCommands.get(mimeType.toLowerCase());
+        // get the mimetype as a lowercase version.
+        mimeType = mimeType.toLowerCase();
+
+        Map commands = (Map) preferredCommands.get(mimeType);
         if (commands == null) {
             commands = (Map) preferredCommands.get(getWildcardMimeType(mimeType));
         }
+
+        Map fallbackCommands = getFallbackCommands(mimeType);
+
+        // if we have fall backs, then we need to merge this stuff.
+        if (fallbackCommands != null) {
+            // if there's no command list, we can just use this as the master list.
+            if (commands == null) {
+                commands = fallbackCommands;
+            }
+            else {
+                // merge the two lists.  The ones in the commands list will take precedence.
+                commands = mergeCommandMaps(commands, fallbackCommands);
+            }
+        }
+
+        // now convert this into an array result.
         if (commands == null) {
             return new CommandInfo[0];
         }
         return (CommandInfo[]) commands.values().toArray(new CommandInfo[commands.size()]);
+    }
+
+    private Map getFallbackCommands(String mimeType) {
+        Map commands = (Map) fallbackCommands.get(mimeType);
+
+        // now we also need to search this as if it was a wildcard.  If we get a wildcard hit,
+        // we have to merge the two lists.
+        Map wildcardCommands = (Map)fallbackCommands.get(getWildcardMimeType(mimeType));
+        // no wildcard version
+        if (wildcardCommands == null) {
+            return commands;
+        }
+        // we need to merge these.
+        return mergeCommandMaps(commands, wildcardCommands);
+    }
+
+
+    private Map mergeCommandMaps(Map main, Map fallback) {
+        // create a cloned copy of the second map.  We're going to use a PutAll operation to
+        // overwrite any duplicates.
+        Map result = new HashMap(fallback);
+        result.putAll(main);
+
+        return result;
     }
 
     public synchronized CommandInfo[] getAllCommands(String mimeType) {
@@ -279,13 +374,24 @@ public class MailcapCommandMap extends CommandMap {
         if (wildCommands == null) {
             wildCommands = Collections.EMPTY_LIST;
         }
-        CommandInfo[] result = new CommandInfo[exactCommands.size() + wildCommands.size()];
+
+        Map fallbackCommands = getFallbackCommands(mimeType);
+        if (fallbackCommands == null) {
+            fallbackCommands = Collections.EMPTY_MAP;
+        }
+
+
+        CommandInfo[] result = new CommandInfo[exactCommands.size() + wildCommands.size() + fallbackCommands.size()];
         int j = 0;
         for (int i = 0; i < exactCommands.size(); i++) {
             result[j++] = (CommandInfo) exactCommands.get(i);
         }
         for (int i = 0; i < wildCommands.size(); i++) {
             result[j++] = (CommandInfo) wildCommands.get(i);
+        }
+
+        for (Iterator i = fallbackCommands.keySet().iterator(); i.hasNext();) {
+            result[j++] = (CommandInfo) fallbackCommands.get((String)i.next());
         }
         return result;
     }
@@ -299,12 +405,20 @@ public class MailcapCommandMap extends CommandMap {
         }
 
         // search for an exact match
-        Map commands = (Map) preferredCommands.get(mimeType.toLowerCase());
+        Map commands = (Map) preferredCommands.get(mimeType);
         if (commands == null) {
+            // then a wild card match
             commands = (Map) preferredCommands.get(getWildcardMimeType(mimeType));
-        }
-        if (commands == null) {
-            return null;
+            if (commands == null) {
+                // then fallback searches, both standard and wild card.
+                commands = (Map) fallbackCommands.get(mimeType);
+                if (commands == null) {
+                    commands = (Map) fallbackCommands.get(getWildcardMimeType(mimeType));
+                }
+                if (commands == null) {
+                    return null;
+                }
+            }
         }
         return (CommandInfo) commands.get(cmdName.toLowerCase());
     }
@@ -319,6 +433,7 @@ public class MailcapCommandMap extends CommandMap {
     }
 
     public synchronized DataContentHandler createDataContentHandler(String mimeType) {
+
         CommandInfo info = getCommand(mimeType, "content-handler");
         if (info == null) {
             return null;

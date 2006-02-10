@@ -31,12 +31,14 @@ import javax.mail.MessagingException;
  * @version $Rev$ $Date$
  */
 public class MimeUtility {
+
     private MimeUtility() {
     }
 
     public static final int ALL = -1;
 
     private static String defaultJavaCharset;
+    private static String escapedChars = "\"\\\r\n";
 
     public static InputStream decode(InputStream in, String encoding) throws MessagingException {
         // TODO - take account of encoding
@@ -93,9 +95,71 @@ public class MimeUtility {
         return "binary";
     }
 
+    public static String fold(int used, String s) {
+        // TODO actually do some folding.
+        return s;
+    }
+
+
+    /**
+     * Quote a "word" value.  If the word contains any character from
+     * the specified "specials" list, this value is returned as a
+     * quoted strong.  Otherwise, it is returned unchanged (an "atom").
+     *
+     * @param word     The word requiring quoting.
+     * @param specials The set of special characters that can't appear in an unquoted
+     *                 string.
+     *
+     * @return The quoted value.  This will be unchanged if the word doesn't contain
+     *         any of the designated special characters.
+     */
     public static String quote(String word, String specials) {
-        // TODO Check for specials
+        int wordLength = word.length();
+        boolean requiresQuoting = false;
+        // scan the string looking for problem characters
+        for (int i =0; i < wordLength; i++) {
+            char ch = word.charAt(i);
+            // special escaped characters require escaping, which also implies quoting.
+            if (escapedChars.indexOf(ch) >= 0) {
+                return quoteAndEscapeString(word);
+            }
+            // now check for control characters or the designated special characters.
+            if (ch < 32 || ch >= 127 || specials.indexOf(ch) >= 0) {
+                // we know this requires quoting, but we still need to scan the entire string to
+                // see if contains chars that require escaping.  Just go ahead and treat it as if it does.
+                return quoteAndEscapeString(word);
+            }
+        }
         return word;
+    }
+
+    /**
+     * Take a string and return it as a formatted quoted string, with
+     * all characters requiring escaping handled properly.
+     *
+     * @param word   The string to quote.
+     *
+     * @return The quoted string.
+     */
+    private static String quoteAndEscapeString(String word) {
+        int wordLength = word.length();
+        // allocate at least enough for the string and two quotes plus a reasonable number of escaped chars.
+        StringBuffer buffer = new StringBuffer(wordLength + 10);
+        // add the leading quote.
+        buffer.append('"');
+
+        for (int i = 0; i < wordLength; i++) {
+            char ch = word.charAt(i);
+            // is this an escaped char?
+            if (escapedChars.indexOf(ch) >= 0) {
+                // add the escape marker before appending.
+                buffer.append('\\');
+            }
+            buffer.append(ch);
+        }
+        // now the closing quote
+        buffer.append('"');
+        return buffer.toString();
     }
 
     public static String javaCharset(String charset) {

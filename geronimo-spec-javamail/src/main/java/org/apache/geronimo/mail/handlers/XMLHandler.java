@@ -19,6 +19,6 @@ import javax.activation.ActivationDataFlavor;
 
 public class XMLHandler extends TextHandler {
     public XMLHandler() {
-        super(new ActivationDataFlavor(java.lang.String.class, "text/xml", "XML"));
+        super(new ActivationDataFlavor(java.lang.String.class, "text/xml", "XML String"));
     }
 }

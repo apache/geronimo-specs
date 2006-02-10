@@ -15,12 +15,6 @@
  */
 package org.apache.geronimo.mail.handlers;
 
-import javax.activation.ActivationDataFlavor;
-import javax.activation.DataContentHandler;
-import javax.activation.DataSource;
-import javax.mail.internet.ContentType;
-import javax.mail.internet.MimeUtility;
-import javax.mail.internet.ParseException;
 import java.awt.datatransfer.DataFlavor;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -29,6 +23,13 @@ import java.io.OutputStreamWriter;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 
+import javax.activation.ActivationDataFlavor;
+import javax.activation.DataContentHandler;
+import javax.activation.DataSource;
+import javax.mail.internet.ContentType;
+import javax.mail.internet.MimeUtility;
+import javax.mail.internet.ParseException;
+
 public class TextHandler implements DataContentHandler {
     /**
      * Field dataFlavor
@@ -36,7 +37,7 @@ public class TextHandler implements DataContentHandler {
     ActivationDataFlavor dataFlavor;
 
     public TextHandler(){
-        dataFlavor = new ActivationDataFlavor(java.lang.String.class, "text/plain", "Text");
+        dataFlavor = new ActivationDataFlavor(java.lang.String.class, "text/plain", "Text String");
     }
 
     /**
