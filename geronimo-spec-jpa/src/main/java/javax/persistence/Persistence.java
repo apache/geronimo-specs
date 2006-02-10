@@ -44,7 +44,7 @@ public class Persistence {
 
     /**
      * Create and return an EntityManagerFactory for the named persistence unit.
-     * 
+     *
      * @param persistenceUnitName The name of the persistence unit
      * @return The factory that creates EntityManagers configured according to the
      *         specified persistence unit
@@ -57,11 +57,11 @@ public class Persistence {
     /**
      * Create and return an EntityManagerFactory for the named persistence unit using the
      * given properties.
-     * 
+     *
      * @param persistenceUnitName The name of the persistence unit
-     * @param props Additional properties to use when creating the factory. The values of
-     *            these properties override any values that may have been configured
-     *            elsewhere.
+     * @param properties          Additional properties to use when creating the factory. The values of
+     *                            these properties override any values that may have been configured
+     *                            elsewhere.
      * @return The factory that creates EntityManagers configured according to the
      *         specified persistence unit.
      */
