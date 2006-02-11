@@ -23,7 +23,15 @@
 package javax.persistence;
 
 
+/**
+ * @version $Revision$ $Date$
+ */
 public class NonUniqueResultException extends RuntimeException {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 8841586522747620836L;
 
     public NonUniqueResultException() {
         super();

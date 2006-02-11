@@ -21,6 +21,9 @@
 // DO NOT add / change / or delete method signatures!
 package javax.persistence;
 
+/**
+ * @version $Revision$ $Date$
+ */
 public enum FlushModeType {
     COMMIT, AUTO
 }

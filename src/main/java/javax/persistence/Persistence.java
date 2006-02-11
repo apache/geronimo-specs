@@ -33,6 +33,10 @@ import java.util.Map;
 import javax.persistence.spi.PersistenceProvider;
 
 /**
+ * @version $Revision$ $Date$
+ */
+
+/**
  * Bootstrap class that is used to obtain {@link javax.persistence.EntityManagerFactory}
  * references.
  */

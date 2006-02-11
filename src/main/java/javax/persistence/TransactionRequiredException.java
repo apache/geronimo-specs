@@ -22,7 +22,15 @@
 //
 package javax.persistence;
 
+/**
+ * @version $Revision$ $Date$
+ */
 public class TransactionRequiredException extends RuntimeException {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 2115931496795913403L;
+
     public TransactionRequiredException() {
         super();
     }
