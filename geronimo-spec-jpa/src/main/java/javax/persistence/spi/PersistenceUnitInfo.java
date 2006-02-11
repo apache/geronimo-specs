@@ -28,6 +28,9 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
+/**
+ * @version $Revision$ $Date$
+ */
 public interface PersistenceUnitInfo {
     
     public String getPersistenceUnitName();

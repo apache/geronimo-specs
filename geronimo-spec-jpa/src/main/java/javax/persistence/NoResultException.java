@@ -22,8 +22,15 @@
 //
 package javax.persistence;
 
-
+/**
+ * @version $Revision$ $Date$
+ */
 public class NoResultException extends RuntimeException {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 4123871304568481301L;
 
     public NoResultException() {
         super();

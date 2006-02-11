@@ -22,6 +22,9 @@
 //
 package javax.persistence;
 
+/**
+ * @version $Revision$ $Date$
+ */
 public interface EntityManager {
     
     public void persist(Object entity); 

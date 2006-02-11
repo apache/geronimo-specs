@@ -25,6 +25,9 @@ package javax.persistence;
 import java.lang.annotation.Target;
 import java.lang.annotation.ElementType;
 
+/**
+ * @version $Revision$ $Date$
+ */
 @Target({ElementType.METHOD, ElementType.FIELD})
 public @interface JoinTable {
     String name() default "";

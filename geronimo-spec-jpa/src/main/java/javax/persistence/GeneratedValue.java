@@ -27,6 +27,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.ElementType;
 
+/**
+ * @version $Revision$ $Date$
+ */
 @Target({ElementType.METHOD, ElementType.FIELD}) @Retention(RetentionPolicy.RUNTIME)
 public @interface GeneratedValue {
     GenerationType strategy() default GenerationType.AUTO;

@@ -26,6 +26,9 @@ package javax.persistence.spi;
 import java.security.ProtectionDomain;
 import java.lang.instrument.IllegalClassFormatException;
 
+/**
+ * @version $Revision$ $Date$
+ */
 public interface ClassTransformer {
     /**
      * Invoked when a class is being loaded or redefined. The implementation of this

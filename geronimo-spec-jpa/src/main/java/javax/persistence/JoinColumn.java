@@ -28,6 +28,9 @@ import java.lang.annotation.Target;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.RetentionPolicy;
 
+/**
+ * @version $Revision$ $Date$
+ */
 @Target({ElementType.TYPE, ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface JoinColumn {

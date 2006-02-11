@@ -26,6 +26,9 @@ import java.lang.annotation.Target;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
+/**
+ * @version $Revision$ $Date$
+ */
 @Target({})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface FieldResult {

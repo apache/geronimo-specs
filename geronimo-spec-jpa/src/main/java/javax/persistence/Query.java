@@ -26,6 +26,9 @@ import java.util.Date;
 import java.util.Calendar;
 import java.util.List;
 
+/**
+ * @version $Revision$ $Date$
+ */
 public interface Query {
 
     public List getResultList();

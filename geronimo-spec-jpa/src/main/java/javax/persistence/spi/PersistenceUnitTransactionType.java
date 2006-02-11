@@ -22,6 +22,9 @@
 //
 package javax.persistence.spi;
 
+/**
+ * @version $Revision$ $Date$
+ */
 public enum PersistenceUnitTransactionType {
     JTA, RESOURCE_LOCAL
 }

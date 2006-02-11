@@ -22,7 +22,15 @@
 //
 package javax.persistence;
 
+/**
+ * @version $Revision$ $Date$
+ */
 public class PersistenceException extends RuntimeException {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -8734504053550505412L;
+
     public PersistenceException() {
         super();
     }
