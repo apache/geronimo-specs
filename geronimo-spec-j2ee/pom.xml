@@ -17,13 +17,21 @@
   </scm>
 
   <build>
-    <defaultGoal>assembly:assembly</defaultGoal>
     <plugins>
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
-        <configuration>
-          <descriptor>src/main/assembly/j2ee.xml</descriptor>
-        </configuration>
+        <version>2.1-SNAPSHOT</version>
+        <executions>
+            <execution>
+                <phase>package</phase>
+                <goals>
+                    <goal>assembly</goal>
+                </goals>
+                <configuration>
+                    <descriptor>src/main/assembly/j2ee.xml</descriptor>
+                </configuration>
+            </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
