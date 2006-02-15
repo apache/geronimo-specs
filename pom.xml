@@ -89,7 +89,7 @@
       <extension>
         <groupId>org.apache.maven.wagon</groupId>
         <artifactId>wagon-ssh-external</artifactId>
-        <version>1.0-alpha-5</version>
+        <version>1.0-alpha-6</version>
       </extension>
     </extensions>
   </build>
@@ -252,7 +252,7 @@
 
   <pluginRepositories>
     <pluginRepository>
-      <id>snapshots</id>
+      <id>plugin-snapshots</id>
       <name>Maven Central Plugins Development Repository</name>
       <url>http://snapshots.maven.codehaus.org/maven2</url>
     </pluginRepository>
