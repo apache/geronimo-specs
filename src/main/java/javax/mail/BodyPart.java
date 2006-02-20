@@ -28,7 +28,8 @@ public abstract class BodyPart implements Part {
         return parent;
     }
 
-    public void setParent(Multipart parent)
+    // Can't be public. Not strictly required for spec, but mirrors Sun's javamail api impl.
+    void setParent(Multipart parent)
     {
         this.parent = parent;
     }
