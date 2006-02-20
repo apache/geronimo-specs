@@ -22,7 +22,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddressParser {
+class AddressParser {
 
     // the validation strictness levels, from most lenient to most conformant.
     static public final int NONSTRICT = 0;

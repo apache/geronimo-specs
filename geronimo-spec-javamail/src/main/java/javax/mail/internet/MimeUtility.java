@@ -95,12 +95,6 @@ public class MimeUtility {
         return "binary";
     }
 
-    public static String fold(int used, String s) {
-        // TODO actually do some folding.
-        return s;
-    }
-
-
     /**
      * Quote a "word" value.  If the word contains any character from
      * the specified "specials" list, this value is returned as a
