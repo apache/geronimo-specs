@@ -10,6 +10,12 @@
   <name>CORBA</name>
   <version>${geronimoSpecsCorbaVersion}</version>
 
+  <scm>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-spec-corba/</connection>
+    <developerConnection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-spec-corba/</developerConnection>
+    <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-spec-corba/</url>
+  </scm>
+
   <build>
     <plugins>
       <plugin>
