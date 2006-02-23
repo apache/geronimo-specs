@@ -30,7 +30,7 @@
           </execution>
         </executions>
         <configuration>
-          <debug>true</debug>
+          <debug>false</debug>
           <compiler>idlj</compiler>
           <sources>
             <source>
