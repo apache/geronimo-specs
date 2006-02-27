@@ -25,43 +25,121 @@ public class ContentTypeTest extends TestCase {
         super(arg0);
     }
     public void testContentType() throws ParseException {
+        ContentType type = new ContentType();
+        assertNull(type.getPrimaryType());
+        assertNull(type.getSubType());
+        assertNull(type.getParameter("charset"));
+    }
+
+    public void testContentTypeStringStringParameterList() throws ParseException {
+        ContentType type;
+        ParameterList list = new ParameterList(";charset=us-ascii");
+        type = new ContentType("text", "plain", list);
+        assertEquals("text", type.getPrimaryType());
+        assertEquals("plain", type.getSubType());
+        assertEquals("text/plain", type.getBaseType());
+        ParameterList parameterList = type.getParameterList();
+        assertEquals("us-ascii", parameterList.get("charset"));
+        assertEquals("us-ascii", type.getParameter("charset"));
+
+    }
+
+    public void testContentTypeString() throws ParseException {
         ContentType type;
         type = new ContentType("text/plain");
         assertEquals("text", type.getPrimaryType());
         assertEquals("plain", type.getSubType());
-        assertEquals(null, type.getParameterList());
+        assertEquals("text/plain", type.getBaseType());
+        assertNotNull(type.getParameterList());
+        assertNull(type.getParameter("charset"));
         type = new ContentType("image/audio;charset=us-ascii");
         ParameterList parameterList = type.getParameterList();
         assertEquals("image", type.getPrimaryType());
         assertEquals("audio", type.getSubType());
+        assertEquals("image/audio", type.getBaseType());
         assertEquals("us-ascii", parameterList.get("charset"));
+        assertEquals("us-ascii", type.getParameter("charset"));
     }
-    public void testContentTypeStringStringParameterList() {
+    public void testGetPrimaryType() throws ParseException {
     }
-    public void testContentTypeString() {
+    public void testGetSubType() throws ParseException {
     }
-    public void testGetPrimaryType() {
+    public void testGetBaseType() throws ParseException {
     }
-    public void testGetSubType() {
+    public void testGetParameter() throws ParseException {
     }
-    public void testGetBaseType() {
+    public void testGetParameterList() throws ParseException {
     }
-    public void testGetParameter() {
+    public void testSetPrimaryType() throws ParseException {
+        ContentType type = new ContentType("text/plain");
+        type.setPrimaryType("binary");
+        assertEquals("binary", type.getPrimaryType());
+        assertEquals("plain", type.getSubType());
+        assertEquals("binary/plain", type.getBaseType());
     }
-    public void testGetParameterList() {
+    public void testSetSubType() throws ParseException {
+        ContentType type = new ContentType("text/plain");
+        type.setSubType("html");
+        assertEquals("text", type.getPrimaryType());
+        assertEquals("html", type.getSubType());
+        assertEquals("text/html", type.getBaseType());
     }
-    public void testSetPrimaryType() {
+    public void testSetParameter() throws ParseException {
     }
-    public void testSetSubType() {
+    public void testSetParameterList() throws ParseException {
     }
-    public void testSetParameter() {
+    public void testToString() throws ParseException {
+        ContentType type = new ContentType("text/plain");
+        System.out.println("Type string value is " + type.toString());
+        assertEquals("text/plain", type.toString());
+        type.setParameter("foo", "bar");
+        assertEquals("text/plain; foo=bar", type.toString());
+        type.setParameter("bar", "me@apache.org");
+        assertEquals("text/plain; foo=bar; bar=\"me@apache.org\"", type.toString());
     }
-    public void testSetParameterList() {
+    public void testMatchContentType() throws ParseException {
+        ContentType type = new ContentType("text/plain");
+
+        ContentType test = new ContentType("text/plain");
+
+        assertTrue(type.match(test));
+
+        test = new ContentType("TEXT/plain");
+        assertTrue(type.match(test));
+        assertTrue(test.match(type));
+
+        test = new ContentType("text/PLAIN");
+        assertTrue(type.match(test));
+        assertTrue(test.match(type));
+
+        test = new ContentType("text/*");
+        assertTrue(type.match(test));
+        assertTrue(test.match(type));
+
+        test = new ContentType("text/xml");
+        assertFalse(type.match(test));
+        assertFalse(test.match(type));
+
+        test = new ContentType("binary/plain");
+        assertFalse(type.match(test));
+        assertFalse(test.match(type));
+
+        test = new ContentType("*/plain");
+        assertFalse(type.match(test));
+        assertFalse(test.match(type));
     }
-    public void testToString() {
-    }
-    public void testMatchContentType() {
-    }
-    public void testMatchString() {
+    public void testMatchString() throws ParseException {
+        ContentType type = new ContentType("text/plain");
+        assertTrue(type.match("text/plain"));
+        assertTrue(type.match("TEXT/plain"));
+        assertTrue(type.match("text/PLAIN"));
+        assertTrue(type.match("TEXT/PLAIN"));
+        assertTrue(type.match("TEXT/*"));
+
+        assertFalse(type.match("text/xml"));
+        assertFalse(type.match("binary/plain"));
+        assertFalse(type.match("*/plain"));
+        assertFalse(type.match(""));
+        assertFalse(type.match("text/plain/yada"));
     }
 }

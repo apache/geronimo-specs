@@ -21,62 +21,74 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-public class Base64
-{
-    private static final Encoder encoder = new Base64Encoder();
+public class UUEncode {
+    private static final Encoder encoder = new UUEncoder();
 
     /**
-     * encode the input data producing a base 64 encoded byte array.
+     * encode the input data producing a UUEncoded byte array.
      *
-     * @return a byte array containing the base 64 encoded data.
+     * @return a byte array containing the UUEncoded data.
      */
     public static byte[] encode(
         byte[]    data)
+    {
+        return encode(data, 0, data.length);
+    }
+
+    /**
+     * encode the input data producing a UUEncoded byte array.
+     *
+     * @return a byte array containing the UUEncoded data.
+     */
+    public static byte[] encode(
+        byte[]    data,
+        int       off,
+        int       length)
     {
         ByteArrayOutputStream    bOut = new ByteArrayOutputStream();
 
         try
         {
-            encoder.encode(data, 0, data.length, bOut);
+            encoder.encode(data, off, length, bOut);
         }
         catch (IOException e)
         {
-            throw new RuntimeException("exception encoding base64 string: " + e);
+            throw new RuntimeException("exception encoding UUEncoded string: " + e);
         }
 
         return bOut.toByteArray();
     }
 
     /**
-     * Encode the byte data to base 64 writing it to the given output stream.
+     * UUEncode the byte data writing it to the given output stream.
      *
      * @return the number of bytes produced.
      */
     public static int encode(
-        byte[]                data,
-        OutputStream    out)
+        byte[]         data,
+        OutputStream   out)
         throws IOException
     {
         return encoder.encode(data, 0, data.length, out);
     }
 
     /**
-     * Encode the byte data to base 64 writing it to the given output stream.
+     * UUEncode the byte data writing it to the given output stream.
      *
      * @return the number of bytes produced.
      */
     public static int encode(
-        byte[]                data,
-        int                    off,
-        int                    length,
-        OutputStream    out)
+        byte[]         data,
+        int            off,
+        int            length,
+        OutputStream   out)
         throws IOException
     {
-        return encoder.encode(data, off, length, out);
+        return encoder.encode(data, 0, data.length, out);
     }
 
     /**
-     * decode the base 64 encoded input data. It is assumed the input data is valid.
+     * decode the UUEncoded input data. It is assumed the input data is valid.
      *
      * @return a byte array representing the decoded data.
      */
@@ -91,14 +103,14 @@ public class Base64
         }
         catch (IOException e)
         {
-            throw new RuntimeException("exception decoding base64 string: " + e);
+            throw new RuntimeException("exception decoding UUEncoded string: " + e);
         }
 
         return bOut.toByteArray();
     }
 
     /**
-     * decode the base 64 encoded String data - whitespace will be ignored.
+     * decode the UUEncided String data.
      *
      * @return a byte array representing the decoded data.
      */
@@ -113,38 +125,23 @@ public class Base64
         }
         catch (IOException e)
         {
-            throw new RuntimeException("exception decoding base64 string: " + e);
+            throw new RuntimeException("exception decoding UUEncoded string: " + e);
         }
 
         return bOut.toByteArray();
     }
 
     /**
-     * decode the base 64 encoded String data writing it to the given output stream,
-     * whitespace characters will be ignored.
+     * decode the UUEncoded encoded String data writing it to the given output stream.
      *
      * @return the number of bytes produced.
      */
     public static int decode(
-        String                data,
+        String          data,
         OutputStream    out)
         throws IOException
     {
         return encoder.decode(data, out);
     }
-
-    /**
-     * decode the base 64 encoded String data writing it to the given output stream,
-     * whitespace characters will be ignored.
-     *
-     * @param data   The array data to decode.
-     * @param out    The output stream for the data.
-     *
-     * @return the number of bytes produced.
-     * @exception IOException
-     */
-    public static int decode(byte [] data, OutputStream out) throws IOException
-    {
-        return encoder.decode(data, 0, data.length, out);
-    }
 }
+

@@ -42,7 +42,7 @@ import javax.mail.MessagingException;
 public class InternetHeaders {
     // RFC822 imposes an ordering on its headers so we use a LinkedHashedMap
     private final LinkedHashMap headers = new LinkedHashMap();
-    
+
     private transient String lastHeaderName;
 
     /**
@@ -198,7 +198,7 @@ public class InternetHeaders {
             return null;
         } else if (list.isEmpty()) {
             return "";
-        } else if (list.size() == 1) {
+        } else if (list.size() == 1 || delimiter == null) {
             return ((InternetHeader) list.get(0)).getValue();
         } else {
             StringBuffer buf = new StringBuffer(20 * list.size());
@@ -305,11 +305,11 @@ public class InternetHeaders {
     }
 
     /**
-     * Add an RFC822 header line to the header store. 
-     * If the line starts with a space or tab (a continuation line), 
-     * add it to the last header line in the list. 
+     * Add an RFC822 header line to the header store.
+     * If the line starts with a space or tab (a continuation line),
+     * add it to the last header line in the list.
      * Otherwise, append the new header line to the list.
-     * 
+     *
      * Note that RFC822 headers can only contain US-ASCII characters
      * @param line raw RFC822 header line
      */
@@ -321,7 +321,7 @@ public class InternetHeaders {
         if (Character.isWhitespace(line.charAt(0))) {
         	continuation = true;
         	inName = false;
-        } 
+        }
         for (int i = 0; i < line.length(); i++) {
         	char c = line.charAt(i);
         	if (inName && c == ':') {
@@ -344,7 +344,7 @@ public class InternetHeaders {
 
     /**
      * Return all the header lines as an Enumeration of Strings.
-     */         
+     */
     public Enumeration getAllHeaderLines() {
         return new HeaderLineEnumeration(getAllHeaders());
     }
@@ -371,20 +371,34 @@ public class InternetHeaders {
      * @param strict whether the header should be strictly parser; see {@link InternetAddress#parseHeader(java.util.List, String, boolean, boolean)}
      * @return
      */
-    InternetAddress[] getHeaderAsAddresses(String name, boolean strict) throws MessagingException {
+    Address[] getHeaderAsAddresses(String name, boolean strict) throws MessagingException {
         List addrs = new ArrayList();
         List headers = getHeaderList(name);
         if (headers == null) {
             return null;
         }
+        // news groups are a special case.  Those are NewsAddress items, not InternetAddress.
+        boolean isNewsGroup = name.equals("Newsgroups");
+
         for (Iterator i = headers.iterator(); i.hasNext();) {
             InternetHeader header = (InternetHeader) i.next();
-            InternetAddress[] addresses = InternetAddress.parseHeader(header.getValue(), strict);
-            for (int j = 0; j < addresses.length; j++) {
-                addrs.add(addresses[j]);
+            Address[] addresses = null;
+            // removed headers may show up as value-less entities, so we need to make
+            // sure this is real before attempting to parse the value.
+            String headerValue = header.getValue();
+            if (headerValue != null) {
+                if (isNewsGroup) {
+                    addresses = NewsAddress.parse(header.getValue());
+                }
+                else {
+                    addresses = InternetAddress.parseHeader(header.getValue(), strict);
+                }
+                for (int j = 0; j < addresses.length; j++) {
+                    addrs.add(addresses[j]);
+                }
             }
         }
-        return (InternetAddress[]) addrs.toArray(new InternetAddress[addrs.size()]);
+        return (Address[]) addrs.toArray(new Address[addrs.size()]);
     }
 
     void setHeader(String name, Address[] addresses) {
@@ -442,10 +456,10 @@ public class InternetHeaders {
             return getName().toLowerCase().hashCode();
         }
     }
-    
+
     private static class HeaderLineEnumeration implements Enumeration {
     	private Enumeration headers;
-    	
+
 		public HeaderLineEnumeration(Enumeration headers) {
 			this.headers = headers;
 		}

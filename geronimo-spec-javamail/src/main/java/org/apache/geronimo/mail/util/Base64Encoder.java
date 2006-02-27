@@ -18,7 +18,9 @@
 package org.apache.geronimo.mail.util;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintStream;
 
 public class Base64Encoder
     implements Encoder
@@ -44,7 +46,7 @@ public class Base64Encoder
     /*
      * set up the decoding table.
      */
-    protected final byte[] decodingTable = new byte[128];
+    protected final byte[] decodingTable = new byte[256];
 
     protected void initialiseDecodingTable()
     {
@@ -336,5 +338,214 @@ public class Base64Encoder
         }
 
         return length;
+    }
+
+    /**
+     * decode the base 64 encoded byte data writing it to the provided byte array buffer.
+     *
+     * @return the number of bytes produced.
+     */
+    public int decode(byte[] data, int off, int length, byte[] out) throws IOException
+    {
+        byte[]    bytes;
+        byte    b1, b2, b3, b4;
+        int        outLen = 0;
+
+        int        end = off + length;
+
+        while (end > 0)
+        {
+            if (!ignore((char)data[end - 1]))
+            {
+                break;
+            }
+
+            end--;
+        }
+
+        int  i = off;
+        int  finish = end - 4;
+
+        while (i < finish)
+        {
+            while ((i < finish) && ignore((char)data[i]))
+            {
+                i++;
+            }
+
+            b1 = decodingTable[data[i++]];
+
+            while ((i < finish) && ignore((char)data[i]))
+            {
+                i++;
+            }
+
+            b2 = decodingTable[data[i++]];
+
+            while ((i < finish) && ignore((char)data[i]))
+            {
+                i++;
+            }
+
+            b3 = decodingTable[data[i++]];
+
+            while ((i < finish) && ignore((char)data[i]))
+            {
+                i++;
+            }
+
+            b4 = decodingTable[data[i++]];
+
+            out[outLen++] = (byte)((b1 << 2) | (b2 >> 4));
+            out[outLen++] = (byte)((b2 << 4) | (b3 >> 2));
+            out[outLen++] = (byte)((b3 << 6) | b4);
+        }
+
+        if (data[end - 2] == padding)
+        {
+            b1 = decodingTable[data[end - 4]];
+            b2 = decodingTable[data[end - 3]];
+
+            out[outLen++] = (byte)((b1 << 2) | (b2 >> 4));
+        }
+        else if (data[end - 1] == padding)
+        {
+            b1 = decodingTable[data[end - 4]];
+            b2 = decodingTable[data[end - 3]];
+            b3 = decodingTable[data[end - 2]];
+
+            out[outLen++] = (byte)((b1 << 2) | (b2 >> 4));
+            out[outLen++] = (byte)((b2 << 4) | (b3 >> 2));
+        }
+        else
+        {
+            b1 = decodingTable[data[end - 4]];
+            b2 = decodingTable[data[end - 3]];
+            b3 = decodingTable[data[end - 2]];
+            b4 = decodingTable[data[end - 1]];
+
+            out[outLen++] = (byte)((b1 << 2) | (b2 >> 4));
+            out[outLen++] = (byte)((b2 << 4) | (b3 >> 2));
+            out[outLen++] = (byte)((b3 << 6) | b4);
+        }
+
+        return outLen;
+    }
+
+    /**
+     * Test if a character is a valid Base64 encoding character.  This
+     * must be either a valid digit or the padding character ("=").
+     *
+     * @param ch     The test character.
+     *
+     * @return true if this is valid in Base64 encoded data, false otherwise.
+     */
+    public boolean isValidBase64(int ch) {
+        // 'A' has the value 0 in the decoding table, so we need a special one for that
+        return ch == padding || ch == 'A' || decodingTable[ch] != 0;
+    }
+
+
+    /**
+     * Perform RFC-2047 word encoding using Base64 data encoding.
+     *
+     * @param in      The source for the encoded data.
+     * @param charset The charset tag to be added to each encoded data section.
+     * @param out     The output stream where the encoded data is to be written.
+     * @param fold    Controls whether separate sections of encoded data are separated by
+     *                linebreaks or whitespace.
+     *
+     * @exception IOException
+     */
+    public void encodeWord(InputStream in, String charset, OutputStream out, boolean fold) throws IOException
+    {
+        PrintStream writer = new PrintStream(out);
+
+        // encoded words are restricted to 76 bytes, including the control adornments.
+        int limit = 76 - 7 - charset.length();
+        boolean firstLine = true;
+        StringBuffer encodedString = new StringBuffer(76);
+
+        while (true) {
+            // encode the next segment.
+            encode(in, encodedString, limit);
+            // if we're out of data, nothing will be encoded.
+            if (encodedString.length() == 0) {
+                break;
+            }
+
+            // if we have more than one segment, we need to insert separators.  Depending on whether folding
+            // was requested, this is either a blank or a linebreak.
+            if (!firstLine) {
+                if (fold) {
+                    writer.print("\r\n");
+                }
+                else {
+                    writer.print(" ");
+                }
+            }
+
+            // add the encoded word header
+            writer.print("=?");
+            writer.print(charset);
+            writer.print("?B?");
+            // the data
+            writer.print(encodedString.toString());
+            // and the word terminator.
+            writer.print("?=");
+            writer.flush();
+
+            // reset our string buffer for the next segment.
+            encodedString.setLength(0);
+        }
+    }
+
+    /**
+     * encode the input data producing a base 64 output stream.
+     *
+     * @return the number of bytes produced.
+     */
+    public void encode(InputStream in, StringBuffer out, int limit) throws IOException
+    {
+        int count = limit / 4;
+        byte [] inBuffer = new byte[3];
+
+        while (count-- > 0) {
+
+            int readCount = in.read(inBuffer);
+            // did we get a full triplet?  that's an easy encoding.
+            if (readCount == 3) {
+                byte a1 = (byte)(inBuffer[0] & 0xff);
+                byte a2 = (byte)(inBuffer[1] & 0xff);
+                byte a3 = (byte)(inBuffer[2] & 0xff);
+
+                out.append((char)encodingTable[(a1 >>> 2) & 0x3f]);
+                out.append((char)encodingTable[((a1 << 4) | (a2 >>> 4)) & 0x3f]);
+                out.append((char)encodingTable[((a2 << 2) | (a3 >>> 6)) & 0x3f]);
+                out.append((char)encodingTable[a3 & 0x3f]);
+            }
+            else if (readCount <= 0) {
+                // eof condition, don'e entirely.
+                return;
+            }
+            else if (readCount == 1) {
+                byte a1 = (byte)(inBuffer[0] & 0xff);
+                out.append((char)encodingTable[(a1 >>> 2) & 0x3f]);
+                out.append((char)encodingTable[(a1 << 4) & 0x3f]);
+                out.append((char)padding);
+                out.append((char)padding);
+                return;
+            }
+            else if (readCount == 2) {
+                byte a1 = (byte)(inBuffer[0] & 0xff);
+                byte a2 = (byte)(inBuffer[1] & 0xff);
+
+                out.append((char)encodingTable[(a1 >>> 2) & 0x3f]);
+                out.append((char)encodingTable[((a1 << 4) | (a2 >>> 4)) & 0x3f]);
+                out.append((char)encodingTable[(a2 << 2) & 0x3f]);
+                out.append((char)padding);
+                return;
+            }
+        }
     }
 }

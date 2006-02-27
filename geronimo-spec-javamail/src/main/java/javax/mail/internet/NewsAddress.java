@@ -20,7 +20,10 @@ package javax.mail.internet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
+
 import javax.mail.Address;
+
+import sun.security.provider.Sun;
 
 /**
  * A representation of an RFC1036 Internet newsgroup address.
@@ -75,7 +78,8 @@ public class NewsAddress extends Address {
     }
 
     public String toString() {
-        return host == null ? newsgroup : newsgroup + "@" + host;
+        // Sun impl only appears to return the newsgroup name, no host.
+        return newsgroup;
     }
 
     public boolean equals(Object o) {
@@ -92,7 +96,7 @@ public class NewsAddress extends Address {
 
     public int hashCode() {
         int result;
-        result = (host != null ? host.hashCode() : 0);
+        result = (host != null ? host.toLowerCase().hashCode() : 0);
         result = 29 * result + (newsgroup != null ? newsgroup.hashCode() : 0);
         return result;
     }
@@ -135,7 +139,7 @@ public class NewsAddress extends Address {
         if (addresses.length == 0) {
             return "";
         }
-        
+
         StringBuffer result = new StringBuffer(addresses.length * 32);
         result.append(addresses[0]);
         for (int i = 1; i < addresses.length; i++) {
