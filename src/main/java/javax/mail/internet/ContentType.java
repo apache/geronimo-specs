@@ -28,7 +28,7 @@ public class ContentType {
     private String _major;
 
     public ContentType() {
-        this("text", "plain", new ParameterList());
+        // the Sun version makes everything null here.
     }
 
     public ContentType(String major, String minor, ParameterList list) {
@@ -38,18 +38,36 @@ public class ContentType {
     }
 
     public ContentType(String type) throws ParseException {
-        final int slash = type.indexOf("/");
-        final int semi = type.indexOf(";");
-        try {
-            _major = type.substring(0, slash);
-            if (semi == -1) {
-                _minor = type.substring(slash + 1);
-            } else {
-                _minor = type.substring(slash + 1, semi);
-                _list = new ParameterList(type.substring(semi + 1));
-            }
-        } catch (StringIndexOutOfBoundsException e) {
-            throw new ParseException("Type invalid: " + type);
+        // get a token parser for the type information
+        HeaderTokenizer tokenizer = new HeaderTokenizer(type, HeaderTokenizer.MIME);
+
+        // get the first token, which must be an ATOM
+        HeaderTokenizer.Token token = tokenizer.next();
+        if (token.getType() != HeaderTokenizer.Token.ATOM) {
+            throw new ParseException("Invalid content type");
+        }
+
+        _major = token.getValue();
+
+        // the MIME type must be major/minor
+        token = tokenizer.next();
+        if (token.getType() != '/') {
+            throw new ParseException("Invalid content type");
+        }
+
+
+        // this must also be an atom.  Content types are not permitted to be wild cards.
+        token = tokenizer.next();
+        if (token.getType() != HeaderTokenizer.Token.ATOM) {
+            throw new ParseException("Invalid content type");
+        }
+
+        _minor = token.getValue();
+
+        // the remainder is parameters, which ParameterList will take care of parsing.
+        String remainder = tokenizer.getRemainder();
+        if (remainder != null) {
+            _list = new ParameterList(remainder);
         }
     }
 
@@ -93,12 +111,16 @@ public class ContentType {
     }
 
     public String toString() {
-        return getBaseType() + (_list == null ? "" : ";" + _list.toString());
+        if (_major == null || _minor == null) {
+            return null;
+        }
+
+        return getBaseType() + (_list == null ? "" : _list.toString());
     }
 
     public boolean match(ContentType other) {
-        return _major.equals(other._major)
-                && (_minor.equals(other._minor)
+        return _major.equalsIgnoreCase(other._major)
+                && (_minor.equalsIgnoreCase(other._minor)
                 || _minor.equals("*")
                 || other._minor.equals("*"));
     }

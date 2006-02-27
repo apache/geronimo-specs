@@ -28,7 +28,7 @@ public class NewsAddressTest extends TestCase {
         assertEquals("geronimo-dev", na.getNewsgroup());
         assertEquals("news.apache.org", na.getHost());
         assertEquals("news", na.getType());
-        assertEquals("geronimo-dev@news.apache.org", na.toString());
+        assertEquals("geronimo-dev", na.toString());
         NewsAddress[] nas =
             NewsAddress.parse(
                 "geronimo-dev@news.apache.org, geronimo-user@news.apache.org");

@@ -89,58 +89,189 @@ public class HeaderTokenizer {
     }
 
     /**
-     * @return
+     * Read an ATOM token from the parsed header.
+     *
+     * @return A token containing the value of the atom token.
      */
     private Token readAtomicToken() {
         // skip to next delimiter
         int start = pos;
-        while (++pos < _header.length()
-                && _delimiters.indexOf(_header.charAt(pos)) == -1)
-            ;
+        while (++pos < _header.length()) {
+            // break on the first non-atom character.
+            char ch = _header.charAt(pos);
+            if (_delimiters.indexOf(_header.charAt(pos)) != -1 || ch < 32 || ch >= 127) {
+                break;
+            }
+        }
+
         return new Token(Token.ATOM, _header.substring(start, pos));
     }
 
+    /**
+     * Read the next token from the header.
+     *
+     * @return The next token from the header.  White space is skipped, and comment
+     *         tokens are also skipped if indicated.
+     * @exception ParseException
+     */
     private Token readToken() throws ParseException {
         if (pos >= _header.length()) {
             return EOF;
         } else {
             char c = _header.charAt(pos);
+            // comment token...read and skip over this
             if (c == '(') {
-                Token comment = readUntil(')', Token.COMMENT);
+                Token comment = readComment();
                 if (_skip) {
                     return readToken();
                 } else {
                     return comment;
                 }
+                // quoted literal
             } else if (c == '\"') {
-                return readUntil('\"', Token.QUOTEDSTRING);
+                return readQuotedString();
+            // white space, eat this and find a real token.
             } else if (WHITE.indexOf(c) != -1) {
                 eatWhiteSpace();
                 return readToken();
-            } else if (_delimiters.indexOf(c) != -1) {
+            // either a CTL or special.  These characters have a self-defining token type.
+            } else if (c < 32 || c >= 127 || _delimiters.indexOf(c) != -1) {
                 pos++;
-                return new Token(Token.ATOM, String.valueOf(c));
+                return new Token((int)c, String.valueOf(c));
             } else {
+                // start of an atom, parse it off.
                 return readAtomicToken();
             }
         }
     }
 
     /**
-     * @return
+     * Extract a substring from the header string and apply any
+     * escaping/folding rules to the string.
+     *
+     * @param start  The starting offset in the header.
+     * @param end    The header end offset + 1.
+     *
+     * @return The processed string value.
+     * @exception ParseException
      */
-    private Token readUntil(char end, int type) {
-        int start = ++pos;
-        // skip to end of comment/string
-        while (++pos < _header.length()
-                && _header.charAt(pos) != end)
-            ;
-        String value = _header.substring(start, pos++);
-        return new Token(type, value);
+    private String getEscapedValue(int start, int end) throws ParseException {
+        StringBuffer value = new StringBuffer();
+
+        for (int i = start; i < end; i++) {
+            char ch = _header.charAt(i);
+            // is this an escape character?
+            if (ch == '\\') {
+                i++;
+                if (i == end) {
+                    throw new ParseException("Invalid escape character");
+                }
+                value.append(_header.charAt(i));
+            }
+            // line breaks are ignored, except for naked '\n' characters, which are consider
+            // parts of linear whitespace.
+            else if (ch == '\r') {
+                // see if this is a CRLF sequence, and skip the second if it is.
+                if (i < end - 1 && _header.charAt(i + 1) == '\n') {
+                    i++;
+                }
+            }
+            else {
+                // just append the ch value.
+                value.append(ch);
+            }
+        }
+        return value.toString();
     }
 
     /**
-     * @return
+     * Read a comment from the header, applying nesting and escape
+     * rules to the content.
+     *
+     * @return A comment token with the token value.
+     * @exception ParseException
+     */
+    private Token readComment() throws ParseException {
+        int start = pos + 1;
+        int nesting = 1;
+
+        boolean requiresEscaping = false;
+
+        // skip to end of comment/string
+        while (++pos < _header.length()) {
+            char ch = _header.charAt(pos);
+            if (ch == ')') {
+                nesting--;
+                if (nesting == 0) {
+                    break;
+                }
+            }
+            else if (ch == '(') {
+                nesting++;
+            }
+            else if (ch == '\\') {
+                pos++;
+                requiresEscaping = true;
+            }
+            // we need to process line breaks also
+            else if (ch == '\r') {
+                requiresEscaping = true;
+            }
+        }
+
+        if (nesting != 0) {
+            throw new ParseException("Unbalanced comments");
+        }
+
+        String value;
+        if (requiresEscaping) {
+            value = getEscapedValue(start, pos);
+        }
+        else {
+            value = _header.substring(start, pos++);
+        }
+        return new Token(Token.COMMENT, value);
+    }
+
+    /**
+     * Parse out a quoted string from the header, applying escaping
+     * rules to the value.
+     *
+     * @return The QUOTEDSTRING token with the value.
+     * @exception ParseException
+     */
+    private Token readQuotedString() throws ParseException {
+        int start = pos+1;
+        boolean requiresEscaping = false;
+
+        // skip to end of comment/string
+        while (++pos < _header.length()) {
+            char ch = _header.charAt(pos);
+            if (ch == '"') {
+                String value;
+                if (requiresEscaping) {
+                    value = getEscapedValue(start, pos);
+                }
+                else {
+                    value = _header.substring(start, pos++);
+                }
+                return new Token(Token.QUOTEDSTRING, value);
+            }
+            else if (ch == '\\') {
+                pos++;
+                requiresEscaping = true;
+            }
+            // we need to process line breaks also
+            else if (ch == '\r') {
+                requiresEscaping = true;
+            }
+        }
+
+        throw new ParseException("Missing '\"'");
+    }
+
+    /**
+     * Skip white space in the token string.
      */
     private void eatWhiteSpace() {
         // skip to end of whitespace

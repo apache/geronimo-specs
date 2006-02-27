@@ -30,43 +30,103 @@ public class HeaderTokenizerTest extends TestCase {
         HeaderTokenizer ht;
         ht =
             new HeaderTokenizer("To: \"Geronimo List\" <geronimo-dev@apache.org>, \n\r Geronimo User <geronimo-user@apache.org>");
-        assertEquals("To", ht.peek().getValue());
-        assertEquals("To", ht.next().getValue());
-        assertEquals(":", ht.peek().getValue());
-        assertEquals(":", ht.next().getValue());
-        t = ht.next();
-        assertEquals("Geronimo List", t.getValue());
-        assertEquals(Token.QUOTEDSTRING, t.getType());
-        assertEquals("<", ht.next().getValue());
-        assertEquals("geronimo-dev", ht.next().getValue());
-        assertEquals("@", ht.next().getValue());
-        assertEquals("apache", ht.next().getValue());
-        assertEquals(".", ht.next().getValue());
-        assertEquals("org", ht.next().getValue());
-        assertEquals(">", ht.next().getValue());
-        assertEquals(",", ht.next().getValue());
-        assertEquals("Geronimo", ht.next().getValue());
-        assertEquals("User", ht.next().getValue());
-        assertEquals("<", ht.next().getValue());
-        assertEquals("geronimo-user", ht.next().getValue());
-        assertEquals("@", ht.next().getValue());
-        assertEquals("apache", ht.next().getValue());
-        assertEquals(".", ht.next().getValue());
+        validateToken(ht.peek(), Token.ATOM, "To");
+        validateToken(ht.next(), Token.ATOM, "To");
+        validateToken(ht.peek(), ':', ":");
+        validateToken(ht.next(), ':', ":");
+        validateToken(ht.next(), Token.QUOTEDSTRING, "Geronimo List");
+        validateToken(ht.next(), '<', "<");
+        validateToken(ht.next(), Token.ATOM, "geronimo-dev");
+        validateToken(ht.next(), '@', "@");
+        validateToken(ht.next(), Token.ATOM, "apache");
+        validateToken(ht.next(), '.', ".");
+        validateToken(ht.next(), Token.ATOM, "org");
+        validateToken(ht.next(), '>', ">");
+        validateToken(ht.next(), ',', ",");
+        validateToken(ht.next(), Token.ATOM, "Geronimo");
+        validateToken(ht.next(), Token.ATOM, "User");
+        validateToken(ht.next(), '<', "<");
+        validateToken(ht.next(), Token.ATOM, "geronimo-user");
+        validateToken(ht.next(), '@', "@");
+        validateToken(ht.next(), Token.ATOM, "apache");
+        validateToken(ht.next(), '.', ".");
         assertEquals("org>", ht.getRemainder());
-        assertEquals("org", ht.peek().getValue());
-        assertEquals("org>", ht.getRemainder());
-        assertEquals("org", ht.next().getValue());
-        assertEquals(">", ht.next().getValue());
+        validateToken(ht.peek(), Token.ATOM, "org");
+        validateToken(ht.next(), Token.ATOM, "org");
+        validateToken(ht.next(), '>', ">");
         assertEquals(Token.EOF, ht.next().getType());
         ht = new HeaderTokenizer("   ");
         assertEquals(Token.EOF, ht.next().getType());
         ht = new HeaderTokenizer("J2EE");
-        assertEquals("J2EE", ht.next().getValue());
+        validateToken(ht.next(), Token.ATOM, "J2EE");
         assertEquals(Token.EOF, ht.next().getType());
         // test comments
         doComment(true);
         doComment(false);
     }
+
+    public void testErrors() throws ParseException {
+        checkParseError("(Geronimo");
+        checkParseError("((Geronimo)");
+        checkParseError("\"Geronimo");
+        checkParseError("\"Geronimo\\");
+    }
+
+
+    public void testQuotedLiteral() throws ParseException {
+        checkTokenParse("\"\"", Token.QUOTEDSTRING, "");
+        checkTokenParse("\"\\\"\"", Token.QUOTEDSTRING, "\"");
+        checkTokenParse("\"\\\"\"", Token.QUOTEDSTRING, "\"");
+        checkTokenParse("\"A\r\nB\"", Token.QUOTEDSTRING, "AB");
+        checkTokenParse("\"A\nB\"", Token.QUOTEDSTRING, "A\nB");
+    }
+
+
+    public void testComment() throws ParseException {
+        checkTokenParse("()", Token.COMMENT, "");
+        checkTokenParse("(())", Token.COMMENT, "()");
+        checkTokenParse("(Foo () Bar)", Token.COMMENT, "Foo () Bar");
+        checkTokenParse("(\"Foo () Bar)", Token.COMMENT, "\"Foo () Bar");
+        checkTokenParse("(\\()", Token.COMMENT, "(");
+        checkTokenParse("(Foo \r\n Bar)", Token.COMMENT, "Foo  Bar");
+        checkTokenParse("(Foo \n Bar)", Token.COMMENT, "Foo \n Bar");
+    }
+
+    public void checkTokenParse(String text, int type, String value) throws ParseException {
+        HeaderTokenizer ht;
+        ht = new HeaderTokenizer(text, HeaderTokenizer.RFC822, false);
+        validateToken(ht.next(), type, value);
+    }
+
+
+    public void checkParseError(String text) throws ParseException {
+        Token t;
+        HeaderTokenizer ht;
+
+        System.out.println("Doing error test with " + text);
+        ht = new HeaderTokenizer(text);
+        doNextError(ht);
+        ht = new HeaderTokenizer(text);
+        doPeekError(ht);
+    }
+
+    public void doNextError(HeaderTokenizer ht) {
+        try {
+            ht.next();
+            fail("Expected ParseException");
+        } catch (ParseException e) {
+        }
+    }
+
+    public void doPeekError(HeaderTokenizer ht) {
+        try {
+            ht.peek();
+            fail("Expected ParseException");
+        } catch (ParseException e) {
+        }
+    }
+
+
     public void doComment(boolean ignore) throws ParseException {
         HeaderTokenizer ht;
         Token t;
@@ -75,17 +135,28 @@ public class HeaderTokenizerTest extends TestCase {
                 "Apache(Geronimo)J2EE",
                 HeaderTokenizer.RFC822,
                 ignore);
-        t = ht.next();
-        assertEquals("Apache", t.getValue());
-        assertEquals(Token.ATOM, t.getType());
+        validateToken(ht.next(), Token.ATOM, "Apache");
         if (!ignore) {
-            t = ht.next();
-            assertEquals("Geronimo", t.getValue());
-            assertEquals(Token.COMMENT, t.getType());
+            validateToken(ht.next(), Token.COMMENT, "Geronimo");
         }
-        t = ht.next();
-        assertEquals("J2EE", t.getValue());
-        assertEquals(Token.ATOM, t.getType());
+        validateToken(ht.next(), Token.ATOM, "J2EE");
         assertEquals(Token.EOF, ht.next().getType());
+
+        ht =
+            new HeaderTokenizer(
+                "Apache(Geronimo (Project))J2EE",
+                HeaderTokenizer.RFC822,
+                ignore);
+        validateToken(ht.next(), Token.ATOM, "Apache");
+        if (!ignore) {
+            validateToken(ht.next(), Token.COMMENT, "Geronimo (Project)");
+        }
+        validateToken(ht.next(), Token.ATOM, "J2EE");
+        assertEquals(Token.EOF, ht.next().getType());
+    }
+
+    private void validateToken(HeaderTokenizer.Token token, int type, String value) {
+        assertEquals(token.getType(), type);
+        assertEquals(token.getValue(), value);
     }
 }

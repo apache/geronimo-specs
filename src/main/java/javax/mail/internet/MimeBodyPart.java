@@ -22,16 +22,27 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.Enumeration;
 import javax.activation.DataHandler;
 import javax.mail.BodyPart;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
+import javax.mail.Part;
+import javax.mail.internet.HeaderTokenizer.Token;
+
+import org.apache.geronimo.mail.util.SessionUtil;
+import org.apache.geronimo.mail.util.ASCIIUtil;
 
 /**
  * @version $Rev$ $Date$
  */
 public class MimeBodyPart extends BodyPart implements MimePart {
+	 // constants for accessed properties
+    protected static final String MIME_DECODEFILENAME = "mail.mime.decodefilename";
+    protected static final String MIME_SETDEFAULTTEXTCHARSET = "mail.mime.setdefaulttextcharset";
+
+
     /**
      * The {@link DataHandler} for this Message's content.
      */
@@ -74,9 +85,27 @@ public class MimeBodyPart extends BodyPart implements MimePart {
         this.content = content;
     }
 
+    /**
+     * Return the content size of this message.  This is obtained
+     * either from the size of the content field (if available) or
+     * from the contentStream, IFF the contentStream returns a positive
+     * size.  Returns -1 if the size is not available.
+     *
+     * @return Size of the content in bytes.
+     * @exception MessagingException
+     */
     public int getSize() throws MessagingException {
         if (content != null) {
             return content.length;
+        }
+        if (contentStream != null) {
+            try {
+                int size = contentStream.available();
+                if (size > 0) {
+                    return size;
+                }
+            } catch (IOException e) {
+            }
         }
         return -1;
     }
@@ -93,28 +122,107 @@ public class MimeBodyPart extends BodyPart implements MimePart {
         return value;
     }
 
+    /**
+     * Tests to see if this message has a mime-type match with the
+     * given type name.
+     *
+     * @param type   The tested type name.
+     *
+     * @return If this is a type match on the primary and secondare portion of the types.
+     * @exception MessagingException
+     */
     public boolean isMimeType(String type) throws MessagingException {
         return new ContentType(getContentType()).match(type);
     }
 
+    /**
+     * Retrieve the message "Content-Disposition" header field.
+     * This value represents how the part should be represented to
+     * the user.
+     *
+     * @return The string value of the Content-Disposition field.
+     * @exception MessagingException
+     */
     public String getDisposition() throws MessagingException {
-        return getSingleHeader("Content-Disposition");
+        String disp = getSingleHeader("Content-Disposition");
+        if (disp != null) {
+            return new ContentDisposition(disp).getDisposition();
+        }
+        return null;
     }
 
+    /**
+     * Set a new dispostion value for the "Content-Disposition" field.
+     * If the new value is null, the header is removed.
+     *
+     * @param disposition
+     *               The new disposition value.
+     *
+     * @exception MessagingException
+     */
     public void setDisposition(String disposition) throws MessagingException {
-        setHeader("Content-Disposition", disposition);
+        if (disposition == null) {
+            removeHeader("Content-Disposition");
+        }
+        else {
+            // the disposition has parameters, which we'll attempt to preserve in any existing header.
+            String currentHeader = getSingleHeader("Content-Disposition");
+            if (currentHeader != null) {
+                ContentDisposition content = new ContentDisposition(currentHeader);
+                content.setDisposition(disposition);
+                setHeader("Content-Disposition", content.toString());
+            }
+            else {
+                // set using the raw string.
+                setHeader("Content-Disposition", disposition);
+            }
+        }
     }
 
+    /**
+     * Retrieves the current value of the "Content-Transfer-Encoding"
+     * header.  Returns null if the header does not exist.
+     *
+     * @return The current header value or null.
+     * @exception MessagingException
+     */
     public String getEncoding() throws MessagingException {
-        return getSingleHeader("Content-Transfer-Encoding");
+        // this might require some parsing to sort out.
+        String encoding = getSingleHeader("Content-Transfer-Encoding");
+        if (encoding != null) {
+            // we need to parse this into ATOMs and other constituent parts.  We want the first
+            // ATOM token on the string.
+            HeaderTokenizer tokenizer = new HeaderTokenizer(encoding, HeaderTokenizer.MIME);
+
+            Token token = tokenizer.next();
+            while (token.getType() != Token.EOF) {
+                // if this is an ATOM type, return it.
+                if (token.getType() == Token.ATOM) {
+                    return token.getValue();
+                }
+            }
+            // not ATOMs found, just return the entire header value....somebody might be able to make sense of
+            // this.
+            return encoding;
+        }
+        // no header, nothing to return.
+        return null;
     }
 
+
+    /**
+     * Retrieve the value of the "Content-ID" header.  Returns null
+     * if the header does not exist.
+     *
+     * @return The current header value or null.
+     * @exception MessagingException
+     */
     public String getContentID() throws MessagingException {
         return getSingleHeader("Content-ID");
     }
 
     public void setContentID(String cid) throws MessagingException {
-        setHeader("Content-ID", cid);
+        setOrRemoveHeader("Content-ID", cid);
     }
 
     public String getContentMD5() throws MessagingException {
@@ -130,7 +238,7 @@ public class MimeBodyPart extends BodyPart implements MimePart {
     }
 
     public void setContentLanguage(String[] languages) throws MessagingException {
-        if (languages == null || languages.length == 0) {
+        if (languages == null) {
             removeHeader("Content-Language");
         } else if (languages.length == 1) {
             setHeader("Content-Language", languages[0]);
@@ -149,22 +257,78 @@ public class MimeBodyPart extends BodyPart implements MimePart {
     }
 
     public void setDescription(String description) throws MessagingException {
-        setHeader("Content-Description", description);
+        setDescription(description, null);
     }
 
     public void setDescription(String description, String charset) throws MessagingException {
-        // todo encoding
-        setHeader("Content-Description", description);
+        if (description == null) {
+            removeHeader("Content-Description");
+        }
+        else {
+            try {
+                setHeader("Content-Description", ASCIIUtil.fold(21, MimeUtility.encodeText(description, charset, null)));
+            } catch (UnsupportedEncodingException e) {
+                throw new MessagingException(e.getMessage(), e);
+            }
+        }
     }
 
     public String getFileName() throws MessagingException {
-        // TODO Implement method
-        throw new UnsupportedOperationException("Method not yet implemented");
+        // see if there is a disposition.  If there is, parse off the filename parameter.
+        String disposition = getDisposition();
+        String filename = null;
+
+        if (disposition != null) {
+            filename = new ContentDisposition(disposition).getParameter("filename");
+        }
+
+        // if there's no filename on the disposition, there might be a name parameter on a
+        // Content-Type header.
+        if (filename == null) {
+            String type = getContentType();
+            if (type != null) {
+                try {
+                    filename = new ContentType(type).getParameter("name");
+                } catch (ParseException e) {
+                }
+            }
+        }
+        // if we have a name, we might need to decode this if an additional property is set.
+        if (filename != null && SessionUtil.getBooleanProperty(MIME_DECODEFILENAME, false)) {
+            try {
+                filename = MimeUtility.decodeText(filename);
+            } catch (UnsupportedEncodingException e) {
+                throw new MessagingException("Unable to decode filename", e);
+            }
+        }
+
+        return filename;
     }
 
+
     public void setFileName(String name) throws MessagingException {
-        // TODO Implement method
-        throw new UnsupportedOperationException("Method not yet implemented");
+        // there's an optional session property that requests file name encoding...we need to process this before
+        // setting the value.
+        if (name == null) {
+            try {
+                name = MimeUtility.encodeText(name);
+            } catch (UnsupportedEncodingException e) {
+                throw new MessagingException("Unable to encode filename", e);
+            }
+        }
+
+        // get the disposition string.
+        String disposition = getDisposition();
+        // if not there, then this is an attachment.
+        if (disposition == null) {
+            disposition = Part.ATTACHMENT;
+        }
+        // now create a disposition object and set the parameter.
+        ContentDisposition contentDisposition = new ContentDisposition(disposition);
+        contentDisposition.setParameter("filename", name);
+
+        // serialize this back out and reset.
+        setDisposition(contentDisposition.toString());
     }
 
     public InputStream getInputStream() throws MessagingException, IOException {
@@ -172,6 +336,10 @@ public class MimeBodyPart extends BodyPart implements MimePart {
     }
 
     protected InputStream getContentStream() throws MessagingException {
+        if (contentStream != null) {
+            return contentStream;
+        }
+
         if (content != null) {
             return new ByteArrayInputStream(content);
         } else {
@@ -203,11 +371,21 @@ public class MimeBodyPart extends BodyPart implements MimePart {
     }
 
     public void setText(String text) throws MessagingException {
-        setText(text, MimeUtility.getDefaultJavaCharset());
+        setText(text, null);
     }
 
     public void setText(String text, String charset) throws MessagingException {
-        setContent(text, "text/plain; charset=" + charset);
+        // we need to sort out the character set if one is not provided.
+        if (charset == null) {
+            // if we have non us-ascii characters here, we need to adjust this.
+            if (!ASCIIUtil.isAscii(text)) {
+                charset = MimeUtility.getDefaultMIMECharset();
+            }
+            else {
+                charset = "us-ascii";
+            }
+        }
+        setContent(text, "text/plain; charset=" + MimeUtility.quote(charset, HeaderTokenizer.MIME));
     }
 
     public void setContent(Multipart part) throws MessagingException {
@@ -217,9 +395,11 @@ public class MimeBodyPart extends BodyPart implements MimePart {
 
     public void writeTo(OutputStream out) throws IOException, MessagingException {
         headers.writeTo(out, null);
-        out.write(13);
-        out.write(10);
-        getDataHandler().writeTo(out);
+        // add the separater between the headers and the data portion.
+        out.write('\r');
+        out.write('\n');
+        // we need to process this using the transfer encoding type
+        getDataHandler().writeTo(MimeUtility.encode(out, getEncoding()));
     }
 
     public String[] getHeader(String name) throws MessagingException {
@@ -232,6 +412,25 @@ public class MimeBodyPart extends BodyPart implements MimePart {
 
     public void setHeader(String name, String value) throws MessagingException {
         headers.setHeader(name, value);
+    }
+
+    /**
+     * Conditionally set or remove a named header.  If the new value
+     * is null, the header is removed.
+     *
+     * @param name   The header name.
+     * @param value  The new header value.  A null value causes the header to be
+     *               removed.
+     *
+     * @exception MessagingException
+     */
+    private void setOrRemoveHeader(String name, String value) throws MessagingException {
+        if (value == null) {
+            headers.removeHeader(name);
+        }
+        else {
+            headers.setHeader(name, value);
+        }
     }
 
     public void addHeader(String name, String value) throws MessagingException {
@@ -271,6 +470,77 @@ public class MimeBodyPart extends BodyPart implements MimePart {
     }
 
     protected void updateHeaders() throws MessagingException {
+        DataHandler handler = getDataHandler();
+
+        try {
+            // figure out the content type.  If not set, we'll need to figure this out.
+            String type = getContentType();
+            // parse this content type out so we can do matches/compares.
+            ContentType content = new ContentType(type);
+            // is this a multipart content?
+            if (content.match("multipart/*")) {
+                // the content is suppose to be a MimeMultipart.  Ping it to update it's headers as well.
+                try {
+                    MimeMultipart part = (MimeMultipart)handler.getContent();
+                    part.updateHeaders();
+                } catch (ClassCastException e) {
+                    throw new MessagingException("Message content is not MimeMultipart", e);
+                }
+            }
+            else if (!content.match("message/rfc822")) {
+                // simple part, we need to update the header type information
+                // if no encoding is set yet, figure this out from the data handler.
+                if (getHeader("Content-Transfer-Encoding") == null) {
+                    setHeader("Content-Transfer-Encoding", MimeUtility.getEncoding(handler));
+                }
+
+                // is a content type header set?  Check the property to see if we need to set this.
+                if (getHeader("Content-Type") == null) {
+                    if (SessionUtil.getBooleanProperty(MIME_SETDEFAULTTEXTCHARSET, true)) {
+                        // is this a text type?  Figure out the encoding and make sure it is set.
+                        if (content.match("text/*")) {
+                            // the charset should be specified as a parameter on the MIME type.  If not there,
+                            // try to figure one out.
+                            if (content.getParameter("charset") == null) {
+
+                                String encoding = getEncoding();
+                                // if we're sending this as 7-bit ASCII, our character set need to be
+                                // compatible.
+                                if (encoding != null && encoding.equalsIgnoreCase("7bit")) {
+                                    content.setParameter("charset", "us-ascii");
+                                }
+                                else {
+                                    // get the global default.
+                                    content.setParameter("charset", MimeUtility.getDefaultMIMECharset());
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            // if we don't have a content type header, then create one.
+            if (getHeader("Content-Type") == null) {
+                // get the disposition header, and if it is there, copy the filename parameter into the
+                // name parameter of the type.
+                String disp = getHeader("Content-Disposition", null);
+                if (disp != null) {
+                    // parse up the string value of the disposition
+                    ContentDisposition disposition = new ContentDisposition(disp);
+                    // now check for a filename value
+                    String filename = disposition.getParameter("filename");
+                    // copy and rename the parameter, if it exists.
+                    if (filename != null) {
+                        content.setParameter("name", filename);
+                    }
+                }
+                // set the header with the updated content type information.
+                setHeader("Content-Type", content.toString());
+            }
+
+        } catch (IOException e) {
+            throw new MessagingException("Error updating message headers", e);
+        }
     }
 
     private String getSingleHeader(String name) throws MessagingException {

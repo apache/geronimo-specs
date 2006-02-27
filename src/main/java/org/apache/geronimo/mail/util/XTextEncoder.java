@@ -59,6 +59,8 @@ public class XTextEncoder
         OutputStream    out)
         throws IOException
     {
+        int bytesWritten = 0;
+
         for (int i = off; i < (off + length); i++)
         {
             int    v = data[i] & 0xff;
@@ -67,14 +69,16 @@ public class XTextEncoder
                 out.write((byte)'+');
                 out.write(encodingTable[(v >>> 4)]);
                 out.write(encodingTable[v & 0xf]);
+                bytesWritten += 3;
             }
             else {
                 // add unchanged.
                 out.write((byte)v);
+                bytesWritten++;
             }
         }
 
-        return length * 2;
+        return bytesWritten;
     }
 
 

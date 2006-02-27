@@ -129,8 +129,13 @@ public class InternetAddress extends Address implements Cloneable {
      * @throws UnsupportedEncodingException if the name cannot be encoded
      */
     public void setPersonal(String name, String charset) throws UnsupportedEncodingException {
-        encodedPersonal = MimeUtility.encodeWord(name, charset, null);
         personal = name;
+        if (name != null) {
+            encodedPersonal = MimeUtility.encodeWord(name, charset, null);
+        }
+        else {
+            encodedPersonal = null;
+        }
     }
 
     /**
@@ -142,8 +147,13 @@ public class InternetAddress extends Address implements Cloneable {
      * @throws UnsupportedEncodingException if the name cannot be encoded
      */
     public void setPersonal(String name) throws UnsupportedEncodingException {
-        encodedPersonal = MimeUtility.encodeWord(name);
         personal = name;
+        if (name != null) {
+            encodedPersonal = MimeUtility.encodeWord(name);
+        }
+        else {
+            encodedPersonal = null;
+        }
     }
 
     /**

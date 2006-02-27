@@ -26,14 +26,14 @@ public class ParameterListTest extends TestCase {
     }
     public void testParameters() throws ParseException {
         ParameterList list =
-            new ParameterList("thing=value;thong=vulue;thung=git");
+            new ParameterList(";thing=value;thong=vulue;thung=git");
         assertEquals("value", list.get("thing"));
         assertEquals("vulue", list.get("thong"));
         assertEquals("git", list.get("thung"));
     }
 
     public void testQuotedParameter() throws ParseException {
-        ParameterList list = new ParameterList("foo=one;bar=\"two\"");
+        ParameterList list = new ParameterList(";foo=one;bar=\"two\"");
         assertEquals("one", list.get("foo"));
         assertEquals("two", list.get("bar"));
     }

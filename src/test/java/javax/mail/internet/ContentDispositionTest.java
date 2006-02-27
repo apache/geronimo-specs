@@ -26,7 +26,7 @@ public class ContentDispositionTest extends TestCase {
     public ContentDispositionTest(String name) {
         super(name);
     }
-    
+
     public void testContentDisposition() throws ParseException {
         ContentDisposition c;
         c = new ContentDisposition();
@@ -38,15 +38,15 @@ public class ContentDispositionTest extends TestCase {
         assertEquals("inline",c.getDisposition());
         c.setParameter("file","file.txt");
         assertEquals("file.txt",c.getParameterList().get("file"));
-        assertEquals("inline;file=file.txt",c.toString());
+        assertEquals("inline; file=file.txt",c.toString());
         c = new ContentDisposition("inline");
         assertEquals(0,c.getParameterList().size());
         assertEquals("inline",c.getDisposition());
-        c = new ContentDisposition("inline",new ParameterList("charset=us-ascii;content-type=text/plain"));
+        c = new ContentDisposition("inline",new ParameterList(";charset=us-ascii;content-type=\"text/plain\""));
         assertEquals("inline",c.getDisposition());
         assertEquals("us-ascii",c.getParameter("charset"));
         assertEquals("text/plain",c.getParameter("content-type"));
-        c = new ContentDisposition("attachment;content-type=text/html;charset=UTF-8");
+        c = new ContentDisposition("attachment;content-type=\"text/html\";charset=UTF-8");
         assertEquals("attachment",c.getDisposition());
         assertEquals("UTF-8",c.getParameter("charset"));
         assertEquals("text/html",c.getParameter("content-type"));

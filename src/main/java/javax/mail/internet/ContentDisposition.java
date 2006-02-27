@@ -32,14 +32,22 @@ public class ContentDisposition {
     }
 
     public ContentDisposition(String disposition) throws ParseException {
-        ParameterList list = null;
-        int semicolon;
-        if (disposition != null && (semicolon = disposition.indexOf(";")) != -1) {
-            list = new ParameterList(disposition.substring(semicolon + 1));
-            disposition = disposition.substring(0, semicolon);
+        // get a token parser for the type information
+        HeaderTokenizer tokenizer = new HeaderTokenizer(disposition, HeaderTokenizer.MIME);
+
+        // get the first token, which must be an ATOM
+        HeaderTokenizer.Token token = tokenizer.next();
+        if (token.getType() != HeaderTokenizer.Token.ATOM) {
+            throw new ParseException("Invalid content disposition");
         }
-        setDisposition(disposition);
-        setParameterList(list);
+
+        _disposition = token.getValue();
+
+        // the remainder is parameters, which ParameterList will take care of parsing.
+        String remainder = tokenizer.getRemainder();
+        if (remainder != null) {
+            _list = new ParameterList(remainder);
+        }
     }
 
     public ContentDisposition(String disposition, ParameterList list) {
@@ -68,7 +76,9 @@ public class ContentDisposition {
     }
 
     public void setParameter(String name, String value) {
-        _list = new ParameterList();
+        if (_list == null) {
+            _list = new ParameterList();
+        }
         _list.set(name, value);
     }
 
@@ -81,10 +91,20 @@ public class ContentDisposition {
     }
 
     public String toString() {
-        if (_disposition == null && _list.size() == 0) {
+        // it is possible we might have a parameter list, but this is meaningless if
+        // there is no disposition string.  Return a failure.
+        if (_disposition == null) {
             return null;
         }
-        return (_disposition == null ? "" : _disposition)
-                + (_list.size() == 0 ? "" : _list.toString());
+
+
+        // no parameter list?  Just return the disposition string
+        if (_list == null) {
+            return _disposition;
+        }
+
+        // format this for use on a Content-Disposition header, which means we need to
+        // account for the length of the header part too.
+        return _disposition + _list.toString(21 + _disposition.length());
     }
 }
