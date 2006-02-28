@@ -339,9 +339,6 @@ public class MimeMessageTest extends TestCase {
         msg.setSubject(complexSubject, "UTF-8");
         assertEquals(msg.getSubject(), complexSubject);
 
-        msg.setSubject(complexSubject);
-        assertEquals(msg.getSubject(), mungedSubject);
-
         msg.setSubject(null);
         assertNull(msg.getSubject());
     }
@@ -361,9 +358,6 @@ public class MimeMessageTest extends TestCase {
 
         msg.setDescription(complexSubject, "UTF-8");
         assertEquals(msg.getDescription(), complexSubject);
-
-        msg.setDescription(complexSubject);
-        assertEquals(msg.getDescription(), mungedSubject);
 
         msg.setDescription(null);
         assertNull(msg.getDescription());
