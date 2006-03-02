@@ -73,11 +73,92 @@ public abstract class Transport extends Service {
 
         message.saveChanges();
 
+        // Since we might be sending to multiple protocols, we need to catch and process each exception
+        // when we send and then throw a new SendFailedException when everything is done.  Unfortunately, this
+        // also means unwrapping the information in any SendFailedExceptions we receive and building
+        // composite failed list.
+        MessagingException chainedException = null;
+        ArrayList sentAddresses = new ArrayList();
+        ArrayList unsentAddresses = new ArrayList();
+        ArrayList invalidAddresses = new ArrayList();
+
+
         for (Iterator i = msgsByTransport.entrySet().iterator(); i.hasNext();) {
             Map.Entry entry = (Map.Entry) i.next();
             Transport transport = (Transport) entry.getKey();
             List addrs = (List) entry.getValue();
-            transport.sendMessage(message, (Address[]) addrs.toArray(new Address[addrs.size()]));
+            try {
+                // we MUST connect to the transport before attempting to send.
+                transport.connect();
+                transport.sendMessage(message, (Address[]) addrs.toArray(new Address[addrs.size()]));
+                // if we have to throw an exception because of another failure, these addresses need to
+                // be in the valid list.  Since we succeeded here, we can add these now.
+                sentAddresses.addAll(addrs);
+            } catch (SendFailedException e) {
+                // a true send failure.  The exception contains a wealth of information about
+                // the failures, including a potential chain of exceptions explaining what went wrong.  We're
+                // going to send a new one of these, so we need to merge the information.
+
+                // add this to our exception chain
+                if (chainedException == null) {
+                    chainedException = e;
+                }
+                else {
+                    chainedException.setNextException(e);
+                }
+
+                // now extract each of the address categories from
+                Address[] exAddrs = e.getValidSentAddresses();
+                if (exAddrs != null) {
+                    for (int j = 0; j < exAddrs.length; j++) {
+                        sentAddresses.add(exAddrs[j]);
+                    }
+                }
+
+                exAddrs = e.getValidUnsentAddresses();
+                if (exAddrs != null) {
+                    for (int j = 0; j < exAddrs.length; j++) {
+                        unsentAddresses.add(exAddrs[j]);
+                    }
+                }
+
+                exAddrs = e.getInvalidAddresses();
+                if (exAddrs != null) {
+                    for (int j = 0; j < exAddrs.length; j++) {
+                        invalidAddresses.add(exAddrs[j]);
+                    }
+                }
+
+            } catch (MessagingException e) {
+                // add this to our exception chain
+                if (chainedException == null) {
+                    chainedException = e;
+                }
+                else {
+                    chainedException.setNextException(e);
+                }
+            }
+            finally {
+                transport.close();
+            }
+        }
+
+        // if we have an exception chain then we need to throw a new exception giving the failure
+        // information.
+        if (chainedException != null) {
+            // if we're only sending to a single transport (common), and we received a SendFailedException
+            // as a result, then we have a fully formed exception already.  Rather than wrap this in another
+            // exception, we can just rethrow the one we have.
+            if (msgsByTransport.size() == 1 && chainedException instanceof SendFailedException) {
+                throw chainedException;
+            }
+
+            // create our lists for notification and exception reporting from this point on.
+            Address[] sent = (Address[])sentAddresses.toArray(new Address[0]);
+            Address[] unsent = (Address[])unsentAddresses.toArray(new Address[0]);
+            Address[] invalid = (Address[])invalidAddresses.toArray(new Address[0]);
+
+            throw new SendFailedException("Send failure", chainedException, sent, unsent, invalid);
         }
     }
 
