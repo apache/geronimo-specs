@@ -27,6 +27,8 @@ import java.util.StringTokenizer;
 import javax.mail.Address;
 import javax.mail.Session;
 
+import org.apache.geronimo.mail.util.SessionUtil;
+
 /**
  * A representation of an Internet email address as specified by RFC822 in
  * conjunction with a human-readable personal name that can be encoded as
@@ -378,36 +380,51 @@ public class InternetAddress extends Address implements Cloneable {
      * @return an InternetAddress for the current user, or null if it cannot be determined
      */
     public static InternetAddress getLocalAddress(Session session) {
-        String address = null;
+        String host = null;
+        String user = null;
+
+        // ok, we have several steps for resolving this.  To start with, we could have a from address
+        // configured already, which will be a full InternetAddress string.  If we don't have that, then
+        // we need to resolve a user and host to compose an address from.
         if (session != null) {
-            address = session.getProperty("mail.from");
-            if (address == null) {
-                String user = session.getProperty("mail.user");
-                String host = session.getProperty("mail.host");
-                if (user != null && host != null) {
-                    address = user + '@' + host;
+            String address = session.getProperty("mail.from");
+            // if we got this, we can skip out now
+            if (address != null) {
+                try {
+                    return new InternetAddress(address);
+                } catch (AddressException e) {
+                    // invalid address on the from...treat this as an error and return null.
+                    return null;
                 }
             }
+
+            // now try for user and host information.  We have both session and system properties to check here.
+            // we'll just handle the session ones here, and check the system ones below if we're missing information.
+            user = session.getProperty("mail.user");
+            host = session.getProperty("mail.host");
         }
-        if (address == null) {
-            try {
-                String user = System.getProperty("user.name");
-                String host = InetAddress.getLocalHost().getHostName();
-                if (user != null && host != null) {
-                    address = user + '@' + host;
-                }
-            } catch (UnknownHostException e) {
-                // ignore
-            } catch (SecurityException e) {
-                // ignore
+
+        try {
+
+            // if either user or host is null, then we check non-session sources for the information.
+            if (user == null) {
+                user = System.getProperty("user.name");
             }
-        }
-        if (address != null) {
-            try {
-                return new InternetAddress(address);
-            } catch (AddressException e) {
-                // ignore
+
+            if (host == null) {
+                host = InetAddress.getLocalHost().getHostName();
             }
+
+            if (user != null && host != null) {
+                // if we have both a user and host, we can create a local address
+                return new InternetAddress(user + '@' + host);
+            }
+        } catch (AddressException e) {
+            // ignore
+        } catch (UnknownHostException e) {
+            // ignore
+        } catch (SecurityException e) {
+            // ignore
         }
         return null;
     }

@@ -17,6 +17,12 @@
 
 package javax.mail.internet;
 import junit.framework.TestCase;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.Properties;
+
+import javax.mail.Session;
 /**
  * @version $Rev$ $Date$
  */
@@ -378,6 +384,58 @@ public class InternetAddressTest extends TestCase {
 
         addresses = getGroup("Foo:;", false);
         assertTrue("Expecting 0 addresses", addresses.length == 0);
+    }
+
+
+    public void testLocalAddress() throws Exception {
+        System.getProperties().remove("user.name");
+
+        assertNull(InternetAddress.getLocalAddress(null));
+        System.setProperty("user.name", "dev");
+
+        InternetAddress localHost = null;
+        String user = null;
+        String host = null;
+        try {
+            user = System.getProperty("user.name");
+            host = InetAddress.getLocalHost().getHostName();
+
+            localHost = new InternetAddress(user + "@" + host);
+        } catch (AddressException e) {
+            // ignore
+        } catch (UnknownHostException e) {
+            // ignore
+        } catch (SecurityException e) {
+            // ignore
+        }
+
+        assertEquals(InternetAddress.getLocalAddress(null), localHost);
+
+        Properties props = new Properties();
+        Session session = Session.getInstance(props, null);
+
+        assertEquals(InternetAddress.getLocalAddress(session), localHost);
+
+        props.put("mail.host", "apache.org");
+        session = Session.getInstance(props, null);
+
+        assertEquals(InternetAddress.getLocalAddress(session), new InternetAddress(user + "@apache.org"));
+
+        props.put("mail.user", "user");
+        props.remove("mail.host");
+
+        session = Session.getInstance(props, null);
+        assertEquals(InternetAddress.getLocalAddress(session), new InternetAddress("user@" + host));
+
+        props.put("mail.host", "apache.org");
+        session = Session.getInstance(props, null);
+
+        assertEquals(InternetAddress.getLocalAddress(session), new InternetAddress("user@apache.org"));
+
+        props.put("mail.from", "tester@incubator.apache.org");
+        session = Session.getInstance(props, null);
+
+        assertEquals(InternetAddress.getLocalAddress(session), new InternetAddress("tester@incubator.apache.org"));
     }
 
     private InternetAddress[] getGroup(String address, boolean strict) throws AddressException
