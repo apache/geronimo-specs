@@ -53,7 +53,7 @@ import java.util.WeakHashMap;
  */
 public final class Session {
     private static final Class[] PARAM_TYPES = {Session.class, URLName.class};
-    private static final Map addressMap = new HashMap();
+    private static final WeakHashMap addressMapsByClassLoader = new WeakHashMap();
     private static Session DEFAULT_SESSION;
 
     private Map passwordAuthentications = new HashMap();
@@ -64,11 +64,6 @@ public final class Session {
     private PrintStream debugOut = System.out;
 
     private static final WeakHashMap providersByClassLoader = new WeakHashMap();
-
-    // TODO: Replace me w/ a proper loader please
-    static {
-        addressMap.put("rfc822", "smtp");
-    }
 
     /**
      * No public constrcutor allowed.
@@ -352,7 +347,13 @@ public final class Session {
      */
     public Transport getTransport(Address address) throws NoSuchProviderException {
         String type = address.getType();
-        return getTransport((String) addressMap.get(type));
+        // load the address map from the resource files.
+        Map addressMap = getAddressMap();
+        String protocolName = (String)addressMap.get(type);
+        if (protocolName == null) {
+            throw new NoSuchProviderException("No provider for address type " + type);
+        }
+        return getTransport(protocolName);
     }
 
     /**
@@ -454,6 +455,16 @@ public final class Session {
         return info;
     }
 
+    private static Map getAddressMap() {
+        ClassLoader cl = getClassLoader();
+        Map addressMap = (Map)addressMapsByClassLoader.get(cl);
+        if (addressMap == null) {
+            addressMap = loadAddressMap(cl);
+        }
+        return addressMap;
+    }
+
+
     private static ClassLoader getClassLoader() {
         ClassLoader cl = Thread.currentThread().getContextClassLoader();
         if (cl == null) {
@@ -463,7 +474,39 @@ public final class Session {
     }
 
     private static ProviderInfo loadProviders(ClassLoader cl) {
+        // we create a merged map from reading all of the potential address map entries.  The locations
+        // searched are:
+        //   1.   java.home/lib/javamail.address.map
+        //   2. META-INF/javamail.address.map
+        //   3. META-INF/javamail.default.address.map
+        //
         ProviderInfo info = new ProviderInfo();
+
+        // make sure this is added to the global map.
+        providersByClassLoader.put(cl, info);
+
+
+        // NOTE:  Unlike the addressMap, we process these in the defined order.  The loading routine
+        // will not overwrite entries if they already exist in the map.
+
+        try {
+            Enumeration e = cl.getResources("META-INF/javamail.default.providers");
+            while (e.hasMoreElements()) {
+                URL url = (URL) e.nextElement();
+                InputStream is = url.openStream();
+                try {
+                    loadProviders(info, is);
+                } finally{
+                    is.close();
+                }
+            }
+        } catch (SecurityException e) {
+            // ignore
+        } catch (IOException e) {
+            // ignore
+        }
+
+
         try {
             File file = new File(System.getProperty("java.home"), "lib/javamail.providers");
             InputStream is = new FileInputStream(file);
@@ -495,22 +538,6 @@ public final class Session {
             // ignore
         }
 
-        try {
-            Enumeration e = cl.getResources("META-INF/javamail.default.providers");
-            while (e.hasMoreElements()) {
-                URL url = (URL) e.nextElement();
-                InputStream is = url.openStream();
-                try {
-                    loadProviders(info, is);
-                } finally{
-                    is.close();
-                }
-            }
-        } catch (SecurityException e) {
-            // ignore
-        } catch (IOException e) {
-            // ignore
-        }
         return info;
     }
 
@@ -530,7 +557,7 @@ public final class Session {
                 if (index == -1) {
                     continue;
                 }
-                String key = property.substring(0, index).trim();
+                String key = property.substring(0, index).trim().toLowerCase();
                 String value = property.substring(index+1).trim();
                 if (protocol == null && "protocol".equals(key)) {
                     protocol = value;
@@ -562,6 +589,115 @@ public final class Session {
             info.all.add(provider);
         }
     }
+
+    /**
+     * Load up an address map associated with a using class loader
+     * instance.
+     *
+     * @param cl     The class loader used to resolve the address map.
+     *
+     * @return A map containing the entries associated with this classloader
+     *         instance.
+     */
+    private static Map loadAddressMap(ClassLoader cl) {
+        // we create a merged map from reading all of the potential address map entries.  The locations
+        // searched are:
+        //   1.   java.home/lib/javamail.address.map
+        //   2. META-INF/javamail.address.map
+        //   3. META-INF/javamail.default.address.map
+        //
+        // if all of the above searches fail, we just set up some "default" defaults.
+
+        // the format of the address.map file is defined as a property file.  We can cheat and
+        // just use Properties.load() to read in the files.
+        Properties addressMap = new Properties();
+
+        // add this to the tracking map.
+        addressMapsByClassLoader.put(cl, addressMap);
+
+        // NOTE:  We are reading these resources in reverse order of what's cited above.  This allows
+        // user defined entries to overwrite default entries if there are similarly named items.
+
+        try {
+            Enumeration e = cl.getResources("META-INF/javamail.default.address.map");
+            while (e.hasMoreElements()) {
+                URL url = (URL) e.nextElement();
+                InputStream is = url.openStream();
+                try {
+                    // load as a property file
+                    addressMap.load(is);
+                } finally{
+                    is.close();
+                }
+            }
+        } catch (SecurityException e) {
+            // ignore
+        } catch (IOException e) {
+            // ignore
+        }
+
+
+        try {
+            Enumeration e = cl.getResources("META-INF/javamail.address.map");
+            while (e.hasMoreElements()) {
+                URL url = (URL) e.nextElement();
+                InputStream is = url.openStream();
+                try {
+                    // load as a property file
+                    addressMap.load(is);
+                } finally{
+                    is.close();
+                }
+            }
+        } catch (SecurityException e) {
+            // ignore
+        } catch (IOException e) {
+            // ignore
+        }
+
+
+        try {
+            File file = new File(System.getProperty("java.home"), "lib/javamail.address.map");
+            InputStream is = new FileInputStream(file);
+            try {
+                // load as a property file
+                addressMap.load(is);
+            } finally{
+                is.close();
+            }
+        } catch (SecurityException e) {
+            // ignore
+        } catch (IOException e) {
+            // ignore
+        }
+
+        try {
+            Enumeration e = cl.getResources("META-INF/javamail.address.map");
+            while (e.hasMoreElements()) {
+                URL url = (URL) e.nextElement();
+                InputStream is = url.openStream();
+                try {
+                    // load as a property file
+                    addressMap.load(is);
+                } finally{
+                    is.close();
+                }
+            }
+        } catch (SecurityException e) {
+            // ignore
+        } catch (IOException e) {
+            // ignore
+        }
+
+
+        // if unable to load anything, at least create the MimeMessage-smtp protocol mapping.
+        if (addressMap.isEmpty()) {
+            addressMap.put("rfc822", "smtp");
+        }
+
+        return addressMap;
+    }
+
 
     private static class ProviderInfo {
         private final Map byClassName = new HashMap();
