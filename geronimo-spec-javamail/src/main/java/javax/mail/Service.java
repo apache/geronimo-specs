@@ -359,4 +359,15 @@ public abstract class Service {
         connectionListeners.clear();
         super.finalize();
     }
+
+
+    /**
+     * Package scope utility method to allow Message instances
+     * access to the Service's session.
+     *
+     * @return The Session the service is associated with.
+     */
+    Session getSession() {
+        return session;
+    }
 }

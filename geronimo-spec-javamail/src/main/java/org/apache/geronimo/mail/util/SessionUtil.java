@@ -32,13 +32,33 @@ public class SessionUtil {
      *
      * @param session The attached session.
      * @param name    The name of the property.
+     *
+     * @return The property value (returns null if the property has not been set).
+     */
+    static public String getProperty(Session session, String name) {
+        // occasionally, we get called with a null session if an object is not attached to
+        // a session.  In that case, treat this like an unknown parameter.
+        if (session == null) {
+            return null;
+        }
+
+        return session.getProperty(name);
+    }
+
+
+    /**
+     * Get a property associated with this mail session.  Returns
+     * the provided default if it doesn't exist.
+     *
+     * @param session The attached session.
+     * @param name    The name of the property.
      * @param defaultValue
      *                The default value to return if the property doesn't exist.
      *
      * @return The property value (returns defaultValue if the property has not been set).
      */
     static public String getProperty(Session session, String name, String defaultValue) {
-        String result = session.getProperty(name);
+        String result = getProperty(session, name);
         if (result == null) {
             return defaultValue;
         }
@@ -57,7 +77,7 @@ public class SessionUtil {
      *         other value (including null).
      */
     static public boolean isPropertyTrue(Session session, String name) {
-        String property = session.getProperty(name);
+        String property = getProperty(session, name);
         if (property != null) {
             return property.equals("true");
         }
@@ -75,7 +95,7 @@ public class SessionUtil {
      *         other value (including null).
      */
     static public boolean isPropertyFalse(Session session, String name) {
-        String property = session.getProperty(name);
+        String property = getProperty(session, name);
         if (property != null) {
             return property.equals("false");
         }
@@ -94,7 +114,7 @@ public class SessionUtil {
      * @return The property value converted to an int.
      */
     static public int getIntProperty(Session session, String name, int defaultValue) {
-        String result = session.getProperty(name);
+        String result = getProperty(session, name);
         if (result != null) {
             try {
                 // convert into an int value.
@@ -119,7 +139,7 @@ public class SessionUtil {
      * @return The property value converted to a boolean.
      */
     static public boolean getBooleanProperty(Session session, String name, boolean defaultValue) {
-        String result = session.getProperty(name);
+        String result = getProperty(session, name);
         if (result != null) {
             return Boolean.valueOf(result).booleanValue();
         }
