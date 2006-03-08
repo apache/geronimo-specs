@@ -98,6 +98,8 @@ public abstract class Message implements Part {
     protected Message(Folder folder, int msgnum) {
         this.folder = folder;
         this.msgnum = msgnum;
+        // make sure we copy the session information from the folder.
+        this.session = folder.getStore().getSession();
     }
 
     /**
