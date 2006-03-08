@@ -363,44 +363,6 @@ public class InternetHeaders {
         return new HeaderLineEnumeration(getNonMatchingHeaders(names));
     }
 
-
-    /**
-     * Return a header as a list of InternetAddresses
-     *
-     * @param name   the header to get
-     * @param strict whether the header should be strictly parser; see {@link InternetAddress#parseHeader(java.util.List, String, boolean, boolean)}
-     * @return
-     */
-    Address[] getHeaderAsAddresses(String name, boolean strict) throws MessagingException {
-        List addrs = new ArrayList();
-        List headers = getHeaderList(name);
-        if (headers == null) {
-            return null;
-        }
-        // news groups are a special case.  Those are NewsAddress items, not InternetAddress.
-        boolean isNewsGroup = name.equals("Newsgroups");
-
-        for (Iterator i = headers.iterator(); i.hasNext();) {
-            InternetHeader header = (InternetHeader) i.next();
-            Address[] addresses = null;
-            // removed headers may show up as value-less entities, so we need to make
-            // sure this is real before attempting to parse the value.
-            String headerValue = header.getValue();
-            if (headerValue != null) {
-                if (isNewsGroup) {
-                    addresses = NewsAddress.parse(header.getValue());
-                }
-                else {
-                    addresses = InternetAddress.parseHeader(header.getValue(), strict);
-                }
-                for (int j = 0; j < addresses.length; j++) {
-                    addrs.add(addresses[j]);
-                }
-            }
-        }
-        return (Address[]) addrs.toArray(new Address[addrs.size()]);
-    }
-
     void setHeader(String name, Address[] addresses) {
         List list = new ArrayList(addresses.length);
         for (int i = 0; i < addresses.length; i++) {

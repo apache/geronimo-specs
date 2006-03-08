@@ -266,9 +266,9 @@ public class MimeMessage extends Message implements MimePart {
     public Address[] getFrom() throws MessagingException {
         // strict addressing controls this.
         boolean strict = isStrictAddressing();
-        Address[] result = getHeaderAsAddresses("From", strict);
+        Address[] result = getHeaderAsInternetAddresses("From", strict);
         if (result == null) {
-            result = getHeaderAsAddresses("Sender", strict);
+            result = getHeaderAsInternetAddresses("Sender", strict);
         }
         return result;
     }
@@ -318,7 +318,7 @@ public class MimeMessage extends Message implements MimePart {
      * @throws MessagingException if there was a problem parsing the header
      */
     public Address getSender() throws MessagingException {
-        Address[] addrs = getHeaderAsAddresses("Sender", isStrictAddressing());
+        Address[] addrs = getHeaderAsInternetAddresses("Sender", isStrictAddressing());
         return addrs.length > 0 ? addrs[0] : null;
     }
 
@@ -350,7 +350,13 @@ public class MimeMessage extends Message implements MimePart {
      * @exception MessagingException
      */
     public Address[] getRecipients(Message.RecipientType type) throws MessagingException {
-        return getHeaderAsAddresses(getHeaderForRecipientType(type), isStrictAddressing());
+        // is this a NEWSGROUP request?  We need to handle this as a special case here, because
+        // this needs to return NewsAddress instances instead of InternetAddress items.
+        if (type == RecipientType.NEWSGROUPS) {
+            return getHeaderAsNewsAddresses(getHeaderForRecipientType(type));
+        }
+        // the other types are all internet addresses.
+        return getHeaderAsInternetAddresses(getHeaderForRecipientType(type), isStrictAddressing());
     }
 
     /**
@@ -386,7 +392,14 @@ public class MimeMessage extends Message implements MimePart {
      * @exception MessagingException
      */
     private void addRecipientsToList(List list, Message.RecipientType type) throws MessagingException {
-        Address[] recipients = getHeaderAsAddresses(getHeaderForRecipientType(type), isStrictAddressing());
+
+        Address[] recipients;
+        if (type == RecipientType.NEWSGROUPS) {
+            recipients = getHeaderAsNewsAddresses(getHeaderForRecipientType(type));
+        }
+        else {
+            recipients = getHeaderAsInternetAddresses(getHeaderForRecipientType(type), isStrictAddressing());
+        }
         if (recipients != null) {
             list.addAll(Arrays.asList(recipients));
         }
@@ -454,7 +467,7 @@ public class MimeMessage extends Message implements MimePart {
      * @exception MessagingException
      */
     public Address[] getReplyTo() throws MessagingException {
-         Address[] addresses = getHeaderAsAddresses("Reply-To", isStrictAddressing());
+         Address[] addresses = getHeaderAsInternetAddresses("Reply-To", isStrictAddressing());
          if (addresses == null) {
              addresses = getFrom();
          }
@@ -1355,8 +1368,32 @@ public class MimeMessage extends Message implements MimePart {
         return new InternetHeaders(in);
     }
 
-    private Address[] getHeaderAsAddresses(String header, boolean strict) throws MessagingException {
-        return headers.getHeaderAsAddresses(header, strict);
+    /**
+     * Convert a header into an array of NewsAddress items.
+     *
+     * @param header The name of the source header.
+     *
+     * @return The parsed array of addresses.
+     * @exception MessagingException
+     */
+    private Address[] getHeaderAsNewsAddresses(String header) throws MessagingException {
+        // NB:  We're using getHeader() here to allow subclasses an opportunity to perform lazy loading
+        // of the headers.
+        String mergedHeader = getHeader(header, ",");
+        if (mergedHeader != null) {
+            return NewsAddress.parse(mergedHeader);
+        }
+        return null;
+    }
+
+    private Address[] getHeaderAsInternetAddresses(String header, boolean strict) throws MessagingException {
+        // NB:  We're using getHeader() here to allow subclasses an opportunity to perform lazy loading
+        // of the headers.
+        String mergedHeader = getHeader(header, ",");
+        if (mergedHeader != null) {
+            return InternetAddress.parseHeader(mergedHeader, strict);
+        }
+        return null;
     }
 
     /**
