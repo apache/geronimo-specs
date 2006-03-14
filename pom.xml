@@ -15,6 +15,7 @@
     <geronimoSpecsEjbVersion>1.0-SNAPSHOT</geronimoSpecsEjbVersion>
     <geronimoSpecsJpaVersion>1.0-SNAPSHOT</geronimoSpecsJpaVersion>
     <geronimoSpecsJtaVersion>1.0</geronimoSpecsJtaVersion>
+    <geronimoSpecsServletVersion>1.0-SNAPSHOT</geronimoSpecsServletVersion>
   </properties>
 
   <build>
@@ -54,6 +55,7 @@
   <modules>
     <module>geronimo-spec-ejb</module>
     <module>geronimo-spec-jpa</module>
+    <module>geronimo-spec-servlet</module>
   </modules>
 
   <dependencyManagement>

@@ -1,0 +1,13 @@
+<project>
+  <parent>
+    <artifactId>jee5_exp_specs</artifactId>
+    <groupId>org.apache.geronimo.specs</groupId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.apache.geronimo.specs</groupId>
+  <artifactId>geronimo-servlet_2.5_spec</artifactId>
+  <name>Servlet Spec</name>
+  <version>1.0-SNAPSHOT</version>
+  <description>The 2.5 Servlet spec jar.</description>
+</project>
