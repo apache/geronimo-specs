@@ -264,12 +264,11 @@ public class MimeMultipart extends Multipart {
             if (boundaryIndex == boundary.length) { // boundary found
                 boundaryFound = true;
                 // read the end of line character
-                if (inStream.read() == 45) {
-                    //check whether end of stream
+                if (inStream.read() == 45 && value == 45) {
                     //Last mime boundary should have a succeeding "--"
-                    if (!((value = inStream.read()) == 45) && value != -1) {
-                        inStream.unread(value);
-                    }
+                    //as we are on it, read the terminating CRLF
+                    inStream.read();
+                    inStream.read();
                 }
                 return -1;
             }

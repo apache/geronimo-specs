@@ -399,7 +399,9 @@ public class MimeBodyPart extends BodyPart implements MimePart {
         out.write('\r');
         out.write('\n');
         // we need to process this using the transfer encoding type
-        getDataHandler().writeTo(MimeUtility.encode(out, getEncoding()));
+        OutputStream encodingStream = MimeUtility.encode(out, getEncoding()); 
+        getDataHandler().writeTo(encodingStream);
+        encodingStream.flush();
     }
 
     public String[] getHeader(String name) throws MessagingException {

@@ -134,6 +134,18 @@ public class Base64EncoderStream extends FilterOutputStream {
             }
         }
     }
+    
+    public void close() throws IOException {
+        flush();
+        out.close();
+    }
+    
+    public void flush() throws IOException {
+        if (bufferedBytes > 0) {
+            encoder.encode(buffer, 0, bufferedBytes, out);
+            bufferedBytes = 0;
+        }
+    }
 
 
     /**
