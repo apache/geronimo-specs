@@ -127,7 +127,7 @@ public class Base64DecoderStream extends FilterInputStream {
 
             // now copy some of the data from the decoded buffer to the target buffer
             int copyCount = Math.min(decodedCount, length);
-            System.arraycopy(data, offset, decodedChars, decodedIndex, copyCount);
+            System.arraycopy(decodedChars, decodedIndex, data, offset, copyCount);
             decodedIndex += copyCount;
             decodedCount -= copyCount;
             offset += copyCount;
