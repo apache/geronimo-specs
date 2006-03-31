@@ -253,7 +253,17 @@ public class MimeBodyPart extends BodyPart implements MimePart {
     }
 
     public String getDescription() throws MessagingException {
-        return getSingleHeader("Content-Description");
+        String description = getSingleHeader("Content-Description");
+        if (description != null) {
+            try {
+                // this could be both folded and encoded.  Return this to usable form.
+                return MimeUtility.decodeText(ASCIIUtil.unfold(description));
+            } catch (UnsupportedEncodingException e) {
+                // ignore
+            }
+        }
+        // return the raw version for any errors.
+        return description;
     }
 
     public void setDescription(String description) throws MessagingException {
