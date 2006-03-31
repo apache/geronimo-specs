@@ -42,12 +42,10 @@ import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.Part;
 import javax.mail.Session;
-import javax.mail.internet.MimeMultipart;
-import javax.mail.internet.ParseException;
 import javax.mail.internet.HeaderTokenizer.Token;
 
-import org.apache.geronimo.mail.util.SessionUtil;
 import org.apache.geronimo.mail.util.ASCIIUtil;
+import org.apache.geronimo.mail.util.SessionUtil;
 
 /**
  * @version $Rev$ $Date$
@@ -1289,13 +1287,18 @@ public class MimeMessage extends Message implements MimePart {
      * @exception MessagingException
      */
     protected void updateHeaders() throws MessagingException {
+
+        // make sure we set the MIME version
+        setHeader("MIME-Version", "1.0");
+
         DataHandler handler = getDataHandler();
 
         try {
             // figure out the content type.  If not set, we'll need to figure this out.
-            String type = getContentType();
+            String type = dh.getContentType();
             // parse this content type out so we can do matches/compares.
             ContentType content = new ContentType(type);
+
             // is this a multipart content?
             if (content.match("multipart/*")) {
                 // the content is suppose to be a MimeMultipart.  Ping it to update it's headers as well.

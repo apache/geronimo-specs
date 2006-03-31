@@ -486,7 +486,7 @@ public class MimeBodyPart extends BodyPart implements MimePart {
 
         try {
             // figure out the content type.  If not set, we'll need to figure this out.
-            String type = getContentType();
+            String type = dh.getContentType();
             // parse this content type out so we can do matches/compares.
             ContentType content = new ContentType(type);
             // is this a multipart content?
@@ -532,7 +532,7 @@ public class MimeBodyPart extends BodyPart implements MimePart {
             }
 
             // if we don't have a content type header, then create one.
-            if (getHeader("Content-Type") == null) {
+            if (getSingleHeader("Content-Type") == null) {
                 // get the disposition header, and if it is there, copy the filename parameter into the
                 // name parameter of the type.
                 String disp = getHeader("Content-Disposition", null);
