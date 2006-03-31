@@ -18,7 +18,6 @@
 package javax.mail;
 
 import java.net.InetAddress;
-import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.Vector;
 
@@ -55,6 +54,7 @@ public abstract class Service {
     protected Service(Session session, URLName url) {
         this.session = session;
         this.url = url;
+        this.debug = session.getDebug();
     }
 
     /**
