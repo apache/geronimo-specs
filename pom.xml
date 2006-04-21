@@ -38,7 +38,7 @@
      -->
     <geronimoSpecsVersion>1.1-SNAPSHOT</geronimoSpecsVersion>
     
-    <geronimoSpecsActivationVersion>1.0</geronimoSpecsActivationVersion>
+    <geronimoSpecsActivationVersion>1.1-SNAPSHOT</geronimoSpecsActivationVersion>
     <geronimoSpecsCommonjVersion>1.0-SNAPSHOT</geronimoSpecsCommonjVersion>
     <geronimoSpecsCorbaVersion>1.0-SNAPSHOT</geronimoSpecsCorbaVersion>
     <geronimoSpecsCorba30Version>1.0</geronimoSpecsCorba30Version>
@@ -95,27 +95,33 @@
     </extensions>
   </build>
 
+  <!--
+   |
+   | Modules that are final (1.0 or other) should not be built and deployed
+   | with the SNAPSHOT versioned modules.
+   |
+   -->
   <modules>
     <module>geronimo-spec-activation</module>
     <module>geronimo-spec-commonj</module>
     <module>geronimo-spec-corba</module>
-    <module>geronimo-spec-corba-3.0</module>
+    <!--<module>geronimo-spec-corba-3.0</module>-->
     <module>geronimo-spec-corba-2.3</module>
-    <module>geronimo-spec-ejb</module>
-    <module>geronimo-spec-j2ee-connector</module>
-    <module>geronimo-spec-j2ee-deployment</module>
-    <module>geronimo-spec-j2ee-jacc</module>
-    <module>geronimo-spec-j2ee-management</module>
+    <!--<module>geronimo-spec-ejb</module>-->
+    <!--<module>geronimo-spec-j2ee-connector</module>-->
+    <!--<module>geronimo-spec-j2ee-deployment</module>-->
+    <!--<module>geronimo-spec-j2ee-jacc</module>-->
+    <!--<module>geronimo-spec-j2ee-management</module>-->
     <module>geronimo-spec-j2ee</module>
     <module>geronimo-spec-javamail</module>
-    <module>geronimo-spec-jaxr</module>
-    <module>geronimo-spec-jaxrpc</module>
-    <module>geronimo-spec-jms</module>
-    <module>geronimo-spec-jsp</module>
-    <module>geronimo-spec-jta</module>
-    <module>geronimo-spec-qname</module>
-    <module>geronimo-spec-saaj</module>
-    <module>geronimo-spec-servlet</module>
+    <!--<module>geronimo-spec-jaxr</module>-->
+    <!--<module>geronimo-spec-jaxrpc</module>-->
+    <!--<module>geronimo-spec-jms</module>-->
+    <!--<module>geronimo-spec-jsp</module>-->
+    <!--<module>geronimo-spec-jta</module>-->
+    <!--<module>geronimo-spec-qname</module>-->
+    <!--<module>geronimo-spec-saaj</module>-->
+    <!--<module>geronimo-spec-servlet</module>-->
   </modules>
 
   <dependencyManagement>
