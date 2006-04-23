@@ -39,8 +39,8 @@ import org.apache.geronimo.mail.util.ASCIIUtil;
  */
 public class MimeBodyPart extends BodyPart implements MimePart {
 	 // constants for accessed properties
-    protected static final String MIME_DECODEFILENAME = "mail.mime.decodefilename";
-    protected static final String MIME_SETDEFAULTTEXTCHARSET = "mail.mime.setdefaulttextcharset";
+    private static final String MIME_DECODEFILENAME = "mail.mime.decodefilename";
+    private static final String MIME_SETDEFAULTTEXTCHARSET = "mail.mime.setdefaulttextcharset";
 
 
     /**
@@ -409,7 +409,7 @@ public class MimeBodyPart extends BodyPart implements MimePart {
         out.write('\r');
         out.write('\n');
         // we need to process this using the transfer encoding type
-        OutputStream encodingStream = MimeUtility.encode(out, getEncoding()); 
+        OutputStream encodingStream = MimeUtility.encode(out, getEncoding());
         getDataHandler().writeTo(encodingStream);
         encodingStream.flush();
     }
