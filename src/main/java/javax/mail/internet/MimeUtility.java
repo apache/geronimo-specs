@@ -801,7 +801,7 @@ public class MimeUtility {
      *
      * @return The character string value of the default character set.
      */
-    public static String getDefaultMIMECharset() {
+    static String getDefaultMIMECharset() {
         // if the property is specified, this can be used directly.
         String charset = SessionUtil.getProperty("mail.mime.charset");
         if (charset != null) {
