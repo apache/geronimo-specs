@@ -43,20 +43,20 @@
     <geronimoSpecsCorbaVersion>1.0-SNAPSHOT</geronimoSpecsCorbaVersion>
     <geronimoSpecsCorba30Version>1.1-SNAPSHOT</geronimoSpecsCorba30Version>
     <geronimoSpecsCorba23Version>1.1-SNAPSHOT</geronimoSpecsCorba23Version>
-    <geronimoSpecsEjbVersion>1.0</geronimoSpecsEjbVersion>
-    <geronimoSpecsJ2eeConnectorVersion>1.0</geronimoSpecsJ2eeConnectorVersion>
-    <geronimoSpecsJ2eeDeploymentVersion>1.0</geronimoSpecsJ2eeDeploymentVersion>
-    <geronimoSpecsJ2eeJaccVersion>1.0</geronimoSpecsJ2eeJaccVersion>
-    <geronimoSpecsJ2eeManagementVersion>1.0</geronimoSpecsJ2eeManagementVersion>
+    <geronimoSpecsEjbVersion>1.0.1-SNAPSHOT</geronimoSpecsEjbVersion>
+    <geronimoSpecsJ2eeConnectorVersion>1.0.1-SNAPSHOT</geronimoSpecsJ2eeConnectorVersion>
+    <geronimoSpecsJ2eeDeploymentVersion>1.0.1-SNAPSHOT</geronimoSpecsJ2eeDeploymentVersion>
+    <geronimoSpecsJ2eeJaccVersion>1.0.1-SNAPSHOT</geronimoSpecsJ2eeJaccVersion>
+    <geronimoSpecsJ2eeManagementVersion>1.0.1-SNAPSHOT</geronimoSpecsJ2eeManagementVersion>
     <geronimoSpecsJavamailVersion>1.1-SNAPSHOT</geronimoSpecsJavamailVersion>
-    <geronimoSpecsJaxrVersion>1.0</geronimoSpecsJaxrVersion>
-    <geronimoSpecsJaxrpcVersion>1.0</geronimoSpecsJaxrpcVersion>
-    <geronimoSpecsJmsVersion>1.0</geronimoSpecsJmsVersion>
-    <geronimoSpecsJspVersion>1.0</geronimoSpecsJspVersion>
-    <geronimoSpecsJtaVersion>1.0</geronimoSpecsJtaVersion>
-    <geronimoSpecsQnameVersion>1.0</geronimoSpecsQnameVersion>
-    <geronimoSpecsSaajVersion>1.0</geronimoSpecsSaajVersion>
-    <geronimoSpecsServletVersion>1.0</geronimoSpecsServletVersion>
+    <geronimoSpecsJaxrVersion>1.0.1-SNAPSHOT</geronimoSpecsJaxrVersion>
+    <geronimoSpecsJaxrpcVersion>1.0.1-SNAPSHOT</geronimoSpecsJaxrpcVersion>
+    <geronimoSpecsJmsVersion>1.0.1-SNAPSHOT</geronimoSpecsJmsVersion>
+    <geronimoSpecsJspVersion>1.0.1-SNAPSHOT</geronimoSpecsJspVersion>
+    <geronimoSpecsJtaVersion>1.0.1-SNAPSHOT</geronimoSpecsJtaVersion>
+    <geronimoSpecsQnameVersion>1.0.1-SNAPSHOT</geronimoSpecsQnameVersion>
+    <geronimoSpecsSaajVersion>1.0.1-SNAPSHOT</geronimoSpecsSaajVersion>
+    <geronimoSpecsServletVersion>1.0.1-SNAPSHOT</geronimoSpecsServletVersion>
   </properties>
 
   <build>
@@ -105,23 +105,23 @@
     <module>geronimo-spec-activation</module>
     <module>geronimo-spec-commonj</module>
     <module>geronimo-spec-corba</module>
-    <!--<module>geronimo-spec-corba-3.0</module>-->
+    <module>geronimo-spec-corba-3.0</module>
     <module>geronimo-spec-corba-2.3</module>
-    <!--<module>geronimo-spec-ejb</module>-->
-    <!--<module>geronimo-spec-j2ee-connector</module>-->
-    <!--<module>geronimo-spec-j2ee-deployment</module>-->
-    <!--<module>geronimo-spec-j2ee-jacc</module>-->
-    <!--<module>geronimo-spec-j2ee-management</module>-->
+    <module>geronimo-spec-ejb</module>
+    <module>geronimo-spec-j2ee-connector</module>
+    <module>geronimo-spec-j2ee-deployment</module>
+    <module>geronimo-spec-j2ee-jacc</module>
+    <module>geronimo-spec-j2ee-management</module>
     <module>geronimo-spec-j2ee</module>
     <module>geronimo-spec-javamail</module>
-    <!--<module>geronimo-spec-jaxr</module>-->
-    <!--<module>geronimo-spec-jaxrpc</module>-->
-    <!--<module>geronimo-spec-jms</module>-->
-    <!--<module>geronimo-spec-jsp</module>-->
-    <!--<module>geronimo-spec-jta</module>-->
-    <!--<module>geronimo-spec-qname</module>-->
-    <!--<module>geronimo-spec-saaj</module>-->
-    <!--<module>geronimo-spec-servlet</module>-->
+    <module>geronimo-spec-jaxr</module>
+    <module>geronimo-spec-jaxrpc</module>
+    <module>geronimo-spec-jms</module>
+    <module>geronimo-spec-jsp</module>
+    <module>geronimo-spec-jta</module>
+    <module>geronimo-spec-qname</module>
+    <module>geronimo-spec-saaj</module>
+    <module>geronimo-spec-servlet</module>
   </modules>
 
   <dependencyManagement>
@@ -255,6 +255,7 @@
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>3.8.1</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 
