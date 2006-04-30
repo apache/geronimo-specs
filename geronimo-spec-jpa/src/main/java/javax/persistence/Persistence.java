@@ -44,7 +44,7 @@ public class Persistence {
 
     static final String PERSISTENCE_PROVIDER_PROPERTY = "javax.persistence.provider";
     static final String PERSISTENCE_PROVIDER_SERVICE = "META-INF/services/"
-            + PersistenceProvider.class.getName();
+        + PersistenceProvider.class.getName();
 
     /**
      * Create and return an EntityManagerFactory for the named persistence unit.
@@ -56,7 +56,7 @@ public class Persistence {
     public static EntityManagerFactory createEntityManagerFactory(
             String persistenceUnitName) {
         return createEntityManagerFactory(persistenceUnitName, Collections.EMPTY_MAP);
-    }
+            }
 
     /**
      * Create and return an EntityManagerFactory for the named persistence unit using the
@@ -94,7 +94,7 @@ public class Persistence {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         try {
             Enumeration<URL> providers = loader
-                    .getResources(PERSISTENCE_PROVIDER_SERVICE);
+                .getResources(PERSISTENCE_PROVIDER_SERVICE);
             while (providers.hasMoreElements()) {
 
                 String name = getProviderName(providers.nextElement());
@@ -117,13 +117,13 @@ public class Persistence {
         }
 
         return null;
-    }
+            }
 
     static String getProviderName(URL url) throws IOException {
 
         BufferedReader in = new BufferedReader(new InputStreamReader(
-                url.openStream(),
-                "UTF-8"));
+                    url.openStream(),
+                    "UTF-8"));
 
         String providerName;
 
@@ -144,18 +144,29 @@ public class Persistence {
     static EntityManagerFactory createFactory(
             String providerName,
             String persistenceUnitName,
-            Map properties) {
+            Map properties)
+        throws PersistenceException {
+
+        Class providerClass;
+        try {
+            providerClass = Class.forName(providerName, true, Thread
+                    .currentThread().getContextClassLoader());
+        } 
+        catch (Exception e) {
+            throw new PersistenceException(
+                    "Invalid or inaccessible provider class: " + providerName,
+                    e);
+        }
 
         try {
-            Class providerClass = Class.forName(providerName, true, Thread
-                    .currentThread()
-                    .getContextClassLoader());
             PersistenceProvider provider = (PersistenceProvider) providerClass
-                    .newInstance();
-            return provider.createEntityManagerFactory(persistenceUnitName, properties);
+                .newInstance();
+            return provider.createEntityManagerFactory(persistenceUnitName,
+                    properties);
         }
         catch (Exception e) {
-            return null;
+            throw new PersistenceException("Provider error. Provider: "
+                    + providerName, e);
         }
     }
 }
