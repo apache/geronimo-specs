@@ -18,21 +18,23 @@
 package javax.mail.internet;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Enumeration;
+
 import javax.activation.DataHandler;
 import javax.mail.BodyPart;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.Part;
 import javax.mail.internet.HeaderTokenizer.Token;
+import javax.swing.text.AbstractDocument.Content;
 
-import org.apache.geronimo.mail.util.SessionUtil;
 import org.apache.geronimo.mail.util.ASCIIUtil;
+import org.apache.geronimo.mail.util.SessionUtil;
 
 /**
  * @version $Rev$ $Date$
@@ -374,6 +376,12 @@ public class MimeBodyPart extends BodyPart implements MimePart {
 
     public void setDataHandler(DataHandler handler) throws MessagingException {
         dh = handler;
+        // if we have a handler override, then we need to invalidate any content
+        // headers that define the types.  This information will be derived from the
+        // data heander unless subsequently overridden.
+        removeHeader("Content-Type");
+        removeHeader("Content-Transfer-Encoding");
+
     }
 
     public void setContent(Object content, String type) throws MessagingException {
@@ -502,7 +510,7 @@ public class MimeBodyPart extends BodyPart implements MimePart {
             else if (!content.match("message/rfc822")) {
                 // simple part, we need to update the header type information
                 // if no encoding is set yet, figure this out from the data handler.
-                if (getHeader("Content-Transfer-Encoding") == null) {
+                if (getSingleHeader("Content-Transfer-Encoding") == null) {
                     setHeader("Content-Transfer-Encoding", MimeUtility.getEncoding(handler));
                 }
 
