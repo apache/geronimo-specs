@@ -115,7 +115,7 @@ public class UUDecoderStream extends FilterInputStream {
 
             // now copy some of the data from the decoded buffer to the target buffer
             int copyCount = Math.min(decodedCount, length);
-            System.arraycopy(data, offset, decodedChars, decodedIndex, copyCount);
+            System.arraycopy(decodedChars, decodedIndex, data, offset, copyCount);
             decodedIndex += copyCount;
             decodedCount -= copyCount;
             offset += copyCount;
@@ -125,6 +125,12 @@ public class UUDecoderStream extends FilterInputStream {
         return readCharacters;
     }
 
+    /**
+     * Verify that the first line of the buffer is a valid begin
+     * marker.
+     *
+     * @exception IOException
+     */
     private void checkBegin() throws IOException {
         // we only do this the first time we're requested to read from the stream.
         if (beginRead) {
@@ -149,6 +155,13 @@ public class UUDecoderStream extends FilterInputStream {
     }
 
 
+    /**
+     * Read a line of data.  Returns null if there is an EOF.
+     *
+     * @return The next line read from the stream.  Returns null if we
+     *         hit the end of the stream.
+     * @exception IOException
+     */
     protected String readLine() throws IOException {
         decodedIndex = 0;
         // get an accumulator for the data
@@ -168,7 +181,7 @@ public class UUDecoderStream extends FilterInputStream {
             }
             else {
                 // add this to our buffer
-                buffer.append((byte)ch);
+                buffer.append((char)ch);
             }
             ch = in.read();
         }

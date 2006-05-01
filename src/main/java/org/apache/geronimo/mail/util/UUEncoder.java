@@ -76,9 +76,8 @@ public class UUEncoder implements Encoder {
      * @exception IOException
      */
     private int encodeLine(byte[] data, int offset, int length, OutputStream out) throws IOException {
-        // write out the length of the data in this line, including the length byte.  This
-        // is uuencoded by basing it off of a ' ' character.
-        out.write((byte)(((length + 1) & 0x3F) + ' '));
+        // write out the number of characters encoded in this line.
+        out.write((byte)((length & 0x3F) + ' '));
         byte a;
         byte b;
         byte c;
@@ -160,7 +159,7 @@ public class UUEncoder implements Encoder {
      *
      * @param data   The array of byte data to decode.
      * @param off    Starting offset within the array.
-     * @param length The length of data to encode.
+     * @param length The length of data to decode (length does NOT include the terminating new line).
      * @param out    The output stream used to return the decoded data.
      *
      * @return the number of bytes produced.
@@ -177,8 +176,8 @@ public class UUEncoder implements Encoder {
         count = (count - ' ') & 0x3F;
 
         // get the rounded count of characters that should have been used to encode this.  The + 1 is for the
-        // terminating lineend character.
-        int requiredLength = (((count * 8) + 6) / 6) + 1;
+        // length encoded at the beginning
+        int requiredLength = (((count * 8) + 5) / 6) + 1;
         if (length < requiredLength) {
             throw new IOException("UUEncoded data and length do not match");
         }
@@ -202,14 +201,14 @@ public class UUEncoder implements Encoder {
             if (bytesWritten < count) {
                 c = (byte)((data[off++] - ' ') & 0x3F);
                 byte second = (byte)(((b << 4) & 0xF0) | ((c >>> 2) & 0x0F));
-                out.write(first);
+                out.write(second);
                 bytesWritten++;
 
                 // need the third one?
                 if (bytesWritten < count) {
                     d = (byte)((data[off++] - ' ') & 0x3F);
                     byte third = (byte)(((c << 6) & 0xC0) | (d & 0x3F));
-                    out.write(first);
+                    out.write(third);
                     bytesWritten++;
                 }
             }

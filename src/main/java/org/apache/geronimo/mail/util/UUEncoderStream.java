@@ -106,7 +106,7 @@ public class UUEncoderStream extends FilterOutputStream {
     private void writeEnd() throws IOException {
         PrintStream writer = new PrintStream(out);
         // write out the stream with a CRLF marker
-        writer.print("\nbegin\r\n");
+        writer.print("\nend\r\n");
         writer.flush();
     }
 
