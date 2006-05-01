@@ -212,7 +212,7 @@ public class MimeMultipart extends Multipart {
             i = part++;
         }
         StringBuffer buf = new StringBuffer(64);
-        buf.append("----=_Part_").append(i).append('.').append(System.currentTimeMillis());
+        buf.append("----=_Part_").append(i).append('_').append((new Object()).hashCode()).append('.').append(System.currentTimeMillis());
         return buf.toString();
     }
 

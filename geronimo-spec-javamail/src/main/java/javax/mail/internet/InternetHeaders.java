@@ -264,7 +264,10 @@ public class InternetHeaders {
      */
     public void removeHeader(String name) {
         List list = getHeaderList(name);
-        list.clear();
+        // it's possible we might not have the named header.  This is a nop if the header doesn't exist.
+        if (list != null) {
+            list.clear();
+        }
     }
 
     /**
@@ -402,7 +405,11 @@ public class InternetHeaders {
     void writeTo(OutputStream out, String[] ignore) throws IOException {
         Map map = new LinkedHashMap(headers);
         if (ignore != null) {
-            map.keySet().removeAll(Arrays.asList(ignore));
+            // remove each of these from the header list (note, they are stored as lower case keys).
+            for (int i = 0; i < ignore.length; i++) {
+                String key = ignore[i].toLowerCase();
+                map.remove(key);
+            }
         }
         for (Iterator i = map.entrySet().iterator(); i.hasNext();) {
             Map.Entry entry = (Map.Entry) i.next();
@@ -413,6 +420,7 @@ public class InternetHeaders {
                     InternetHeader header = (InternetHeader) headers.get(j);
                     out.write(header.getName().getBytes());
                     out.write(':');
+                    out.write(' ');
                     out.write(header.getValue().getBytes());
                     out.write(13);
                     out.write(10);

@@ -915,6 +915,11 @@ public class MimeMessage extends Message implements MimePart {
 
     public void setDataHandler(DataHandler handler) throws MessagingException {
         dh = handler;
+        // if we have a handler override, then we need to invalidate any content
+        // headers that define the types.  This information will be derived from the
+        // data heander unless subsequently overridden.
+        removeHeader("Content-Type");
+        removeHeader("Content-Transfer-Encoding");
     }
 
     public void setContent(Object content, String type) throws MessagingException {
@@ -1338,7 +1343,7 @@ public class MimeMessage extends Message implements MimePart {
             else if (!content.match("message/rfc822")) {
                 // simple part, we need to update the header type information
                 // if no encoding is set yet, figure this out from the data handler content.
-                if (getHeader("Content-Transfer-Encoding") == null) {
+                if (getSingleHeader("Content-Transfer-Encoding") == null) {
                     setHeader("Content-Transfer-Encoding", MimeUtility.getEncoding(handler));
                 }
 
