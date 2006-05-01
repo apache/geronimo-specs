@@ -37,7 +37,7 @@ import javax.mail.MessagingException;
 
 /**
  * Class that represents the RFC822 headers associated with a message.
- * 
+ *
  * @version $Rev$ $Date$
  */
 public class InternetHeaders {
@@ -88,7 +88,7 @@ public class InternetHeaders {
     /**
      * Create a new InternetHeaders initialized by reading headers from the
      * stream.
-     * 
+     *
      * @param in
      *            the RFC822 input stream to load from
      * @throws MessagingException
@@ -101,7 +101,7 @@ public class InternetHeaders {
     /**
      * Read and parse the supplied stream and add all headers to the current
      * set.
-     * 
+     *
      * @param in
      *            the RFC822 input stream to load from
      * @throws MessagingException
@@ -160,7 +160,10 @@ public class InternetHeaders {
                     }
                 }
                 // skip LF
-                in.read();
+                c = in.read();
+                if (c == -1) {
+                    break;
+                }
             }
             if (name.length() > 0) {
                 addHeader(name.toString().trim(), value.toString().trim());
@@ -172,7 +175,7 @@ public class InternetHeaders {
 
     /**
      * Return all the values for the specified header.
-     * 
+     *
      * @param name
      *            the header to return
      * @return the values for that header, or null if the header is not present
@@ -195,7 +198,7 @@ public class InternetHeaders {
      * Return the values for the specified header as a single String. If the
      * header has more than one value then all values are concatenated together
      * separated by the supplied delimiter.
-     * 
+     *
      * @param name
      *            the header to return
      * @param delimiter
@@ -224,7 +227,7 @@ public class InternetHeaders {
     /**
      * Set the value of the header to the supplied value; any existing headers
      * are removed.
-     * 
+     *
      * @param name
      *            the name of the header
      * @param value
@@ -238,7 +241,7 @@ public class InternetHeaders {
 
     /**
      * Add a new value to the header with the supplied name.
-     * 
+     *
      * @param name
      *            the name of the header to add a new value for
      * @param value
@@ -255,7 +258,7 @@ public class InternetHeaders {
 
     /**
      * Remove all header entries with the supplied name
-     * 
+     *
      * @param name
      *            the header to remove
      */
@@ -266,7 +269,7 @@ public class InternetHeaders {
 
     /**
      * Return all headers.
-     * 
+     *
      * @return an Enumeration<Header> containing all headers
      */
     public Enumeration getAllHeaders() {
@@ -323,9 +326,9 @@ public class InternetHeaders {
      * Add an RFC822 header line to the header store. If the line starts with a
      * space or tab (a continuation line), add it to the last header line in the
      * list. Otherwise, append the new header line to the list.
-     * 
+     *
      * Note that RFC822 headers can only contain US-ASCII characters
-     * 
+     *
      * @param line
      *            raw RFC822 header line
      */

@@ -131,7 +131,9 @@ public class MimeMessage extends Message implements MimePart {
         super(session);
         headers = new InternetHeaders();
         flags = new Flags();
+        // empty messages are modified, because the content is not there, and require saving before use.
         modified = true;
+        saved = false;
     }
 
     /**
@@ -144,6 +146,10 @@ public class MimeMessage extends Message implements MimePart {
     public MimeMessage(Session session, InputStream in) throws MessagingException {
         this(session);
         parse(in);
+        // this message is complete, so marked as unmodified.
+        modified = false;
+        // and no saving required
+        saved = true;
     }
 
     /**
@@ -176,6 +182,8 @@ public class MimeMessage extends Message implements MimePart {
             parse (inData);
             // writing out the source data requires saving it, so we should consider this one saved also.
             saved = true;
+            // this message is complete, so marked as unmodified.
+            modified = false;
         } catch (IOException e) {
             // I'm not sure ByteArrayInput/OutputStream actually throws IOExceptions or not, but the method
             // signatures declare it, so we need to deal with it.  Turning it into a messaging exception
@@ -194,7 +202,11 @@ public class MimeMessage extends Message implements MimePart {
         super(folder, number);
         headers = new InternetHeaders();
         flags = new Flags();
+        // saving primarly involves updates to the message header.  Since we're taking the header info
+        // from a message store in this context, we mark the message as saved.
         saved = true;
+        // we've not filled in the content yet, so this needs to be marked as modified
+        modified = true;
     }
 
     /**
@@ -208,7 +220,12 @@ public class MimeMessage extends Message implements MimePart {
     protected MimeMessage(Folder folder, InputStream in, int number) throws MessagingException {
         this(folder, number);
         parse(in);
+        // this message is complete, so marked as unmodified.
+        modified = false;
+        // and no saving required
+        saved = true;
     }
+
 
     /**
      * Create a MimeMessage with the supplied headers and content.
@@ -223,6 +240,8 @@ public class MimeMessage extends Message implements MimePart {
         this(folder, number);
         this.headers = headers;
         this.content = content;
+        // this message is complete, so marked as unmodified.
+        modified = false;
     }
 
     /**
@@ -1086,14 +1105,19 @@ public class MimeMessage extends Message implements MimePart {
      * @exception IOException
      */
     public void writeTo(OutputStream out, String[] ignoreHeaders) throws MessagingException, IOException {
+        // make sure everything is saved before we write
         if (!saved) {
             saveChanges();
         }
+
         // write out the headers first
         headers.writeTo(out, ignoreHeaders);
         // add the separater between the headers and the data portion.
         out.write('\r');
         out.write('\n');
+
+        // if the modfied flag, we don't have current content, so the data handler needs to
+        // take care of writing this data out.
         if (modified) {
             dh.writeTo(MimeUtility.encode(out, getEncoding()));
         } else {
@@ -1116,6 +1140,7 @@ public class MimeMessage extends Message implements MimePart {
                 in.close();
             }
         }
+
         // flush any data we wrote out, but do not close the stream.  That's the caller's duty.
         out.flush();
     }
@@ -1273,6 +1298,7 @@ public class MimeMessage extends Message implements MimePart {
      * @exception MessagingException
      */
     public void saveChanges() throws MessagingException {
+        // setting modified invalidates the current content.
         modified = true;
         saved = true;
         // update message headers from the content.
