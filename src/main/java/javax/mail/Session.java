@@ -209,15 +209,25 @@ public final class Session {
      */
     public Provider getProvider(String protocol) throws NoSuchProviderException {
         ProviderInfo info = getProviderInfo();
-        Provider provider;
+        Provider provider = null;
         String providerName = properties.getProperty("mail." + protocol + ".class");
         if (providerName != null) {
             provider = (Provider) info.byClassName.get(providerName);
-        } else {
+            if (debug) {
+                writeDebug("DEBUG: new provider loaded: " + provider.toString());
+            }
+        }
+
+        // if not able to locate this by class name, just grab a registered protocol.
+        if (provider == null) {
             provider = (Provider) info.byProtocol.get(protocol);
         }
+
         if (provider == null) {
             throw new NoSuchProviderException("Unable to locate provider for protocol: " + protocol);
+        }
+        if (debug) {
+            writeDebug("DEBUG: getProvider() returning provider " + provider.toString());
         }
         return provider;
     }
@@ -446,7 +456,7 @@ public final class Session {
         }
     }
 
-    private static ProviderInfo getProviderInfo() {
+    private ProviderInfo getProviderInfo() {
         ClassLoader cl = getClassLoader();
         ProviderInfo info = (ProviderInfo) providersByClassLoader.get(cl);
         if (info == null) {
@@ -473,7 +483,7 @@ public final class Session {
         return cl;
     }
 
-    private static ProviderInfo loadProviders(ClassLoader cl) {
+    private ProviderInfo loadProviders(ClassLoader cl) {
         // we create a merged map from reading all of the potential address map entries.  The locations
         // searched are:
         //   1.   java.home/lib/javamail.address.map
@@ -493,6 +503,10 @@ public final class Session {
             Enumeration e = cl.getResources("META-INF/javamail.default.providers");
             while (e.hasMoreElements()) {
                 URL url = (URL) e.nextElement();
+                if (debug) {
+                    writeDebug("Loading javamail.default.providers from " + url.toString());
+                }
+
                 InputStream is = url.openStream();
                 try {
                     loadProviders(info, is);
@@ -512,6 +526,9 @@ public final class Session {
             InputStream is = new FileInputStream(file);
             try {
                 loadProviders(info, is);
+                if (debug) {
+                    writeDebug("Loaded lib/javamail.providers from " + file.toString());
+                }
             } finally{
                 is.close();
             }
@@ -525,6 +542,9 @@ public final class Session {
             Enumeration e = cl.getResources("META-INF/javamail.providers");
             while (e.hasMoreElements()) {
                 URL url = (URL) e.nextElement();
+                if (debug) {
+                    writeDebug("Loading META-INF/javamail.providers from " + url.toString());
+                }
                 InputStream is = url.openStream();
                 try {
                     loadProviders(info, is);
@@ -541,7 +561,7 @@ public final class Session {
         return info;
     }
 
-    private static void loadProviders(ProviderInfo info, InputStream is) throws IOException {
+    private void loadProviders(ProviderInfo info, InputStream is) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
         String line;
         while ((line = reader.readLine()) != null) {
@@ -578,6 +598,10 @@ public final class Session {
             if (protocol == null || type == null || className == null) {
                 //todo should we log a warning?
                 continue;
+            }
+
+            if (debug) {
+                writeDebug("DEBUG: loading new provider protocol=" + protocol + ", className=" + className + ", vendor=" + vendor + ", version=" + version);
             }
             Provider provider = new Provider(protocol, className, type, vendor, version);
             if (!info.byClassName.containsKey(className)) {
@@ -696,6 +720,15 @@ public final class Session {
         }
 
         return addressMap;
+    }
+
+    /**
+     * Private convenience routine for debug output.
+     *
+     * @param msg    The message to write out to the debug stream.
+     */
+    private void writeDebug(String msg) {
+        debugOut.println(msg);
     }
 
 
