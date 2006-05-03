@@ -465,7 +465,7 @@ public final class Session {
         return info;
     }
 
-    private static Map getAddressMap() {
+    private Map getAddressMap() {
         ClassLoader cl = getClassLoader();
         Map addressMap = (Map)addressMapsByClassLoader.get(cl);
         if (addressMap == null) {
@@ -475,10 +475,24 @@ public final class Session {
     }
 
 
-    private static ClassLoader getClassLoader() {
+    /**
+     * Resolve a class loader used to resolve context resources.  The
+     * class loader used is either a current thread context class
+     * loader (if set), the class loader used to load an authenticator
+     * we've been initialized with, or the class loader used to load
+     * this class instance (which may be a subclass of Session).
+     *
+     * @return The class loader used to load resources.
+     */
+    private ClassLoader getClassLoader() {
         ClassLoader cl = Thread.currentThread().getContextClassLoader();
         if (cl == null) {
-            cl = Session.class.getClassLoader();
+            if (authenticator != null) {
+                cl = authenticator.getClass().getClassLoader();
+            }
+            else {
+                cl = this.getClass().getClassLoader();
+            }
         }
         return cl;
     }
