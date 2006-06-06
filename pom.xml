@@ -4,7 +4,7 @@
   <artifactId>specs</artifactId>
   <packaging>pom</packaging>
   <name>Geronimo Specifications</name>
-  <version>1.1-SNAPSHOT</version>
+  <version>1.1</version>
 
   <!--
    |
@@ -36,27 +36,27 @@
      | should be removed from GBuild (assuming they were added to GBuild).
      |
      -->
-    <geronimoSpecsVersion>1.1-SNAPSHOT</geronimoSpecsVersion>
+    <geronimoSpecsVersion>1.1</geronimoSpecsVersion>
     
-    <geronimoSpecsActivationVersion>1.1-SNAPSHOT</geronimoSpecsActivationVersion>
-    <geronimoSpecsCommonjVersion>1.0-SNAPSHOT</geronimoSpecsCommonjVersion>
-    <geronimoSpecsCorbaVersion>1.0-SNAPSHOT</geronimoSpecsCorbaVersion>
-    <geronimoSpecsCorba30Version>1.1-SNAPSHOT</geronimoSpecsCorba30Version>
-    <geronimoSpecsCorba23Version>1.1-SNAPSHOT</geronimoSpecsCorba23Version>
-    <geronimoSpecsEjbVersion>1.0.1-SNAPSHOT</geronimoSpecsEjbVersion>
-    <geronimoSpecsJ2eeConnectorVersion>1.0.1-SNAPSHOT</geronimoSpecsJ2eeConnectorVersion>
-    <geronimoSpecsJ2eeDeploymentVersion>1.0.1-SNAPSHOT</geronimoSpecsJ2eeDeploymentVersion>
-    <geronimoSpecsJ2eeJaccVersion>1.0.1-SNAPSHOT</geronimoSpecsJ2eeJaccVersion>
-    <geronimoSpecsJ2eeManagementVersion>1.0.1-SNAPSHOT</geronimoSpecsJ2eeManagementVersion>
-    <geronimoSpecsJavamailVersion>1.1-SNAPSHOT</geronimoSpecsJavamailVersion>
-    <geronimoSpecsJaxrVersion>1.0.1-SNAPSHOT</geronimoSpecsJaxrVersion>
-    <geronimoSpecsJaxrpcVersion>1.0.1-SNAPSHOT</geronimoSpecsJaxrpcVersion>
-    <geronimoSpecsJmsVersion>1.0.1-SNAPSHOT</geronimoSpecsJmsVersion>
-    <geronimoSpecsJspVersion>1.0.1-SNAPSHOT</geronimoSpecsJspVersion>
-    <geronimoSpecsJtaVersion>1.0.1-SNAPSHOT</geronimoSpecsJtaVersion>
-    <geronimoSpecsQnameVersion>1.0.1-SNAPSHOT</geronimoSpecsQnameVersion>
-    <geronimoSpecsSaajVersion>1.0.1-SNAPSHOT</geronimoSpecsSaajVersion>
-    <geronimoSpecsServletVersion>1.0.1-SNAPSHOT</geronimoSpecsServletVersion>
+    <geronimoSpecsActivationVersion>1.1</geronimoSpecsActivationVersion>
+    <geronimoSpecsCommonjVersion>1.0</geronimoSpecsCommonjVersion>
+    <geronimoSpecsCorbaVersion>1.0</geronimoSpecsCorbaVersion>
+    <geronimoSpecsCorba30Version>1.1</geronimoSpecsCorba30Version>
+    <geronimoSpecsCorba23Version>1.1</geronimoSpecsCorba23Version>
+    <geronimoSpecsEjbVersion>1.0.1</geronimoSpecsEjbVersion>
+    <geronimoSpecsJ2eeConnectorVersion>1.0.1</geronimoSpecsJ2eeConnectorVersion>
+    <geronimoSpecsJ2eeDeploymentVersion>1.0.1</geronimoSpecsJ2eeDeploymentVersion>
+    <geronimoSpecsJ2eeJaccVersion>1.0.1</geronimoSpecsJ2eeJaccVersion>
+    <geronimoSpecsJ2eeManagementVersion>1.0.1</geronimoSpecsJ2eeManagementVersion>
+    <geronimoSpecsJavamailVersion>1.1</geronimoSpecsJavamailVersion>
+    <geronimoSpecsJaxrVersion>1.0.1</geronimoSpecsJaxrVersion>
+    <geronimoSpecsJaxrpcVersion>1.0.1</geronimoSpecsJaxrpcVersion>
+    <geronimoSpecsJmsVersion>1.0.1</geronimoSpecsJmsVersion>
+    <geronimoSpecsJspVersion>1.0.1</geronimoSpecsJspVersion>
+    <geronimoSpecsJtaVersion>1.0.1</geronimoSpecsJtaVersion>
+    <geronimoSpecsQnameVersion>1.0.1</geronimoSpecsQnameVersion>
+    <geronimoSpecsSaajVersion>1.0.1</geronimoSpecsSaajVersion>
+    <geronimoSpecsServletVersion>1.0.1</geronimoSpecsServletVersion>
   </properties>
 
   <build>
