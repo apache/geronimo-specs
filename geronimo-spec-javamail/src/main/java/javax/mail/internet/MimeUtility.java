@@ -554,7 +554,7 @@ public class MimeUtility {
             if (encoding.equalsIgnoreCase("B")) {
                 encoder = "base64";
             }
-            else if (encoding.equalsIgnoreCase("G")) {
+            else if (encoding.equalsIgnoreCase("Q")) {
                 encoder = "quoted-printable";
             }
             else {
