@@ -48,7 +48,7 @@
     <geronimoSpecsJ2eeDeploymentVersion>1.0.1</geronimoSpecsJ2eeDeploymentVersion>
     <geronimoSpecsJ2eeJaccVersion>1.0.1</geronimoSpecsJ2eeJaccVersion>
     <geronimoSpecsJ2eeManagementVersion>1.0.1</geronimoSpecsJ2eeManagementVersion>
-    <geronimoSpecsJavamailVersion>1.1.1-SNAPSHOT</geronimoSpecsJavamailVersion>
+    <geronimoSpecsJavamailVersion>1.2-SNAPSHOT</geronimoSpecsJavamailVersion>
     <geronimoSpecsJaxrVersion>1.0.1</geronimoSpecsJaxrVersion>
     <geronimoSpecsJaxrpcVersion>1.0.1</geronimoSpecsJaxrpcVersion>
     <geronimoSpecsJmsVersion>1.0.1</geronimoSpecsJmsVersion>
