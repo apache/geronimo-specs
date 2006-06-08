@@ -97,5 +97,27 @@ public class MimeBodyPartTest extends TestCase {
         part.setDescription(null);
         assertNull(part.getDescription());
     }
+
+    public void testSetFileName() throws Exception {
+        MimeBodyPart part = new MimeBodyPart();
+        part.setFileName("test.dat");
+
+        assertEquals("test.dat", part.getFileName());
+
+        ContentDisposition disp = new ContentDisposition(part.getHeader("Content-Disposition", null));
+        assertEquals("test.dat", disp.getParameter("filename"));
+
+        ContentType type = new ContentType(part.getHeader("Content-Type", null));
+        assertEquals("test.dat", type.getParameter("name"));
+
+        MimeBodyPart part2 = new MimeBodyPart();
+
+        part2.setHeader("Content-Type", type.toString());
+
+        assertEquals("test.dat", part2.getFileName());
+        part2.setHeader("Content-Type", null);
+        part2.setHeader("Content-Disposition", disp.toString());
+        assertEquals("test.dat", part2.getFileName());
+    }
 }
 
