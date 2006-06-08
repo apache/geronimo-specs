@@ -25,19 +25,19 @@
         </configuration>
       </notifier>
     </notifiers>
-  </ciManagement> 
+  </ciManagement>
 
   <properties>
     <!--
      |
      | Geronimo module versions
-     | 
+     |
      | Note: when modules move from SNAPSHOT to an official release, they
      | should be removed from GBuild (assuming they were added to GBuild).
      |
      -->
     <geronimoSpecsVersion>1.2-SNAPSHOT</geronimoSpecsVersion>
-    
+
     <geronimoSpecsActivationVersion>1.1</geronimoSpecsActivationVersion>
     <geronimoSpecsCommonjVersion>1.0</geronimoSpecsCommonjVersion>
     <geronimoSpecsCorbaVersion>1.0</geronimoSpecsCorbaVersion>
@@ -48,7 +48,7 @@
     <geronimoSpecsJ2eeDeploymentVersion>1.0.1</geronimoSpecsJ2eeDeploymentVersion>
     <geronimoSpecsJ2eeJaccVersion>1.0.1</geronimoSpecsJ2eeJaccVersion>
     <geronimoSpecsJ2eeManagementVersion>1.0.1</geronimoSpecsJ2eeManagementVersion>
-    <geronimoSpecsJavamailVersion>1.1</geronimoSpecsJavamailVersion>
+    <geronimoSpecsJavamailVersion>1.1.1-SNAPSHOT</geronimoSpecsJavamailVersion>
     <geronimoSpecsJaxrVersion>1.0.1</geronimoSpecsJaxrVersion>
     <geronimoSpecsJaxrpcVersion>1.0.1</geronimoSpecsJaxrpcVersion>
     <geronimoSpecsJmsVersion>1.0.1</geronimoSpecsJmsVersion>
@@ -61,7 +61,7 @@
 
   <build>
     <defaultGoal>install</defaultGoal>
-    
+
     <plugins>
       <plugin>
         <artifactId>maven-one-plugin</artifactId>
@@ -130,7 +130,7 @@
        |
        | Geronimo specification versions
        |
-       -->          
+       -->
       <dependency>
         <groupId>org.apache.geronimo.specs</groupId>
         <artifactId>geronimo-activation_1.0.2_spec</artifactId>
@@ -155,27 +155,27 @@
         <groupId>org.apache.geronimo.specs</groupId>
         <artifactId>geronimo-ejb_2.1_spec</artifactId>
         <version>${geronimoSpecsEjbVersion}</version>
-      </dependency>                        
+      </dependency>
       <dependency>
         <groupId>org.apache.geronimo.specs</groupId>
         <artifactId>geronimo-j2ee_1.4_spec</artifactId>
         <version>${geronimoSpecsVersion}</version>
-      </dependency>                        
+      </dependency>
       <dependency>
         <groupId>org.apache.geronimo.specs</groupId>
         <artifactId>geronimo-j2ee-connector_1.5_spec</artifactId>
         <version>${geronimoSpecsJ2eeConnectorVersion}</version>
-      </dependency>                        
+      </dependency>
       <dependency>
         <groupId>org.apache.geronimo.specs</groupId>
         <artifactId>geronimo-j2ee-deployment_1.1_spec</artifactId>
         <version>${geronimoSpecsJ2eeDeploymentVersion}</version>
-      </dependency>                        
+      </dependency>
       <dependency>
         <groupId>org.apache.geronimo.specs</groupId>
         <artifactId>geronimo-j2ee-jacc_1.0_spec</artifactId>
         <version>${geronimoSpecsJ2eeJaccVersion}</version>
-      </dependency>                              
+      </dependency>
       <dependency>
         <groupId>org.apache.geronimo.specs</groupId>
         <artifactId>geronimo-j2ee-management_1.0_spec</artifactId>
@@ -185,68 +185,68 @@
         <groupId>org.apache.geronimo.specs</groupId>
         <artifactId>geronimo-javamail_1.3.1_spec</artifactId>
         <version>${geronimoSpecsJavamailVersion}</version>
-      </dependency>                                                
+      </dependency>
       <dependency>
         <groupId>org.apache.geronimo.specs</groupId>
         <artifactId>geronimo-jaxr_1.0_spec</artifactId>
         <version>${geronimoSpecsJaxrVersion}</version>
-      </dependency>                                                
+      </dependency>
       <dependency>
         <groupId>org.apache.geronimo.specs</groupId>
         <artifactId>geronimo-jaxrpc_1.1_spec</artifactId>
         <version>${geronimoSpecsJaxrpcVersion}</version>
-      </dependency>                                                
+      </dependency>
       <dependency>
         <groupId>org.apache.geronimo.specs</groupId>
         <artifactId>geronimo-jsp_2.0_spec</artifactId>
         <version>${geronimoSpecsJspVersion}</version>
-      </dependency>                                          
+      </dependency>
       <dependency>
         <groupId>org.apache.geronimo.specs</groupId>
         <artifactId>geronimo-jms_1.1_spec</artifactId>
         <version>${geronimoSpecsJmsVersion}</version>
-      </dependency>                                    
+      </dependency>
       <dependency>
         <groupId>org.apache.geronimo.specs</groupId>
         <artifactId>geronimo-jta_1.0.1B_spec</artifactId>
         <version>${geronimoSpecsJtaVersion}</version>
-      </dependency>                                          
+      </dependency>
       <dependency>
         <groupId>org.apache.geronimo.specs</groupId>
         <artifactId>geronimo-qname_1.1_spec</artifactId>
         <version>${geronimoSpecsQnameVersion}</version>
-      </dependency>            
+      </dependency>
       <dependency>
         <groupId>org.apache.geronimo.specs</groupId>
         <artifactId>geronimo-saaj_1.1_spec</artifactId>
         <version>${geronimoSpecsSaajVersion}</version>
-      </dependency>                  
+      </dependency>
       <dependency>
         <groupId>org.apache.geronimo.specs</groupId>
         <artifactId>geronimo-servlet_2.4_spec</artifactId>
         <version>${geronimoSpecsServletVersion}</version>
-      </dependency>            
+      </dependency>
 
       <dependency>
         <groupId>mx4j</groupId>
         <artifactId>mx4j</artifactId>
         <version>3.0.1</version>
-      </dependency>                        
+      </dependency>
       <dependency>
         <groupId>mockobjects</groupId>
         <artifactId>mockobjects-jdk1.4-j2ee1.3</artifactId>
         <version>0.09</version>
-      </dependency>                              
+      </dependency>
       <dependency>
         <groupId>mockobjects</groupId>
         <artifactId>mockobjects-core</artifactId>
         <version>0.09</version>
-      </dependency>                                    
+      </dependency>
       <dependency>
         <groupId>scout</groupId>
         <artifactId>scout</artifactId>
         <version>0.5</version>
-      </dependency>                        
+      </dependency>
    </dependencies>
   </dependencyManagement>
 
