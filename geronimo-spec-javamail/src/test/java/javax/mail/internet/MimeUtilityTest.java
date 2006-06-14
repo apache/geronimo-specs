@@ -83,43 +83,4 @@ public class MimeUtilityTest extends TestCase {
         }
     }
 
-
-    public void testEncodeWord() throws Exception {
-        assertEquals("abc", MimeUtility.encodeWord("abc"));
-        // default code page dependent, hard to directly test the encoded results
-        assertEquals(" hй! аифu !!!", MimeUtility.decodeWord(MimeUtility.encodeWord(" hй! аифu !!!")));
-
-        String encoded = MimeUtility.encodeWord(" hй! аифu !!!", "UTF-8", "Q");
-        assertEquals("=?UTF-8?Q?_h=C3=A9!_=C3=A0=C3=A8=C3=B4u_!!!?=", encoded);
-        assertEquals(" hй! аифu !!!", MimeUtility.decodeWord(encoded));
-
-        encoded = MimeUtility.encodeWord(" hй! аифu !!!", "UTF-8", "B");
-        assertEquals("=?UTF-8?B?IGjDqSEgw6DDqMO0dSAhISE=?=", encoded);
-        assertEquals(" hй! аифu !!!", MimeUtility.decodeWord(encoded));
-    }
-
-
-    public void testEncodeText() throws Exception {
-        assertEquals("abc", MimeUtility.encodeWord("abc"));
-        // default code page dependent, hard to directly test the encoded results
-        assertEquals(" hй! аифu !!!", MimeUtility.decodeText(MimeUtility.encodeText(" hй! аифu !!!")));
-
-        String encoded = MimeUtility.encodeText(" hй! аифu !!!", "UTF-8", "Q");
-        assertEquals("=?UTF-8?Q?_h=C3=A9!_=C3=A0=C3=A8=C3=B4u_!!!?=", encoded);
-        assertEquals(" hй! аифu !!!", MimeUtility.decodeText(encoded));
-
-        encoded = MimeUtility.encodeText(" hй! аифu !!!", "UTF-8", "B");
-        assertEquals("=?UTF-8?B?IGjDqSEgw6DDqMO0dSAhISE=?=", encoded);
-        assertEquals(" hй! аифu !!!", MimeUtility.decodeText(encoded));
-    }
-
-
-    public void testQuote() throws Exception {
-        assertEquals("abc", MimeUtility.quote("abc", "&*%"));
-        assertEquals("\"abc&\"", MimeUtility.quote("abc&", "&*%"));
-        assertEquals("\"abc\\\"\"", MimeUtility.quote("abc\"", "&*%"));
-        assertEquals("\"abc\\\\\"", MimeUtility.quote("abc\\", "&*%"));
-        assertEquals("\"abc\\\r\"", MimeUtility.quote("abc\r", "&*%"));
-        assertEquals("\"abc\\\n\"", MimeUtility.quote("abc\n", "&*%"));
-    }
 }

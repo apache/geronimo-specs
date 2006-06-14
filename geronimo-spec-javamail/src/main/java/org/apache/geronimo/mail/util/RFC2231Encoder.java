@@ -52,7 +52,7 @@ public class RFC2231Encoder implements Encoder
             (byte)'8', (byte)'9', (byte)'A', (byte)'B', (byte)'C', (byte)'D', (byte)'E', (byte)'F'
         };
 
-    protected String DEFAULT_SPECIALS = " *'%";
+    protected String DEFAULT_SPECIALS = " *\\%";
     protected String specials = DEFAULT_SPECIALS;
 
     /*
@@ -92,11 +92,11 @@ public class RFC2231Encoder implements Encoder
         int bytesWritten = 0;
         for (int i = off; i < (off + length); i++)
         {
-            int ch = data[i] & 0xff;
+            byte ch = data[i];
             // character tha must be encoded?  Prefix with a '%' and encode in hex.
             if (ch <= 32 || ch >= 127 || specials.indexOf(ch) != -1) {
                 out.write((byte)'%');
-                out.write(encodingTable[ch >> 4]);
+                out.write(encodingTable[(ch >> 4)]);
                 out.write(encodingTable[ch & 0xf]);
                 bytesWritten += 3;
             }

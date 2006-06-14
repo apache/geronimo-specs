@@ -515,22 +515,21 @@ public class Base64Encoder
             int readCount = in.read(inBuffer);
             // did we get a full triplet?  that's an easy encoding.
             if (readCount == 3) {
-                int  a1 = inBuffer[0] & 0xff;
-                int  a2 = inBuffer[1] & 0xff;
-                int  a3 = inBuffer[2] & 0xff;
+                byte a1 = (byte)(inBuffer[0] & 0xff);
+                byte a2 = (byte)(inBuffer[1] & 0xff);
+                byte a3 = (byte)(inBuffer[2] & 0xff);
 
                 out.append((char)encodingTable[(a1 >>> 2) & 0x3f]);
                 out.append((char)encodingTable[((a1 << 4) | (a2 >>> 4)) & 0x3f]);
                 out.append((char)encodingTable[((a2 << 2) | (a3 >>> 6)) & 0x3f]);
                 out.append((char)encodingTable[a3 & 0x3f]);
-
             }
             else if (readCount <= 0) {
                 // eof condition, don'e entirely.
                 return;
             }
             else if (readCount == 1) {
-                int  a1 = inBuffer[0] & 0xff;
+                byte a1 = (byte)(inBuffer[0] & 0xff);
                 out.append((char)encodingTable[(a1 >>> 2) & 0x3f]);
                 out.append((char)encodingTable[(a1 << 4) & 0x3f]);
                 out.append((char)padding);
@@ -538,8 +537,8 @@ public class Base64Encoder
                 return;
             }
             else if (readCount == 2) {
-                int  a1 = inBuffer[0] & 0xff;
-                int  a2 = inBuffer[1] & 0xff;
+                byte a1 = (byte)(inBuffer[0] & 0xff);
+                byte a2 = (byte)(inBuffer[1] & 0xff);
 
                 out.append((char)encodingTable[(a1 >>> 2) & 0x3f]);
                 out.append((char)encodingTable[((a1 << 4) | (a2 >>> 4)) & 0x3f]);

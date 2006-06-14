@@ -42,9 +42,7 @@ import org.apache.geronimo.mail.util.SessionUtil;
 public class MimeBodyPart extends BodyPart implements MimePart {
 	 // constants for accessed properties
     private static final String MIME_DECODEFILENAME = "mail.mime.decodefilename";
-    private static final String MIME_ENCODEFILENAME = "mail.mime.encodefilename";
     private static final String MIME_SETDEFAULTTEXTCHARSET = "mail.mime.setdefaulttextcharset";
-    private static final String MIME_SETCONTENTTYPEFILENAME = "mail.mime.setcontenttypefilename";
 
 
     /**
@@ -289,7 +287,7 @@ public class MimeBodyPart extends BodyPart implements MimePart {
 
     public String getFileName() throws MessagingException {
         // see if there is a disposition.  If there is, parse off the filename parameter.
-        String disposition = getSingleHeader("Content-Disposition");
+        String disposition = getDisposition();
         String filename = null;
 
         if (disposition != null) {
@@ -299,7 +297,7 @@ public class MimeBodyPart extends BodyPart implements MimePart {
         // if there's no filename on the disposition, there might be a name parameter on a
         // Content-Type header.
         if (filename == null) {
-            String type = getSingleHeader("Content-Type");
+            String type = getContentType();
             if (type != null) {
                 try {
                     filename = new ContentType(type).getParameter("name");
@@ -323,7 +321,7 @@ public class MimeBodyPart extends BodyPart implements MimePart {
     public void setFileName(String name) throws MessagingException {
         // there's an optional session property that requests file name encoding...we need to process this before
         // setting the value.
-        if (name != null && SessionUtil.getBooleanProperty(MIME_ENCODEFILENAME, false)) {
+        if (name == null) {
             try {
                 name = MimeUtility.encodeText(name);
             } catch (UnsupportedEncodingException e) {
@@ -337,22 +335,12 @@ public class MimeBodyPart extends BodyPart implements MimePart {
         if (disposition == null) {
             disposition = Part.ATTACHMENT;
         }
-
         // now create a disposition object and set the parameter.
         ContentDisposition contentDisposition = new ContentDisposition(disposition);
         contentDisposition.setParameter("filename", name);
 
         // serialize this back out and reset.
         setDisposition(contentDisposition.toString());
-        setHeader("Content-Disposition", contentDisposition.toString());
-
-        // The Sun implementation appears to update the Content-type name parameter too, based on
-        // another system property
-        if (SessionUtil.getBooleanProperty(MIME_SETCONTENTTYPEFILENAME, true)) {
-            ContentType type = new ContentType(getContentType());
-            type.setParameter("name", name);
-            setHeader("Content-Type", type.toString());
-        }
     }
 
     public InputStream getInputStream() throws MessagingException, IOException {
@@ -397,13 +385,7 @@ public class MimeBodyPart extends BodyPart implements MimePart {
     }
 
     public void setContent(Object content, String type) throws MessagingException {
-        // Multipart content needs to be handled separately.
-        if (content instanceof Multipart) {
-            setContent((Multipart)content);
-        }
-        else {
-            setDataHandler(new DataHandler(content, type));
-        }
+        setDataHandler(new DataHandler(content, type));
     }
 
     public void setText(String text) throws MessagingException {
