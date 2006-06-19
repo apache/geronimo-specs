@@ -108,7 +108,7 @@ public class MimeUtilityTest extends TestCase {
 
         String encodeString = new String(encodeBytes, "UTF-8");
         // default code page dependent, hard to directly test the encoded results
-        assertEquals(encodeString, MimeUtility.decodeText(MimeUtility.encodeText(" hй! аифu !!!")));
+        assertEquals(encodeString, MimeUtility.decodeText(MimeUtility.encodeText(encodeString)));
 
         String encoded = MimeUtility.encodeText(encodeString, "UTF-8", "Q");
         assertEquals("=?UTF-8?Q?_h=C3=A9!_=C3=A0=C3=A8=C3=B4u_!!!?=", encoded);
