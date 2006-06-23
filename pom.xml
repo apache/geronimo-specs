@@ -12,6 +12,8 @@
      | Geronimo module versions
      |
      -->
+    <geronimoSpecsAnnotationVersion>1.0-SNAPSHOT</geronimoSpecsAnnotationVersion>
+    <geronimoSpecsInterceptorVersion>1.0-SNAPSHOT</geronimoSpecsInterceptorVersion>
     <geronimoSpecsEjbVersion>1.0-SNAPSHOT</geronimoSpecsEjbVersion>
     <geronimoSpecsJpaVersion>1.0-SNAPSHOT</geronimoSpecsJpaVersion>
     <geronimoSpecsJtaVersion>1.0</geronimoSpecsJtaVersion>
@@ -53,6 +55,8 @@
   </build>
 
   <modules>
+    <module>geronimo-spec-annotation</module>
+    <module>geronimo-spec-interceptor</module>
     <module>geronimo-spec-ejb</module>
     <module>geronimo-spec-jpa</module>
     <module>geronimo-spec-servlet</module>
@@ -67,9 +71,19 @@
        -->          
       <dependency>
         <groupId>org.apache.geronimo.specs</groupId>
+        <artifactId>geronimo-annotation_1.0_spec</artifactId>
+        <version>${geronimoSpecsAnnotationVersion}</version>
+      </dependency>                        
+      <dependency>
+        <groupId>org.apache.geronimo.specs</groupId>
+        <artifactId>geronimo-interceptor_3.0_spec</artifactId>
+        <version>${geronimoSpecsInterceptorVersion}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.geronimo.specs</groupId>
         <artifactId>geronimo-ejb_3.0_spec</artifactId>
         <version>${geronimoSpecsEjbVersion}</version>
-      </dependency>                        
+      </dependency>
       <dependency>
         <groupId>org.apache.geronimo.specs</groupId>
         <artifactId>geronimo-jpa_3.0_spec</artifactId>

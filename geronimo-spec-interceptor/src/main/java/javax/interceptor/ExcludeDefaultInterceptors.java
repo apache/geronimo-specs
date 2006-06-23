@@ -20,7 +20,7 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-package javax.ejb;
+package javax.interceptor;
 
 import java.lang.annotation.Target;
 import java.lang.annotation.Retention;
@@ -32,6 +32,5 @@ import java.lang.annotation.RetentionPolicy;
  */
 @Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Interceptors {
-    Class[] value();
+public @interface ExcludeDefaultInterceptors {
 }

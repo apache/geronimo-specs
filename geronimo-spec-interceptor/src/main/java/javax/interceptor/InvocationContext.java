@@ -20,17 +20,25 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-package javax.ejb;
 
-import java.lang.annotation.Target;
-import java.lang.annotation.Retention;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.RetentionPolicy;
+package javax.interceptor;
+
+import java.lang.reflect.Method;
 
 /**
  * @version $Revision$ $Date$
  */
-@Target({ElementType.METHOD})
-@Retention(RetentionPolicy.RUNTIME)
-public @interface AroundInvoke {
+public interface InvocationContext {
+
+    public Object getTarget();
+
+    public Method getMethod();
+
+    public Object[] getParameters();
+
+    public void setParameters(Object[] parameters);
+
+    public java.util.Map<String,Object> getContextData();
+
+    public Object proceed() throws Exception;
 }
