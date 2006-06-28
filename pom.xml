@@ -121,7 +121,7 @@
     <module>geronimo-spec-jta</module>
     <module>geronimo-spec-qname</module>
     <module>geronimo-spec-saaj</module>
-    <module>geronimo-spec-servlet</module>
+    <module>geronimo-spec-servlet-2.4</module>
   </modules>
 
   <dependencyManagement>
