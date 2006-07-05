@@ -5,7 +5,7 @@
     <version>1.2-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>geronimo-spec</groupId>
+  <groupId>org.apache.geronimo.spec</groupId>
   <artifactId>geronimo-spec-corba</artifactId>
   <name>CORBA</name>
   <version>${geronimoSpecsCorbaVersion}</version>

@@ -6,7 +6,7 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>geronimo-servlet_2.5_spec</artifactId>
-  <name>Servlet</name>
+  <name>Servlet 2.5</name>
   <version>${geronimoSpecsServletVersion}</version>
   
   <scm>
