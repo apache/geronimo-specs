@@ -33,7 +33,7 @@ import java.util.Collection;
 /**
  * @version $Rev: 46019 $ $Date: 2004-09-14 05:56:06 -0400 (Tue, 14 Sep 2004) $
  */
-public interface RemoteWorkItem extends Comparable, WorkItem {
+public interface RemoteWorkItem extends WorkItem {
 
     WorkManager getPinnedWorkManager();
     void release();

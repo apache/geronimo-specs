@@ -39,7 +39,7 @@
     <geronimoSpecsVersion>1.2-SNAPSHOT</geronimoSpecsVersion>
 
     <geronimoSpecsActivationVersion>1.1</geronimoSpecsActivationVersion>
-    <geronimoSpecsCommonjVersion>1.0</geronimoSpecsCommonjVersion>
+    <geronimoSpecsCommonjVersion>1.0.1-SNAPSHOT</geronimoSpecsCommonjVersion>
     <geronimoSpecsCorbaVersion>1.0</geronimoSpecsCorbaVersion>
     <geronimoSpecsCorba30Version>1.1</geronimoSpecsCorba30Version>
     <geronimoSpecsCorba23Version>1.1</geronimoSpecsCorba23Version>

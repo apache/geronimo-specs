@@ -28,22 +28,45 @@
 
 package commonj.work;
 
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
+
 /**
  * @version $Rev: 46019 $ $Date: 2004-09-14 05:56:06 -0400 (Tue, 14 Sep 2004) $
  */
-public class WorkCompletedException extends Exception {
+public class WorkCompletedException extends WorkException {
+
+    private final List exceptionList;
 
     public WorkCompletedException() {
         super();
+        exceptionList = Collections.EMPTY_LIST;
     }
     public WorkCompletedException(String message) {
         super(message);
+        exceptionList = Collections.EMPTY_LIST;
     }
     public WorkCompletedException(String message, Throwable cause) {
         super(message, cause);
+        exceptionList = Collections.singletonList(cause);
     }
     public WorkCompletedException(Throwable cause) {
         super(cause);
+        exceptionList = Collections.singletonList(cause);
+    }
+    public WorkCompletedException(String message, List list) {
+        super(message);
+        if ((list != null) && (list.size() > 0)) {
+            initCause((Throwable) list.get(0));
+            exceptionList = Collections.unmodifiableList(new ArrayList(list));
+        } else {
+            exceptionList = Collections.EMPTY_LIST;
+        }
+    }
+ 
+    public List getExceptionList() {
+        return exceptionList;
     }
 
 }

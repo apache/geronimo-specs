@@ -35,12 +35,12 @@ import java.util.Collection;
  */
 public interface WorkManager {
 
-    static long IMMEDIATE = 0;
-    static long INDEFINITE = java.lang.Long.MAX_VALUE;
+    static final long IMMEDIATE = 0;
+    static final long INDEFINITE = java.lang.Long.MAX_VALUE;
 
-    WorkItem schedule(Work work) throws IllegalArgumentException;
+    WorkItem schedule(Work work) throws WorkException, IllegalArgumentException;
 
-    WorkItem schedule(Work work, WorkListener listener) throws IllegalArgumentException;
+    WorkItem schedule(Work work, WorkListener listener) throws WorkException, IllegalArgumentException;
 
     boolean waitForAll(Collection workItems, long timeout) 
         throws InterruptedException, IllegalArgumentException;

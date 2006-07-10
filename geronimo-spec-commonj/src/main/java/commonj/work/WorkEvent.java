@@ -33,10 +33,10 @@ package commonj.work;
  */
 public interface WorkEvent {
 
-    static int WORK_ACCEPTED = 1;
-    static int WORK_COMPLETED = 4;
-    static int WORK_REJECTED = 2;
-    static int WORK_STARTED = 3;
+    static final int WORK_ACCEPTED = 1;
+    static final int WORK_REJECTED = 2;
+    static final int WORK_STARTED = 3;
+    static final int WORK_COMPLETED = 4;
 
     WorkException getException();
     int getType();
