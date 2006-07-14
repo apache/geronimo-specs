@@ -48,7 +48,8 @@
     <geronimoSpecsJ2eeDeploymentVersion>1.0.1</geronimoSpecsJ2eeDeploymentVersion>
     <geronimoSpecsJ2eeJaccVersion>1.0.1</geronimoSpecsJ2eeJaccVersion>
     <geronimoSpecsJ2eeManagementVersion>1.0.1</geronimoSpecsJ2eeManagementVersion>
-    <geronimoSpecsJavamailVersion>1.2-SNAPSHOT</geronimoSpecsJavamailVersion>
+    <geronimoSpecsJavamail13Version>1.2-SNAPSHOT</geronimoSpecsJavamail13Version>
+    <geronimoSpecsJavamail14Version>1.0-SNAPSHOT</geronimoSpecsJavamail14Version>
     <geronimoSpecsJaxrVersion>1.0.1</geronimoSpecsJaxrVersion>
     <geronimoSpecsJaxrpcVersion>1.0.1</geronimoSpecsJaxrpcVersion>
     <geronimoSpecsJmsVersion>1.0.1</geronimoSpecsJmsVersion>
@@ -113,7 +114,8 @@
     <module>geronimo-spec-j2ee-jacc</module>
     <module>geronimo-spec-j2ee-management</module>
     <module>geronimo-spec-j2ee</module>
-    <module>geronimo-spec-javamail</module>
+    <module>geronimo-spec-javamail-1.3.1</module>
+    <module>geronimo-spec-javamail-1.4</module>
     <module>geronimo-spec-jaxr</module>
     <module>geronimo-spec-jaxrpc</module>
     <module>geronimo-spec-jms</module>
@@ -185,7 +187,12 @@
       <dependency>
         <groupId>org.apache.geronimo.specs</groupId>
         <artifactId>geronimo-javamail_1.3.1_spec</artifactId>
-        <version>${geronimoSpecsJavamailVersion}</version>
+        <version>${geronimoSpecsJavamail13Version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.geronimo.specs</groupId>
+        <artifactId>geronimo-javamail_1.4_spec</artifactId>
+        <version>${geronimoSpecsJavamail14Version}</version>
       </dependency>
       <dependency>
         <groupId>org.apache.geronimo.specs</groupId>
