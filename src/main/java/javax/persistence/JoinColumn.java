@@ -31,7 +31,7 @@ import java.lang.annotation.RetentionPolicy;
 /**
  * @version $Revision$ $Date$
  */
-@Target({ElementType.TYPE, ElementType.METHOD, ElementType.FIELD})
+@Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface JoinColumn {
     String name() default "";
