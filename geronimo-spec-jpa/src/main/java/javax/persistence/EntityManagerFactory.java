@@ -22,18 +22,18 @@
 //
 package javax.persistence;
 
+import java.util.Map;
+
 /**
  * @version $Revision$ $Date$
  */
 public interface EntityManagerFactory {
-    
-    EntityManager createEntityManager(); 
-    
-    EntityManager createEntityManager(PersistenceContextType type);
-    
-    EntityManager getEntityManager(); 
-    
-    void close(); 
 
-    public boolean isOpen();
+	EntityManager createEntityManager();
+	
+	EntityManager createEntityManager(Map map);
+
+	void close();
+
+	public boolean isOpen();
 }

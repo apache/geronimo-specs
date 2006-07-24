@@ -33,7 +33,7 @@ import java.lang.annotation.RetentionPolicy;
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface DiscriminatorColumn {
-    String name() default "";
+    String name() default "DTYPE";
 
     DiscriminatorType discriminatorType() default DiscriminatorType.STRING;
 

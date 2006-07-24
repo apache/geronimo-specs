@@ -26,11 +26,16 @@ package javax.persistence;
  * @version $Revision$ $Date$
  */
 public interface EntityTransaction {
-    public void begin();
+	public void begin();
 
-    public void commit();
-    
-    public void rollback();
-    
-    public boolean isActive();
+	public void commit();
+
+	public void rollback();
+
+	public boolean isActive();
+
+	public void setRollbackOnly();
+
+	public boolean getRollbackOnly();
+
 }

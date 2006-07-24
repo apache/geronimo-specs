@@ -33,10 +33,12 @@ import java.lang.annotation.RetentionPolicy;
 @Target({ElementType.TYPE, ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface PersistenceContext {
-    String name() default "";
+	String name() default "";
 
-    String unitName() default "";
+	String unitName() default "";
 
-    PersistenceContextType type() default PersistenceContextType.TRANSACTION;
+	PersistenceContextType type() default PersistenceContextType.TRANSACTION;
+
+	PersistenceProperty[] properties() default {};
 }
 

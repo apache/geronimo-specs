@@ -34,6 +34,6 @@ public interface PersistenceProvider {
             Map map);
 
     public EntityManagerFactory createContainerManagerFactory(
-            PersistenceUnitInfo info);
+            PersistenceUnitInfo info, Map map);
 
 }
