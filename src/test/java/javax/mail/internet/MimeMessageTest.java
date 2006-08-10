@@ -410,7 +410,11 @@ public class MimeMessageTest extends TestCase {
         myMap.addMailcap("text/plain;;    x-java-content-handler=" + MimeMultipartTest.DummyTextHandler.class.getName());
         myMap.addMailcap("multipart/*;;    x-java-content-handler=" + MimeMultipartTest.DummyMultipartHandler.class.getName());
         CommandMap.setDefaultCommandMap(myMap);
-        session = Session.getDefaultInstance(new Properties());
+        Properties props = new Properties();
+        props.put("mail.user", "tester");
+        props.put("mail.host", "apache.org");
+
+        session = Session.getInstance(props);
     }
 
     protected void tearDown() throws Exception {
