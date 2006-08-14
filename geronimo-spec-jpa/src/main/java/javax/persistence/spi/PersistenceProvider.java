@@ -30,10 +30,8 @@ import java.util.Map;
  */
 public interface PersistenceProvider {
 
-    public EntityManagerFactory createEntityManagerFactory(String emName,
-            Map map);
+    public EntityManagerFactory createEntityManagerFactory(String emName, Map map);
 
-    public EntityManagerFactory createContainerManagerFactory(
-            PersistenceUnitInfo info, Map map);
+    public EntityManagerFactory createContainerEntityManagerFactory(PersistenceUnitInfo info, Map map);
 
 }
