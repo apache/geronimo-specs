@@ -43,9 +43,7 @@ public interface EntityManager {
 
 	public FlushModeType getFlushMode();
 
-	// TODO: Comment this out as LockModeType is knowhere to be found in the
-	// spec
-	// public void lock(Object entity, LockModeType lockMode);
+    public void lock(Object entity, LockModeType lockMode);
 
 	public void refresh(Object entity);
 
