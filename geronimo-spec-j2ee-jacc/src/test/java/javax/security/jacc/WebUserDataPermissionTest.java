@@ -23,16 +23,16 @@
 
 package javax.security.jacc;
 
-import java.io.ByteArrayOutputStream;
-import java.io.ObjectOutputStream;
 import java.io.ByteArrayInputStream;
-import java.io.ObjectInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 import junit.framework.TestCase;
 
+
 /**
- *
  * @version $Rev$ $Date$
  */
 public class WebUserDataPermissionTest extends TestCase {
@@ -42,11 +42,14 @@ public class WebUserDataPermissionTest extends TestCase {
      */
     public void testConstructorStringString() {
 
+        MockHttpServletRequest request = new MockHttpServletRequest("/portal", "/services/services_jdbc/_rp_services_jdbc_row1_col1_p1_adapterDisplayName/1_TranQL0x8Generic0x8JDBC0x8Resource0x8Adapter/_rp_services_jdbc_row1_col1_p1_rarPath/1_tranql0x3tranql-connector0x310x220x3rar/_rp_services_jdbc_row1_col1_p1_mode/1_params/_rp_services_jdbc_row1_col1_p1_driverClass/1_org0x2hsqldb0x2jdbcDriver/_pm_services_jdbc_row1_col1_p1/view/_rp_services_jdbc_row1_col1_p1_dbtype/1_HSQLDB0x8embedded/_rp_services_jdbc_row1_col1_p1_urlPrototype/1_jdbc:hsqldb:{Database}/_st_services_jdbc_row1_col1_p1/normal/_ps_services_jdbc_row1_col1_p1/normal/_pid/services_jdbc_row1_col1_p1/_md_services_jdbc_row1_col1_p1/view/_rp_services_jdbc_row1_col1_p1_name/1_FFFFF");
+        new WebUserDataPermission(URLPatternSpec.encodeColons(request), "GET:NONE");
+
         WebUserDataPermission permission = new WebUserDataPermission("/foo", "GET,POST:INTEGRAL");
 
         assertEquals(permission.getName(), "/foo");
         assertEquals(permission.getActions(), "GET,POST:INTEGRAL");
-        
+
         permission = new WebUserDataPermission("/foo", "GET,POST,POST,GET:INTEGRAL");
         assertEquals(permission.getActions(), "GET,POST:INTEGRAL");
 
@@ -54,14 +57,14 @@ public class WebUserDataPermissionTest extends TestCase {
         try {
             permission = new WebUserDataPermission("/foo", "GET,POST,BAR:INTEGRAL");
             fail("Bad HTTP method");
-        } catch(IllegalArgumentException iae) {
+        } catch (IllegalArgumentException iae) {
         }
 
         // If you have a colon, then you must have a transportType
         try {
             permission = new WebUserDataPermission("/foo", "GET,POST,BAR:");
             fail("Missing transportType");
-        } catch(IllegalArgumentException iae) {
+        } catch (IllegalArgumentException iae) {
         }
     }
 
@@ -89,7 +92,7 @@ public class WebUserDataPermissionTest extends TestCase {
         WebUserDataPermission permissionFooGP = new WebUserDataPermission("/foo", "GET,POST:INTEGRAL");
         WebUserDataPermission permissionFooE = new WebUserDataPermission("/foo", "");
         WebUserDataPermission permissionFooGPN = new WebUserDataPermission("/foo", "GET,POST");
-        
+
         assertTrue(permissionFooE.implies(permissionFooGP));
         assertTrue(permissionFooE.implies(permissionFooGPN));
         assertFalse(permissionFooGP.implies(permissionFooE));
@@ -104,7 +107,7 @@ public class WebUserDataPermissionTest extends TestCase {
      */
     public void testConstructorStringStringArray() {
     }
-    
+
     public void testImpliesStringStringArray() {
     }
 
@@ -113,7 +116,7 @@ public class WebUserDataPermissionTest extends TestCase {
      */
     public void testConstructorHttpServletRequest() {
     }
-    
+
     public void testImpliesHttpServletRequest() {
     }
 }
