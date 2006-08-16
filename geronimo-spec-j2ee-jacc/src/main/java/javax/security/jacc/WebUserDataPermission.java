@@ -66,7 +66,7 @@ public final class WebUserDataPermission extends Permission implements Serializa
     public WebUserDataPermission(HttpServletRequest request) {
         super(request.getServletPath());
 
-        urlPatternSpec = new URLPatternSpec(request.getServletPath());
+        urlPatternSpec = new URLPatternSpec(URLPatternSpec.encodeColons(request));
         httpMethodSpec = new HTTPMethodSpec(request.getMethod(), request.isSecure()? HTTPMethodSpec.CONFIDENTIAL: HTTPMethodSpec.NONE);
     }
 
