@@ -44,7 +44,7 @@ public final class WebResourcePermission extends Permission implements Serializa
     public WebResourcePermission(HttpServletRequest request) {
         super(request.getServletPath());
 
-        urlPatternSpec = new URLPatternSpec(request.getServletPath() + (request.getPathInfo() == null ? "" : request.getPathInfo()));
+        urlPatternSpec = new URLPatternSpec(URLPatternSpec.encodeColons(request));
         httpMethodSpec = new HTTPMethodSpec(request.getMethod(), HTTPMethodSpec.NA);
     }
 
