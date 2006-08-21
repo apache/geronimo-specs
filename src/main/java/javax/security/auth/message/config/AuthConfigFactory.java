@@ -67,10 +67,10 @@ public abstract class AuthConfigFactory {
             } catch (PrivilegedActionException e) {
                 Exception inner = e.getException();
                 if (inner instanceof InstantiationException) {
-                    throw (SecurityException) new SecurityException("AuthConfigFactory error:"
-                                    + inner.getCause().getMessage(), inner.getCause());
+                    throw (AuthException) new AuthException("AuthConfigFactory error:"
+                                    + inner.getCause().getMessage()).initCause(inner.getCause());
                 } else {
-                    throw (SecurityException) new SecurityException("AuthConfigFactory error: " + inner, inner);
+                    throw (AuthException) new AuthException("AuthConfigFactory error: " + inner).initCause(inner);
                 }
             }
         }
