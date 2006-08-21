@@ -24,9 +24,9 @@ import javax.security.auth.Subject;
  */
 public interface ServerAuth {
 
-    void cleanSubject(MessageInfo messageInfo, Subject subject);
+    void cleanSubject(MessageInfo messageInfo, Subject subject) throws AuthException;
 
-    AuthStatus secureResponse(MessageInfo messageInfo, Subject serviceSubject);
+    AuthStatus secureResponse(MessageInfo messageInfo, Subject serviceSubject) throws AuthException;
 
-    AuthStatus validateRequest(MessageInfo messageInfo, Subject clientSubject, Subject serviceSubject);
+    AuthStatus validateRequest(MessageInfo messageInfo, Subject clientSubject, Subject serviceSubject) throws AuthException;
 }

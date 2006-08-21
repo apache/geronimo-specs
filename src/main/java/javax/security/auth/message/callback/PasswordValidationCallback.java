@@ -39,11 +39,7 @@ public class PasswordValidationCallback implements Callback {
     }
 
     public char[] getPassword() {
-        char[] result = new char[password.length];
-
-        System.arraycopy(password, 0, result, 0, password.length);
-
-        return result;
+        return password;
     }
 
     public void clearPassword() {

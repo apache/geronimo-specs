@@ -17,6 +17,7 @@
  */
 package javax.security.auth.message.config;
 
+import javax.security.auth.message.AuthException;
 import javax.security.auth.message.MessageInfo;
 
 /**
@@ -24,11 +25,11 @@ import javax.security.auth.message.MessageInfo;
  */
 public interface AuthConfig {
 
-    java.lang.String getAppContext();
+    String getAppContext();
 
-    java.lang.String getMessageLayer();
+    String getMessageLayer();
 
-    java.lang.String getOperation(MessageInfo messageInfo);
+    String getOperation(MessageInfo messageInfo) throws IllegalArgumentException;
 
-    void refresh();
+    void refresh() throws AuthException, SecurityException;
 }

@@ -25,12 +25,18 @@ public class MessagePolicy {
     private final TargetPolicy[] targetPolicies;
     private final boolean mandatory;
 
-    public MessagePolicy(TargetPolicy[] targetPolicies, boolean mandatory) {
+    public MessagePolicy(TargetPolicy[] targetPolicies, boolean mandatory) throws IllegalArgumentException {
+        if (targetPolicies == null) {
+            throw new IllegalArgumentException("targetPolicies is null");
+        }
         this.targetPolicies = targetPolicies;
         this.mandatory = mandatory;
     }
 
     public TargetPolicy[] getTargetPolicies() {
+        if (targetPolicies.length == 0) {
+            return null;
+        }
         return targetPolicies;
     }
 
@@ -61,12 +67,21 @@ public class MessagePolicy {
         private final Target[] targets;
         private final ProtectionPolicy protectionPolicy;
 
-        public TargetPolicy(Target[] targets, ProtectionPolicy protectionPolicy) {
+        public TargetPolicy(Target[] targets, ProtectionPolicy protectionPolicy) throws IllegalArgumentException {
+            if (targets == null) {
+                throw new IllegalArgumentException("targets is null");
+            }
+            if (protectionPolicy == null) {
+                throw new IllegalArgumentException("protectionPolicy is null");
+            }
             this.targets = targets;
             this.protectionPolicy = protectionPolicy;
         }
 
         public Target[] getTargets() {
+            if (targets.length == 0) {
+                return null;
+            }
             return targets;
         }
 

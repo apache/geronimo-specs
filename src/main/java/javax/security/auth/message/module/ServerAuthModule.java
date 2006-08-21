@@ -18,6 +18,7 @@
 package javax.security.auth.message.module;
 
 import javax.security.auth.callback.CallbackHandler;
+import javax.security.auth.message.AuthException;
 import javax.security.auth.message.MessagePolicy;
 import javax.security.auth.message.ServerAuth;
 import java.util.Map;
@@ -27,7 +28,7 @@ import java.util.Map;
  */
 public interface ServerAuthModule extends ServerAuth {
 
-    Class[]     getSupportedMessageTypes();
+    Class[] getSupportedMessageTypes();
 
-    void initialize(MessagePolicy requestPolicy, MessagePolicy responsePolicy, CallbackHandler handler, Map options);
+    void initialize(MessagePolicy requestPolicy, MessagePolicy responsePolicy, CallbackHandler handler, Map options) throws AuthException;
 }

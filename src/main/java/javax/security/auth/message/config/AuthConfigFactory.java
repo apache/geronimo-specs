@@ -17,7 +17,11 @@
  */
 package javax.security.auth.message.config;
 
+import java.security.PrivilegedActionException;
 import java.util.Map;
+
+import javax.security.auth.AuthPermission;
+import javax.security.auth.message.AuthException;
 
 /**
  * @version $Rev$ $Date$
@@ -25,28 +29,75 @@ import java.util.Map;
 public abstract class AuthConfigFactory {
 
     private static AuthConfigFactory factory;
+    private static ClassLoader contextClassLoader;
 
-    static AuthConfigFactory getFactory() {
-        return AuthConfigFactory.factory;
+    static {
+        contextClassLoader = (ClassLoader) java.security.AccessController
+                        .doPrivileged(new java.security.PrivilegedAction() {
+                            public Object run() {
+                                return Thread.currentThread().getContextClassLoader();
+                            }
+                        });
+    };
+    
+    public static AuthConfigFactory getFactory() throws AuthException, SecurityException {
+        SecurityManager sm = System.getSecurityManager();
+        if (sm != null) {
+            sm.checkPermission(new AuthPermission("getAuthConfigFactory"));
+        }
+        if (factory == null) {
+            String className = (String) java.security.AccessController
+                            .doPrivileged(new java.security.PrivilegedAction() {
+                                public Object run() {
+                                    return java.security.Security.getProperty("authconfigprovider.factory");
+                                }
+                            });
+            if (className == null) {
+                className = "org.apache.geronimo.jaspi.AuthConfigFactoryImpl";
+            }
+            try {
+                final String finalClassName = className;
+                factory = (AuthConfigFactory) java.security.AccessController
+                                .doPrivileged(new java.security.PrivilegedExceptionAction() {
+                                    public Object run() throws ClassNotFoundException, InstantiationException,
+                                                    IllegalAccessException {
+                                        return Class.forName(finalClassName, true, contextClassLoader).newInstance();
+                                    }
+                                });
+            } catch (PrivilegedActionException e) {
+                Exception inner = e.getException();
+                if (inner instanceof InstantiationException) {
+                    throw (SecurityException) new SecurityException("AuthConfigFactory error:"
+                                    + inner.getCause().getMessage(), inner.getCause());
+                } else {
+                    throw (SecurityException) new SecurityException("AuthConfigFactory error: " + inner, inner);
+                }
+            }
+        }
+        return factory;
     }
 
-    static void setFactory(AuthConfigFactory factory) {
+    public static void setFactory(AuthConfigFactory factory) throws SecurityException {
+        SecurityManager sm = System.getSecurityManager();
+        if (sm != null) {
+            sm.checkPermission(new AuthPermission("setAuthConfigFactory"));
+        }
         AuthConfigFactory.factory = factory;
     }
 
-    abstract String[] detachListener(RegistrationListener listener, String layer, String appContext);
+    public abstract String[] detachListener(RegistrationListener listener, String layer, String appContext) throws SecurityException;
 
-    abstract AuthConfigProvider getConfigProvider(String layer, String appContext, RegistrationListener listener);
+    public abstract AuthConfigProvider getConfigProvider(String layer, String appContext, RegistrationListener listener);
 
-    abstract RegistrationContext getRegistrationContext(String registrationID);
+    public abstract RegistrationContext getRegistrationContext(String registrationID);
 
-    abstract String[] getRegistrationIDs(AuthConfigProvider provider);
+    public abstract String[] getRegistrationIDs(AuthConfigProvider provider);
 
-    abstract void refresh();
+    public abstract void refresh() throws AuthException, SecurityException;
 
-    abstract String registerConfigProvider(String className, Map properties, String layer, String appContext, String description);
+    public abstract String registerConfigProvider(String className, Map properties, String layer, String appContext, String description) throws AuthException, SecurityException;
 
-    abstract boolean removeRegistration(String registrationID);
+    public abstract boolean removeRegistration(String registrationID) throws SecurityException;
 
     public static interface RegistrationContext {
 

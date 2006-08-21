@@ -56,7 +56,7 @@ public class PrivateKeyCallback implements Callback {
     public static interface Request {
     }
 
-    static class AliasRequest implements Request {
+    public static class AliasRequest implements Request {
 
         private final String alias;
 

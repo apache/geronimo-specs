@@ -22,9 +22,9 @@ package javax.security.auth.message;
  */
 public class AuthStatus {
 
-    static AuthStatus FAILURE = new AuthStatus();
-    static AuthStatus SEND_CONTINUE = new AuthStatus();
-    static AuthStatus SEND_FAILURE = new AuthStatus();
-    static AuthStatus SEND_SUCCESS = new AuthStatus();
-    static AuthStatus SUCCESS = new AuthStatus();
+    public static final AuthStatus FAILURE = new AuthStatus();
+    public static final AuthStatus SEND_CONTINUE = new AuthStatus();
+    public static final AuthStatus SEND_FAILURE = new AuthStatus();
+    public static final AuthStatus SEND_SUCCESS = new AuthStatus();
+    public static final AuthStatus SUCCESS = new AuthStatus();
 }

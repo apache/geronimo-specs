@@ -17,6 +17,7 @@
  */
 package javax.security.auth.message.module;
 
+import javax.security.auth.message.AuthException;
 import javax.security.auth.message.ClientAuth;
 import javax.security.auth.message.MessagePolicy;
 import javax.security.auth.callback.CallbackHandler;
@@ -27,7 +28,7 @@ import java.util.Map;
  */
 public interface ClientAuthModule extends ClientAuth {
 
-    Class[]     getSupportedMessageTypes();
+    Class[] getSupportedMessageTypes();
 
-    void initialize(MessagePolicy requestPolicy, MessagePolicy responsePolicy, CallbackHandler handler, Map options);
+    void initialize(MessagePolicy requestPolicy, MessagePolicy responsePolicy, CallbackHandler handler, Map options) throws AuthException;
 }

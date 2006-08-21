@@ -17,8 +17,10 @@
  */
 package javax.security.auth.message.config;
 
+import javax.security.auth.message.ClientAuth;
+
 /**
  * @version $Rev$ $Date$
  */
-public interface ClientAuthContext {
+public interface ClientAuthContext extends ClientAuth {
 }

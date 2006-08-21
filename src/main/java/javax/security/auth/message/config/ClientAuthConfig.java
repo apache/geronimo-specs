@@ -18,6 +18,8 @@
 package javax.security.auth.message.config;
 
 import javax.security.auth.Subject;
+import javax.security.auth.message.AuthException;
+
 import java.util.Map;
 
 /**
@@ -25,5 +27,5 @@ import java.util.Map;
  */
 public interface ClientAuthConfig extends AuthConfig {
 
-    ClientAuthContext getAuthContext(String operation, Subject clientSubject, Map properties);
+    ClientAuthContext getAuthContext(String operation, Subject clientSubject, Map properties) throws AuthException;
 }
