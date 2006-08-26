@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright 2006 The Apache Software Foundation
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+
+<!-- $Rev: 432950 $ $Date: 2006-08-20 00:30:07 -0700 (Sun, 20 Aug 2006) $ -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.apache.geronimo.specs</groupId>
+        <artifactId>specs</artifactId>
+        <version>1.2-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>geronimo-corba_3.0_spec</artifactId>
+    <name>CORBA 3.0</name>
+    <version>${geronimoSpecsCorba30Version}</version>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>idlj-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <debug>false</debug>
+                    <compiler>jacorb</compiler>
+                    <sources>
+                        <source>
+                            <emitStubs>false</emitStubs>
+                            <emitSkeletons>false</emitSkeletons>
+                            <includes>
+                                <include>**/IOP.idl</include>
+                                <include>**/IIOP.idl</include>
+                                <include>**/GIOP.idl</include>
+                                <include>**/CSI.idl</include>
+                                <include>**/CSIIOP.idl</include>
+                                <include>**/GSSUP.idl</include>
+                                <include>**/BiDirPolicy.idl</include>
+                                <include>**/CONV_FRAME.idl</include>
+                                <include>**/SendingContext.idl</include>
+                                <include>**/Dynamic.idl</include>
+                                <!-- <include>**/DynamicAny.idl</include> -->
+                                <include>**/PortableServer.idl</include>
+                                <include>**/PortableInterceptor.idl</include>
+                                <include>**/Security.idl</include>
+                                <include>**/SecurityLevel1.idl</include>
+                                <include>**/SecurityLevel2.idl</include>
+                                <include>**/TimeBase.idl</include>
+                                <include>**/SecurityAdmin.idl</include>
+                                <include>**/SECIOP.idl</include>
+                                <include>**/SSLIOP.idl</include>
+                                <include>**/CosNaming.idl</include>
+                                <include>**/CosTransactions.idl</include>
+                                <include>**/corba.idl</include>
+                                <include>**/CompletionStatus.idl</include>
+                            </includes>
+                            <excludes>
+                                <exclude>**/reference/**/*.idl</exclude>
+                            </excludes>
+                            <packagePrefix>org.omg</packagePrefix>
+                            <defines>
+                                <define>
+                                    <symbol>_PRE_3_0_COMPILER_</symbol>
+                                </define>
+                                <define>
+                                    <symbol>GIOP_1_1</symbol>
+                                </define>
+                                <define>
+                                    <symbol>GIOP_1_2</symbol>
+                                </define>
+                            </defines>
+                            <additionalArguments></additionalArguments>
+                        </source>
+                    </sources>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.jacorb</groupId>
+                        <artifactId>jacorb-idl-compiler</artifactId>
+                        <version>2.2.3</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>logkit</groupId>
+                        <artifactId>logkit</artifactId>
+                        <version>1.2.2</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
+    
+</project>
