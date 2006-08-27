@@ -40,7 +40,7 @@
     
     <scm>
         <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/</connection>
-        <developerConnection>scm:svn:https://${maven.username}@svn.apache.org/repos/asf/geronimo/specs/trunk/</developerConnection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/</developerConnection>
         <url>http://svn.apache.org/viewvc/geronimo/specs/trunk/</url>
     </scm>
     
