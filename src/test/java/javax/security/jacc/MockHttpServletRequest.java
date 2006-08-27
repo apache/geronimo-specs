@@ -32,7 +32,7 @@ import javax.servlet.http.HttpSession;
 
 
 /**
- * @version $Rev$ $Date: $
+ * @version $Rev$ $Date$
  */
 public class MockHttpServletRequest implements HttpServletRequest {
 
