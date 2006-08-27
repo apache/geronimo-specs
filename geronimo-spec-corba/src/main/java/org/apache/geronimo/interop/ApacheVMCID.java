@@ -18,7 +18,7 @@ package org.apache.geronimo.interop;
 
 
 /**
- * @version $Revision: $ $Date: $
+ * @version $Revision$ $Date$
  */
 public interface ApacheVMCID {
 
