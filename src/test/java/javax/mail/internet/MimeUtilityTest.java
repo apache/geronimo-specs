@@ -91,7 +91,9 @@ public class MimeUtilityTest extends TestCase {
 
         String encodeString = new String(encodeBytes, "UTF-8");
         // default code page dependent, hard to directly test the encoded results
-        assertEquals(encodeString, MimeUtility.decodeWord(MimeUtility.encodeWord(encodeString)));
+        // The following disabled because it will not succeed on all locales because the
+        // code points used in the test string won't round trip properly for all code pages.
+        // assertEquals(encodeString, MimeUtility.decodeWord(MimeUtility.encodeWord(encodeString)));
 
         String encoded = MimeUtility.encodeWord(encodeString, "UTF-8", "Q");
         assertEquals("=?UTF-8?Q?_h=C3=A9!_=C3=A0=C3=A8=C3=B4u_!!!?=", encoded);
@@ -108,7 +110,9 @@ public class MimeUtilityTest extends TestCase {
 
         String encodeString = new String(encodeBytes, "UTF-8");
         // default code page dependent, hard to directly test the encoded results
-        assertEquals(encodeString, MimeUtility.decodeText(MimeUtility.encodeText(encodeString)));
+        // The following disabled because it will not succeed on all locales because the
+        // code points used in the test string won't round trip properly for all code pages.
+        // assertEquals(encodeString, MimeUtility.decodeText(MimeUtility.encodeText(encodeString)));
 
         String encoded = MimeUtility.encodeText(encodeString, "UTF-8", "Q");
         assertEquals("=?UTF-8?Q?_h=C3=A9!_=C3=A0=C3=A8=C3=B4u_!!!?=", encoded);
