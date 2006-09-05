@@ -25,9 +25,10 @@ package javax.security.jacc;
 
 import java.util.Iterator;
 import java.util.LinkedList;
+import javax.servlet.http.HttpServletRequest;
+
 
 /**
- *
  * @version $Rev$ $Date$
  */
 final class URLPatternSpec {
@@ -46,7 +47,7 @@ final class URLPatternSpec {
         first = new URLPattern(tokens[0]);
 
         URLPattern candidate;
-        for (int i=1; i<tokens.length; i++) {
+        for (int i = 1; i < tokens.length; i++) {
             candidate = new URLPattern(tokens[i]);
 
             // No pattern may exist in the URLPatternList that matches the first pattern.
@@ -54,18 +55,16 @@ final class URLPatternSpec {
                 throw new java.lang.IllegalArgumentException("Qualifier patterns in the URLPatternSpec cannot match the first URLPattern");
             }
 
-            if (first.type == URLPattern.PATH_PREFIX ) {
+            if (first.type == URLPattern.PATH_PREFIX) {
 
                 // If the first pattern is a path-prefix pattern, only exact patterns
                 // matched by the first pattern and path-prefix patterns matched by,
                 // but different from, the first pattern may occur in the URLPatternList.
 
-                if (candidate.type == URLPattern.EXACT && !first.matches(candidate))
-                {
+                if (candidate.type == URLPattern.EXACT && !first.matches(candidate)) {
                     throw new java.lang.IllegalArgumentException("Exact qualifier patterns in the URLPatternSpec must be matched by the first URLPattern");
-                }
-                else if (candidate.type == URLPattern.PATH_PREFIX
-                         && !(first.matches(candidate) && first.pattern.length() < candidate.pattern.length()))
+                } else if (candidate.type == URLPattern.PATH_PREFIX
+                           && !(first.matches(candidate) && first.pattern.length() < candidate.pattern.length()))
                 {
                     throw new java.lang.IllegalArgumentException("path-prefix qualifier patterns in the URLPatternSpec must be matched by, but different from, the first URLPattern");
                 } else if (candidate.type == URLPattern.EXTENSION) {
@@ -125,7 +124,7 @@ final class URLPatternSpec {
         // of this permission.
         Iterator iter1 = qualifiers.iterator();
         while (iter1.hasNext()) {
-            if (((URLPattern)iter1.next()).matches(p.first)) return false;
+            if (((URLPattern) iter1.next()).matches(p.first)) return false;
         }
 
         // If the first URLPattern in the name of the argument permission
@@ -138,11 +137,11 @@ final class URLPatternSpec {
 
             while (iter2.hasNext()) {
                 Iterator iter3 = qualifiers.iterator();
-                URLPattern test = (URLPattern)iter2.next();
+                URLPattern test = (URLPattern) iter2.next();
                 boolean found = false;
 
                 while (iter3.hasNext()) {
-                    if (test.matches((URLPattern)iter3.next())) {
+                    if (test.matches((URLPattern) iter3.next())) {
                         found = true;
                         break;
                     }
@@ -154,11 +153,21 @@ final class URLPatternSpec {
         return true;
     }
 
+    static String encodeColons(HttpServletRequest request) {
+        String result = request.getServletPath() + (request.getPathInfo() == null ? "" : request.getPathInfo());
+
+        if (result.indexOf("%3A") > -1) result = result.replaceAll("%3A", "%3A%3A");
+        if (result.indexOf(":") > -1) result = result.replaceAll(":", "%3A");
+
+        return result;
+    }
+
     private class URLPattern {
-        public final static int EXACT       = 0x0;
+
+        public final static int EXACT = 0x0;
         public final static int PATH_PREFIX = 0x1;
-        public final static int EXTENSION   = 0x2;
-        public final static int DEFAULT     = 0x4;
+        public final static int EXTENSION = 0x2;
+        public final static int DEFAULT = 0x4;
 
         public int type;
         public String pattern;
@@ -167,7 +176,7 @@ final class URLPatternSpec {
             if (pat == null) throw new java.lang.IllegalArgumentException("URLPattern cannot be null");
             if (pat.length() == 0) throw new java.lang.IllegalArgumentException("URLPattern cannot be empty");
 
-            if (pat.equals("/") || pat.equals("/*") ) {
+            if (pat.equals("/") || pat.equals("/*")) {
                 type = DEFAULT;
             } else if (pat.charAt(0) == '/' && pat.endsWith("/*")) {
                 type = PATH_PREFIX;
@@ -194,10 +203,10 @@ final class URLPatternSpec {
                 // 2 characters, and the next character of the argument pattern,
                 // if there is one, is "/"
                 case PATH_PREFIX: {
-                    int length = pattern.length()-2;
+                    int length = pattern.length() - 2;
                     if (length > test.length()) return false;
 
-                    for (int i=0; i<length; i++) {
+                    for (int i = 0; i < length; i++) {
                         if (pattern.charAt(i) != test.charAt(i)) return false;
                     }
 
