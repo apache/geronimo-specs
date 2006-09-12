@@ -134,7 +134,7 @@
 		<geronimoSpecsEjbVersion>1.0.1</geronimoSpecsEjbVersion>
 		<geronimoSpecsJ2eeConnectorVersion>1.0.1</geronimoSpecsJ2eeConnectorVersion>
 		<geronimoSpecsJ2eeDeploymentVersion>1.0.1</geronimoSpecsJ2eeDeploymentVersion>
-		<geronimoSpecsJ2eeJaccVersion>1.1.1-rc3</geronimoSpecsJ2eeJaccVersion>
+		<geronimoSpecsJ2eeJaccVersion>1.1.1</geronimoSpecsJ2eeJaccVersion>
 		<geronimoSpecsJ2eeManagementVersion>1.0.1</geronimoSpecsJ2eeManagementVersion>
 		<geronimoSpecsJavamailVersion>1.1</geronimoSpecsJavamailVersion>
 		<geronimoSpecsJaxrVersion>1.0.1</geronimoSpecsJaxrVersion>
