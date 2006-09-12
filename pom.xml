@@ -30,6 +30,6 @@
 
     <artifactId>geronimo-jta_1.0.1B_spec</artifactId>
     <name>JTA 1.0.1B</name>
-    <version>${geronimoSpecsJtaVersion}</version>
+    <version>${geronimoSpecsJta101bVersion}</version>
 
 </project>
