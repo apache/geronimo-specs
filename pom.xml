@@ -30,7 +30,7 @@
 
     <artifactId>geronimo-ejb_2.1_spec</artifactId>
     <name>EJB 2.1</name>
-    <version>${geronimoSpecsEjbVersion}</version>
+    <version>${geronimoSpecsEjb21Version}</version>
 
     <dependencies>
 
