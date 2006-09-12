@@ -18,7 +18,7 @@
 package javax.transaction;
 
 /**
- * @version $Rev:$ $Date:$
+ * @version $Rev$ $Date$
  */
 public interface TransactionSynchronizationRegistry {
 
