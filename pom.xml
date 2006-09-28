@@ -83,12 +83,12 @@
             TODO: Remove these...
             -->
             
-      <dependency>
-        <groupId>org.apache.geronimo.specs</groupId>
-        <artifactId>geronimo-annotation_1.0_spec</artifactId>
-        <version>${geronimoSpecsAnnotationVersion}</version>
-      </dependency>
-
+            <dependency>
+                <groupId>org.apache.geronimo.specs</groupId>
+                <artifactId>geronimo-annotation_1.0_spec</artifactId>
+                <version>${geronimoSpecsAnnotationVersion}</version>
+            </dependency>
+            
             <dependency>
                 <groupId>org.apache.geronimo.specs</groupId>
                 <artifactId>geronimo-activation_1.0.2_spec</artifactId>
@@ -120,15 +120,15 @@
             </dependency>
             
             <dependency>
-              <groupId>org.apache.geronimo.specs</groupId>
-              <artifactId>geronimo-ejb_3.0_spec</artifactId>
-              <version>${geronimoSpecsEjb3Version}</version>
+                <groupId>org.apache.geronimo.specs</groupId>
+                <artifactId>geronimo-ejb_3.0_spec</artifactId>
+                <version>${geronimoSpecsEjb3Version}</version>
             </dependency>
 
             <dependency>
-              <groupId>org.apache.geronimo.specs</groupId>
-              <artifactId>geronimo-interceptor_3.0_spec</artifactId>
-              <version>${geronimoSpecsInterceptorVersion}</version>
+                <groupId>org.apache.geronimo.specs</groupId>
+                <artifactId>geronimo-interceptor_3.0_spec</artifactId>
+                <version>${geronimoSpecsInterceptorVersion}</version>
             </dependency>
 
             <dependency>
@@ -180,9 +180,9 @@
             </dependency>
             
             <dependency>
-              <groupId>org.apache.geronimo.specs</groupId>
-              <artifactId>geronimo-jpa_3.0_spec</artifactId>
-              <version>${geronimoSpecsJpaVersion}</version>
+                <groupId>org.apache.geronimo.specs</groupId>
+                <artifactId>geronimo-jpa_3.0_spec</artifactId>
+                <version>${geronimoSpecsJpaVersion}</version>
             </dependency>
 
             <dependency>
@@ -285,7 +285,7 @@
                         </goals>
                         <configuration>
                             <remoteRepositoryId>apache</remoteRepositoryId>
-                            <remoteRepositoryUrl>scp://people.apache.org/www/people.apache.org/m1-ibiblio-rsync-repository</remoteRepositoryUrl>
+                            <remoteRepositoryUrl>scp://people.apache.org/www/people.apache.org/m1-snapshot-repository</remoteRepositoryUrl>
                         </configuration>
                     </execution>
                 </executions>
@@ -321,14 +321,11 @@
     </build>
     
     <modules>
-        <module>geronimo-annotation_1.0_spec</module>
         <module>geronimo-activation_1.0.2_spec</module>
         <module>geronimo-commonj_1.1_spec</module>
         <module>geronimo-corba_3.0_spec</module>
         <module>geronimo-corba_2.3_spec</module>
         <module>geronimo-ejb_2.1_spec</module>
-        <module>geronimo-ejb_3.0_spec</module>
-        <module>geronimo-interceptor_3.0_spec</module>
         <module>geronimo-j2ee-connector_1.5_spec</module>
         <module>geronimo-j2ee-deployment_1.1_spec</module>
         <module>geronimo-j2ee-jacc_1.0_spec</module>
@@ -338,7 +335,6 @@
         <module>geronimo-jaxr_1.0_spec</module>
         <module>geronimo-jaxrpc_1.1_spec</module>
         <module>geronimo-jms_1.1_spec</module>
-        <module>geronimo-jpa_3.0_spec</module>
         <module>geronimo-jsp_2.0_spec</module>
         <module>geronimo-jta_1.0.1B_spec</module>
         <module>geronimo-jta_1.1_spec</module>
@@ -358,6 +354,27 @@
         <module>geronimo-j2ee_1.4_spec</module>
         -->
     </modules>
+    
+    <profiles>
+        <!--
+        NOTE: Some modules require JDK 1.5 to build, only enable them if our
+              JVM supports that version.
+        -->
+        <profile>
+            <id>jdk1.5</id>
+            
+            <activation>
+                <jdk>1.5</jdk>
+            </activation>
+            
+            <modules>
+                <module>geronimo-annotation_1.0_spec</module>
+                <module>geronimo-ejb_3.0_spec</module>
+                <module>geronimo-interceptor_3.0_spec</module>
+                <module>geronimo-jpa_3.0_spec</module>
+            </modules>
+        </profile>
+    </profiles>
     
     <repositories>
         <!--
