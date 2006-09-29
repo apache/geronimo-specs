@@ -69,6 +69,7 @@
         <geronimoSpecsJmsVersion>1.0.1</geronimoSpecsJmsVersion>
         <geronimoSpecsJpaVersion>1.0-SNAPSHOT</geronimoSpecsJpaVersion>
         <geronimoSpecsJspVersion>1.0.1</geronimoSpecsJspVersion>
+        <geronimoSpecsJsr181Version>1.0</geronimoSpecsJsr181Version>
         <geronimoSpecsJta101bVersion>1.0.1</geronimoSpecsJta101bVersion>
         <geronimoSpecsJta11Version>1.0-SNAPSHOT</geronimoSpecsJta11Version>
         <geronimoSpecsQnameVersion>1.0.1</geronimoSpecsQnameVersion>
@@ -195,6 +196,12 @@
                 <groupId>org.apache.geronimo.specs</groupId>
                 <artifactId>geronimo-jms_1.1_spec</artifactId>
                 <version>${geronimoSpecsJmsVersion}</version>
+            </dependency>
+            
+            <dependency>
+                <groupId>org.apache.geronimo.specs</groupId>
+                <artifactId>geronimo-jsr181_2.0_spec</artifactId>
+                <version>${geronimoSpecsJsr181Version}</version>
             </dependency>
             
             <dependency>
@@ -372,6 +379,7 @@
                 <module>geronimo-ejb_3.0_spec</module>
                 <module>geronimo-interceptor_3.0_spec</module>
                 <module>geronimo-jpa_3.0_spec</module>
+                <module>geronimo-jsr181_2.0_spec</module>
             </modules>
         </profile>
     </profiles>
