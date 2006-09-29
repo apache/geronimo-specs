@@ -379,7 +379,7 @@
                 <module>geronimo-ejb_3.0_spec</module>
                 <module>geronimo-interceptor_3.0_spec</module>
                 <module>geronimo-jpa_3.0_spec</module>
-                <module>geronimo-jsr181_2.0_spec</module>
+                <module>geronimo-ws-metadata_2.0_spec</module>
             </modules>
         </profile>
     </profiles>

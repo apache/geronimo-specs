@@ -29,8 +29,8 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>geronimo-jsr181_2.0_spec</artifactId>
-    <name>JSR 181 2.0</name>
+    <artifactId>geronimo-ws-metadata_2.0_spec</artifactId>
+    <name>Web Services Metadata 2.0</name>
     <version>${geronimoSpecsJsr181Version}</version>
 
     <build>
