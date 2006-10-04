@@ -28,8 +28,8 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>geronimo-activation_1.0.2_spec</artifactId>
-    <name>Activation 1.0.2</name>
-    <version>${geronimoSpecsActivation102Version}</version>
+    <artifactId>geronimo-activation_1.1_spec</artifactId>
+    <name>Activation 1.1</name>
+    <version>${geronimoSpecsActivation11Version}</version>
 
 </project>
