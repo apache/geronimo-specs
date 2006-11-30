@@ -54,9 +54,12 @@ public class WebUserDataPermissionTest extends TestCase {
         permission = new WebUserDataPermission("/foo", "GET,POST,POST,GET:INTEGRAL");
         assertEquals(permission.getActions(), "GET,POST:INTEGRAL");
 
+        //extension method
+        permission = new WebUserDataPermission("/foo", "GET,POST,BAR:INTEGRAL");
+
         // bad HTTP method
         try {
-            permission = new WebUserDataPermission("/foo", "GET,POST,BAR:INTEGRAL");
+            permission = new WebUserDataPermission("/foo", "GET,POST,B A R:INTEGRAL");
             fail("Bad HTTP method");
         } catch (IllegalArgumentException iae) {
         }

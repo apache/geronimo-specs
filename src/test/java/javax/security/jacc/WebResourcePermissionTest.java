@@ -59,10 +59,10 @@ public class WebResourcePermissionTest extends TestCase {
         assertTrue(permission.equals(permission));
         assertEquals(permission.getName(), "/foo");
         assertEquals(permission.getActions(), "GET,POST");
-        
+
         permission = new WebResourcePermission("/foo", "GET,POST,POST,GET");
         assertEquals(permission.getActions(), "GET,POST");
-        
+
         permission = new WebResourcePermission("/", "GET,POST");
         permission = new WebResourcePermission("/:/foo", "GET,POST");
         permission = new WebResourcePermission("/:*.asp", "GET,POST");
@@ -73,70 +73,105 @@ public class WebResourcePermissionTest extends TestCase {
         permission = new WebResourcePermission("/*:/bar/stool", "GET,POST");
         permission = new WebResourcePermission("/bar/*:/bar/stool", "GET,POST");
 
+        permission = new WebResourcePermission("/foo", "GET,POST,BAR");
         // bad HTTP method
         try {
-            permission = new WebResourcePermission("/foo", "GET,POST,BAR");
+            permission = new WebResourcePermission("/foo", "GET,POST,B A R");
             fail("Bad HTTP method");
-        } catch(IllegalArgumentException iae) {
+        } catch (IllegalArgumentException iae) {
         }
 
         // bad HTTP method for a WebResourcePermission
         try {
             permission = new WebResourcePermission("/foo", "GET,POST:INTEGRAL");
-        } catch(IllegalArgumentException iae) {
+        } catch (IllegalArgumentException iae) {
         }
 
         // null URLPatternSpec for a WebResourcePermission
         try {
             permission = new WebResourcePermission(null, "GET,POST");
             fail("null URLPatternSpec for a WebResourcePermission");
-        } catch(IllegalArgumentException iae) {
+        } catch (IllegalArgumentException iae) {
         }
 
         // missing qualifiers
         try {
             permission = new WebResourcePermission("/foo:", "GET,POST");
             fail("/foo:");
-        } catch(IllegalArgumentException iae) {
+        } catch (IllegalArgumentException iae) {
         }
 
         // qualifer provided when first pattern isn't path-prefix
         try {
             permission = new WebResourcePermission("/foo:/foo/bar", "GET,POST");
             fail("/foo:/foo/bar");
-        } catch(IllegalArgumentException iae) {
+        } catch (IllegalArgumentException iae) {
         }
 
         try {
             permission = new WebResourcePermission("/foo/*:*.asp", "GET,POST");
             fail("/foo/*:*.asp");
-        } catch(IllegalArgumentException iae) {
+        } catch (IllegalArgumentException iae) {
         }
 
         try {
             permission = new WebResourcePermission("/foo:/", "GET,POST");
             fail("/foo:/");
-        } catch(IllegalArgumentException iae) {
+        } catch (IllegalArgumentException iae) {
         }
 
         try {
             permission = new WebResourcePermission("/bar/*:/cat/stool/*", "GET,POST");
             fail("/bar/*:/cat/stool/*");
-        } catch(IllegalArgumentException iae) {
+        } catch (IllegalArgumentException iae) {
         }
 
         try {
             permission = new WebResourcePermission("/bar/*:/*", "GET,POST");
             fail("/bar/*:/");
-        } catch(IllegalArgumentException iae) {
+        } catch (IllegalArgumentException iae) {
         }
 
         try {
             permission = new WebResourcePermission("/bar/stool/*:/bar", "GET,POST");
             fail("/bar/stool/*:/bar");
-        } catch(IllegalArgumentException iae) {
+        } catch (IllegalArgumentException iae) {
         }
-        
+
+    }
+
+    public void testExcluded() {
+        WebResourcePermission permission = new WebResourcePermission("/foo", "!GET,POST");
+
+        assertTrue(permission.equals(permission));
+        assertEquals(permission.getName(), "/foo");
+        assertEquals(permission.getActions(), "!GET,POST");
+
+        permission = new WebResourcePermission("/foo", "!GET,POST,POST,GET");
+        assertEquals(permission.getActions(), "!GET,POST");
+
+        permission = new WebResourcePermission("/foo", "!GET,POST,BAR");
+        // bad HTTP method
+        try {
+            permission = new WebResourcePermission("/foo", "!GET,POST,B A R");
+            fail("Bad HTTP method");
+        } catch (IllegalArgumentException iae) {
+        }
+
+        // bad HTTP method for a WebResourcePermission
+        try {
+            permission = new WebResourcePermission("/foo", "!GET,POST:INTEGRAL");
+        } catch (IllegalArgumentException iae) {
+        }
+
+        // null URLPatternSpec for a WebResourcePermission
+        try {
+            permission = new WebResourcePermission(null, "!GET,POST");
+            fail("null URLPatternSpec for a WebResourcePermission");
+        } catch (IllegalArgumentException iae) {
+        }
+
+
     }
 
     public void testImpliesStringString() {
@@ -144,19 +179,19 @@ public class WebResourcePermissionTest extends TestCase {
         // The argument is an instanceof WebResourcePermission 
         Permission pA = new WebResourcePermission("/foo", "");
         Permission pB = new WebUserDataPermission("/foo", "");
-        
+
         assertFalse(pA.implies(pB));
         assertFalse(pB.implies(pA));
-    
+
         pA = new WebResourcePermission("/foo", "");
         pB = new WebResourcePermission("/foo", "GET,POST");
-        
+
         assertTrue(pA.implies(pB));
         assertFalse(pB.implies(pA));
-        
+
         pA = new WebResourcePermission("/foo/*:/foo/bar", "");
         pB = new WebResourcePermission("/foo/bar", "");
-        
+
         assertFalse(pA.implies(pB));
         assertFalse(pB.implies(pA));
 
@@ -169,8 +204,98 @@ public class WebResourcePermissionTest extends TestCase {
         pA = new WebResourcePermission("/:/a.jsp:/b.jsp:/c.jsp", "GET,POST,PUT,DELETE,HEAD,OPTIONS,TRACE");
         pB = new WebResourcePermission("/:/a.jsp:/c.jsp:/b.jsp", (String) null);
 
-        assertTrue(pA.implies(pB));
+//        assertTrue(pA.implies(pB));  // no longer true with extension methods
         assertTrue(pB.implies(pA));
+    }
+
+    public void testImpliesExtensionExcludes() {
+        //test against all permissions
+        WebResourcePermission pA = new WebResourcePermission("/foo", "FOO,BAR,fizzle");
+        WebResourcePermission pB = new WebResourcePermission("/foo", (String) null);
+        assertFalse(pA.implies(pB));
+        assertTrue(pB.implies(pA));
+        assertTrue(pA.implies(pA));
+        assertTrue(pB.implies(pB));
+
+        pA = new WebResourcePermission("/foo", "!FOO,BAR,fizzle");
+        pB = new WebResourcePermission("/foo", (String) null);
+        assertFalse(pA.implies(pB));
+        assertTrue(pB.implies(pA));
+        assertTrue(pA.implies(pA));
+
+        pA = new WebResourcePermission("/foo", "GET,POST");
+        pB = new WebResourcePermission("/foo", (String) null);
+        assertFalse(pA.implies(pB));
+        assertTrue(pB.implies(pA));
+
+        pA = new WebResourcePermission("/foo", "!GET,POST");
+        pB = new WebResourcePermission("/foo", (String) null);
+        assertFalse(pA.implies(pB));
+        assertTrue(pB.implies(pA));
+
+        //both positive sets
+        pA = new WebResourcePermission("/foo", "GET,POST");
+        pB = new WebResourcePermission("/foo", "GET,POST,OPTIONS");
+        assertFalse(pA.implies(pB));
+        assertTrue(pB.implies(pA));
+
+        pA = new WebResourcePermission("/foo", "GET,POST");
+        pB = new WebResourcePermission("/foo", "GET,POST,FOO");
+        assertFalse(pA.implies(pB));
+        assertTrue(pB.implies(pA));
+
+        pA = new WebResourcePermission("/foo", "GET,FOO");
+        pB = new WebResourcePermission("/foo", "GET,BAR,FOO");
+        assertFalse(pA.implies(pB));
+        assertTrue(pB.implies(pA));
+
+        pA = new WebResourcePermission("/foo", "FOO,BAR");
+        pB = new WebResourcePermission("/foo", "FOO,BAR,fizzle");
+        assertFalse(pA.implies(pB));
+        assertTrue(pB.implies(pA));
+
+        //both exclusions
+        pA = new WebResourcePermission("/foo", "!FOO,BAR,fizzle");
+        pB = new WebResourcePermission("/foo", "!FOO,BAR");
+        assertFalse(pA.implies(pB));
+        assertTrue(pB.implies(pA));
+
+        pA = new WebResourcePermission("/foo", "!GET,POST,FOO");
+        pB = new WebResourcePermission("/foo", "!GET,POST");
+        assertFalse(pA.implies(pB));
+        assertTrue(pB.implies(pA));
+
+        pA = new WebResourcePermission("/foo", "!GET,BAR,FOO");
+        pB = new WebResourcePermission("/foo", "!GET,BAR");
+        assertFalse(pA.implies(pB));
+        assertTrue(pB.implies(pA));
+
+        pA = new WebResourcePermission("/foo", "!GET,POST,OPTIONS");
+        pB = new WebResourcePermission("/foo", "!GET,POST");
+        assertFalse(pA.implies(pB));
+        assertTrue(pB.implies(pA));
+
+        //one of each
+        pA = new WebResourcePermission("/foo", "GET");
+        pB = new WebResourcePermission("/foo", "!FOO,BAR");
+        assertFalse(pA.implies(pB));
+        assertTrue(pB.implies(pA));
+
+        pA = new WebResourcePermission("/foo", "fizzle");
+        pB = new WebResourcePermission("/foo", "!FOO,BAR");
+        assertFalse(pA.implies(pB));
+        assertTrue(pB.implies(pA));
+
+        pA = new WebResourcePermission("/foo", "GET");
+        pB = new WebResourcePermission("/foo", "!POST");
+        assertFalse(pA.implies(pB));
+        assertTrue(pB.implies(pA));
+
+        pA = new WebResourcePermission("/foo", "GET");
+        pB = new WebResourcePermission("/foo", "!POST,BAR");
+        assertFalse(pA.implies(pB));
+        assertTrue(pB.implies(pA));
+
     }
 
     /*
@@ -178,7 +303,7 @@ public class WebResourcePermissionTest extends TestCase {
      */
     public void testConstructorStringStringArray() {
     }
-    
+
     public void testImpliesStringStringArray() {
     }
 
@@ -187,10 +312,29 @@ public class WebResourcePermissionTest extends TestCase {
      */
     public void testConstructorHttpServletRequest() {
     }
-    
+
     public void testImpliesHttpServletRequest() {
     }
-    
+
+    public void testGetActions() {
+        WebResourcePermission p = new WebResourcePermission("/foo", "");
+        assertNull(p.getActions());
+        p = new WebResourcePermission("/foo", "!GET,POST");
+        assertEquals(p.getActions(), "!GET,POST");
+        p = new WebResourcePermission("/foo", "!POST,GET");
+        assertEquals(p.getActions(), "!GET,POST");
+        p = new WebResourcePermission("/foo", "!POST,GET,GET,POST");
+        assertEquals(p.getActions(), "!GET,POST");
+
+        //extension methods follow regular methods
+        p = new WebResourcePermission("/foo", "FOO,BAR,POST,FOO,GET,GET,POST");
+        assertEquals("GET,POST,BAR,FOO", p.getActions());
+
+        p = new WebResourcePermission("/foo", "!FOO,BAR,POST,FOO,GET,GET,POST");
+        assertEquals("!GET,POST,BAR,FOO", p.getActions());
+
+    }
+
     public static void main(String[] args) {
         WebResourcePermissionTest test = new WebResourcePermissionTest();
         test.testConstructorStringString();
