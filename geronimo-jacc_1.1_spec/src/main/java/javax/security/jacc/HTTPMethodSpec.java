@@ -227,40 +227,44 @@ final class HTTPMethodSpec {
     }
 
     public String getActions() {
-        if (actions == null && !isAll()) {
-            boolean first = true;
-            StringBuffer buffer = new StringBuffer();
-            if (isExcluded) {
-                buffer.append("!");
-            }
+        if (actions == null) {
+            if (isAll()) {
+                actions = "";
+            } else {
+                boolean first = true;
+                StringBuffer buffer = new StringBuffer();
+                if (isExcluded) {
+                    buffer.append("!");
+                }
 
-            for (int i = 0; i < HTTP_MASKS.length; i++) {
-                if ((mask & HTTP_MASKS[i]) > 0) {
+                for (int i = 0; i < HTTP_MASKS.length; i++) {
+                    if ((mask & HTTP_MASKS[i]) > 0) {
+                        if (first) {
+                            first = false;
+                        } else {
+                            buffer.append(",");
+                        }
+                        buffer.append(HTTP_METHODS[i]);
+                    }
+                }
+                for (int i = 0; i < extensionMethods.length; i++) {
+                    String method = extensionMethods[i];
                     if (first) {
                         first = false;
                     } else {
                         buffer.append(",");
                     }
-                    buffer.append(HTTP_METHODS[i]);
+                    buffer.append(method);
                 }
-            }
-            for (int i = 0; i < extensionMethods.length; i++) {
-                String method = extensionMethods[i];
-                if (first) {
-                    first = false;
-                } else {
-                    buffer.append(",");
+
+                if (transport == INTEGRAL) {
+                    buffer.append(":INTEGRAL");
+                } else if (transport == CONFIDENTIAL) {
+                    buffer.append(":CONFIDENTIAL");
                 }
-                buffer.append(method);
-            }
 
-            if (transport == INTEGRAL) {
-                buffer.append(":INTEGRAL");
-            } else if (transport == CONFIDENTIAL) {
-                buffer.append(":CONFIDENTIAL");
+                actions = buffer.toString();
             }
-
-            actions = buffer.toString();
         }
         return actions;
     }

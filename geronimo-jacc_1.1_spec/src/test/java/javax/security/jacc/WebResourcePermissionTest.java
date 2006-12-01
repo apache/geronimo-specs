@@ -318,7 +318,7 @@ public class WebResourcePermissionTest extends TestCase {
 
     public void testGetActions() {
         WebResourcePermission p = new WebResourcePermission("/foo", "");
-        assertNull(p.getActions());
+        assertEquals(p.getActions(), "");
         p = new WebResourcePermission("/foo", "!GET,POST");
         assertEquals(p.getActions(), "!GET,POST");
         p = new WebResourcePermission("/foo", "!POST,GET");
