@@ -164,7 +164,6 @@
         <module>geronimo-jaxrpc_1.1_spec</module>
         <module>geronimo-jms_1.1_spec</module>
         <module>geronimo-jsp_2.0_spec</module>
-        <module>geronimo-jsp_2.1_spec</module>
         <module>geronimo-jta_1.0.1B_spec</module>
         <module>geronimo-jta_1.1_spec</module>
         <module>geronimo-qname_1.1_spec</module>
@@ -196,6 +195,7 @@
                 <module>geronimo-el_1.0_spec</module>
                 <module>geronimo-interceptor_3.0_spec</module>
                 <module>geronimo-jpa_3.0_spec</module>
+                <module>geronimo-jsp_2.1_spec</module>
                 <module>geronimo-ws-metadata_2.0_spec</module>
             </modules>
         </profile>
