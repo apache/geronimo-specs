@@ -41,9 +41,34 @@
             <artifactId>geronimo-servlet_2.5_spec</artifactId>
             <version>1.1-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-el_1.0_spec</artifactId>
+            <version>1.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
     
     <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.5</source>
+                    <target>1.5</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-idea-plugin</artifactId>
+                <configuration>
+                    <jdkName>1.5</jdkName>
+                    <linkModules>true</linkModules>
+                </configuration>
+            </plugin>
+        </plugins>
+
         <resources>
             <resource>
                 <targetPath>javax/servlet/jsp/resources</targetPath>
