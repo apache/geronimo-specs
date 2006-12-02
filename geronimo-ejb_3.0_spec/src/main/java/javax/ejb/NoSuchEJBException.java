@@ -23,7 +23,18 @@
 package javax.ejb;
 
 /**
- * @version $Revision$ $Date$
+ * @version $Rev: 467742 $ $Date: 2006-10-25 12:30:38 -0700 (Wed, 25 Oct 2006) $
  */
-public class NoSuchEJBException {
+public class NoSuchEJBException extends EJBException {
+    public NoSuchEJBException() {
+        super();
+    }
+
+    public NoSuchEJBException(Exception ex) {
+        super(ex);
+    }
+
+    public NoSuchEJBException(String message) {
+        super(message);
+    }
 }
