@@ -54,9 +54,9 @@ public class ResourceExceptionTest extends TestCase {
 
     public void testToString() {
         ResourceException exception = new ResourceException("problem");
-        assertEquals("problem", exception.toString());
+        assertEquals(ResourceException.class.getName()+": "+"problem", exception.toString());
 
         ResourceException other = new ResourceException("other problem", "123");
-        assertEquals("other problem", other.toString());
+        assertEquals(ResourceException.class.getName()+": "+"other problem", other.toString());
     }
 }

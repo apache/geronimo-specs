@@ -79,6 +79,8 @@ public class ResourceException extends Exception {
 
     public String toString() {
         // unit tests revealed that the errorCode is not included
-        return getMessage();
+        String className = getClass().getName();
+        String msg = getMessage();
+        return msg != null ? className + ": "+msg : className;
     }
 }
