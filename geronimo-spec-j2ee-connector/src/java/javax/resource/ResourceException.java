@@ -76,9 +76,4 @@ public class ResourceException extends Exception {
         // unit tests revealed that Throwable.initCause is not invoked
         this.linkedException = ex;
     }
-
-    public String toString() {
-        // unit tests revealed that the errorCode is not included
-        return getMessage();
-    }
 }
