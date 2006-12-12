@@ -151,8 +151,6 @@
         <module>geronimo-activation_1.0.2_spec</module>
         <module>geronimo-activation_1.1_spec</module>
         <module>geronimo-commonj_1.1_spec</module>
-        <module>geronimo-corba_3.0_spec</module>
-        <module>geronimo-corba_2.3_spec</module>
         <module>geronimo-ejb_2.1_spec</module>
         <module>geronimo-j2ee-connector_1.5_spec</module>
         <module>geronimo-j2ee-deployment_1.1_spec</module>
@@ -171,10 +169,6 @@
         <module>geronimo-servlet_2.4_spec</module>
         <module>geronimo-servlet_2.5_spec</module>
 
-        <!--
-        NOTE: This is needed for the moment for Geronimo to pass the TCK
-        -->
-        <module>geronimo-spec-corba</module>
     </modules>
 
     <profiles>
