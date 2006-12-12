@@ -1,5 +1,0 @@
-module CORBA {
-  typedef unsigned short ServiceOption;
-  typedef unsigned short ServiceDetailType;
-  exception UserException {};
-};

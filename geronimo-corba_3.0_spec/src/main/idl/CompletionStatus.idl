@@ -1,7 +1,0 @@
-module CORBA {
-	enum CompletionStatus{
-		COMPLETED_YES,
-		COMPLETED_NO,
-		COMPLETED_MAYBE 
-	};
-};
