@@ -47,34 +47,6 @@
         <url>http://svn.apache.org/viewvc/geronimo/specs/trunk/</url>
     </scm>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>mx4j</groupId>
-                <artifactId>mx4j</artifactId>
-                <version>3.0.1</version>
-            </dependency>
-
-            <dependency>
-                <groupId>mockobjects</groupId>
-                <artifactId>mockobjects-jdk1.4-j2ee1.3</artifactId>
-                <version>0.09</version>
-            </dependency>
-
-            <dependency>
-                <groupId>mockobjects</groupId>
-                <artifactId>mockobjects-core</artifactId>
-                <version>0.09</version>
-            </dependency>
-
-            <dependency>
-                <groupId>scout</groupId>
-                <artifactId>scout</artifactId>
-                <version>0.5</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -99,25 +71,6 @@
                     </execution>
                 </executions>
             </plugin>
-
-            <!--
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-one-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>install-maven-one-repository</goal>
-                            <goal>deploy-maven-one-repository</goal>
-                        </goals>
-                        <configuration>
-                            <remoteRepositoryId>apache</remoteRepositoryId>
-                            <remoteRepositoryUrl>scp://people.apache.org/www/people.apache.org/m1-snapshot-repository</remoteRepositoryUrl>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            -->
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -168,7 +121,6 @@
         <module>geronimo-saaj_1.1_spec</module>
         <module>geronimo-servlet_2.4_spec</module>
         <module>geronimo-servlet_2.5_spec</module>
-
     </modules>
 
     <profiles>
