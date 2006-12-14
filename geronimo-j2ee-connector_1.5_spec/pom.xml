@@ -33,7 +33,7 @@
 
     <artifactId>geronimo-j2ee-connector_1.5_spec</artifactId>
     <name>J2EE Connector 1.5</name>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.1</version>
 
     <dependencies>
         <dependency>
@@ -44,4 +44,10 @@
         </dependency>
     </dependencies>
 
+
+  <scm>
+    <connection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-j2ee-connector_1.5_spec-1.1</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-j2ee-connector_1.5_spec-1.1</developerConnection>
+    <url>https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-j2ee-connector_1.5_spec-1.1</url>
+  </scm>
 </project>
