@@ -33,7 +33,7 @@
 
     <artifactId>geronimo-ejb_3.0_spec</artifactId>
     <name>EJB 3.0</name>
-    <version>1.0-M1</version>
+    <version>1.0-SNAPSHOT</version>
 
     <dependencies>
         <dependency>
@@ -79,11 +79,4 @@
             </plugin>
         </plugins>
     </build>
-
-
-  <scm>
-    <connection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-ejb_3.0_spec-1.0-M1</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-ejb_3.0_spec-1.0-M1</developerConnection>
-    <url>https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-ejb_3.0_spec-1.0-M1</url>
-  </scm>
 </project>
