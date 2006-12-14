@@ -35,16 +35,16 @@
     <name>Geronimo Specifications</name>
     <packaging>pom</packaging>
 
-    <version>1.2</version>
+    <version>1.2-SNAPSHOT</version>
 
     <description>
         Provides open-source implementations of Sun specifications.
     </description>
 
     <scm>
-        <connection>scm:svn:https://svn.apache.org/repos/asf/specs/tags/specs/specs-1.2</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/specs/tags/specs/specs-1.2</developerConnection>
-        <url>https://svn.apache.org/repos/asf/specs/tags/specs/specs-1.2</url>
+        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/</developerConnection>
+        <url>http://svn.apache.org/viewvc/geronimo/specs/trunk/</url>
     </scm>
 
     <dependencies>
