@@ -33,6 +33,12 @@
 
     <artifactId>geronimo-qname_1.1_spec</artifactId>
     <name>QName 1.1</name>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.1</version>
 
+
+  <scm>
+    <connection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-qname_1.1_spec-1.1</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-qname_1.1_spec-1.1</developerConnection>
+    <url>https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-qname_1.1_spec-1.1</url>
+  </scm>
 </project>
