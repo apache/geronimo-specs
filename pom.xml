@@ -27,13 +27,13 @@
     <parent>
         <groupId>org.apache.geronimo.specs</groupId>
         <artifactId>specs</artifactId>
-        <version>1.2-SNAPSHOT</version>
+        <version>1.2</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>geronimo-ws-metadata_2.0_spec</artifactId>
     <name>Web Services Metadata 2.0</name>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.1-M1</version>
 
     <build>
         <plugins>
@@ -57,4 +57,10 @@
         </plugins>
     </build>
 
+
+  <scm>
+    <connection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-ws-metadata_2.0_spec-1.1-M1</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-ws-metadata_2.0_spec-1.1-M1</developerConnection>
+    <url>https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-ws-metadata_2.0_spec-1.1-M1</url>
+  </scm>
 </project>
