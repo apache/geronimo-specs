@@ -27,13 +27,13 @@
     <parent>
         <groupId>org.apache.geronimo.specs</groupId>
         <artifactId>specs</artifactId>
-        <version>1.2-SNAPSHOT</version>
+        <version>1.2</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>geronimo-servlet_2.5_spec</artifactId>
     <name>Servlet 2.5</name>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.1-M1</version>
 
     <build>
         <resources>
@@ -55,4 +55,10 @@
         </resources>
     </build>
 
+
+  <scm>
+    <connection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-servlet_2.5_spec-1.1-M1</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-servlet_2.5_spec-1.1-M1</developerConnection>
+    <url>https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-servlet_2.5_spec-1.1-M1</url>
+  </scm>
 </project>
