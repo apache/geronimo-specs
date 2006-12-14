@@ -33,7 +33,7 @@
 
     <artifactId>geronimo-ejb_2.1_spec</artifactId>
     <name>EJB 2.1</name>
-    <version>1.1</version>
+    <version>1.2-SNAPSHOT</version>
 
     <dependencies>
         <dependency>
@@ -43,11 +43,4 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
-
-
-  <scm>
-    <connection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-ejb_2.1_spec-1.1</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-ejb_2.1_spec-1.1</developerConnection>
-    <url>https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-ejb_2.1_spec-1.1</url>
-  </scm>
 </project>
