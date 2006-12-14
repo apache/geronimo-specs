@@ -33,7 +33,7 @@
 
     <artifactId>geronimo-jsp_2.1_spec</artifactId>
     <name>JSP 2.1</name>
-    <version>1.0-M1</version>
+    <version>1.0-SNAPSHOT</version>
     
     <dependencies>
         <dependency>
@@ -96,11 +96,4 @@
             </resource>
         </resources>
     </build>
-
-
-  <scm>
-    <connection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-jsp_2.1_spec-1.0-M1</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-jsp_2.1_spec-1.0-M1</developerConnection>
-    <url>https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-jsp_2.1_spec-1.0-M1</url>
-  </scm>
 </project>
