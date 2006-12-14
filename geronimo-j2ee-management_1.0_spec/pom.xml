@@ -33,7 +33,7 @@
 
     <artifactId>geronimo-j2ee-management_1.0_spec</artifactId>
     <name>J2EE Management 1.0</name>
-    <version>1.1</version>
+    <version>1.2-SNAPSHOT</version>
 
     <dependencies>
         <dependency>
@@ -60,11 +60,4 @@
             </dependencies>
         </profile>
     </profiles>
-
-
-  <scm>
-    <connection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-j2ee-management_1.0_spec-1.1</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-j2ee-management_1.0_spec-1.1</developerConnection>
-    <url>https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-j2ee-management_1.0_spec-1.1</url>
-  </scm>
 </project>
