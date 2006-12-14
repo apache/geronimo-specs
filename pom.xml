@@ -35,7 +35,7 @@
     <name>Geronimo Specifications</name>
     <packaging>pom</packaging>
 
-    <version>1.3-SNAPSHOT</version>
+    <version>1.2</version>
 
     <description>
         Provides open-source implementations of Sun specifications.
