@@ -33,12 +33,5 @@
 
     <artifactId>geronimo-jta_1.0.1B_spec</artifactId>
     <name>JTA 1.0.1B</name>
-    <version>1.1</version>
-
-
-  <scm>
-    <connection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-jta_1.0.1B_spec-1.1</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-jta_1.0.1B_spec-1.1</developerConnection>
-    <url>https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-jta_1.0.1B_spec-1.1</url>
-  </scm>
+    <version>1.2-SNAPSHOT</version>
 </project>
