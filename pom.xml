@@ -101,25 +101,9 @@
     </build>
     
     <modules>
-        <module>geronimo-activation_1.0.2_spec</module>
         <module>geronimo-activation_1.1_spec</module>
         <module>geronimo-commonj_1.1_spec</module>
-        <module>geronimo-ejb_2.1_spec</module>
-        <module>geronimo-j2ee-connector_1.5_spec</module>
-        <module>geronimo-j2ee-deployment_1.1_spec</module>
-        <module>geronimo-j2ee-jacc_1.0_spec</module>
-        <module>geronimo-j2ee-management_1.0_spec</module>
-        <module>geronimo-javamail_1.3.1_spec</module>
         <module>geronimo-javamail_1.4_spec</module>
-        <module>geronimo-jaxr_1.0_spec</module>
-        <module>geronimo-jaxrpc_1.1_spec</module>
-        <module>geronimo-jms_1.1_spec</module>
-        <module>geronimo-jsp_2.0_spec</module>
-        <module>geronimo-jta_1.0.1B_spec</module>
-        <module>geronimo-jta_1.1_spec</module>
-        <module>geronimo-qname_1.1_spec</module>
-        <module>geronimo-saaj_1.1_spec</module>
-        <module>geronimo-servlet_2.4_spec</module>
         <module>geronimo-servlet_2.5_spec</module>
     </modules>
 
