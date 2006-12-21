@@ -32,7 +32,7 @@ import java.lang.annotation.RetentionPolicy;
 /**
  * @version $Rev$ $Date$
  */
-@Target({ElementType.TYPE, ElementType.METHOD})
+@Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface SqlResultSetMapping {
     String name();

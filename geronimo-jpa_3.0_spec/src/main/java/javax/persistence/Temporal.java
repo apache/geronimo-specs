@@ -35,5 +35,5 @@ import java.lang.annotation.RetentionPolicy;
 @Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Temporal {
-    TemporalType value() default TemporalType.TIMESTAMP;
+    TemporalType value();
 }

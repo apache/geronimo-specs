@@ -27,7 +27,7 @@ package javax.persistence;
 /**
  * @version $Revision$ $Date$
  */
-public class EntityExistsException extends RuntimeException {
+public class EntityExistsException extends PersistenceException {
 
 	public EntityExistsException() {
 	

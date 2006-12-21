@@ -27,7 +27,7 @@ package javax.persistence;
 /**
  * @version $Rev$ $Date$
  */
-public class TransactionRequiredException extends RuntimeException {
+public class TransactionRequiredException extends PersistenceException {
     /**
      * 
      */
@@ -41,11 +41,4 @@ public class TransactionRequiredException extends RuntimeException {
         super(string);
     }
 
-    public TransactionRequiredException(String string, Throwable throwable) {
-        super(string, throwable);
-    }
-
-    public TransactionRequiredException(Throwable throwable) {
-        super(throwable);
-    }
 }

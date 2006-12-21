@@ -43,6 +43,8 @@ public interface Query {
 
     public Query setFirstResult(int startPosition);
 
+    public Query setFlushMode(FlushModeType flushModeType);
+
     public Query setHint(String hintName, Object value);
 
     public Query setParameter(String name, Object value);
