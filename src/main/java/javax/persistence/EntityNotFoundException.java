@@ -28,7 +28,7 @@ package javax.persistence;
 /**
  * @version $Rev$ $Date$
  */
-public class EntityNotFoundException extends RuntimeException {
+public class EntityNotFoundException extends PersistenceException {
 
     /**
      * 
@@ -43,11 +43,4 @@ public class EntityNotFoundException extends RuntimeException {
         super(message);
     }
 
-    public EntityNotFoundException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public EntityNotFoundException(Throwable cause) {
-        super(cause);
-    }
 }
