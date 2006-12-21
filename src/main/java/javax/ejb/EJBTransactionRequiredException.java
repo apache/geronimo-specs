@@ -32,10 +32,6 @@ public class EJBTransactionRequiredException extends EJBException {
         super();
     }
 
-    public EJBTransactionRequiredException(Exception ex) {
-        super(ex);
-    }
-
     public EJBTransactionRequiredException(String message) {
         super(message);
     }

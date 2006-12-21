@@ -32,8 +32,8 @@ public class ConcurrentAccessException extends EJBException {
         super();
     }
 
-    public ConcurrentAccessException(Exception ex) {
-        super(ex);
+    public ConcurrentAccessException(String message, Exception ex) {
+        super(message, ex);
     }
 
     public ConcurrentAccessException(String message) {

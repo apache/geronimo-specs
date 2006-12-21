@@ -37,7 +37,7 @@ public interface SessionContext extends EJBContext {
 
     MessageContext getMessageContext() throws IllegalStateException;
 
-    Object getBusinessObject(Class businessInterface);
+    <T> T getBusinessObject(Class<T> businessInterface);
 
     Class getInvokedBusinessInterface();
 
