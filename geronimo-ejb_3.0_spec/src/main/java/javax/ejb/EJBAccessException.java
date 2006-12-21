@@ -32,10 +32,6 @@ public class EJBAccessException extends EJBException {
         super();
     }
 
-    public EJBAccessException(Exception ex) {
-        super(ex);
-    }
-
     public EJBAccessException(String message) {
         super(message);
     }

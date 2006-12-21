@@ -32,8 +32,8 @@ public class EJBTransactionRolledbackException extends EJBException {
         super();
     }
 
-    public EJBTransactionRolledbackException(Exception ex) {
-        super(ex);
+    public EJBTransactionRolledbackException(String message, Exception ex) {
+        super(message, ex);
     }
 
     public EJBTransactionRolledbackException(String message) {

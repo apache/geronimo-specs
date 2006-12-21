@@ -30,8 +30,8 @@ public class NoSuchEJBException extends EJBException {
         super();
     }
 
-    public NoSuchEJBException(Exception ex) {
-        super(ex);
+    public NoSuchEJBException(String message, Exception ex) {
+        super(message, ex);
     }
 
     public NoSuchEJBException(String message) {
