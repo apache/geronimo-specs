@@ -120,7 +120,6 @@
             </activation>
 
             <modules>
-                <module>geronimo-ejb_3.0_spec</module>
                 <module>geronimo-el_1.0_spec</module>
                 <module>geronimo-j2ee-management_1.1_spec</module>
                 <module>geronimo-jacc_1.1_spec</module>
