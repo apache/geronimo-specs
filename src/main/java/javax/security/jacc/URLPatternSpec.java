@@ -27,6 +27,7 @@ package javax.security.jacc;
 
 import java.util.Iterator;
 import java.util.LinkedList;
+
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -65,8 +66,8 @@ final class URLPatternSpec {
                 if (candidate.type == URLPattern.EXACT && !first.matches(candidate)) {
                     throw new java.lang.IllegalArgumentException("Exact qualifier patterns in the URLPatternSpec must be matched by the first URLPattern");
                 } else if (candidate.type == URLPattern.PATH_PREFIX
-                           && !(first.matches(candidate) && first.pattern.length() < candidate.pattern.length()))
-                {
+                        && !(first.matches(candidate)
+                        && first.pattern.length() < candidate.pattern.length())) {
                     throw new java.lang.IllegalArgumentException("path-prefix qualifier patterns in the URLPatternSpec must be matched by, but different from, the first URLPattern");
                 } else if (candidate.type == URLPattern.EXTENSION) {
                     throw new java.lang.IllegalArgumentException("extension qualifier patterns in the URLPatternSpec are not allowed when the first URLPattern is path-prefix");
@@ -77,8 +78,10 @@ final class URLPatternSpec {
                 // that are matched by the first pattern and path-prefix patterns may
                 // occur in the URLPatternList.
 
-                if (candidate.type == URLPattern.EXACT && !first.matches(candidate)) {
-                    throw new java.lang.IllegalArgumentException("Exact qualifier patterns in the URLPatternSpec must be matched when first URLPattern is an extension pattern");
+                if (candidate.type == URLPattern.EXACT) {
+                    if (!first.matches(candidate)) {
+                        throw new java.lang.IllegalArgumentException("Exact qualifier patterns in the URLPatternSpec must be matched when first URLPattern is an extension pattern");
+                    }
                 } else if (candidate.type != URLPattern.PATH_PREFIX) {
                     throw new java.lang.IllegalArgumentException("Only exact and path-prefix qualifiers in the URLPatternSpec are allowed when first URLPattern is an extension pattern");
                 }
@@ -88,6 +91,7 @@ final class URLPatternSpec {
                 // except the default pattern may occur in the URLPatternList.
 
                 if (candidate.type == URLPattern.DEFAULT) {
+                    //This is actually tested for by the "qualifier must not match first" rule
                     throw new java.lang.IllegalArgumentException("Qualifier patterns must not be default when first URLPattern is a default pattern");
                 }
             } else if (first.type == URLPattern.EXACT) {
@@ -95,7 +99,7 @@ final class URLPatternSpec {
                 // If the first pattern is an exact pattern a URLPatternList
                 // must not be present in the URLPatternSpec
 
-                throw new java.lang.IllegalArgumentException("Qualifier patterns must be present when first URLPattern is an exact pattern");
+                throw new java.lang.IllegalArgumentException("Qualifier patterns must not be present when first URLPattern is an exact pattern");
             }
 
             qualifiers.add(candidate);

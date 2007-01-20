@@ -53,91 +53,155 @@ public class WebResourcePermissionTest extends TestCase {
      * Testing WebResourcePermission(java.lang.String, java.lang.String)
      */
     public void testConstructorStringString() {
-
-        WebResourcePermission permission = new WebResourcePermission("/foo", "GET,POST");
-
-        assertTrue(permission.equals(permission));
-        assertEquals(permission.getName(), "/foo");
-        assertEquals(permission.getActions(), "GET,POST");
-
-        permission = new WebResourcePermission("/foo", "GET,POST,POST,GET");
-        assertEquals(permission.getActions(), "GET,POST");
-
-        permission = new WebResourcePermission("/", "GET,POST");
-        permission = new WebResourcePermission("/:/foo", "GET,POST");
-        permission = new WebResourcePermission("/:*.asp", "GET,POST");
-        permission = new WebResourcePermission("/:/foo:*.asp", "GET,POST");
-        permission = new WebResourcePermission("/bar/*", "GET,POST");
-        permission = new WebResourcePermission("", "GET,POST");
-        permission = new WebResourcePermission("/*", "GET,POST");
-        permission = new WebResourcePermission("/*:/bar/stool", "GET,POST");
-        permission = new WebResourcePermission("/bar/*:/bar/stool", "GET,POST");
-
-        permission = new WebResourcePermission("/foo", "GET,POST,BAR");
-        // bad HTTP method
+        // null URLPatternSpec for a WebResourcePermission
         try {
-            permission = new WebResourcePermission("/foo", "GET,POST,B A R");
+            new WebResourcePermission(null, "GET,POST");
+            fail("null URLPatternSpec for a WebResourcePermission");
+        } catch (IllegalArgumentException iae) {
+        }
+
+
+        //Default pattern
+        checkPermission(new WebResourcePermission("/", "GET,POST"), "GET,POST");
+        checkPermission(new WebResourcePermission("/:/foo", "GET,POST"), "GET,POST");
+        checkPermission(new WebResourcePermission("/:*.asp", "GET,POST"), "GET,POST");
+        checkPermission(new WebResourcePermission("/:/foo:*.asp", "GET,POST"), "GET,POST");
+        checkPermission(new WebResourcePermission("", "GET,POST"), "GET,POST");
+        checkPermission(new WebResourcePermission("/*", "GET,POST"), "GET,POST");
+        checkPermission(new WebResourcePermission("/*:/bar/stool", "GET,POST"), "GET,POST");
+        //default pattern as qualifier
+        try {
+            new WebResourcePermission("/bar/*:/*", "GET,POST");
+            fail("/*:/");
+        } catch (IllegalArgumentException iae) {
+        }
+        try {
+            new WebResourcePermission("/bar/*:/*", "GET,POST");
+            fail("/*:/*");
+        } catch (IllegalArgumentException iae) {
+        }
+        try {
+            new WebResourcePermission("/bar/*:/*", "GET,POST");
+            fail("/:/");
+        } catch (IllegalArgumentException iae) {
+        }
+        try {
+            new WebResourcePermission("/bar/*:/*", "GET,POST");
+            fail("/:/*");
+        } catch (IllegalArgumentException iae) {
+        }
+
+        //Exact pattern
+        checkPermission(new WebResourcePermission("/foo", "GET,POST"), "GET,POST");
+        // missing qualifiers
+        try {
+            new WebResourcePermission("/foo:", "GET,POST");
+            fail("/foo:");
+        } catch (IllegalArgumentException iae) {
+        }
+
+        // qualifer provided when first pattern is exact
+        try {
+            new WebResourcePermission("/foo:/foo/bar", "GET,POST");
+            fail("/foo:/foo/bar");
+        } catch (IllegalArgumentException iae) {
+        }
+        //default pattern as a qualifier
+        try {
+            new WebResourcePermission("/foo:/", "GET,POST");
+            fail("/foo:/");
+        } catch (IllegalArgumentException iae) {
+        }
+
+
+        //Path prefix pattern
+        checkPermission(new WebResourcePermission("/bar/*", "GET,POST"), "GET,POST");
+        checkPermission(new WebResourcePermission("/bar/*:/bar/stool", "GET,POST"), "GET,POST");
+        try {
+            new WebResourcePermission("/foo/*:*.asp", "GET,POST");
+            fail("/foo/*:*.asp");
+        } catch (IllegalArgumentException iae) {
+        }
+        //first pattern doesn't match qualifier
+        try {
+            new WebResourcePermission("/bar/*:/cat/stool/*", "GET,POST");
+            fail("/bar/*:/cat/stool/*");
+        } catch (IllegalArgumentException iae) {
+        }
+        try {
+            new WebResourcePermission("/bar/stool/*:/bar", "GET,POST");
+            fail("/bar/stool/*:/bar");
+        } catch (IllegalArgumentException iae) {
+        }
+        try {
+            new WebResourcePermission("/bar/stool/*:/bar/*", "GET,POST");
+            fail("/bar/stool/*:/bar/stool/*");
+        } catch (IllegalArgumentException iae) {
+        }
+        //qualifier is same as first pattern
+        try {
+            new WebResourcePermission("/bar/stool/*:/bar/stool/*", "GET,POST");
+            fail("/bar/stool/*:/bar/stool/*");
+        } catch (IllegalArgumentException iae) {
+        }
+
+        //default pattern as qualifier
+        try {
+            new WebResourcePermission("/bar/*:/*", "GET,POST");
+            fail("/bar/*:/");
+        } catch (IllegalArgumentException iae) {
+        }
+
+
+        //Extension pattern
+        checkPermission(new WebResourcePermission("*.do", "GET,POST"), "GET,POST");
+        checkPermission(new WebResourcePermission("*.do:/login.do", "GET,POST"), "GET,POST");
+        checkPermission(new WebResourcePermission("*.do:/foo/*", "GET,POST"), "GET,POST");
+
+        //default pattern as qualifier
+        try {
+            new WebResourcePermission("*.do:/*", "GET,POST");
+            fail("*.do:/*");
+        } catch (IllegalArgumentException iae) {
+        }
+        //qualifier is extension pattern
+        try {
+            new WebResourcePermission("*.do:*.jsp", "GET,POST");
+            fail("*.do:/*");
+        } catch (IllegalArgumentException iae) {
+        }
+        //qualifier is exact and does not match first pattern
+        try {
+            new WebResourcePermission("*.do:/login", "GET,POST");
+            fail("*.do:/*");
+        } catch (IllegalArgumentException iae) {
+        }
+        
+        //HTTP method
+        checkPermission(new WebResourcePermission("/foo", "GET,POST,POST,GET"), "GET,POST");
+        checkPermission(new WebResourcePermission("/foo", "GET,POST,BAR"), "GET,POST,BAR");
+        try {
+            new WebResourcePermission("/foo", "GET,POST,B A R");
             fail("Bad HTTP method");
         } catch (IllegalArgumentException iae) {
         }
 
         // bad HTTP method for a WebResourcePermission
         try {
-            permission = new WebResourcePermission("/foo", "GET,POST:INTEGRAL");
+            new WebResourcePermission("/foo", "GET,POST:INTEGRAL");
+            fail("integrity constraint in a WebResourcePermission accepted");
         } catch (IllegalArgumentException iae) {
         }
 
-        // null URLPatternSpec for a WebResourcePermission
-        try {
-            permission = new WebResourcePermission(null, "GET,POST");
-            fail("null URLPatternSpec for a WebResourcePermission");
-        } catch (IllegalArgumentException iae) {
-        }
 
-        // missing qualifiers
-        try {
-            permission = new WebResourcePermission("/foo:", "GET,POST");
-            fail("/foo:");
-        } catch (IllegalArgumentException iae) {
-        }
 
-        // qualifer provided when first pattern isn't path-prefix
-        try {
-            permission = new WebResourcePermission("/foo:/foo/bar", "GET,POST");
-            fail("/foo:/foo/bar");
-        } catch (IllegalArgumentException iae) {
-        }
 
-        try {
-            permission = new WebResourcePermission("/foo/*:*.asp", "GET,POST");
-            fail("/foo/*:*.asp");
-        } catch (IllegalArgumentException iae) {
-        }
 
-        try {
-            permission = new WebResourcePermission("/foo:/", "GET,POST");
-            fail("/foo:/");
-        } catch (IllegalArgumentException iae) {
-        }
+    }
 
-        try {
-            permission = new WebResourcePermission("/bar/*:/cat/stool/*", "GET,POST");
-            fail("/bar/*:/cat/stool/*");
-        } catch (IllegalArgumentException iae) {
-        }
-
-        try {
-            permission = new WebResourcePermission("/bar/*:/*", "GET,POST");
-            fail("/bar/*:/");
-        } catch (IllegalArgumentException iae) {
-        }
-
-        try {
-            permission = new WebResourcePermission("/bar/stool/*:/bar", "GET,POST");
-            fail("/bar/stool/*:/bar");
-        } catch (IllegalArgumentException iae) {
-        }
-
+    private void checkPermission(Permission permission, String actions) {
+        assertTrue(permission.equals(permission));
+        assertEquals(actions, permission.getActions());
     }
 
     public void testExcluded() {
