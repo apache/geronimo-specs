@@ -33,7 +33,7 @@
 
     <artifactId>geronimo-jacc_1.1_spec</artifactId>
     <name>J2EE JACC 1.1</name>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0-M2</version>
 
     <dependencies>
         <dependency>
@@ -65,4 +65,10 @@
             </plugin>
         </plugins>
     </build>
+
+  <scm>
+    <connection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-jacc_1.1_spec-1.0-M2</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-jacc_1.1_spec-1.0-M2</developerConnection>
+    <url>https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-jacc_1.1_spec-1.0-M2</url>
+  </scm>
 </project>
