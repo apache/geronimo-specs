@@ -141,7 +141,9 @@ public abstract class Service {
                 // it is possible that this could return null (rare).  If it does, try to get a
                 // value from a protocol specific session variable.
                 if (host == null) {
-                    host = session.getProperty("mail." + protocol + ".host");
+                	if (protocol != null) {
+                		host = session.getProperty("mail." + protocol + ".host");
+                	}
                 }
             }
             // this may still be null...get the global mail property
@@ -161,7 +163,9 @@ public abstract class Service {
                 }
                 // user still null?  We have several levels of properties to try yet
                 if (user == null) {
-                    user = session.getProperty("mail." + protocol + ".user");
+                	if (protocol != null) {
+                		user = session.getProperty("mail." + protocol + ".user");
+                	}
                 }
             }
 
