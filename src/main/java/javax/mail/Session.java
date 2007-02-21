@@ -475,6 +475,9 @@ public final class Session {
 
     private Service getService(Provider provider, URLName name) throws NoSuchProviderException {
         try {
+            if (name == null) {
+                name = new URLName(provider.getProtocol(), null, -1, null, null, null); 
+           }
             ClassLoader cl = getClassLoader();
             Class clazz = cl.loadClass(provider.getClassName());
             Constructor ctr = clazz.getConstructor(PARAM_TYPES);
