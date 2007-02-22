@@ -118,6 +118,13 @@ public abstract class Service {
         if (url != null) {
             protocol = url.getProtocol();
         }
+        
+        // if the port is -1, see if we have an override from url. 
+        if (port == -1) {
+            if (protocol != null) {
+                port = url.getPort();
+            }
+        }
 
         // now try to derive values for any of the arguments we've been given as defaults
         if (host == null) {
@@ -127,7 +134,9 @@ public abstract class Service {
                 // it is possible that this could return null (rare).  If it does, try to get a
                 // value from a protocol specific session variable.
                 if (host == null) {
-                    host = session.getProperty("mail." + protocol + ".host");
+                	if (protocol != null) {
+                        host = session.getProperty("mail." + protocol + ".host");
+                    }
                 }
             }
             // this may still be null...get the global mail property
@@ -147,7 +156,9 @@ public abstract class Service {
                 }
                 // user still null?  We have several levels of properties to try yet
                 if (user == null) {
-                    user = session.getProperty("mail." + protocol + ".user");
+                	if (protocol != null) {
+                        user = session.getProperty("mail." + protocol + ".user");
+                    }
                 }
             }
 
@@ -217,6 +228,7 @@ public abstract class Service {
             connected = protocolConnect(host, port, user, password);
         }
         catch (AuthenticationFailedException e) {
+            e.printStackTrace(); 
         }
 
         if (!connected) {
@@ -236,7 +248,6 @@ public abstract class Service {
                 user = promptPassword.getUserName();
                 password = promptPassword.getPassword();
             }
-
             connected = protocolConnect(host, port, user, password);
         }
 
