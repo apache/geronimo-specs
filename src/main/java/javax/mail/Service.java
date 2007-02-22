@@ -132,6 +132,13 @@ public abstract class Service {
         if (url != null) {
             protocol = url.getProtocol();
         }
+        
+        // if the port is -1, see if we have an override from url. 
+        if (port == -1) {
+            if (protocol != null) {
+                port = url.getPort();
+            }
+        }
 
         // now try to derive values for any of the arguments we've been given as defaults
         if (host == null) {
