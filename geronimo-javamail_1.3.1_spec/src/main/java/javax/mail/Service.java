@@ -86,20 +86,6 @@ public abstract class Service {
     }
 
     /**
-     * Connect to the specified host using a simple username/password authenticaion scheme
-     * and the default host and port.
-     * The default implementation calls <code>connect(host, -1, user, password)</code>
-     *
-     * @param user the user name
-     * @param password the user's password
-     * @throws AuthenticationFailedException if authentication fails
-     * @throws MessagingException for other failures
-     */
-    public void connect(String user, String password) throws MessagingException {
-        connect(null, -1, user, password);
-    }
-
-    /**
      * Connect to the specified host at the specified port using a simple username/password authenticaion scheme.
      *
      * If this Service is already connected, an IllegalStateException is thrown.
@@ -149,8 +135,8 @@ public abstract class Service {
                 // value from a protocol specific session variable.
                 if (host == null) {
                 	if (protocol != null) {
-                		host = session.getProperty("mail." + protocol + ".host");
-                	}
+                        host = session.getProperty("mail." + protocol + ".host");
+                    }
                 }
             }
             // this may still be null...get the global mail property
@@ -171,8 +157,8 @@ public abstract class Service {
                 // user still null?  We have several levels of properties to try yet
                 if (user == null) {
                 	if (protocol != null) {
-                		user = session.getProperty("mail." + protocol + ".user");
-                	}
+                        user = session.getProperty("mail." + protocol + ".user");
+                    }
                 }
             }
 
@@ -242,6 +228,7 @@ public abstract class Service {
             connected = protocolConnect(host, port, user, password);
         }
         catch (AuthenticationFailedException e) {
+            e.printStackTrace(); 
         }
 
         if (!connected) {
@@ -261,7 +248,6 @@ public abstract class Service {
                 user = promptPassword.getUserName();
                 password = promptPassword.getPassword();
             }
-
             connected = protocolConnect(host, port, user, password);
         }
 

@@ -103,6 +103,7 @@
     <modules>
         <module>geronimo-activation_1.1_spec</module>
         <module>geronimo-commonj_1.1_spec</module>
+        <module>geronimo-javamail_1.3.1_spec</module>
         <module>geronimo-javamail_1.4_spec</module>
         <module>geronimo-servlet_2.5_spec</module>
     </modules>
