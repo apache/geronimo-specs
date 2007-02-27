@@ -38,6 +38,7 @@ public class DConfigBeanVersionType {
     public static final DConfigBeanVersionType V1_3 = new DConfigBeanVersionType(0);
     /**
      * J2EE Platform version 1.3.1
+     * DO NOT USE THIS, USE V1_3 instead
      */
     public static final DConfigBeanVersionType V1_3_1 = new DConfigBeanVersionType(1);
     /**
@@ -45,16 +46,23 @@ public class DConfigBeanVersionType {
      */
     public static final DConfigBeanVersionType V1_4 = new DConfigBeanVersionType(2);
 
+    /**
+     * JAVAEE Platform version 1.5
+     */
+    public static final DConfigBeanVersionType V5 = new DConfigBeanVersionType(3);
+
     private static final DConfigBeanVersionType[] enumValueTable = {
         V1_3,
         V1_3_1,
         V1_4,
+        V5,
     };
 
     private static final String[] stringTable = {
         "V1_3",
         "V1_3_1",
         "V1_4",
+        "V5",
     };
 
     private int value;
@@ -101,7 +109,7 @@ public class DConfigBeanVersionType {
      * value if outside the bounds of the table
      */
     public String toString() {
-        return (value >= 0 && value <= 2) ? getStringTable()[value] : String.valueOf(value);
+        return (value >= 0 && value <= 3) ? getStringTable()[value] : String.valueOf(value);
     }
 
     /**

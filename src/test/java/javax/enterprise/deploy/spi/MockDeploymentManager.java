@@ -68,6 +68,10 @@ public class MockDeploymentManager implements DeploymentManager {
         return null;
     }
 
+    public ProgressObject distribute(Target[] targetList, ModuleType moduleType, InputStream moduleArchive, InputStream deploymentPlan) throws IllegalStateException {
+        return null;
+    }
+
     public ProgressObject start(TargetModuleID[] moduleIDList) throws IllegalStateException {
         return null;
     }

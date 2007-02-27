@@ -35,12 +35,14 @@ public class DConfigBeanVersionTypeTest extends TestCase {
         assertEquals(0, DConfigBeanVersionType.V1_3.getValue());
         assertEquals(1, DConfigBeanVersionType.V1_3_1.getValue());
         assertEquals(2, DConfigBeanVersionType.V1_4.getValue());
+        assertEquals(3, DConfigBeanVersionType.V5.getValue());
     }
 
     public void testToString() {
         assertEquals("V1_3", DConfigBeanVersionType.V1_3.toString());
         assertEquals("V1_3_1", DConfigBeanVersionType.V1_3_1.toString());
         assertEquals("V1_4", DConfigBeanVersionType.V1_4.toString());
+        assertEquals("V5", DConfigBeanVersionType.V5.toString());
         // only possible due to package local access
         assertEquals("5", new ActionType(5).toString());
     }
@@ -55,7 +57,7 @@ public class DConfigBeanVersionTypeTest extends TestCase {
 
     public void testValueToLarge() {
         try {
-            DConfigBeanVersionType.getDConfigBeanVersionType(3);
+            DConfigBeanVersionType.getDConfigBeanVersionType(4);
             fail("Expected AIOOBE");
         } catch (ArrayIndexOutOfBoundsException aioobe) {
         }

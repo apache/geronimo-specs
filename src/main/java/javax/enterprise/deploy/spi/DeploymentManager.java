@@ -151,8 +151,27 @@ public interface DeploymentManager {
      * @return an object that tracks and reports the status of the distribution process.
      *
      * @throws IllegalStateException is thrown when the method is called when running in disconnected mode.
+     * @deprecated use the following method including the moduletype instead
      */
     public ProgressObject distribute(Target[] targetList, InputStream moduleArchive, InputStream deploymentPlan) throws IllegalStateException;
+
+    /**
+     * The distribute method performs three tasks; it validates the deployment
+     * configuration data, generates all container specific classes and interfaces,
+     * and moves the fully baked archive to the designated deployment targets.
+     *
+     * @param targetList     A list of server targets the user is specifying this application
+     *                       should be deployed to.
+     * @param moduleType     The module type of the application archive to be distributed.
+     * @param moduleArchive  The stream containing the application archive to be distributed.
+     * @param deploymentPlan The stream containing the runtime configuration information
+     *                       associated with this application archive.
+     *
+     * @return an object that tracks and reports the status of the distribution process.
+     *
+     * @throws IllegalStateException is thrown when the method is called when running in disconnected mode.
+     */
+    public ProgressObject distribute(Target[] targetList, ModuleType moduleType, InputStream moduleArchive, InputStream deploymentPlan) throws IllegalStateException;
 
     /**
      * Start the application running.
