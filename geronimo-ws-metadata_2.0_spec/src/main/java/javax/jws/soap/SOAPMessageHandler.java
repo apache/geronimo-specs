@@ -27,7 +27,7 @@ package javax.jws.soap;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-@Retention(RetentionPolicy.RUNTIME)
+@Deprecated
 public @interface SOAPMessageHandler
 {
     String className();
