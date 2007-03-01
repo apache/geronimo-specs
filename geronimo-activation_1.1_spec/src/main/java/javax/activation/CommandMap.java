@@ -166,4 +166,13 @@ public abstract class CommandMap {
      * @return The DataContentHandler for the MIME type.
      */
     public abstract DataContentHandler createDataContentHandler(String mimeType);
+
+    /**
+     * Return all mime types known to this CommandMap, or null if none.
+     *
+     * @return a String array of all mime types known to this CommandMap
+     */
+    public String[] getMimeTypes() {
+        return null;
+    }
 }
