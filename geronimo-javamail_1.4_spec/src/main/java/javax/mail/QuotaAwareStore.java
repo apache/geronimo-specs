@@ -31,16 +31,18 @@ public interface QuotaAwareStore {
      * @param root   The root name for the quota information.
      *
      * @return An array of Quota objects defined for the root.
+     * @throws MessagingException if the quotas cannot be retrieved
      */
-    public Quota[] getQuota(String root);
+    public Quota[] getQuota(String root) throws javax.mail.MessagingException;
 
     /**
      * Set a quota item.  The root contained in the Quota item identies
      * the quota target.
      *
      * @param quota  The source quota item.
+     * @throws MessagingException if the quota cannot be set
      */
-    public void setQuota(Quota quota);
+    public void setQuota(Quota quota) throws javax.mail.MessagingException;
 }
 
 
