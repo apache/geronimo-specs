@@ -1543,7 +1543,7 @@ public class MimeMessage extends Message implements MimePart {
      *
      * @exception MessagingException
      */
-    public void updateMessageID() throws MessagingException {
+    protected void updateMessageID() throws MessagingException {
         StringBuffer id = new StringBuffer();
 
         id.append('<');
@@ -1578,8 +1578,9 @@ public class MimeMessage extends Message implements MimePart {
      * @param session The session associated with this message.
      *
      * @return A newly create MimeMessage instance.
+     * @throws javax.mail.MessagingException if the MimeMessage could not be created
      */
-    protected MimeMessage createMimeMessage(Session session) {
+    protected MimeMessage createMimeMessage(Session session) throws javax.mail.MessagingException {
         return new MimeMessage(session);
     }
 
