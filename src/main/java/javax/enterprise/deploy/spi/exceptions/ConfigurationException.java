@@ -48,11 +48,4 @@ public class ConfigurationException extends Exception {
         super(msg);
     }
 
-    public ConfigurationException(Throwable cause) {
-        super(cause);
-    }
-
-    public ConfigurationException(String message, Throwable cause) {
-        super(message, cause);
-    }
 }
