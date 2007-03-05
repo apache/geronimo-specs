@@ -33,7 +33,7 @@ import java.beans.PropertyChangeEvent;
  *
  * @version $Rev$ $Date$
  */
-public class XpathEvent {
+public final class XpathEvent {
     /**
      * Adding a DDBean
      */
@@ -67,6 +67,7 @@ public class XpathEvent {
      * old values.  This is typically used for change events.
      * It is not in the public API, but is included in the
      * downloadable JSR-88 classes.
+     * @return PropertyChangeEvent held by this XPathEvent
      */
     public PropertyChangeEvent getChangeEvent() {
         return pce;
