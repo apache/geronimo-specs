@@ -30,7 +30,7 @@ import java.util.ResourceBundle;
 public abstract class ELResolver {
 	
 	static String message(ELContext context, String name, Object[] props) {
-		Locale locale = context.getLocale();
+		Locale locale = context == null? null: context.getLocale();
 		if (locale == null) {
 			locale = Locale.getDefault();
 			if (locale == null) {
