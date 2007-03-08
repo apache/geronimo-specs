@@ -19,11 +19,15 @@
  */
 package javax.xml.stream.util;
 
+import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.events.XMLEvent;
 
 public interface XMLEventAllocator {
-	public XMLEvent allocate(XMLStreamReader reader);
-	public void allocate(XMLStreamReader reader, XMLEventConsumer consumer);
+	public XMLEvent allocate(XMLStreamReader reader) throws XMLStreamException;
+
+	public void allocate(XMLStreamReader reader, XMLEventConsumer consumer)
+			throws XMLStreamException;
+
 	public XMLEventAllocator newInstance();
 }

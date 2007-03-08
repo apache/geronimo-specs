@@ -43,15 +43,17 @@ public abstract class XMLEventFactory {
 
 	public static XMLEventFactory newInstance()
 			throws FactoryConfigurationError {
-		// TODO Need to provide some default facvtory mechanism. 
+		// TODO Need to provide some default facvtory mechanism.
 		return null;
 	}
 
 	public static XMLEventFactory newInstance(String factoryId,
 			ClassLoader classLoader) throws FactoryConfigurationError {
-		// TODO Need to provide some default facvtory mechanism. 
+		// TODO Need to provide some default facvtory mechanism.
 		return null;
 	}
+
+	public abstract void setLocation(Location location);
 
 	public abstract Attribute createAttribute(QName name, String value);
 
@@ -60,18 +62,25 @@ public abstract class XMLEventFactory {
 	public abstract Attribute createAttribute(String prefix,
 			String namespaceURI, String localName, String value);
 
-	public abstract Characters createCData(String content);
+	public abstract Namespace createNamespace(String namespaceUri);
 
-	public abstract Characters createCharacters(String content);
+	public abstract Namespace createNamespace(String prefix, String namespaceUri);
 
-	public abstract Comment createComment(String text);
+	public abstract StartElement createStartElement(QName name,
+			Iterator attributes, Iterator namespaces);
 
-	public abstract DTD createDTD(String dtd);
+	public abstract StartElement createStartElement(String prefix,
+			String namespaceUri, String localName);
 
-	public abstract EndDocument createEndDocument();
-
-	public abstract EndElement createEndElement(QName name,
+	public abstract StartElement createStartElement(String prefix,
+			String namespaceUri, String localName, Iterator attributes,
 			Iterator namespaces);
+
+	public abstract StartElement createStartElement(String prefix,
+			String namespaceUri, String localName, Iterator attributes,
+			Iterator namespaces, NamespaceContext context);
+
+	public abstract EndElement createEndElement(QName name, Iterator namespaces);
 
 	public abstract EndElement createEndElement(String prefix,
 			String namespaceUri, String localName);
@@ -79,19 +88,13 @@ public abstract class XMLEventFactory {
 	public abstract EndElement createEndElement(String prefix,
 			String namespaceUri, String localName, Iterator namespaces);
 
-	public abstract EntityReference createEntityReference(String name,
-			EntityDeclaration declaration);
+	public abstract Characters createCharacters(String content);
 
-	public abstract Characters createIgnorableSpace(String content);
-
-	public abstract Namespace createNamespace(String namespaceURI);
-
-	public abstract Namespace createNamespace(String prefix, String namespaceUri);
-
-	public abstract ProcessingInstruction createProcessingInstruction(
-			String target, String data);
+	public abstract Characters createCData(String content);
 
 	public abstract Characters createSpace(String content);
+
+	public abstract Characters createIgnorableSpace(String content);
 
 	public abstract StartDocument createStartDocument();
 
@@ -103,20 +106,15 @@ public abstract class XMLEventFactory {
 	public abstract StartDocument createStartDocument(String encoding,
 			String version, boolean standalone);
 
-	public abstract StartElement createStartElement(QName name,
-			Iterator attributes, Iterator namespaces);
+	public abstract EndDocument createEndDocument();
 
-	public abstract StartElement createStartElement(String prefix,
-			String namespaceUri, String localName);
+	public abstract EntityReference createEntityReference(String name,
+			EntityDeclaration declaration);
 
-	public abstract StartElement createStartElement(String prefix,
-			String namespaceUri, String localName,
-			Iterator attributes, Iterator namespaces);
+	public abstract Comment createComment(String text);
 
-	public abstract StartElement createStartElement(String prefix,
-			String namespaceUri, String localName,
-			Iterator attributes, Iterator namespaces,
-			NamespaceContext context);
+	public abstract ProcessingInstruction createProcessingInstruction(
+			String target, String data);
 
-	public abstract void setLocation(Location location);
+	public abstract DTD createDTD(String dtd);
 }

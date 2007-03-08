@@ -16,14 +16,19 @@
  ** KIND, either express or implied.  See the License for the
  ** specific language governing permissions and limitations
  ** under the License.
-*/
+ */
 package javax.xml.stream.events;
 
 public interface StartDocument extends XMLEvent {
-    public boolean encodingSet();
-    public String getCharacterEncodingScheme();
-    public String getSystemId();
-    public String getVersion();
-    public boolean isStandalone();
-    public boolean standaloneSet(); 
+	public boolean encodingSet();
+
+	public String getCharacterEncodingScheme();
+
+	public String getSystemId();
+
+	public String getVersion();
+
+	public boolean isStandalone();
+
+	public boolean standaloneSet();
 }

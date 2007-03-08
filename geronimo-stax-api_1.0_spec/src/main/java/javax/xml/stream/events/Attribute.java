@@ -16,14 +16,17 @@
  ** KIND, either express or implied.  See the License for the
  ** specific language governing permissions and limitations
  ** under the License.
-*/
+ */
 package javax.xml.stream.events;
 
 import javax.xml.namespace.QName;
 
 public interface Attribute extends XMLEvent {
-    java.lang.String getDTDType();
-    javax.xml.namespace.QName getName();
-    java.lang.String getValue();
-    boolean isSpecified();
+	public String getDTDType();
+
+	public QName getName();
+
+	public String getValue();
+
+	public boolean isSpecified();
 }

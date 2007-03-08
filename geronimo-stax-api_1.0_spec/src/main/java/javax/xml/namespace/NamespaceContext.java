@@ -16,13 +16,15 @@
  ** KIND, either express or implied.  See the License for the
  ** specific language governing permissions and limitations
  ** under the License.
-*/
+ */
 package javax.xml.namespace;
 
 import java.util.Iterator;
 
 public interface NamespaceContext {
-    public String getNamespaceURI(String prefix);
-    public String getPrefix(String namespaceURI);
-    public Iterator getPrefixes(String namespaceURI); 
+	public String getNamespaceURI(String prefix);
+
+	public String getPrefix(String namespaceURI);
+
+	public Iterator getPrefixes(String namespaceURI);
 }

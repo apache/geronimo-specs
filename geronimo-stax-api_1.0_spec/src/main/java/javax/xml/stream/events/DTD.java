@@ -16,12 +16,17 @@
  ** KIND, either express or implied.  See the License for the
  ** specific language governing permissions and limitations
  ** under the License.
-*/
+ */
 package javax.xml.stream.events;
 
+import java.util.List;
+
 public interface DTD extends XMLEvent {
-    java.lang.String getDocumentTypeDeclaration();
-    java.util.List getEntities();
-    java.util.List getNotations();
-    java.lang.Object getProcessedDTD(); 
+	public String getDocumentTypeDeclaration();
+
+	public List getEntities();
+
+	public List getNotations();
+
+	public Object getProcessedDTD();
 }

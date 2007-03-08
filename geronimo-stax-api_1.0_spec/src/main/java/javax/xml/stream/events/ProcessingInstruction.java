@@ -16,12 +16,11 @@
  ** KIND, either express or implied.  See the License for the
  ** specific language governing permissions and limitations
  ** under the License.
-*/
-package javax.xml.namespace;
-
-import java.util.Iterator;
+ */
+package javax.xml.stream.events;
 
 public interface ProcessingInstruction extends XMLEvent {
-    public String getData();
-    public String getTarget(); 
+	public String getData();
+
+	public String getTarget();
 }

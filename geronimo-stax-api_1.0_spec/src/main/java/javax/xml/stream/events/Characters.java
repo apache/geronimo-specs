@@ -16,12 +16,15 @@
  ** KIND, either express or implied.  See the License for the
  ** specific language governing permissions and limitations
  ** under the License.
-*/
+ */
 package javax.xml.stream.events;
 
 public interface Characters extends XMLEvent {
-    java.lang.String getData();
-    boolean	isCData();
-    boolean	isIgnorableWhiteSpace();
-    boolean	isWhiteSpace();
+	public String getData();
+
+	public boolean isCData();
+
+	public boolean isIgnorableWhiteSpace();
+
+	public boolean isWhiteSpace();
 }

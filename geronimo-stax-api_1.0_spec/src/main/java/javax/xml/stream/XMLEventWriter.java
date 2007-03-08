@@ -34,14 +34,12 @@ public interface XMLEventWriter extends XMLEventConsumer {
 
 	public NamespaceContext getNamespaceContext();
 
-	public String getPrefix(java.lang.String uri) throws XMLStreamException;
+	public String getPrefix(String uri) throws XMLStreamException;
 
-	public void setDefaultNamespace(java.lang.String uri)
-			throws XMLStreamException;
+	public void setDefaultNamespace(String uri) throws XMLStreamException;
 
 	public void setNamespaceContext(NamespaceContext context)
 			throws XMLStreamException;
 
-	public void setPrefix(java.lang.String prefix, java.lang.String uri)
-			throws XMLStreamException;
+	public void setPrefix(String prefix, String uri) throws XMLStreamException;
 }

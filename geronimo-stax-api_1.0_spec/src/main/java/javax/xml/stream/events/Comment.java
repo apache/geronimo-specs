@@ -16,9 +16,9 @@
  ** KIND, either express or implied.  See the License for the
  ** specific language governing permissions and limitations
  ** under the License.
-*/
+ */
 package javax.xml.stream.events;
 
 public interface Comment extends XMLEvent {
-    java.lang.String getText();
+	public String getText();
 }

@@ -16,10 +16,8 @@
  ** KIND, either express or implied.  See the License for the
  ** specific language governing permissions and limitations
  ** under the License.
-*/
+ */
 package javax.xml.stream.events;
-
-import java.io.Writer;
 
 public interface EndDocument extends XMLEvent {
 }

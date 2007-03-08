@@ -16,48 +16,49 @@
  ** KIND, either express or implied.  See the License for the
  ** specific language governing permissions and limitations
  ** under the License.
-*/
+ */
 package javax.xml.stream;
 
-public class FactoryConfigurationError extends Error {
-Exception nestedException;
+import java.io.Serializable;
 
-    public FactoryConfigurationError() {
-    }
-    
-    public FactoryConfigurationError(Exception e) {
-        nestedException = e;
-    }
+public class FactoryConfigurationError extends Error implements Serializable {
+	Exception nested;
 
-    public FactoryConfigurationError(Exception e, String msg) {
-        super(msg);
-        nestedException = e;
-    }
-    
-    public FactoryConfigurationError(java.lang.String msg) {
-        super(msg);
-    }
+	public FactoryConfigurationError() {
+	}
 
-    public FactoryConfigurationError(String msg, Exception e) {
-        super(msg);
-        nestedException = e;
-    }
+	public FactoryConfigurationError(Exception e) {
+		nested = e;
+	}
 
-    public Exception getException() {
-        return nestedException;
-    }
-    
-    public String getMessage() {
-        String msg = super.getMessage();
-        if(msg != null)
-            return msg;
-            
-        if(nestedException != null)
-        {
-            msg = nestedException.getMessage();
-            if(msg == null)
-                msg = nestedException.getClass().toString();
-        }
-        return msg;
-     }
+	public FactoryConfigurationError(Exception e, String msg) {
+		super(msg);
+		nested = e;
+	}
+
+	public FactoryConfigurationError(java.lang.String msg) {
+		super(msg);
+	}
+
+	public FactoryConfigurationError(String msg, Exception e) {
+		super(msg);
+		nested = e;
+	}
+
+	public Exception getException() {
+		return nested;
+	}
+
+	public String getMessage() {
+		String msg = super.getMessage();
+		if (msg != null)
+			return msg;
+
+		if (nested != null) {
+			msg = nested.getMessage();
+			if (msg == null)
+				msg = nested.getClass().toString();
+		}
+		return msg;
+	}
 }

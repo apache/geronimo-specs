@@ -19,7 +19,11 @@
 */
 package javax.xml.stream.events;
 
+import java.util.Iterator;
+
+import javax.xml.namespace.QName;
+
 public interface EndElement extends XMLEvent {
-    javax.xml.namespace.QName getName();
-    java.util.Iterator getNamespaces();
+    public QName getName();
+    public Iterator getNamespaces();
 }

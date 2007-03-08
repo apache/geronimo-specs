@@ -19,9 +19,11 @@
  */
 package javax.xml.stream;
 
+import java.util.Iterator;
+
 import javax.xml.stream.events.XMLEvent;
 
-public interface XMLEventReader extends java.util.Iterator {
+public interface XMLEventReader extends Iterator {
 	public void close() throws XMLStreamException;
 
 	public String getElementText() throws XMLStreamException;
