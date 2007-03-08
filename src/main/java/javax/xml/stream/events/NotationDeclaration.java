@@ -16,13 +16,13 @@
  ** KIND, either express or implied.  See the License for the
  ** specific language governing permissions and limitations
  ** under the License.
-*/
-package javax.xml.namespace;
+ */
+package javax.xml.stream.events;
 
-import java.util.Iterator;
+public interface NotationDeclaration extends XMLEvent {
+	public String getName();
 
-public interface NotationDecleration extends XMLEvent {
-    public String getName();
-    public String getPublicId();
-    public String getSystemId();
+	public String getPublicId();
+
+	public String getSystemId();
 }

@@ -16,11 +16,13 @@
  ** KIND, either express or implied.  See the License for the
  ** specific language governing permissions and limitations
  ** under the License.
-*/
-package javax.xml.stream;
+ */
+package javax.xml.stream.events;
 
 public interface Namespace extends Attribute {
-    public String getNamespaceURI();
-    public String getPrefix();
-    public boolean isDefaultNamespaceDeclaration();
+	public String getNamespaceURI();
+
+	public String getPrefix();
+
+	public boolean isDefaultNamespaceDeclaration();
 }

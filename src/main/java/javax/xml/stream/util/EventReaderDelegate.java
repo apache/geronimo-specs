@@ -16,7 +16,7 @@
  ** KIND, either express or implied.  See the License for the
  ** specific language governing permissions and limitations
  ** under the License.
-*/
+ */
 package javax.xml.stream.util;
 
 import javax.xml.namespace.QName;
@@ -25,58 +25,57 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.events.XMLEvent;
 
 public class EventReaderDelegate implements XMLEventReader {
-private XMLEventReader r;
+	private XMLEventReader reader;
 
-    public EventReaderDelegate()
-    {
-    }
-    
-    public EventReaderDelegate(XMLEventReader r)
-    {
-        this.r = r;
-    }
+	public EventReaderDelegate() {
+	}
 
-    public void close()  throws XMLStreamException {
-        r.close();
-    }
-    
-    public String getElementText()  throws XMLStreamException {
-        return r.getElementText();
-    }
-    
-    public XMLEventReader getParent() {
-        return r;
-    }
-    
-    public Object getProperty(java.lang.String name) throws java.lang.IllegalArgumentException {
-        return r.getProperty(name);
-   }
-   
-    public boolean hasNext() {
-        return r.hasNext();
-    }
-    
-    public Object next() {
-        return r.next();
-    }
-    
-    public XMLEvent nextEvent() throws XMLStreamException {
-        return r.nextEvent();
-    }
-    
-    public XMLEvent nextTag()  throws XMLStreamException {
-        return r.nextTag();
-    }
-    
-    public XMLEvent peek()  throws XMLStreamException {
-        return r.peek();
-    }
-    
-    public void remove() {
-        r.remove();
-    }
-    
-    public void setParent(XMLEventReader reader) {
-        r.setParent(reader);
-    }
+	public EventReaderDelegate(XMLEventReader reader) {
+		this.reader = reader;
+	}
+
+	public void close() throws XMLStreamException {
+		reader.close();
+	}
+
+	public String getElementText() throws XMLStreamException {
+		return reader.getElementText();
+	}
+
+	public XMLEventReader getParent() {
+		return reader;
+	}
+
+	public Object getProperty(java.lang.String name)
+			throws IllegalArgumentException {
+		return reader.getProperty(name);
+	}
+
+	public boolean hasNext() {
+		return reader.hasNext();
+	}
+
+	public Object next() {
+		return reader.next();
+	}
+
+	public XMLEvent nextEvent() throws XMLStreamException {
+		return reader.nextEvent();
+	}
+
+	public XMLEvent nextTag() throws XMLStreamException {
+		return reader.nextTag();
+	}
+
+	public XMLEvent peek() throws XMLStreamException {
+		return reader.peek();
+	}
+
+	public void remove() {
+		reader.remove();
+	}
+
+	public void setParent(XMLEventReader reader) {
+		this.reader = reader;
+	}
 }

@@ -16,14 +16,19 @@
  ** KIND, either express or implied.  See the License for the
  ** specific language governing permissions and limitations
  ** under the License.
-*/
+ */
 package javax.xml.stream.events;
 
 public interface EntityDeclaration extends XMLEvent {
-    java.lang.String getBaseURI();
-    java.lang.String getName();
-    java.lang.String getNotationName();
-    java.lang.String getPublicId();
-    java.lang.String getReplacementText();
-    java.lang.String getSystemId();
- }
+	public String getBaseURI();
+
+	public String getName();
+
+	public String getNotationName();
+
+	public String getPublicId();
+
+	public String getReplacementText();
+
+	public String getSystemId();
+}

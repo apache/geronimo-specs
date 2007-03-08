@@ -16,13 +16,17 @@
  ** KIND, either express or implied.  See the License for the
  ** specific language governing permissions and limitations
  ** under the License.
-*/
+ */
 package javax.xml.stream;
 
 public interface Location {
-    public int getCharacterOffset();
-    public int getColumnNumber();
-    public int getLineNumber();
-    public String getPublicId();
-    public String getSystemId();
+	public int getCharacterOffset();
+
+	public int getColumnNumber();
+
+	public int getLineNumber();
+
+	public String getPublicId();
+
+	public String getSystemId();
 }

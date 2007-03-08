@@ -16,9 +16,9 @@
  ** KIND, either express or implied.  See the License for the
  ** specific language governing permissions and limitations
  ** under the License.
-*/
+ */
 package javax.xml.stream;
 
 public interface StreamFilter {
-    public boolean accept(XMLStreamReader reader);
+	public boolean accept(XMLStreamReader reader);
 }

@@ -16,10 +16,11 @@
  ** KIND, either express or implied.  See the License for the
  ** specific language governing permissions and limitations
  ** under the License.
-*/
+ */
 package javax.xml.stream.events;
 
 public interface EntityReference extends XMLEvent {
-    EntityDeclaration getDeclaration();
-    java.lang.String getName();
+	public EntityDeclaration getDeclaration();
+
+	public String getName();
 }

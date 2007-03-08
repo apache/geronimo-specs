@@ -16,7 +16,7 @@
  ** KIND, either express or implied.  See the License for the
  ** specific language governing permissions and limitations
  ** under the License.
-*/
+ */
 package javax.xml.stream.events;
 
 import java.util.Iterator;
@@ -24,10 +24,15 @@ import javax.xml.namespace.NamespaceContext;
 import javax.xml.namespace.QName;
 
 public interface StartElement extends XMLEvent {
-    public Attribute getAttributeByName(QName name);
-    public Iterator getAttributes();
-    public QName getName();
-    public NamespaceContext getNamespaceContext();
-    public Iterator getNamespaces();
-    public String getNamespaceURI(String prefix);
+	public Attribute getAttributeByName(QName name);
+
+	public Iterator getAttributes();
+
+	public QName getName();
+
+	public NamespaceContext getNamespaceContext();
+
+	public Iterator getNamespaces();
+
+	public String getNamespaceURI(String prefix);
 }

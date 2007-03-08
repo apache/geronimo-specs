@@ -16,9 +16,11 @@
  ** KIND, either express or implied.  See the License for the
  ** specific language governing permissions and limitations
  ** under the License.
-*/
+ */
 package javax.xml.stream;
 
+import javax.xml.stream.events.XMLEvent;
+
 public interface EventFilter {
-    boolean accept(XMLEvent event);
+	public boolean accept(XMLEvent event);
 }
