@@ -68,7 +68,7 @@ class FactoryLocator {
 		try {
 			String configFile = System.getProperty("java.home")
 					+ File.separator + "lib" + File.separator
-					+ "jaxp.properties";
+					+ "stax.properties";
 			File f = new File(configFile);
 			if (f.exists()) {
 				Properties props = new Properties();
