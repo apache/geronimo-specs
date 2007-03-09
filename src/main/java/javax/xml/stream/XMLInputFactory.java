@@ -23,21 +23,13 @@ import javax.xml.stream.util.XMLEventAllocator;
 
 public abstract class XMLInputFactory {
 	public static final java.lang.String ALLOCATOR = "javax.xml.stream.allocator";
-
 	public static final java.lang.String IS_COALESCING = "javax.xml.stream.isCoalescing";
-
 	public static final java.lang.String IS_NAMESPACE_AWARE = "javax.xml.stream.isNamespaceAware";
-
 	public static final java.lang.String IS_REPLACING_ENTITY_REFERENCES = "javax.xml.stream.isReplacingEntityReferences";
-
 	public static final java.lang.String IS_SUPPORTING_EXTERNAL_ENTITIES = "javax.xml.stream.isSupportingExternalEntities";
-
 	public static final java.lang.String IS_VALIDATING = "javax.xml.stream.isValidating";
-
 	public static final java.lang.String REPORTER = "javax.xml.stream.reporter";
-
 	public static final java.lang.String RESOLVER = "javax.xml.stream.resolver";
-
 	public static final java.lang.String SUPPORT_DTD = "javax.xml.stream.supportDTD";
 
 	protected XMLInputFactory() {
@@ -45,14 +37,14 @@ public abstract class XMLInputFactory {
 
 	public static XMLInputFactory newInstance()
 			throws FactoryConfigurationError {
-		// TODO - Implement Factory Finder methods
-		return null;
+		// We'll assume the XMLInputFactory from the RI as a backup.
+		return (XMLInputFactory)FactoryLocator.locate("javax.xml.stream.XMLInputFactory", "com.bea.xml.stream.MXParserFactory");
 	}
 
 	public static XMLInputFactory newInstance(java.lang.String factoryId,
 			java.lang.ClassLoader classLoader) throws FactoryConfigurationError {
-		// TODO - Implement Factory Finder methods
-		return null;
+		// We'll assume the XMLInputFactory from the RI as a backup.
+		return (XMLInputFactory)FactoryLocator.locate(factoryId, "com.bea.xml.stream.MXParserFactory", classLoader);
 	}
 
 	public abstract XMLStreamReader createXMLStreamReader(java.io.Reader reader)
