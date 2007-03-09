@@ -28,7 +28,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 /*
- * Alrighty...here is the beef on the newInstance methods:
+ * Here is the beef on the finding the Factory Class
  * 
  * 1. Use the javax.xml.stream.XMLInputFactory system property. 2. Use the
  * properties file "lib/stax.properties" in the JRE directory. This
@@ -40,8 +40,8 @@ import java.io.InputStreamReader;
  * META-INF/services/javax.xml.stream.XMLInputFactory in jars available to the
  * runtime. Platform default XMLInputFactory instance.
  * 
- * Once an application has obtained a reference to a XMLInputFactory it can use
- * the factory to configure and obtain stream instances.
+ * If the user provided a classloader we'll use that...if not, we'll assume the 
+ * classloader of this class.
  */
 
 class FactoryLocator {
@@ -49,32 +49,32 @@ class FactoryLocator {
 		return locate(factoryId, null);
 	}
 
-	static Object locate(String factoryId, String fallbackClassName)
+	static Object locate(String factoryId, String altClassName)
 			throws FactoryConfigurationError {
-		return locate(factoryId, fallbackClassName, null);
+		return locate(factoryId, altClassName, FactoryLocator.class
+				.getClassLoader());
 	}
 
-	static Object locate(String factoryId, 
-			             String fallbackClassName,
-			             ClassLoader classLoader) throws FactoryConfigurationError {
+	static Object locate(String factoryId, String altClassName,
+			ClassLoader classLoader) throws FactoryConfigurationError {
 		try {
 			String prop = System.getProperty(factoryId);
 			if (prop != null) {
-				return newInstance(prop, classLoader);
+				return loadFactory(prop, classLoader);
 			}
 		} catch (Exception e) {
 		}
 
 		try {
-			String configFile = System.getProperty("java.home") +
-					              File.separator + "lib" + File.separator +
-					              "jaxp.properties";
+			String configFile = System.getProperty("java.home")
+					+ File.separator + "lib" + File.separator
+					+ "jaxp.properties";
 			File f = new File(configFile);
 			if (f.exists()) {
 				Properties props = new Properties();
 				props.load(new FileInputStream(f));
 				String factoryClassName = props.getProperty(factoryId);
-				return newInstance(factoryClassName, classLoader);
+				return loadFactory(factoryClassName, classLoader);
 			}
 		} catch (Exception e) {
 		}
@@ -96,36 +96,33 @@ class FactoryLocator {
 				br.close();
 
 				if (factoryClassName != null && !"".equals(factoryClassName)) {
-					return newInstance(factoryClassName, classLoader);
+					return loadFactory(factoryClassName, classLoader);
 				}
 			}
 		} catch (Exception ex) {
 		}
 
-		if (fallbackClassName == null) {
+		if (altClassName == null) {
 			throw new FactoryConfigurationError("Unable to locate factory for "
 					+ factoryId + ".", null);
 		}
-		return newInstance(fallbackClassName, classLoader);
+		return loadFactory(altClassName, classLoader);
 	}
 
-	private static Object newInstance(String className, ClassLoader classLoader)
+	private static Object loadFactory(String className, ClassLoader classLoader)
 			throws FactoryConfigurationError {
 		try {
-			Class spiClass;
-			if (classLoader == null) {
-				spiClass = Class.forName(className);
-			} else {
-				spiClass = classLoader.loadClass(className);
-			}
-			return spiClass.newInstance();
+			Class factoryClass = classLoader == null ? Class.forName(className)
+					: classLoader.loadClass(className);
+
+			return factoryClass.newInstance();
 		} catch (ClassNotFoundException x) {
 			throw new FactoryConfigurationError("Requested factory "
-					+ className + " cannot be located.", x);
+					+ className + " cannot be located.  Classloader ="
+					+ classLoader.toString(), x);
 		} catch (Exception x) {
 			throw new FactoryConfigurationError("Requested factory "
 					+ className + " could not be instantiated: " + x, x);
 		}
 	}
-
 }
