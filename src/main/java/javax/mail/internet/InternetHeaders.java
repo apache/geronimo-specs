@@ -113,6 +113,9 @@ public class InternetHeaders {
                     // empty line terminates header
                     in.read(); // skip LF
                     break;
+                } else if ( c == 10) {
+                	// Line feed terminates header
+                	break;
                 } else if (Character.isWhitespace(ch)) {
                     // handle continuation
                     do {
@@ -144,7 +147,7 @@ public class InternetHeaders {
                     }
                 }
 
-                while (c != 13) {
+                while (c != 13 && c != 10) {
                     ch = (char) c;
                     value.append(ch);
                     c = in.read();
@@ -153,7 +156,10 @@ public class InternetHeaders {
                     }
                 }
                 // skip LF
-                c = in.read();
+                if (c == 13) {
+                	c = in.read();
+                }
+                
                 if (c == -1) {
                     break;
                 }
