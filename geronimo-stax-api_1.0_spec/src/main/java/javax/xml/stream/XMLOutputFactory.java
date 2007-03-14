@@ -22,6 +22,8 @@ package javax.xml.stream;
 public abstract class XMLOutputFactory {
 	public static final String IS_REPAIRING_NAMESPACES = "javax.xml.stream.isRepairingNamespaces";
 
+	protected XMLOutputFactory() { }
+	
 	public static XMLOutputFactory newInstance()
 			throws FactoryConfigurationError {
 		return (XMLOutputFactory) FactoryLocator.locate(

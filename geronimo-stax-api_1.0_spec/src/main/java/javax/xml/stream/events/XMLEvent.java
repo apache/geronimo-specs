@@ -24,6 +24,7 @@ import java.io.Writer;
 import javax.xml.namespace.QName;
 import javax.xml.stream.Location;
 import javax.xml.stream.XMLStreamConstants;
+import javax.xml.stream.XMLStreamException;
 
 public interface XMLEvent extends XMLStreamConstants {
 	public Characters asCharacters();
@@ -56,5 +57,5 @@ public interface XMLEvent extends XMLStreamConstants {
 
 	public boolean isStartElement();
 
-	public void writeAsEncodedUnicode(Writer writer);
+	public void writeAsEncodedUnicode(Writer writer) throws XMLStreamException;
 }
