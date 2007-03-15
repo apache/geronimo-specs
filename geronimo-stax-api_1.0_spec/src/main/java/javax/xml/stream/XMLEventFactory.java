@@ -43,14 +43,12 @@ public abstract class XMLEventFactory {
 
 	public static XMLEventFactory newInstance()
 			throws FactoryConfigurationError {
-		// TODO Need to provide some default facvtory mechanism.
-		return null;
+            return (XMLEventFactory)FactoryLocator.locate("javax.xml.stream.XMLEventFactory", "com.ctc.wstx.stax.WstxEventFactory");
 	}
 
 	public static XMLEventFactory newInstance(String factoryId,
 			ClassLoader classLoader) throws FactoryConfigurationError {
-		// TODO Need to provide some default facvtory mechanism.
-		return null;
+            return (XMLEventFactory)FactoryLocator.locate(factoryId, "com.ctc.wstx.stax.WstxEventFactory", classLoader);
 	}
 
 	public abstract void setLocation(Location location);

@@ -38,13 +38,13 @@ public abstract class XMLInputFactory {
 	public static XMLInputFactory newInstance()
 			throws FactoryConfigurationError {
 		// We'll assume the XMLInputFactory from the RI as a backup.
-		return (XMLInputFactory)FactoryLocator.locate("javax.xml.stream.XMLInputFactory", "com.bea.xml.stream.MXParserFactory");
+		return (XMLInputFactory)FactoryLocator.locate("javax.xml.stream.XMLInputFactory", "com.ctc.wstx.stax.WstxInputFactory");
 	}
 
 	public static XMLInputFactory newInstance(java.lang.String factoryId,
 			java.lang.ClassLoader classLoader) throws FactoryConfigurationError {
 		// We'll assume the XMLInputFactory from the RI as a backup.
-		return (XMLInputFactory)FactoryLocator.locate(factoryId, "com.bea.xml.stream.MXParserFactory", classLoader);
+		return (XMLInputFactory)FactoryLocator.locate(factoryId, "com.ctc.wstx.stax.WstxInputFactory", classLoader);
 	}
 
 	public abstract XMLStreamReader createXMLStreamReader(java.io.Reader reader)
