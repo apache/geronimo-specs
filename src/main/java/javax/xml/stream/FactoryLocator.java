@@ -51,8 +51,8 @@ class FactoryLocator {
 
 	static Object locate(String factoryId, String altClassName)
 			throws FactoryConfigurationError {
-		return locate(factoryId, altClassName, FactoryLocator.class
-				.getClassLoader());
+		return locate(factoryId, altClassName,
+                              Thread.currentThread().getContextClassLoader());
 	}
 
 	static Object locate(String factoryId, String altClassName,

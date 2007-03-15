@@ -26,15 +26,12 @@ public abstract class XMLOutputFactory {
 	
 	public static XMLOutputFactory newInstance()
 			throws FactoryConfigurationError {
-		return (XMLOutputFactory) FactoryLocator.locate(
-				"javax.xml.stream.XMLOutputFactory",
-				"com.bea.xml.stream.XMLOutputFactoryBase");
+		return (XMLOutputFactory) FactoryLocator.locate("javax.xml.stream.XMLOutputFactory", "com.ctc.wstx.stax.WstxOutputFactory");
 	}
 
 	public static XMLInputFactory newInstance(String factoryId,
 			java.lang.ClassLoader classLoader) throws FactoryConfigurationError {
-		return (XMLInputFactory) FactoryLocator.locate(factoryId,
-				"com.bea.xml.stream.XMLInputFactoryBase", classLoader);
+		return (XMLInputFactory) FactoryLocator.locate(factoryId, "com.ctc.wstx.stax.WstxOutputFactory", classLoader);
 	}
 
 	public abstract XMLStreamWriter createXMLStreamWriter(java.io.Writer stream)
