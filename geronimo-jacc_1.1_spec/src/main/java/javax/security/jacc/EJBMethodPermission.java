@@ -287,7 +287,7 @@ public final class EJBMethodPermission extends Permission implements Serializabl
             for (int i = 0; i < methodInterfaces.length; i++) {
                 if (methodInterfaces[i].equals(methodInterface)) return;
             }
-            throw new IllegalArgumentException("Invalid method interface");
+            throw new IllegalArgumentException("Invalid method interface: " + methodInterface);
         }
 
         /**
