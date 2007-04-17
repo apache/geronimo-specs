@@ -48,7 +48,7 @@ public class Persistence {
 
     protected static final Set<PersistenceProvider> providers = new HashSet<PersistenceProvider>();
 
-    public static java.lang.String PERSISTENCE_PROVIDER = PersistenceProvider.class.getName(); 
+    static final String java.lang.String PERSISTENCE_PROVIDER = PersistenceProvider.class.getName(); 
     static final String PERSISTENCE_PROVIDER_PROPERTY = "javax.persistence.provider";
     static final String PERSISTENCE_PROVIDER_SERVICE = "META-INF/services/"
         + PersistenceProvider.class.getName();
