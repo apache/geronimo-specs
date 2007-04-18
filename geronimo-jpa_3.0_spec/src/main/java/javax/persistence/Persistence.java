@@ -47,8 +47,9 @@ import javax.persistence.spi.PersistenceProvider;
 public class Persistence {
 
     protected static final Set<PersistenceProvider> providers = new HashSet<PersistenceProvider>();
-
-    public static final java.lang.String PERSISTENCE_PROVIDER = PersistenceProvider.class.getName(); 
+    // Changed to the hard coded PERSISTENCE_PROVIDER value to pass signature tests.
+    // public static final java.lang.String PERSISTENCE_PROVIDER = PersistenceProvider.class.getName(); 
+    public static final java.lang.String PERSISTENCE_PROVIDER = "javax.persistence.spi.PeristenceProvider";
     static final String PERSISTENCE_PROVIDER_PROPERTY = "javax.persistence.provider";
     static final String PERSISTENCE_PROVIDER_SERVICE = "META-INF/services/"
         + PersistenceProvider.class.getName();
