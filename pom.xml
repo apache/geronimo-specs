@@ -35,7 +35,7 @@
 
     <artifactId>geronimo-stax-api_1.0_spec</artifactId>
     <name>Streaming API for XML (STAX API 1.0)</name>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
 
     <dependencies>
         <!--dependency>
