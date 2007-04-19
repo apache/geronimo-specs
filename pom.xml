@@ -125,7 +125,6 @@
                 <module>geronimo-jacc_1.1_spec</module>
                 <module>geronimo-javaee-deployment_1.1MR3_spec</module>
                 <module>geronimo-jsp_2.1_spec</module>
-                <module>geronimo-ws-metadata_2.0_spec</module>
             </modules>
         </profile>
     </profiles>
