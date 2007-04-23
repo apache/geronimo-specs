@@ -38,11 +38,6 @@
     <version>1.0</version>
 
     <dependencies>
-        <!--dependency>
-            <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-activation_1.1_spec</artifactId>
-            <version>1.0-M1</version>
-            <scope>provided</scope>
-        </dependency -->
     </dependencies>
+
 </project>
