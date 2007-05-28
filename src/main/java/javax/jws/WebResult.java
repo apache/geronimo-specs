@@ -33,7 +33,7 @@ import java.lang.annotation.Target;
 @Target( { ElementType.METHOD })
 public @interface WebResult
 {
-    String name() default "return";
+    String name() default "";
 
     String targetNamespace() default "";
 
