@@ -33,5 +33,5 @@
 
     <artifactId>geronimo-activation_1.1_spec</artifactId>
     <name>Activation 1.1</name>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
 </project>
