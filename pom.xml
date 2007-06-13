@@ -35,6 +35,12 @@
     <name>Expression Language 1.0</name>
     <version>1.0</version>
 
+    <scm>
+        <connection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-el_1.0_spec-1.0</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-el_1.0_spec-1.0</developerConnection>
+        <url>https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-el_1.0_spec-1.0</url>
+    </scm>
+
     <build>
         <plugins>
             <plugin>
