@@ -26,30 +26,15 @@ package javax.servlet;
  *
  * @author 	Various
  * @version 	$Version$
- *
  */
-
-
 public class ServletException extends Exception {
-
-    private Throwable rootCause;
-
-
-
-
 
     /**
      * Constructs a new servlet exception.
-     *
      */
-
     public ServletException() {
-	super();
+        super();
     }
-    
-   
-
-    
 
     /**
      * Constructs a new servlet exception with the
@@ -59,23 +44,16 @@ public class ServletException extends Exception {
      * @param message 		a <code>String</code> 
      *				specifying the text of 
      *				the exception message
-     *
      */
-
     public ServletException(String message) {
-	super(message);
+        super(message);
     }
-    
-   
-   
-    
 
     /**
      * Constructs a new servlet exception when the servlet 
      * needs to throw an exception and include a message 
      * about the "root cause" exception that interfered with its 
      * normal operation, including a description message.
-     *
      *
      * @param message 		a <code>String</code> containing 
      *				the text of the exception message
@@ -84,17 +62,10 @@ public class ServletException extends Exception {
      *				that interfered with the servlet's
      *				normal operation, making this servlet
      *				exception necessary
-     *
      */
-    
     public ServletException(String message, Throwable rootCause) {
-	super(message);
-	this.rootCause = rootCause;
+        super(message, rootCause);
     }
-
-
-
-
 
     /**
      * Constructs a new servlet exception when the servlet 
@@ -113,33 +84,18 @@ public class ServletException extends Exception {
      * 				that interfered with the servlet's
      *				normal operation, making the servlet exception
      *				necessary
-     *
      */
-
     public ServletException(Throwable rootCause) {
-	super(rootCause.getLocalizedMessage());
-	this.rootCause = rootCause;
+        super(rootCause);
     }
-  
-  
- 
- 
-    
+
     /**
      * Returns the exception that caused this servlet exception.
      *
-     *
      * @return			the <code>Throwable</code> 
      *				that caused this servlet exception
-     *
      */
-    
     public Throwable getRootCause() {
-	return rootCause;
+        return getCause();
     }
 }
-
-
-
-
-
