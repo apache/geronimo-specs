@@ -69,6 +69,25 @@ public class PrivateKeyCallback implements Callback {
         }
     }
 
+    public static class DigestRequest implements Request {
+        private final byte[] digest;
+        private final String algorithm;
+
+
+        public DigestRequest(byte[] digest, String algorithm) {
+            this.digest = digest;
+            this.algorithm = algorithm;
+        }
+
+        public byte[] getDigest() {
+            return digest;
+        }
+
+        public String getAlgorithm() {
+            return algorithm;
+        }
+    }
+
     public static class SubjectKeyIDRequest implements Request {
 
         private final byte[] subjectKeyID;

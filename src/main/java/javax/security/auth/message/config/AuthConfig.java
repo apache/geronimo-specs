@@ -27,9 +27,11 @@ public interface AuthConfig {
 
     String getAppContext();
 
+    String getAuthContextID(MessageInfo messageInfo) throws IllegalArgumentException;
+
     String getMessageLayer();
 
-    String getOperation(MessageInfo messageInfo) throws IllegalArgumentException;
+    boolean isProtected();
 
     void refresh() throws AuthException, SecurityException;
 }
