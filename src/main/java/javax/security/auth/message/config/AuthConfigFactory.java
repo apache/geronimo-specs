@@ -28,6 +28,8 @@ import javax.security.auth.message.AuthException;
  */
 public abstract class AuthConfigFactory {
 
+    public static final String DEFAULT_FACTORY_SECURITY_PROPERTY = "authconfigprovider.factory";
+
     private static AuthConfigFactory factory;
     private static ClassLoader contextClassLoader;
 
@@ -38,7 +40,7 @@ public abstract class AuthConfigFactory {
                                 return Thread.currentThread().getContextClassLoader();
                             }
                         });
-    };
+    }
     
     public static AuthConfigFactory getFactory() throws AuthException, SecurityException {
         SecurityManager sm = System.getSecurityManager();
@@ -49,7 +51,7 @@ public abstract class AuthConfigFactory {
             String className = (String) java.security.AccessController
                             .doPrivileged(new java.security.PrivilegedAction() {
                                 public Object run() {
-                                    return java.security.Security.getProperty("authconfigprovider.factory");
+                                    return java.security.Security.getProperty("DEFAULT_FACTORY_SECURITY_PROPERTY");
                                 }
                             });
             if (className == null) {
@@ -85,6 +87,10 @@ public abstract class AuthConfigFactory {
         AuthConfigFactory.factory = factory;
     }
 
+
+    protected AuthConfigFactory() {
+    }
+
     public abstract String[] detachListener(RegistrationListener listener, String layer, String appContext) throws SecurityException;
 
     public abstract AuthConfigProvider getConfigProvider(String layer, String appContext, RegistrationListener listener);
@@ -94,6 +100,8 @@ public abstract class AuthConfigFactory {
     public abstract String[] getRegistrationIDs(AuthConfigProvider provider);
 
     public abstract void refresh() throws AuthException, SecurityException;
+
+    public abstract String registerConfigProvider(AuthConfigProvider provider, String layer, String appContext, String description) throws AuthException, SecurityException;
 
     public abstract String registerConfigProvider(String className, Map properties, String layer, String appContext, String description) throws AuthException, SecurityException;
 
@@ -106,6 +114,9 @@ public abstract class AuthConfigFactory {
         String getDescription();
 
         String getMessageLayer();
+
+        boolean isPersistent();
+        
     }
 
 }

@@ -24,6 +24,10 @@ import java.security.PrivateKey;
 import java.security.cert.Certificate;
 
 /**
+ * Callback that enables an authentication module to request a certificate chain and private key from the runtime.
+ * The information specifying the chain and key may be an alias, a digest, a subject key, or an issuer ID.
+ * Other request types may be supported.
+ *
  * @version $Rev$ $Date$
  */
 public class PrivateKeyCallback implements Callback {
@@ -66,6 +70,25 @@ public class PrivateKeyCallback implements Callback {
 
         public String getAlias() {
             return alias;
+        }
+    }
+
+    public static class DigestRequest implements Request {
+        private final byte[] digest;
+        private final String algorithm;
+
+
+        public DigestRequest(byte[] digest, String algorithm) {
+            this.digest = digest;
+            this.algorithm = algorithm;
+        }
+
+        public byte[] getDigest() {
+            return digest;
+        }
+
+        public String getAlgorithm() {
+            return algorithm;
         }
     }
 

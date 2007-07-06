@@ -50,7 +50,7 @@ public class MessagePolicy {
         static String AUTHENTICATE_RECIPIENT = "javax.security.auth.message.AUTHENTICATE_RECIPIENT";
         static String AUTHENTICATE_SENDER = "javax.security.auth.message.AUTHENTICATE_SENDER";
 
-        public String getID();
+        String getID();
     }
 
     public static interface Target {
@@ -68,9 +68,6 @@ public class MessagePolicy {
         private final ProtectionPolicy protectionPolicy;
 
         public TargetPolicy(Target[] targets, ProtectionPolicy protectionPolicy) throws IllegalArgumentException {
-            if (targets == null) {
-                throw new IllegalArgumentException("targets is null");
-            }
             if (protectionPolicy == null) {
                 throw new IllegalArgumentException("protectionPolicy is null");
             }
@@ -79,7 +76,7 @@ public class MessagePolicy {
         }
 
         public Target[] getTargets() {
-            if (targets.length == 0) {
+            if (targets == null || targets.length == 0) {
                 return null;
             }
             return targets;

@@ -27,5 +27,5 @@ import java.util.Map;
  */
 public interface ServerAuthConfig extends AuthConfig {
 
-    ServerAuthContext getAuthContext(String operation, Subject serviceSubject, Map properties) throws AuthException;
+    ServerAuthContext getAuthContext(String authContextID, Subject serviceSubject, Map properties) throws AuthException;
 }

@@ -21,6 +21,8 @@ import javax.security.auth.callback.Callback;
 import java.security.KeyStore;
 
 /**
+ * A Callback enabling an authentication module to request a truststore from the runtime.
+ *
  * @version $Rev$ $Date$
  */
 public class TrustStoreCallback implements Callback {

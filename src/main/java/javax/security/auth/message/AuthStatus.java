@@ -27,4 +27,8 @@ public class AuthStatus {
     public static final AuthStatus SEND_FAILURE = new AuthStatus();
     public static final AuthStatus SEND_SUCCESS = new AuthStatus();
     public static final AuthStatus SUCCESS = new AuthStatus();
+
+    private AuthStatus() {
+    }
+    
 }

@@ -18,20 +18,31 @@
 package javax.security.auth.message.callback;
 
 import javax.security.auth.callback.Callback;
+import javax.security.auth.Subject;
+
 import java.util.Arrays;
 
 /**
+ * Callback that enables an authentication module to supply a username and password (to a runtime?) and determine if
+ * the result of validation.
+ * 
  * @version $Rev$ $Date$
  */
 public class PasswordValidationCallback implements Callback {
 
+    private final Subject subject;
     private final String username;
     private char[] password;
     private boolean result;
 
-    public PasswordValidationCallback(String username, char[] password) {
+    public PasswordValidationCallback(Subject subject, String username, char[] password) {
+        this.subject = subject;
         this.username = username;
         this.password = password;
+    }
+
+    public Subject getSubject() {
+        return subject;
     }
 
     public String getUsername() {
@@ -47,7 +58,7 @@ public class PasswordValidationCallback implements Callback {
         password = new char[0];
     }
 
-    public boolean isResult() {
+    public boolean getResult() {
         return result;
     }
 
