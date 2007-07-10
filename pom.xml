@@ -36,9 +36,9 @@
     <version>1.0-SNAPSHOT</version>
 
     <scm>
-        <connection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/branches/geronimo-jacc_1.1_spec-1.0</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/branches/geronimo-jacc_1.1_spec-1.0</developerConnection>
-        <url>https://svn.apache.org/repos/asf/geronimo/specs/branches/geronimo-jacc_1.1_spec-1.0</url>
+        <connection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-jacc_1.1_spec-1.0</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-jacc_1.1_spec-1.0</developerConnection>
+        <url>https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-jacc_1.1_spec-1.0</url>
     </scm>
 
     <dependencies>
