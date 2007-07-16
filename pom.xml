@@ -33,7 +33,7 @@
 
     <artifactId>geronimo-javamail_1.4_spec</artifactId>
     <name>JavaMail 1.4</name>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.1</version>
 
     <scm>
         <connection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-javamail_1.4_spec-1.1</connection>
