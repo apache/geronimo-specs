@@ -29,19 +29,76 @@ public interface UIDFolder {
      */
     public static final long LASTUID = -1;
 
+    /**
+     * Get the UID validity value for this Folder.
+     * 
+     * @return The current UID validity value, as a long. 
+     * @exception MessagingException
+     */
     public abstract long getUIDValidity() throws MessagingException;
 
+    /**
+     * Retrieve a message using the UID rather than the 
+     * message sequence number.  Returns null if the message
+     * doesn't exist.
+     * 
+     * @param uid    The target UID.
+     * 
+     * @return the Message object.  Returns null if the message does
+     *         not exist.
+     * @exception MessagingException
+     */
     public abstract Message getMessageByUID(long uid)
             throws MessagingException;
 
+    /**
+     * Get a series of messages using a UID range.  The 
+     * special value LASTUID can be used to mark the 
+     * last available message.
+     * 
+     * @param start  The start of the UID range.
+     * @param end    The end of the UID range.  The special value
+     *               LASTUID can be used to request all messages up
+     *               to the last UID.
+     * 
+     * @return An array containing all of the messages in the 
+     *         range.
+     * @exception MessagingException
+     */
     public abstract Message[] getMessagesByUID(long start, long end)
             throws MessagingException;
 
+    /**
+     * Retrieve a set of messages by explicit UIDs.  If 
+     * any message in the list does not exist, null 
+     * will be returned for the corresponding item.
+     * 
+     * @param ids    An array of UID values to be retrieved.
+     * 
+     * @return An array of Message items the same size as the ids
+     *         argument array.  This array will contain null
+     *         entries for any UIDs that do not exist.
+     * @exception MessagingException
+     */
     public abstract Message[] getMessagesByUID(long[] ids)
             throws MessagingException;
 
+    /**
+     * Retrieve the UID for a message from this Folder.
+     * The argument Message MUST belong to this Folder
+     * instance, otherwise a NoSuchElementException will 
+     * be thrown.
+     * 
+     * @param message The target message.
+     * 
+     * @return The UID associated with this message.
+     * @exception MessagingException
+     */
     public abstract long getUID(Message message) throws MessagingException;
 
+    /**
+     * Special profile item used for fetching UID information.
+     */
     public static class FetchProfileItem extends FetchProfile.Item {
         public static final FetchProfileItem UID = new FetchProfileItem("Uid");
 
