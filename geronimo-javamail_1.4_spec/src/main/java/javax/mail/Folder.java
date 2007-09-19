@@ -117,8 +117,9 @@ public abstract class Folder {
      * @throws MessagingException
      */
     public URLName getURLName() throws MessagingException {
-        // todo shouldn't this include the full name of the folder?
-        return store.getURLName();
+        URLName baseURL = store.getURLName(); 
+        return new URLName(baseURL.getProtocol(), baseURL.getHost(), baseURL.getPort(), 
+            getFullName(), baseURL.getUsername(), null); 
     }
 
     /**
