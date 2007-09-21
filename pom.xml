@@ -32,21 +32,34 @@
     </parent>
     
     <artifactId>geronimo-jms_1.1_spec</artifactId>
+    <packaging>bundle</packaging>
     <name>JMS 1.1</name>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.1.1-SNAPSHOT</version>
+
+    <properties>
+	    <geronimo.osgi.export.pkg>javax.jms*</geronimo.osgi.export.pkg>
+        <geronimo.osgi.export.version>1.1</geronimo.osgi.export.version>
+	</properties>
 
     <dependencies>
         <dependency>
             <groupId>mockobjects</groupId>
             <artifactId>mockobjects-core</artifactId>
+            <version>0.09</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>mockobjects</groupId>
             <artifactId>mockobjects-jdk1.4-j2ee1.3</artifactId>
+            <version>0.09</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
 
+    <scm>
+        <connection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jms_1.1_spec</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jms_1.1_spec</developerConnection>
+        <url>https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jms_1.1_spec</url>
+    </scm>
 </project>
