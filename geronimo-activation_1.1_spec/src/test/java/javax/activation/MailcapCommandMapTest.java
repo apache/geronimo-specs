@@ -95,7 +95,6 @@ public class MailcapCommandMapTest extends TestCase {
         String[] commands = tmap.getNativeCommands("text/*");
 
         assertEquals(1, commands.length);
-        System.out.println(">>>>>> returned native command = " + commands[0]);
         assertEquals("text/*;yada yada;x-java-view=com.sun.activation.viewers.TextViewer", commands[0]);
 
         commands = tmap.getNativeCommands("text/plain");
