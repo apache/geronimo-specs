@@ -69,7 +69,14 @@ public class MessageContext {
         }
     }
 
-    // recurse up the chain of MultiPart/BodyPart paris until we hit a message
+    /**
+     * recurse up the chain of MultiPart/BodyPart parts until we hit a message
+     * 
+     * @param p      The starting part.
+     * 
+     * @return The encountered Message or null if no Message parts
+     *         are found.
+     */
     private Message getMessageFrom(Part p) {
         while (p != null) {
             if (p instanceof Message) {

@@ -69,7 +69,7 @@ public abstract class Message implements Part {
     }
 
     /**
-     * The index of a message withing its folder, or zero if the message was not retrieved from a folder.
+     * The index of a message within its folder, or zero if the message was not retrieved from a folder.
      */
     protected int msgnum;
     /**
@@ -114,28 +114,28 @@ public abstract class Message implements Part {
     }
 
     /**
-     * Return the "From" header indicating the identity of the person who the message is from;
-     * in some circumstances this may be different to the actual sender.
+     * Return the "From" header indicating the identity of the person the message is from;
+     * in some circumstances this may be different than the actual sender.
      *
      * @return a list of addresses this message is from; may be empty if the header is present but empty, or null
      *         if the header is not present
-     * @throws MessagingException if there was a problem accessing the store
+     * @throws MessagingException if there was a problem accessing the Store
      */
     public abstract Address[] getFrom() throws MessagingException;
 
     /**
      * Set the "From" header for this message to the value of the "mail.user" property,
-     * of if that property is not set, to the value of the system property "user.name"
+     * or if that property is not set, to the value of the system property "user.name"
      *
-     * @throws MessagingException if there was a problem accessing the store
+     * @throws MessagingException if there was a problem accessing the Store
      */
     public abstract void setFrom() throws MessagingException;
 
     /**
      * Set the "From" header to the supplied address.
      *
-     * @param address the address of the person who the message is from
-     * @throws MessagingException if there was a problem accessing the store
+     * @param address the address of the person the message is from
+     * @throws MessagingException if there was a problem accessing the Store
      */
     public abstract void setFrom(Address address) throws MessagingException;
 
@@ -143,7 +143,7 @@ public abstract class Message implements Part {
      * Add multiple addresses to the "From" header.
      *
      * @param addresses the addresses to add
-     * @throws MessagingException if there was a problem accessing the store
+     * @throws MessagingException if there was a problem accessing the Store
      */
     public abstract void addFrom(Address[] addresses) throws MessagingException;
 
@@ -153,7 +153,7 @@ public abstract class Message implements Part {
      * @param type the type of recipient to get
      * @return a list of addresses; may be empty if the header is present but empty,
      *         or null if the header is not present
-     * @throws MessagingException if there was a problem accessing the store
+     * @throws MessagingException if there was a problem accessing the Store
      * @see RecipientType
      */
     public abstract Address[] getRecipients(RecipientType type) throws MessagingException;
@@ -164,7 +164,7 @@ public abstract class Message implements Part {
      * and then concatentates the results into a single array; it returns null if no headers are defined.
      *
      * @return an array containing all recipients
-     * @throws MessagingException if there was a problem accessing the store
+     * @throws MessagingException if there was a problem accessing the Store
      */
     public Address[] getAllRecipients() throws MessagingException {
         Address[] to = getRecipients(RecipientType.TO);
@@ -199,7 +199,7 @@ public abstract class Message implements Part {
      *
      * @param type      the type of recipient
      * @param addresses the new addresses
-     * @throws MessagingException if there was a problem accessing the store
+     * @throws MessagingException if there was a problem accessing the Store
      */
     public abstract void setRecipients(RecipientType type, Address[] addresses) throws MessagingException;
 
@@ -208,7 +208,7 @@ public abstract class Message implements Part {
      *
      * @param type    the type of recipient
      * @param address the new address
-     * @throws MessagingException if there was a problem accessing the store
+     * @throws MessagingException if there was a problem accessing the Store
      */
     public void setRecipient(RecipientType type, Address address) throws MessagingException {
         setRecipients(type, new Address[]{address});
@@ -219,7 +219,7 @@ public abstract class Message implements Part {
      *
      * @param type      the type of recipient
      * @param addresses the addresses to add
-     * @throws MessagingException if there was a problem accessing the store
+     * @throws MessagingException if there was a problem accessing the Store
      */
     public abstract void addRecipients(RecipientType type, Address[] addresses) throws MessagingException;
 
@@ -228,7 +228,7 @@ public abstract class Message implements Part {
      *
      * @param type    the type of recipient
      * @param address the address to add
-     * @throws MessagingException if there was a problem accessing the store
+     * @throws MessagingException if there was a problem accessing the Store
      */
     public void addRecipient(RecipientType type, Address address) throws MessagingException {
         addRecipients(type, new Address[]{address});
@@ -241,7 +241,7 @@ public abstract class Message implements Part {
      * simply calls {@link #getFrom()}.
      *
      * @return a list of addresses to which replies should be directed
-     * @throws MessagingException if there was a problem accessing the store
+     * @throws MessagingException if there was a problem accessing the Store
      */
     public Address[] getReplyTo() throws MessagingException {
         return getFrom();
@@ -253,7 +253,7 @@ public abstract class Message implements Part {
      * The default implementation throws a MethodNotSupportedException.
      *
      * @param addresses to which replies should be directed
-     * @throws MessagingException if there was a problem accessing the store
+     * @throws MessagingException if there was a problem accessing the Store
      */
     public void setReplyTo(Address[] addresses) throws MessagingException {
         throw new MethodNotSupportedException("setReplyTo not supported");
@@ -263,7 +263,7 @@ public abstract class Message implements Part {
      * Get the subject for this message.
      *
      * @return the subject
-     * @throws MessagingException if there was a problem accessing the store
+     * @throws MessagingException if there was a problem accessing the Store
      */
     public abstract String getSubject() throws MessagingException;
 
@@ -271,7 +271,7 @@ public abstract class Message implements Part {
      * Set the subject of this message
      *
      * @param subject the subject
-     * @throws MessagingException if there was a problem accessing the store
+     * @throws MessagingException if there was a problem accessing the Store
      */
     public abstract void setSubject(String subject) throws MessagingException;
 
@@ -279,7 +279,7 @@ public abstract class Message implements Part {
      * Return the date that this message was sent.
      *
      * @return the date this message was sent
-     * @throws MessagingException if there was a problem accessing the store
+     * @throws MessagingException if there was a problem accessing the Store
      */
     public abstract Date getSentDate() throws MessagingException;
 
@@ -287,7 +287,7 @@ public abstract class Message implements Part {
      * Set the date this message was sent.
      *
      * @param sent the date when this message was sent
-     * @throws MessagingException if there was a problem accessing the store
+     * @throws MessagingException if there was a problem accessing the Store
      */
     public abstract void setSentDate(Date sent) throws MessagingException;
 
@@ -295,7 +295,7 @@ public abstract class Message implements Part {
      * Return the date this message was received.
      *
      * @return the date this message was received
-     * @throws MessagingException if there was a problem accessing the store
+     * @throws MessagingException if there was a problem accessing the Store
      */
     public abstract Date getReceivedDate() throws MessagingException;
 
@@ -303,7 +303,7 @@ public abstract class Message implements Part {
      * Return a copy the flags associated with this message.
      *
      * @return a copy of the flags for this message
-     * @throws MessagingException if there was a problem accessing the store
+     * @throws MessagingException if there was a problem accessing the Store
      */
     public abstract Flags getFlags() throws MessagingException;
 
@@ -313,7 +313,7 @@ public abstract class Message implements Part {
      *
      * @param flag the flags to check for
      * @return true if the flags is set
-     * @throws MessagingException if there was a problem accessing the store
+     * @throws MessagingException if there was a problem accessing the Store
      */
     public boolean isSet(Flags.Flag flag) throws MessagingException {
         return getFlags().contains(flag);
@@ -325,7 +325,7 @@ public abstract class Message implements Part {
      *
      * @param flags the flags to modify
      * @param set   the new value of those flags
-     * @throws MessagingException if there was a problem accessing the store
+     * @throws MessagingException if there was a problem accessing the Store
      */
     public abstract void setFlags(Flags flags, boolean set) throws MessagingException;
 
@@ -335,7 +335,7 @@ public abstract class Message implements Part {
      *
      * @param flag the flag to set
      * @param set  the value for that flag
-     * @throws MessagingException if there was a problem accessing the store
+     * @throws MessagingException if there was a problem accessing the Store
      */
     public void setFlag(Flags.Flag flag, boolean set) throws MessagingException {
         setFlags(new Flags(flag), set);
@@ -344,7 +344,7 @@ public abstract class Message implements Part {
     /**
      * Return the message number for this Message.
      * This number refers to the relative position of this message in a Folder; the message
-     * number for any given message can change during a seesion if the Folder is expunged.
+     * number for any given message can change during a session if the Folder is expunged.
      * Message numbers for messages in a folder start at one; the value zero indicates that
      * this message does not belong to a folder.
      *
@@ -406,18 +406,18 @@ public abstract class Message implements Part {
      *
      * @param replyToAll if true, indciates the message should be addressed to all recipients not just the sender
      * @return a new message suitable as a reply to this message
-     * @throws MessagingException if there was a problem accessing the store
+     * @throws MessagingException if there was a problem accessing the Store
      */
     public abstract Message reply(boolean replyToAll) throws MessagingException;
 
     /**
-     * To ensure changes are saved to the store, this message should be invoked
-     * before its containing folder is closed. Implementations may save modifications
+     * To ensure changes are saved to the Store, this message should be invoked
+     * before its containing Folder is closed. Implementations may save modifications
      * immediately but are free to defer such updates to they may be sent to the server
      * in one batch; if saveChanges is not called then such changes may not be made
      * permanent.
      *
-     * @throws MessagingException if there was a problem accessing the store
+     * @throws MessagingException if there was a problem accessing the Store
      */
     public abstract void saveChanges() throws MessagingException;
 
@@ -426,7 +426,7 @@ public abstract class Message implements Part {
      *
      * @param term the search criteria
      * @return true if this message matches the search criteria.
-     * @throws MessagingException if there was a problem accessing the store
+     * @throws MessagingException if there was a problem accessing the Store
      */
     public boolean match(SearchTerm term) throws MessagingException {
         return term.match(this);

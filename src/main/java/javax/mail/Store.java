@@ -47,9 +47,9 @@ public abstract class Store extends Service {
     }
 
     /**
-     * Retutn a Folder object that represents the root of the namespace for the current user.
+     * Return a Folder object that represents the root of the namespace for the current user.
      *
-     * Note that in some store configurations (such as IMAP4) then the root folder may
+     * Note that in some store configurations (such as IMAP4) the root folder might
      * not be the INBOX folder.
      *
      * @return the root Folder
@@ -59,7 +59,7 @@ public abstract class Store extends Service {
 
     /**
      * Return the Folder corresponding to the given name.
-     * The folder may not physically exist; the {@link Folder#exists()} method can be used
+     * The folder might not physically exist; the {@link Folder#exists()} method can be used
      * to determine if it is real.
      * @param name the name of the Folder to return
      * @return the corresponding folder

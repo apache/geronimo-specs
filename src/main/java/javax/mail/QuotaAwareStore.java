@@ -36,7 +36,7 @@ public interface QuotaAwareStore {
     public Quota[] getQuota(String root) throws javax.mail.MessagingException;
 
     /**
-     * Set a quota item.  The root contained in the Quota item identies
+     * Set a quota item.  The root contained in the Quota item identifies
      * the quota target.
      *
      * @param quota  The source quota item.
