@@ -37,7 +37,7 @@ public class Quota {
 
 
     /**
-     * Create a Quota with the given name and not resources.
+     * Create a Quota with the given name and no resources.
      *
      * @param quotaRoot The quota root name.
      */
@@ -47,7 +47,7 @@ public class Quota {
 
     /**
      * Set a limit value for a resource.  If the resource is not
-     * current associated with this Quota, a new Resource item is
+     * currently associated with this Quota, a new Resource item is
      * added to the resources list.
      *
      * @param name   The target resource name.

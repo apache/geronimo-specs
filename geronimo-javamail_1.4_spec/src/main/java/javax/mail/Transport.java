@@ -35,7 +35,7 @@ import javax.mail.event.TransportListener;
  */
 public abstract class Transport extends Service {
     /**
-     * Send a message to all recipient addresses it contains (as returned by {@link Message#getAllRecipients()})
+     * Send a message to all recipient addresses the message contains (as returned by {@link Message#getAllRecipients()})
      * using message transports appropriate for each address. Message addresses are checked during submission,
      * but there is no guarantee that the ultimate address is valid or that the message will ever be delivered.
      * <p/>
@@ -49,7 +49,7 @@ public abstract class Transport extends Service {
     }
 
     /**
-     * Send a message to all addresses provided irrespective of any recipients contained in the message itself
+     * Send a message to all addresses provided irrespective of any recipients contained in the message, 
      * using message transports appropriate for each address. Message addresses are checked during submission,
      * but there is no guarantee that the ultimate address is valid or that the message will ever be delivered.
      * <p/>
