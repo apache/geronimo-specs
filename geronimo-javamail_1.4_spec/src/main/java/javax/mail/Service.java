@@ -287,19 +287,23 @@ public abstract class Service {
     /**
      * Attempt the protocol-specific connection; subclasses should override this to establish
      * a connection in the appropriate manner.
-     *
+     * 
      * This method should return true if the connection was established.
      * It may return false to cause the {@link #connect(String, int, String, String)} method to
      * reattempt the connection after trying to obtain user and password information from the user.
      * Alternatively it may throw a AuthenticatedFailedException to abandon the conection attempt.
-     *
-     * @param host
-     * @param port
-     * @param user
-     * @param password
-     * @return
-     * @throws AuthenticationFailedException if authentication fails
-     * @throws MessagingException for other failures
+     * 
+     * @param host     The target host name of the service.
+     * @param port     The connection port for the service.
+     * @param user     The user name used for the connection.
+     * @param password The password used for the connection.
+     * 
+     * @return true if a connection was established, false if there was authentication 
+     *         error with the connection.
+     * @throws AuthenticationFailedException
+     *                if authentication fails
+     * @throws MessagingException
+     *                for other failures
      */
     protected boolean protocolConnect(String host, int port, String user, String password) throws MessagingException {
         return false;
