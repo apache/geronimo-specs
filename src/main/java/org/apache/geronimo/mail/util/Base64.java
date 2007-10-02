@@ -35,6 +35,24 @@ public class Base64
     public static byte[] encode(
         byte[]    data)
     {
+        // just forward to the general array encoder. 
+        return encode(data, 0, data.length); 
+    }
+
+    /**
+     * encode the input data producing a base 64 encoded byte array.
+     * 
+     * @param data   The data array to encode.
+     * @param offset The starting offset within the data array.
+     * @param length The length of the data to encode.
+     * 
+     * @return a byte array containing the base 64 encoded data.
+     */
+    public static byte[] encode(
+        byte[]    data,
+        int       offset, 
+        int       length)
+    {
         ByteArrayOutputStream    bOut = new ByteArrayOutputStream();
 
         try
@@ -85,11 +103,30 @@ public class Base64
     public static byte[] decode(
         byte[]    data)
     {
+        // just decode the entire array of data. 
+        return decode(data, 0, data.length); 
+    }
+    
+
+    /**
+     * decode the base 64 encoded input data. It is assumed the input data is valid.
+     * 
+     * @param data   The data array to decode.
+     * @param offset The offset of the data array.
+     * @param length The length of data to decode.
+     * 
+     * @return a byte array representing the decoded data.
+     */
+    public static byte[] decode(
+        byte[]    data, 
+        int       offset, 
+        int       length)
+    {
         ByteArrayOutputStream    bOut = new ByteArrayOutputStream();
 
         try
         {
-            encoder.decode(data, 0, data.length, bOut);
+            encoder.decode(data, offset, length, bOut);
         }
         catch (IOException e)
         {

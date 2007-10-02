@@ -25,6 +25,7 @@ package javax.mail;
  * @version $Rev$ $Date$
  */
 public interface QuotaAwareStore {
+    
     /**
      * Get the quotas for the specified root element.
      *
