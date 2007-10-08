@@ -203,4 +203,4 @@ public abstract class Transport extends Service {
     protected void notifyTransportListeners(int type, Address[] validSent, Address[] validUnsent, Address[] invalid, Message message) {
         queueEvent(new TransportEvent(this, type, validSent, validUnsent, invalid, message), transportListeners);
     }
-}
+}                                                                                            

@@ -48,7 +48,7 @@ import java.util.WeakHashMap;
  * shared by multiple applications on a desktop; with process isolation and no
  * real concept of shared memory, this seems challenging. These properties and
  * defaults rely on system properties, making management in a app server harder,
- * and on resources loaded from "mail.jar" which may lead to skew between
+ * and on resources loaded from "mail.jar" which may lead to skew between                    
  * differnet independent implementations of this API.
  *
  * @version $Rev$ $Date$

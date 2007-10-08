@@ -1285,10 +1285,26 @@ public class MimeMessage extends Message implements MimePart {
         return headers.getNonMatchingHeaderLines(names);
     }
 
+
+    /**
+     * Return a copy the flags associated with this message.
+     *
+     * @return a copy of the flags for this message
+     * @throws MessagingException if there was a problem accessing the Store
+     */
     public synchronized Flags getFlags() throws MessagingException {
         return (Flags) flags.clone();
     }
 
+
+    /**
+     * Check whether the supplied flag is set.
+     * The default implementation checks the flags returned by {@link #getFlags()}.
+     *
+     * @param flag the flags to check for
+     * @return true if the flags is set
+     * @throws MessagingException if there was a problem accessing the Store
+     */
     public synchronized boolean isSet(Flags.Flag flag) throws MessagingException {
         return flags.contains(flag);
     }
