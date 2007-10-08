@@ -24,7 +24,7 @@
 //
 package javax.mail;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.mail.event.MailEvent;
@@ -51,7 +51,7 @@ class EventQueue implements Runnable {
     /**
      * The dispatching queue for events. 
      */
-    protected List eventQueue = new ArrayList(); 
+    protected List eventQueue = new LinkedList(); 
     
     /**
      * Create a new EventQueue, including starting the new thread. 
