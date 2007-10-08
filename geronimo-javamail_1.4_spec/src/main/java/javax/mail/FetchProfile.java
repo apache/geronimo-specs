@@ -43,7 +43,7 @@ public class FetchProfile {
          * This includes all the headers about the content including but not limited to:
          * Content-Type, Content-Disposition, Content-Description, Size and Line-Count
          */
-        public static final Item CONTENT_INFO = new Item("Content-Info");
+        public static final Item CONTENT_INFO = new Item("CONTENT_INFO");
 
         /**
          * Item for fetching information about the envelope of the message.
@@ -54,13 +54,13 @@ public class FetchProfile {
          * For IMAP4, this should also include the ENVELOPE data item.
          *
          */
-        public static final Item ENVELOPE = new Item("Envelope");
+        public static final Item ENVELOPE = new Item("ENVELOPE");
 
         /**
          * Item for fetching information about message flags.
          * Generall corresponds to the X-Flags header.
          */
-        public static final Item FLAGS = new Item("Flags");
+        public static final Item FLAGS = new Item("FLAGS");
 
         protected Item(String name) {
             // hmmm, name is passed in but we are not allowed to provide accessors
