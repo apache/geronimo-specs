@@ -100,7 +100,7 @@ public interface UIDFolder {
      * Special profile item used for fetching UID information.
      */
     public static class FetchProfileItem extends FetchProfile.Item {
-        public static final FetchProfileItem UID = new FetchProfileItem("Uid");
+        public static final FetchProfileItem UID = new FetchProfileItem("UID");
 
         protected FetchProfileItem(String name) {
             super(name);
