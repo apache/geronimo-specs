@@ -21,11 +21,13 @@ package javax.mail;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.mail.Flags.Flag;
 import javax.mail.event.ConnectionEvent;
 import javax.mail.event.ConnectionListener;
 import javax.mail.event.FolderEvent;
 import javax.mail.event.FolderListener;
+import javax.mail.event.MailEvent;
 import javax.mail.event.MessageChangedEvent;
 import javax.mail.event.MessageChangedListener;
 import javax.mail.event.MessageCountEvent;
@@ -79,11 +81,13 @@ public abstract class Folder {
      */
     protected int mode = -1;
 
-    private final List connectionListeners = new ArrayList(2);
-    private final List folderListeners = new ArrayList(2);
-    private final List messageChangedListeners = new ArrayList(2);
-    private final List messageCountListeners = new ArrayList(2);
-    private final EventQueue queue = new EventQueue();
+    private final ArrayList connectionListeners = new ArrayList(2);
+    private final ArrayList folderListeners = new ArrayList(2);
+    private final ArrayList messageChangedListeners = new ArrayList(2);
+    private final ArrayList messageCountListeners = new ArrayList(2);
+    // the EventQueue spins off a new thread, so we only create this 
+    // if we have actual listeners to dispatch an event to. 
+    private EventQueue queue = null;
 
     /**
      * Constructor that initializes the Store.
@@ -645,7 +649,7 @@ public abstract class Folder {
     }
 
     protected void notifyConnectionListeners(int type) {
-        queue.queueEvent(new ConnectionEvent(this, type), connectionListeners);
+        queueEvent(new ConnectionEvent(this, type), connectionListeners);
     }
 
     public void addFolderListener(FolderListener listener) {
@@ -657,11 +661,11 @@ public abstract class Folder {
     }
 
     protected void notifyFolderListeners(int type) {
-        queue.queueEvent(new FolderEvent(this, this, type), folderListeners);
+        queueEvent(new FolderEvent(this, this, type), folderListeners);
     }
 
     protected void notifyFolderRenamedListeners(Folder newFolder) {
-        queue.queueEvent(new FolderEvent(this, this, newFolder, FolderEvent.RENAMED), folderListeners);
+        queueEvent(new FolderEvent(this, this, newFolder, FolderEvent.RENAMED), folderListeners);
     }
 
     public void addMessageCountListener(MessageCountListener listener) {
@@ -673,11 +677,11 @@ public abstract class Folder {
     }
 
     protected void notifyMessageAddedListeners(Message[] messages) {
-        queue.queueEvent(new MessageCountEvent(this, MessageCountEvent.ADDED, false, messages), messageChangedListeners);
+        queueEvent(new MessageCountEvent(this, MessageCountEvent.ADDED, false, messages), messageChangedListeners);
     }
 
     protected void notifyMessageRemovedListeners(boolean removed, Message[] messages) {
-        queue.queueEvent(new MessageCountEvent(this, MessageCountEvent.REMOVED, removed, messages), messageChangedListeners);
+        queueEvent(new MessageCountEvent(this, MessageCountEvent.REMOVED, removed, messages), messageChangedListeners);
     }
 
     public void addMessageChangedListener(MessageChangedListener listener) {
@@ -689,14 +693,18 @@ public abstract class Folder {
     }
 
     protected void notifyMessageChangedListeners(int type, Message message) {
-        queue.queueEvent(new MessageChangedEvent(this, type, message), messageChangedListeners);
+        queueEvent(new MessageChangedEvent(this, type, message), messageChangedListeners);
     }
 
     /**
      * Unregisters all listeners.
      */
     protected void finalize() throws Throwable {
-        queue.stop();
+        // shut our queue down, if needed. 
+        if (queue != null) {
+            queue.stop();
+            queue = null; 
+        }
         connectionListeners.clear();
         folderListeners.clear();
         messageChangedListeners.clear();
@@ -712,5 +720,28 @@ public abstract class Folder {
     public String toString() {
         String name = getFullName();
         return name == null ? super.toString() : name;
+    }
+    
+    
+    /**
+     * Add an event on the event queue, creating the queue if this is the 
+     * first event with actual listeners. 
+     * 
+     * @param event     The event to dispatch.
+     * @param listeners The listener list.
+     */
+    private synchronized void queueEvent(MailEvent event, ArrayList listeners) {
+        // if there are no listeners to dispatch this to, don't put it on the queue. 
+        // This allows us to delay creating the queue (and its new thread) until 
+        // we 
+        if (listeners.isEmpty()) {
+            return; 
+        }
+        // first real event?  Time to get the queue kicked off. 
+        if (queue == null) {
+            queue = new EventQueue(); 
+        }
+        // tee it up and let it rip. 
+        queue.queueEvent(event, (List)listeners.clone()); 
     }
 }

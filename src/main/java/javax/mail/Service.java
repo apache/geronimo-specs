@@ -21,6 +21,7 @@ package javax.mail;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.List;   
 import java.util.Vector;
 
 import javax.mail.event.ConnectionEvent;
@@ -46,7 +47,9 @@ public abstract class Service {
 
     private boolean connected;
     private final Vector connectionListeners = new Vector(2);
-    private final EventQueue queue = new EventQueue();
+    // the EventQueue spins off a new thread, so we only create this 
+    // if we have actual listeners to dispatch an event to. 
+    private EventQueue queue = null;
 
     /**
      * Construct a new Service.
@@ -374,7 +377,7 @@ public abstract class Service {
     }
 
     protected void notifyConnectionListeners(int type) {
-        queue.queueEvent(new ConnectionEvent(this, type), connectionListeners);
+        queueEvent(new ConnectionEvent(this, type), connectionListeners);
     }
 
     public String toString() {
@@ -382,11 +385,25 @@ public abstract class Service {
     }
 
     protected void queueEvent(MailEvent event, Vector listeners) {
-        queue.queueEvent(event, listeners);
+        // if there are no listeners to dispatch this to, don't put it on the queue. 
+        // This allows us to delay creating the queue (and its new thread) until 
+        // we 
+        if (listeners.isEmpty()) {
+            return; 
+        }
+        // first real event?  Time to get the queue kicked off. 
+        if (queue == null) {
+            queue = new EventQueue(); 
+        }
+        // tee it up and let it rip. 
+        queue.queueEvent(event, (List)listeners.clone()); 
     }
 
     protected void finalize() throws Throwable {
-        queue.stop();
+        // stop our event queue if we had to create one 
+        if (queue != null) {
+            queue.stop();
+        }
         connectionListeners.clear();
         super.finalize();
     }
