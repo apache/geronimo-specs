@@ -618,6 +618,11 @@ public final class Session {
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
         String line;
         while ((line = reader.readLine()) != null) {
+            // Lines beginning with "#" are just comments.  
+            if (line.startsWith("#")) {
+                continue; 
+            }
+            
             StringTokenizer tok = new StringTokenizer(line, ";");
             String protocol = null;
             Provider.Type type = null;
