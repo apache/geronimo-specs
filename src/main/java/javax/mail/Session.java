@@ -553,28 +553,6 @@ public final class Session {
         // will not overwrite entries if they already exist in the map.
 
         try {
-            Enumeration e = cl.getResources("META-INF/javamail.default.providers");
-            while (e.hasMoreElements()) {
-                URL url = (URL) e.nextElement();
-                if (debug) {
-                    writeDebug("Loading javamail.default.providers from " + url.toString());
-                }
-
-                InputStream is = url.openStream();
-                try {
-                    loadProviders(info, is);
-                } finally{
-                    is.close();
-                }
-            }
-        } catch (SecurityException e) {
-            // ignore
-        } catch (IOException e) {
-            // ignore
-        }
-
-
-        try {
             File file = new File(System.getProperty("java.home"), "lib/javamail.providers");
             InputStream is = new FileInputStream(file);
             try {
@@ -598,6 +576,27 @@ public final class Session {
                 if (debug) {
                     writeDebug("Loading META-INF/javamail.providers from " + url.toString());
                 }
+                InputStream is = url.openStream();
+                try {
+                    loadProviders(info, is);
+                } finally{
+                    is.close();
+                }
+            }
+        } catch (SecurityException e) {
+            // ignore
+        } catch (IOException e) {
+            // ignore
+        }
+
+        try {
+            Enumeration e = cl.getResources("META-INF/javamail.default.providers");
+            while (e.hasMoreElements()) {
+                URL url = (URL) e.nextElement();
+                if (debug) {
+                    writeDebug("Loading javamail.default.providers from " + url.toString());
+                }
+
                 InputStream is = url.openStream();
                 try {
                     loadProviders(info, is);
