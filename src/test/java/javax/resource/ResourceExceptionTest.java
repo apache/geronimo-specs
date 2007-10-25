@@ -50,12 +50,4 @@ public class ResourceExceptionTest extends TestCase {
         exception.setLinkedException(root);
         assertSame(root, exception.getLinkedException());
     }
-
-    public void testToString() {
-        ResourceException exception = new ResourceException("problem");
-        assertEquals("problem", exception.toString());
-
-        ResourceException other = new ResourceException("other problem", "123");
-        assertEquals("other problem", other.toString());
-    }
 }
