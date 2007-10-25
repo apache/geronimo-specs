@@ -140,6 +140,7 @@
         <module>geronimo-commonj_1.1_spec</module>
         <module>geronimo-jaspi_1.0_spec</module>
         <module>geronimo-javamail_1.4_spec</module>
+        <module>geronimo-j2ee-connector_1.5_spec</module>
         <module>geronimo-j2ee-management_1.1_spec</module>
         <module>geronimo-jms_1.1_spec</module>
         <module>geronimo-jta_1.1_spec</module>
