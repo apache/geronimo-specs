@@ -19,6 +19,7 @@
 
 package javax.mail;
 
+import java.io.ByteArrayOutputStream;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -28,6 +29,8 @@ import java.net.URL;
  * @version $Rev$ $Date$
  */
 public class URLName {
+    private static final String nonEncodedChars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-.*";
+    
     private String file;
     private String host;
     private String password;
@@ -109,6 +112,8 @@ public class URLName {
         } else {
             this.password = null;
         }
+        username = encode(username); 
+        password = encode(password); 
         updateFullURL();
     }
 
@@ -151,9 +156,9 @@ public class URLName {
             if (host != null) {
                 buf.append("//");
                 if (username != null) {
-                    buf.append(username);
+                    buf.append(encode(username));
                     if (password != null) {
-                        buf.append(':').append(password);
+                        buf.append(':').append(encode(password));
                     }
                     buf.append('@');
                 }
@@ -237,5 +242,69 @@ public class URLName {
 
     public String getUsername() {
         return username;
+    }
+    
+    /**
+     * Perform an HTTP encoding to the username and 
+     * password elements of the URLName.  
+     * 
+     * @param v      The input (uncoded) string.
+     * 
+     * @return The HTTP encoded version of the string. 
+     */
+    private static String encode(String v) {
+        // make sure we don't operate on a null string
+        if (v == null) {
+            return null; 
+        }
+        boolean needsEncoding = false; 
+        for (int i = 0; i < v.length(); i++) {
+            // not in the list of things that don't need encoding?
+            if (nonEncodedChars.indexOf(v.charAt(i)) == -1) {
+                // got to do this the hard way
+                needsEncoding = true; 
+                break; 
+            }
+        }
+        // just fine the way it is. 
+        if (!needsEncoding) {
+            return v; 
+        }
+        
+        // we know we're going to be larger, but not sure by how much.  
+        // just give a little extra
+        StringBuffer encoded = new StringBuffer(v.length() + 10);
+            
+        // we get the bytes so that we can have the default encoding applied to 
+        // this string.  This will flag the ones we need to give special processing to. 
+        byte[] data = v.getBytes(); 
+        
+        for (int i = 0; i < data.length; i++) {
+            // pick this up as a one-byte character The 7-bit ascii ones will be fine 
+            // here. 
+            char ch = (char)(data[i] & 0xff); 
+            // blanks get special treatment 
+            if (ch == ' ') {
+                encoded.append('+'); 
+            }
+            // not in the list of things that don't need encoding?
+            else if (nonEncodedChars.indexOf(ch) == -1) {
+                // forDigit() uses the lowercase letters for the radix.  The HTML specifications 
+                // require the uppercase letters. 
+                char firstChar = Character.toUpperCase(Character.forDigit((ch >> 4) & 0xf, 16)); 
+                char secondChar = Character.toUpperCase(Character.forDigit(ch & 0xf, 16)); 
+                
+                // now append the encoded triplet. 
+                encoded.append('%'); 
+                encoded.append(firstChar); 
+                encoded.append(secondChar); 
+            }
+            else {
+                // just add this one to the buffer 
+                encoded.append(ch); 
+            }
+        }
+        // convert to string form. 
+        return encoded.toString(); 
     }
 }
