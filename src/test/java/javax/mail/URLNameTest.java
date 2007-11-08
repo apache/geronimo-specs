@@ -58,7 +58,7 @@ public class URLNameTest extends TestCase {
         assertEquals("http", name.getProtocol());
         assertEquals("www.apache.org", name.getHost());
         assertEquals(-1, name.getPort());
-        assertEquals("/file/file1", name.getFile());
+        assertEquals("file/file1", name.getFile());
         assertEquals("ref", name.getRef());
         assertNull(name.getUsername());
         assertNull(name.getPassword());
@@ -74,7 +74,7 @@ public class URLNameTest extends TestCase {
         assertEquals("http", name.getProtocol());
         assertEquals("www.apache.org", name.getHost());
         assertEquals(-1, name.getPort());
-        assertEquals("/file/", name.getFile());
+        assertEquals("file/", name.getFile());
         assertNull(name.getRef());
         assertNull(name.getUsername());
         assertNull(name.getPassword());
@@ -90,7 +90,7 @@ public class URLNameTest extends TestCase {
         assertEquals("http", name.getProtocol());
         assertEquals("www.apache.org", name.getHost());
         assertEquals(-1, name.getPort());
-        assertEquals("/file/", name.getFile());
+        assertEquals("file/", name.getFile());
         assertNull(name.getRef());
         assertEquals("john", name.getUsername());
         assertNull(name.getPassword());
@@ -106,7 +106,7 @@ public class URLNameTest extends TestCase {
         assertEquals("http", name.getProtocol());
         assertEquals("www.apache.org", name.getHost());
         assertEquals(-1, name.getPort());
-        assertEquals("/file/", name.getFile());
+        assertEquals("file/", name.getFile());
         assertNull(name.getRef());
         assertEquals("john", name.getUsername());
         assertEquals("doe", name.getPassword());
@@ -122,7 +122,7 @@ public class URLNameTest extends TestCase {
         assertEquals("http", name.getProtocol());
         assertEquals("www.apache.org", name.getHost());
         assertEquals(-1, name.getPort());
-        assertEquals("/file/", name.getFile());
+        assertEquals("file/", name.getFile());
         assertNull(name.getRef());
         assertEquals("john@gmail.com", name.getUsername());
         assertEquals("doe", name.getPassword());
@@ -241,12 +241,12 @@ public class URLNameTest extends TestCase {
             fail();
         }
 
-        name = new URLName("http", "www.apache.org", -1, "/file/file2", "", "");
+        name = new URLName("http", "www.apache.org", -1, "file/file2", "", "");
         assertEquals("http://www.apache.org/file/file2", name.toString());
         assertEquals("http", name.getProtocol());
         assertEquals("www.apache.org", name.getHost());
         assertEquals(-1, name.getPort());
-        assertEquals("/file/file2", name.getFile());
+        assertEquals("file/file2", name.getFile());
         assertNull(name.getRef());
         assertNull(name.getUsername());
         assertNull(name.getPassword());
@@ -256,12 +256,12 @@ public class URLNameTest extends TestCase {
             fail();
         }
 
-        name = new URLName("http", "www.apache.org", -1, "/file/file2", "john", "");
+        name = new URLName("http", "www.apache.org", -1, "file/file2", "john", "");
         assertEquals("http://john@www.apache.org/file/file2", name.toString());
         assertEquals("http", name.getProtocol());
         assertEquals("www.apache.org", name.getHost());
         assertEquals(-1, name.getPort());
-        assertEquals("/file/file2", name.getFile());
+        assertEquals("file/file2", name.getFile());
         assertNull(name.getRef());
         assertEquals("john", name.getUsername());
         assertNull(name.getPassword());
@@ -271,12 +271,12 @@ public class URLNameTest extends TestCase {
             fail();
         }
 
-        name = new URLName("http", "www.apache.org", -1, "/file/file2", "john", "doe");
+        name = new URLName("http", "www.apache.org", -1, "file/file2", "john", "doe");
         assertEquals("http://john:doe@www.apache.org/file/file2", name.toString());
         assertEquals("http", name.getProtocol());
         assertEquals("www.apache.org", name.getHost());
         assertEquals(-1, name.getPort());
-        assertEquals("/file/file2", name.getFile());
+        assertEquals("file/file2", name.getFile());
         assertNull(name.getRef());
         assertEquals("john", name.getUsername());
         assertEquals("doe", name.getPassword());
@@ -286,12 +286,12 @@ public class URLNameTest extends TestCase {
             fail();
         }
 
-        name = new URLName("http", "www.apache.org", -1, "/file/file2", "john@gmail.com", "doe");
+        name = new URLName("http", "www.apache.org", -1, "file/file2", "john@gmail.com", "doe");
         assertEquals("http://john%40gmail.com:doe@www.apache.org/file/file2", name.toString());
         assertEquals("http", name.getProtocol());
         assertEquals("www.apache.org", name.getHost());
         assertEquals(-1, name.getPort());
-        assertEquals("/file/file2", name.getFile());
+        assertEquals("file/file2", name.getFile());
         assertNull(name.getRef());
         assertEquals("john@gmail.com", name.getUsername());
         assertEquals("doe", name.getPassword());
@@ -301,12 +301,12 @@ public class URLNameTest extends TestCase {
             fail();
         }
 
-        name = new URLName("http", "www.apache.org", -1, "/file/file2", "", "doe");
+        name = new URLName("http", "www.apache.org", -1, "file/file2", "", "doe");
         assertEquals("http://www.apache.org/file/file2", name.toString());
         assertEquals("http", name.getProtocol());
         assertEquals("www.apache.org", name.getHost());
         assertEquals(-1, name.getPort());
-        assertEquals("/file/file2", name.getFile());
+        assertEquals("file/file2", name.getFile());
         assertNull(name.getRef());
         assertNull(name.getUsername());
         assertNull(name.getPassword());
@@ -381,7 +381,7 @@ public class URLNameTest extends TestCase {
         assertEquals("foo", name.getProtocol());
         assertEquals("apache.org", name.getHost());
         assertEquals(-1, name.getPort());
-        assertEquals("/INBOX", name.getFile());
+        assertEquals("INBOX", name.getFile());
         assertNull(name.getRef());
         assertEquals("jdoe", name.getUsername());
         assertNull(name.getPassword());

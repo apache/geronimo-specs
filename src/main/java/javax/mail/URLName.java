@@ -71,6 +71,13 @@ public class URLName {
         host = checkBlank(uri.getHost());
         port = uri.getPort();
         file = checkBlank(uri.getPath());
+        // if the file starts with "/", we need to strip that off. 
+        // URL and URLName do not have the same behavior when it comes 
+        // to keeping that there. 
+        if (file != null && file.length() > 1 && file.startsWith("/")) {
+            file = checkBlank(file.substring(1)); 
+        }
+        
         ref = checkBlank(uri.getFragment());
         String userInfo = checkBlank(uri.getUserInfo());
         if (userInfo == null) {
@@ -167,7 +174,7 @@ public class URLName {
                     buf.append(':').append(port);
                 }
                 if (file != null) {
-                    buf.append(file);
+                    buf.append('/').append(file);
                 }
                 hashCode = buf.toString().hashCode();
                 if (ref != null) {
