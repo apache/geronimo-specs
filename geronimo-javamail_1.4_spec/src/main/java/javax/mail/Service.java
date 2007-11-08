@@ -381,6 +381,10 @@ public abstract class Service {
     }
 
     public String toString() {
+        // NOTE:  We call getURLName() rather than use the URL directly 
+        // because the get method strips out the password information. 
+        URLName url = getURLName(); 
+        
         return url == null ? super.toString() : url.toString();
     }
 
