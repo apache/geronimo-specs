@@ -115,6 +115,22 @@ public class URLNameTest extends TestCase {
         } catch (MalformedURLException e) {
             fail();
         }
+        
+        s = "http://john%40gmail.com:doe@www.apache.org/file/";
+        name = new URLName(s);
+        assertEquals(s, name.toString());
+        assertEquals("http", name.getProtocol());
+        assertEquals("www.apache.org", name.getHost());
+        assertEquals(-1, name.getPort());
+        assertEquals("/file/", name.getFile());
+        assertNull(name.getRef());
+        assertEquals("john@gmail.com", name.getUsername());
+        assertEquals("doe", name.getPassword());
+        try {
+            assertEquals(new URL(s), name.getURL());
+        } catch (MalformedURLException e) {
+            fail();
+        }
 
         s = "file/file2";
         name = new URLName(s);
@@ -266,6 +282,21 @@ public class URLNameTest extends TestCase {
         assertEquals("doe", name.getPassword());
         try {
             assertEquals(new URL("http://john:doe@www.apache.org/file/file2"), name.getURL());
+        } catch (MalformedURLException e) {
+            fail();
+        }
+
+        name = new URLName("http", "www.apache.org", -1, "/file/file2", "john@gmail.com", "doe");
+        assertEquals("http://john%40gmail.com:doe@www.apache.org/file/file2", name.toString());
+        assertEquals("http", name.getProtocol());
+        assertEquals("www.apache.org", name.getHost());
+        assertEquals(-1, name.getPort());
+        assertEquals("/file/file2", name.getFile());
+        assertNull(name.getRef());
+        assertEquals("john@gmail.com", name.getUsername());
+        assertEquals("doe", name.getPassword());
+        try {
+            assertEquals(new URL("http://john%40gmail.com:doe@www.apache.org/file/file2"), name.getURL());
         } catch (MalformedURLException e) {
             fail();
         }
