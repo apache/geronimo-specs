@@ -20,7 +20,9 @@
 package org.apache.geronimo.mail.handlers;
 
 import java.awt.datatransfer.DataFlavor;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -95,19 +97,24 @@ public class TextHandler implements DataContentHandler {
      * @throws IOException
      */
     public Object getContent(DataSource datasource) throws IOException {
-        InputStreamReader reader;
+        InputStream is = datasource.getInputStream(); 
+        ByteArrayOutputStream os = new ByteArrayOutputStream(); 
+        
+        int count;  
+        byte[] buffer = new byte[1000]; 
+            
         try {
-            String s = getCharSet(datasource.getContentType());
-            reader = new InputStreamReader(datasource.getInputStream(), s);
-        } catch (Exception ex) {
-            throw new UnsupportedEncodingException(ex.toString());
+            while ((count = is.read(buffer, 0, buffer.length)) > 0) {
+                os.write(buffer, 0, count); 
+            }
+        } finally {
+            is.close(); 
         }
-        StringWriter writer = new StringWriter();
-        int ch;
-        while ((ch = reader.read()) != -1) {
-            writer.write(ch);
+        try {   
+            return os.toString(getCharSet(datasource.getContentType())); 
+        } catch (ParseException e) {
+            throw new UnsupportedEncodingException(e.getMessage()); 
         }
-        return writer.getBuffer().toString();
     }
 
     /**
