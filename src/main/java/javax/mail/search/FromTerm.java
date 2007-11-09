@@ -34,6 +34,9 @@ public final class FromTerm extends AddressTerm {
     public boolean match(Message message) {
         try {
             Address from[] = message.getFrom();
+            if (from == null) {
+                return false; 
+            }
             for (int i = 0; i < from.length; i++) {
                 if (match(from[i])) {
                     return true;

@@ -78,35 +78,32 @@ public abstract class StringTerm extends SearchTerm {
      * @return true if this patter is a substring of the supplied String
      */
     protected boolean match(String match) {
-        match: for (int length = match.length() - pattern.length(); length > 0; length--) {
-            for (int i = 0; i < pattern.length(); i++) {
-                char c1 = match.charAt(length + i);
-                char c2 = match.charAt(i);
-                if (c1 == c2) {
-                    continue;
-                }
-                if (ignoreCase) {
-                    if (Character.toLowerCase(c1) == Character.toLowerCase(c2)) {
-                        continue;
-                    }
-                    if (Character.toUpperCase(c1) == Character.toUpperCase(c2)) {
-                        continue;
-                    }
-                }
-                continue match;
+        int matchLength = pattern.length(); 
+        int length = match.length() - matchLength;        
+        
+        for (int i = 0; i <= length; i++) {
+            if (match.regionMatches(ignoreCase, i, pattern, 0, matchLength)) {
+                return true; 
             }
-            return true;
         }
         return false;
     }
 
     public boolean equals(Object other) {
-        return super.equals(other)
-                && ((StringTerm) other).pattern.equals(pattern)
-                && ((StringTerm) other).ignoreCase == ignoreCase;
+        if (this == other) return true;
+        if (other instanceof StringTerm == false) return false;
+        
+        StringTerm term = (StringTerm)other; 
+        
+        if (ignoreCase) {
+            return term.pattern.equalsIgnoreCase(pattern) && term.ignoreCase == ignoreCase; 
+        }
+        else {
+            return term.pattern.equals(pattern) && term.ignoreCase == ignoreCase; 
+        }
     }
 
     public int hashCode() {
-        return super.hashCode() + pattern.hashCode() + (ignoreCase ? 32 : 79);
+        return pattern.hashCode() + (ignoreCase ? 32 : 79);
     }
 }

@@ -33,9 +33,20 @@ public final class SentDateTerm extends DateTerm {
 
     public boolean match(Message message) {
         try {
+            Date date = message.getSentDate(); 
+            if (date == null) {
+                return false; 
+            }
+            
             return match(message.getSentDate());
         } catch (MessagingException e) {
             return false;
         }
+    }
+
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (other instanceof SentDateTerm == false) return false;
+        return super.equals(other);
     }
 }

@@ -57,10 +57,11 @@ public final class HeaderTerm extends StringTerm {
     public boolean equals(Object other) {
         if (other == this) return true;
         if (other instanceof HeaderTerm == false) return false;
-        return headerName.equalsIgnoreCase(((HeaderTerm) other).headerName);
+        // we need to compare with more than just the header name. 
+        return headerName.equalsIgnoreCase(((HeaderTerm) other).headerName) && super.equals(other);
     }
 
     public int hashCode() {
-        return headerName.toLowerCase().hashCode();
+        return headerName.toLowerCase().hashCode() + super.hashCode();
     }
 }

@@ -91,6 +91,6 @@ public final class FlagTerm extends SearchTerm {
     }
 
     public int hashCode() {
-        return flags.hashCode();
+        return set ? flags.hashCode() : ~flags.hashCode();
     }
 }

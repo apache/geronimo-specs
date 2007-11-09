@@ -41,6 +41,9 @@ public final class RecipientStringTerm extends AddressStringTerm {
     public boolean match(Message message) {
         try {
             Address from[] = message.getRecipients(type);
+            if (from == null) {
+                return false; 
+            }
             for (int i = 0; i < from.length; i++) {
                 Address address = from[i];
                 if (match(address)) {
@@ -61,6 +64,6 @@ public final class RecipientStringTerm extends AddressStringTerm {
     }
 
     public int hashCode() {
-        return pattern.hashCode();
+        return pattern.hashCode() + type.hashCode();
     }
 }

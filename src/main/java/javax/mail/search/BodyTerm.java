@@ -61,6 +61,9 @@ public final class BodyTerm extends StringTerm {
         } else if (part.isMimeType("text/*")) {
             String content = (String) part.getContent();
             return super.match(content);
+        } else if (part.isMimeType("message/rfc822")) {
+            // nested messages need recursion        
+            return matchPart((Part)part.getContent());
         } else {
             return false;
         }

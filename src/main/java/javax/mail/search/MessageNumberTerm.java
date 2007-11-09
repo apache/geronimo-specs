@@ -34,6 +34,9 @@ public final class MessageNumberTerm extends IntegerComparisonTerm {
     }
 
     public boolean equals(Object other) {
+        if (!(other instanceof MessageNumberTerm)) {
+            return false; 
+        }
         return super.equals(other);
     }
 }
