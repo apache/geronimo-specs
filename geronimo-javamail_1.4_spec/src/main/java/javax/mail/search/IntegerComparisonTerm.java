@@ -68,6 +68,6 @@ public abstract class IntegerComparisonTerm extends ComparisonTerm {
     }
 
     public int hashCode() {
-        return number;
+        return number + super.hashCode();
     }
 }

@@ -32,9 +32,19 @@ public final class SubjectTerm extends StringTerm {
 
     public boolean match(Message message) {
         try {
-            return match(message.getSubject());
+            String subject = message.getSubject(); 
+            if (subject == null) {
+                return false; 
+            }
+            return match(subject);
         } catch (MessagingException e) {
             return false;
         }
+    }
+
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (other instanceof SubjectTerm == false) return false;
+        return super.equals(other); 
     }
 }

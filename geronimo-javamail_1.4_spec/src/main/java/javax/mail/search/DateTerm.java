@@ -70,6 +70,6 @@ public abstract class DateTerm extends ComparisonTerm {
     }
 
     public int hashCode() {
-        return date.hashCode();
+        return date.hashCode() + super.hashCode();
     }
 }

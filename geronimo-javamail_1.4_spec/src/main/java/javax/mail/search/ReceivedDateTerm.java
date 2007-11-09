@@ -33,9 +33,21 @@ public final class ReceivedDateTerm extends DateTerm {
 
     public boolean match(Message message) {
         try {
-            return match(message.getReceivedDate());
+            Date date = message.getReceivedDate();
+            if (date == null) {
+                return false; 
+            }
+            
+            return match(date);
         } catch (MessagingException e) {
             return false;
         }
+    }
+    
+    
+    public boolean equals(Object other) {
+        if (other == this) return true;
+        if (other instanceof ReceivedDateTerm == false) return false;
+        return super.equals(other); 
     }
 }

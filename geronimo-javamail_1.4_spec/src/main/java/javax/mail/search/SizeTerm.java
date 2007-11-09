@@ -37,4 +37,10 @@ public final class SizeTerm extends IntegerComparisonTerm {
             return false;
         }
     }
+
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (other instanceof SizeTerm == false) return false;
+        return super.equals(other);
+    }
 }

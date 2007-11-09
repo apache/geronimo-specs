@@ -46,4 +46,11 @@ public final class MessageIDTerm extends StringTerm {
             return false;
         }
     }
+    
+    public boolean equals(Object other) {
+        if (!(other instanceof MessageIDTerm)) {
+            return false; 
+        }
+        return super.equals(other); 
+    }
 }

@@ -38,10 +38,13 @@ public abstract class ComparisonTerm extends SearchTerm {
     }
 
     public boolean equals(Object other) {
-        return super.equals(other);
+        if (!(other instanceof ComparisonTerm)) {
+            return false; 
+        }
+        return comparison == ((ComparisonTerm)other).comparison;
     }
 
     public int hashCode() {
-        return super.hashCode();
+        return comparison; 
     }
 }
