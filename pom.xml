@@ -32,15 +32,27 @@
     </parent>
 
     <artifactId>geronimo-saaj_1.1_spec</artifactId>
+    <packaging>bundle</packaging>
     <name>SAAJ 1.1</name>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.1.1-SNAPSHOT</version>
+
+    <properties>
+	    <geronimo.osgi.export.pkg>javax.xml.soap*</geronimo.osgi.export.pkg>
+        <geronimo.osgi.export.version>1.1</geronimo.osgi.export.version>
+	</properties>
 
     <dependencies>
         <dependency>
             <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-activation_1.0.2_spec</artifactId>
-            <version>1.2-SNAPSHOT</version>
+            <artifactId>geronimo-activation_1.1_spec</artifactId>
+            <version>1.0.1-SNAPSHOT</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
+    <scm>
+        <connection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-saaj_1.1_spec</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-saaj_1.1_spec</developerConnection>
+        <url>https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-saaj_1.1_spec</url>
+    </scm>
 </project>
