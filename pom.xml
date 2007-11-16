@@ -140,11 +140,13 @@
         <module>geronimo-commonj_1.1_spec</module>
         <module>geronimo-jaspi_1.0_spec</module>
         <module>geronimo-javamail_1.4_spec</module>
+        <module>geronimo-jaxr_1.0_spec</module>
         <module>geronimo-j2ee-connector_1.5_spec</module>
         <module>geronimo-j2ee-management_1.1_spec</module>
         <module>geronimo-jms_1.1_spec</module>
         <module>geronimo-jta_1.1_spec</module>
         <module>geronimo-servlet_2.5_spec</module>
+        <module>geronimo-saaj_1.1_spec</module>
         <module>geronimo-stax-api_1.0_spec</module>
     </modules>
 
@@ -163,6 +165,8 @@
             <modules>
 		        <module>geronimo-annotation_1.0_spec</module>
 		        <module>geronimo-ejb_3.0_spec</module>
+		        <module>geronimo-jacc_1.1_spec</module>
+		        <module>geronimo-jpa_3.0_spec</module>
 		        <module>geronimo-interceptor_3.0_spec</module>
 		        <module>geronimo-ws-metadata_2.0_spec</module>
             </modules>
