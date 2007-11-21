@@ -50,6 +50,9 @@ public abstract class Service {
     // the EventQueue spins off a new thread, so we only create this 
     // if we have actual listeners to dispatch an event to. 
     private EventQueue queue = null;
+    // when returning the URL, we need to ensure that the password and file information is 
+    // stripped out. 
+    private URLName exposedUrl; 
 
     /**
      * Construct a new Service.
@@ -356,8 +359,14 @@ public abstract class Service {
      * @return the URLName for this service
      */
     public URLName getURLName() {
-
-        return url == null ? null : new URLName(url.getProtocol(), url.getHost(), url.getPort(), null, url.getUsername(), null);
+        // if we haven't composed the URL version we hand out, create it now.  But only if we really 
+        // have a URL. 
+        if (exposedUrl == null) {
+            if (url != null) {
+                exposedUrl = new URLName(url.getProtocol(), url.getHost(), url.getPort(), null, url.getUsername(), null);
+            }
+        }
+        return exposedUrl; 
     }
 
     /**
