@@ -148,7 +148,7 @@
         <module>geronimo-jms_1.1_spec</module>
         <module>geronimo-jta_1.1_spec</module>
         <module>geronimo-servlet_2.5_spec</module>
-        <module>geronimo-saaj_1.1_spec</module>
+        <module>geronimo-saaj_1.3_spec</module>
         <module>geronimo-stax-api_1.0_spec</module>
     </modules>
 
