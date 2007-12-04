@@ -27,7 +27,7 @@
     <parent>
         <groupId>org.apache.geronimo.specs</groupId>
         <artifactId>specs</artifactId>
-        <version>1.2-SNAPSHOT</version>
+        <version>1.3-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -41,6 +41,7 @@
     <properties>
 	    <geronimo.osgi.export.pkg>javax.servlet*</geronimo.osgi.export.pkg>
         <geronimo.osgi.export.version>2.5</geronimo.osgi.export.version>
+        <geronimo.osgi.resources>src/main/resources/,META-INF/LICENSE.txt=LICENSE.txt,META-INF/NOTICE.txt=NOTICE.txt</geronimo.osgi.resources>
 	</properties>
 
     <scm>
