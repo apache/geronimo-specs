@@ -70,6 +70,7 @@
 	    <geronimo.osgi.export.version>${project.version}</geronimo.osgi.export.version>
 	    <geronimo.osgi.import>!META-INF*,${geronimo.osgi.import.pkg}</geronimo.osgi.import>
 	    <geronimo.osgi.symbolic.name>${groupId}.${artifactId}</geronimo.osgi.symbolic.name>
+        <geronimo.osgi.resources>META-INF/LICENSE.txt=LICENSE.txt,META-INF/NOTICE.txt=NOTICE.txt</geronimo.osgi.resources>
     </properties>
 
     <build>
@@ -128,6 +129,7 @@
 		                <Private-Package>${geronimo.osgi.private.pkg}</Private-Package>
 		                <Implementation-Title>Apache Geronimo</Implementation-Title>
 		                <Implementation-Version>${project.version}</Implementation-Version>
+                        <Include-Resource>${geronimo.osgi.resources}</Include-Resource>
 		           </instructions>
 		        </configuration>
 	        </plugin>
@@ -136,6 +138,7 @@
     </build>
     
     <modules>
+        <module>geronimo-activation_1.1_spec</module>
         <module>geronimo-commonj_1.1_spec</module>
         <module>geronimo-jaspi_1.0_spec</module>
         <module>geronimo-javamail_1.4_spec</module>
@@ -164,8 +167,10 @@
             <modules>
 		        <module>geronimo-annotation_1.0_spec</module>
 		        <module>geronimo-ejb_3.0_spec</module>
+		        <module>geronimo-el_1.0_spec</module>
 		        <module>geronimo-jacc_1.1_spec</module>
 		        <module>geronimo-jpa_3.0_spec</module>
+		        <module>geronimo-jsp_2.1_spec</module>
 		        <module>geronimo-interceptor_3.0_spec</module>
 		        <module>geronimo-ws-metadata_2.0_spec</module>
             </modules>
