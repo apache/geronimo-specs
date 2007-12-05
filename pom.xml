@@ -34,12 +34,13 @@
     <artifactId>geronimo-javamail_1.4_spec</artifactId>
     <packaging>bundle</packaging>
     <name>JavaMail 1.4</name>
-    <version>1.2</version>
+    <version>1.2-SNAPSHOT</version>
 
     <properties>
         <geronimo.osgi.export.pkg>javax.mail*</geronimo.osgi.export.pkg>
         <geronimo.osgi.private.pkg>org.apache.geronimo.mail*</geronimo.osgi.private.pkg>
         <geronimo.osgi.export.version>1.4</geronimo.osgi.export.version>
+        <geronimo.osgi.resources>src/main/resources/,META-INF/LICENSE.txt=LICENSE.txt,META-INF/NOTICE.txt=NOTICE.txt</geronimo.osgi.resources>
 	</properties>
 
     <scm>
@@ -52,7 +53,7 @@
         <dependency>
             <groupId>org.apache.geronimo.specs</groupId>
             <artifactId>geronimo-activation_1.1_spec</artifactId>
-            <version>1.0.1</version>
+            <version>1.0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
