@@ -138,10 +138,8 @@
     </build>
     
     <modules>
-        <module>geronimo-activation_1.1_spec</module>
         <module>geronimo-commonj_1.1_spec</module>
         <module>geronimo-jaspi_1.0_spec</module>
-        <module>geronimo-javamail_1.4_spec</module>
         <module>geronimo-jaxr_1.0_spec</module>
         <module>geronimo-jaxrpc_1.1_spec</module>
         <module>geronimo-j2ee-connector_1.5_spec</module>
