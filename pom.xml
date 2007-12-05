@@ -34,11 +34,12 @@
     <artifactId>geronimo-activation_1.1_spec</artifactId>
     <packaging>bundle</packaging>
     <name>Activation 1.1</name>
-    <version>1.0.1</version>
+    <version>1.0.1-SNAPSHOT</version>
 
     <properties>
 	    <geronimo.osgi.export.pkg>javax.activation*</geronimo.osgi.export.pkg>
         <geronimo.osgi.export.version>1.1</geronimo.osgi.export.version>
+        <geronimo.osgi.resources>src/main/resources/,META-INF/LICENSE.txt=LICENSE.txt,META-INF/NOTICE.txt=NOTICE.txt</geronimo.osgi.resources>
 	</properties>
 
     <scm>
