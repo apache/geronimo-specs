@@ -30,6 +30,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.security.Permission;
 
 import junit.framework.TestCase;
 
@@ -119,6 +120,21 @@ public class WebUserDataPermissionTest extends TestCase {
      * Testing WebResourcePermission(HttpServletRequest)
      */
     public void testConstructorHttpServletRequest() {
+        Permission p = new WebUserDataPermission(new MockHttpServletRequest("/foo", "", "GET"));
+        checkPermission(p, "/foo", "GET");
+        p = new WebUserDataPermission(new MockHttpServletRequest("", "/foo", "GET"));
+        checkPermission(p, "/foo", "GET");
+        p = new WebUserDataPermission(new MockHttpServletRequest("/foo", "/foo", "BAR"));
+        checkPermission(p, "/foo/foo", "BAR");
+        p = new WebUserDataPermission(new MockHttpServletRequest("/foo", "/foo:bar", "BAR"));
+        checkPermission(p, "/foo/foo%3Abar", "BAR");
+        p = new WebUserDataPermission(new MockHttpServletRequest("/foo", "/foo%3Abar", "BAR"));
+        checkPermission(p, "/foo/foo%3A%3Abar", "BAR");
+    }
+
+    private void checkPermission(Permission p, String name, String actions) {
+        assertEquals(p.getName(), name);
+        assertEquals(p.getActions(), actions);
     }
 
     public void testImpliesHttpServletRequest() {

@@ -39,10 +39,18 @@ public class MockHttpServletRequest implements HttpServletRequest {
 
     private final String servletPath;
     private final String pathInfo;
+    private final String method;
 
     public MockHttpServletRequest(String servletPath, String pathInfo) {
         this.servletPath = servletPath;
         this.pathInfo = pathInfo;
+        this.method = "GET";
+    }
+
+    public MockHttpServletRequest(String servletPath, String pathInfo, String method) {
+        this.servletPath = servletPath;
+        this.pathInfo = pathInfo;
+        this.method = method;
     }
 
     public String getAuthType() {
@@ -74,7 +82,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
     }
 
     public String getMethod() {
-        return null;
+        return method;
     }
 
     public String getPathInfo() {
