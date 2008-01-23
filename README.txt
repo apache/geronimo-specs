@@ -1,11 +1,21 @@
+Structure
+========
+
+Only specs under active development should be in trunk.  Once you release, delete the trunk.  If you need to make a change or bugfix, copy the latest tag into trunk and work with that.
+
+Be certain that all dependencies are marked "provided"
+
+Do not copy any code into branches under any circumstances.
 
 Building
 ========
 
+The is normally no root pom, so you need to build specs individually.
+
 To build you will need:
 
- * J2SE SDK 1.4.2+ (http://java.sun.com/j2se/1.4.2)
- * Maven 2.0.4+ (http://maven.apache.org)
+ * J2SE SDK 1.5+ (http://java.sun.com/j2se/1.4.2)
+ * Maven 2.0.7+ (http://maven.apache.org)
 
 To build all changes incrementally:
 
@@ -20,4 +30,8 @@ source tree:
 Releasing
 =========
 
-TODO
+Use the maven-release-plugin.  
+
+Stage to your people.apache.org account or to your local machine and scp to people.apache.org.
+
+After a release vote has passed use the maven-stage-plugin to transfer the voted artifacts to the apache release repo.
