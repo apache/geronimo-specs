@@ -34,7 +34,7 @@
     <artifactId>geronimo-ejb_3.0_spec</artifactId>
     <packaging>bundle</packaging>
     <name>EJB 3.0</name>
-    <version>1.0.1</version>
+    <version>1.0.2-SNAPSHOT</version>
 
     <properties>
         <geronimo.osgi.export.pkg>javax.ejb*,javax.xml.rpc.handler*</geronimo.osgi.export.pkg>
@@ -93,10 +93,4 @@
             </plugin>
         </plugins>
     </build>
-
-  <scm>
-    <connection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-ejb_3.0_spec-1.0.1</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-ejb_3.0_spec-1.0.1</developerConnection>
-    <url>https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-ejb_3.0_spec-1.0.1</url>
-  </scm>
 </project>
