@@ -34,7 +34,7 @@
     <artifactId>geronimo-interceptor_3.0_spec</artifactId>
     <packaging>bundle</packaging>
     <name>Interceptor 3.0</name>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.1</version>
 
     <properties>
         <geronimo.osgi.export.version>3.0</geronimo.osgi.export.version>
@@ -69,4 +69,10 @@
             </plugin>
         </plugins>
     </build>
+
+  <scm>
+    <connection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-interceptor_3.0_spec-1.0.1</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-interceptor_3.0_spec-1.0.1</developerConnection>
+    <url>https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-interceptor_3.0_spec-1.0.1</url>
+  </scm>
 </project>
