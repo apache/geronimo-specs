@@ -34,11 +34,17 @@
     <artifactId>geronimo-jta_1.1_spec</artifactId>
     <packaging>bundle</packaging>
     <name>JTA 1.1</name>
-    <version>1.1.1-SNAPSHOT</version>
+    <version>1.1.1</version>
 
     <properties>
 	    <geronimo.osgi.export.pkg>javax.transaction*</geronimo.osgi.export.pkg>
         <geronimo.osgi.export.version>1.1</geronimo.osgi.export.version>
 	</properties>
 
+
+  <scm>
+    <connection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-jta_1.1_spec-1.1.1</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-jta_1.1_spec-1.1.1</developerConnection>
+    <url>https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-jta_1.1_spec-1.1.1</url>
+  </scm>
 </project>
