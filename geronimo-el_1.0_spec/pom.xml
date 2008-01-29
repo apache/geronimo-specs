@@ -37,10 +37,10 @@
     <version>1.0.1-SNAPSHOT</version>
 
     <properties>
-	    <geronimo.osgi.export.pkg>javax.el*</geronimo.osgi.export.pkg>
+        <geronimo.osgi.export.pkg>javax.el*</geronimo.osgi.export.pkg>
         <geronimo.osgi.export.version>1.0</geronimo.osgi.export.version>
         <geronimo.osgi.resources>src/main/resources/,META-INF/LICENSE.txt=LICENSE.txt,META-INF/NOTICE.txt=NOTICE.txt</geronimo.osgi.resources>
-	</properties>
+    </properties>
 
     <scm>
         <connection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-el_1.0_spec</connection>
