@@ -38,7 +38,7 @@
 
     <properties>
         <geronimo.osgi.export.version>3.0</geronimo.osgi.export.version>
-	</properties>
+    </properties>
 
     <build>
         <plugins>
