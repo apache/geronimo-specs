@@ -37,9 +37,9 @@
     <version>1.1.1-SNAPSHOT</version>
 
     <properties>
-	    <geronimo.osgi.export.pkg>javax.jms*</geronimo.osgi.export.pkg>
+        <geronimo.osgi.export.pkg>javax.jms*</geronimo.osgi.export.pkg>
         <geronimo.osgi.export.version>1.1</geronimo.osgi.export.version>
-	</properties>
+    </properties>
 
     <dependencies>
         <dependency>
