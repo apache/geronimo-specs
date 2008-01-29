@@ -33,7 +33,7 @@
     <artifactId>geronimo-jacc_1.1_spec</artifactId>
     <packaging>bundle</packaging>
     <name>J2EE JACC 1.1</name>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.1</version>
 
     <properties>
         <geronimo.osgi.export.pkg>javax.security.jacc*</geronimo.osgi.export.pkg>
@@ -41,9 +41,9 @@
     </properties>
 
     <scm>
-        <connection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jacc_1.1_spec</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jacc_1.1_spec</developerConnection>
-        <url>https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jacc_1.1_spec</url>
+        <connection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-jacc_1.1_spec-1.0.1</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-jacc_1.1_spec-1.0.1</developerConnection>
+        <url>https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-jacc_1.1_spec-1.0.1</url>
     </scm>
 
     <dependencies>
