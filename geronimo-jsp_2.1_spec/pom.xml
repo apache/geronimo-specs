@@ -27,70 +27,36 @@
     <parent>
         <groupId>org.apache.geronimo.specs</groupId>
         <artifactId>specs</artifactId>
-        <version>1.3</version>
+        <version>1.4-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>geronimo-jsp_2.1_spec</artifactId>
     <packaging>bundle</packaging>
     <name>JSP 2.1</name>
-    <version>1.0.2-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
 
     <properties>
         <geronimo.osgi.export.pkg>javax.servlet.jsp*</geronimo.osgi.export.pkg>
         <geronimo.osgi.export.version>2.1</geronimo.osgi.export.version>
     </properties>
 
-    <scm>
-        <connection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jsp_2.1_spec</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/trunk/tags/geronimo-jsp_2.1_spec</developerConnection>
-        <url>https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jsp_2.1_spec</url>
-    </scm>
-    
     <dependencies>
         <dependency>
             <groupId>org.apache.geronimo.specs</groupId>
             <artifactId>geronimo-servlet_2.5_spec</artifactId>
-            <version>1.1.1</version>
+            <version>1.1.2-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.geronimo.specs</groupId>
             <artifactId>geronimo-el_1.0_spec</artifactId>
-            <version>1.0.1</version>
+            <version>1.0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
     
     <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.5</source>
-                    <target>1.5</target>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <configuration>
-                    <source>1.5</source>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-idea-plugin</artifactId>
-                <configuration>
-                    <jdkName>1.5</jdkName>
-                    <linkModules>true</linkModules>
-                </configuration>
-            </plugin>
-        </plugins>
-
         <resources>
             <resource>
                 <targetPath>javax/servlet/jsp/resources</targetPath>

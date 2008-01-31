@@ -27,7 +27,7 @@
     <parent>
         <groupId>org.apache.geronimo.genesis.config</groupId>
         <artifactId>project-config</artifactId>
-        <version>1.1</version>
+        <version>1.2</version>
     </parent>
 
     <groupId>org.apache.geronimo.specs</groupId>
@@ -70,7 +70,6 @@
 	    <geronimo.osgi.export.version>${project.version}</geronimo.osgi.export.version>
 	    <geronimo.osgi.import>!META-INF*,${geronimo.osgi.import.pkg}</geronimo.osgi.import>
 	    <geronimo.osgi.symbolic.name>${groupId}.${artifactId}</geronimo.osgi.symbolic.name>
-        <geronimo.osgi.resources>META-INF/LICENSE.txt=LICENSE.txt,META-INF/NOTICE.txt=NOTICE.txt</geronimo.osgi.resources>
     </properties>
 
     <build>
@@ -93,8 +92,37 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>1.4</source>
-                    <target>1.4</target>
+                    <source>1.5</source>
+                    <target>1.5</target>
+                </configuration>
+            </plugin>
+
+            <!-- We want to package up license resources in the JARs produced -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-remote-resources-plugin</artifactId>
+                <version>1.0-beta-2</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>process</goal>
+                        </goals>
+                        <configuration>
+                            <resourceBundles>
+                                <resourceBundle>org.apache:apache-jar-resource-bundle:1.0</resourceBundle>
+                            </resourceBundles>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.3</version>
+                <inherited>true</inherited>
+                <configuration>
+                    <source>1.5</source>
                 </configuration>
             </plugin>
 
@@ -102,7 +130,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-idea-plugin</artifactId>
                 <configuration>
-                    <jdkName>1.4</jdkName>
+                    <jdkName>1.5</jdkName>
                     <linkModules>true</linkModules>
                 </configuration>
             </plugin>
@@ -118,7 +146,7 @@
 	        <plugin>
 	            <groupId>org.apache.felix</groupId>
 	            <artifactId>maven-bundle-plugin</artifactId>
-                <version>1.0.0</version>
+                <version>1.2.0</version>
 	            <extensions>true</extensions>
 	            <configuration>
 		            <instructions>
@@ -129,71 +157,142 @@
 		                <Private-Package>${geronimo.osgi.private.pkg}</Private-Package>
 		                <Implementation-Title>Apache Geronimo</Implementation-Title>
 		                <Implementation-Version>${project.version}</Implementation-Version>
-                        <Include-Resource>${geronimo.osgi.resources}</Include-Resource>
 		           </instructions>
 		        </configuration>
+		        <executions>
+                    <execution>
+                        <id>bundle-manifest</id>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>manifest</goal>
+                        </goals>
+                    </execution>
+		        </executions>
 	        </plugin>
-
         </plugins>
     </build>
-    
-    <modules>
-        <module>geronimo-commonj_1.1_spec</module>
-        <module>geronimo-jaspi_1.0_spec</module>
-        <module>geronimo-jaxr_1.0_spec</module>
-        <module>geronimo-jaxrpc_1.1_spec</module>
-        <module>geronimo-j2ee-connector_1.5_spec</module>
-        <module>geronimo-j2ee-management_1.1_spec</module>
-        <module>geronimo-jms_1.1_spec</module>
-        <module>geronimo-jta_1.1_spec</module>
-        <module>geronimo-saaj_1.3_spec</module>
-    </modules>
 
     <profiles>
-        <!--
-        NOTE: Some modules require JDK 1.5 to build, only enable them if our
-              JVM supports that version.
-        -->
         <profile>
-            <id>jdk1.5</id>
+            <id>deploy</id>
 
-            <activation>
-                <jdk>1.5</jdk>
-            </activation>
+            <build>
+                <defaultGoal>
+                    deploy
+                </defaultGoal>
 
-            <modules>
-		        <module>geronimo-annotation_1.0_spec</module>
-		        <module>geronimo-ejb_3.0_spec</module>
-		        <module>geronimo-el_1.0_spec</module>
-		        <module>geronimo-jacc_1.1_spec</module>
-		        <module>geronimo-jpa_3.0_spec</module>
-		        <module>geronimo-jsp_2.1_spec</module>
-		        <module>geronimo-interceptor_3.0_spec</module>
-		        <module>geronimo-ws-metadata_2.0_spec</module>
-            </modules>
+                <plugins>
+		            <plugin>
+		                <groupId>org.apache.maven.plugins</groupId>
+		                <artifactId>maven-clean-plugin</artifactId>
+		                <version>2.2</version>
+		            </plugin>
+
+		            <!-- We want the sources JAR published with the release -->
+		            <plugin>
+		                <groupId>org.apache.maven.plugins</groupId>
+		                <artifactId>maven-source-plugin</artifactId>
+		                <version>2.0.4</version>
+		                <inherited>true</inherited>
+		                <executions>
+		                    <execution>
+		                        <id>attach-sources</id>
+		                        <goals>
+		                            <goal>jar</goal>
+		                        </goals>
+		                    </execution>
+		                </executions>
+		            </plugin>
+
+		            <!-- We want the JavaDoc JAR published with the release -->
+		            <plugin>
+		                <groupId>org.apache.maven.plugins</groupId>
+		                <artifactId>maven-javadoc-plugin</artifactId>
+		                <version>2.3</version>
+		                <inherited>true</inherited>
+		                <configuration>
+		                    <source>1.5</source>
+		                </configuration>
+		                <executions>
+		                    <execution>
+		                        <id>attach-javadocs</id>
+                                <phase>compile</phase>
+		                        <goals>
+		                            <goal>jar</goal>
+		                        </goals>
+		                    </execution>
+		                </executions>
+		            </plugin>
+
+		            <!-- We want to deploy the artifact to a staging location for perusal -->
+		            <plugin>
+		                <groupId>org.apache.maven.plugins</groupId>
+		                <artifactId>maven-deploy-plugin</artifactId>
+		                <version>2.3</version>
+		                <inherited>true</inherited>
+		                <configuration>
+		                    <updateReleaseInfo>true</updateReleaseInfo>
+		                    <altDeploymentRepository>${deploy.repository}</altDeploymentRepository>
+		                </configuration>
+		            </plugin>
+
+		            <!-- We want to deploy the site to a staging location for perusal -->
+		            <plugin>
+		                <groupId>org.apache.maven.plugins</groupId>
+		                <artifactId>maven-site-plugin</artifactId>
+		                <version>2.0-beta-6</version>
+		                <executions>
+		                    <execution>
+		                        <goals>
+		                            <goal>stage-deploy</goal>
+		                        </goals>
+		                        <configuration>
+		                            <stagingSiteURL>${deploy.siteURL}</stagingSiteURL>
+		                        </configuration>
+		                    </execution>
+		                </executions>
+		            </plugin>
+
+		            <!-- We want to sign the artifact, the POM, and all attached artifacts -->
+		            <plugin>
+		                <groupId>org.apache.maven.plugins</groupId>
+		                <artifactId>maven-gpg-plugin</artifactId>
+		                <version>1.0-alpha-4</version>
+		                <configuration>
+		                    <passphrase>${gpg.passphrase}</passphrase>
+		                </configuration>
+		                <executions>
+		                    <execution>
+		                        <goals>
+		                            <goal>sign</goal>
+		                        </goals>
+		                    </execution>
+		                </executions>
+		            </plugin>
+                </plugins> 
+            </build>
         </profile>
     </profiles>
     
-    <repositories>
-        <!--
-        NOTE: The default repositories are picked up by Genesis, but need to
-              specify where Genesis lives to pick it up + any additional repositories.
-        -->
-        <repository>
-            <id>apache-snapshots</id>
-            <name>Apache Snapshots Repository</name>
-            <url>http://people.apache.org/repo/m2-snapshot-repository</url>
-            <layout>default</layout>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>daily</updatePolicy>
-                <checksumPolicy>ignore</checksumPolicy>
-            </snapshots>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-        </repository>
-    </repositories>
+    <modules>
+        <module>geronimo-activation_1.1_spec</module>
+        <module>geronimo-annotation_1.0_spec</module>
+        <module>geronimo-ejb_3.0_spec</module>
+        <module>geronimo-el_1.0_spec</module>
+        <module>geronimo-interceptor_3.0_spec</module>
+        <module>geronimo-j2ee-connector_1.5_spec</module>
+        <module>geronimo-j2ee-management_1.1_spec</module>
+        <module>geronimo-jacc_1.1_spec</module>
+        <module>geronimo-jaxr_1.0_spec</module>
+        <module>geronimo-jaxrpc_1.1_spec</module>
+        <module>geronimo-jms_1.1_spec</module>
+        <module>geronimo-jpa_3.0_spec</module>
+        <module>geronimo-jsp_2.1_spec</module>
+        <module>geronimo-jta_1.1_spec</module>
+        <module>geronimo-saaj_1.3_spec</module>
+        <module>geronimo-servlet_2.5_spec</module>
+        <module>geronimo-ws-metadata_2.0_spec</module>
+    </modules>
 
     <distributionManagement>
         <!--
