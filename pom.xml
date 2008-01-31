@@ -32,7 +32,7 @@
     </parent>
 
     <artifactId>geronimo-el_1.0_spec</artifactId>
-    <packaging>bundle</packaging>
+    <packaging>jar</packaging>
     <name>Expression Language 1.0</name>
     <version>1.0.1-SNAPSHOT</version>
 
