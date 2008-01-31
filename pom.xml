@@ -32,7 +32,7 @@
     </parent>
 
     <artifactId>geronimo-interceptor_3.0_spec</artifactId>
-    <packaging>bundle</packaging>
+    <packaging>jar</packaging>
     <name>Interceptor 3.0</name>
     <version>1.0.1-SNAPSHOT</version>
 
