@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<!--
@@ -33,7 +34,7 @@
     <artifactId>specs</artifactId>
     <packaging>pom</packaging>
     <name>Geronimo Specifications</name>
-    <version>1.5-SNAPSHOT</version>
+    <version>1.4-SNAPSHOT</version>
 
     <description>
         Provides open-source implementations of Sun specifications.
@@ -64,7 +65,7 @@
 	     -->
 	    <geronimo.osgi.import.pkg>*</geronimo.osgi.import.pkg>
 	    <geronimo.osgi.export.pkg>*</geronimo.osgi.export.pkg>
-	    <geronimo.osgi.private.pkg />
+	    <geronimo.osgi.private.pkg></geronimo.osgi.private.pkg>
 	    <geronimo.osgi.export>!META-INF*,${geronimo.osgi.export.pkg}*;version=${geronimo.osgi.export.version}</geronimo.osgi.export>
 	    <geronimo.osgi.export.version>${project.version}</geronimo.osgi.export.version>
 	    <geronimo.osgi.import>!META-INF*,${geronimo.osgi.import.pkg}</geronimo.osgi.import>
