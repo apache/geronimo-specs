@@ -75,20 +75,6 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.geronimo.genesis.plugins</groupId>
-                <artifactId>tools-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>install-legal-files</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>copy-legal-files</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
@@ -111,6 +97,27 @@
                             <resourceBundles>
                                 <resourceBundle>org.apache:apache-jar-resource-bundle:1.0</resourceBundle>
                             </resourceBundles>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.1</version>
+                <inherited>true</inherited>
+                <executions>
+                    <execution>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <tasks>
+                                <copy file="LICENSE.txt" tofile="target/maven-shared-archive-resources/META-INF/LICENSE" overwrite="true" />
+                                <copy file="NOTICE.txt" tofile="target/maven-shared-archive-resources/META-INF/NOTICE" overwrite="true" />
+                            </tasks>
                         </configuration>
                     </execution>
                 </executions>
