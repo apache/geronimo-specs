@@ -27,29 +27,21 @@
     <parent>
         <groupId>org.apache.geronimo.specs</groupId>
         <artifactId>specs</artifactId>
-        <version>1.3-SNAPSHOT</version>
+        <version>1.4-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>geronimo-servlet_2.5_spec</artifactId>
     <packaging>bundle</packaging>
     <name>Servlet 2.5</name>
-    <version>1.1.1-SNAPSHOT</version>
+    <version>1.1.2-SNAPSHOT</version>
 
     <description>Servlet 2.5 Specification</description>
 
     <properties>
 	    <geronimo.osgi.export.pkg>javax.servlet*</geronimo.osgi.export.pkg>
         <geronimo.osgi.export.version>2.5</geronimo.osgi.export.version>
-        <geronimo.osgi.resources>src/main/resources/,META-INF/LICENSE.txt=LICENSE.txt,META-INF/NOTICE.txt=NOTICE.txt</geronimo.osgi.resources>
 	</properties>
-
-    <scm>
-        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-servlet_2.5_spec</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/repos/asf/geronimo/specs/trunk/geronimo-servlet_2.5_spec</developerConnection>
-        <url>http://svn.apache.org/viewvc/geronimo/repos/asf/geronimo/specs/trunk/geronimo-servlet_2.5_spec</url>
-    </scm>
-
 
     <build>
         <resources>
