@@ -27,14 +27,14 @@
     <parent>
         <groupId>org.apache.geronimo.specs</groupId>
         <artifactId>specs</artifactId>
-        <version>1.5-SNAPSHOT</version>
+        <version>1.4-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>geronimo-servlet_2.5_spec</artifactId>
     <packaging>jar</packaging>
     <name>Servlet 2.5</name>
-    <version>1.1.3-SNAPSHOT</version>
+    <version>1.1.2-SNAPSHOT</version>
 
     <description>Servlet 2.5 Specification</description>
 
@@ -43,23 +43,4 @@
         <geronimo.osgi.export.version>2.5</geronimo.osgi.export.version>
 	</properties>
 
-    <build>
-        <resources>
-            <resource>
-                <targetPath>javax/servlet</targetPath>
-                <directory>src/main/java/javax/servlet</directory>
-                <includes>
-                    <include>**/*.properties</include>
-                </includes>
-            </resource>
-            <resource>
-                <targetPath>javax/servlet/resources</targetPath>
-                <directory>src/main/schema</directory>
-                <includes>
-                    <include>*.dtd</include>
-                    <include>*.xsd</include>
-                </includes>
-            </resource>
-        </resources>
-    </build>
 </project>
