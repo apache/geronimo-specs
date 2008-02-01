@@ -27,18 +27,24 @@
     <parent>
         <groupId>org.apache.geronimo.specs</groupId>
         <artifactId>specs</artifactId>
-        <version>1.5-SNAPSHOT</version>
+        <version>1.4-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>geronimo-activation_1.1_spec</artifactId>
     <packaging>jar</packaging>
     <name>Activation 1.1</name>
-    <version>1.0.3-SNAPSHOT</version>
+    <version>1.0.2-SNAPSHOT</version>
 
     <properties>
 	    <geronimo.osgi.export.pkg>javax.activation*</geronimo.osgi.export.pkg>
         <geronimo.osgi.export.version>1.1</geronimo.osgi.export.version>
 	</properties>
+
+    <scm>
+        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-activation_1.1_spec/</connection>
+        <developerConnection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-activation_1.1_spec/</developerConnection>
+        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-activation_1.1_spec/</url>
+    </scm>
 
 </project>
