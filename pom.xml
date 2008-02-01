@@ -50,4 +50,10 @@
         </dependency>
     </dependencies>
 
+    <scm>
+        <connection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-saaj_1.3_spec-1.0.0</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-saaj_1.3_spec-1.0.0</developerConnection>
+        <url>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-saaj_1.3_spec-1.0.0</url>
+    </scm>
+
 </project>
