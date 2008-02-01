@@ -27,12 +27,12 @@
     <parent>
         <groupId>org.apache.geronimo.specs</groupId>
         <artifactId>specs</artifactId>
-        <version>1.3</version>
+        <version>1.4</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>geronimo-j2ee-management_1.1_spec</artifactId>
-    <packaging>bundle</packaging>
+    <packaging>jar</packaging>
     <name>J2EE Management 1.1</name>
     <version>1.0.1</version>
 
@@ -41,12 +41,6 @@
         <geronimo.osgi.export.version>1.1</geronimo.osgi.export.version>
         <geronimo.osgi.import.pkg>javax.ejb*;resolution:=optional,*</geronimo.osgi.import.pkg>
     </properties>
-
-    <scm>
-        <connection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-j2ee-management_1.1_spec-1.0.1</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-j2ee-management_1.1_spec-1.0.1</developerConnection>
-        <url>https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-j2ee-management_1.1_spec-1.0.1</url>
-    </scm>
 
     <dependencies>
         <dependency>
@@ -57,25 +51,10 @@
         </dependency>
     </dependencies>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.5</source>
-                    <target>1.5</target>
-                </configuration>
-            </plugin>
+    <scm>
+        <connection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-j2ee-management_1.1_spec-1.0.1</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-j2ee-management_1.1_spec-1.0.1</developerConnection>
+        <url>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-j2ee-management_1.1_spec-1.0.1</url>
+    </scm>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-idea-plugin</artifactId>
-                <configuration>
-                    <jdkName>1.5</jdkName>
-                    <linkModules>true</linkModules>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 </project>
