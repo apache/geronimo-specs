@@ -39,9 +39,9 @@
     <description>Servlet 2.5 Specification</description>
 
     <properties>
-	    <geronimo.osgi.export.pkg>javax.servlet*</geronimo.osgi.export.pkg>
+        <geronimo.osgi.export.pkg>javax.servlet*</geronimo.osgi.export.pkg>
         <geronimo.osgi.export.version>2.5</geronimo.osgi.export.version>
-	</properties>
+    </properties>
 
     <scm>
         <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-servlet_2.5_spec/</connection>
