@@ -39,27 +39,14 @@
     <description>Servlet 2.5 Specification</description>
 
     <properties>
-	    <geronimo.osgi.export.pkg>javax.servlet*</geronimo.osgi.export.pkg>
+        <geronimo.osgi.export.pkg>javax.servlet*</geronimo.osgi.export.pkg>
         <geronimo.osgi.export.version>2.5</geronimo.osgi.export.version>
-	</properties>
+    </properties>
 
-    <build>
-        <resources>
-            <resource>
-                <targetPath>javax/servlet</targetPath>
-                <directory>src/main/java/javax/servlet</directory>
-                <includes>
-                    <include>**/*.properties</include>
-                </includes>
-            </resource>
-            <resource>
-                <targetPath>javax/servlet/resources</targetPath>
-                <directory>src/main/schema</directory>
-                <includes>
-                    <include>*.dtd</include>
-                    <include>*.xsd</include>
-                </includes>
-            </resource>
-        </resources>
-    </build>
+    <scm>
+        <connection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-servlet_2.5_spec-1.1.2</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-servlet_2.5_spec-1.1.2</developerConnection>
+        <url>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-servlet_2.5_spec-1.1.2</url>
+    </scm>
+
 </project>
