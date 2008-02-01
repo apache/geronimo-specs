@@ -37,8 +37,14 @@
     <version>1.0.2</version>
 
     <properties>
-	    <geronimo.osgi.export.pkg>javax.activation*</geronimo.osgi.export.pkg>
+        <geronimo.osgi.export.pkg>javax.activation*</geronimo.osgi.export.pkg>
         <geronimo.osgi.export.version>1.1</geronimo.osgi.export.version>
-	</properties>
+    </properties>
+
+    <scm>
+        <connection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-activation_1.1_spec-1.0.2</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-activation_1.1_spec-1.0.2</developerConnection>
+        <url>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-activation_1.1_spec-1.0.2</url>
+    </scm>
 
 </project>
