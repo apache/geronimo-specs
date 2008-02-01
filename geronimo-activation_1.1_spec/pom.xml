@@ -37,9 +37,9 @@
     <version>1.0.2-SNAPSHOT</version>
 
     <properties>
-	    <geronimo.osgi.export.pkg>javax.activation*</geronimo.osgi.export.pkg>
+        <geronimo.osgi.export.pkg>javax.activation*</geronimo.osgi.export.pkg>
         <geronimo.osgi.export.version>1.1</geronimo.osgi.export.version>
-	</properties>
+    </properties>
 
     <scm>
         <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-activation_1.1_spec/</connection>
