@@ -33,16 +33,16 @@
     <artifactId>specs</artifactId>
     <packaging>pom</packaging>
     <name>Geronimo Specifications</name>
-    <version>1.4</version>
+    <version>1.5-SNAPSHOT</version>
 
     <description>
         Provides open-source implementations of Sun specifications.
     </description>
 
     <scm>
-        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/tags/specs-1.4</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/specs-1.4</developerConnection>
-        <url>http://svn.apache.org/viewvc/geronimo/specs/tags/specs-1.4</url>
+        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/</developerConnection>
+        <url>http://svn.apache.org/viewvc/geronimo/specs/trunk/</url>
     </scm>
 
     <dependencies>
