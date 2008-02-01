@@ -27,12 +27,12 @@
     <parent>
         <groupId>org.apache.geronimo.specs</groupId>
         <artifactId>specs</artifactId>
-        <version>1.3</version>
+        <version>1.4</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>geronimo-jsp_2.1_spec</artifactId>
-    <packaging>bundle</packaging>
+    <packaging>jar</packaging>
     <name>JSP 2.1</name>
     <version>1.0.1</version>
 
@@ -41,17 +41,11 @@
         <geronimo.osgi.export.version>2.1</geronimo.osgi.export.version>
     </properties>
 
-    <scm>
-        <connection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-jsp_2.1_spec-1.0.1</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-jsp_2.1_spec-1.0.1</developerConnection>
-        <url>https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-jsp_2.1_spec-1.0.1</url>
-    </scm>
-    
     <dependencies>
         <dependency>
             <groupId>org.apache.geronimo.specs</groupId>
             <artifactId>geronimo-servlet_2.5_spec</artifactId>
-            <version>1.1.1</version>
+            <version>1.1.2</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -62,58 +56,10 @@
         </dependency>
     </dependencies>
     
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.5</source>
-                    <target>1.5</target>
-                </configuration>
-            </plugin>
+    <scm>
+        <connection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-jsp_2.1_spec-1.0.1</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-jsp_2.1_spec-1.0.1</developerConnection>
+        <url>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-jsp_2.1_spec-1.0.1</url>
+    </scm>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <configuration>
-                    <source>1.5</source>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-idea-plugin</artifactId>
-                <configuration>
-                    <jdkName>1.5</jdkName>
-                    <linkModules>true</linkModules>
-                </configuration>
-            </plugin>
-        </plugins>
-
-        <resources>
-            <resource>
-                <targetPath>javax/servlet/jsp/resources</targetPath>
-                <directory>${basedir}/src/main/schema</directory>
-                <includes>
-                    <include>*.dtd</include>
-                    <include>*.xsd</include>
-                </includes>
-            </resource>
-            <resource>
-                <targetPath>javax/servlet/resources</targetPath>
-                <directory>${basedir}/src/main/schema</directory>
-                <includes>
-                    <include>jsp_2_1.xsd</include>
-                </includes>
-            </resource>
-            <resource>
-                <targetPath>javax/servlet/resources</targetPath>
-                <directory>${basedir}/src/main/schema</directory>
-                <includes>
-                    <include>web-jsptaglibrary_2_1.xsd</include>
-                </includes>
-            </resource>
-        </resources>
-    </build>
 </project>
