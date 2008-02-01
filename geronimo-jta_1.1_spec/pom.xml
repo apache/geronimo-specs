@@ -34,7 +34,7 @@
     <artifactId>geronimo-jta_1.1_spec</artifactId>
     <packaging>jar</packaging>
     <name>JTA 1.1</name>
-    <version>1.1.1</version>
+    <version>1.1.2-SNAPSHOT</version>
 
     <properties>
 	    <geronimo.osgi.export.pkg>javax.transaction*</geronimo.osgi.export.pkg>
@@ -42,9 +42,9 @@
 	</properties>
 
     <scm>
-        <connection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-jta_1.1_spec-1.1.1</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-jta_1.1_spec-1.1.1</developerConnection>
-        <url>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-jta_1.1_spec-1.1.1</url>
+        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jta_1.1_spec/</connection>
+        <developerConnection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jta_1.1_spec/</developerConnection>
+        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-jta_1.1_spec/</url>
     </scm>
 
 </project>
