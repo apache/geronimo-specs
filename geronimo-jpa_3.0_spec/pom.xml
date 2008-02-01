@@ -27,18 +27,24 @@
     <parent>
         <groupId>org.apache.geronimo.specs</groupId>
         <artifactId>specs</artifactId>
-        <version>1.4</version>
+        <version>1.4-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>geronimo-jpa_3.0_spec</artifactId>
     <packaging>jar</packaging>
     <name>JPA 1.0</name>
-    <version>1.1.1</version>
+    <version>1.1.1-SNAPSHOT</version>
 
     <properties>
         <geronimo.osgi.export.pkg>javax.persistence*</geronimo.osgi.export.pkg>
         <geronimo.osgi.export.version>3.0</geronimo.osgi.export.version>
     </properties>
+
+    <scm>
+        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jpa_3.0_spec/</connection>
+        <developerConnection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jpa_3.0_spec/</developerConnection>
+        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-jpa_3.0_spec/</url>
+    </scm>
 
 </project>

@@ -40,9 +40,9 @@
     </description>
 
     <scm>
-        <connection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/specs-1.4</connection>
+        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/tags/specs-1.4</connection>
         <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/specs-1.4</developerConnection>
-        <url>https://svn.apache.org/repos/asf/geronimo/specs/tags/specs-1.4</url>
+        <url>http://svn.apache.org/viewvc/geronimo/specs/tags/specs-1.4</url>
     </scm>
 
     <dependencies>
@@ -76,6 +76,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.0.2</version>
                 <configuration>
                     <source>1.5</source>
                     <target>1.5</target>
@@ -114,8 +115,8 @@
                         </goals>
                         <configuration>
                             <tasks>
-                                <copy file="LICENSE.txt" tofile="target/maven-shared-archive-resources/META-INF/LICENSE" overwrite="true" />
-                                <copy file="NOTICE.txt" tofile="target/maven-shared-archive-resources/META-INF/NOTICE" overwrite="true" />
+                                <copy file="LICENSE.txt" tofile="${project.build.directory}/maven-shared-archive-resources/META-INF/LICENSE" overwrite="true" />
+                                <copy file="NOTICE.txt" tofile="${project.build.directory}/maven-shared-archive-resources/META-INF/NOTICE" overwrite="true" />
                             </tasks>
                         </configuration>
                     </execution>
@@ -135,6 +136,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-idea-plugin</artifactId>
+                <version>2.1</version>
                 <configuration>
                     <jdkName>1.5</jdkName>
                     <linkModules>true</linkModules>
@@ -144,8 +146,12 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
+		        <version>2.0-beta-7</version>
                 <configuration>
                     <tagBase>https://svn.apache.org/repos/asf/geronimo/specs/tags/</tagBase>
+                    <useReleaseProfile>false</useReleaseProfile>
+                    <goals>deploy</goals>
+                    <arguments>-Prelease</arguments>
                 </configuration>
             </plugin>
 
@@ -175,25 +181,27 @@
                     </execution>
 		        </executions>
 	        </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.1</version>
+                <configuration>
+                    <archive>
+                        <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+                    </archive>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 
     <profiles>
         <profile>
-            <id>deploy</id>
+            <id>release</id>
 
             <build>
-                <defaultGoal>
-                    deploy
-                </defaultGoal>
-
                 <plugins>
-		            <plugin>
-		                <groupId>org.apache.maven.plugins</groupId>
-		                <artifactId>maven-clean-plugin</artifactId>
-		                <version>2.2</version>
-		            </plugin>
-
 		            <!-- We want the sources JAR published with the release -->
 		            <plugin>
 		                <groupId>org.apache.maven.plugins</groupId>
@@ -280,26 +288,6 @@
         </profile>
     </profiles>
     
-    <modules>
-        <module>geronimo-activation_1.1_spec</module>
-        <module>geronimo-annotation_1.0_spec</module>
-        <module>geronimo-ejb_3.0_spec</module>
-        <module>geronimo-el_1.0_spec</module>
-        <module>geronimo-interceptor_3.0_spec</module>
-        <module>geronimo-j2ee-connector_1.5_spec</module>
-        <module>geronimo-j2ee-management_1.1_spec</module>
-        <module>geronimo-jacc_1.1_spec</module>
-        <module>geronimo-jaxr_1.0_spec</module>
-        <module>geronimo-jaxrpc_1.1_spec</module>
-        <module>geronimo-jms_1.1_spec</module>
-        <module>geronimo-jpa_3.0_spec</module>
-        <module>geronimo-jsp_2.1_spec</module>
-        <module>geronimo-jta_1.1_spec</module>
-        <module>geronimo-saaj_1.3_spec</module>
-        <module>geronimo-servlet_2.5_spec</module>
-        <module>geronimo-ws-metadata_2.0_spec</module>
-    </modules>
-
     <distributionManagement>
         <!--
         NOTE: The repository and snapshotRepository are picked up from Genesis.
