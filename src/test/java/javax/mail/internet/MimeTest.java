@@ -52,8 +52,6 @@ public class MimeTest extends TestCase {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         mime.writeTo(baos);
 
-        System.out.println(baos);
-
         MimeMessage mime2 = new MimeMessage(session, new ByteArrayInputStream(baos.toByteArray()));
         assertTrue(mime2.getContent() instanceof MimeMultipart);
         MimeMultipart parts2 = (MimeMultipart) mime2.getContent();
