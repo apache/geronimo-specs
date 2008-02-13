@@ -34,7 +34,7 @@
     <artifactId>geronimo-javamail_1.4_spec</artifactId>
     <packaging>bundle</packaging>
     <name>JavaMail 1.4</name>
-    <version>1.2</version>
+    <version>1.3-SNAPSHOT</version>
 
     <properties>
         <geronimo.osgi.export.pkg>javax.mail*</geronimo.osgi.export.pkg>

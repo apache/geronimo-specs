@@ -327,7 +327,6 @@ public class MimeBodyPart extends BodyPart implements MimePart {
 
 
     public void setFileName(String name) throws MessagingException {
-        System.out.println("Setting file name to " + name);
         // there's an optional session property that requests file name encoding...we need to process this before
         // setting the value.
         if (name != null && SessionUtil.getBooleanProperty(MIME_ENCODEFILENAME, false)) {
