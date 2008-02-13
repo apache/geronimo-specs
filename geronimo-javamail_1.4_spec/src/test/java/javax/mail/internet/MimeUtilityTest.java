@@ -144,6 +144,15 @@ public class MimeUtilityTest extends TestCase {
         encoded = MimeUtility.encodeText(encodeString, "UTF-8", "B");
         assertEquals("=?UTF-8?B?IGjDqSEgw6DDqMO0dSAhISE=?=", encoded);
         assertEquals(encodeString, MimeUtility.decodeText(encoded));
+        
+        // this has multiple byte characters and is longer than the 76 character grouping, so this 
+        // hits a lot of different boundary conditions 
+        String subject = "\u03a0\u03a1\u03a2\u03a3\u03a4\u03a5\u03a6\u03a7 \u03a8\u03a9\u03aa\u03ab \u03ac\u03ad\u03ae\u03af\u03b0 \u03b1\u03b2\u03b3\u03b4\u03b5 \u03b6\u03b7\u03b8\u03b9\u03ba \u03bb\u03bc\u03bd\u03be\u03bf\u03c0 \u03c1\u03c2\u03c3\u03c4\u03c5\u03c6\u03c7 \u03c8\u03c9\u03ca\u03cb\u03cd\u03ce \u03cf\u03d0\u03d1\u03d2";
+        encoded = MimeUtility.encodeText(subject, "utf-8", "Q"); 
+        assertEquals(subject, MimeUtility.decodeText(encoded));
+        
+        encoded = MimeUtility.encodeText(subject, "utf-8", "B"); 
+        assertEquals(subject, MimeUtility.decodeText(encoded));
     }
 
 
