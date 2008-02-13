@@ -67,7 +67,6 @@ public class MimeMessageTest extends TestCase {
         assertEquals(((InternetAddress)newMessage.getSender()).getAddress(), "foo");
 
         String[] headers = newMessage.getHeader("foo");
-        System.out.println("Get header returned " + headers);
         assertTrue(headers.length == 1);
         assertEquals(headers[0], "bar");
 
@@ -188,7 +187,6 @@ public class MimeMessageTest extends TestCase {
 
         recipients = msg.getAllRecipients();
 
-        System.out.println("Get all recipients returns " + recipients.length);
         assertTrue(recipients.length == 3);
         assertEquals(recipients[0], dev);
         assertEquals(recipients[1], user);
@@ -266,7 +264,6 @@ public class MimeMessageTest extends TestCase {
         msg.setRecipients(type, "geronimo-dev");
         recipients = msg.getRecipients(type);
         assertTrue(recipients.length == 1);
-        System.out.println("Received address " + recipients[0] + " of type " + recipients[0].getType());
         assertEquals(recipients[0], dev);
 
         msg.addRecipients(type, "geronimo-user");

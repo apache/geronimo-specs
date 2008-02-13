@@ -464,7 +464,7 @@ public class Base64Encoder
         PrintStream writer = new PrintStream(out);
 
         // encoded words are restricted to 76 bytes, including the control adornments.
-        int limit = 76 - 7 - charset.length();
+        int limit = 75 - 7 - charset.length();
         boolean firstLine = true;
         StringBuffer encodedString = new StringBuffer(76);
 
@@ -499,8 +499,94 @@ public class Base64Encoder
 
             // reset our string buffer for the next segment.
             encodedString.setLength(0);
+            // we need a delimiter after this 
+            firstLine = false; 
         }
     }
+
+
+    /**
+     * Perform RFC-2047 word encoding using Base64 data encoding.
+     *
+     * @param in      The source for the encoded data.
+     * @param charset The charset tag to be added to each encoded data section.
+     * @param out     The output stream where the encoded data is to be written.
+     * @param fold    Controls whether separate sections of encoded data are separated by
+     *                linebreaks or whitespace.
+     *
+     * @exception IOException
+     */
+    public void encodeWord(byte[] data, StringBuffer out, String charset) throws IOException
+    {
+        // append the word header 
+        out.append("=?");
+        out.append(charset);
+        out.append("?B?"); 
+        // add on the encodeded data       
+        encodeWordData(data, out); 
+        // the end of the encoding marker 
+        out.append("?="); 
+    }
+    
+    /**
+     * encode the input data producing a base 64 output stream.
+     *
+     * @return the number of bytes produced.
+     */
+    public void encodeWordData(byte[] data, StringBuffer out) 
+    {
+        int modulus = data.length % 3;
+        int dataLength = (data.length - modulus);
+        int a1, a2, a3;
+
+        for (int i = 0; i < dataLength; i += 3)
+        {
+            a1 = data[i] & 0xff;
+            a2 = data[i + 1] & 0xff;
+            a3 = data[i + 2] & 0xff;
+            
+            out.append((char)encodingTable[(a1 >>> 2) & 0x3f]);
+            out.append((char)encodingTable[((a1 << 4) | (a2 >>> 4)) & 0x3f]);
+            out.append((char)encodingTable[((a2 << 2) | (a3 >>> 6)) & 0x3f]);
+            out.append((char)encodingTable[a3 & 0x3f]);
+        }
+
+        /*
+         * process the tail end.
+         */
+        int    b1, b2, b3;
+        int    d1, d2;
+
+        switch (modulus)
+        {
+        case 0:        /* nothing left to do */
+            break;
+        case 1:
+            d1 = data[dataLength] & 0xff;
+            b1 = (d1 >>> 2) & 0x3f;
+            b2 = (d1 << 4) & 0x3f;
+
+            out.append((char)encodingTable[b1]);
+            out.append((char)encodingTable[b2]);
+            out.append((char)padding);
+            out.append((char)padding);
+            break;
+        case 2:
+            d1 = data[dataLength] & 0xff;
+            d2 = data[dataLength + 1] & 0xff;
+
+            b1 = (d1 >>> 2) & 0x3f;
+            b2 = ((d1 << 4) | (d2 >>> 4)) & 0x3f;
+            b3 = (d2 << 2) & 0x3f;
+
+            out.append((char)encodingTable[b1]);
+            out.append((char)encodingTable[b2]);
+            out.append((char)encodingTable[b3]);
+            out.append((char)padding);
+            break;
+        }
+    }
+    
 
     /**
      * encode the input data producing a base 64 output stream.
@@ -520,7 +606,7 @@ public class Base64Encoder
                 int  a1 = inBuffer[0] & 0xff;
                 int  a2 = inBuffer[1] & 0xff;
                 int  a3 = inBuffer[2] & 0xff;
-
+                
                 out.append((char)encodingTable[(a1 >>> 2) & 0x3f]);
                 out.append((char)encodingTable[((a1 << 4) | (a2 >>> 4)) & 0x3f]);
                 out.append((char)encodingTable[((a2 << 2) | (a3 >>> 6)) & 0x3f]);
@@ -550,5 +636,22 @@ public class Base64Encoder
                 return;
             }
         }
+    }
+    
+    
+    /**
+     * Estimate the final encoded size of a segment of data. 
+     * This is used to ensure that the encoded blocks do 
+     * not get split across a unicode character boundary and 
+     * that the encoding will fit within the bounds of 
+     * a mail header line. 
+     * 
+     * @param data   The data we're anticipating encoding.
+     * 
+     * @return The size of the byte data in encoded form. 
+     */
+    public int estimateEncodedLength(byte[] data) 
+    {
+        return ((data.length + 2) / 3) * 4; 
     }
 }

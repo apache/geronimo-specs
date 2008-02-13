@@ -636,8 +636,8 @@ public class QuotedPrintableEncoder implements Encoder {
         PushbackInputStream inStream = new PushbackInputStream(in);
         PrintStream writer = new PrintStream(out);
 
-        // segments of encoded data are limited to 76 byes, including the control sections.
-        int limit = 76 - 7 - charset.length();
+        // segments of encoded data are limited to 75 byes, including the control sections.
+        int limit = 75 - 7 - charset.length();
         boolean firstLine = true;
         StringBuffer encodedString = new StringBuffer(76);
 
@@ -672,7 +672,102 @@ public class QuotedPrintableEncoder implements Encoder {
 
             // we reset the string buffer and reuse it.
             encodedString.setLength(0);
+            // we need a delimiter between sections from this point on. 
+            firstLine = false;
         }
+    }
+
+
+    /**
+     * Perform RFC-2047 word encoding using Base64 data encoding.
+     *
+     * @param in      The source for the encoded data.
+     * @param charset The charset tag to be added to each encoded data section.
+     * @param out     The output stream where the encoded data is to be written.
+     * @param fold    Controls whether separate sections of encoded data are separated by
+     *                linebreaks or whitespace.
+     *
+     * @exception IOException
+     */
+    public void encodeWord(byte[] data, StringBuffer out, String charset, String specials) throws IOException
+    {
+        // append the word header 
+        out.append("=?");
+        out.append(charset);
+        out.append("?Q?"); 
+        // add on the encodeded data       
+        encodeWordData(data, out, specials); 
+        // the end of the encoding marker 
+        out.append("?="); 
+    }
+
+
+    /**
+     * Perform RFC-2047 word encoding using Q-P data encoding.
+     *
+     * @param in       The source for the encoded data.
+     * @param charset  The charset tag to be added to each encoded data section.
+     * @param specials The set of special characters that we require to encoded.
+     * @param out      The output stream where the encoded data is to be written.
+     * @param fold     Controls whether separate sections of encoded data are separated by
+     *                 linebreaks or whitespace.
+     *
+     * @exception IOException
+     */
+    public void encodeWordData(byte[] data, StringBuffer out, String specials) throws IOException {
+        for (int i = 0; i < data.length; i++) {
+            int ch = data[i] & 0xff; ; 
+
+            // spaces require special handling.  If the next character is a line terminator, then
+            // the space needs to be encoded.
+            if (ch == ' ') {
+                // blanks get translated into underscores, because the encoded tokens can't have embedded blanks.
+                out.append('_');
+            }
+            // non-ascii chars and the designated specials all get encoded.
+            else if (ch < 32 || ch >= 127 || specials.indexOf(ch) != -1) {
+                out.append('=');
+                out.append((char)encodingTable[ch >> 4]);
+                out.append((char)encodingTable[ch & 0x0F]);
+            }
+            else {
+                // good character, just use unchanged.
+                out.append((char)ch);
+            }
+        }
+    }
+    
+    
+    /**
+     * Estimate the final encoded size of a segment of data. 
+     * This is used to ensure that the encoded blocks do 
+     * not get split across a unicode character boundary and 
+     * that the encoding will fit within the bounds of 
+     * a mail header line. 
+     * 
+     * @param data   The data we're anticipating encoding.
+     * 
+     * @return The size of the byte data in encoded form. 
+     */
+    public int estimateEncodedLength(byte[] data, String specials) 
+    {
+        int count = 0; 
+        
+        for (int i = 0; i < data.length; i++) {
+            // make sure this is just a single byte value.
+            int  ch = data[i] & 0xff;
+
+            // non-ascii chars and the designated specials all get encoded.
+            if (ch < 32 || ch >= 127 || specials.indexOf(ch) != -1) {
+                // Q encoding translates a single char into 3 characters 
+                count += 3; 
+            }
+            else {
+                // non-encoded character 
+                count++;
+            }
+        }
+        return count; 
     }
 }
 

@@ -567,23 +567,132 @@ public class MimeUtility {
         }
 
         try {
-            // get the string bytes in the correct source charset
-            InputStream in = new ByteArrayInputStream(word.getBytes( javaCharset(charset)));
-            ByteArrayOutputStream out = new ByteArrayOutputStream();
-
+            
+            // we'll format this directly into the string buffer 
+            StringBuffer result = new StringBuffer(); 
+            
+            // this is the maximum size of a segment of encoded data, which is based off 
+            // of a 75 character size limit and all of the encoding overhead elements.
+            int sizeLimit = 75 - 7 - charset.length();
+            
+            // now do the appropriate encoding work 
             if (encoder.equals("base64")) {
                 Base64Encoder dataEncoder = new Base64Encoder();
-                dataEncoder.encodeWord(in, charset, out, SessionUtil.getBooleanProperty(MIME_FOLDENCODEDWORDS, false));
+                // this may recurse on the encoding if the string is too long.  The left-most will not 
+                // get a segment delimiter 
+                encodeBase64(word, result, sizeLimit, charset, dataEncoder, true, SessionUtil.getBooleanProperty(MIME_FOLDENCODEDWORDS, false)); 
             }
             else {
                 QuotedPrintableEncoder dataEncoder = new QuotedPrintableEncoder();
-                dataEncoder.encodeWord(in, charset, encodingWord ? QP_WORD_SPECIALS : QP_TEXT_SPECIALS, out, SessionUtil.getBooleanProperty(MIME_FOLDENCODEDWORDS, false));
+                encodeQuotedPrintable(word, result, sizeLimit, charset, dataEncoder, true, 
+                    SessionUtil.getBooleanProperty(MIME_FOLDENCODEDWORDS, false), encodingWord ? QP_WORD_SPECIALS : QP_TEXT_SPECIALS); 
             }
-
-            byte[] bytes = out.toByteArray();
-            return new String(bytes);
+            return result.toString();    
         } catch (IOException e) {
             throw new UnsupportedEncodingException("Invalid encoding");
+        }
+    }
+    
+    
+    /**
+     * Encode a string into base64 encoding, taking into 
+     * account the maximum segment length. 
+     * 
+     * @param data      The string data to encode.
+     * @param out       The output buffer used for the result.
+     * @param sizeLimit The maximum amount of encoded data we're allowed
+     *                  to have in a single encoded segment.
+     * @param charset   The character set marker that needs to be added to the
+     *                  encoding header.
+     * @param encoder   The encoder instance we're using.
+     * @param firstSegment
+     *                  If true, this is the first (left-most) segment in the
+     *                  data.  Used to determine if segment delimiters need to
+     *                  be added between sections.
+     * @param foldSegments
+     *                  Indicates the type of delimiter to use (blank or newline sequence).
+     */
+    static private void encodeBase64(String data, StringBuffer out, int sizeLimit, String charset, Base64Encoder encoder, boolean firstSegment, boolean foldSegments) throws IOException
+    {
+        // this needs to be converted into the appropriate transfer encoding. 
+        byte [] bytes = data.getBytes(javaCharset(charset)); 
+        
+        int estimatedSize = encoder.estimateEncodedLength(bytes); 
+        
+        // if the estimated encoding size is over our segment limit, split the string in half and 
+        // recurse.  Eventually we'll reach a point where things are small enough.  
+        if (estimatedSize > sizeLimit) {
+            // the first segment indicator travels with the left half. 
+            encodeBase64(data.substring(0, data.length() / 2), out, sizeLimit, charset, encoder, firstSegment, foldSegments);
+            // the second half can never be the first segment 
+            encodeBase64(data.substring(data.length() / 2), out, sizeLimit, charset, encoder, false, foldSegments);
+        }
+        else 
+        {
+            // if this is not the first sement of the encoding, we need to add either a blank or 
+            // a newline sequence to the data 
+            if (!firstSegment) {
+                if (foldSegments) {
+                    out.append("\r\n"); 
+                }
+                else {
+                    out.append(' '); 
+                }
+            }
+            // do the encoding of the segment.
+            encoder.encodeWord(bytes, out, charset);
+        }
+    }
+    
+    
+    /**
+     * Encode a string into quoted printable encoding, taking into 
+     * account the maximum segment length. 
+     * 
+     * @param data      The string data to encode.
+     * @param out       The output buffer used for the result.
+     * @param sizeLimit The maximum amount of encoded data we're allowed
+     *                  to have in a single encoded segment.
+     * @param charset   The character set marker that needs to be added to the
+     *                  encoding header.
+     * @param encoder   The encoder instance we're using.
+     * @param firstSegment
+     *                  If true, this is the first (left-most) segment in the
+     *                  data.  Used to determine if segment delimiters need to
+     *                  be added between sections.
+     * @param foldSegments
+     *                  Indicates the type of delimiter to use (blank or newline sequence).
+     */
+    static private void encodeQuotedPrintable(String data, StringBuffer out, int sizeLimit, String charset, QuotedPrintableEncoder encoder, 
+        boolean firstSegment, boolean foldSegments, String specials)  throws IOException 
+    {
+        // this needs to be converted into the appropriate transfer encoding. 
+        byte [] bytes = data.getBytes(javaCharset(charset)); 
+        
+        int estimatedSize = encoder.estimateEncodedLength(bytes, specials); 
+        
+        // if the estimated encoding size is over our segment limit, split the string in half and 
+        // recurse.  Eventually we'll reach a point where things are small enough.  
+        if (estimatedSize > sizeLimit) {
+            // the first segment indicator travels with the left half. 
+            encodeQuotedPrintable(data.substring(0, data.length() / 2), out, sizeLimit, charset, encoder, firstSegment, foldSegments, specials);
+            // the second half can never be the first segment 
+            encodeQuotedPrintable(data.substring(data.length() / 2), out, sizeLimit, charset, encoder, false, foldSegments, specials);
+        }
+        else 
+        {
+            // if this is not the first sement of the encoding, we need to add either a blank or 
+            // a newline sequence to the data 
+            if (!firstSegment) {
+                if (foldSegments) {
+                    out.append("\r\n"); 
+                }
+                else {
+                    out.append(' '); 
+                }
+            }
+            // do the encoding of the segment.
+            encoder.encodeWord(bytes, out, charset, specials);
         }
     }
 
