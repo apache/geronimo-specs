@@ -44,5 +44,53 @@ public class MailDateFormatTest extends TestCase {
         assertEquals(13, cal.get(Calendar.HOUR_OF_DAY));
         assertEquals(43, cal.get(Calendar.MINUTE));
         assertEquals(38, cal.get(Calendar.SECOND));
+        
+        date = mdf.parse("Wed, 27-Aug-2003 13:43:38 +0100");
+        // don't we just love the Date class?
+        cal = Calendar.getInstance(new SimpleTimeZone(+1 * 60 * 60 * 1000, "BST"), Locale.getDefault());
+        cal.setTime(date);
+        assertEquals(2003, cal.get(Calendar.YEAR));
+        assertEquals(Calendar.AUGUST, cal.get(Calendar.MONTH));
+        assertEquals(27, cal.get(Calendar.DAY_OF_MONTH));
+        assertEquals(Calendar.WEDNESDAY, cal.get(Calendar.DAY_OF_WEEK));
+        assertEquals(13, cal.get(Calendar.HOUR_OF_DAY));
+        assertEquals(43, cal.get(Calendar.MINUTE));
+        assertEquals(38, cal.get(Calendar.SECOND));
+        
+        date = mdf.parse("27-Aug-2003 13:43:38 EST");
+        // don't we just love the Date class?
+        cal = Calendar.getInstance(new SimpleTimeZone(-5 * 60 * 60 * 1000, "EST"), Locale.getDefault());
+        cal.setTime(date);
+        assertEquals(2003, cal.get(Calendar.YEAR));
+        assertEquals(Calendar.AUGUST, cal.get(Calendar.MONTH));
+        assertEquals(27, cal.get(Calendar.DAY_OF_MONTH));
+        assertEquals(Calendar.WEDNESDAY, cal.get(Calendar.DAY_OF_WEEK));
+        assertEquals(13, cal.get(Calendar.HOUR_OF_DAY));
+        assertEquals(43, cal.get(Calendar.MINUTE));
+        assertEquals(38, cal.get(Calendar.SECOND));
+        
+        date = mdf.parse("27 Aug 2003 13:43 EST");
+        // don't we just love the Date class?
+        cal = Calendar.getInstance(new SimpleTimeZone(-5 * 60 * 60 * 1000, "EST"), Locale.getDefault());
+        cal.setTime(date);
+        assertEquals(2003, cal.get(Calendar.YEAR));
+        assertEquals(Calendar.AUGUST, cal.get(Calendar.MONTH));
+        assertEquals(27, cal.get(Calendar.DAY_OF_MONTH));
+        assertEquals(Calendar.WEDNESDAY, cal.get(Calendar.DAY_OF_WEEK));
+        assertEquals(13, cal.get(Calendar.HOUR_OF_DAY));
+        assertEquals(43, cal.get(Calendar.MINUTE));
+        assertEquals(00, cal.get(Calendar.SECOND));
+        
+        date = mdf.parse("27 Aug 03 13:43 EST");
+        // don't we just love the Date class?
+        cal = Calendar.getInstance(new SimpleTimeZone(-5 * 60 * 60 * 1000, "EST"), Locale.getDefault());
+        cal.setTime(date);
+        assertEquals(2003, cal.get(Calendar.YEAR));
+        assertEquals(Calendar.AUGUST, cal.get(Calendar.MONTH));
+        assertEquals(27, cal.get(Calendar.DAY_OF_MONTH));
+        assertEquals(Calendar.WEDNESDAY, cal.get(Calendar.DAY_OF_WEEK));
+        assertEquals(13, cal.get(Calendar.HOUR_OF_DAY));
+        assertEquals(43, cal.get(Calendar.MINUTE));
+        assertEquals(00, cal.get(Calendar.SECOND));
     }
 }
