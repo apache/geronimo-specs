@@ -39,9 +39,9 @@
     </description>
 
     <scm>
-        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/</developerConnection>
-        <url>http://svn.apache.org/viewvc/geronimo/specs/trunk/</url>
+        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/specs-parent</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/specs-parent</developerConnection>
+        <url>http://svn.apache.org/viewvc/geronimo/specs/trunk/specs-parent</url>
     </scm>
 
     <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
