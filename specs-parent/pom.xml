@@ -32,16 +32,16 @@
     <artifactId>specs-parent</artifactId>
     <packaging>pom</packaging>
     <name>Geronimo Specifications</name>
-    <version>1.5-SNAPSHOT</version>
+    <version>1.5</version>
 
     <description>
         Provides open-source implementations of Sun specifications.
     </description>
 
     <scm>
-        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/specs-parent</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/specs-parent</developerConnection>
-        <url>http://svn.apache.org/viewvc/geronimo/specs/trunk/specs-parent</url>
+        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/tags/specs-parent-1.5</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/specs-parent-1.5</developerConnection>
+        <url>http://svn.apache.org/viewvc/geronimo/specs/tags/specs-parent-1.5</url>
     </scm>
 
     <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
@@ -64,7 +64,7 @@
               -->
         <geronimo.osgi.import.pkg>*</geronimo.osgi.import.pkg>
         <geronimo.osgi.export.pkg>*</geronimo.osgi.export.pkg>
-        <geronimo.osgi.private.pkg/>
+        <geronimo.osgi.private.pkg />
         <geronimo.osgi.export>!META-INF*,${geronimo.osgi.export.pkg}*;version=${geronimo.osgi.export.version}</geronimo.osgi.export>
         <geronimo.osgi.export.version>${project.version}</geronimo.osgi.export.version>
         <geronimo.osgi.import>!META-INF*,${geronimo.osgi.import.pkg}</geronimo.osgi.import>
