@@ -27,26 +27,53 @@
     <parent>
         <groupId>org.apache.geronimo.specs</groupId>
         <artifactId>specs</artifactId>
-        <version>1.4</version>
+        <version>1.5-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>geronimo-servlet_2.5_spec</artifactId>
     <packaging>jar</packaging>
     <name>Servlet 2.5</name>
-    <version>1.1.3-SNAPSHOT</version>
+    <version>1.2-SNAPSHOT</version>
 
     <description>Servlet 2.5 Specification</description>
 
+    <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
+    <distributionManagement>
+        <site>
+            <id>geronimo-website</id>
+            <url>${staging.siteURL}/${siteId}/${version}</url>
+        </site>
+    </distributionManagement>
+
     <properties>
+        <siteId>specs/servlet-2.5</siteId>
+
         <geronimo.osgi.export.pkg>javax.servlet*</geronimo.osgi.export.pkg>
         <geronimo.osgi.export.version>2.5</geronimo.osgi.export.version>
     </properties>
 
     <scm>
-        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-servlet_2.5_spec/</connection>
-        <developerConnection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-servlet_2.5_spec/</developerConnection>
+        <connection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-servlet_2.5_spec/</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-servlet_2.5_spec/</developerConnection>
         <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-servlet_2.5_spec/</url>
     </scm>
+    <profiles>
+        <profile>
+            <id>release</id>
 
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-release-plugin</artifactId>
+                        <configuration>
+                            <tagBase>https://svn.apache.org/repos/asf/geronimo/specs/tags
+                            </tagBase>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
