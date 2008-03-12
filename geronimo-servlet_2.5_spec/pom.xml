@@ -26,9 +26,8 @@
 
     <parent>
         <groupId>org.apache.geronimo.specs</groupId>
-        <artifactId>specs</artifactId>
+        <artifactId>specs-parent</artifactId>
         <version>1.5-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>geronimo-servlet_2.5_spec</artifactId>
