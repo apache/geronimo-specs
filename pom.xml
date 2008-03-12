@@ -27,13 +27,13 @@
     <parent>
         <groupId>org.apache.geronimo.specs</groupId>
         <artifactId>specs-parent</artifactId>
-        <version>1.5-SNAPSHOT</version>
+        <version>1.5</version>
     </parent>
 
     <artifactId>geronimo-servlet_2.5_spec</artifactId>
     <packaging>jar</packaging>
     <name>Servlet 2.5</name>
-    <version>1.2-SNAPSHOT</version>
+    <version>1.2</version>
 
     <description>Servlet 2.5 Specification</description>
 
@@ -53,26 +53,9 @@
     </properties>
 
     <scm>
-        <connection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-servlet_2.5_spec/</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-servlet_2.5_spec/</developerConnection>
-        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-servlet_2.5_spec/</url>
+        <connection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-servlet_2.5_spec-1.2</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-servlet_2.5_spec-1.2</developerConnection>
+        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/tags/geronimo-servlet_2.5_spec-1.2</url>
     </scm>
-    <profiles>
-        <profile>
-            <id>release</id>
 
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-release-plugin</artifactId>
-                        <configuration>
-                            <tagBase>https://svn.apache.org/repos/asf/geronimo/specs/tags
-                            </tagBase>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 </project>
