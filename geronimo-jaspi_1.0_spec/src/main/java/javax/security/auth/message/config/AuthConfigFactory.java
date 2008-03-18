@@ -28,6 +28,7 @@ import javax.security.auth.message.AuthException;
 public abstract class AuthConfigFactory {
 
     public static final String DEFAULT_FACTORY_SECURITY_PROPERTY = "authconfigprovider.factory";
+    private static final String DEFAULT_JASPI_AUTHCONFIGFACTORYIMPL = "org.apache.geronimo.security.jaspi.AuthConfigFactoryImpl";
 
     private static AuthConfigFactory factory;
     private static ClassLoader contextClassLoader;
@@ -54,7 +55,7 @@ public abstract class AuthConfigFactory {
                                 }
                             });
             if (className == null) {
-                className = "org.apache.geronimo.jaspi.AuthConfigFactoryImpl";
+                className = DEFAULT_JASPI_AUTHCONFIGFACTORYIMPL;
             }
             try {
                 final String finalClassName = className;

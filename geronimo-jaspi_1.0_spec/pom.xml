@@ -26,20 +26,19 @@
 
     <parent>
         <groupId>org.apache.geronimo.specs</groupId>
-        <artifactId>specs</artifactId>
-        <version>1.4</version>
-        <relativePath>../pom.xml</relativePath>
+        <artifactId>specs-parent</artifactId>
+        <version>1.5</version>
     </parent>
 
     <artifactId>geronimo-jaspi_1.0_spec</artifactId>
     <packaging>jar</packaging>
     <name>Java Authentication SPI for Containers</name>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>
 
     <properties>
-	    <geronimo.osgi.export.pkg>javax.security.auth.message*</geronimo.osgi.export.pkg>
+        <geronimo.osgi.export.pkg>javax.security.auth.message*</geronimo.osgi.export.pkg>
         <geronimo.osgi.export.version>1.0</geronimo.osgi.export.version>
-	</properties>
+    </properties>
 
     <scm>
         <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jaspi_1.0_spec/</connection>
