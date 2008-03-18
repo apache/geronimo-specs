@@ -26,9 +26,8 @@
 
     <parent>
         <groupId>org.apache.geronimo.specs</groupId>
-        <artifactId>specs</artifactId>
-        <version>1.4</version>
-        <relativePath>../pom.xml</relativePath>
+        <artifactId>specs-parent</artifactId>
+        <version>1.5</version>
     </parent>
 
     <artifactId>geronimo-activation_1.1_spec</artifactId>
@@ -36,7 +35,17 @@
     <name>Activation 1.1</name>
     <version>1.0.3-SNAPSHOT</version>
 
+    <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
+    <distributionManagement>
+        <site>
+            <id>geronimo-website</id>
+            <url>${staging.siteURL}/${siteId}/${version}</url>
+        </site>
+    </distributionManagement>
+
     <properties>
+        <siteId>specs/${artifactId}</siteId>
+
         <geronimo.osgi.export.pkg>javax.activation*</geronimo.osgi.export.pkg>
         <geronimo.osgi.export.version>1.1</geronimo.osgi.export.version>
     </properties>

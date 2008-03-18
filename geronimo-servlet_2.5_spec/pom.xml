@@ -46,7 +46,7 @@
     </distributionManagement>
 
     <properties>
-        <siteId>specs/servlet-2.5</siteId>
+        <siteId>specs/${artifactId}</siteId>
 
         <geronimo.osgi.export.pkg>javax.servlet*</geronimo.osgi.export.pkg>
         <geronimo.osgi.export.version>2.5</geronimo.osgi.export.version>

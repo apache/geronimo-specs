@@ -35,7 +35,17 @@
     <name>Java Authentication SPI for Containers</name>
     <version>1.0-SNAPSHOT</version>
 
+    <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
+    <distributionManagement>
+        <site>
+            <id>geronimo-website</id>
+            <url>${staging.siteURL}/${siteId}/${version}</url>
+        </site>
+    </distributionManagement>
+
     <properties>
+        <siteId>specs/${artifactId}</siteId>
+
         <geronimo.osgi.export.pkg>javax.security.auth.message*</geronimo.osgi.export.pkg>
         <geronimo.osgi.export.version>1.0</geronimo.osgi.export.version>
     </properties>

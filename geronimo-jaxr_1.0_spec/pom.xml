@@ -26,9 +26,8 @@
 
     <parent>
         <groupId>org.apache.geronimo.specs</groupId>
-        <artifactId>specs</artifactId>
-        <version>1.4</version>
-        <relativePath>../pom.xml</relativePath>
+        <artifactId>specs-parent</artifactId>
+        <version>1.5</version>
     </parent>
 
     <artifactId>geronimo-jaxr_1.0_spec</artifactId>
@@ -36,10 +35,20 @@
     <name>JAXR 1.0</name>
     <version>2.0.1-SNAPSHOT</version>
 
+    <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
+    <distributionManagement>
+        <site>
+            <id>geronimo-website</id>
+            <url>${staging.siteURL}/${siteId}/${version}</url>
+        </site>
+    </distributionManagement>
+
     <properties>
-	    <geronimo.osgi.export.pkg>javax.xml.registry*</geronimo.osgi.export.pkg>
+        <siteId>specs/${artifactId}</siteId>
+
+        <geronimo.osgi.export.pkg>javax.xml.registry*</geronimo.osgi.export.pkg>
         <geronimo.osgi.export.version>1.1</geronimo.osgi.export.version>
-	</properties>
+    </properties>
 
     <dependencies>
         <dependency>
