@@ -35,7 +35,18 @@
     <name>JavaMail 1.4</name>
     <version>1.4-SNAPSHOT</version>
 
+    <description>Javamail 1.4 Specification</description>
+
+    <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
+    <distributionManagement>
+        <site>
+            <id>geronimo-website</id>
+            <url>${staging.siteURL}/${siteId}/${version}</url>
+        </site>
+    </distributionManagement>
+
     <properties>
+        <siteId>specs/${artifactId}</siteId>
         <geronimo.osgi.export.pkg>javax.mail*</geronimo.osgi.export.pkg>
         <geronimo.osgi.private.pkg>org.apache.geronimo.mail*</geronimo.osgi.private.pkg>
         <geronimo.osgi.export.version>1.4</geronimo.osgi.export.version>
