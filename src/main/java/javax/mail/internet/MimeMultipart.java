@@ -27,6 +27,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PushbackInputStream;
 
+import java.util.Arrays; 
+
 import javax.activation.DataSource;
 import javax.mail.BodyPart;
 import javax.mail.MessagingException;
@@ -165,11 +167,21 @@ public class MimeMultipart extends Multipart {
         }
         try {
             ContentType cType = new ContentType(contentType);
-            byte[] boundary = ("--" + cType.getParameter("boundary")).getBytes();
             InputStream is = new BufferedInputStream(ds.getInputStream());
-            PushbackInputStream pushbackInStream = new PushbackInputStream(is,
-                    (boundary.length + 2));
-            readTillFirstBoundary(pushbackInStream, boundary);
+            PushbackInputStream pushbackInStream = null;
+            String boundaryString = cType.getParameter("boundary"); 
+            byte[] boundary = null; 
+            if (boundaryString == null) {
+                pushbackInStream = new PushbackInputStream(is, 128);  
+                // read until we find something that looks like a boundary string 
+                boundary = readTillFirstBoundary(pushbackInStream); 
+            }
+            else {
+                boundary = ("--" + boundaryString).getBytes();
+                pushbackInStream = new PushbackInputStream(is, (boundary.length + 2));
+                readTillFirstBoundary(pushbackInStream, boundary);
+            }
+            
             while (pushbackInStream.available()>0){
                 MimeBodyPartInputStream partStream;
                 partStream = new MimeBodyPartInputStream(pushbackInStream,
@@ -199,49 +211,120 @@ public class MimeMultipart extends Multipart {
      * @param boundary
      * @throws MessagingException
      */
-    private boolean readTillFirstBoundary(PushbackInputStream pushbackInStream, byte[] boundary) throws MessagingException {
+    private byte[] readTillFirstBoundary(PushbackInputStream pushbackInStream) throws MessagingException {
         ByteArrayOutputStream preambleStream = new ByteArrayOutputStream();
 
         try {
             while (pushbackInStream.available() > 0) {
-                int value = pushbackInStream.read();
-                if ((byte) value == boundary[0]) {
-                    int boundaryIndex = 0;
-                    while (pushbackInStream.available() > 0 && (boundaryIndex < boundary.length)
-                            && ((byte) value == boundary[boundaryIndex])) {
-                        value = pushbackInStream.read();
-                        if (value == -1)
-                            throw new MessagingException(
-                                    "Unexpected End of Stream while searching for first Mime Boundary");
-                        boundaryIndex++;
+                // read the next line 
+                byte[] line = readLine(pushbackInStream); 
+                // if this looks like a boundary, then make it so 
+                if (line.length > 2 && line[0] == '-' && line[1] == '-') {
+                    // save the preamble, if there is one.
+                    byte[] preambleBytes = preambleStream.toByteArray();
+                    if (preambleBytes.length > 0) {
+                        preamble = new String(preambleBytes);
                     }
-                    if (boundaryIndex == boundary.length) { // boundary found
-                        pushbackInStream.read();
-
-                        // save the preamble, if there is one.
-                        byte[] preambleBytes = preambleStream.toByteArray();
-                        if (preambleBytes.length > 0) {
-                            preamble = new String(preambleBytes);
-                        }
-                        return true;
-                    }
-                    else {
-                        // we need to add this to the preamble.  We write the part of the boundary that
-                        // actually matched, followed by the character that was the mismatch.
-                        preambleStream.write(boundary, 0, boundaryIndex);
-                        preambleStream.write((byte)value);
-                    }
+                    return line;        
                 }
                 else {
                     // this is part of the preamble.
-                    preambleStream.write((byte)value);
+                    preambleStream.write(line);
+                    preambleStream.write('\r'); 
+                    preambleStream.write('\n'); 
                 }
             }
+            throw new MessagingException("Unexpected End of Stream while searching for first Mime Boundary");
         } catch (IOException ioe) {
             throw new MessagingException(ioe.toString(), ioe);
         }
-        return false;
     }
+
+    /**
+     * Move the read pointer to the begining of the first part
+     * read till the end of first boundary.  Any data read before this point are
+     * saved as the preamble.
+     *
+     * @param pushbackInStream
+     * @param boundary
+     * @throws MessagingException
+     */
+    private void readTillFirstBoundary(PushbackInputStream pushbackInStream, byte[] boundary) throws MessagingException {
+        ByteArrayOutputStream preambleStream = new ByteArrayOutputStream();
+
+        try {
+            while (pushbackInStream.available() > 0) {
+                // read the next line 
+                byte[] line = readLine(pushbackInStream); 
+                
+                // if this is the same length as our target boundary, then compare the two. 
+                if (Arrays.equals(line, boundary)) {
+                    // save the preamble, if there is one.
+                    byte[] preambleBytes = preambleStream.toByteArray();
+                    if (preambleBytes.length > 0) {
+                        preamble = new String(preambleBytes);
+                    }
+                    return;        
+                }
+                else {
+                    // this is part of the preamble.
+                    preambleStream.write(line);
+                    preambleStream.write('\r'); 
+                    preambleStream.write('\n'); 
+                }
+            }
+            throw new MessagingException("Unexpected End of Stream while searching for first Mime Boundary");
+        } catch (IOException ioe) {
+            throw new MessagingException(ioe.toString(), ioe);
+        }
+    }
+    
+    /**
+     * Read a single line of data from the input stream, 
+     * returning it as an array of bytes. 
+     * 
+     * @param in     The source input stream.
+     * 
+     * @return A byte array containing the line data.  Returns 
+     *         null if there's nothing left in the stream.
+     * @exception MessagingException
+     */
+    private byte[] readLine(PushbackInputStream in) throws IOException 
+    {
+        ByteArrayOutputStream line = new ByteArrayOutputStream();
+        
+        while (in.available() > 0) {
+            int value = in.read(); 
+            if (value == -1) {
+                // if we have nothing in the accumulator, signal an EOF back 
+                if (line.size() == 0) {
+                    return null; 
+                }
+                break; 
+            }
+            else if (value == '\r') {
+                value = in.read(); 
+                // we expect to find a linefeed after the carriage return, but 
+                // some things play loose with the rules. 
+                if (value != '\n') {
+                    in.unread(value); 
+                }
+                break; 
+            }
+            else if (value == '\n') {
+                // naked linefeed, allow that 
+                break; 
+            }
+            else {
+                // write this to the line 
+                line.write((byte)value); 
+            }
+        }
+        // return this as an array of bytes 
+        return line.toByteArray(); 
+    }
+    
+    
 
     protected InternetHeaders createInternetHeaders(InputStream in) throws MessagingException {
         return new InternetHeaders(in);
