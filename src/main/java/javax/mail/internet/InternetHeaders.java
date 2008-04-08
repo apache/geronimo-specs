@@ -104,6 +104,7 @@ public class InternetHeaders {
         try {
             StringBuffer name = new StringBuffer(32);
             StringBuffer value = new StringBuffer(128);
+            boolean foundColon = false; 
             done: while (true) {
                 int c = in.read();
                 char ch = (char) c;
@@ -128,22 +129,34 @@ public class InternetHeaders {
                 } else {
                     // new header
                     if (name.length() > 0) {
-                        addHeader(name.toString().trim(), value.toString().trim());
+                        if (foundColon) {
+                            addHeader(name.toString().trim(), value.toString().trim());
+                        }
+                        else {
+                            addHeader(name.toString().trim(), name.toString().trim());
+                        }
                     }
                     name.setLength(0);
                     value.setLength(0);
+                    foundColon = false; 
                     while (true) {
                         name.append((char) c);
                         c = in.read();
                         if (c == -1) {
                             break done;
                         } else if (c == ':') {
+                            foundColon = true; 
+                            break;
+                        } else if (c == 13 || c == 10) {
                             break;
                         }
                     }
-                    c = in.read();
-                    if (c == -1) {
-                        break done;
+                    // only read this if we found a separator 
+                    if (foundColon) {
+                        c = in.read();
+                        if (c == -1) {
+                            break done;
+                        }
                     }
                 }
 
@@ -165,7 +178,12 @@ public class InternetHeaders {
                 }
             }
             if (name.length() > 0) {
-                addHeader(name.toString().trim(), value.toString().trim());
+                if (foundColon) {
+                    addHeader(name.toString().trim(), value.toString().trim());
+                }
+                else {
+                    addHeader(name.toString().trim(), name.toString().trim());
+                }
             }
         } catch (IOException e) {
             throw new MessagingException("Error loading headers", e);

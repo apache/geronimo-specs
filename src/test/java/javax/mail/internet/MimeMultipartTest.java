@@ -26,6 +26,7 @@ import java.io.OutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.util.Properties;
 import javax.mail.BodyPart;
 import javax.mail.MessagingException;
@@ -93,6 +94,25 @@ public class MimeMultipartTest extends TestCase {
 
         MimeMessage newMessage = new MimeMessage(session, in);
         assertEquals("This is a preamble\r\n", ((MimeMultipart)newMessage.getContent()).getPreamble());
+    }
+
+    public void testMIMEWriting() throws IOException, MessagingException {
+        File basedir = new File(System.getProperty("basedir", "."));
+        File testInput = new File(basedir, "src/test/resources/wmtom.bin");
+        FileInputStream inStream = new FileInputStream(testInput);
+        Properties props = new Properties();
+        javax.mail.Session session = javax.mail.Session
+                .getInstance(props, null);
+        MimeMessage mimeMessage = new MimeMessage(session, inStream);
+        DataHandler dh = mimeMessage.getDataHandler();
+        MimeMultipart multiPart = new MimeMultipart(dh.getDataSource());
+        MimeBodyPart mimeBodyPart0 = (MimeBodyPart) multiPart.getBodyPart(0);
+        Object object0 = mimeBodyPart0.getContent();
+        assertNotNull(object0);
+        MimeBodyPart mimeBodyPart1 = (MimeBodyPart) multiPart.getBodyPart(1);
+        Object object1 = mimeBodyPart1.getContent();
+        assertNotNull(object1);
+        assertEquals(multiPart.getCount(), 2);
     }
 
     protected void writeToSetUp() throws Exception {
