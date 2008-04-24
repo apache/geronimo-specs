@@ -1,3 +1,22 @@
+/*
+ **
+ ** Licensed to the Apache Software Foundation (ASF) under one
+ ** or more contributor license agreements.  See the NOTICE file
+ ** distributed with this work for additional information
+ ** regarding copyright ownership.  The ASF licenses this file
+ ** to you under the Apache License, Version 2.0 (the
+ ** "License"); you may not use this file except in compliance
+ ** with the License.  You may obtain a copy of the License at
+ **
+ **  http://www.apache.org/licenses/LICENSE-2.0
+ **
+ ** Unless required by applicable law or agreed to in writing,
+ ** software distributed under the License is distributed on an
+ ** "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ ** KIND, either express or implied.  See the License for the
+ ** specific language governing permissions and limitations
+ ** under the License.
+ */
 package javax.xml.bind;
 
 import java.lang.reflect.InvocationTargetException;
@@ -145,8 +164,8 @@ class ContextFinder {
             try {
                 Method m = spiClass.getMethod("createContext", new Class[] { String.class, ClassLoader.class, Map.class });
                 context = m.invoke(null, new Object[] { contextPath, classLoader, properties });
+            } catch(NoSuchMethodException e) { 
             }
-            catch(NoSuchMethodException e) { }
             if (context == null) {
                 Method m = spiClass.getMethod("createContext", new Class[] { String.class, ClassLoader.class });
                 context = m.invoke(null, new Object[] { contextPath, classLoader });
@@ -155,17 +174,17 @@ class ContextFinder {
                 handleClassCastException(context.getClass(), JAXBContext.class);
             }
             return (JAXBContext)context;
-        } catch(InvocationTargetException x) {
-            handleInvocationTargetException(x);
-            Throwable e = x;
-            if (x.getTargetException() != null) {
-                e = x.getTargetException();
+        } catch (InvocationTargetException e) {
+            handleInvocationTargetException(e);
+            Throwable x = e;
+            if (e.getTargetException() != null) {
+                x = e.getTargetException();
             }
-            throw new JAXBException("Provider " + className + " coult not be instanciated: " + e, e);
-        } catch (RuntimeException x) {
-            throw x;
-        } catch (Exception x) {
-            throw new JAXBException("Provider " + className + " coult not be instanciated: " + x, x);
+            throw new JAXBException("Provider " + className + " could not be instanciated: " + x, x);
+        } catch (RuntimeException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new JAXBException("Provider " + className + " could not be instanciated: " + e, e);
         }
     }
 
@@ -180,12 +199,12 @@ class ContextFinder {
         } catch (Throwable t) {
         }
         try {
-            if(cl != null) {
+            if (cl != null) {
                 spiClass = cl.loadClass(className);
             } else {
                 spiClass = Class.forName(className);
             }
-        } catch(ClassNotFoundException e) {
+        } catch (ClassNotFoundException e) {
             throw new JAXBException("Provider " + className + " not found", e);
         }
         return spiClass;
@@ -200,7 +219,7 @@ class ContextFinder {
         Method m;
         try {
             m = spiClass.getMethod("createContext", new Class[] { Class[].class, Map.class });
-        } catch(NoSuchMethodException e) {
+        } catch (NoSuchMethodException e) {
             throw new JAXBException(e);
         }
         try {
@@ -209,12 +228,12 @@ class ContextFinder {
                 handleClassCastException(context.getClass(), JAXBContext.class);
             }
             return (JAXBContext)context;
-        } catch(IllegalAccessException e) {
+        } catch (IllegalAccessException e) {
             throw new JAXBException(e);
-        } catch(InvocationTargetException e) {
+        } catch (InvocationTargetException e) {
             handleInvocationTargetException(e);
             Throwable x = e;
-            if(e.getTargetException() != null) {
+            if (e.getTargetException() != null) {
                 x = e.getTargetException();
             }
             throw new JAXBException(x);
@@ -236,7 +255,7 @@ class ContextFinder {
                 props.load(is);
                 is.close();
             }
-        } catch(IOException ioe) {
+        } catch (IOException ioe) {
             throw new JAXBException(ioe.toString(), ioe);
         }
         return props;

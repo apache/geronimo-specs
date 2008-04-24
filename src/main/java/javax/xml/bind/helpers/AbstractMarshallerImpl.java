@@ -1,3 +1,22 @@
+/*
+ **
+ ** Licensed to the Apache Software Foundation (ASF) under one
+ ** or more contributor license agreements.  See the NOTICE file
+ ** distributed with this work for additional information
+ ** regarding copyright ownership.  The ASF licenses this file
+ ** to you under the Apache License, Version 2.0 (the
+ ** "License"); you may not use this file except in compliance
+ ** with the License.  You may obtain a copy of the License at
+ **
+ **  http://www.apache.org/licenses/LICENSE-2.0
+ **
+ ** Unless required by applicable law or agreed to in writing,
+ ** software distributed under the License is distributed on an
+ ** "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ ** KIND, either express or implied.  See the License for the
+ ** specific language governing permissions and limitations
+ ** under the License.
+ */
 package javax.xml.bind.helpers;
 
 import java.io.OutputStream;
@@ -22,13 +41,6 @@ import org.w3c.dom.Node;
 
 import org.xml.sax.ContentHandler;
 
-/**
- * Created by IntelliJ IDEA.
- * User: gnodet
- * Date: Apr 17, 2008
- * Time: 12:11:11 PM
- * To change this template use File | Settings | File Templates.
- */
 public abstract class AbstractMarshallerImpl implements Marshaller {
 
     static String aliases[] = {
@@ -135,14 +147,14 @@ public abstract class AbstractMarshallerImpl implements Marshaller {
 
     protected String getJavaEncoding(String encoding) throws UnsupportedEncodingException {
         try {
-            "1".getBytes(encoding);
+            "dummy".getBytes(encoding);
             return encoding;
         }
         catch (UnsupportedEncodingException e) {
         }
         for (int i = 0; i < aliases.length; i += 2) {
             if (encoding.equals(aliases[i])) {
-                "1".getBytes(aliases[i + 1]);
+                "dummy".getBytes(aliases[i + 1]);
                 return aliases[i + 1];
             }
         }
@@ -246,14 +258,14 @@ public abstract class AbstractMarshallerImpl implements Marshaller {
         if (adapter == null) {
             throw new IllegalArgumentException();
         }
-        setAdapter(adapter.getClass(), adapter);
+        setAdapter((Class<XmlAdapter>) adapter.getClass(), adapter);
     }
 
-    public void setAdapter(Class type, XmlAdapter adapter) {
+    public <A extends XmlAdapter> void setAdapter(Class<A> type, A adapter) {
         throw new UnsupportedOperationException();
     }
 
-    public XmlAdapter getAdapter(Class type) {
+    public <A extends XmlAdapter> A getAdapter(Class<A> type) {
         throw new UnsupportedOperationException();
     }
 
