@@ -79,7 +79,7 @@ public class QuotedPrintableDecoderStream extends FilterInputStream {
         for (int i = 0; i < length; i++) {
             int ch = decoder.decode(in);
             if (ch == -1) {
-                return i;
+                return i == 0 ? -1 : i;
             }
             buffer[offset + i] = (byte)ch;
         }
