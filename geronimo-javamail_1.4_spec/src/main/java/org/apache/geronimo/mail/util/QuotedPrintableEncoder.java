@@ -576,14 +576,16 @@ public class QuotedPrintableEncoder implements Encoder {
                 // return the real significant character now.
                 return ch;
             }
-            else {
-            // remember this character for later, after we've used up the deferred blanks.
-                cachedCharacter = ch;
-                // return this space.  We did not include this one in the deferred count, so we're right in sync.
-                return ' ';
-            }
+                       // remember this character for later, after we've used up the deferred blanks.
+            cachedCharacter = decodeNonspaceChar(in, ch);
+            // return this space.  We did not include this one in the deferred count, so we're right in sync.
+            return ' ';
         }
-        else if (ch == '=') {
+        return decodeNonspaceChar(in, ch);
+    }
+
+       private int decodeNonspaceChar(InputStream in, int ch) throws IOException {
+               if (ch == '=') {
             int b1 = in.read();
             // we need to get two characters after the quotation marker
             if (b1 == -1) {
