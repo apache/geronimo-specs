@@ -25,7 +25,7 @@ import java.lang.annotation.ElementType;
 @Target(ElementType.PACKAGE)
 public @interface XmlSchema {
 
-    XmlNsForm attributFormDefault() default XmlNsForm.UNSET;
+    XmlNsForm attributeFormDefault() default XmlNsForm.UNSET;
 
     XmlNsForm elementFormDefault() default XmlNsForm.UNSET;
 
