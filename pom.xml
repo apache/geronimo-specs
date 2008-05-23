@@ -32,7 +32,7 @@
 
     <artifactId>geronimo-jaxws_2.1_spec</artifactId>
     <packaging>jar</packaging>
-    <name>JAX-WS 2.1 API</name>
+    <name>Apache Geronimo JAX-WS 2.1 API</name>
     <version>1.0</version>
 
     <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
