@@ -51,7 +51,7 @@
 
     <scm>
         <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-interceptor_3.0_spec/</connection>
-        <developerConnection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-interceptor_3.0_spec/</developerConnection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-interceptor_3.0_spec/</developerConnection>
         <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-interceptor_3.0_spec/</url>
     </scm>
 
