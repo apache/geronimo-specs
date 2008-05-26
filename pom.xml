@@ -28,10 +28,10 @@
   </parent>
 
   <groupId>org.apache.servicemix.specs</groupId>
-  <artifactId>org.apache.servicemix.specs.jaxb-api-2.0</artifactId>
+  <artifactId>org.apache.servicemix.specs.jaxb-api-2.1</artifactId>
   <packaging>bundle</packaging>
   <version>1.0-SNAPSHOT</version>
-  <name>Apache ServiceMix Specs :: JAXB API 2.0</name>
+  <name>Apache ServiceMix Specs :: JAXB API 2.1</name>
 
   <dependencies>
     <dependency>
@@ -39,7 +39,6 @@
       <artifactId>org.apache.servicemix.specs.locator</artifactId>
       <version>${pom.version}</version>
       <optional>true</optional>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.servicemix.specs</groupId>
@@ -70,7 +69,7 @@
               <configuration>
                   <instructions>
                       <Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
-                      <Export-Package>javax.xml.bind*;version=2.0;-split-package:=merge-first</Export-Package>
+                      <Export-Package>javax.xml.bind*;version=2.1;-split-package:=merge-first</Export-Package>
                       <Import-Package>*</Import-Package>
                       <Private-Package>org.apache.servicemix.specs.locator</Private-Package>
                       <Bundle-Activator>org.apache.servicemix.specs.locator.Activator</Bundle-Activator>

@@ -18,6 +18,7 @@ package javax.xml.bind;
 
 import java.io.OutputStream;
 import java.io.Writer;
+import java.io.File;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 import javax.xml.bind.attachment.AttachmentMarshaller;
@@ -60,6 +61,8 @@ public interface Marshaller {
     Schema getSchema();
 
     void marshal(Object jaxbElement, ContentHandler handler) throws JAXBException;
+
+    void marshal(Object jaxbElement, File file) throws JAXBException;
 
     void marshal(Object jaxbElement, Node node) throws JAXBException;
 

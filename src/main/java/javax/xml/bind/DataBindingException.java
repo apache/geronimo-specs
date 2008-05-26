@@ -14,26 +14,15 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package javax.xml.bind.annotation;
+package javax.xml.bind;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-import java.lang.annotation.ElementType;
+public class DataBindingException extends RuntimeException {
 
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.PACKAGE)
-public @interface XmlSchema {
+    public DataBindingException(String message, Throwable cause) {
+        super(message, cause);
+    }
 
-    XmlNsForm attributeFormDefault() default XmlNsForm.UNSET;
-
-    XmlNsForm elementFormDefault() default XmlNsForm.UNSET;
-
-    String namespace() default "";
-
-    XmlNs[] xmlns() default {};
-
-    String location() default NO_LOCATION;
-
-    static final String NO_LOCATION = "##generate";
+    public DataBindingException(Throwable cause) {
+        super(cause);
+    }
 }

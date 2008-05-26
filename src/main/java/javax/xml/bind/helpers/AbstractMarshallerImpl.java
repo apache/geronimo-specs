@@ -19,6 +19,10 @@ package javax.xml.bind.helpers;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.BufferedOutputStream;
+import java.io.IOException;
 
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -76,6 +80,20 @@ public abstract class AbstractMarshallerImpl implements Marshaller {
     private String noNSSchemaLocation;
     private boolean formattedOutput;
     private boolean fragment;
+
+    public void marshal(Object obj, File file) throws JAXBException {
+        checkNotNull(obj, "obj", file, "file");
+        try {
+            OutputStream os = new BufferedOutputStream(new FileOutputStream(file));
+            try {
+                marshal(obj, new StreamResult(os));
+            } finally {
+                os.close();
+            }
+        } catch (IOException e) {
+            throw new JAXBException(e);
+        }
+    }
 
     public final void marshal(Object obj, OutputStream os) throws JAXBException {
         checkNotNull(obj, "obj", os, "os");
