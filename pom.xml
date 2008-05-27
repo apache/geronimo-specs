@@ -26,59 +26,33 @@
 
     <parent>
         <groupId>org.apache.geronimo.specs</groupId>
-        <artifactId>specs</artifactId>
-        <version>1.2</version>
-        <relativePath>../pom.xml</relativePath>
+        <artifactId>specs-parent</artifactId>
+        <version>1.5</version>
     </parent>
 
     <artifactId>geronimo-concurrent_spec</artifactId>
-    <name>Concurrency Utilities for Java EE: Specification API</name>
+    <name>Apache Geronimo Concurrency Utilities for Java EE API</name>
     <version>1.0-SNAPSHOT</version>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.5</source>
-                    <target>1.5</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.geronimo.genesis.plugins</groupId>
-                <artifactId>tools-maven-plugin</artifactId>
+    <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
+    <distributionManagement>
+        <site>
+            <id>geronimo-website</id>
+            <url>${staging.siteURL}/${siteId}/${version}</url>
+        </site>
+    </distributionManagement>
 
-                <!-- Tools includes custom packagings, install as extension to pick them up -->
-                <extensions>true</extensions>
+    <properties>
+        <siteId>specs/${artifactId}</siteId>
 
-                <executions>
-                    <execution>
-                        <id>install-legal-files</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>copy-legal-files</goal>
-                        </goals>
-                        <configuration>
-                            <!-- Fail the build if no legal files were copied -->
-                            <strict>true</strict>
-                        </configuration>
-                    </execution>
+        <geronimo.osgi.export.pkg>javax.util.concurrent*</geronimo.osgi.export.pkg>
+        <geronimo.osgi.export.version>1.0</geronimo.osgi.export.version>
+    </properties>
 
-                    <execution>
-                        <id>verify-legal-files</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>verify-legal-files</goal>
-                        </goals>
-                        <configuration>
-                            <!-- Fail the build if no legal files were found -->
-                            <strict>false</strict>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
+    <scm>
+        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/sandbox/concurrent/geronimo-concurrent_spec/</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/sandbox/concurrent/geronimo-concurrent_spec/</developerConnection>
+        <url>http://svn.apache.org/repos/asf/geronimo/sandbox/concurrent/geronimo-concurrent_spec/</url>
+    </scm>
 
 </project>
