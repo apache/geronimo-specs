@@ -16,24 +16,18 @@
  */
 package javax.xml.bind;
 
-@Deprecated
 public interface Validator {
 
-    @Deprecated
     ValidationEventHandler getEventHandler() throws JAXBException;
 
-    @Deprecated
     Object getProperty(String name) throws PropertyException;
 
-    @Deprecated
     void setEventHandler(ValidationEventHandler handler) throws JAXBException;
 
-    @Deprecated
     void setProperty(String name, Object value) throws PropertyException;
 
-    @Deprecated
     boolean validate(Object subRoot) throws JAXBException;
 
-    @Deprecated
     boolean validateRoot(Object rootObj) throws JAXBException;
+
 }

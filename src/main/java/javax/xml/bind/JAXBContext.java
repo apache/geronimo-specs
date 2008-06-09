@@ -46,7 +46,6 @@ public abstract class JAXBContext {
 
     public abstract Unmarshaller createUnmarshaller() throws JAXBException;
 
-    @Deprecated
     public abstract Validator createValidator() throws JAXBException;
 
     public void generateSchema(SchemaOutputResolver resolver) throws IOException {

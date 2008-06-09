@@ -25,5 +25,5 @@ import java.lang.annotation.ElementType;
 @Target(ElementType.TYPE)
 public @interface XmlEnum {
 
-    Class value() default String.class;
+    Class<?> value() default String.class;
 }

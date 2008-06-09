@@ -55,7 +55,6 @@ public interface Unmarshaller {
 
     UnmarshallerHandler getUnmarshallerHandler();
 
-    @Deprecated
     boolean isValidating() throws JAXBException;
 
     <A extends XmlAdapter> void setAdapter(Class<A> type, A adapter);
@@ -72,7 +71,6 @@ public interface Unmarshaller {
 
     void setSchema(Schema schema);
 
-    @Deprecated
     void setValidating(boolean validating) throws JAXBException;
 
     Object unmarshal(File f) throws JAXBException;

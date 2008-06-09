@@ -32,8 +32,6 @@ public @interface XmlElementDecl {
 
     Class scope() default GLOBAL.class;
 
-    String defautValue() default "##default";
-
     String namespace() default "##default";
 
     String substitutionHeadNamespace() default "##default";
@@ -41,4 +39,5 @@ public @interface XmlElementDecl {
     String substitutionHeadName() default "";
 
     String defaultValue() default "\u0000";
+
 }

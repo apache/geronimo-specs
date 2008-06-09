@@ -30,4 +30,7 @@ public @interface XmlElementWrapper {
     String namespace() default "##default";
 
     boolean nillable() default false;
+
+    boolean required() default false;
+
 }
