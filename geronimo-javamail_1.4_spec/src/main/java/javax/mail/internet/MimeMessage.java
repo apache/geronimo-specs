@@ -165,14 +165,16 @@ public class MimeMessage extends Message implements MimePart {
      */
     public MimeMessage(MimeMessage message) throws MessagingException {
         super(message.session);
+        // get a copy of the source message flags 
+        flags = message.getFlags(); 
         // this is somewhat difficult to do.  There's a lot of data in both the superclass and this
         // class that needs to undergo a "deep cloning" operation.  These operations don't really exist
         // on the objects in question, so the only solution I can come up with is to serialize the
         // message data of the source object using the write() method, then reparse the data in this
         // object.  I've not found a lot of uses for this particular constructor, so perhaps that's not
         // really all that bad of a solution.
-
-        // serialized this out to an in-memory stream.
+        
+        // serialize this out to an in-memory stream.
         ByteArrayOutputStream copy = new ByteArrayOutputStream();
 
         try {
