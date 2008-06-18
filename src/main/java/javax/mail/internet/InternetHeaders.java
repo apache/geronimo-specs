@@ -53,20 +53,28 @@ public class InternetHeaders {
      */
     public InternetHeaders() {
         // these are created in the preferred order of the headers.
-        addHeader("Return-path", null);
+        addHeader("Return-Path", null);
         addHeader("Received", null);
-        addHeader("Message-ID", null);
         addHeader("Resent-Date", null);
-        addHeader("Date", null);
         addHeader("Resent-From", null);
-        addHeader("From", null);
-        addHeader("Reply-To", null);
-        addHeader("Sender", null);
-        addHeader("To", null);
-        addHeader("Subject", null);
-        addHeader("Cc", null);
-        addHeader("In-Reply-To", null);
+        addHeader("Resent-Sender", null);
+        addHeader("Resent-To", null);
+        addHeader("Resent-Cc", null);
+        addHeader("Resent-Bcc", null);
         addHeader("Resent-Message-Id", null);
+        addHeader("Date", null);
+        addHeader("From", null);
+        addHeader("Sender", null);
+        addHeader("Reply-To", null);
+        addHeader("To", null);
+        addHeader("Cc", null);
+        addHeader("Bcc", null);
+        addHeader("Message-Id", null);
+        addHeader("In-Reply-To", null);
+        addHeader("References", null);
+        addHeader("Subject", null);
+        addHeader("Comments", null);
+        addHeader("Keywords", null);
         addHeader("Errors-To", null);
         addHeader("MIME-Version", null);
         addHeader("Content-Type", null);
