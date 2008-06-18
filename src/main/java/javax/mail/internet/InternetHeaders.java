@@ -469,6 +469,12 @@ public class InternetHeaders {
      *         for a complete mismatch.
      */
     private boolean matchHeader(String name, String[] names) {
+        // the list of names is not required, so treat this as if it 
+        // was an empty list and we didn't get a match. 
+        if (names == null) {
+            return false; 
+        }
+        
         for (int i = 0; i < names.length; i++) {
             if (name.equalsIgnoreCase(names[i])) {
                 return true;
