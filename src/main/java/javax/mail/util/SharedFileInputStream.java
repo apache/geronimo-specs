@@ -198,8 +198,6 @@ public class SharedFileInputStream extends BufferedInputStream implements Shared
             bufpos += count;
         }
         else {
-
-
             // we have marks to worry about....damn.
             // if we have room in the buffer to read more data, then we will.  Otherwise, we need to see
             // if it's possible to shift the data in the buffer or extend the buffer (up to the mark limit).
@@ -239,6 +237,9 @@ public class SharedFileInputStream extends BufferedInputStream implements Shared
 
         // if we're past our designated end, force an eof.
         if (bufpos + pos >= start + datalen) {
+            // make sure we zero the count out, otherwise we'll reuse this data 
+            // if called again. 
+            count = pos; 
             return false;
         }
 
@@ -257,6 +258,9 @@ public class SharedFileInputStream extends BufferedInputStream implements Shared
 
         // we weren't able to read anything, count this as an eof failure.
         if (fillLength <= 0) {
+            // make sure we zero the count out, otherwise we'll reuse this data 
+            // if called again. 
+            count = pos; 
             return false;
         }
 
