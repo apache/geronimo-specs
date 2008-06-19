@@ -226,10 +226,11 @@ public class ParameterList {
 
             // too big for the current header line?
             if ((used + name.length() + value.length() + 1) > HEADER_SIZE_LIMIT) {
-                // and a CRLF-whitespace combo.
-                stringValue.append("\r\n ");
+                // and a CRLF-combo combo.
+                stringValue.append("\r\n\t");
                 // reset the counter for a fresh line
-                used = 3;
+                // note we use use 8 because we're using a rather than a blank 
+                used = 8;
             }
             // now add the keyword/value pair.
             stringValue.append(name);

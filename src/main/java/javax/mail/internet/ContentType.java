@@ -116,8 +116,16 @@ public class ContentType {
         if (_major == null || _minor == null) {
             return null;
         }
-
-        return getBaseType() + (_list == null ? "" : _list.toString());
+        
+        // We need to format this as if we're doing it to set into the Content-Type
+        // header.  So the parameter list gets added on as if the header name was 
+        // also included. 
+        String baseType = getBaseType(); 
+        if (_list != null) {
+            baseType += _list.toString(baseType.length() + "Content-Type: ".length()); 
+        }
+        
+        return baseType;
     }
 
     public boolean match(ContentType other) {
