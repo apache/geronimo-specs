@@ -259,8 +259,10 @@ public class MimeMessage extends Message implements MimePart {
      */
     protected void parse(InputStream in) throws MessagingException {
         in = new BufferedInputStream(in);
-        // create the headers first from the stream
-        headers = new InternetHeaders(in);
+        // create the headers first from the stream.  Note:  We need to do this 
+        // by calling createInternetHeaders because subclasses might wish to add 
+        // additional headers to the set initialized from the stream. 
+        headers = createInternetHeaders(in);
 
         // now we need to get the rest of the content as a byte array...this means reading from the current
         // position in the stream until the end and writing it to an accumulator ByteArrayOutputStream.
@@ -1433,6 +1435,16 @@ public class MimeMessage extends Message implements MimePart {
     }
 
 
+    /**
+     * Create a new set of internet headers from the 
+     * InputStream
+     * 
+     * @param in     The header source.
+     * 
+     * @return A new InternetHeaders object containing the 
+     *         appropriate headers.
+     * @exception MessagingException
+     */
     protected InternetHeaders createInternetHeaders(InputStream in) throws MessagingException {
         // internet headers has a constructor for just this purpose
         return new InternetHeaders(in);
