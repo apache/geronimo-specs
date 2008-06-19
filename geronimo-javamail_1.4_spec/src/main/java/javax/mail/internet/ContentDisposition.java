@@ -107,6 +107,6 @@ public class ContentDisposition {
 
         // format this for use on a Content-Disposition header, which means we need to
         // account for the length of the header part too.
-        return _disposition + _list.toString(21 + _disposition.length());
+        return _disposition + _list.toString("Content-Disposition".length() + _disposition.length());
     }
 }

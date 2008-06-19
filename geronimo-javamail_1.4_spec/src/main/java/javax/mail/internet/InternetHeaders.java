@@ -110,92 +110,80 @@ public class InternetHeaders {
      */
     public void load(InputStream in) throws MessagingException {
         try {
-            StringBuffer name = new StringBuffer(32);
-            StringBuffer value = new StringBuffer(128);
-            boolean foundColon = false; 
-            done: while (true) {
-                int c = in.read();
-                char ch = (char) c;
-                if (c == -1) {
-                    break;
-                } else if (c == 13) {
-                    // empty line terminates header
-                    in.read(); // skip LF
-                    break;
-                } else if ( c == 10) {
-                	// Line feed terminates header
-                	break;
-                } else if (Character.isWhitespace(ch)) {
-                    // handle continuation
-                    do {
-                        c = in.read();
-                        if (c == -1) {
-                            break done;
-                        }
-                        ch = (char) c;
-                    } while (Character.isWhitespace(ch));
-                } else {
-                    // new header
-                    if (name.length() > 0) {
-                        if (foundColon) {
-                            addHeader(name.toString().trim(), value.toString().trim());
-                        }
-                        else {
-                            addHeader(name.toString().trim(), name.toString().trim());
-                        }
+            StringBuffer buffer = new StringBuffer(128); 
+            String line; 
+            // loop until we hit the end or a null line 
+            while ((line = readLine(in)) != null) {
+                // lines beginning with white space get special handling 
+                if (line.startsWith(" ") || line.startsWith("\t")) {
+                    // this gets handled using the logic defined by 
+                    // the addHeaderLine method.  If this line is a continuation, but 
+                    // there's nothing before it, just call addHeaderLine to add it 
+                    // to the last header in the headers list 
+                    if (buffer.length() == 0) {
+                        addHeaderLine(line); 
                     }
-                    name.setLength(0);
-                    value.setLength(0);
-                    foundColon = false; 
-                    while (true) {
-                        name.append((char) c);
-                        c = in.read();
-                        if (c == -1) {
-                            break done;
-                        } else if (c == ':') {
-                            foundColon = true; 
-                            break;
-                        } else if (c == 13 || c == 10) {
-                            break;
-                        }
+                    else {
+                        // preserve the line break and append the continuation 
+                        buffer.append("\r\n"); 
+                        buffer.append(line); 
                     }
-                    // only read this if we found a separator 
-                    if (foundColon) {
-                        c = in.read();
-                        if (c == -1) {
-                            break done;
-                        }
-                    }
-                }
-
-                while (c != 13 && c != 10) {
-                    ch = (char) c;
-                    value.append(ch);
-                    c = in.read();
-                    if (c == -1) {
-                        break done;
-                    }
-                }
-                // skip LF
-                if (c == 13) {
-                	c = in.read();
-                }
-                
-                if (c == -1) {
-                    break;
-                }
-            }
-            if (name.length() > 0) {
-                if (foundColon) {
-                    addHeader(name.toString().trim(), value.toString().trim());
                 }
                 else {
-                    addHeader(name.toString().trim(), name.toString().trim());
+                    // if we have a line pending in the buffer, flush it 
+                    if (buffer.length() > 0) {
+                        addHeaderLine(buffer.toString()); 
+                        buffer.setLength(0); 
+                    }
+                    // add this to the accumulator 
+                    buffer.append(line); 
                 }
+            }
+            
+            // if we have a line pending in the buffer, flush it 
+            if (buffer.length() > 0) {
+                addHeaderLine(buffer.toString()); 
             }
         } catch (IOException e) {
             throw new MessagingException("Error loading headers", e);
         }
+    }
+    
+    
+    /**
+     * Read a single line from the input stream 
+     * 
+     * @param in     The source stream for the line
+     * 
+     * @return The string value of the line (without line separators)
+     */
+    private String readLine(InputStream in) throws IOException {
+        StringBuffer buffer = new StringBuffer(128); 
+        
+        int c; 
+        
+        while ((c = in.read()) != -1) {
+            // a linefeed is a terminator, always.  
+            if (c == '\n') {
+                break; 
+            }
+            // just ignore the CR.  The next character SHOULD be an NL.  If not, we're 
+            // just going to discard this 
+            else if (c == '\r') {
+                continue; 
+            }
+            else {
+                // just add to the buffer 
+                buffer.append((char)c); 
+            }
+        }
+        
+        // no characters found...this was either an eof or a null line. 
+        if (buffer.length() == 0) {
+            return null; 
+        }
+        
+        return buffer.toString(); 
     }
 
 
@@ -277,8 +265,10 @@ public class InternetHeaders {
             InternetHeader header = (InternetHeader)headers.get(i);
             // found a matching header
             if (name.equalsIgnoreCase(header.getName())) {
-                // just update the header value
+                // we update both the name and the value for a set so that 
+                // the header ends up with the same case as what is getting set
                 header.setValue(value);
+                header.setName(name); 
                 // remove all of the headers from this point
                 removeHeaders(name, i + 1);
                 return;
@@ -601,6 +591,15 @@ public class InternetHeaders {
     }
 
 
+    /**
+     * Write out the set of headers, except for any 
+     * headers specified in the optional ignore list. 
+     * 
+     * @param out    The output stream.
+     * @param ignore The optional ignore list.
+     * 
+     * @exception IOException
+     */
     void writeTo(OutputStream out, String[] ignore) throws IOException {
         if (ignore == null) {
             // write out all header lines with non-null values
@@ -618,7 +617,7 @@ public class InternetHeaders {
                 InternetHeader header = (InternetHeader)headers.get(i);
                 // we only include headers with real values, no placeholders
                 if (header.getValue() != null) {
-                    if (matchHeader(header.getName(), ignore)) {
+                    if (!matchHeader(header.getName(), ignore)) {
                         header.writeTo(out);
                     }
                 }
@@ -665,6 +664,16 @@ public class InternetHeaders {
          */
         void setValue(String value) {
             this.value = value;
+        }
+
+
+        /**
+         * Package scope method for setting the name value.
+         *
+         * @param name   The new header name   
+         */
+        void setName(String name) {
+            this.name = name;     
         }
 
         /**
