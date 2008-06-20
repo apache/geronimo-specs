@@ -91,8 +91,12 @@ public class MimeMultipart extends Multipart {
             super.setMultipartDataSource((MultipartDataSource) dataSource);
             parsed = true;
         } else {
-            type = new ContentType(ds.getContentType());
-            contentType = type.toString();
+            // We keep the original, provided content type string so that we 
+            // don't end up changing quoting/formatting of the header unless 
+            // changes are made to the content type.  James is somewhat dependent 
+            // on that behavior. 
+            contentType = ds.getContentType(); 
+            type = new ContentType(contentType);
             parsed = false;
         }
     }
