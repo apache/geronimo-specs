@@ -527,6 +527,9 @@ public class MimeBodyPart extends BodyPart implements MimePart {
             String type = dh.getContentType();
             // parse this content type out so we can do matches/compares.
             ContentType content = new ContentType(type);
+            
+            // we might need to reconcile the content type and our explicitly set type
+            String explicitType = getSingleHeader("Content-Type"); 
             // is this a multipart content?
             if (content.match("multipart/*")) {
                 // the content is suppose to be a MimeMultipart.  Ping it to update it's headers as well.
@@ -545,7 +548,7 @@ public class MimeBodyPart extends BodyPart implements MimePart {
                 }
 
                 // is a content type header set?  Check the property to see if we need to set this.
-                if (getHeader("Content-Type") == null) {
+                if (explicitType == null) {
                     if (SessionUtil.getBooleanProperty(MIME_SETDEFAULTTEXTCHARSET, true)) {
                         // is this a text type?  Figure out the encoding and make sure it is set.
                         if (content.match("text/*")) {
@@ -563,6 +566,8 @@ public class MimeBodyPart extends BodyPart implements MimePart {
                                     // get the global default.
                                     content.setParameter("charset", MimeUtility.getDefaultMIMECharset());
                                 }
+                                // replace the datasource provided type 
+                                type = content.toString(); 
                             }
                         }
                     }
@@ -570,7 +575,7 @@ public class MimeBodyPart extends BodyPart implements MimePart {
             }
 
             // if we don't have a content type header, then create one.
-            if (getSingleHeader("Content-Type") == null) {
+            if (explicitType == null) {
                 // get the disposition header, and if it is there, copy the filename parameter into the
                 // name parameter of the type.
                 String disp = getHeader("Content-Disposition", null);
@@ -582,10 +587,12 @@ public class MimeBodyPart extends BodyPart implements MimePart {
                     // copy and rename the parameter, if it exists.
                     if (filename != null) {
                         content.setParameter("name", filename);
+                        // and update the string version 
+                        type = content.toString(); 
                     }
                 }
                 // set the header with the updated content type information.
-                setHeader("Content-Type", content.toString());
+                setHeader("Content-Type", type);
             }
 
         } catch (IOException e) {

@@ -1362,6 +1362,8 @@ public class MimeMessage extends Message implements MimePart {
         try {
             // figure out the content type.  If not set, we'll need to figure this out.
             String type = dh.getContentType();
+            // we might need to reconcile the content type and our explicitly set type
+            String explicitType = getSingleHeader("Content-Type"); 
             // parse this content type out so we can do matches/compares.
             ContentType content = new ContentType(type);
 
@@ -1383,7 +1385,7 @@ public class MimeMessage extends Message implements MimePart {
                 }
 
                 // is a content type header set?  Check the property to see if we need to set this.
-                if (getSingleHeader("Content-Type") == null) {
+                if (explicitType == null) {
                     if (SessionUtil.getBooleanProperty(session, "MIME_MAIL_SETDEFAULTTEXTCHARSET", true)) {
                         // is this a text type?  Figure out the encoding and make sure it is set.
                         if (content.match("text/*")) {
@@ -1401,6 +1403,8 @@ public class MimeMessage extends Message implements MimePart {
                                     // get the global default.
                                     content.setParameter("charset", MimeUtility.getDefaultMIMECharset());
                                 }
+                                // replace the original type string 
+                                type = content.toString(); 
                             }
                         }
                     }
@@ -1408,7 +1412,7 @@ public class MimeMessage extends Message implements MimePart {
             }
 
             // if we don't have a content type header, then create one.
-            if (getSingleHeader("Content-Type") == null) {
+            if (explicitType == null) {
                 // get the disposition header, and if it is there, copy the filename parameter into the
                 // name parameter of the type.
                 String disp = getSingleHeader("Content-Disposition");
@@ -1420,10 +1424,13 @@ public class MimeMessage extends Message implements MimePart {
                     // copy and rename the parameter, if it exists.
                     if (filename != null) {
                         content.setParameter("name", filename);
+                        // set the header with the updated content type information.
+                        type = content.toString();
                     }
                 }
-                // set the header with the updated content type information.
-                setHeader("Content-Type", content.toString());
+                // if no header has been set, then copy our current type string (which may 
+                // have been modified above) 
+                setHeader("Content-Type", type); 
             }
 
             // new javamail 1.4 requirement.
