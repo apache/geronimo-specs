@@ -539,7 +539,6 @@ public class InternetAddressTest extends TestCase {
 
     private void validateAddress(InternetAddress a, String address, String personal, String toString, boolean group)
     {
-//      System.out.println("Testing address \"" + a + "\" against \"" + toString + "\"");
         assertEquals("Invalid address:", a.getAddress(), address);
         if (personal == null) {
             assertNull("Personal must be null", a.getPersonal());
