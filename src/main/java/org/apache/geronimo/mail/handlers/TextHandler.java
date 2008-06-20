@@ -117,19 +117,25 @@ public class TextHandler implements DataContentHandler {
         }
     }
 
+    
     /**
-     * Method writeTo
-     *
-     * @param object
-     * @param s
+     * Write an object of "our" type out to the provided 
+     * output stream.  The content type might modify the 
+     * result based on the content type parameters. 
+     * 
+     * @param object The object to write.
+     * @param contentType
+     *               The content mime type, including parameters.
      * @param outputstream
+     *               The target output stream.
+     * 
      * @throws IOException
      */
-    public void writeTo(Object object, String s, OutputStream outputstream)
+    public void writeTo(Object object, String contentType, OutputStream outputstream)
             throws IOException {
         OutputStreamWriter os;
         try {
-            String charset = getCharSet(s);
+            String charset = getCharSet(contentType);
             os = new OutputStreamWriter(outputstream, charset);
         } catch (Exception ex) {
             throw new UnsupportedEncodingException(ex.toString());
