@@ -499,7 +499,7 @@ public class QuotedPrintableEncoder implements Encoder {
 
     private void checkLineLength(int required) throws IOException {
         // if we're at our line length limit, write out a soft line break and reset.
-        if ((lineCount + required) > lineLength ) {
+        if ((lineCount + required) >= lineLength ) {
             out.write('=');
             out.write('\r');
             out.write('\n');
