@@ -50,9 +50,9 @@
     </properties>
 
     <scm>
-        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/sandbox/concurrent/geronimo-concurrent_1.0_spec/</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/sandbox/concurrent/geronimo-concurrent_1.0_spec/</developerConnection>
-        <url>http://svn.apache.org/repos/asf/geronimo/sandbox/concurrent/geronimo-concurrent_1.0_spec/</url>
+        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-concurrent_1.0_spec/</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-concurrent_1.0_spec/</developerConnection>
+        <url>http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-concurrent_1.0_spec/</url>
     </scm>
 
 </project>
