@@ -1354,9 +1354,6 @@ public class MimeMessage extends Message implements MimePart {
      */
     protected void updateHeaders() throws MessagingException {
 
-        // make sure we set the MIME version
-        setHeader("MIME-Version", "1.0");
-
         DataHandler handler = getDataHandler();
 
         try {
@@ -1433,6 +1430,8 @@ public class MimeMessage extends Message implements MimePart {
                 setHeader("Content-Type", type); 
             }
 
+            // make sure we set the MIME version
+            setHeader("MIME-Version", "1.0");
             // new javamail 1.4 requirement.
             updateMessageID();
 
