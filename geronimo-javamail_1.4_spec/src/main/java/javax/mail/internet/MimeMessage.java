@@ -982,6 +982,25 @@ public class MimeMessage extends Message implements MimePart {
             }
             reply.setSubject(newSubject);
         }
+        
+        // if this message has a message ID, then add a In-Reply-To and References
+        // header to the reply message 
+        String messageID = getSingleHeader("Message-ID"); 
+        if (messageID != null) {
+            // this one is just set unconditionally 
+            reply.setHeader("In-Reply-To", messageID); 
+            // we might already have a references header.  If so, then add our message id 
+            // on the the end
+            String references = getSingleHeader("References"); 
+            if (references == null) {
+                references = messageID; 
+            }
+            else {
+                references = references + " " + messageID; 
+            }
+            // and this is a replacement for whatever might be there.              
+            reply.setHeader("References", MimeUtility.fold("References: ".length(), references)); 
+        }
 
         Address[] toRecipients = getReplyTo();
 
