@@ -21,23 +21,52 @@ package javax.servlet;
 
 import java.util.EventListener;
 
-    /**
-     * A ServletRequestListener can be implemented by the developer
-     * interested in being notified of requests coming in and out of
-     * scope in a web component. A request is defined as coming into
-     * scope when it is about to enter the first servlet or filter
-     * in each web application, as going out of scope when it exits
-     * the last servlet or the first filter in the chain.
-     *
-     * @since Servlet 2.4
-     */
+/**
+ * A ServletRequestListener can be implemented by the developer
+ * interested in being notified of requests coming in and out of
+ * scope in a web component. A request is defined as coming into
+ * scope when it is about to enter the first servlet or filter
+ * in each web application, as going out of scope when it exits
+ * the last servlet or the first filter in the chain.
+ *
+ * @since Servlet 2.4
+ */
 
 
 public interface ServletRequestListener extends EventListener {
 
-    /** The request is about to go out of scope of the web application. */
-    public void requestDestroyed ( ServletRequestEvent sre );
+    /**
+     * The request is about to go out of scope of the web application.
+     *
+     * @param sre event containing request
+     */
+    public void requestDestroyed(ServletRequestEvent sre);
 
-    /** The request is about to come into scope of the web application. */
-    public void requestInitialized ( ServletRequestEvent sre );
+    /**
+     * The request is about to come into scope of the web application.
+     *
+     * @param sre event containing request
+     */
+    public void requestInitialized(ServletRequestEvent sre);
+
+    /**
+     * Called after suspend
+     * @param sre event containing request
+     * @since 3.0
+     */
+    void requestSuspended(ServletRequestEvent sre);
+
+    /**
+     * called before resume
+     * @param sre event containing request
+     * @since 3.0
+     */
+    void requestResumed(ServletRequestEvent sre);
+
+    /**
+     * called after completion
+     * @param sre event containing request
+     * @since 3.0
+     */
+    void requestCompleted(ServletRequestEvent sre);
 }

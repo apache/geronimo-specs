@@ -24,6 +24,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Enumeration;
 import java.util.Set;
+import java.util.Map;
+import java.util.EnumSet;
 
 
 /**
@@ -644,6 +646,72 @@ public interface ServletContext {
      */
     
     public String getServletContextName();
+
+    /**
+     * Add the specified servlet to the context
+     * @param servletName servlet's name
+     * @param description description of servlet
+     * @param className class name of servlet
+     * @param initParameters init parameters for servlet
+     * @param loadOnStartup load on startup order.
+     * @throws IllegalArgumentException duplicate servletName
+     * @throws IllegalStateException this method called after #initialize
+     *
+     * @since 3.0
+     */
+    void addServlet(String servletName,
+                    String description,
+                    String className,
+                    Map<String, String> initParameters,
+                    int loadOnStartup) throws IllegalArgumentException, IllegalStateException;
+
+    /**
+     * Add the specified servlet mappings
+     * @param servletName name of servlet mapping applies to
+     * @param urlPatterns url patterns for the mapping
+     * @throws IllegalArgumentException if urlPatterns are null or empty
+     * @throws IllegalStateException if called after #initialize
+     *
+     * @since 3.0
+     */
+    void addServletMapping(String servletName,
+                           String[] urlPatterns) throws IllegalArgumentException, IllegalStateException;
+
+    /**
+     * Add a filter to this context
+     * @param filterName name of filter
+     * @param description description of filter
+     * @param className class name of filter
+     * @param initParams init params for filter
+     * @throws IllegalArgumentException duplicate filter name
+     * @throws IllegalStateException if called after #initialise
+     *
+     * @since 3.0
+     */
+    void addFilter(String filterName,
+                   String description,
+                   String className,
+                   Map<String, String> initParams) throws IllegalArgumentException, IllegalStateException;
+
+
+    /**
+     * Add a filter mapping to this context
+     * @param filterName name of filter mapping applies to
+     * @param urlPatterns url patterns for mapping
+     * @param servletNames servlet names for mapping
+     * @param dispatcherTypes dispatcher types for mapping
+     * @param isMatchAfter before or after xml or annotation specified filter mappings
+     * @throws IllegalArgumentException bad url patterns
+     * @throws IllegalStateException if called after #initialize
+     *
+     * @since 3.0
+     */
+    void addFilterMapping(String filterName,
+                          String[] urlPatterns,
+                          String[] servletNames,
+                          EnumSet<DispatcherType> dispatcherTypes,
+                          boolean isMatchAfter) throws IllegalArgumentException, IllegalStateException;
+
 }
 
 

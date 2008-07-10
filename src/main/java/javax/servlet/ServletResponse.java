@@ -159,7 +159,7 @@ public interface ServletResponse {
      * @return 		a <code>PrintWriter</code> object that 
      *			can return character data to the client 
      *
-     * @exception UnsupportedEncodingException
+     * @exception java.io.UnsupportedEncodingException
      *			if the character encoding returned
      *			by <code>getCharacterEncoding</code> cannot be used
      *
@@ -440,13 +440,30 @@ public interface ServletResponse {
      * have no effect. If no locale has been specified,
      * the container's default locale is returned.
      * 
+     * @return locale specified for this response
      * @see 		#setLocale
-     *
      */
 
     public Locale getLocale();
 
+    /**
+     * Helper for suspend/resume: disables output
+     * @since 3.0
+     */
+    void disable();
 
+    /**
+     * Helper for suspend/resume: enables output
+     * @since 3.0
+     */
+    void enable();
+
+    /**
+     * Helper for suspend/resume, shows disabled state
+     * @return true if disable is most recent disable/enable call
+     * @since 3.0
+     */
+    boolean isDisabled();
 
 }
 

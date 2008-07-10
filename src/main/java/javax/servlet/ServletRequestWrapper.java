@@ -399,6 +399,104 @@ public class ServletRequestWrapper implements ServletRequest {
     public int getLocalPort(){
         return this.request.getLocalPort();
     }
-    
+
+    /**
+     * Get the servlet context the request-response pair was last dispatched through.
+     *
+     * @return the latest ServletContext on the dispatch chain.
+     * @since 3.0
+     */
+    public ServletContext getServletContext() {
+        return request.getServletContext();
+    }
+
+    /**
+     * Gets the associated servlet response.
+     *
+     * @return the ServletResponse associated with this request.
+     * @since 3.0
+     */
+    public ServletResponse getServletResponse() {
+        return request.getServletResponse();
+    }
+
+    /**
+     * complete a suspended request.
+     *
+     * @throws IllegalStateException
+     * @since 3.0
+     */
+    public void complete() throws IllegalStateException {
+        request.complete();
+    }
+
+    /**
+     * Suspend request processing.  Must be called by a thread that is processing this request.
+     *
+     * @param timeoutMilliseconds new timeout period, in milliseconds
+     * @throws IllegalStateException if called by a thread not processing this request or after error dispatch
+     * @see #complete
+     * @see #resume
+     * @since 3.0
+     */
+    public void suspend(long timeoutMilliseconds) throws IllegalStateException {
+        request.suspend(timeoutMilliseconds);
+    }
+
+    /**
+     * Similar to suspend(timeoutMilliseconds) but with a container supplied timeout period.
+     *
+     * @throws IllegalStateException
+     * @see #complete
+     * @see #resume
+     * @since 3.0
+     */
+    public void suspend() throws IllegalStateException {
+        request.suspend();
+    }
+
+    /**
+     * Resume a suspended request
+     *
+     * @throws IllegalStateException if the request is not suspended
+     * @see #suspend
+     * @since 3.0
+     */
+    public void resume() throws IllegalStateException {
+        request.resume();
+    }
+
+    /**
+     * @return if the request is suspended
+     * @since 3.0
+     */
+    public boolean isSuspended() {
+        return request.isSuspended();
+    }
+
+    /**
+     * @return if the request is resumed
+     * @since 3.0
+     */
+    public boolean isResumed() {
+        return request.isResumed();
+    }
+
+    /**
+     * @return if the request is timed out
+     * @since 3.0
+     */
+    public boolean isTimeout() {
+        return request.isTimeout();
+    }
+
+    /**
+     * @return if the request has never been suspended (or resumed)
+     * @since 3.0
+     */
+    public boolean isInitial() {
+        return request.isInitial();
+    }
+
 }
 
