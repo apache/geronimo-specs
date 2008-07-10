@@ -91,8 +91,8 @@ public class Cookie implements Cloneable {
     private String path;	// ;Path=VALUE ... URLs that see the cookie
     private boolean secure;	// ;Secure ... e.g. use SSL
     private int version = 0;	// ;Version=1 ... means RFC 2109++ style
-    
-    
+    private boolean httpOnly;
+
 
     /**
      * Constructs a cookie with a specified name and value.
@@ -535,6 +535,24 @@ public class Cookie implements Cloneable {
 	} catch (CloneNotSupportedException e) {
 	    throw new RuntimeException(e.getMessage());
 	}
+    }
+
+    /**
+     *
+     * @return whether cookie is http only
+     * @since servlet 3.0
+     */
+    public boolean isHttpOnly() {
+        return httpOnly;
+    }
+
+    /**
+     *
+     * @param httpOnly httpOnly setting
+     * @since servlet 3.0
+     */
+    public void setHttpOnly(boolean httpOnly) {
+        this.httpOnly = httpOnly;
     }
 }
 
