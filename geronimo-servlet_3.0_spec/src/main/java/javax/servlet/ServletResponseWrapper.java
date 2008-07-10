@@ -212,6 +212,34 @@ public class ServletResponseWrapper implements ServletResponse {
 	return this.response.getLocale();
     }
 
+    /**
+     * Helper for suspend/resume: disables output
+     *
+     * @since 3.0
+     */
+    public void disable() {
+        response.disable();
+    }
+
+    /**
+     * Helper for suspend/resume: enables output
+     *
+     * @since 3.0
+     */
+    public void enable() {
+        response.enable();
+    }
+
+    /**
+     * Helper for suspend/resume, shows disabled state
+     *
+     * @return true if disable is most recent disable/enable call
+     * @since 3.0
+     */
+    public boolean isDisabled() {
+        return response.isDisabled();
+    }
+
 
 }
 
