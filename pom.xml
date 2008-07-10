@@ -30,12 +30,12 @@
         <version>1.5</version>
     </parent>
 
-    <artifactId>geronimo-servlet_2.5_spec</artifactId>
+    <artifactId>geronimo-servlet_3.0_spec</artifactId>
     <packaging>jar</packaging>
-    <name>Servlet 2.5</name>
-    <version>1.3-SNAPSHOT</version>
+    <name>Servlet 3.0 Early Access</name>
+    <version>1.0-EA-SNAPSHOT</version>
 
-    <description>Servlet 2.5 Specification</description>
+    <description>Servlet 3.0 (early access) Specification</description>
 
     <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
     <distributionManagement>
@@ -49,13 +49,13 @@
         <siteId>specs/${artifactId}</siteId>
 
         <geronimo.osgi.export.pkg>javax.servlet*</geronimo.osgi.export.pkg>
-        <geronimo.osgi.export.version>2.5</geronimo.osgi.export.version>
+        <geronimo.osgi.export.version>3.0</geronimo.osgi.export.version>
     </properties>
 
     <scm>
-        <connection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-servlet_2.5_spec/</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-servlet_2.5_spec/</developerConnection>
-        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-servlet_2.5_spec/</url>
+        <connection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-servlet_3.0_spec/</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-servlet_3.0_spec/</developerConnection>
+        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-servlet_3.0_spec/</url>
     </scm>
 
 </project>
