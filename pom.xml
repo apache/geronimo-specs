@@ -47,9 +47,8 @@
 
     <properties>
         <siteId>specs/${artifactId}</siteId>
-        <geronimo.osgi.export.pkg>javax.mail*</geronimo.osgi.export.pkg>
-        <geronimo.osgi.private.pkg>org.apache.geronimo.mail*</geronimo.osgi.private.pkg>
-        <geronimo.osgi.export.version>1.4</geronimo.osgi.export.version>
+        <geronimo.osgi.export.pkg>javax.mail*,org.apache.geronimo.mail*</geronimo.osgi.export.pkg>
+        <geronimo.osgi.export.version>1.5-SNAPSHOT</geronimo.osgi.export.version>
         <geronimo.osgi.resources>src/main/resources/,META-INF/LICENSE.txt=LICENSE.txt,META-INF/NOTICE.txt=NOTICE.txt</geronimo.osgi.resources>
     </properties>
 
