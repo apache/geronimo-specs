@@ -535,8 +535,12 @@ public class InternetHeaders {
 
         // tabs and spaces are special.  This is a continuation of the last header in the list.
         if (ch == ' ' || ch == '\t') {
-            InternetHeader header = (InternetHeader)headers.get(headers.size() - 1);
-            header.appendValue(line);
+            int size = headers.size(); 
+            // it's possible that we have a leading blank line. 
+            if (size > 0) {
+                InternetHeader header = (InternetHeader)headers.get(size - 1);
+                header.appendValue(line);
+            }
         }
         else {
             // this just gets appended to the end, preserving the addition order.
