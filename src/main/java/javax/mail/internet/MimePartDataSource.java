@@ -43,18 +43,61 @@ public class MimePartDataSource implements DataSource, MessageAware {
         try {
             InputStream stream;
             if (part instanceof MimeMessage) {
-                stream = ((MimeMessage) part).getContentStream();
+                // this never gets encoded, so we can skip other steps 
+                return ((MimeMessage) part).getContentStream();
             } else if (part instanceof MimeBodyPart) {
                 stream = ((MimeBodyPart) part).getContentStream();
             } else {
                 throw new MessagingException("Unknown part");
             }
-            String encoding = part.getEncoding();
-            return encoding == null ? stream : MimeUtility.decode(stream, encoding);
+            return checkPartEncoding(part, stream);
         } catch (MessagingException e) {
             throw (IOException) new IOException(e.getMessage()).initCause(e);
         }
     }
+    
+    
+    /**
+     * For a given part, decide it the data stream requires
+     * wrappering with a stream for decoding a particular 
+     * encoding. 
+     * 
+     * @param part   The part we're extracting.
+     * @param stream The raw input stream for the part.
+     * 
+     * @return An input stream configured for reading the 
+     *         source part and decoding it into raw bytes.
+     */
+    private InputStream checkPartEncoding(MimePart part, InputStream stream) throws MessagingException {
+        String encoding = part.getEncoding();
+        // if nothing is specified, there's nothing to do 
+        if (encoding == null) {
+            return stream; 
+        }
+        // now screen out the ones that never need decoding 
+        encoding = encoding.toLowerCase(); 
+        if (encoding.equals("7bit") || encoding.equals("8bit") || encoding.equals("binary")) {
+            return stream; 
+        }
+        // now we need to check the content type to prevent 
+        // MultiPart types from getting decoded, since the part is just an envelope around other 
+        // parts 
+        String contentType = part.getContentType(); 
+        if (contentType != null) {
+            try {
+                ContentType type = new ContentType(contentType); 
+                // no decoding done here 
+                if (type.match("multipart/*")) {
+                    return stream; 
+                }
+            } catch (ParseException e) {
+                // ignored....bad content type means we handle as a normal part 
+            }
+        }
+        // ok, wrap this is a decoding stream if required 
+        return MimeUtility.decode(stream, encoding);
+    }
+    
 
     public OutputStream getOutputStream() throws IOException {
         throw new UnknownServiceException();
