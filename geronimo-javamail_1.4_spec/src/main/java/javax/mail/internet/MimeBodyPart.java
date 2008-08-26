@@ -82,8 +82,9 @@ public class MimeBodyPart extends BodyPart implements MimePart {
         byte[] buffer = new byte[1024];
         int count;
         try {
-            while((count = in.read(buffer, 0, 1024)) > 0)
+            while((count = in.read(buffer, 0, 1024)) > 0) {
                 baos.write(buffer, 0, count);
+            }
         } catch (IOException e) {
             throw new MessagingException(e.toString(),e);
         }

@@ -169,6 +169,7 @@ public class MimeMultipart extends Multipart {
         if (parsed) {
             return;
         }
+        
         try {
             ContentType cType = new ContentType(contentType);
             InputStream is = new BufferedInputStream(ds.getInputStream());
@@ -186,7 +187,7 @@ public class MimeMultipart extends Multipart {
                 readTillFirstBoundary(pushbackInStream, boundary);
             }
             
-            while (pushbackInStream.available()>0){
+            while (pushbackInStream.available() > 0){
                 MimeBodyPartInputStream partStream;
                 partStream = new MimeBodyPartInputStream(pushbackInStream,
                         boundary);
@@ -360,67 +361,255 @@ public class MimeMultipart extends Multipart {
         public boolean boundaryFound = false;
         byte[] boundary;
 
-        public MimeBodyPartInputStream(PushbackInputStream inStream,
-                                       byte[] boundary) {
+        public MimeBodyPartInputStream(PushbackInputStream inStream, byte[] boundary) {
             super();
             this.inStream = inStream;
             this.boundary = boundary;
         }
 
+        /**
+         * The base reading method for reading one character 
+         * at a time. 
+         * 
+         * @return The read character, or -1 if an EOF was encountered. 
+         * @exception IOException
+         */
         public int read() throws IOException {
             if (boundaryFound) {
                 return -1;
             }
+            
             // read the next value from stream
             int value = inStream.read();
-            // A problem occured because all the mime parts tends to have a /r/n at the end. Making it hard to transform them to correct DataSources.
-            // This logic introduced to handle it
-            //TODO look more in to this && for a better way to do this
-            if (value == 13) {
-                value = inStream.read();
-                if (value != 10) {
-                    inStream.unread(value);
-                    return 13;
-                } else {
-                    value = inStream.read();
-                    if ((byte) value != boundary[0]) {
-                        inStream.unread(value);
-                        inStream.unread(10);
-                        return 13;
-                    }
-                }
-            } else if ((byte) value != boundary[0]) {
+            // premature end?  Handle it like a boundary located 
+            if (value == -1) {
+                boundaryFound = true; 
+                return -1; 
+            }
+            
+            // we first need to look for a line boundary.  If we find a boundary, it can be followed by the 
+            // boundary marker, so we need to remember what sort of thing we found, then read ahead looking 
+            // for the part boundary. 
+            
+            // NB:, we only handle [\r]\n--boundary marker[--]
+            // we need to at least accept what most mail servers would consider an 
+            // invalid format using just '\n'
+            if (value != '\r' && value != '\n') {
+                // not a \r, just return the byte as is 
                 return value;
             }
+            
+            int lineendStyle = 2;    // this indicates the type of linend we need to push back. 
+            // if this is a '\r', then we require the '\n'
+            if (value == '\r') {
+                // now scan ahead for the second character 
+                value = inStream.read();
+                if (value != '\n') {
+                    // only a \r, so this can't be a boundary.  Return the 
+                    // \r as if it was data 
+                    inStream.unread(value);
+                    return '\r';
+                } 
+            } else {
+                lineendStyle = 1;    // single character linend 
+            }
+            value = inStream.read();
+            // if the next character is not a boundary start, we 
+            // need to handle this as a normal line end 
+            if ((byte) value != boundary[0]) {
+                inStream.unread(value);
+                // just a naked line feed...return that without pushing anything back 
+                if (lineendStyle == 1) {
+                    return '\n'; 
+                }
+                else 
+                {
+                    inStream.unread('\n');
+                    // the next character read will by the 0x0a, which will 
+                    // be handled as 
+                    return '\r';
+                }
+            }
+            
+            // we're here because we found a "\r\n-" sequence, which is a potential 
+            // boundary marker.  Read the individual characters of the next line until 
+            // we have a mismatch 
+            
             // read value is the first byte of the boundary. Start matching the
             // next characters to find a boundary
             int boundaryIndex = 0;
-            while ((boundaryIndex < boundary.length)
-                    && ((byte) value == boundary[boundaryIndex])) {
+            while ((boundaryIndex < boundary.length) && ((byte) value == boundary[boundaryIndex])) {
                 value = inStream.read();
                 boundaryIndex++;
             }
-            if (boundaryIndex == boundary.length) { // boundary found
-                boundaryFound = true;
-                // read the end of line character
-                if (inStream.read() == '-' && value == '-') {
-                    //Last mime boundary should have a succeeding "--"
-                    //as we are on it, read the terminating CRLF
-                    inStream.read();
-                    inStream.read();
+            // if we didn't match all the way, we need to push back what we've read and 
+            // return the EOL character 
+            if (boundaryIndex != boundary.length) { 
+                // Boundary not found. Restoring bytes skipped.
+                // write first skipped byte, push back the rest
+                
+                // Stream might have ended 
+                if (value != -1) { 
+                    inStream.unread(value);
                 }
-                return -1;
+                // restore the portion of the boundary string that we matched 
+                inStream.unread(boundary, 0, boundaryIndex);
+                // just a naked line feed...return that without pushing anything back 
+                if (lineendStyle == 1) {
+                    return '\n'; 
+                }
+                else 
+                {
+                    inStream.unread('\n');
+                    // the next character read will by the 0x0a, which will 
+                    // be handled as 
+                    return '\r';
+                }
             }
-            // Boundary not found. Restoring bytes skipped.
-            // write first skipped byte, push back the rest
-            if (value != -1) { // Stream might have ended
-                inStream.unread(value);
+            
+            // The full boundary sequence should be \r\n--boundary string[--]\r\n
+            // if the last character we read was a '-', check for the end terminator 
+            if (value == '-') {
+                value = inStream.read();
+                // crud, we have a bad boundary terminator.  We need to unwind this all the way 
+                // back to the lineend and pretend none of this ever happened
+                if (value != '-') {
+                    // push back the end markers 
+                    // Stream might have ended 
+                    if (value != -1) { 
+                        inStream.unread(value);
+                    }
+                    inStream.unread('-'); 
+                    // the entire boundary string 
+                    inStream.unread(boundary);
+                    // just a naked line feed...return that without pushing anything back 
+                    if (lineendStyle == 1) {
+                        return '\n'; 
+                    }
+                    else 
+                    {
+                        inStream.unread('\n');
+                        // the next character read will by the 0x0a, which will 
+                        // be handled as 
+                        return '\r';
+                    }
+                }
+                // on the home stretch, but we need to verify the EOL sequence 
+                value = inStream.read();
+                // this must be a CR or a LF...which leaves us even more to push back and forget 
+                if (value != '\r' && value != '\n') {
+                    // Stream might have ended 
+                    if (value != -1) { 
+                        inStream.unread(value);
+                    }
+                    inStream.unread(value); 
+                    inStream.unread('-'); 
+                    inStream.unread('-'); 
+                    // the entire boundary string 
+                    inStream.unread(boundary);
+                    // just a naked line feed...return that without pushing anything back 
+                    if (lineendStyle == 1) {
+                        return '\n'; 
+                    }
+                    else 
+                    {
+                        inStream.unread('\n');
+                        // the next character read will by the 0x0a, which will 
+                        // be handled as 
+                        return '\r';
+                    }
+                }
+                
+                // if this is carriage return, check for a linefeed  
+                if (value == '\r') {
+                    // last check, this must be a line feed 
+                    value = inStream.read();
+                    if (value != '\n') {
+                        // SO CLOSE!
+                        // push back the end markers 
+                        // Stream might have ended 
+                        if (value != -1) { 
+                            inStream.unread(value);
+                        }
+                        inStream.unread('\r'); 
+                        inStream.unread('-'); 
+                        inStream.unread('-'); 
+                        // the entire boundary string 
+                        inStream.unread(boundary);
+                        // just a naked line feed...return that without pushing anything back 
+                        if (lineendStyle == 1) {
+                            return '\n'; 
+                        }
+                        else 
+                        {
+                            inStream.unread('\n');
+                            // the next character read will by the 0x0a, which will 
+                            // be handled as 
+                            return '\r';
+                        }
+                    }
+                }
             }
-            inStream.unread(boundary, 1, boundaryIndex - 1);
-            return boundary[0];
+            else {
+                // now check for a linend sequence...either \r\n or \n is accepted. 
+                if (value != '\r' && value != '\n') {
+                    // push back the end markers 
+                    // Stream might have ended 
+                    if (value != -1) { 
+                        inStream.unread(value);
+                    }
+                    // the entire boundary string 
+                    inStream.unread(boundary);
+                    // just a naked line feed...return that without pushing anything back 
+                    if (lineendStyle == 1) {
+                        return '\n'; 
+                    }
+                    else 
+                    {
+                        inStream.unread('\n');
+                        // the next character read will by the 0x0a, which will 
+                        // be handled as 
+                        return '\r';
+                    }
+                }
+                
+                // if this is carriage return, check for a linefeed  
+                if (value == '\r') {
+                    // last check, this must be a line feed 
+                    value = inStream.read();
+                    if (value != '\n') {
+                        // SO CLOSE!
+                        // push back the end markers 
+                        // Stream might have ended 
+                        if (value != -1) { 
+                            inStream.unread(value);
+                        }
+                        inStream.unread('\r'); 
+                        inStream.unread('-'); 
+                        inStream.unread('-'); 
+                        // the entire boundary string 
+                        inStream.unread(boundary);
+                        // just a naked line feed...return that without pushing anything back 
+                        if (lineendStyle == 1) {
+                            return '\n'; 
+                        }
+                        else 
+                        {
+                            inStream.unread('\n');
+                            // the next character read will by the 0x0a, which will 
+                            // be handled as 
+                            return '\r';
+                        }
+                    }
+                }
+            }
+            // we have a boundary, so return this as an EOF condition 
+            boundaryFound = true;
+            return -1;
         }
     }
 
+    
     /**
      * Return true if the final boundary line for this multipart was
      * seen when parsing the data.
