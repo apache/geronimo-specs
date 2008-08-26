@@ -200,6 +200,10 @@ public class MimeMultipart extends Multipart {
                     }
                     complete = false;
                 }
+                // if we hit the final boundary, stop processing this 
+                if (partStream.finalBoundaryFound) {
+                    break; 
+                }
             }
         } catch (Exception e){
             throw new MessagingException(e.toString(),e);
@@ -360,6 +364,7 @@ public class MimeMultipart extends Multipart {
         PushbackInputStream inStream;
         public boolean boundaryFound = false;
         byte[] boundary;
+        public boolean finalBoundaryFound = false; 
 
         public MimeBodyPartInputStream(PushbackInputStream inStream, byte[] boundary) {
             super();
@@ -549,6 +554,8 @@ public class MimeMultipart extends Multipart {
                         }
                     }
                 }
+                // we've hit the end of times...
+                finalBoundaryFound = true; 
             }
             else {
                 // now check for a linend sequence...either \r\n or \n is accepted. 
