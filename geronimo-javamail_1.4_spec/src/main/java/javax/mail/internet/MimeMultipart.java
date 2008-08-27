@@ -25,7 +25,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.PushbackInputStream;
 
 import java.util.Arrays; 
 
@@ -173,24 +172,23 @@ public class MimeMultipart extends Multipart {
         try {
             ContentType cType = new ContentType(contentType);
             InputStream is = new BufferedInputStream(ds.getInputStream());
-            PushbackInputStream pushbackInStream = null;
+            BufferedInputStream pushbackInStream = null;
             String boundaryString = cType.getParameter("boundary"); 
             byte[] boundary = null; 
             if (boundaryString == null) {
-                pushbackInStream = new PushbackInputStream(is, 128);  
+                pushbackInStream = new BufferedInputStream(is, 1200);  
                 // read until we find something that looks like a boundary string 
                 boundary = readTillFirstBoundary(pushbackInStream); 
             }
             else {
                 boundary = ("--" + boundaryString).getBytes();
-                pushbackInStream = new PushbackInputStream(is, (boundary.length + 2));
+                pushbackInStream = new BufferedInputStream(is, boundary.length + 1000);
                 readTillFirstBoundary(pushbackInStream, boundary);
             }
             
-            while (pushbackInStream.available() > 0){
+            while (true) {
                 MimeBodyPartInputStream partStream;
-                partStream = new MimeBodyPartInputStream(pushbackInStream,
-                        boundary);
+                partStream = new MimeBodyPartInputStream(pushbackInStream, boundary);
                 addBodyPart(new MimeBodyPart(partStream));
 
                 // terminated by an EOF rather than a proper boundary?
@@ -220,13 +218,17 @@ public class MimeMultipart extends Multipart {
      * @param boundary
      * @throws MessagingException
      */
-    private byte[] readTillFirstBoundary(PushbackInputStream pushbackInStream) throws MessagingException {
+    private byte[] readTillFirstBoundary(BufferedInputStream pushbackInStream) throws MessagingException {
         ByteArrayOutputStream preambleStream = new ByteArrayOutputStream();
 
         try {
-            while (pushbackInStream.available() > 0) {
+            while (true) {
                 // read the next line 
                 byte[] line = readLine(pushbackInStream); 
+                // hit an EOF?
+                if (line == null) {
+                    throw new MessagingException("Unexpected End of Stream while searching for first Mime Boundary");
+                }
                 // if this looks like a boundary, then make it so 
                 if (line.length > 2 && line[0] == '-' && line[1] == '-') {
                     // save the preamble, if there is one.
@@ -234,7 +236,7 @@ public class MimeMultipart extends Multipart {
                     if (preambleBytes.length > 0) {
                         preamble = new String(preambleBytes);
                     }
-                    return line;        
+                    return stripLinearWhiteSpace(line);        
                 }
                 else {
                     // this is part of the preamble.
@@ -243,10 +245,39 @@ public class MimeMultipart extends Multipart {
                     preambleStream.write('\n'); 
                 }
             }
-            throw new MessagingException("Unexpected End of Stream while searching for first Mime Boundary");
         } catch (IOException ioe) {
             throw new MessagingException(ioe.toString(), ioe);
         }
+    }
+    
+    
+    /**
+     * Scan a line buffer stripping off linear whitespace 
+     * characters, returning a new array without the 
+     * characters, if possible. 
+     * 
+     * @param line   The source line buffer.
+     * 
+     * @return A byte array with white space characters removed, 
+     *         if necessary.
+     */
+    private byte[] stripLinearWhiteSpace(byte[] line) {
+        int index = line.length - 1; 
+        // if the last character is not a space or tab, we 
+        // can use this unchanged 
+        if (line[index] != ' ' && line[index] != '\t') {
+            return line; 
+        }
+        // scan backwards for the first non-white space 
+        for (; index > 0; index--) {
+            if (line[index] != ' ' && line[index] != '\t') {
+                break;       
+            }
+        }
+        // make a shorter copy of this 
+        byte[] newLine = new byte[index + 1]; 
+        System.arraycopy(line, 0, newLine, 0, index + 1); 
+        return newLine; 
     }
 
     /**
@@ -258,16 +289,20 @@ public class MimeMultipart extends Multipart {
      * @param boundary
      * @throws MessagingException
      */
-    private void readTillFirstBoundary(PushbackInputStream pushbackInStream, byte[] boundary) throws MessagingException {
+    private void readTillFirstBoundary(BufferedInputStream pushbackInStream, byte[] boundary) throws MessagingException {
         ByteArrayOutputStream preambleStream = new ByteArrayOutputStream();
 
         try {
-            while (pushbackInStream.available() > 0) {
+            while (true) {
                 // read the next line 
                 byte[] line = readLine(pushbackInStream); 
+                // hit an EOF?
+                if (line == null) {
+                    throw new MessagingException("Unexpected End of Stream while searching for first Mime Boundary");
+                }
                 
-                // if this is the same length as our target boundary, then compare the two. 
-                if (Arrays.equals(line, boundary)) {
+                // apply the boundary comparison rules to this 
+                if (compareBoundary(line, boundary)) {
                     // save the preamble, if there is one.
                     byte[] preambleBytes = preambleStream.toByteArray();
                     if (preambleBytes.length > 0) {
@@ -275,17 +310,54 @@ public class MimeMultipart extends Multipart {
                     }
                     return;        
                 }
-                else {
-                    // this is part of the preamble.
-                    preambleStream.write(line);
-                    preambleStream.write('\r'); 
-                    preambleStream.write('\n'); 
-                }
+                
+                // this is part of the preamble.
+                preambleStream.write(line);
+                preambleStream.write('\r'); 
+                preambleStream.write('\n'); 
             }
-            throw new MessagingException("Unexpected End of Stream while searching for first Mime Boundary");
         } catch (IOException ioe) {
             throw new MessagingException(ioe.toString(), ioe);
         }
+    }
+    
+    
+    /**
+     * Peform a boundary comparison, taking into account 
+     * potential linear white space 
+     * 
+     * @param line     The line to compare.
+     * @param boundary The boundary we're searching for
+     * 
+     * @return true if this is a valid boundary line, false for 
+     *         any mismatches.
+     */
+    private boolean compareBoundary(byte[] line, byte[] boundary) {
+        // if the line is too short, this is an easy failure 
+        if (line.length < boundary.length) {
+            return false;
+        }
+        
+        // this is the most common situation
+        if (line.length == boundary.length) {
+            return Arrays.equals(line, boundary); 
+        }
+        // the line might have linear white space after the boundary portions
+        for (int i = 0; i < boundary.length; i++) {
+            // fail on any mismatch 
+            if (line[i] != boundary[i]) {
+                return false; 
+            }
+        }
+        // everything after the boundary portion must be linear whitespace 
+        for (int i = boundary.length; i < line.length; i++) {
+            // fail on any mismatch 
+            if (line[i] != ' ' && line[i] != '\t') { 
+                return false; 
+            }
+        }
+        // these are equivalent 
+        return true; 
     }
     
     /**
@@ -298,7 +370,7 @@ public class MimeMultipart extends Multipart {
      *         null if there's nothing left in the stream.
      * @exception MessagingException
      */
-    private byte[] readLine(PushbackInputStream in) throws IOException 
+    private byte[] readLine(BufferedInputStream in) throws IOException 
     {
         ByteArrayOutputStream line = new ByteArrayOutputStream();
         
@@ -312,11 +384,12 @@ public class MimeMultipart extends Multipart {
                 break; 
             }
             else if (value == '\r') {
+                in.mark(10); 
                 value = in.read(); 
                 // we expect to find a linefeed after the carriage return, but 
                 // some things play loose with the rules. 
                 if (value != '\n') {
-                    in.unread(value); 
+                    in.reset(); 
                 }
                 break; 
             }
@@ -332,7 +405,6 @@ public class MimeMultipart extends Multipart {
         // return this as an array of bytes 
         return line.toByteArray(); 
     }
-    
     
 
     protected InternetHeaders createInternetHeaders(InputStream in) throws MessagingException {
@@ -361,12 +433,12 @@ public class MimeMultipart extends Multipart {
     }
 
     private class MimeBodyPartInputStream extends InputStream {
-        PushbackInputStream inStream;
+        BufferedInputStream inStream;
         public boolean boundaryFound = false;
         byte[] boundary;
         public boolean finalBoundaryFound = false; 
 
-        public MimeBodyPartInputStream(PushbackInputStream inStream, byte[] boundary) {
+        public MimeBodyPartInputStream(BufferedInputStream inStream, byte[] boundary) {
             super();
             this.inStream = inStream;
             this.boundary = boundary;
@@ -385,10 +457,12 @@ public class MimeMultipart extends Multipart {
             }
             
             // read the next value from stream
-            int value = inStream.read();
+            int firstChar = inStream.read();
             // premature end?  Handle it like a boundary located 
-            if (value == -1) {
+            if (firstChar == -1) {
                 boundaryFound = true; 
+                // also mark this as the end 
+                finalBoundaryFound = true; 
                 return -1; 
             }
             
@@ -399,41 +473,35 @@ public class MimeMultipart extends Multipart {
             // NB:, we only handle [\r]\n--boundary marker[--]
             // we need to at least accept what most mail servers would consider an 
             // invalid format using just '\n'
-            if (value != '\r' && value != '\n') {
+            if (firstChar != '\r' && firstChar != '\n') {
                 // not a \r, just return the byte as is 
-                return value;
+                return firstChar;
             }
-            
-            int lineendStyle = 2;    // this indicates the type of linend we need to push back. 
+            // we might need to rewind to this point.  The padding is to allow for 
+            // line terminators and linear whitespace on the boundary lines 
+            inStream.mark(boundary.length + 1000); 
+            // we need to keep track of the first read character in case we need to 
+            // rewind back to the mark point 
+            int value = firstChar; 
             // if this is a '\r', then we require the '\n'
             if (value == '\r') {
                 // now scan ahead for the second character 
                 value = inStream.read();
                 if (value != '\n') {
                     // only a \r, so this can't be a boundary.  Return the 
-                    // \r as if it was data 
-                    inStream.unread(value);
+                    // \r as if it was data, after first resetting  
+                    inStream.reset(); 
                     return '\r';
                 } 
-            } else {
-                lineendStyle = 1;    // single character linend 
-            }
+            } 
+            
             value = inStream.read();
             // if the next character is not a boundary start, we 
             // need to handle this as a normal line end 
             if ((byte) value != boundary[0]) {
-                inStream.unread(value);
-                // just a naked line feed...return that without pushing anything back 
-                if (lineendStyle == 1) {
-                    return '\n'; 
-                }
-                else 
-                {
-                    inStream.unread('\n');
-                    // the next character read will by the 0x0a, which will 
-                    // be handled as 
-                    return '\r';
-                }
+                // just reset and return the first character as data 
+                inStream.reset(); 
+                return firstChar; 
             }
             
             // we're here because we found a "\r\n-" sequence, which is a potential 
@@ -451,25 +519,9 @@ public class MimeMultipart extends Multipart {
             // return the EOL character 
             if (boundaryIndex != boundary.length) { 
                 // Boundary not found. Restoring bytes skipped.
-                // write first skipped byte, push back the rest
-                
-                // Stream might have ended 
-                if (value != -1) { 
-                    inStream.unread(value);
-                }
-                // restore the portion of the boundary string that we matched 
-                inStream.unread(boundary, 0, boundaryIndex);
-                // just a naked line feed...return that without pushing anything back 
-                if (lineendStyle == 1) {
-                    return '\n'; 
-                }
-                else 
-                {
-                    inStream.unread('\n');
-                    // the next character read will by the 0x0a, which will 
-                    // be handled as 
-                    return '\r';
-                }
+                // just reset and return the first character as data 
+                inStream.reset(); 
+                return firstChar; 
             }
             
             // The full boundary sequence should be \r\n--boundary string[--]\r\n
@@ -479,50 +531,37 @@ public class MimeMultipart extends Multipart {
                 // crud, we have a bad boundary terminator.  We need to unwind this all the way 
                 // back to the lineend and pretend none of this ever happened
                 if (value != '-') {
-                    // push back the end markers 
-                    // Stream might have ended 
-                    if (value != -1) { 
-                        inStream.unread(value);
-                    }
-                    inStream.unread('-'); 
-                    // the entire boundary string 
-                    inStream.unread(boundary);
-                    // just a naked line feed...return that without pushing anything back 
-                    if (lineendStyle == 1) {
-                        return '\n'; 
-                    }
-                    else 
-                    {
-                        inStream.unread('\n');
-                        // the next character read will by the 0x0a, which will 
-                        // be handled as 
-                        return '\r';
-                    }
+                    // Boundary not found. Restoring bytes skipped.
+                    // just reset and return the first character as data 
+                    inStream.reset(); 
+                    return firstChar; 
                 }
-                // on the home stretch, but we need to verify the EOL sequence 
+                // on the home stretch, but we need to verify the LWSP/EOL sequence 
                 value = inStream.read();
+                // first skip over the linear whitespace 
+                while (value == ' ' || value == '\t') {
+                    value = inStream.read();
+                }
+                
+                // We've matched the final boundary, skipped any whitespace, but 
+                // we've hit the end of the stream.  This is highly likely when 
+                // we have nested multiparts, since the linend terminator for the 
+                // final boundary marker is eated up as the start of the outer 
+                // boundary marker.  No CRLF sequence here is ok. 
+                if (value == -1) {
+                    // we've hit the end of times...
+                    finalBoundaryFound = true; 
+                    // we have a boundary, so return this as an EOF condition 
+                    boundaryFound = true;
+                    return -1;
+                }
+                
                 // this must be a CR or a LF...which leaves us even more to push back and forget 
                 if (value != '\r' && value != '\n') {
-                    // Stream might have ended 
-                    if (value != -1) { 
-                        inStream.unread(value);
-                    }
-                    inStream.unread(value); 
-                    inStream.unread('-'); 
-                    inStream.unread('-'); 
-                    // the entire boundary string 
-                    inStream.unread(boundary);
-                    // just a naked line feed...return that without pushing anything back 
-                    if (lineendStyle == 1) {
-                        return '\n'; 
-                    }
-                    else 
-                    {
-                        inStream.unread('\n');
-                        // the next character read will by the 0x0a, which will 
-                        // be handled as 
-                        return '\r';
-                    }
+                    // Boundary not found. Restoring bytes skipped.
+                    // just reset and return the first character as data 
+                    inStream.reset(); 
+                    return firstChar; 
                 }
                 
                 // if this is carriage return, check for a linefeed  
@@ -531,53 +570,27 @@ public class MimeMultipart extends Multipart {
                     value = inStream.read();
                     if (value != '\n') {
                         // SO CLOSE!
-                        // push back the end markers 
-                        // Stream might have ended 
-                        if (value != -1) { 
-                            inStream.unread(value);
-                        }
-                        inStream.unread('\r'); 
-                        inStream.unread('-'); 
-                        inStream.unread('-'); 
-                        // the entire boundary string 
-                        inStream.unread(boundary);
-                        // just a naked line feed...return that without pushing anything back 
-                        if (lineendStyle == 1) {
-                            return '\n'; 
-                        }
-                        else 
-                        {
-                            inStream.unread('\n');
-                            // the next character read will by the 0x0a, which will 
-                            // be handled as 
-                            return '\r';
-                        }
+                        // Boundary not found. Restoring bytes skipped.
+                        // just reset and return the first character as data 
+                        inStream.reset(); 
+                        return firstChar; 
                     }
                 }
+                
                 // we've hit the end of times...
                 finalBoundaryFound = true; 
             }
             else {
-                // now check for a linend sequence...either \r\n or \n is accepted. 
+                // first skip over the linear whitespace 
+                while (value == ' ' || value == '\t') {
+                    value = inStream.read();
+                }
+                // this must be a CR or a LF...which leaves us even more to push back and forget 
                 if (value != '\r' && value != '\n') {
-                    // push back the end markers 
-                    // Stream might have ended 
-                    if (value != -1) { 
-                        inStream.unread(value);
-                    }
-                    // the entire boundary string 
-                    inStream.unread(boundary);
-                    // just a naked line feed...return that without pushing anything back 
-                    if (lineendStyle == 1) {
-                        return '\n'; 
-                    }
-                    else 
-                    {
-                        inStream.unread('\n');
-                        // the next character read will by the 0x0a, which will 
-                        // be handled as 
-                        return '\r';
-                    }
+                    // Boundary not found. Restoring bytes skipped.
+                    // just reset and return the first character as data 
+                    inStream.reset(); 
+                    return firstChar; 
                 }
                 
                 // if this is carriage return, check for a linefeed  
@@ -586,27 +599,10 @@ public class MimeMultipart extends Multipart {
                     value = inStream.read();
                     if (value != '\n') {
                         // SO CLOSE!
-                        // push back the end markers 
-                        // Stream might have ended 
-                        if (value != -1) { 
-                            inStream.unread(value);
-                        }
-                        inStream.unread('\r'); 
-                        inStream.unread('-'); 
-                        inStream.unread('-'); 
-                        // the entire boundary string 
-                        inStream.unread(boundary);
-                        // just a naked line feed...return that without pushing anything back 
-                        if (lineendStyle == 1) {
-                            return '\n'; 
-                        }
-                        else 
-                        {
-                            inStream.unread('\n');
-                            // the next character read will by the 0x0a, which will 
-                            // be handled as 
-                            return '\r';
-                        }
+                        // Boundary not found. Restoring bytes skipped.
+                        // just reset and return the first character as data 
+                        inStream.reset(); 
+                        return firstChar; 
                     }
                 }
             }
