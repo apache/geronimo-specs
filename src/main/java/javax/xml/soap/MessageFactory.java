@@ -80,14 +80,14 @@ public abstract class MessageFactory {
      *                       <CODE> MessageFactory</CODE>
      */
     public static MessageFactory newInstance() throws SOAPException {
-
         try {
-            return (MessageFactory)FactoryFinder.find(
-                    MESSAGE_FACTORY_PROPERTY,
-                    DEFAULT_MESSAGE_FACTORY);
+            MessageFactory factory = (MessageFactory)FactoryFinder.find(MESSAGE_FACTORY_PROPERTY);
+            if (factory == null) {
+            	factory = newInstance(SOAPConstants.SOAP_1_1_PROTOCOL);
+            }
+            return factory;
         } catch (Exception exception) {
-            throw new SOAPException("Unable to create message factory for SOAP: "
-                    + exception.getMessage());
+            throw new SOAPException("Unable to create MessageFactory: " + exception.getMessage());
         }
     }
 
@@ -129,9 +129,6 @@ public abstract class MessageFactory {
             throws SOAPException {
         return SAAJMetaFactory.getInstance().newMessageFactory(soapVersion);
     }
-
-    private static final String DEFAULT_MESSAGE_FACTORY =
-            "org.apache.axis2.saaj.MessageFactoryImpl";
 
     private static final String MESSAGE_FACTORY_PROPERTY =
             "javax.xml.soap.MessageFactory";
