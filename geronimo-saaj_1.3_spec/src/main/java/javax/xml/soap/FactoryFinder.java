@@ -83,6 +83,29 @@ class FactoryFinder {
      */
     static Object find(String factoryPropertyName,
                        String defaultFactoryClassName) throws SOAPException {
+        Object factory = find(factoryPropertyName);
+        if (factory != null) {
+            return factory;
+        }
+
+        if (defaultFactoryClassName == null) {
+            throw new SOAPException(
+                    "Provider for " + factoryPropertyName + " cannot be found",
+                    null);
+        } else {
+            return newInstance(defaultFactoryClassName);
+        }
+    }
+
+    /**
+     * Instantiates a factory object given the factory's property name.
+     *
+     * @param factoryPropertyName
+     * @param defaultFactoryClassName
+     * @return a factory object
+     * @throws SOAPException
+     */
+    static Object find(String factoryPropertyName) throws SOAPException {
         try {
             String factoryClassName = System.getProperty(factoryPropertyName);
             if (factoryClassName != null) {
@@ -109,7 +132,6 @@ class FactoryFinder {
         }
 
         String factoryResource = "META-INF/services/" + factoryPropertyName;
-
         try {
             InputStream inputstream = getResource(factoryResource);
             if (inputstream != null) {
@@ -118,25 +140,13 @@ class FactoryFinder {
                 String factoryClassName = bufferedreader.readLine();
                 bufferedreader.close();
                 if ((factoryClassName != null) && !"".equals(factoryClassName)) {
-                    try {
-                        return newInstance(factoryClassName);
-                    } catch (Exception e) {
-                        throw new SOAPException(
-                                "Provider for " + factoryPropertyName + " cannot be found",
-                                null);
-                    }
+                    return newInstance(factoryClassName);
                 }
             }
         } catch (Exception exception2) {
         }
 
-        if (defaultFactoryClassName == null) {
-            throw new SOAPException(
-                    "Provider for " + factoryPropertyName + " cannot be found",
-                    null);
-        } else {
-            return newInstance(defaultFactoryClassName);
-        }
+        return null;
     }
 
     /**

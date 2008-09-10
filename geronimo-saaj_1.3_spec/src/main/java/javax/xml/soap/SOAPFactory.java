@@ -119,12 +119,14 @@ public abstract class SOAPFactory {
      * @throws SOAPException if there was an error creating the default <code>SOAPFactory</code>
      */
     public static SOAPFactory newInstance() throws SOAPException {
-
         try {
-            return (SOAPFactory)FactoryFinder.find(SF_PROPERTY, DEFAULT_SF);
+            SOAPFactory factory = (SOAPFactory)FactoryFinder.find(SOAP_FACTORY_PROPERTY);
+            if (factory == null) {
+                factory = newInstance(SOAPConstants.SOAP_1_1_PROTOCOL);
+            }
+            return factory;
         } catch (Exception exception) {
-            throw new SOAPException("Unable to create SOAP Factory: "
-                    + exception.getMessage());
+            throw new SOAPException("Unable to create SOAPFactory: " + exception.getMessage());
         }
     }
 
@@ -142,8 +144,8 @@ public abstract class SOAPFactory {
      * @throws SOAPException - if there is an error creating the specified SOAPFactory
      * @see <CODE>SAAJMetaFactory</CODE>
      */
-    public static SOAPFactory newInstance(String s) throws SOAPException {
-        return SAAJMetaFactory.getInstance().newSOAPFactory(s);
+    public static SOAPFactory newInstance(String protocol) throws SOAPException {
+        return SAAJMetaFactory.getInstance().newSOAPFactory(protocol);
     }
 
 
@@ -191,8 +193,6 @@ public abstract class SOAPFactory {
                                           javax.xml.namespace.QName faultCode)
             throws SOAPException;
 
-    private static final String SF_PROPERTY = "javax.xml.soap.SOAPFactory";
+    private static final String SOAP_FACTORY_PROPERTY = "javax.xml.soap.SOAPFactory";
 
-    private static final String DEFAULT_SF =
-            "org.apache.axis2.saaj.SOAPFactoryImpl";
 }
