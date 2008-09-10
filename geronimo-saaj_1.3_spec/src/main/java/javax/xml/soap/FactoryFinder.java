@@ -101,7 +101,6 @@ class FactoryFinder {
      * Instantiates a factory object given the factory's property name.
      *
      * @param factoryPropertyName
-     * @param defaultFactoryClassName
      * @return a factory object
      * @throws SOAPException
      */
