@@ -185,7 +185,7 @@ public abstract class AbstractUnmarshallerImpl implements Unmarshaller {
     }
 
     public final Object unmarshal(InputStream is) throws JAXBException {
-        if (reader == null) {
+        if (is == null) {
             throw new IllegalArgumentException("is must not be null");
         }
         return unmarshal(new InputSource(is));
