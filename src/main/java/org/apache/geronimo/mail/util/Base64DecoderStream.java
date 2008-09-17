@@ -112,7 +112,8 @@ public class Base64DecoderStream extends FilterInputStream {
             }
         }
         decodedCount--;
-        return decodedChars[decodedIndex++];
+        // we need to ensure this doesn't get sign extended 
+        return decodedChars[decodedIndex++] & 0xff;
     }
 
     private int getBytes(byte[] data, int offset, int length) throws IOException {
