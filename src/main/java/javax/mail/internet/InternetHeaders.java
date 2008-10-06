@@ -579,18 +579,19 @@ public class InternetHeaders {
      * @param addresses The list of addresses to set.
      */
     void setHeader(String name, Address[] addresses) {
-        // if this is empty, then ew need to replace this
+        // if this is empty, then we need to replace this
         if (addresses.length == 0) {
             removeHeader(name);
-        }
-
-        // replace the first header
-        setHeader(name, addresses[0].toString());
-
-        // now add the rest as extra headers.
-        for (int i = 1; i < addresses.length; i++) {
-            Address address = addresses[i];
-            addHeader(name, address.toString());
+        } else {
+    
+            // replace the first header
+            setHeader(name, addresses[0].toString());
+    
+            // now add the rest as extra headers.
+            for (int i = 1; i < addresses.length; i++) {
+                Address address = addresses[i];
+                addHeader(name, address.toString());
+            }
         }
     }
 
