@@ -43,8 +43,7 @@ public class MimePartDataSource implements DataSource, MessageAware {
         try {
             InputStream stream;
             if (part instanceof MimeMessage) {
-                // this never gets encoded, so we can skip other steps 
-                return ((MimeMessage) part).getContentStream();
+                stream = ((MimeMessage) part).getContentStream();
             } else if (part instanceof MimeBodyPart) {
                 stream = ((MimeBodyPart) part).getContentStream();
             } else {
