@@ -497,11 +497,13 @@ public final class Session {
 
     private ProviderInfo getProviderInfo() {
         ClassLoader cl = getClassLoader();
-        ProviderInfo info = (ProviderInfo) providersByClassLoader.get(cl);
-        if (info == null) {
-            info = loadProviders(cl);
+        synchronized (providersByClassLoader) {
+            ProviderInfo info = (ProviderInfo) providersByClassLoader.get(cl);
+            if (info == null) {
+                info = loadProviders(cl);
+            }
+            return info;
         }
-        return info;
     }
 
     private Map getAddressMap() {
@@ -544,10 +546,6 @@ public final class Session {
         //   3. META-INF/javamail.default.address.map
         //
         ProviderInfo info = new ProviderInfo();
-
-        // make sure this is added to the global map.
-        providersByClassLoader.put(cl, info);
-
 
         // NOTE:  Unlike the addressMap, we process these in the defined order.  The loading routine
         // will not overwrite entries if they already exist in the map.
@@ -609,6 +607,9 @@ public final class Session {
         } catch (IOException e) {
             // ignore
         }
+        
+        // make sure this is added to the global map.
+        providersByClassLoader.put(cl, info); 
 
         return info;
     }
