@@ -1162,7 +1162,9 @@ public class MimeMessage extends Message implements MimePart {
         // if the modfied flag, we don't have current content, so the data handler needs to
         // take care of writing this data out.
         if (modified) {
-            dh.writeTo(MimeUtility.encode(out, getEncoding()));
+            OutputStream encoderStream = MimeUtility.encode(out, getEncoding());
+            dh.writeTo(encoderStream);
+            encoderStream.flush();
         } else {
             // if we have content directly, we can write this out now.
             if (content != null) {
