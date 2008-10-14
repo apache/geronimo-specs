@@ -129,7 +129,7 @@ public class WebUserDataPermissionTest extends TestCase {
         p = new WebUserDataPermission(new MockHttpServletRequest("/foo", "/foo:bar", "BAR"));
         checkPermission(p, "/foo/foo%3Abar", "BAR");
         p = new WebUserDataPermission(new MockHttpServletRequest("/foo", "/foo%3Abar", "BAR"));
-        checkPermission(p, "/foo/foo%3A%3Abar", "BAR");
+        checkPermission(p, "/foo/foo%3Abar", "BAR");
     }
 
     private void checkPermission(Permission p, String name, String actions) {
