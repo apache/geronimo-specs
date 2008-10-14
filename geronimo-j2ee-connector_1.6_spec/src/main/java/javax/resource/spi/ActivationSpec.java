@@ -29,5 +29,5 @@ package javax.resource.spi;
  * @version $Rev$ $Date$
  */
 public interface ActivationSpec extends ResourceAdapterAssociation {
-    public void validate() throws InvalidPropertyException;
+    void validate() throws InvalidPropertyException;
 }

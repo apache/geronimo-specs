@@ -32,5 +32,5 @@ import javax.resource.ResourceException;
  * @version $Rev$ $Date$
  */
 public interface ValidatingManagedConnectionFactory {
-    public Set getInvalidConnections(Set connectionSet) throws ResourceException;
+    Set getInvalidConnections(Set connectionSet) throws ResourceException;
 }

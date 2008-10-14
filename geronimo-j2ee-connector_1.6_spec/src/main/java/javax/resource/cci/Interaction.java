@@ -31,15 +31,15 @@ import javax.resource.ResourceException;
  * @version $Rev$ $Date$
  */
 public interface Interaction {
-    public void close() throws ResourceException;
+    void close() throws ResourceException;
 
-    public Connection getConnection();
+    Connection getConnection();
 
-    public boolean execute(InteractionSpec ispec, Record input, Record output) throws ResourceException;
+    boolean execute(InteractionSpec ispec, Record input, Record output) throws ResourceException;
 
-    public Record execute(InteractionSpec ispec, Record input) throws ResourceException;
+    Record execute(InteractionSpec ispec, Record input) throws ResourceException;
 
-    public ResourceWarning getWarnings() throws ResourceException;
+    ResourceWarning getWarnings() throws ResourceException;
 
-    public void clearWarnings() throws ResourceException;
+    void clearWarnings() throws ResourceException;
 }

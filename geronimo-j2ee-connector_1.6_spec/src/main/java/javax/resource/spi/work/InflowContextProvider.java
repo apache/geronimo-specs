@@ -17,35 +17,25 @@
  * under the License.
  */
 
+
 //
 // This source code implements specifications defined by the Java
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
 
-package javax.resource.spi;
+package javax.resource.spi.work;
 
-import javax.resource.ResourceException;
+import java.util.List;
 
 /**
- * @version $Rev$ $Date$
+ *
+ * Implemented by a Work instance that supplies InflowContexts for context setup.
+ * 
+ * @since 1.6
+ * @version $Rev:$ $Date:$
  */
-public interface LazyAssociatableConnectionManager {
+public interface InflowContextProvider {
 
-    /**
-     * request the connection be associated with an appropriate ManagedConnection
-     * @param connection connection that needs MC backup
-     * @param mcf managed connection factory to use, if necessary, to get the MC
-     * @param cxReqInfo more info on what MC to get
-     * @throws ResourceException on error
-     */
-    void associateConnection(Object connection, ManagedConnectionFactory mcf, ConnectionRequestInfo cxReqInfo) throws ResourceException;
-
-    /**
-     * To be called by the resource adapter
-     * @param connection connection the RA closed
-     * @param managedConnectionFactory MCF that connection is associated with
-     * @since 1.6
-     */
-    void inactiveConnectionClosed(Object connection, ManagedConnectionFactory managedConnectionFactory);
+    List<InflowContext> getInflowContexts();
 }

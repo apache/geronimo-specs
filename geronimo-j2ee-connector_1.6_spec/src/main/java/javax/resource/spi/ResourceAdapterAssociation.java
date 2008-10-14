@@ -31,7 +31,7 @@ import javax.resource.ResourceException;
  * @version $Rev$ $Date$
  */
 public interface ResourceAdapterAssociation {
-    public ResourceAdapter getResourceAdapter();
+    ResourceAdapter getResourceAdapter();
 
-    public void setResourceAdapter(ResourceAdapter ra) throws ResourceException;
+    void setResourceAdapter(ResourceAdapter ra) throws ResourceException;
 }

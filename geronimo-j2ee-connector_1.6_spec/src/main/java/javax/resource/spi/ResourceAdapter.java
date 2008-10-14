@@ -33,13 +33,13 @@ import javax.transaction.xa.XAResource;
  * @version $Rev$ $Date$
  */
 public interface ResourceAdapter {
-    public void start(BootstrapContext ctx) throws ResourceAdapterInternalException;
+    void start(BootstrapContext ctx) throws ResourceAdapterInternalException;
 
-    public void stop();
+    void stop();
 
-    public void endpointActivation(MessageEndpointFactory endpointFactory, ActivationSpec spec) throws ResourceException;
+    void endpointActivation(MessageEndpointFactory endpointFactory, ActivationSpec spec) throws ResourceException;
 
-    public void endpointDeactivation(MessageEndpointFactory endpointFactory, ActivationSpec spec);
+    void endpointDeactivation(MessageEndpointFactory endpointFactory, ActivationSpec spec);
 
-    public XAResource[] getXAResources(ActivationSpec[] specs) throws ResourceException;
+    XAResource[] getXAResources(ActivationSpec[] specs) throws ResourceException;
 }

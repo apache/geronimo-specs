@@ -31,25 +31,25 @@ import javax.resource.ResourceException;
  * @version $Rev$ $Date$
  */
 public interface ResultSetInfo {
-    public boolean updatesAreDetected(int type) throws ResourceException;
+    boolean updatesAreDetected(int type) throws ResourceException;
 
-    public boolean insertsAreDetected(int type) throws ResourceException;
+    boolean insertsAreDetected(int type) throws ResourceException;
 
-    public boolean deletesAreDetected(int type) throws ResourceException;
+    boolean deletesAreDetected(int type) throws ResourceException;
 
-    public boolean supportsResultSetType(int type) throws ResourceException;
+    boolean supportsResultSetType(int type) throws ResourceException;
 
-    public boolean supportsResultTypeConcurrency(int type, int concurrency) throws ResourceException;
+    boolean supportsResultTypeConcurrency(int type, int concurrency) throws ResourceException;
 
-    public boolean othersUpdatesAreVisible(int type) throws ResourceException;
+    boolean othersUpdatesAreVisible(int type) throws ResourceException;
 
-    public boolean othersDeletesAreVisible(int type) throws ResourceException;
+    boolean othersDeletesAreVisible(int type) throws ResourceException;
 
-    public boolean othersInsertsAreVisible(int type) throws ResourceException;
+    boolean othersInsertsAreVisible(int type) throws ResourceException;
 
-    public boolean ownUpdatesAreVisible(int type) throws ResourceException;
+    boolean ownUpdatesAreVisible(int type) throws ResourceException;
 
-    public boolean ownInsertsAreVisible(int type) throws ResourceException;
+    boolean ownInsertsAreVisible(int type) throws ResourceException;
 
-    public boolean ownDeletesAreVisible(int type) throws ResourceException;
+    boolean ownDeletesAreVisible(int type) throws ResourceException;
 }

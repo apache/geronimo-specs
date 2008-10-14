@@ -29,19 +29,19 @@ package javax.resource.spi.work;
  * @version $Rev$ $Date$
  */
 public interface WorkManager {
-    public static final long IMMEDIATE = 0L;
-    public static final long INDEFINITE = Long.MAX_VALUE;
-    public static final long UNKNOWN = -1;
+    static final long IMMEDIATE = 0L;
+    static final long INDEFINITE = Long.MAX_VALUE;
+    static final long UNKNOWN = -1;
 
-    public void doWork(Work work) throws WorkException;
+    void doWork(Work work) throws WorkException;
 
-    public void doWork(Work work, long startTimeout, ExecutionContext execContext, WorkListener workListener) throws WorkException;
+    void doWork(Work work, long startTimeout, ExecutionContext execContext, WorkListener workListener) throws WorkException;
 
-    public long startWork(Work work) throws WorkException;
+    long startWork(Work work) throws WorkException;
 
-    public long startWork(Work work, long startTimeout, ExecutionContext execContext, WorkListener workListener) throws WorkException;
+    long startWork(Work work, long startTimeout, ExecutionContext execContext, WorkListener workListener) throws WorkException;
 
-    public void scheduleWork(Work work) throws WorkException;
+    void scheduleWork(Work work) throws WorkException;
 
-    public void scheduleWork(Work work, long startTimeout, ExecutionContext execContext, WorkListener workListener) throws WorkException;
+    void scheduleWork(Work work, long startTimeout, ExecutionContext execContext, WorkListener workListener) throws WorkException;
 }

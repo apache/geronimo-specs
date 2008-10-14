@@ -32,9 +32,9 @@ import javax.resource.ResourceException;
  * @version $Rev$ $Date$
  */
 public interface MessageEndpoint {
-    public void beforeDelivery(Method method) throws NoSuchMethodException, ResourceException;
+    void beforeDelivery(Method method) throws NoSuchMethodException, ResourceException;
 
-    public void afterDelivery() throws ResourceException;
+    void afterDelivery() throws ResourceException;
 
-    public void release();
+    void release();
 }

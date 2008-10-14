@@ -31,5 +31,5 @@ import javax.resource.ResourceException;
  * @version $Rev$ $Date$
  */
 public interface DissociatableManagedConnection {
-    public void dissociateConnections() throws ResourceException;
+    void dissociateConnections() throws ResourceException;
 }

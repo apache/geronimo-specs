@@ -31,5 +31,5 @@ import javax.naming.Reference;
  * @version $Rev$ $Date$
  */
 public interface Referenceable extends javax.naming.Referenceable {
-    public void setReference(Reference reference);
+    void setReference(Reference reference);
 }

@@ -23,29 +23,16 @@
 // DO NOT add / change / or delete method signatures!
 //
 
-package javax.resource.spi;
-
-import javax.resource.ResourceException;
+package javax.resource.spi.work;
 
 /**
- * @version $Rev$ $Date$
+ * @since 1.6
+ * @version $Rev:$ $Date:$
  */
-public interface LazyAssociatableConnectionManager {
+public interface InflowContextLifecycleListener {
 
-    /**
-     * request the connection be associated with an appropriate ManagedConnection
-     * @param connection connection that needs MC backup
-     * @param mcf managed connection factory to use, if necessary, to get the MC
-     * @param cxReqInfo more info on what MC to get
-     * @throws ResourceException on error
-     */
-    void associateConnection(Object connection, ManagedConnectionFactory mcf, ConnectionRequestInfo cxReqInfo) throws ResourceException;
+    void contextSetupComplete();
 
-    /**
-     * To be called by the resource adapter
-     * @param connection connection the RA closed
-     * @param managedConnectionFactory MCF that connection is associated with
-     * @since 1.6
-     */
-    void inactiveConnectionClosed(Object connection, ManagedConnectionFactory managedConnectionFactory);
+    void contextSetupFailed(String errorCode);
+
 }

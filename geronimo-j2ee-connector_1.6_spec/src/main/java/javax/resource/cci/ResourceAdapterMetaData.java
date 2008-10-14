@@ -29,21 +29,21 @@ package javax.resource.cci;
  * @version $Rev$ $Date$
  */
 public interface ResourceAdapterMetaData {
-    public String getAdapterVersion();
+    String getAdapterVersion();
 
-    public String getAdapterVendorName();
+    String getAdapterVendorName();
 
-    public String getAdapterName();
+    String getAdapterName();
 
-    public String getAdapterShortDescription();
+    String getAdapterShortDescription();
 
-    public String getSpecVersion();
+    String getSpecVersion();
 
-    public String[] getInteractionSpecsSupported();
+    String[] getInteractionSpecsSupported();
 
-    public boolean supportsExecuteWithInputAndOutputRecord();
+    boolean supportsExecuteWithInputAndOutputRecord();
 
-    public boolean supportsExecuteWithInputRecordOnly();
+    boolean supportsExecuteWithInputRecordOnly();
 
-    public boolean supportsLocalTransactionDemarcation();
+    boolean supportsLocalTransactionDemarcation();
 }

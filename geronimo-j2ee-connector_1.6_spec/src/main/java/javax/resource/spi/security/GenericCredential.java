@@ -30,13 +30,13 @@ package javax.resource.spi.security;
  * @version $Rev$ $Date$
  */
 public interface GenericCredential {
-    public String getName();
+    String getName();
 
-    public String getMechType();
+    String getMechType();
 
-    public byte[] getCredentialData() throws javax.resource.spi.SecurityException;
+    byte[] getCredentialData() throws javax.resource.spi.SecurityException;
 
-    public boolean equals(Object another);
+    boolean equals(Object another);
 
-    public int hashCode();
+    int hashCode();
 }

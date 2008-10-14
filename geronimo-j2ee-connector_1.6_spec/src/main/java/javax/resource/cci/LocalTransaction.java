@@ -31,9 +31,9 @@ import javax.resource.ResourceException;
  * @version $Rev$ $Date$
  */
 public interface LocalTransaction {
-    public void begin() throws ResourceException;
+    void begin() throws ResourceException;
 
-    public void commit() throws ResourceException;
+    void commit() throws ResourceException;
 
-    public void rollback() throws ResourceException;
+    void rollback() throws ResourceException;
 }

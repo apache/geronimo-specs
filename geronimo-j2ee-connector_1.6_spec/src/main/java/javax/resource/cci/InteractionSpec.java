@@ -31,7 +31,7 @@ import java.io.Serializable;
  * @version $Rev$ $Date$
  */
 public interface InteractionSpec extends Serializable {
-    public static final int SYNC_SEND = 0;
-    public static final int SYNC_SEND_RECEIVE = 1;
-    public static final int SYNC_RECEIVE = 2;
+    static final int SYNC_SEND = 0;
+    static final int SYNC_SEND_RECEIVE = 1;
+    static final int SYNC_RECEIVE = 2;
 }

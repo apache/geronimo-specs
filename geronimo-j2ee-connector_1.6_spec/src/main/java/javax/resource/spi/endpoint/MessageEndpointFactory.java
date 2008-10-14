@@ -33,7 +33,7 @@ import javax.transaction.xa.XAResource;
  * @version $Rev$ $Date$
  */
 public interface MessageEndpointFactory {
-    public MessageEndpoint createEndpoint(XAResource xaResource) throws UnavailableException;
+    MessageEndpoint createEndpoint(XAResource xaResource) throws UnavailableException;
 
-    public boolean isDeliveryTransacted(Method method) throws NoSuchMethodException;
+    boolean isDeliveryTransacted(Method method) throws NoSuchMethodException;
 }

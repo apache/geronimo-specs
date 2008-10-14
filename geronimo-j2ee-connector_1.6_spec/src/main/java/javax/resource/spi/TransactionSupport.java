@@ -17,21 +17,22 @@
  * under the License.
  */
 
-//
-// This source code implements specifications defined by the Java
-// Community Process. In order to remain compliant with the specification
-// DO NOT add / change / or delete method signatures!
-//
 
-package javax.resource.cci;
-
-import javax.resource.ResourceException;
+package javax.resource.spi;
 
 /**
- * @version $Rev$ $Date$
+ * Runtime transaction support level available fom a ManagedConnectionFactory
+ * @since 1.6
+ * @version $Rev:$ $Date:$
  */
-public interface RecordFactory {
-    MappedRecord createMappedRecord(String recordName) throws ResourceException;
+public interface TransactionSupport {
 
-    IndexedRecord createIndexedRecord(String recordName) throws ResourceException;
+    TransactionSupportLevel getTransactionSupport();
+
+    enum TransactionSupportLevel {
+
+        NoTransaction, LocalTransaction, XATransaction
+
+    }
+    
 }

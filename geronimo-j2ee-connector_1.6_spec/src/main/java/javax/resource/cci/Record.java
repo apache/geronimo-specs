@@ -31,17 +31,17 @@ import java.io.Serializable;
  * @version $Rev$ $Date$
  */
 public interface Record extends Cloneable, Serializable {
-    public String getRecordName();
+    String getRecordName();
 
-    public void setRecordName(String name);
+    void setRecordName(String name);
 
-    public void setRecordShortDescription(String description);
+    void setRecordShortDescription(String description);
 
-    public String getRecordShortDescription();
+    String getRecordShortDescription();
 
-    public boolean equals(Object other);
+    boolean equals(Object other);
 
-    public int hashCode();
+    int hashCode();
 
-    public Object clone() throws CloneNotSupportedException;
+    Object clone() throws CloneNotSupportedException;
 }
