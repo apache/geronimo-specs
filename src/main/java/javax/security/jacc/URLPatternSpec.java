@@ -161,7 +161,6 @@ final class URLPatternSpec {
     static String encodeColons(HttpServletRequest request) {
         String result = request.getServletPath() + (request.getPathInfo() == null ? "" : request.getPathInfo());
 
-        if (result.indexOf("%3A") > -1) result = result.replaceAll("%3A", "%3A%3A");
         if (result.indexOf(":") > -1) result = result.replaceAll(":", "%3A");
 
         return result;

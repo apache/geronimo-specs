@@ -386,7 +386,7 @@ public class WebResourcePermissionTest extends TestCase {
         p = new WebResourcePermission(new MockHttpServletRequest("/foo", "/foo:bar", "BAR"));
         checkPermission(p, "/foo/foo%3Abar", "BAR");
         p = new WebResourcePermission(new MockHttpServletRequest("/foo", "/foo%3Abar", "BAR"));
-        checkPermission(p, "/foo/foo%3A%3Abar", "BAR");
+        checkPermission(p, "/foo/foo%3Abar", "BAR");
     }
 
     private void checkPermission(Permission p, String name, String actions) {
