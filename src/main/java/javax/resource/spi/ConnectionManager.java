@@ -32,5 +32,5 @@ import javax.resource.ResourceException;
  * @version $Rev$ $Date$
  */
 public interface ConnectionManager extends Serializable {
-    public Object allocateConnection(ManagedConnectionFactory mcf, ConnectionRequestInfo cxRequestInfo) throws ResourceException;
+    Object allocateConnection(ManagedConnectionFactory mcf, ConnectionRequestInfo cxRequestInfo) throws ResourceException;
 }

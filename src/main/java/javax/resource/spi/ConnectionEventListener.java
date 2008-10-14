@@ -31,13 +31,13 @@ import java.util.EventListener;
  * @version $Rev$ $Date$
  */
 public interface ConnectionEventListener extends EventListener {
-    public void connectionClosed(ConnectionEvent event);
+    void connectionClosed(ConnectionEvent event);
 
-    public void localTransactionStarted(ConnectionEvent event);
+    void localTransactionStarted(ConnectionEvent event);
 
-    public void localTransactionCommitted(ConnectionEvent event);
+    void localTransactionCommitted(ConnectionEvent event);
 
-    public void localTransactionRolledback(ConnectionEvent event);
+    void localTransactionRolledback(ConnectionEvent event);
 
-    public void connectionErrorOccurred(ConnectionEvent event);
+    void connectionErrorOccurred(ConnectionEvent event);
 }

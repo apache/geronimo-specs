@@ -34,25 +34,25 @@ import javax.transaction.xa.XAResource;
  * @version $Rev$ $Date$
  */
 public interface ManagedConnection {
-    public Object getConnection(Subject subject, ConnectionRequestInfo cxRequestInfo) throws ResourceException;
+    Object getConnection(Subject subject, ConnectionRequestInfo cxRequestInfo) throws ResourceException;
 
-    public void destroy() throws ResourceException;
+    void destroy() throws ResourceException;
 
-    public void cleanup() throws ResourceException;
+    void cleanup() throws ResourceException;
 
-    public void associateConnection(Object connection) throws ResourceException;
+    void associateConnection(Object connection) throws ResourceException;
 
-    public void addConnectionEventListener(ConnectionEventListener listener);
+    void addConnectionEventListener(ConnectionEventListener listener);
 
-    public void removeConnectionEventListener(ConnectionEventListener listener);
+    void removeConnectionEventListener(ConnectionEventListener listener);
 
-    public XAResource getXAResource() throws ResourceException;
+    XAResource getXAResource() throws ResourceException;
 
-    public LocalTransaction getLocalTransaction() throws ResourceException;
+    LocalTransaction getLocalTransaction() throws ResourceException;
 
-    public ManagedConnectionMetaData getMetaData() throws ResourceException;
+    ManagedConnectionMetaData getMetaData() throws ResourceException;
 
-    public void setLogWriter(PrintWriter out) throws ResourceException;
+    void setLogWriter(PrintWriter out) throws ResourceException;
 
-    public PrintWriter getLogWriter() throws ResourceException;
+    PrintWriter getLogWriter() throws ResourceException;
 }

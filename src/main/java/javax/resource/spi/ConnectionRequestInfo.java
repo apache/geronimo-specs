@@ -29,7 +29,7 @@ package javax.resource.spi;
  * @version $Rev$ $Date$
  */
 public interface ConnectionRequestInfo {
-    public boolean equals(Object other);
+    boolean equals(Object other);
 
-    public int hashCode();
+    int hashCode();
 }

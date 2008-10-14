@@ -32,13 +32,13 @@ import javax.transaction.xa.Xid;
  * @version $Rev$ $Date$
  */
 public interface XATerminator {
-    public void commit(Xid xid, boolean onePhase) throws XAException;
+    void commit(Xid xid, boolean onePhase) throws XAException;
 
-    public void forget(Xid xid) throws XAException;
+    void forget(Xid xid) throws XAException;
 
-    public int prepare(Xid xid) throws XAException;
+    int prepare(Xid xid) throws XAException;
 
-    public Xid[] recover(int flag) throws XAException;
+    Xid[] recover(int flag) throws XAException;
 
-    public void rollback(Xid xid) throws XAException;
+    void rollback(Xid xid) throws XAException;
 }

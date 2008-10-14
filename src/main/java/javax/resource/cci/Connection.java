@@ -31,13 +31,13 @@ import javax.resource.ResourceException;
  * @version $Rev$ $Date$
  */
 public interface Connection {
-    public Interaction createInteraction() throws ResourceException;
+    Interaction createInteraction() throws ResourceException;
 
-    public LocalTransaction getLocalTransaction() throws ResourceException;
+    LocalTransaction getLocalTransaction() throws ResourceException;
 
-    public ConnectionMetaData getMetaData() throws ResourceException;
+    ConnectionMetaData getMetaData() throws ResourceException;
 
-    public ResultSetInfo getResultSetInfo() throws ResourceException;
+    ResultSetInfo getResultSetInfo() throws ResourceException;
 
-    public void close() throws ResourceException;
+    void close() throws ResourceException;
 }

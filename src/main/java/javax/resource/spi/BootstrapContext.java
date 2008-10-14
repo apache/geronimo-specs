@@ -31,9 +31,9 @@ import javax.resource.spi.work.WorkManager;
  * @version $Rev$ $Date$
  */
 public interface BootstrapContext {
-    public WorkManager getWorkManager();
+    WorkManager getWorkManager();
 
-    public XATerminator getXATerminator();
+    XATerminator getXATerminator();
 
-    public java.util.Timer createTimer() throws UnavailableException;
+    java.util.Timer createTimer() throws UnavailableException;
 }

@@ -36,19 +36,19 @@ import javax.security.auth.Subject;
  */
 public interface ManagedConnectionFactory extends Serializable {
 
-    public Object createConnectionFactory(ConnectionManager cxManager) throws ResourceException;
+    Object createConnectionFactory(ConnectionManager cxManager) throws ResourceException;
 
-    public Object createConnectionFactory() throws ResourceException;
+    Object createConnectionFactory() throws ResourceException;
 
-    public ManagedConnection createManagedConnection(Subject subject, ConnectionRequestInfo cxRequestInfo) throws ResourceException;
+    ManagedConnection createManagedConnection(Subject subject, ConnectionRequestInfo cxRequestInfo) throws ResourceException;
 
-    public ManagedConnection matchManagedConnections(Set connectionSet, Subject subject, ConnectionRequestInfo cxRequestInfo) throws ResourceException;
+    ManagedConnection matchManagedConnections(Set connectionSet, Subject subject, ConnectionRequestInfo cxRequestInfo) throws ResourceException;
 
-    public void setLogWriter(PrintWriter out) throws ResourceException;
+    void setLogWriter(PrintWriter out) throws ResourceException;
 
-    public PrintWriter getLogWriter() throws ResourceException;
+    PrintWriter getLogWriter() throws ResourceException;
 
-    public int hashCode();
+    int hashCode();
 
-    public boolean equals(Object other);
+    boolean equals(Object other);
 }

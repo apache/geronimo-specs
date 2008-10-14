@@ -33,7 +33,7 @@
     <artifactId>geronimo-j2ee-connector_1.6_spec</artifactId>
     <packaging>jar</packaging>
     <name>J2EE Connector 1.6</name>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0-EA-SNAPSHOT</version>
 
     <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
     <distributionManagement>

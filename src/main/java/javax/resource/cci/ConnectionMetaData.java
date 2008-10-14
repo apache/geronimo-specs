@@ -31,9 +31,9 @@ import javax.resource.ResourceException;
  * @version $Rev$ $Date$
  */
 public interface ConnectionMetaData {
-    public String getEISProductName() throws ResourceException;
+    String getEISProductName() throws ResourceException;
 
-    public String getEISProductVersion() throws ResourceException;
+    String getEISProductVersion() throws ResourceException;
 
-    public String getUserName() throws ResourceException;
+    String getUserName() throws ResourceException;
 }

@@ -33,7 +33,7 @@ import java.io.OutputStream;
  * @version $Rev$ $Date$
  */
 public interface Streamable {
-    public void read(InputStream istream) throws IOException;
+    void read(InputStream istream) throws IOException;
 
-    public void write(OutputStream ostream) throws IOException;
+    void write(OutputStream ostream) throws IOException;
 }

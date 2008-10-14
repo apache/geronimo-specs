@@ -33,11 +33,11 @@ import javax.resource.ResourceException;
  * @version $Rev$ $Date$
  */
 public interface ConnectionFactory extends Serializable, Referenceable {
-    public Connection getConnection() throws ResourceException;
+    Connection getConnection() throws ResourceException;
 
-    public Connection getConnection(ConnectionSpec properties) throws ResourceException;
+    Connection getConnection(ConnectionSpec properties) throws ResourceException;
 
-    public RecordFactory getRecordFactory() throws ResourceException;
+    RecordFactory getRecordFactory() throws ResourceException;
 
-    public ResourceAdapterMetaData getMetaData() throws ResourceException;
+    ResourceAdapterMetaData getMetaData() throws ResourceException;
 }

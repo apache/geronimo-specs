@@ -31,5 +31,5 @@ import javax.resource.ResourceException;
  * @version $Rev$ $Date$
  */
 public interface MessageListener {
-    public Record onMessage(Record inputData) throws ResourceException;
+    Record onMessage(Record inputData) throws ResourceException;
 }

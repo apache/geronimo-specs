@@ -31,5 +31,5 @@ import javax.resource.ResourceException;
  * @version $Rev$ $Date$
  */
 public interface LazyEnlistableConnectionManager {
-    public void lazyEnlist(ManagedConnection mc) throws ResourceException;
+    void lazyEnlist(ManagedConnection mc) throws ResourceException;
 }

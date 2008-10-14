@@ -31,11 +31,11 @@ import java.util.EventListener;
  * @version $Rev$ $Date$
  */
 public interface WorkListener extends EventListener {
-    public void workAccepted(WorkEvent e);
+    void workAccepted(WorkEvent e);
 
-    public void workRejected(WorkEvent e);
+    void workRejected(WorkEvent e);
 
-    public void workStarted(WorkEvent e);
+    void workStarted(WorkEvent e);
 
-    public void workCompleted(WorkEvent e);
+    void workCompleted(WorkEvent e);
 }
