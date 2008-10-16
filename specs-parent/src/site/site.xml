@@ -23,7 +23,7 @@
     <skin>
         <groupId>org.apache.geronimo.genesis.config</groupId>
         <artifactId>geronimo-skin</artifactId>
-        <version>1.4</version>
+        <version>1.5-SNAPSHOT</version>
     </skin>
 
     <publishDate format="dd MMM yyyy"/>
@@ -34,9 +34,10 @@
     </bannerLeft>
 
     <body>
+
+        <menu ref="parent" />
+        <menu ref="modules" />
         <menu ref="reports" />
+
     </body>
-
 </project>
-
-
