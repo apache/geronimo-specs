@@ -147,13 +147,6 @@ class ContextFinder {
     private static Class loadSpi(String className, ClassLoader classLoader) throws JAXBException {
         Class spiClass;
         try {
-            spiClass = org.apache.servicemix.specs.locator.OsgiLocator.locate(JAXBContext.class.getName());
-            if (spiClass != null) {
-                return spiClass;
-            }
-        } catch (Throwable t) {
-        }
-        try {
             if (classLoader != null) {
                 spiClass = classLoader.loadClass(className);
             } else {

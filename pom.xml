@@ -22,32 +22,42 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.apache.servicemix.specs</groupId>
-        <artifactId>specs</artifactId>
-        <version>1.2-SNAPSHOT</version>
+        <groupId>org.apache.geronimo.specs</groupId>
+        <artifactId>specs-parent</artifactId>
+        <version>1.5</version>
     </parent>
 
-    <groupId>org.apache.servicemix.specs</groupId>
-    <artifactId>org.apache.servicemix.specs.jaxb-api-2.1</artifactId>
-    <packaging>bundle</packaging>
-    <version>1.2-SNAPSHOT</version>
-    <name>Apache ServiceMix Specs :: JAXB API 2.1</name>
+    <artifactId>geronimo-jaxb_2.1_spec</artifactId>
+    <packaging>jar</packaging>
+    <version>1.0-SNAPSHOT</version>
+
+    <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
+    <distributionManagement>
+        <site>
+            <id>geronimo-website</id>
+            <url>${staging.siteURL}/${siteId}/${version}</url>
+        </site>
+    </distributionManagement>
+
+    <properties>
+        <siteId>specs/${artifactId}</siteId>
+
+        <geronimo.osgi.export.pkg>javax.xml.bind*</geronimo.osgi.export.pkg>
+        <geronimo.osgi.export.version>2.1</geronimo.osgi.export.version>
+    </properties>
 
     <dependencies>
         <dependency>
-            <groupId>org.apache.servicemix.specs</groupId>
-            <artifactId>org.apache.servicemix.specs.locator</artifactId>
-            <version>${pom.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.servicemix.specs</groupId>
-            <artifactId>org.apache.servicemix.specs.stax-api-1.0</artifactId>
-            <version>${pom.version}</version>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-stax-api_1.0_spec</artifactId>
+            <version>1.0.1</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.geronimo.specs</groupId>
             <artifactId>geronimo-activation_1.1_spec</artifactId>
             <version>1.0.2</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>javax.xml.bind</groupId>
@@ -57,138 +67,10 @@
         </dependency>
     </dependencies>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>com.google.code.japidiff</groupId>
-                <artifactId>maven-japidiff-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>diff</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <filter>javax/xml/bind.*</filter>
-                    <jar>javax.xml.bind:jaxb-api:2.1</jar>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-bundle-plugin</artifactId>
-                <configuration>
-                    <instructions>
-                        <Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
-                        <Export-Package>javax.xml.bind*;version=2.1;-split-package:=merge-first</Export-Package>
-                        <Import-Package>*</Import-Package>
-                        <Private-Package>org.apache.servicemix.specs.locator;-split-package:=merge-first</Private-Package>
-                        <Bundle-Activator>org.apache.servicemix.specs.locator.Activator</Bundle-Activator>
-                        <Implementation-Title>Apache ServiceMix</Implementation-Title>
-                        <Implementation-Version>${project.version}</Implementation-Version>
-                    </instructions>
-                    <unpackBundle>true</unpackBundle>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                        <configuration>
-                            <artifactSet>
-                                <includes>
-                                    <include>org.apache.servicemix.specs:org.apache.servicemix.specs.locator</include>
-                                </includes>
-                            </artifactSet>
-                            <filters>
-                                <filter>
-                                    <artifact>${project.groupId}:${project.artifactId}</artifact>
-                                    <excludes>
-                                        <exclude>org/**</exclude>
-                                    </excludes>
-                                </filter>
-                            </filters>
-                            <createSourcesJar>${createSourcesJar}</createSourcesJar>
-                            <promoteTransitiveDependencies>true</promoteTransitiveDependencies>
-                            <createDependencyReducedPom>true</createDependencyReducedPom>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
-
-    <profiles>
-        <profile>
-            <id>deploy</id>
-            <properties>
-                <createSourcesJar>true</createSourcesJar>
-            </properties>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-source-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>attach-sources</id>
-                                <phase>process-classes</phase>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-dependency-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>unpack-sources</id>
-                                <phase>generate-sources</phase>
-                                <goals>
-                                    <goal>unpack</goal>
-                                </goals>
-                                <configuration>
-                                    <artifactItems>
-                                        <artifactItem>
-                                            <groupId>org.apache.servicemix.specs</groupId>
-                                            <artifactId>org.apache.servicemix.specs.locator</artifactId>
-                                            <classifier>sources</classifier>
-                                        </artifactItem>
-                                    </artifactItems>
-                                    <outputDirectory>${project.build.directory}/sources</outputDirectory>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>package</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <minmemory>128m</minmemory>
-                            <maxmemory>512m</maxmemory>
-                            <sourcepath>${project.build.directory}/sources</sourcepath>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
+    <scm>
+        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jaxb_2.1_spec/</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jaxb_2.1_spec/</developerConnection>
+        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-jaxb_2.1_spec/</url>
+    </scm>
 
 </project>
