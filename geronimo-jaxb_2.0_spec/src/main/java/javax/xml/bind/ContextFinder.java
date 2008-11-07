@@ -54,9 +54,20 @@ class ContextFinder {
             className = PLATFORM_DEFAULT_FACTORY_CLASS;
         }
         Class spi = loadSpi(className, classLoader);
+        
         try {
             Method m = spi.getMethod("createContext", new Class[] { String.class, ClassLoader.class, Map.class });
             return (JAXBContext) m.invoke(null, new Object[] { contextPath, classLoader, properties });
+        } catch (NoSuchMethodException e) {
+            // will try JAXB 1.0 compatible createContext() method
+        } catch (Throwable t) {
+            throw new JAXBException("Unable to create context", t);
+        }
+
+        // try old JAXB 1.0 compatible createContext() method
+        try {
+            Method m = spi.getMethod("createContext", new Class[] { String.class, ClassLoader.class });
+            return (JAXBContext) m.invoke(null, new Object[] { contextPath, classLoader });
         } catch (Throwable t) {
             throw new JAXBException("Unable to create context", t);
         }
