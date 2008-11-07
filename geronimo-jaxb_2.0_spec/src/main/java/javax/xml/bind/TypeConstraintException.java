@@ -63,6 +63,11 @@ public class TypeConstraintException extends RuntimeException {
                 super.toString();
     }
 
+    @Override
+    public Throwable getCause() {
+        return linkedException;
+    }
+
     public void printStackTrace() {
         super.printStackTrace();
     }
