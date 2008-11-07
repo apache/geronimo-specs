@@ -72,16 +72,4 @@ public class JAXBException extends Exception {
         return linkedException;
     }
 
-    public void printStackTrace() {
-        super.printStackTrace();
-    }
-
-    public void printStackTrace(PrintStream ps) {
-        super.printStackTrace(ps);
-    }
-
-    public void printStackTrace(PrintWriter pw) {
-        super.printStackTrace(pw);
-    }
-
 }
