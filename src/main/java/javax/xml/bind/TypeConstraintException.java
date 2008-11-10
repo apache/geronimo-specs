@@ -17,6 +17,7 @@
 package javax.xml.bind;
 
 import java.io.PrintStream;
+import java.io.PrintWriter;
 
 public class TypeConstraintException extends RuntimeException {
 
@@ -63,12 +64,39 @@ public class TypeConstraintException extends RuntimeException {
                 super.toString();
     }
 
-    public void printStackTrace() {
-        super.printStackTrace();
+    @Override
+    public Throwable getCause() {
+        return linkedException;
     }
 
-    public void printStackTrace(PrintStream ps) {
-        super.printStackTrace(ps);
+    @Override
+    public void printStackTrace(PrintStream s) {
+        synchronized (s) {
+            s.println(this);
+            StackTraceElement[] trace = getStackTrace();
+            for (int i=0; i < trace.length; i++) {
+                s.println("\tat " + trace[i]);
+            }
+            Throwable ourCause = getCause();
+            if (ourCause != null) {
+                ourCause.printStackTrace(s);
+            }
+        }
+    }
+
+    @Override
+    public void printStackTrace(PrintWriter s) {
+        synchronized (s) {
+            s.println(this);
+            StackTraceElement[] trace = getStackTrace();
+            for (int i=0; i < trace.length; i++) {
+                s.println("\tat " + trace[i]);
+            }
+            Throwable ourCause = getCause();
+            if (ourCause != null) {
+                ourCause.printStackTrace(s);
+            }
+        }
     }
 
 }
