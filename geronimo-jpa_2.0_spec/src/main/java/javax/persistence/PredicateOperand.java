@@ -35,7 +35,7 @@ import java.util.Calendar;
 public interface PredicateOperand {
 	/**
 	 * Create a predicate for testing equality with the specified argument.
-	 * 
+	 *
 	 * @param arg -
 	 *            PredicateOperand instance or parameter
 	 * @return conditional predicate
@@ -44,7 +44,7 @@ public interface PredicateOperand {
 
 	/**
 	 * Create a predicate for testing equality with the specified argument.
-	 * 
+	 *
 	 * @param cls -
 	 *            entity class
 	 * @return conditional predicate
@@ -53,7 +53,7 @@ public interface PredicateOperand {
 
 	/**
 	 * Create a predicate for testing equality with the specified argument.
-	 * 
+	 *
 	 * @param arg -
 	 *            numeric
 	 * @return conditional predicate
@@ -62,7 +62,7 @@ public interface PredicateOperand {
 
 	/**
 	 * Create a predicate for testing equality with the specified argument.
-	 * 
+	 *
 	 * @param arg -
 	 *            string value
 	 * @return conditional predicate
@@ -71,7 +71,7 @@ public interface PredicateOperand {
 
 	/**
 	 * Create a predicate for testing equality with the specified argument.
-	 * 
+	 *
 	 * @param arg -
 	 *            boolean value
 	 * @return conditional predicate
@@ -80,7 +80,7 @@ public interface PredicateOperand {
 
 	/**
 	 * Create a predicate for testing equality with the specified argument.
-	 * 
+	 *
 	 * @param arg -
 	 *            date
 	 * @return conditional predicate
@@ -89,7 +89,7 @@ public interface PredicateOperand {
 
 	/**
 	 * Create a predicate for testing equality with the specified argument.
-	 * 
+	 *
 	 * @param arg -
 	 *            calendar
 	 * @return conditional predicate
@@ -98,7 +98,7 @@ public interface PredicateOperand {
 
 	/**
 	 * Create a predicate for testing equality with the specified argument.
-	 * 
+	 *
 	 * @param e -
 	 *            enum
 	 * @return conditional predicate
@@ -107,7 +107,7 @@ public interface PredicateOperand {
 
 	/**
 	 * Create a predicate for testing inequality with the specified argument.
-	 * 
+	 *
 	 * @param arg -
 	 *            PredicateOperand instance or parameter
 	 * @return conditional predicate
@@ -116,7 +116,7 @@ public interface PredicateOperand {
 
 	/**
 	 * Create a predicate for testing inequality with the specified argument.
-	 * 
+	 *
 	 * @param cls -
 	 *            entity class
 	 * @return conditional predicate
@@ -125,7 +125,7 @@ public interface PredicateOperand {
 
 	/**
 	 * Create a predicate for testing inequality with the specified argument.
-	 * 
+	 *
 	 * @param arg -
 	 *            numberic value
 	 * @return conditional predicate
@@ -134,7 +134,7 @@ public interface PredicateOperand {
 
 	/**
 	 * Create a predicate for testing inequality with the specified argument.
-	 * 
+	 *
 	 * @param arg -
 	 *            string value
 	 * @return conditional predicate
@@ -143,7 +143,7 @@ public interface PredicateOperand {
 
 	/**
 	 * Create a predicate for testing inequality with the specified argument.
-	 * 
+	 *
 	 * @param arg -
 	 *            boolean value
 	 * @return conditional predicate
@@ -152,7 +152,7 @@ public interface PredicateOperand {
 
 	/**
 	 * Create a predicate for testing inequality with the specified argument.
-	 * 
+	 *
 	 * @param arg -
 	 *            date
 	 * @return conditional predicate
@@ -161,7 +161,7 @@ public interface PredicateOperand {
 
 	/**
 	 * Create a predicate for testing inequality with the specified argument.
-	 * 
+	 *
 	 * @param arg -
 	 *            calendar
 	 * @return conditional predicate
@@ -170,7 +170,7 @@ public interface PredicateOperand {
 
 	/**
 	 * Create a predicate for testing inequality with the specified argument.
-	 * 
+	 *
 	 * @param e -
 	 *            enum
 	 * @return conditional predicate
@@ -180,7 +180,7 @@ public interface PredicateOperand {
 	/**
 	 * Create a predicate for testing whether the PredicateOperand is greater
 	 * than the argument.
-	 * 
+	 *
 	 * @param arg -
 	 *            PredicateOperand instance or parameter
 	 * @return conditional predicate
@@ -190,7 +190,7 @@ public interface PredicateOperand {
 	/**
 	 * Create a predicate for testing whether the PredicateOperand is greater
 	 * than the argument.
-	 * 
+	 *
 	 * @param arg -
 	 *            numeric
 	 * @return conditional predicate
@@ -200,7 +200,7 @@ public interface PredicateOperand {
 	/**
 	 * Create a predicate for testing whether the PredicateOperand is greater
 	 * than the argument.
-	 * 
+	 *
 	 * @param arg -
 	 *            string
 	 * @return conditional predicate
@@ -210,7 +210,7 @@ public interface PredicateOperand {
 	/**
 	 * Create a predicate for testing whether the PredicateOperand is greater
 	 * than the argument.
-	 * 
+	 *
 	 * @param arg -
 	 *            date
 	 * @return conditional predicate
@@ -220,7 +220,7 @@ public interface PredicateOperand {
 	/**
 	 * Create a predicate for testing whether the PredicateOperand is greater
 	 * than the argument.
-	 * 
+	 *
 	 * @param arg -
 	 *            calendar
 	 * @return conditional predicate
@@ -230,7 +230,7 @@ public interface PredicateOperand {
 	/**
 	 * Create a predicate for testing whether the PredicateOperand is greater
 	 * than or equal to the argument.
-	 * 
+	 *
 	 * @param arg -
 	 *            PredicateOperand instance or parameter
 	 * @return conditional predicate
@@ -240,7 +240,7 @@ public interface PredicateOperand {
 	/**
 	 * Create a predicate for testing whether the PredicateOperand is greater
 	 * than or equal to the argument.
-	 * 
+	 *
 	 * @param arg -
 	 *            numeric
 	 * @return conditional predicate
@@ -250,7 +250,7 @@ public interface PredicateOperand {
 	/**
 	 * Create a predicate for testing whether the PredicateOperand is greater
 	 * than or equal to the argument.
-	 * 
+	 *
 	 * @param arg -
 	 *            string
 	 * @return conditional predicate
@@ -260,7 +260,7 @@ public interface PredicateOperand {
 	/**
 	 * Create a predicate for testing whether the PredicateOperand is greater
 	 * than or equal to the argument.
-	 * 
+	 *
 	 * @param arg -
 	 *            date
 	 * @return conditional predicate
@@ -270,7 +270,7 @@ public interface PredicateOperand {
 	/**
 	 * Create a predicate for testing whether the PredicateOperand is greater
 	 * than or equal to the argument.
-	 * 
+	 *
 	 * @param arg -
 	 *            calendar
 	 * @return conditional predicate
@@ -280,7 +280,7 @@ public interface PredicateOperand {
 	/**
 	 * Create a predicate for testing whether the PredicateOperand is less than
 	 * the argument.
-	 * 
+	 *
 	 * @param arg -
 	 *            PredicateOperand instance or parameter
 	 * @return conditional predicate
@@ -290,7 +290,7 @@ public interface PredicateOperand {
 	/**
 	 * Create a predicate for testing whether the PredicateOperand is less than
 	 * the argument.
-	 * 
+	 *
 	 * @param arg -
 	 *            numeric
 	 * @return conditional predicate
@@ -300,7 +300,7 @@ public interface PredicateOperand {
 	/**
 	 * Create a predicate for testing whether the PredicateOperand is less than
 	 * the argument.
-	 * 
+	 *
 	 * @param arg -
 	 *            string
 	 * @return conditional predicate
@@ -310,7 +310,7 @@ public interface PredicateOperand {
 	/**
 	 * Create a predicate for testing whether the PredicateOperand is less than
 	 * the argument.
-	 * 
+	 *
 	 * @param arg -
 	 *            date
 	 * @return conditional predicate
@@ -320,7 +320,7 @@ public interface PredicateOperand {
 	/**
 	 * Create a predicate for testing whether the PredicateOperand is less than
 	 * the argument.
-	 * 
+	 *
 	 * @param arg -
 	 *            calendar
 	 * @return conditional predicate
@@ -330,7 +330,7 @@ public interface PredicateOperand {
 	/**
 	 * Create a predicate for testing whether the PredicateOperand is less than
 	 * or equal to the argument.
-	 * 
+	 *
 	 * @param arg -
 	 *            PredicateOperand instance or parameter
 	 * @return conditional predicate
@@ -340,7 +340,7 @@ public interface PredicateOperand {
 	/**
 	 * Create a predicate for testing whether the PredicateOperand is less than
 	 * or equal to the argument.
-	 * 
+	 *
 	 * @param arg -
 	 *            numeric
 	 * @return conditional predicate
@@ -350,7 +350,7 @@ public interface PredicateOperand {
 	/**
 	 * Create a predicate for testing whether the PredicateOperand is less than
 	 * or equal to the argument.
-	 * 
+	 *
 	 * @param arg -
 	 *            string
 	 * @return conditional predicate
@@ -360,7 +360,7 @@ public interface PredicateOperand {
 	/**
 	 * Create a predicate for testing whether the PredicateOperand is less than
 	 * or equal to the argument.
-	 * 
+	 *
 	 * @param arg -
 	 *            date
 	 * @return conditional predicate
@@ -370,7 +370,7 @@ public interface PredicateOperand {
 	/**
 	 * Create a predicate for testing whether the PredicateOperand is less than
 	 * or equal to the argument.
-	 * 
+	 *
 	 * @param arg -
 	 *            calendar
 	 * @return conditional predicate
@@ -380,7 +380,7 @@ public interface PredicateOperand {
 	/**
 	 * Create a predicate for testing whether the PredicateOperand lies between
 	 * (inclusive) the two arguments.
-	 * 
+	 *
 	 * @param arg1 -
 	 *            PredicateOperand instance or parameter
 	 * @param arg2 -
@@ -392,7 +392,7 @@ public interface PredicateOperand {
 	/**
 	 * Create a predicate for testing whether the PredicateOperand lies between
 	 * (inclusive) the two arguments.
-	 * 
+	 *
 	 * @param arg1 -
 	 *            PredicateOperand instance or parameter
 	 * @param arg2 -
@@ -404,7 +404,7 @@ public interface PredicateOperand {
 	/**
 	 * Create a predicate for testing whether the PredicateOperand lies between
 	 * (inclusive) the two arguments.
-	 * 
+	 *
 	 * @param arg1 -
 	 *            numeric
 	 * @param arg2 -
@@ -416,7 +416,7 @@ public interface PredicateOperand {
 	/**
 	 * Create a predicate for testing whether the PredicateOperand lies between
 	 * (inclusive) the two arguments.
-	 * 
+	 *
 	 * @param arg1 -
 	 *            numeric
 	 * @param arg2 -
@@ -428,7 +428,7 @@ public interface PredicateOperand {
 	/**
 	 * Create a predicate for testing whether the PredicateOperand lies between
 	 * (inclusive) the two arguments.
-	 * 
+	 *
 	 * @param arg1 -
 	 *            PredicateOperand instance or parameter
 	 * @param arg2 -
@@ -440,7 +440,7 @@ public interface PredicateOperand {
 	/**
 	 * Create a predicate for testing whether the PredicateOperand lies between
 	 * (inclusive) the two arguments.
-	 * 
+	 *
 	 * @param arg1 -
 	 *            string
 	 * @param arg2 -
@@ -452,7 +452,7 @@ public interface PredicateOperand {
 	/**
 	 * Create a predicate for testing whether the PredicateOperand lies between
 	 * (inclusive) the two arguments.
-	 * 
+	 *
 	 * @param arg1 -
 	 *            string
 	 * @param arg2 -
@@ -464,7 +464,7 @@ public interface PredicateOperand {
 	/**
 	 * Create a predicate for testing whether the PredicateOperand lies between
 	 * (inclusive) the two arguments.
-	 * 
+	 *
 	 * @param arg1 -
 	 *            PredicateOperand instance or parameter
 	 * @param arg2 -
@@ -476,7 +476,7 @@ public interface PredicateOperand {
 	/**
 	 * Create a predicate for testing whether the PredicateOperand lies between
 	 * (inclusive) the two arguments.
-	 * 
+	 *
 	 * @param arg1 -
 	 *            date
 	 * @param arg2 -
@@ -488,7 +488,7 @@ public interface PredicateOperand {
 	/**
 	 * Create a predicate for testing whether the PredicateOperand lies between
 	 * (inclusive) the two arguments.
-	 * 
+	 *
 	 * @param arg1 -
 	 *            date
 	 * @param arg2 -
@@ -500,7 +500,7 @@ public interface PredicateOperand {
 	/**
 	 * Create a predicate for testing whether the PredicateOperand lies between
 	 * (inclusive) the two arguments.
-	 * 
+	 *
 	 * @param arg1 -
 	 *            PredicateOperand instance or parameter
 	 * @param arg2 -
@@ -512,7 +512,7 @@ public interface PredicateOperand {
 	/**
 	 * Create a predicate for testing whether the PredicateOperand lies between
 	 * (inclusive) the two arguments.
-	 * 
+	 *
 	 * @param arg1 -
 	 *            calendar
 	 * @param arg2 -
@@ -524,7 +524,7 @@ public interface PredicateOperand {
 	/**
 	 * Create a predicate for testing whether the PredicateOperand lies between
 	 * (inclusive) the two arguments.
-	 * 
+	 *
 	 * @param arg1 -
 	 *            calendar
 	 * @param arg2 -
@@ -536,7 +536,7 @@ public interface PredicateOperand {
 	/**
 	 * Create a predicate for testing whether the PredicateOperand satisfies the
 	 * given pattern.
-	 * 
+	 *
 	 * @param pattern
 	 * @return conditional predicate
 	 */
@@ -545,7 +545,7 @@ public interface PredicateOperand {
 	/**
 	 * Create a predicate for testing whether the PredicateOperand satisfies the
 	 * given pattern.
-	 * 
+	 *
 	 * @param pattern
 	 * @param escapeChar
 	 * @return conditional predicate
@@ -555,7 +555,7 @@ public interface PredicateOperand {
 	/**
 	 * Create a predicate for testing whether the PredicateOperand satisfies the
 	 * given pattern.
-	 * 
+	 *
 	 * @param pattern
 	 * @param escapeChar
 	 * @return conditional predicate
@@ -565,7 +565,7 @@ public interface PredicateOperand {
 	/**
 	 * Create a predicate for testing whether the PredicateOperand satisfies the
 	 * given pattern.
-	 * 
+	 *
 	 * @param pattern
 	 * @return conditional predicate
 	 */
@@ -574,7 +574,7 @@ public interface PredicateOperand {
 	/**
 	 * Create a predicate for testing whether the PredicateOperand satisfies the
 	 * given pattern.
-	 * 
+	 *
 	 * @param pattern
 	 * @param escapeChar
 	 * @return conditional predicate
@@ -584,7 +584,7 @@ public interface PredicateOperand {
 	/**
 	 * Create a predicate for testing whether the PredicateOperand satisfies the
 	 * given pattern.
-	 * 
+	 *
 	 * @param pattern
 	 * @param escapeChar
 	 * @return conditional predicate

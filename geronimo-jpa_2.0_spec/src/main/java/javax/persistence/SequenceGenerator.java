@@ -39,6 +39,10 @@ public @interface SequenceGenerator {
 
     String sequenceName() default "";
 
+    String catalog() default "";
+
+    String schema() default "";
+
     int initialValue() default 1;
 
     int allocationSize() default 50;

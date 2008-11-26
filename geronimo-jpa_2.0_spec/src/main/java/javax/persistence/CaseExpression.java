@@ -36,7 +36,7 @@ public interface CaseExpression {
 	 * predicate must be followed by the corresponding then case expression that
 	 * specifies the result of the specific case. Clauses are evaluated in the
 	 * order added.
-	 * 
+	 *
 	 * @param pred -
 	 *            corresponds to the evaluation condition for the specific case
 	 * @return CaseExpression corresponding to the case with the added when
@@ -48,7 +48,7 @@ public interface CaseExpression {
 	 * Add a when clause to a simple case expression. The when case expression
 	 * must be followed by the corresponding then case expression that specifies
 	 * the result of the specific case. Clauses are evaluated in the order added
-	 * 
+	 *
 	 * @param when -
 	 *            corresponds to the value against which the case operand of the
 	 *            simple case is tested
@@ -60,7 +60,7 @@ public interface CaseExpression {
 	 * Add a when clause to a simple case expression. The when case expression
 	 * must be followed by the corresponding then case expression that specifies
 	 * the result of the specific case. Clauses are evaluated in the order added
-	 * 
+	 *
 	 * @param when -
 	 *            corresponds to the value against which the case operand of the
 	 *            simple case is tested
@@ -72,7 +72,7 @@ public interface CaseExpression {
 	 * Add a when clause to a simple case expression. The when case expression
 	 * must be followed by the corresponding then case expression that specifies
 	 * the result of the specific case. Clauses are evaluated in the order added
-	 * 
+	 *
 	 * @param when -
 	 *            corresponds to the value against which the
 	 *            case operand of the simple case is tested
@@ -84,7 +84,7 @@ public interface CaseExpression {
 	 * Add a when clause to a simple case expression. The when case expression
 	 * must be followed by the corresponding then case expression that specifies
 	 * the result of the specific case. Clauses are evaluated in the order added
-	 * 
+	 *
 	 * @param when -
 	 *            corresponds to the value against which the case operand of the
 	 *            simple case is tested
@@ -96,7 +96,7 @@ public interface CaseExpression {
 	 * Add a when clause to a simple case expression. The when case expression
 	 * must be followed by the corresponding then case expression that specifies
 	 * the result of the specific case. Clauses are evaluated in the order added
-	 * 
+	 *
 	 * @param when -
 	 *            corresponds to the value against which the case operand of the
 	 *            simple case is tested
@@ -108,7 +108,7 @@ public interface CaseExpression {
 	 * Add a when clause to a simple case expression. The when case expression
 	 * must be followed by the corresponding then case expression that specifies
 	 * the result of the specific case. Clauses are evaluated in the order added
-	 * 
+	 *
 	 * @param when -
 	 *            corresponds to the value against which the case operand of the
 	 *            simple case is tested
@@ -120,7 +120,7 @@ public interface CaseExpression {
 	 * Add a when clause to a simple case expression. The when case expression
 	 * must be followed by the corresponding then case expression that specifies
 	 * the result of the specific case. Clauses are evaluated in the order added
-	 * 
+	 *
 	 * @param when -
 	 *            corresponds to the value against which the case operand of the
 	 *            simple case is tested
@@ -132,7 +132,7 @@ public interface CaseExpression {
 	 * Add a then clause to a general or simple case expression. The then clause
 	 * specifies the result corresponding to the immediately preceding when.
 	 * Clauses are evaluated in the order added.
-	 * 
+	 *
 	 * @param then -
 	 *            corresponds to the result of the case expression if the when
 	 *            is satisfied
@@ -145,7 +145,7 @@ public interface CaseExpression {
 	 * Add a then clause to a general or simple case expression. The then clause
 	 * specifies the result corresponding to the immediately preceding when.
 	 * Clauses are evaluated in the order added.
-	 * 
+	 *
 	 * @param then -
 	 *            corresponds to the result of the case expression if the when
 	 *            is satisfied
@@ -158,7 +158,7 @@ public interface CaseExpression {
 	 * Add a then clause to a general or simple case expression. The then clause
 	 * specifies the result corresponding to the immediately preceding when.
 	 * Clauses are evaluated in the order added.
-	 * 
+	 *
 	 * @param then -
 	 *            corresponds to the result of the case expression if the when
 	 *            is satisfied
@@ -171,7 +171,7 @@ public interface CaseExpression {
 	 * Add a then clause to a general or simple case expression. The then clause
 	 * specifies the result corresponding to the immediately preceding when.
 	 * Clauses are evaluated in the order added.
-	 * 
+	 *
 	 * @param then -
 	 *            corresponds to the result of the case expression if the when
 	 *            is satisfied
@@ -184,7 +184,7 @@ public interface CaseExpression {
 	 * Add a then clause to a general or simple case expression. The then clause
 	 * specifies the result corresponding to the immediately preceding when.
 	 * Clauses are evaluated in the order added.
-	 * 
+	 *
 	 * @param then -
 	 *            corresponds to the result of the case expression if the when
 	 *            is satisfied
@@ -197,7 +197,7 @@ public interface CaseExpression {
 	 * Add a then clause to a general or simple case expression. The then clause
 	 * specifies the result corresponding to the immediately preceding when.
 	 * Clauses are evaluated in the order added.
-	 * 
+	 *
 	 * @param then -
 	 *            corresponds to the result of the case expression if the when
 	 *            is satisfied
@@ -210,7 +210,7 @@ public interface CaseExpression {
 	 * Add a then clause to a general or simple case expression. The then clause
 	 * specifies the result corresponding to the immediately preceding when.
 	 * Clauses are evaluated in the order added.
-	 * 
+	 *
 	 * @param then -
 	 *            corresponds to the result of the case expression if the when
 	 *            is satisfied
@@ -222,7 +222,7 @@ public interface CaseExpression {
 	/**
 	 * Add else to a case expression. A case expression must have an else
 	 * clause.
-	 * 
+	 *
 	 * @param arg -
 	 *            corresponds to the result of the case expression if the when
 	 *            condition is not satisfied
@@ -234,7 +234,7 @@ public interface CaseExpression {
 	/**
 	 * Add else to a case expression. A case expression must have an else
 	 * clause.
-	 * 
+	 *
 	 * @param arg -
 	 *            corresponds to the result of the case expression if the when
 	 *            condition is not satisfied
@@ -246,7 +246,7 @@ public interface CaseExpression {
 	/**
 	 * Add else to a case expression. A case expression must have an else
 	 * clause.
-	 * 
+	 *
 	 * @param arg -
 	 *            corresponds to the result of the case expression if the when
 	 *            condition is not satisfied
@@ -258,7 +258,7 @@ public interface CaseExpression {
 	/**
 	 * Add else to a case expression. A case expression must have an else
 	 * clause.
-	 * 
+	 *
 	 * @param arg -
 	 *            corresponds to the result of the case expression if the when
 	 *            condition is not satisfied
@@ -270,7 +270,7 @@ public interface CaseExpression {
 	/**
 	 * Add else to a case expression. A case expression must have an else
 	 * clause.
-	 * 
+	 *
 	 * @param arg -
 	 *            corresponds to the result of the case expression if the when
 	 *            condition is not satisfied
@@ -282,7 +282,7 @@ public interface CaseExpression {
 	/**
 	 * Add else to a case expression. A case expression must have an else
 	 * clause.
-	 * 
+	 *
 	 * @param arg -
 	 *            corresponds to the result of the case expression if the when
 	 *            condition is not satisfied
@@ -294,7 +294,7 @@ public interface CaseExpression {
 	/**
 	 * Add else to a case expression. A case expression must have an else
 	 * clause.
-	 * 
+	 *
 	 * @param arg -
 	 *            corresponds to the result of the case expression if the when
 	 *            condition is not satisfied

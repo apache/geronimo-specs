@@ -159,7 +159,7 @@ public class Persistence {
         try {
             providerClass = Class.forName(providerName, true, Thread
                     .currentThread().getContextClassLoader());
-        } 
+        }
         catch (Exception e) {
             throw new PersistenceException(
                     "Invalid or inaccessible provider class: " + providerName,

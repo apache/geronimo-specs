@@ -39,5 +39,7 @@ public @interface NamedQuery {
 
     String query();
 
+    LockModeType lockMode() default LockModeType.NONE;
+
     QueryHint[] hints() default {};
 }

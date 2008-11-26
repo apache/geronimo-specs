@@ -39,7 +39,7 @@ public interface DomainObject extends PathExpression, QueryDefinition {
 	 * object must correspond to a class that contains the referenced attribute.
 	 * The query definition is modified to include the newly joined domain
 	 * object.
-	 * 
+	 *
 	 * @param attribute -
 	 *            name of the attribute that references the target of the join
 	 * @return the new DomainObject that is added for the target of the join
@@ -55,7 +55,7 @@ public interface DomainObject extends PathExpression, QueryDefinition {
 	 * operations. The domain object must correspond to a class that contains
 	 * the referenced attribute. The query definition is modified to include the
 	 * newly joined domain object.
-	 * 
+	 *
 	 * @param attribute -
 	 *            name of the attribute that references the target of the join
 	 * @return the new DomainObject that is added for the target of the join
@@ -67,7 +67,7 @@ public interface DomainObject extends PathExpression, QueryDefinition {
 	 * the attribute be eagerly fetched through use of an inner join. The domain
 	 * object must correspond to a class that contains the referenced attribute.
 	 * The query is modified to include the joined domain object.
-	 * 
+	 *
 	 * @param attribute -
 	 *            name of the attribute that references the target of the join
 	 * @return the FetchJoinObject that is added for the target of the join
@@ -79,7 +79,7 @@ public interface DomainObject extends PathExpression, QueryDefinition {
 	 * the attribute be eagerly fetched through use of a left outer join. The
 	 * domain object must correspond to a class that contains the referenced
 	 * attribute. The query is modified to include the joined domain object.
-	 * 
+	 *
 	 * @param attribute -
 	 *            name of the attribute that references the target of the join
 	 * @return the FetchJoinObject that is added for the target of the join
@@ -91,7 +91,7 @@ public interface DomainObject extends PathExpression, QueryDefinition {
 	 * association or element collection. This method is only permitted to be
 	 * invoked upon a domain object that corresponds to a map-valued association
 	 * or element collection.
-	 * 
+	 *
 	 * @return PathExpression corresponding to the map value
 	 */
 	PathExpression value();
@@ -101,7 +101,7 @@ public interface DomainObject extends PathExpression, QueryDefinition {
 	 * association or element collection. This method is only permitted to be
 	 * invoked upon a domain object that corresponds to a map-valued association
 	 * or element collection.
-	 * 
+	 *
 	 * @return PathExpression corresponding to the map key
 	 */
 	PathExpression key();
@@ -111,7 +111,7 @@ public interface DomainObject extends PathExpression, QueryDefinition {
 	 * association or element collection. This method is only permitted to be
 	 * invoked upon a domain object that corresponds to a map-valued association
 	 * or element collection.
-	 * 
+	 *
 	 * @return SelectItem corresponding to the map entry
 	 */
 	SelectItem entry();
@@ -122,7 +122,7 @@ public interface DomainObject extends PathExpression, QueryDefinition {
 	 * permitted to be invoked upon a domain object that corresponds to a
 	 * multi-valued association or element collection for which an order column
 	 * has been defined.
-	 * 
+	 *
 	 * @return Expression denoting the index
 	 */
 	Expression index();

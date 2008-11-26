@@ -28,5 +28,11 @@ package javax.persistence;
  * @version $Rev$ $Date$
  */
 public enum LockModeType {
-    READ, WRITE
+    READ,
+    WRITE,
+    OPTIMISTIC,
+    OPTIMISTIC_FORCE_INCREMENT,
+    PESSIMISTIC,
+    PESSIMISTIC_FORCE_INCREMENT,
+    NONE
 }

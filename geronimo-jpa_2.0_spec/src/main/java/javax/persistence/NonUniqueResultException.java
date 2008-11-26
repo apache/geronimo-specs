@@ -31,7 +31,7 @@ package javax.persistence;
 public class NonUniqueResultException extends PersistenceException {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 8841586522747620836L;
 

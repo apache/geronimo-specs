@@ -34,7 +34,7 @@ import javax.sql.DataSource;
  * @version $Rev$ $Date$
  */
 public interface PersistenceUnitInfo {
-    
+
     public String getPersistenceUnitName();
 
     public String getPersistenceProviderClassName();

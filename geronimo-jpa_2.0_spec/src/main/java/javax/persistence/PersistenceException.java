@@ -28,7 +28,7 @@ package javax.persistence;
  * @version $Rev$ $Date$
  */
 public class PersistenceException extends RuntimeException {
- 
+
     private static final long serialVersionUID = -8734504053550505412L;
 
     public PersistenceException() {
