@@ -30,7 +30,7 @@ package javax.persistence;
 public class NoResultException extends PersistenceException {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 4123871304568481301L;
 

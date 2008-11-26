@@ -37,7 +37,7 @@ public interface Expression extends SelectItem, PredicateOperand {
 	 * association or element collection denoted by the path expression. The
 	 * argument must correspond to a collection-valued association or element
 	 * collection of like type.
-	 * 
+	 *
 	 * @param arg -
 	 *            a path expression that specifies a collection-valued
 	 *            association or an element collection
@@ -48,7 +48,7 @@ public interface Expression extends SelectItem, PredicateOperand {
 	/**
 	 * Create a predicate for testing whether the value of the expression is
 	 * null.
-	 * 
+	 *
 	 * @return conditional predicate
 	 */
 	Predicate isNull();
@@ -56,7 +56,7 @@ public interface Expression extends SelectItem, PredicateOperand {
 	/**
 	 * Create a predicate for testing whether the expression value is a member
 	 * of the argument list.
-	 * 
+	 *
 	 * @param strings
 	 * @return conditional predicate
 	 */
@@ -65,7 +65,7 @@ public interface Expression extends SelectItem, PredicateOperand {
 	/**
 	 * Create a predicate for testing whether the expression value is a member
 	 * of the argument list.
-	 * 
+	 *
 	 * @param nums
 	 * @return conditional predicate
 	 */
@@ -74,7 +74,7 @@ public interface Expression extends SelectItem, PredicateOperand {
 	/**
 	 * Create a predicate for testing whether the expression value is a member
 	 * of the argument list.
-	 * 
+	 *
 	 * @param enums
 	 * @return conditional predicate
 	 */
@@ -83,7 +83,7 @@ public interface Expression extends SelectItem, PredicateOperand {
 	/**
 	 * Create a predicate for testing whether the expression value is a member
 	 * of the argument list.
-	 * 
+	 *
 	 * @param classes
 	 * @return conditional predicate
 	 */
@@ -92,7 +92,7 @@ public interface Expression extends SelectItem, PredicateOperand {
 	/**
 	 * Create a predicate for testing whether the expression value is a member
 	 * of the argument list.
-	 * 
+	 *
 	 * @param params
 	 * @return conditional predicate
 	 */
@@ -101,7 +101,7 @@ public interface Expression extends SelectItem, PredicateOperand {
 	/**
 	 * Create a predicate for testing whether the expression value is a member
 	 * of a subquery result.
-	 * 
+	 *
 	 * @param subquery
 	 * @return conditional predicate
 	 */
@@ -113,7 +113,7 @@ public interface Expression extends SelectItem, PredicateOperand {
 	/**
 	 * String length This method must be invoked on an expression corresponding
 	 * to a string.
-	 * 
+	 *
 	 * @return expression denoting the length of the string.
 	 */
 	Expression length();
@@ -121,7 +121,7 @@ public interface Expression extends SelectItem, PredicateOperand {
 	/**
 	 * Concatenate a string with other string(s). This method must be invoked on
 	 * an expression corresponding to a string.
-	 * 
+	 *
 	 * @param str -
 	 *            string(s)
 	 * @return expression denoting the concatenation of the strings, starting
@@ -133,7 +133,7 @@ public interface Expression extends SelectItem, PredicateOperand {
 	/**
 	 * Concatenate a string with other string(s). This method must be invoked on
 	 * an expression corresponding to a string.
-	 * 
+	 *
 	 * @param str -
 	 *            expression(s) corresponding to string(s)
 	 * @return expression denoting the concatenation of the strings, starting
@@ -146,7 +146,7 @@ public interface Expression extends SelectItem, PredicateOperand {
 	 * Extract a substring starting at specified position through to the end of
 	 * the string. This method must be invoked on an expression corresponding to
 	 * a string.
-	 * 
+	 *
 	 * @param start -
 	 *            start position (1 indicates first position)
 	 * @return expression denoting the extracted substring
@@ -157,7 +157,7 @@ public interface Expression extends SelectItem, PredicateOperand {
 	 * Extract a substring starting at specified position through to the end of
 	 * the string. This method must be invoked on an expression corresponding to
 	 * a string.
-	 * 
+	 *
 	 * @param start -
 	 *            expression denoting start position (1 indicates first
 	 *            position)
@@ -168,7 +168,7 @@ public interface Expression extends SelectItem, PredicateOperand {
 	/**
 	 * Extract a substring. This method must be invoked on an expression
 	 * corresponding to a string.
-	 * 
+	 *
 	 * @param start -
 	 *            start position (1 indicates first position)
 	 * @param len -
@@ -180,7 +180,7 @@ public interface Expression extends SelectItem, PredicateOperand {
 	/**
 	 * Extract a substring. This method must be invoked on an expression
 	 * corresponding to a string.
-	 * 
+	 *
 	 * @param start -
 	 *            start position (1 indicates first position)
 	 * @param len -
@@ -192,7 +192,7 @@ public interface Expression extends SelectItem, PredicateOperand {
 	/**
 	 * Extract a substring. This method must be invoked on an expression
 	 * corresponding to a string.
-	 * 
+	 *
 	 * @param start -
 	 *            expression denoting start position (1 indicates first
 	 *            position)
@@ -205,7 +205,7 @@ public interface Expression extends SelectItem, PredicateOperand {
 	/**
 	 * Extract a substring. This method must be invoked on an expression
 	 * corresponding to a string.
-	 * 
+	 *
 	 * @param start -
 	 *            expression denoting start position (1 indicates first
 	 *            position)
@@ -218,7 +218,7 @@ public interface Expression extends SelectItem, PredicateOperand {
 	/**
 	 * Convert string to lowercase. This method must be invoked on an expression
 	 * corresponding to a string.
-	 * 
+	 *
 	 * @return expression denoting the string in lowercase
 	 */
 	Expression lower();
@@ -226,7 +226,7 @@ public interface Expression extends SelectItem, PredicateOperand {
 	/**
 	 * Convert string to uppercase. This method must be invoked on an expression
 	 * corresponding to a string.
-	 * 
+	 *
 	 * @return expression denoting the string in uppercase
 	 */
 	Expression upper();
@@ -234,7 +234,7 @@ public interface Expression extends SelectItem, PredicateOperand {
 	/**
 	 * Trim leading and trailing blanks. This method must be invoked on an
 	 * expression corresponding to a string.
-	 * 
+	 *
 	 * @return expression denoting trimmed string
 	 */
 	Expression trim();
@@ -242,7 +242,7 @@ public interface Expression extends SelectItem, PredicateOperand {
 	/**
 	 * Trim leading, trailing blanks (or both) as specified by trim spec. This
 	 * method must be invoked on an expression corresponding to a string.
-	 * 
+	 *
 	 * @param spec -
 	 *            trim specification
 	 * @return expression denoting trimmed string
@@ -252,7 +252,7 @@ public interface Expression extends SelectItem, PredicateOperand {
 	/**
 	 * Trim leading and trailing occurrences of character from the string. This
 	 * method must be invoked on an expression corresponding to a string.
-	 * 
+	 *
 	 * @param c -
 	 *            character to be trimmed
 	 * @return expression denoting trimmed string
@@ -263,7 +263,7 @@ public interface Expression extends SelectItem, PredicateOperand {
 	 * Trim occurrences of the character from leading or trailing (or both)
 	 * positions of the string, as specified by trim spec. This method must be
 	 * invoked on an expression corresponding to a string.
-	 * 
+	 *
 	 * @param c -
 	 *            character to be trimmed
 	 * @param spec -
@@ -276,7 +276,7 @@ public interface Expression extends SelectItem, PredicateOperand {
 	 * Trim leading and trailing occurrences of character specified by the
 	 * expression argument from the string. This method must be invoked on an
 	 * expression corresponding to a string.
-	 * 
+	 *
 	 * @param expr -
 	 *            expression corresponding to the character to be trimmed
 	 * @return expression denoting trimmed string
@@ -288,7 +288,7 @@ public interface Expression extends SelectItem, PredicateOperand {
 	 * from leading or trailing (or both) positions of the string, as specified
 	 * by trim spec. This method must be invoked on an expression corresponding
 	 * to a string.
-	 * 
+	 *
 	 * @param expr -
 	 *            expression corresponding to the character to be trimmed
 	 * @param spec -
@@ -302,7 +302,7 @@ public interface Expression extends SelectItem, PredicateOperand {
 	 * expression on which the method was invoked. The search is started at
 	 * position 1 (first string position). This method must be invoked on an
 	 * expression corresponding to a string.
-	 * 
+	 *
 	 * @param str -
 	 *            string to be located
 	 * @return expression denoting the first position at which the string was
@@ -315,7 +315,7 @@ public interface Expression extends SelectItem, PredicateOperand {
 	 * expression on which the method was invoked. The search is started at
 	 * position 1 (first string position). This method must be invoked on an
 	 * expression corresponding to a string.
-	 * 
+	 *
 	 * @param str -
 	 *            expression corresponding to the string to be located
 	 * @return expression denoting the first position at which the string was
@@ -328,7 +328,7 @@ public interface Expression extends SelectItem, PredicateOperand {
 	 * expression on which the method was invoked, starting at a specified
 	 * search position. This method must be invoked on an expression
 	 * corresponding to a string.
-	 * 
+	 *
 	 * @param str -
 	 *            string to be located
 	 * @param position -
@@ -343,7 +343,7 @@ public interface Expression extends SelectItem, PredicateOperand {
 	 * expression on which the method was invoked, starting at a specified
 	 * search position. This method must be invoked on an expression
 	 * corresponding to a string.
-	 * 
+	 *
 	 * @param str -
 	 *            string to be located
 	 * @param position -
@@ -359,7 +359,7 @@ public interface Expression extends SelectItem, PredicateOperand {
 	 * expression on which the method was invoked, starting at a specified
 	 * search position. This method must be invoked on an expression
 	 * corresponding to a string.
-	 * 
+	 *
 	 * @param str -
 	 *            expression corresponding to the string to be located
 	 * @param position -
@@ -374,7 +374,7 @@ public interface Expression extends SelectItem, PredicateOperand {
 	 * expression on which the method was invoked, starting at a specified
 	 * search position. This method must be invoked on an expression
 	 * corresponding to a string.
-	 * 
+	 *
 	 * @param str -
 	 *            expression corresponding to the string to be located
 	 * @param position -
@@ -391,7 +391,7 @@ public interface Expression extends SelectItem, PredicateOperand {
 	/**
 	 * Addition. This method must be invoked on an expression corresponding to a
 	 * number.
-	 * 
+	 *
 	 * @param num -
 	 *            number to be added
 	 * @return expression denoting the sum
@@ -401,7 +401,7 @@ public interface Expression extends SelectItem, PredicateOperand {
 	/**
 	 * Addition. This method must be invoked on an expression corresponding to a
 	 * number.
-	 * 
+	 *
 	 * @param expr -
 	 *            expression corresponding to number to be added
 	 * @return expression denoting the sum
@@ -411,7 +411,7 @@ public interface Expression extends SelectItem, PredicateOperand {
 	/**
 	 * Unary minus. This method must be invoked on an expression corresponding
 	 * to a number.
-	 * 
+	 *
 	 * @return expression denoting the unary minus of the expression
 	 */
 	Expression minus();
@@ -419,7 +419,7 @@ public interface Expression extends SelectItem, PredicateOperand {
 	/**
 	 * Subtraction. This method must be invoked on an expression corresponding
 	 * to a number.
-	 * 
+	 *
 	 * @param num -
 	 *            subtrahend
 	 * @return expression denoting the result of subtracting the argument from
@@ -431,7 +431,7 @@ public interface Expression extends SelectItem, PredicateOperand {
 	/**
 	 * Subtraction. This method must be invoked on an expression corresponding
 	 * to a number.
-	 * 
+	 *
 	 * @param expr -
 	 *            expression corresponding to subtrahend
 	 * @return expression denoting the result of subtracting the number denoted
@@ -443,7 +443,7 @@ public interface Expression extends SelectItem, PredicateOperand {
 	/**
 	 * Division. This method must be invoked on an expression corresponding to a
 	 * number.
-	 * 
+	 *
 	 * @param num -
 	 *            divisor
 	 * @return expression denoting the result of dividing the number
@@ -455,7 +455,7 @@ public interface Expression extends SelectItem, PredicateOperand {
 	/**
 	 * Division. This method must be invoked on an expression corresponding to a
 	 * number.
-	 * 
+	 *
 	 * @param expr -
 	 *            expression corresponding to the divisor
 	 * @return expression denoting the result of dividing the number
@@ -467,7 +467,7 @@ public interface Expression extends SelectItem, PredicateOperand {
 	/**
 	 * Multiplication. This method must be invoked on an expression
 	 * corresponding to a number.
-	 * 
+	 *
 	 * @param num -
 	 *            multiplier
 	 * @return expression denoting the result of multiplying the argument with
@@ -479,7 +479,7 @@ public interface Expression extends SelectItem, PredicateOperand {
 	/**
 	 * Multiplication. This method must be invoked on an expression
 	 * corresponding to a number.
-	 * 
+	 *
 	 * @param expr -
 	 *            expression corresponding to the multiplier
 	 * @return expression denoting the result of multiplying the number denoted
@@ -491,7 +491,7 @@ public interface Expression extends SelectItem, PredicateOperand {
 	/**
 	 * Absolute value. This method must be invoked on an expression
 	 * corresponding to a number.
-	 * 
+	 *
 	 * @return expression corresponding to the absolute value
 	 */
 	Expression abs();
@@ -499,7 +499,7 @@ public interface Expression extends SelectItem, PredicateOperand {
 	/**
 	 * Square root. This method must be invoked on an expression corresponding
 	 * to a number.
-	 * 
+	 *
 	 * @return expression corresponding to the square root
 	 */
 	Expression sqrt();
@@ -507,7 +507,7 @@ public interface Expression extends SelectItem, PredicateOperand {
 	/**
 	 * Modulo operation. This must be invoked on an expression corresponding to
 	 * an integer value
-	 * 
+	 *
 	 * @param num -
 	 *            integer divisor
 	 * @return expression corresponding to the integer remainder of the division
@@ -519,7 +519,7 @@ public interface Expression extends SelectItem, PredicateOperand {
 	/**
 	 * Modulo operation. This must be invoked on an expression corresponding to
 	 * an integer value
-	 * 
+	 *
 	 * @param expr -
 	 *            expression corresponding to integer divisor
 	 * @return expression corresponding to the integer remainder of the division

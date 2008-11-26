@@ -44,5 +44,7 @@ public @interface OneToOne {
     boolean optional() default true;
 
     String mappedBy() default "";
+
+    boolean orphanRemoval() default false;
 }
 

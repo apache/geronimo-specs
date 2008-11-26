@@ -31,7 +31,7 @@ package javax.persistence;
 public class EntityNotFoundException extends PersistenceException {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 737197424871374104L;
 

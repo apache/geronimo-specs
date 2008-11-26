@@ -37,7 +37,7 @@ public interface QueryDefinition extends Subquery {
 	 * product with any existing roots. The domain object that is returned is
 	 * bound as a component of the given query. The argument must be an entity
 	 * class.
-	 * 
+	 *
 	 * @param cls -
 	 *            an entity class
 	 * @return DomainObject corresponding to the specified entity class.
@@ -51,7 +51,7 @@ public interface QueryDefinition extends Subquery {
 	 * affect the query domain of the containing query. The path expression must
 	 * correspond to an entity class. The path expression must not be a domain
 	 * object of the containing query.
-	 * 
+	 *
 	 * @param path -
 	 *            path expression corresponding to the domain object used to
 	 *            derive the subquery root.
@@ -63,7 +63,7 @@ public interface QueryDefinition extends Subquery {
 	 * Specify the objects / values to be returned. Replaces the previous select
 	 * list, if any. If no select items are specified and there is only one
 	 * query root, the root entity is assumed to be the result.
-	 * 
+	 *
 	 * @param selectItems -
 	 *            one or more SelectItem instances
 	 * @return the modified query definition instance
@@ -74,7 +74,7 @@ public interface QueryDefinition extends Subquery {
 	 * Specify the objects / values to be returned. Replaces the previous select
 	 * list, if any. If no select items are specified and there is only one
 	 * query root, the root entity is assumed to be the result.
-	 * 
+	 *
 	 * @param selectItemList -
 	 *            a list containing one or more SelectItem instances
 	 * @return the modified query definition instance
@@ -86,7 +86,7 @@ public interface QueryDefinition extends Subquery {
 	 * eliminated. Replaces the previous select list, if any. If no select items
 	 * are specified and there is only one query root, the root entity is
 	 * assumed to be the result.
-	 * 
+	 *
 	 * @param selectItems -
 	 *            one or more SelectItem instances
 	 * @return the modified query definition instance
@@ -98,7 +98,7 @@ public interface QueryDefinition extends Subquery {
 	 * eliminated. Replaces the previous select list, if any. If no select items
 	 * are specified, and there is only one query root, the root entity is
 	 * assumed to be the result. is assumed to be the result.
-	 * 
+	 *
 	 * @param selectItemList -
 	 *            a list containing one or more SelectItem instances
 	 * @return the modified query definition instance
@@ -109,7 +109,7 @@ public interface QueryDefinition extends Subquery {
 	 * Modifies the query definition to restrict the result of the query
 	 * according to the specified predicate. Replaces the previously added
 	 * restriction(s), if any.
-	 * 
+	 *
 	 * @param predicate -
 	 *            a simple or compound conditional predicate
 	 * @return the modified QueryDefinition instance
@@ -119,7 +119,7 @@ public interface QueryDefinition extends Subquery {
 	/**
 	 * Specify the items of the select list that are used in ordering the query
 	 * results. Replaces the previous order-by list, if any.
-	 * 
+	 *
 	 * @param orderByItems -
 	 *            one or more OrderByItem instances
 	 * @return the modified QueryDefinition instance
@@ -129,7 +129,7 @@ public interface QueryDefinition extends Subquery {
 	/**
 	 * Specify the items of the select list that are used in ordering the query
 	 * results. Replaces the previous order-by list, if any.
-	 * 
+	 *
 	 * @param orderByItemList -
 	 *            a list containing one or more OrderByItem instances
 	 * @return the modified QueryDefinition instance
@@ -139,7 +139,7 @@ public interface QueryDefinition extends Subquery {
 	/**
 	 * Specify the items that are used to form groups over the query results.
 	 * Replaces the previous group-by list, if any.
-	 * 
+	 *
 	 * @param pathExprs
 	 * @return the modified QueryDefinition instance
 	 */
@@ -148,7 +148,7 @@ public interface QueryDefinition extends Subquery {
 	/**
 	 * Specify the items that are used to form groups over the query results.
 	 * Replaces the previous group-by list, if any.
-	 * 
+	 *
 	 * @param pathExprList
 	 * @return the modified QueryDefinition instance
 	 */
@@ -157,7 +157,7 @@ public interface QueryDefinition extends Subquery {
 	/**
 	 * Specify the restrictions over the groups of a query. Replaces the
 	 * previous having restriction(s), if any.
-	 * 
+	 *
 	 * @param predicate
 	 * @return the modified QueryDefinition Instance
 	 */
@@ -168,7 +168,7 @@ public interface QueryDefinition extends Subquery {
 	 * corresponding query results after the query is executed. The class must
 	 * have a constructor that accepts the Java argument types corresponding to
 	 * the given select items.
-	 * 
+	 *
 	 * @param cls -
 	 *            a class with the correponding constructor
 	 * @param args -
@@ -180,28 +180,28 @@ public interface QueryDefinition extends Subquery {
 
 	/**
 	 * Use the query definition instance as a subquery in an exists predicate.
-	 * 
+	 *
 	 * @return the resulting predicate
 	 */
 	Predicate exists();
 
 	/**
 	 * Use the query definition object in a subquery in an all expression.
-	 * 
+	 *
 	 * @return the resulting Subquery
 	 */
 	Subquery all();
 
 	/**
 	 * Use the query definition object in a subquery in an any expression.
-	 * 
+	 *
 	 * @return the resulting Subquery
 	 */
 	Subquery any();
 
 	/**
 	 * Use the query definition object in a subquery in a some expression.
-	 * 
+	 *
 	 * @return the resulting Subquery
 	 */
 	Subquery some();
@@ -209,11 +209,11 @@ public interface QueryDefinition extends Subquery {
 	/**
 	 * Create an empty general case expression. A general case expression is of
 	 * the form:
-	 * 
+	 *
 	 * generalCase() .when(conditional-predicate).then(scalar-expression)
 	 * .when(conditional-predicate).then(scalar-expression) ...
 	 * .elseCase(scalar-expression)
-	 * 
+	 *
 	 * @return empty general case expression
 	 */
 	CaseExpression generalCase();
@@ -221,11 +221,11 @@ public interface QueryDefinition extends Subquery {
 	/**
 	 * Create a simple case expression with the given case operand. A simple
 	 * case expression is of the form:
-	 * 
+	 *
 	 * simpleCase(case-operand) .when(scalar-expression).then(scalar-expression)
 	 * .when(scalar-expression).then(scalar-expression) ...
 	 * .elseCase(scalar-expression)
-	 * 
+	 *
 	 * @param caseOperand -
 	 *            expression used for testing against the when scalar
 	 *            expressions
@@ -236,11 +236,11 @@ public interface QueryDefinition extends Subquery {
 	/**
 	 * Create a simple case expression with the given case operand. A simple
 	 * case expression is of the form:
-	 * 
+	 *
 	 * simpleCase(case-operand) .when(scalar-expression).then(scalar-expression)
 	 * .when(scalar-expression).then(scalar-expression) ...
 	 * .elseCase(scalar-expression)
-	 * 
+	 *
 	 * @param caseOperand -
 	 *            numeric value used for testing against the when scalar
 	 *            expressions
@@ -251,11 +251,11 @@ public interface QueryDefinition extends Subquery {
 	/**
 	 * Create a simple case expression with the given case operand. A simple
 	 * case expression is of the form:
-	 * 
+	 *
 	 * simpleCase(case-operand) .when(scalar-expression).then(scalar-expression)
 	 * .when(scalar-expression).then(scalar-expression) ...
 	 * .elseCase(scalar-expression)
-	 * 
+	 *
 	 * @param caseOperand -
 	 *            value used for testing against the when scalar expressions
 	 * @return case expression with the given case operand
@@ -265,11 +265,11 @@ public interface QueryDefinition extends Subquery {
 	/**
 	 * Create a simple case expression with the given case operand. A simple
 	 * case expression is of the form:
-	 * 
+	 *
 	 * simpleCase(case-operand) .when(scalar-expression).then(scalar-expression)
 	 * .when(scalar-expression).then(scalar-expression) ...
 	 * .elseCase(scalar-expression)
-	 * 
+	 *
 	 * @param caseOperand -
 	 *            value used for testing against the when scalar expressions
 	 * @return case expression with the given case operand
@@ -279,11 +279,11 @@ public interface QueryDefinition extends Subquery {
 	/**
 	 * Create a simple case expression with the given case operand. A simple
 	 * case expression is of the form:
-	 * 
+	 *
 	 * simpleCase(case-operand) .when(scalar-expression).then(scalar-expression)
 	 * .when(scalar-expression).then(scalar-expression) ...
 	 * .elseCase(scalar-expression)
-	 * 
+	 *
 	 * @param caseOperand -
 	 *            value used for testing against the when scalar expressions
 	 * @return case expression with the given case operand
@@ -293,11 +293,11 @@ public interface QueryDefinition extends Subquery {
 	/**
 	 * Create a simple case expression with the given case operand. A simple
 	 * case expression is of the form:
-	 * 
+	 *
 	 * simpleCase(case-operand) .when(scalar-expression).then(scalar-expression)
 	 * .when(scalar-expression).then(scalar-expression) ...
 	 * .elseCase(scalar-expression)
-	 * 
+	 *
 	 * @param caseOperand -
 	 *            value used for testing against the when scalar expressions
 	 * @return case expression with the given case operand
@@ -307,11 +307,11 @@ public interface QueryDefinition extends Subquery {
 	/**
 	 * Create a simple case expression with the given case operand. A simple
 	 * case expression is of the form:
-	 * 
+	 *
 	 * simpleCase(case-operand) .when(scalar-expression).then(scalar-expression)
 	 * .when(scalar-expression).then(scalar-expression) ...
 	 * .elseCase(scalar-expression)
-	 * 
+	 *
 	 * @param caseOperand -
 	 *            value used for testing against the when scalar expressions
 	 * @return case expression with the given case operand
@@ -322,7 +322,7 @@ public interface QueryDefinition extends Subquery {
 	 * coalesce This is equivalent to a case expression that returns null if all
 	 * its arguments evaluate to null, and the value of its first non-null
 	 * argument otherwise.
-	 * 
+	 *
 	 * @param exp -
 	 *            expressions to be used for testing against null
 	 * @return Expression corresponding to the given coalesce expression
@@ -333,7 +333,7 @@ public interface QueryDefinition extends Subquery {
 	 * coalesce This is equivalent to a case expression that returns null if all
 	 * its arguments evaluate to null, and the value of its first non-null
 	 * argument otherwise.
-	 * 
+	 *
 	 * @param exp -
 	 *            expressions to be used for testing against null
 	 * @return Expression corresponding to the given coalesce expression
@@ -344,7 +344,7 @@ public interface QueryDefinition extends Subquery {
 	 * coalesce This is equivalent to a case expression that returns null if all
 	 * its arguments evaluate to null, and the value of its first non-null
 	 * argument otherwise.
-	 * 
+	 *
 	 * @param exp -
 	 *            expressions to be used for testing against null
 	 * @return Expression corresponding to the given coalesce expression
@@ -355,7 +355,7 @@ public interface QueryDefinition extends Subquery {
 	 * coalesce This is equivalent to a case expression that returns null if all
 	 * its arguments evaluate to null, and the value of its first non-null
 	 * argument otherwise.
-	 * 
+	 *
 	 * @param exp -
 	 *            expressions to be used for testing against null
 	 * @return Expression corresponding to the given coalesce expression
@@ -366,7 +366,7 @@ public interface QueryDefinition extends Subquery {
 	 * nullif This is equivalent to a case expression that tests whether its
 	 * arguments are equal, returning null if they are and the value of the
 	 * first expression if they are not.
-	 * 
+	 *
 	 * @param exp1
 	 * @param exp2
 	 * @return Expression corresponding to the given nullif expression
@@ -377,7 +377,7 @@ public interface QueryDefinition extends Subquery {
 	 * nullif This is equivalent to a case expression that tests whether its
 	 * arguments are equal, returning null if they are and the value of the
 	 * first expression if they are not.
-	 * 
+	 *
 	 * @param arg1
 	 * @param arg2
 	 * @return Expression corresponding to the given nullif expression
@@ -388,7 +388,7 @@ public interface QueryDefinition extends Subquery {
 	 * nullif This is equivalent to a case expression that tests whether its
 	 * arguments are equal, returning null if they are and the value of the
 	 * first expression if they are not.
-	 * 
+	 *
 	 * @param arg1
 	 * @param arg2
 	 *            Criteria API Java Persistence 2.0, Public Review Draft
@@ -402,7 +402,7 @@ public interface QueryDefinition extends Subquery {
 	 * nullif This is equivalent to a case expression that tests whether its
 	 * arguments are equal, returning null if they are and the value of the
 	 * first expression if they are not.
-	 * 
+	 *
 	 * @param arg1
 	 * @param arg2
 	 * @return Expression corresponding to the given nullif expression
@@ -413,7 +413,7 @@ public interface QueryDefinition extends Subquery {
 	 * nullif This is equivalent to a case expression that tests whether its
 	 * arguments are equal, returning null if they are and the value of the
 	 * first expression if they are not.
-	 * 
+	 *
 	 * @param arg1
 	 * @param arg2
 	 * @return Expression corresponding to the given nullif expression
@@ -424,7 +424,7 @@ public interface QueryDefinition extends Subquery {
 	 * nullif This is equivalent to a case expression that tests whether its
 	 * arguments are equal, returning null if they are and the value of the
 	 * first expression if they are not.
-	 * 
+	 *
 	 * @param arg1
 	 * @param arg2
 	 * @return Expression corresponding to the given nullif expression
@@ -435,7 +435,7 @@ public interface QueryDefinition extends Subquery {
 	 * nullif This is equivalent to a case expression that tests whether its
 	 * arguments are equal, returning null if they are and the value of the
 	 * first expression if they are not.
-	 * 
+	 *
 	 * @param arg1
 	 * @param arg2
 	 * @return Expression corresponding to the given nullif expression
@@ -444,7 +444,7 @@ public interface QueryDefinition extends Subquery {
 
 	/**
 	 * Create a predicate value from the given boolean.
-	 * 
+	 *
 	 * @param b
 	 *            boolean value
 	 * @return a true or false predicate
@@ -454,7 +454,7 @@ public interface QueryDefinition extends Subquery {
 	/**
 	 * Create an Expression corresponding to the current time on the database
 	 * server at the time of query execution.
-	 * 
+	 *
 	 * @return the corresponding Expression
 	 */
 	Expression currentTime();
@@ -462,7 +462,7 @@ public interface QueryDefinition extends Subquery {
 	/**
 	 * Create an Expression corresponding to the current date on the database
 	 * server at the time of query execution.
-	 * 
+	 *
 	 * @return the corresponding Expression
 	 */
 	Expression currentDate();
@@ -470,14 +470,14 @@ public interface QueryDefinition extends Subquery {
 	/**
 	 * Create an Expression corresponding to the current timestamp on the
 	 * database server at the time of query execution.
-	 * 
+	 *
 	 * @return the corresponding Expression
 	 */
 	Expression currentTimestamp();
 
 	/**
 	 * Create an Expression corresponding to a String value.
-	 * 
+	 *
 	 * @param s -
 	 *            string value
 	 * @return the corresponding Expression literal
@@ -486,7 +486,7 @@ public interface QueryDefinition extends Subquery {
 
 	/**
 	 * Create an Expression corresponding to a numeric value.
-	 * 
+	 *
 	 * @param n -
 	 *            numeric value
 	 * @return the corresponding Expression literal
@@ -495,7 +495,7 @@ public interface QueryDefinition extends Subquery {
 
 	/**
 	 * Create an Expression corresponding to a boolean value.
-	 * 
+	 *
 	 * @param b -
 	 *            boolean value
 	 * @return the corresponding Expression literal
@@ -504,7 +504,7 @@ public interface QueryDefinition extends Subquery {
 
 	/**
 	 * Create an Expression corresponding to a Calendar value.
-	 * 
+	 *
 	 * @param c -
 	 *            Calendar value
 	 * @return the corresponding Expression literal
@@ -513,7 +513,7 @@ public interface QueryDefinition extends Subquery {
 
 	/**
 	 * Create an Expression corresponding to a Date value.
-	 * 
+	 *
 	 * @param d -
 	 *            Date value
 	 * @return the corresponding Expression literal
@@ -522,7 +522,7 @@ public interface QueryDefinition extends Subquery {
 
 	/**
 	 * Create an Expression corresponding to a character value.
-	 * 
+	 *
 	 * @param character
 	 *            value
 	 * @return the corresponding Expression literal
@@ -531,7 +531,7 @@ public interface QueryDefinition extends Subquery {
 
 	/**
 	 * Create an Expression corresponding to an entity class.
-	 * 
+	 *
 	 * @param cls -
 	 *            entity class
 	 * @return the corresponding Expression literal
@@ -540,7 +540,7 @@ public interface QueryDefinition extends Subquery {
 
 	/**
 	 * Create an Expression corresponding to an enum.
-	 * 
+	 *
 	 * @param e -
 	 *            enum
 	 * @return the corresponding Expression literal
@@ -549,14 +549,14 @@ public interface QueryDefinition extends Subquery {
 
 	/**
 	 * Create an Expression corresponding to a null value.
-	 * 
+	 *
 	 * @return the corresponding Expression literal
 	 */
 	Expression nullLiteral();
 
 	/**
 	 * Specify use of a parameter of the given name.
-	 * 
+	 *
 	 * @param parameter
 	 *            name
 	 * @return an Expression corresponding to a named parameter

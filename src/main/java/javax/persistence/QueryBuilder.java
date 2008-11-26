@@ -30,7 +30,7 @@ package javax.persistence;
 public interface QueryBuilder {
 	/**
 	 * Create an uninitialized query definition object.
-	 * 
+	 *
 	 * @return query definition instance
 	 */
 	QueryDefinition createQueryDefinition();
@@ -38,7 +38,7 @@ public interface QueryBuilder {
 	/**
 	 * Create a query definition object with the given root. The root must be an
 	 * entity class.
-	 * 
+	 *
 	 * @param cls -
 	 *            an entity class
 	 * @return root domain object
@@ -52,7 +52,7 @@ public interface QueryBuilder {
 	 * query domain of the containing query. The path expression must correspond
 	 * to an entity class. The path expression must not be a domain object of
 	 * the containing query.
-	 * 
+	 *
 	 * @param path -
 	 *            path expression corresponding to the domain object used to
 	 *            derive the subquery root.

@@ -30,7 +30,7 @@ package javax.persistence;
 public class EntityExistsException extends PersistenceException {
 
 	public EntityExistsException() {
-	
+
 	}
 
 	public EntityExistsException(String message) {
