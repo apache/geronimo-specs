@@ -35,5 +35,5 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface SqlResultSetMappings {
-	SqlResultSetMapping[] value();
+    SqlResultSetMapping[] value();
 }

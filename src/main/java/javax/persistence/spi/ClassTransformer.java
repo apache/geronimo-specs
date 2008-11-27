@@ -25,8 +25,8 @@
 
 package javax.persistence.spi;
 
-import java.security.ProtectionDomain;
 import java.lang.instrument.IllegalClassFormatException;
+import java.security.ProtectionDomain;
 
 /**
  * @version $Rev$ $Date$
