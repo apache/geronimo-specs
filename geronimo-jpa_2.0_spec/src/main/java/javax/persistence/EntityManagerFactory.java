@@ -102,5 +102,5 @@ public interface EntityManagerFactory {
     * @throws IllegalStateException if the entity manager factory
     * has been closed.
     */
-//    public Cache getCache();
+    public Cache getCache();
 }
