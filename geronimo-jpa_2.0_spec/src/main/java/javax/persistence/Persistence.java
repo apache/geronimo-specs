@@ -30,8 +30,8 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.Collections;
 import java.util.Enumeration;
-import java.util.Map;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.spi.PersistenceProvider;
@@ -52,7 +52,7 @@ public class Persistence {
     public static final java.lang.String PERSISTENCE_PROVIDER = "javax.persistence.spi.PeristenceProvider";
     static final String PERSISTENCE_PROVIDER_PROPERTY = "javax.persistence.provider";
     static final String PERSISTENCE_PROVIDER_SERVICE = "META-INF/services/"
-        + PersistenceProvider.class.getName();
+            + PersistenceProvider.class.getName();
 
     /**
      * Create and return an EntityManagerFactory for the named persistence unit.
@@ -64,7 +64,7 @@ public class Persistence {
     public static EntityManagerFactory createEntityManagerFactory(
             String persistenceUnitName) {
         return createEntityManagerFactory(persistenceUnitName, Collections.EMPTY_MAP);
-            }
+    }
 
     /**
      * Create and return an EntityManagerFactory for the named persistence unit using the
@@ -102,7 +102,7 @@ public class Persistence {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         try {
             Enumeration<URL> providers = loader
-                .getResources(PERSISTENCE_PROVIDER_SERVICE);
+                    .getResources(PERSISTENCE_PROVIDER_SERVICE);
             while (providers.hasMoreElements()) {
 
                 String name = getProviderName(providers.nextElement());
@@ -125,13 +125,13 @@ public class Persistence {
         }
 
         return null;
-            }
+    }
 
     static String getProviderName(URL url) throws IOException {
 
         BufferedReader in = new BufferedReader(new InputStreamReader(
-                    url.openStream(),
-                    "UTF-8"));
+                url.openStream(),
+                "UTF-8"));
 
         String providerName;
 
@@ -153,7 +153,7 @@ public class Persistence {
             String providerName,
             String persistenceUnitName,
             Map properties)
-        throws PersistenceException {
+            throws PersistenceException {
 
         Class providerClass;
         try {
@@ -168,7 +168,7 @@ public class Persistence {
 
         try {
             PersistenceProvider provider = (PersistenceProvider) providerClass
-                .newInstance();
+                    .newInstance();
             return provider.createEntityManagerFactory(persistenceUnitName,
                     properties);
         }

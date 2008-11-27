@@ -32,7 +32,9 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE, ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface AssociationOverride {
-	String name();
-	JoinColumn[] joinColumns();
-	JoinTable joinTable() default @JoinTable;
+    String name();
+
+    JoinColumn[] joinColumns();
+
+    JoinTable joinTable() default @JoinTable;
 }

@@ -31,7 +31,7 @@ public class PessimisticLockException extends PersistenceException {
         this.entity = null;
     }
 
-    public PessimisticLockException(Object entity){
+    public PessimisticLockException(Object entity) {
         super();
         this.entity = entity;
     }

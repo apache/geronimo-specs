@@ -31,7 +31,7 @@ public class OptimisticLockException extends PersistenceException {
         this.entity = null;
     }
 
-    public OptimisticLockException(Object entity){
+    public OptimisticLockException(Object entity) {
         super();
         this.entity = entity;
     }

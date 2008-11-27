@@ -28,4 +28,5 @@ package javax.persistence;
  * @version $Rev$ $Date$
  */
 public enum CascadeType {
-    ALL, PERSIST, MERGE, REMOVE, REFRESH, CLEAR};
+    ALL, PERSIST, MERGE, REMOVE, REFRESH, CLEAR
+};
