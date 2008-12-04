@@ -32,7 +32,7 @@
 
     <artifactId>geronimo-concurrent_1.0_spec</artifactId>
     <name>Apache Geronimo Concurrency Utilities for Java EE API</name>
-    <version>1.0-EA</version>
+    <version>1.1-EA-SNAPSHOT</version>
 
     <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
     <distributionManagement>
@@ -50,9 +50,9 @@
     </properties>
 
     <scm>
-        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-concurrent_1.0_spec-1.0-EA</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-concurrent_1.0_spec-1.0-EA</developerConnection>
-        <url>http://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-concurrent_1.0_spec-1.0-EA</url>
+        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-concurrent_1.0_spec/</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-concurrent_1.0_spec/</developerConnection>
+        <url>http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-concurrent_1.0_spec/</url>
     </scm>
 
 </project>
