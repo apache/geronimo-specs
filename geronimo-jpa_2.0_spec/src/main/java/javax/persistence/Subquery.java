@@ -24,8 +24,5 @@
 //
 package javax.persistence;
 
-/**
- * Instances of this interface can be used as subqueries.
- */
 public interface Subquery extends PredicateOperand {
 }

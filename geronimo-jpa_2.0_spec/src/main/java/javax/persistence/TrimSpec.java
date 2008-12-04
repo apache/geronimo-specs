@@ -24,9 +24,6 @@
 //
 package javax.persistence;
 
-/**
- * Used to specify the trimming of strings
- */
 public enum TrimSpec {
     LEADING, TRAILING, BOTH
 }

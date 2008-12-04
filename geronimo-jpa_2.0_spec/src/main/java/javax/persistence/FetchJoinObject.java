@@ -24,8 +24,5 @@
 //
 package javax.persistence;
 
-/**
- * Interface used for the result of a fetch join.
- */
 public interface FetchJoinObject {
 }
