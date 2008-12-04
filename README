@@ -14,8 +14,8 @@ The is normally no root pom, so you need to build specs individually.
 
 To build you will need:
 
- * J2SE SDK 1.5+ (http://java.sun.com/j2se/1.4.2)
- * Maven 2.0.7+ (http://maven.apache.org)
+ * J2SE SDK 1.5+ (http://java.sun.com/j2se/1.5)
+ * Maven 2.0.9+ (http://maven.apache.org)
 
 To build all changes incrementally:
 
