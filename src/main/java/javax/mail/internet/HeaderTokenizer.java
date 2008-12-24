@@ -252,7 +252,7 @@ public class HeaderTokenizer {
             if (ch == '"') {
                 String value;
                 if (requiresEscaping) {
-                    value = getEscapedValue(start, pos);
+                    value = getEscapedValue(start, pos++);
                 }
                 else {
                     value = _header.substring(start, pos++);

@@ -145,4 +145,14 @@ public class ContentTypeTest extends TestCase {
         assertFalse(type.match(""));
         assertFalse(type.match("text/plain/yada"));
     }
+    
+    public void testSOAP12ContentType() throws ParseException {
+        ContentType type = new ContentType("multipart/related; type=\"application/xop+xml\"; start=\"<rootpart@soapui.org>\"; start-info=\"application/soap+xml; action=\\\"urn:upload\\\"\"; boundary=\"----=_Part_10_5804917.1223557742343\"");
+        assertEquals("multipart/related", type.getBaseType());
+        assertEquals("application/xop+xml", type.getParameter("type"));
+        assertEquals("<rootpart@soapui.org>", type.getParameter("start"));
+        assertEquals("application/soap+xml; action=\"urn:upload\"", type.getParameter("start-info"));
+        assertEquals("----=_Part_10_5804917.1223557742343", type.getParameter("boundary"));
+    }
+
 }
