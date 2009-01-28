@@ -33,7 +33,7 @@
     <artifactId>geronimo-jpa_2.0_spec</artifactId>
     <packaging>jar</packaging>
     <name>JPA 2.0</name>
-    <version>1.0-EA-1</version>
+    <version>1.0-EA-SNAPSHOT</version>
 
     <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
     <distributionManagement>
@@ -51,9 +51,9 @@
     </properties>
 
     <scm>
-        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-jpa_2.0_spec-1.0-EA-1</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-jpa_2.0_spec-1.0-EA-1</developerConnection>
-        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/tags/geronimo-jpa_2.0_spec-1.0-EA-1</url>
+        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jpa_2.0_spec/</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jpa_2.0_spec/</developerConnection>
+        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-jpa_2.0_spec/</url>
     </scm>
 
 </project>
