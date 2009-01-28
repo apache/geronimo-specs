@@ -48,7 +48,7 @@ public @interface MapKeyColumn {
 
     int length() default 255;
 
-    int precision() default 0; // decimal precision
+    int precision() default 0;
 
-    int scale() default 0; // decimal scale
+    int scale() default 0;
 }
