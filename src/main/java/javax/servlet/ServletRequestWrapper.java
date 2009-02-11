@@ -420,83 +420,119 @@ public class ServletRequestWrapper implements ServletRequest {
         return request.getServletResponse();
     }
 
-    /**
-     * complete a suspended request.
-     *
-     * @throws IllegalStateException
-     * @since 3.0
-     */
-    public void complete() throws IllegalStateException {
-        request.complete();
+    public void addAsyncListener(AsyncListener listener) {
+        request.addAsyncListener(listener);
     }
 
-    /**
-     * Suspend request processing.  Must be called by a thread that is processing this request.
-     *
-     * @param timeoutMilliseconds new timeout period, in milliseconds
-     * @throws IllegalStateException if called by a thread not processing this request or after error dispatch
-     * @see #complete
-     * @see #resume
-     * @since 3.0
-     */
-    public void suspend(long timeoutMilliseconds) throws IllegalStateException {
-        request.suspend(timeoutMilliseconds);
+    public void addAsyncListener(AsyncListener listener, ServletRequest request, ServletResponse response) {
+        request.addAsyncListener(listener, request, response);
     }
 
-    /**
-     * Similar to suspend(timeoutMilliseconds) but with a container supplied timeout period.
-     *
-     * @throws IllegalStateException
-     * @see #complete
-     * @see #resume
-     * @since 3.0
-     */
-    public void suspend() throws IllegalStateException {
-        request.suspend();
+    public AsyncContext getAsyncContext() {
+        return request.getAsyncContext();
     }
 
-    /**
-     * Resume a suspended request
-     *
-     * @throws IllegalStateException if the request is not suspended
-     * @see #suspend
-     * @since 3.0
-     */
-    public void resume() throws IllegalStateException {
-        request.resume();
+    public boolean isAsyncStarted() {
+        return request.isAsyncStarted();
     }
 
-    /**
-     * @return if the request is suspended
-     * @since 3.0
-     */
-    public boolean isSuspended() {
-        return request.isSuspended();
+    public boolean isAsyncSupported() {
+        return request.isAsyncSupported();
     }
 
-    /**
-     * @return if the request is resumed
-     * @since 3.0
-     */
-    public boolean isResumed() {
-        return request.isResumed();
+    public void setAsyncTimeout(long timeout) {
+        request.setAsyncTimeout(timeout);
     }
 
-    /**
-     * @return if the request is timed out
-     * @since 3.0
-     */
-    public boolean isTimeout() {
-        return request.isTimeout();
+    public AsyncContext startAsync() {
+        return request.startAsync();
     }
 
-    /**
-     * @return if the request has never been suspended (or resumed)
-     * @since 3.0
-     */
-    public boolean isInitial() {
-        return request.isInitial();
+    public AsyncContext startAsync(ServletRequest request, ServletResponse response) {
+        return request.startAsync(request, response);
     }
+
+    public DispatcherType getDispatcherType() {
+        return request.getDispatcherType();
+    }
+
+//    /**
+//     * complete a suspended request.
+//     *
+//     * @throws IllegalStateException
+//     * @since 3.0
+//     */
+//    public void complete() throws IllegalStateException {
+//        request.complete();
+//    }
+//
+//    /**
+//     * Suspend request processing.  Must be called by a thread that is processing this request.
+//     *
+//     * @param timeoutMilliseconds new timeout period, in milliseconds
+//     * @throws IllegalStateException if called by a thread not processing this request or after error dispatch
+//     * @see #complete
+//     * @see #resume
+//     * @since 3.0
+//     */
+//    public void suspend(long timeoutMilliseconds) throws IllegalStateException {
+//        request.suspend(timeoutMilliseconds);
+//    }
+//
+//    /**
+//     * Similar to suspend(timeoutMilliseconds) but with a container supplied timeout period.
+//     *
+//     * @throws IllegalStateException
+//     * @see #complete
+//     * @see #resume
+//     * @since 3.0
+//     */
+//    public void suspend() throws IllegalStateException {
+//        request.suspend();
+//    }
+//
+//    /**
+//     * Resume a suspended request
+//     *
+//     * @throws IllegalStateException if the request is not suspended
+//     * @see #suspend
+//     * @since 3.0
+//     */
+//    public void resume() throws IllegalStateException {
+//        request.resume();
+//    }
+//
+//    /**
+//     * @return if the request is suspended
+//     * @since 3.0
+//     */
+//    public boolean isSuspended() {
+//        return request.isSuspended();
+//    }
+//
+//    /**
+//     * @return if the request is resumed
+//     * @since 3.0
+//     */
+//    public boolean isResumed() {
+//        return request.isResumed();
+//    }
+//
+//    /**
+//     * @return if the request is timed out
+//     * @since 3.0
+//     */
+//    public boolean isTimeout() {
+//        return request.isTimeout();
+//    }
+//
+//    /**
+//     * @return if the request has never been suspended (or resumed)
+//     * @since 3.0
+//     */
+//    public boolean isInitial() {
+//        return request.isInitial();
+//    }
 
 }
 

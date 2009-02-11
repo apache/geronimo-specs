@@ -21,14 +21,24 @@
 package javax.servlet;
 
 /**
- * @version $Rev$ $Date$
+ * @version $Rev:$ $Date:$
  * @since 3.0
  */
-public enum DispatcherType {
+public class AsyncEvent {
 
-    ERROR,
-    FORWARD,
-    INCLUDE,
-    REQUEST,
-    ASYNC
+    private final ServletRequest request;
+    private final ServletResponse response;
+
+    public AsyncEvent(ServletRequest request, ServletResponse response) {
+        this.request = request;
+        this.response = response;
+    }
+
+    public ServletRequest getRequest() {
+        return request;
+    }
+
+    public ServletResponse getResponse() {
+        return response;
+    }
 }

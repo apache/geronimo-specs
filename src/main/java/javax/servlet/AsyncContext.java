@@ -21,14 +21,28 @@
 package javax.servlet;
 
 /**
- * @version $Rev$ $Date$
+ * @version $Rev:$ $Date:$
  * @since 3.0
  */
-public enum DispatcherType {
+public interface AsyncContext {
 
-    ERROR,
-    FORWARD,
-    INCLUDE,
-    REQUEST,
-    ASYNC
+    String ASYNC_CONTEXT_PATH = "javax.servlet.async.context_path";
+    String ASYNC_PATH_INFO = "javax.servlet.async.path_info";
+    String ASYNC_QUERY_STRING = "javax.servlet.async.query_string";
+    String ASYNC_REQUEST_URI = "javax.servlet.async.request_uri";
+    String ASYNC_SERVLET_PATH = "javax.servlet.async.servlet_path";
+
+    void complete();
+
+    void dispatch();
+
+    void dispatch(ServletContext servletContext, String path);
+
+    ServletRequest getRequest();
+
+    ServletResponse getResponse();
+
+    boolean hasOriginalRequestAndResonse();
+
+    void start(Runnable run);
 }

@@ -20,15 +20,15 @@
 
 package javax.servlet;
 
+import java.util.EventListener;
+
 /**
- * @version $Rev$ $Date$
+ * @version $Rev:$ $Date:$
  * @since 3.0
  */
-public enum DispatcherType {
+public interface AsyncListener extends EventListener {
 
-    ERROR,
-    FORWARD,
-    INCLUDE,
-    REQUEST,
-    ASYNC
+    void onComplete(AsyncEvent event);
+
+    void onTimeout(AsyncEvent event);
 }
