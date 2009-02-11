@@ -20,15 +20,31 @@
 
 package javax.servlet;
 
+import java.util.EnumSet;
+import java.util.Map;
+
 /**
- * @version $Rev$ $Date$
+ * @version $Rev:$ $Date:$
  * @since 3.0
  */
-public enum DispatcherType {
+public abstract class FilterRegistration {
+    protected String description;
+    protected boolean isAsyncSupported;
 
-    ERROR,
-    FORWARD,
-    INCLUDE,
-    REQUEST,
-    ASYNC
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setAsyncSupported(boolean asyncSupported) {
+        isAsyncSupported = asyncSupported;
+    }
+
+    public abstract void addMappingForServletNames(EnumSet<DispatcherType> dispatcherTypes, boolean isMatchAfter, String ... servletNames);
+
+    public abstract void addMappingForUrlPatterns(EnumSet<DispatcherType> dispatcherTypes, boolean isMatchAfter, String ... urlPatterns);
+
+    public abstract void setInitParameter(String name, String value);
+
+    public abstract void setInitParameters(Map<String, String> initParameters);
+
 }

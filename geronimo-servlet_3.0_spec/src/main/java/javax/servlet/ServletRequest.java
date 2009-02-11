@@ -608,66 +608,85 @@ public interface ServletRequest {
      */
     ServletResponse getServletResponse();
 
-    /**
-      * complete a suspended request.
-      * @throws IllegalStateException
-      * @since 3.0
-      */
-    void complete() throws IllegalStateException;
+    void addAsyncListener(AsyncListener listener);
+    
+    void addAsyncListener(AsyncListener listener, ServletRequest request, ServletResponse response);
 
-    /**
-     * Suspend request processing.  Must be called by a thread that is processing this request.
-     * @param timeoutMilliseconds new timeout period, in milliseconds
-     * @throws IllegalStateException if called by a thread not processing this request or after error dispatch
-     * @since 3.0
-     * @see #complete
-     * @see #resume
-     */
-    void suspend(long timeoutMilliseconds) throws IllegalStateException;
+    AsyncContext getAsyncContext();
 
-    /**
-     * Similar to suspend(timeoutMilliseconds) but with a container supplied timeout period.
-     * @throws IllegalStateException
-     * @since 3.0
-     * @see #complete
-     * @see #resume
-     */
-    void suspend() throws IllegalStateException;
+    boolean isAsyncStarted();
 
-    /**
-     * Resume a suspended request 
-     * @throws IllegalStateException if the request is not suspended
-     * @since 3.0
-     * @see #suspend
-     */
-    void resume() throws IllegalStateException;
+    boolean isAsyncSupported();
 
-    /**
-     *
-     * @return if the request is suspended
-     * @since 3.0
-     */
-    boolean isSuspended();
+    void setAsyncTimeout(long timeout);
 
-    /**
-     *
-     * @return if the request is resumed
-     * @since 3.0
-     */
-    boolean isResumed();
+    AsyncContext startAsync();
 
-    /**
-     *
-     * @return if the request is timed out
-     * @since 3.0
-     */
-    boolean isTimeout();
+    AsyncContext startAsync(ServletRequest request, ServletResponse response);
 
-    /**
-     *
-     * @return if the request has never been suspended (or resumed)
-     * @since 3.0
-     */
-    boolean isInitial();
+    DispatcherType getDispatcherType();
+
+
+//    /**
+//      * complete a suspended request.
+//      * @throws IllegalStateException
+//      * @since 3.0
+//      */
+//    void complete() throws IllegalStateException;
+//
+//    /**
+//     * Suspend request processing.  Must be called by a thread that is processing this request.
+//     * @param timeoutMilliseconds new timeout period, in milliseconds
+//     * @throws IllegalStateException if called by a thread not processing this request or after error dispatch
+//     * @since 3.0
+//     * @see #complete
+//     * @see #resume
+//     */
+//    void suspend(long timeoutMilliseconds) throws IllegalStateException;
+//
+//    /**
+//     * Similar to suspend(timeoutMilliseconds) but with a container supplied timeout period.
+//     * @throws IllegalStateException
+//     * @since 3.0
+//     * @see #complete
+//     * @see #resume
+//     */
+//    void suspend() throws IllegalStateException;
+//
+//    /**
+//     * Resume a suspended request
+//     * @throws IllegalStateException if the request is not suspended
+//     * @since 3.0
+//     * @see #suspend
+//     */
+//    void resume() throws IllegalStateException;
+//
+//    /**
+//     *
+//     * @return if the request is suspended
+//     * @since 3.0
+//     */
+//    boolean isSuspended();
+//
+//    /**
+//     *
+//     * @return if the request is resumed
+//     * @since 3.0
+//     */
+//    boolean isResumed();
+//
+//    /**
+//     *
+//     * @return if the request is timed out
+//     * @since 3.0
+//     */
+//    boolean isTimeout();
+//
+//    /**
+//     *
+//     * @return if the request has never been suspended (or resumed)
+//     * @since 3.0
+//     */
+//    boolean isInitial();
 }
 

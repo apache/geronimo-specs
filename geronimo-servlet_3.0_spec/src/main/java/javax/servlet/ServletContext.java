@@ -650,67 +650,88 @@ public interface ServletContext {
     /**
      * Add the specified servlet to the context
      * @param servletName servlet's name
-     * @param description description of servlet
      * @param className class name of servlet
-     * @param initParameters init parameters for servlet
-     * @param loadOnStartup load on startup order.
      * @throws IllegalArgumentException duplicate servletName
      * @throws IllegalStateException this method called after #initialize
+     * @return ServletRegistration allowing configuration of the servlet
      *
      * @since 3.0
      */
-    void addServlet(String servletName,
-                    String description,
-                    String className,
-                    Map<String, String> initParameters,
-                    int loadOnStartup) throws IllegalArgumentException, IllegalStateException;
+    ServletRegistration addServlet(String servletName,
+                    String className) throws IllegalArgumentException, IllegalStateException;
 
     /**
-     * Add the specified servlet mappings
-     * @param servletName name of servlet mapping applies to
-     * @param urlPatterns url patterns for the mapping
-     * @throws IllegalArgumentException if urlPatterns are null or empty
-     * @throws IllegalStateException if called after #initialize
+     * Fish out the servlet registration for a named servlet
+     * @param servletName name of the servlet you want to configure
+     * @return ServletRegistration for servlet you want
      *
      * @since 3.0
      */
-    void addServletMapping(String servletName,
-                           String[] urlPatterns) throws IllegalArgumentException, IllegalStateException;
+    ServletRegistration findServletRegistration(String servletName);
 
     /**
      * Add a filter to this context
      * @param filterName name of filter
-     * @param description description of filter
      * @param className class name of filter
-     * @param initParams init params for filter
      * @throws IllegalArgumentException duplicate filter name
      * @throws IllegalStateException if called after #initialise
+     * @return  FilterRegistration allowing configuration of filter
      *
      * @since 3.0
      */
-    void addFilter(String filterName,
-                   String description,
-                   String className,
-                   Map<String, String> initParams) throws IllegalArgumentException, IllegalStateException;
-
+    FilterRegistration addFilter(String filterName,
+                   String className) throws IllegalArgumentException, IllegalStateException;
 
     /**
-     * Add a filter mapping to this context
-     * @param filterName name of filter mapping applies to
-     * @param urlPatterns url patterns for mapping
-     * @param servletNames servlet names for mapping
-     * @param dispatcherTypes dispatcher types for mapping
-     * @param isMatchAfter before or after xml or annotation specified filter mappings
-     * @throws IllegalArgumentException bad url patterns
-     * @throws IllegalStateException if called after #initialize
+     *
+     * @param filterName Name of filter you want to configure
+     * @return FilterRegistration allowing configuration of filter
      *
      * @since 3.0
      */
-    void addFilterMapping(String filterName,
-                          String[] urlPatterns,
-                          String[] servletNames,
-                          EnumSet<DispatcherType> dispatcherTypes,
-                          boolean isMatchAfter) throws IllegalArgumentException, IllegalStateException;
+    FilterRegistration findFilterRegistration(String filterName);
+
+    /**
+     *
+     * @param sessionCookieConfig configuration of session cookie
+     *
+     * @since 3.0
+     */
+    void setSessionCookieConfig(SessionCookieConfig sessionCookieConfig);
+
+    /**
+     *
+     * @return configuration of session cookie
+     *
+     * @since 3.0
+     */
+    SessionCookieConfig getSessionCookieConfig();
+
+    /**
+     *
+     * @param sessionTrackingModes set of SessionTrackingModes for this web app
+     *
+     * @since 3.0
+     */
+    void setSessionTrackingModes(EnumSet<SessionTrackingMode> sessionTrackingModes);
+
+    /**
+     *
+     * @return the default session tracking modes
+     *
+     * @since 3.0
+     */
+    EnumSet<SessionTrackingMode> getDefaultSessionTrackingModes();
+
+    /**
+     *
+     * @return the actual session tracking modes.  These will be the default ones unless they've been explicitly set.
+     *
+     * @since 3.0
+     */
+    EnumSet<SessionTrackingMode> getEffectiveSessionTrackingModes();
+
+    
 
 }
 
