@@ -34,7 +34,7 @@ import java.lang.annotation.Target;
 public @interface AssociationOverride {
     String name();
 
-    JoinColumn[] joinColumns();
+    JoinColumn[] joinColumns() default {};
 
     JoinTable joinTable() default @JoinTable;
 }
