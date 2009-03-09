@@ -661,6 +661,19 @@ public interface ServletContext {
                     String className) throws IllegalArgumentException, IllegalStateException;
 
     /**
+     * Add the specified servlet to the context
+     * @param servletName servlet's name
+     * @param clazz class of the servlet
+     * @throws IllegalArgumentException duplicate servletName
+     * @throws IllegalStateException this method called after #initialize
+     * @return ServletRegistration allowing configuration of the servlet
+     *
+     * @since 3.0
+     */
+    ServletRegistration addServlet(String servletName,
+                    Class<? extends Servlet> clazz) throws IllegalArgumentException, IllegalStateException;
+
+    /**
      * Fish out the servlet registration for a named servlet
      * @param servletName name of the servlet you want to configure
      * @return ServletRegistration for servlet you want
@@ -731,7 +744,14 @@ public interface ServletContext {
      */
     EnumSet<SessionTrackingMode> getEffectiveSessionTrackingModes();
 
-    
+    /**
+     *
+     * @param name of the init parameter to set
+     * @param value new value
+     * @return whether it was set??
+     * @since 3.0
+     */
+    boolean setInitParameter(String name, String value);
 
 }
 

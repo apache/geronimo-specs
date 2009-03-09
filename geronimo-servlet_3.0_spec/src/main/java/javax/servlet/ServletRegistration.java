@@ -23,31 +23,21 @@ package javax.servlet;
 import java.util.Map;
 
 /**
- * @version $Rev:$ $Date:$
+ * @version $Rev$ $Date$
  * @since 3.0
  */
-public abstract class ServletRegistration {
+public interface ServletRegistration {
 
-    protected String description;
-    protected boolean isAsyncSupported;
-    protected int loadOnStartup;
+    boolean setDescription(String description);
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+    void setAsyncSupported(boolean asyncSupported);
 
-    public void setAsyncSupported(boolean asyncSupported) {
-        isAsyncSupported = asyncSupported;
-    }
+    void setLoadOnStartup(int loadOnStartup);
 
-    public void setLoadOnStartup(int loadOnStartup) {
-        this.loadOnStartup = loadOnStartup;
-    }
+    void addMapping(String... urlPatterns);
 
-    public abstract void addMapping(String... urlPatterns);
+    boolean setInitParameter(String name, String value);
 
-    public abstract void setInitParameter(String name, String value);
+    void setInitParameters(Map<String, String> initParameters);
 
-    public abstract void setInitParameters(Map<String, String> initParameters);
-    
 }
