@@ -31,10 +31,13 @@ import javax.activation.DataSource;
 import javax.mail.Session;
 
 import junit.framework.TestCase;
+import org.apache.geronimo.mail.util.Base64;
 
 public class MimeTest extends TestCase {
 
     public void testWriteRead() throws Exception {
+        System.setProperty("mail.mime.decodefilename", "true");
+
         Session session = Session.getDefaultInstance(new Properties(), null);
         MimeMessage mime = new MimeMessage(session);
         MimeMultipart parts = new MimeMultipart("related; type=\"text/xml\"; start=\"<xml>\"");
@@ -44,6 +47,9 @@ public class MimeTest extends TestCase {
         parts.addBodyPart(xmlPart);
         MimeBodyPart jpegPart = new MimeBodyPart();
         jpegPart.setContentID("<jpeg>");
+        String filename = "filename";
+        String encodedFilename = "=?UTF-8?B?" + new String(Base64.encode(filename.getBytes())) + "?=";
+        jpegPart.setFileName(encodedFilename);
         jpegPart.setDataHandler(new DataHandler(new ByteArrayDataSource(new byte[] { 0, 1, 2, 3, 4, 5 }, "image/jpeg")));
         parts.addBodyPart(jpegPart);
         mime.setContent(parts);
@@ -70,6 +76,8 @@ public class MimeTest extends TestCase {
 
         MimeBodyPart jpegPart2 = (MimeBodyPart) parts2.getBodyPart(1);
         assertEquals(jpegPart.getContentID(), jpegPart2.getContentID());
+        assertEquals(jpegPart.getFileName(), jpegPart2.getDataHandler().getName());
+        assertEquals(filename, jpegPart2.getDataHandler().getName());
         ByteArrayOutputStream jpegBaos = new ByteArrayOutputStream();
         copyInputStream(jpegPart.getDataHandler().getInputStream(), jpegBaos);
         ByteArrayOutputStream jpegBaos2 = new ByteArrayOutputStream();
