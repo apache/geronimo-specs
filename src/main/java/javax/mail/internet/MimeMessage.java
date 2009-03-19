@@ -1337,7 +1337,7 @@ public class MimeMessage extends Message implements MimePart {
     /**
      * Set or clear a flag value.
      *
-     * @param flags  The set of flags to effect.
+     * @param flag   The set of flags to effect.
      * @param set    The value to set the flag to (true or false).
      *
      * @exception MessagingException
