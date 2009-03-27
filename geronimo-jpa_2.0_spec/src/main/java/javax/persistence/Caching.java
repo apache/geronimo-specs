@@ -22,13 +22,13 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
+
 package javax.persistence;
 
-public interface QueryBuilder {
-
-    QueryDefinition createQueryDefinition();
-
-    DomainObject createQueryDefinition(Class root);
-
-	DomainObject createSubqueryDefinition(PathExpression path);
+public enum Caching {
+    ALL,
+    NONE,
+    ENABLE_SELECTIVE,
+    DISABLE_SELECTIVE,
+    UNSPECIFIED
 }

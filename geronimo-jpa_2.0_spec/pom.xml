@@ -32,8 +32,10 @@
 
     <artifactId>geronimo-jpa_2.0_spec</artifactId>
     <packaging>jar</packaging>
-    <name>JPA 2.0</name>
-    <version>1.0.1-EA-SNAPSHOT</version>
+    <name>Apache Geronimo JSR-317 JPA 2.0 EARLY ACCESS Spec API</name>
+    <version>1.0-EA2-SNAPSHOT</version>
+
+    <description>Implementation of Sun JSR-317 JPA 2.0 EARLY ACCESS Spec API</description>
 
     <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
     <distributionManagement>
@@ -45,7 +47,6 @@
 
     <properties>
         <siteId>specs/${artifactId}</siteId>
-
         <geronimo.osgi.export.pkg>javax.persistence*</geronimo.osgi.export.pkg>
         <geronimo.osgi.export.version>2.0</geronimo.osgi.export.version>
     </properties>

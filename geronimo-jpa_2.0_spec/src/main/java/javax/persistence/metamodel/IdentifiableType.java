@@ -22,13 +22,22 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-package javax.persistence;
 
-public interface Predicate {
+package javax.persistence.metamodel;
 
-    Predicate and(Predicate predicate);
+public interface IdentifiableType<X> extends ManagedType<X> {
 
-    Predicate or(Predicate predicate);
+    <Y> Attribute<? super X, Y> getId(Class<Y> type);
 
-	Predicate not();
+    <Y> Attribute<? super X, Y> getVersion(Class<Y> type);
+
+    <Y> Attribute<X, Y> getDeclaredId(Class<Y> type);
+
+    <Y> Attribute<X, Y> getDeclaredVersion(Class<Y> type);
+
+    IdentifiableType<? super X> getSupertype();
+
+    boolean hasIdAttribute();
+
+    Type<?> getIdType();
 }

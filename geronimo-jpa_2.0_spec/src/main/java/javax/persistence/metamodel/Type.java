@@ -22,22 +22,16 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-package javax.persistence;
 
-public interface DomainObject extends PathExpression, QueryDefinition {
-    DomainObject join(String attribute);
+package javax.persistence.metamodel;
 
-    DomainObject leftJoin(String attribute);
+public interface Type<X> {
+    
+    public static enum PersistenceType {
+        ENTITY, EMBEDDABLE, MAPPED_SUPERCLASS, BASIC
+    }
 
-    FetchJoinObject joinFetch(String attribute);
-
-    FetchJoinObject leftJoinFetch(String attribute);
-
-    PathExpression value();
-
-    PathExpression key();
-
-    SelectItem entry();
-
-	Expression index();
+    PersistenceType getPersistenceType();
+    
+    Class<X> getJavaType();
 }

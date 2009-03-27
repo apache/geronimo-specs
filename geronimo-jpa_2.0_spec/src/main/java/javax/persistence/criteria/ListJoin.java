@@ -22,8 +22,15 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-package javax.persistence;
 
-public enum TrimSpec {
-    LEADING, TRAILING, BOTH
+package javax.persistence.criteria;
+
+import java.util.List;
+
+public interface ListJoin<Z, E>
+    extends AbstractCollectionJoin<Z, List<E>, E> {
+
+    javax.persistence.metamodel.List<? super Z, E> getModel();
+
+    Expression<Integer> index();
 }

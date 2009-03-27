@@ -22,29 +22,40 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-package javax.persistence.spi;
 
-import java.util.Map;
+package javax.persistence.criteria;
 
-import javax.persistence.EntityManagerFactory;
+import java.util.List;
+import java.util.Set;
+import javax.persistence.metamodel.Entity;
 
-/**
- * @version $Rev$ $Date$
- */
-public interface PersistenceProvider {
+public interface AbstractQuery {
 
-    public EntityManagerFactory createEntityManagerFactory(String emName, 
-        Map map);
+    <X> Root<X> from(Entity<X> entity);
 
-    public EntityManagerFactory createContainerEntityManagerFactory(
-        PersistenceUnitInfo info, Map map);
+    <X> Root<X> from(Class<X> entityClass);
 
-    public LoadState isLoadedWithoutReference(Object entity, 
-        String attributeName);
-    
-    public LoadState isLoadedWithReference(Object entity, 
-        String attributeName);
+    Set<Root<?>> getRoots();
 
-    public LoadState isLoaded(Object entity);
+    AbstractQuery where(Expression<Boolean> restriction);
+
+    AbstractQuery where(Predicate... restrictions);
+
+    AbstractQuery groupBy(Expression<?>... grouping);
+
+    AbstractQuery having(Expression<Boolean> restriction);
+
+    AbstractQuery having(Predicate... restrictions);
+
+    AbstractQuery distinct(boolean distinct);
+
+    List<Expression<?>> getGroupList();
+
+    Predicate getRestriction();
+
+    Predicate getGroupRestriction();
+
+    boolean isDistinct();
+
+    <U> Subquery<U> subquery(Class<U> type);
 }
-

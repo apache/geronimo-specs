@@ -22,29 +22,24 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-package javax.persistence.spi;
 
-import java.util.Map;
+package javax.persistence.criteria;
 
-import javax.persistence.EntityManagerFactory;
+import java.util.List;
 
-/**
- * @version $Rev$ $Date$
- */
-public interface PersistenceProvider {
+public interface Predicate extends Expression<Boolean> {
 
-    public EntityManagerFactory createEntityManagerFactory(String emName, 
-        Map map);
+    public static enum BooleanOperator {
+        AND, OR
+    }
 
-    public EntityManagerFactory createContainerEntityManagerFactory(
-        PersistenceUnitInfo info, Map map);
+    BooleanOperator getOperator();
 
-    public LoadState isLoadedWithoutReference(Object entity, 
-        String attributeName);
-    
-    public LoadState isLoadedWithReference(Object entity, 
-        String attributeName);
+    boolean isNegated();
 
-    public LoadState isLoaded(Object entity);
+    List<Expression<Boolean>> getExpressions();
+
+    Predicate add(Expression<Boolean> s);
+
+    Predicate negate();
 }
-

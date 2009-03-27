@@ -22,7 +22,10 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-package javax.persistence;
 
-public interface Subquery extends PredicateOperand {
+package javax.persistence.metamodel;
+
+public interface Collection<X, E>
+    extends AbstractCollection<X, java.util.Collection<E>, E> {
+    
 }

@@ -22,11 +22,16 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
+
 package javax.persistence;
 
-public interface SelectItem extends OrderByItem {
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-    OrderByItem asc();
-
-    OrderByItem desc();
+@Target({ElementType.METHOD, ElementType.FIELD}) 
+@Retention(RetentionPolicy.RUNTIME)
+public @interface MapKeyEnumerated {
+    EnumType value() default EnumType.ORDINAL;
 }

@@ -22,53 +22,23 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-package javax.persistence;
 
-import java.util.Calendar;
-import java.util.Date;
+package javax.persistence.metamodel;
 
-public interface CaseExpression {
-    CaseExpression when(Predicate pred);
+public interface AbstractCollection<X, C, E> 
+    extends Member<X, C>, Bindable<E> {
+    
+    public static enum CollectionType {
+        COLLECTION, SET, LIST, MAP
+    }
 
-    CaseExpression when(Expression when);
+    public static enum Multiplicity {
+        MANY_TO_MANY, ONE_TO_MANY, ELEMENT_COLLECTION
+    }
 
-    CaseExpression when(Number when);
+    CollectionType getCollectionType();
 
-    CaseExpression when(String when);
+    Multiplicity getMultiplicity();
 
-    CaseExpression when(Date when);
-
-    CaseExpression when(Calendar when);
-
-    CaseExpression when(Class when);
-
-    CaseExpression when(Enum<?> when);
-
-    CaseExpression then(Expression then);
-
-    CaseExpression then(Number then);
-
-    CaseExpression then(String then);
-
-    CaseExpression then(Date then);
-
-    CaseExpression then(Calendar then);
-
-    CaseExpression then(Class then);
-
-    CaseExpression then(Enum<?> then);
-
-    Expression elseCase(Expression arg);
-
-    Expression elseCase(String arg);
-
-    Expression elseCase(Number arg);
-
-    Expression elseCase(Date arg);
-
-	Expression elseCase(Calendar arg);
-
-	Expression elseCase(Class arg);
-
-	Expression elseCase(Enum<?> arg);
+    Type<E> getElementType();
 }

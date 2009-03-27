@@ -22,29 +22,35 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-package javax.persistence.spi;
 
-import java.util.Map;
+package javax.persistence.criteria;
 
-import javax.persistence.EntityManagerFactory;
+import java.util.List;
+import java.util.Set;
+import javax.persistence.Parameter;
 
-/**
- * @version $Rev$ $Date$
- */
-public interface PersistenceProvider {
+public interface CriteriaQuery extends AbstractQuery {
 
-    public EntityManagerFactory createEntityManagerFactory(String emName, 
-        Map map);
-
-    public EntityManagerFactory createContainerEntityManagerFactory(
-        PersistenceUnitInfo info, Map map);
-
-    public LoadState isLoadedWithoutReference(Object entity, 
-        String attributeName);
+    CriteriaQuery select(Selection<?>... selections);
     
-    public LoadState isLoadedWithReference(Object entity, 
-        String attributeName);
+    //override the return type only:
 
-    public LoadState isLoaded(Object entity);
+    CriteriaQuery where(Expression<Boolean> restriction);
+
+    CriteriaQuery where(Predicate... restrictions);
+
+    CriteriaQuery groupBy(Expression<?>... grouping);
+
+    CriteriaQuery having(Expression<Boolean> restriction);
+
+    CriteriaQuery having(Predicate... restrictions);
+
+    CriteriaQuery orderBy(Order... o);
+
+    CriteriaQuery distinct(boolean distinct);
+
+    List<Selection<?>> getSelectionList();
+
+    List<Order> getOrderList();
+    Set<Parameter<?>> getParameters();
 }
-

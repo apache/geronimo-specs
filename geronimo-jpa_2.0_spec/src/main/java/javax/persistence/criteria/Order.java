@@ -22,29 +22,14 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-package javax.persistence.spi;
 
-import java.util.Map;
+package javax.persistence.criteria;
 
-import javax.persistence.EntityManagerFactory;
+public interface Order {
 
-/**
- * @version $Rev$ $Date$
- */
-public interface PersistenceProvider {
+    void reverse();
 
-    public EntityManagerFactory createEntityManagerFactory(String emName, 
-        Map map);
+    boolean isAscending();
 
-    public EntityManagerFactory createContainerEntityManagerFactory(
-        PersistenceUnitInfo info, Map map);
-
-    public LoadState isLoadedWithoutReference(Object entity, 
-        String attributeName);
-    
-    public LoadState isLoadedWithReference(Object entity, 
-        String attributeName);
-
-    public LoadState isLoaded(Object entity);
+    <T extends Comparable<T>> Expression<T> getExpression();
 }
-

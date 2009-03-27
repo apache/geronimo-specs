@@ -22,29 +22,16 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-package javax.persistence.spi;
 
-import java.util.Map;
+package javax.persistence.metamodel;
 
-import javax.persistence.EntityManagerFactory;
+public interface Bindable<T> {
+ 
+    public static enum BindableType {
+        ATTRIBUTE, COLLECTION, MANAGED_TYPE
+    }
 
-/**
- * @version $Rev$ $Date$
- */
-public interface PersistenceProvider {
+    BindableType getBindableType();
 
-    public EntityManagerFactory createEntityManagerFactory(String emName, 
-        Map map);
-
-    public EntityManagerFactory createContainerEntityManagerFactory(
-        PersistenceUnitInfo info, Map map);
-
-    public LoadState isLoadedWithoutReference(Object entity, 
-        String attributeName);
-    
-    public LoadState isLoadedWithReference(Object entity, 
-        String attributeName);
-
-    public LoadState isLoaded(Object entity);
+    Class<T> getJavaType();
 }
-

@@ -35,53 +35,69 @@ import java.util.Set;
  */
 public interface Query {
 
-    public List getResultList();
+    List<Result> getTypedResultList();
+    
+    Result getTypedSingleResult();
+    
+    List getResultList();
 
-    public Object getSingleResult();
+    Object getSingleResult();
 
-    public int executeUpdate();
+    int executeUpdate();
 
-    public Query setMaxResults(int maxResult);
+    Query setMaxResults(int maxResult);
+    
+    int getMaxResults();
 
-    public int getMaxResults();
+    Query setFirstResult(int startPosition);
 
-    public Query setFirstResult(int startPosition);
+    int getFirstResult();
 
-    public int getFirstResult();
+    Query setHint(String hintName, Object value);
 
-    public Query setHint(String hintName, Object value);
+    Map<String, Object> getHints();
 
-    public Map<String, Object> getHints();
+    Set<String> getSupportedHints();
 
-    public Set<String> getSupportedHints();
+    <T> Query setParameter(Parameter<T> param, T value);
 
-    public Query setParameter(String name, Object value);
+    Query setParameter(String name, Object value);
 
-    public Query setParameter(String name, Date value,
-                              TemporalType temporalType);
+    Query setParameter(String name, Date value,
+        TemporalType temporalType);
 
-    public Query setParameter(String name, Calendar value,
-                              TemporalType temporalType);
+    Query setParameter(String name, Calendar value,
+        TemporalType temporalType);
+    
+    Query setParameter(int position, Object value);
+    
+    Query setParameter(int position, Date value,
+        TemporalType temporalType);
 
-    public Query setParameter(int position, Object value);
+    Query setParameter(int position, Calendar value,
+        TemporalType temporalType);
 
-    public Query setParameter(int position, Date value,
-                              TemporalType temporalType);
+    Set<Parameter<?>> getParameters();
 
-    public Query setParameter(int position, Calendar value,
-                              TemporalType temporalType);
+    <T> Parameter<T> getParameter(String name, Class<T> type);
 
-    public Map<String, Object> getNamedParameters();
+    <T> Parameter<T> getParameter(int position, Class<T> type);
 
-    public List getPositionalParameters();
+    <T> T getParameterValue(Parameter<T> param);
 
-    public Query setFlushMode(FlushModeType flushMode);
+    <T> ResultItem<T> getResultItem(String alias, Class<T> type);
 
-    public FlushModeType getFlushMode();
+    <T> ResultItem<T> getResultItem(int position, Class<T> type);
 
-    public Query setLockMode(LockModeType lockMode);
+    List<ResultItem<?>> getResultItems();
 
-    public LockModeType getLockMode();
+    Query setFlushMode(FlushModeType flushMode);
 
-    public <T> T unwrap(Class<T> cls);
+    FlushModeType getFlushMode();
+
+    Query setLockMode(LockModeType lockMode);
+
+    LockModeType getLockMode();
+
+    <T> T unwrap(Class<T> cls);
 }

@@ -22,29 +22,16 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-package javax.persistence.spi;
 
-import java.util.Map;
+package javax.persistence.criteria;
 
-import javax.persistence.EntityManagerFactory;
+import javax.persistence.metamodel.Member;
 
-/**
- * @version $Rev$ $Date$
- */
-public interface PersistenceProvider {
+public interface Join<Z, X> extends From<Z, X> {
 
-    public EntityManagerFactory createEntityManagerFactory(String emName, 
-        Map map);
+    Member<? extends Z, X> getMember();
 
-    public EntityManagerFactory createContainerEntityManagerFactory(
-        PersistenceUnitInfo info, Map map);
+    From<?, Z> getParent();
 
-    public LoadState isLoadedWithoutReference(Object entity, 
-        String attributeName);
-    
-    public LoadState isLoadedWithReference(Object entity, 
-        String attributeName);
-
-    public LoadState isLoaded(Object entity);
+    JoinType getJoinType();
 }
-
