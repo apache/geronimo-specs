@@ -32,8 +32,10 @@
 
     <artifactId>geronimo-jpa_2.0_spec</artifactId>
     <packaging>jar</packaging>
-    <name>JPA 2.0</name>
+    <name>Apache Geronimo JSR-317 JPA 2.0 EARLY ACCESS Spec API</name>
     <version>1.0-EA-SNAPSHOT</version>
+
+    <description>Implementation of Sun JSR-317 JPA 2.0 EARLY ACCESS Spec API</description>
 
     <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
     <distributionManagement>
