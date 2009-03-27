@@ -28,6 +28,8 @@ import java.net.URL;
 import java.util.List;
 import java.util.Properties;
 
+import javax.persistence.Caching;
+import javax.persistence.ValidationMode;
 import javax.sql.DataSource;
 
 /**
@@ -55,7 +57,13 @@ public interface PersistenceUnitInfo {
 
     public boolean excludeUnlistedClasses();
 
+    public Caching getCaching();
+
+    public ValidationMode getValidationMode();
+
     public Properties getProperties();
+
+    public String PersistenceXMLSchemaVersion();
 
     public ClassLoader getClassLoader();
 

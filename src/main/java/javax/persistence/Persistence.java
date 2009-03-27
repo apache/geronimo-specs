@@ -177,4 +177,12 @@ public class Persistence {
                     + providerName, e);
         }
     }
+    
+    /*
+    * Return the PersistenceUtil instance
+    */
+    public PersistenceUtil getPersistenceUtil() {
+        // TODO: must implement this method as required by JSR-317
+        return null;
+    }
 }

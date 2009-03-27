@@ -32,19 +32,16 @@ import java.lang.annotation.Target;
 @Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface OrderColumn {
+
     String name() default "";
-
+    
     boolean nullable() default true;
-
+    
     boolean insertable() default true;
-
+    
     boolean updatable() default true;
-
+    
     String columnDefinition() default "";
-
-    boolean contiguous() default true;
-
-    int base() default 0;
-
+    
     String table() default "";
 }

@@ -22,8 +22,20 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-package javax.persistence;
 
-public interface Aggregate extends Expression {
-    Expression distinct();
+package javax.persistence.metamodel;
+
+public interface Member<X, Y> {
+
+    String getName();
+
+    ManagedType<X> getDeclaringType();
+
+    Class<Y> getMemberJavaType();
+
+    java.lang.reflect.Member getJavaMember();
+
+    boolean isAssociation();
+
+    boolean isCollection();
 }

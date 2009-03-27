@@ -27,6 +27,9 @@ package javax.persistence;
 import java.util.Map;
 import java.util.Set;
 
+import javax.persistence.criteria.QueryBuilder;
+import javax.persistence.metamodel.Metamodel;
+
 /**
  *
  * @version $Rev$ $Date$
@@ -39,11 +42,13 @@ public interface EntityManagerFactory {
 
     public QueryBuilder getQueryBuilder();
 
-    public void close();
+    public Metamodel getMetamodel();
 
     public boolean isOpen();
 
-    public Map getProperties();
+    public void close();
+
+    public Map<String, Object> getProperties();
 
     public Set<String> getSupportedProperties();
 

@@ -22,29 +22,30 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-package javax.persistence.spi;
 
-import java.util.Map;
+package javax.persistence.criteria;
 
-import javax.persistence.EntityManagerFactory;
+import javax.persistence.metamodel.AbstractCollection;
+import javax.persistence.metamodel.Attribute;
+import javax.persistence.metamodel.Bindable;
+import javax.persistence.metamodel.Map;
 
-/**
- * @version $Rev$ $Date$
- */
-public interface PersistenceProvider {
+public interface Path<X> extends Expression<X> {
 
-    public EntityManagerFactory createEntityManagerFactory(String emName, 
-        Map map);
+    Bindable<X> getModel();
 
-    public EntityManagerFactory createContainerEntityManagerFactory(
-        PersistenceUnitInfo info, Map map);
+    Path<?> getParentPath();
 
-    public LoadState isLoadedWithoutReference(Object entity, 
-        String attributeName);
+    <Y> Path<Y> get(Attribute<? super X, Y> model);
+
+    <E, C extends java.util.Collection<E>> Expression<C>
+        get(AbstractCollection<X, C, E> collection);
+
+    <K, V, M extends java.util.Map<K, V>> Expression<M> 
+        get(Map<X, K, V> collection);
+
+    Expression<Class<? extends X>> type();
     
-    public LoadState isLoadedWithReference(Object entity, 
-        String attributeName);
-
-    public LoadState isLoaded(Object entity);
+    //String-based:
+    <Y> Path<Y> get(String attName);
 }
-

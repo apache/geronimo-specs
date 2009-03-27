@@ -24,5 +24,7 @@
 //
 package javax.persistence;
 
-public interface FetchJoinObject {
+public enum CacheGetMode {
+    USE,
+    BYPASS
 }

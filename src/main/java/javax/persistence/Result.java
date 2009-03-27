@@ -22,29 +22,22 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-package javax.persistence.spi;
 
-import java.util.Map;
-
-import javax.persistence.EntityManagerFactory;
+package javax.persistence;
 
 /**
- * @version $Rev$ $Date$
- */
-public interface PersistenceProvider {
-
-    public EntityManagerFactory createEntityManagerFactory(String emName, 
-        Map map);
-
-    public EntityManagerFactory createContainerEntityManagerFactory(
-        PersistenceUnitInfo info, Map map);
-
-    public LoadState isLoadedWithoutReference(Object entity, 
-        String attributeName);
+* Interface for extracting the result items from a
+* typed query result.
+*/
+public interface Result {
     
-    public LoadState isLoadedWithReference(Object entity, 
-        String attributeName);
+    <X> X get(ResultItem<X> resultItem);
+    
+    <X> X get(String alias, Class<X> type);
+    
+    <X> X get(int i, Class<X> type);
+    
+    Object get(int i);
 
-    public LoadState isLoaded(Object entity);
+    Object[] toArray();
 }
-

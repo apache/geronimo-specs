@@ -22,29 +22,16 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-package javax.persistence.spi;
 
-import java.util.Map;
+package javax.persistence;
 
-import javax.persistence.EntityManagerFactory;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-/**
- * @version $Rev$ $Date$
- */
-public interface PersistenceProvider {
-
-    public EntityManagerFactory createEntityManagerFactory(String emName, 
-        Map map);
-
-    public EntityManagerFactory createContainerEntityManagerFactory(
-        PersistenceUnitInfo info, Map map);
-
-    public LoadState isLoadedWithoutReference(Object entity, 
-        String attributeName);
-    
-    public LoadState isLoadedWithReference(Object entity, 
-        String attributeName);
-
-    public LoadState isLoaded(Object entity);
+@Target({ElementType.METHOD, ElementType.FIELD}) 
+@Retention(RetentionPolicy.RUNTIME)
+public @interface MapKeyTemporal {
+    TemporalType value();
 }
-

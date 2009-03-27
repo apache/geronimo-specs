@@ -22,10 +22,12 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-package javax.persistence;
 
-/**
- * Instances of this interface can be used as orderBy arguments.
- */
-public interface OrderByItem {
+package javax.persistence.spi;
+
+import java.util.List;
+
+public interface PersistenceProviderResolver {
+
+    List<PersistenceProvider> getPersistenceProviders();
 }

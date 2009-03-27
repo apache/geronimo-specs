@@ -22,29 +22,18 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-package javax.persistence.spi;
 
-import java.util.Map;
+package javax.persistence.criteria;
 
-import javax.persistence.EntityManagerFactory;
+public interface Expression<T> extends Selection<T> {
 
-/**
- * @version $Rev$ $Date$
- */
-public interface PersistenceProvider {
+    Class<T> getJavaType();
 
-    public EntityManagerFactory createEntityManagerFactory(String emName, 
-        Map map);
+    Predicate isNull();
 
-    public EntityManagerFactory createContainerEntityManagerFactory(
-        PersistenceUnitInfo info, Map map);
+    Predicate isNotNull();
 
-    public LoadState isLoadedWithoutReference(Object entity, 
-        String attributeName);
-    
-    public LoadState isLoadedWithReference(Object entity, 
-        String attributeName);
+    Predicate in(Object... values);
 
-    public LoadState isLoaded(Object entity);
+    <X> Expression<X> as(Class<X> type);
 }
-

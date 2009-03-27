@@ -22,29 +22,22 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-package javax.persistence.spi;
 
-import java.util.Map;
+package javax.persistence.metamodel;
 
-import javax.persistence.EntityManagerFactory;
+public interface Attribute<X, T> extends Member<X, T>, Bindable<T> {
 
-/**
- * @version $Rev$ $Date$
- */
-public interface PersistenceProvider {
+    public static enum Multiplicity {
+        MANY_TO_ONE, ONE_TO_ONE, EMBEDDED, BASIC
+    }
 
-    public EntityManagerFactory createEntityManagerFactory(String emName, 
-        Map map);
+    Multiplicity getMultiplicity();
 
-    public EntityManagerFactory createContainerEntityManagerFactory(
-        PersistenceUnitInfo info, Map map);
+    boolean isId();
 
-    public LoadState isLoadedWithoutReference(Object entity, 
-        String attributeName);
-    
-    public LoadState isLoadedWithReference(Object entity, 
-        String attributeName);
+    boolean isVersion();
 
-    public LoadState isLoaded(Object entity);
+    boolean isOptional();
+
+    Type<T> getAttributeType();
 }
-

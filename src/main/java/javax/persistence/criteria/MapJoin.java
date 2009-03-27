@@ -22,29 +22,23 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-package javax.persistence.spi;
+
+package javax.persistence.criteria;
 
 import java.util.Map;
 
-import javax.persistence.EntityManagerFactory;
+public interface MapJoin<Z, K, V>
+    extends AbstractCollectionJoin<Z, Map<K, V>, V> {
 
-/**
- * @version $Rev$ $Date$
- */
-public interface PersistenceProvider {
+    javax.persistence.metamodel.Map<? super Z, K, V> getModel();
 
-    public EntityManagerFactory createEntityManagerFactory(String emName, 
-        Map map);
+    Join<Map<K, V>, K> joinKey();
 
-    public EntityManagerFactory createContainerEntityManagerFactory(
-        PersistenceUnitInfo info, Map map);
+    Join<Map<K, V>, K> joinKey(JoinType jt);
 
-    public LoadState isLoadedWithoutReference(Object entity, 
-        String attributeName);
-    
-    public LoadState isLoadedWithReference(Object entity, 
-        String attributeName);
+    Path<K> key();
 
-    public LoadState isLoaded(Object entity);
+    Path<V> value(); //Unnecessary - just returns this
+
+    Expression<Map.Entry<K, V>> entry();
 }
-

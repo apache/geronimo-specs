@@ -22,29 +22,28 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-package javax.persistence.spi;
 
-import java.util.Map;
+package javax.persistence.criteria;
 
-import javax.persistence.EntityManagerFactory;
+import javax.persistence.metamodel.AbstractCollection;
+import javax.persistence.metamodel.Attribute;
 
-/**
- * @version $Rev$ $Date$
- */
-public interface PersistenceProvider {
+public interface FetchParent<Z, X> {
 
-    public EntityManagerFactory createEntityManagerFactory(String emName, 
-        Map map);
+    java.util.Set<Fetch<X, ?>> getFetches();
 
-    public EntityManagerFactory createContainerEntityManagerFactory(
-        PersistenceUnitInfo info, Map map);
+    <Y> Fetch<X, Y> fetch(Attribute<? super X, Y> assoc);
 
-    public LoadState isLoadedWithoutReference(Object entity, 
-        String attributeName);
-    
-    public LoadState isLoadedWithReference(Object entity, 
-        String attributeName);
+    <Y> Fetch<X, Y> fetch(Attribute<? super X, Y> assoc, JoinType jt);
 
-    public LoadState isLoaded(Object entity);
+    <Y> Fetch<X, Y> fetch(AbstractCollection<? super X, ?, Y> assoc);
+
+    <Y> Fetch<X, Y> fetch(AbstractCollection<? super X, ?, Y> assoc,
+        JoinType jt);
+
+    //String-based:
+
+    <Y> Fetch<X, Y> fetch(String assocName);
+
+    <Y> Fetch<X, Y> fetch(String assocName, JoinType jt);
 }
-

@@ -22,25 +22,11 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-package javax.persistence;
 
-public interface PathExpression extends Expression {
+package javax.persistence.spi;
 
-    PathExpression get(String attributeName);
-
-    Expression type();
-
-    Expression size();
-
-    Predicate isEmpty();
-
-    Aggregate avg();
-
-    Aggregate max();
-
-    Aggregate min();
-
-    Aggregate count();
-
-	Aggregate sum();
+public enum LoadState {
+    LOADED,
+    NOT_LOADED,
+    UNKNOWN
 }
