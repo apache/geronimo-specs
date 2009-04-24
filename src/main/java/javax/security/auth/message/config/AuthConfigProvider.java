@@ -28,5 +28,6 @@ public interface AuthConfigProvider {
 
     ServerAuthConfig getServerAuthConfig(String layer, String appContext, CallbackHandler handler) throws AuthException, SecurityException;
 
-    void refresh() throws AuthException, SecurityException;
+    void refresh();
 }
+
