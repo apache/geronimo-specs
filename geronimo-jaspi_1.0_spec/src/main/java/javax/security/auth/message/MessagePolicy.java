@@ -45,9 +45,9 @@ public class MessagePolicy {
 
     public static interface ProtectionPolicy {
 
-        static String AUTHENTICATE_CONTENT = "javax.security.auth.message.AUTHENTICATE_CONTENT";
-        static String AUTHENTICATE_RECIPIENT = "javax.security.auth.message.AUTHENTICATE_RECIPIENT";
-        static String AUTHENTICATE_SENDER = "javax.security.auth.message.AUTHENTICATE_SENDER";
+        static String AUTHENTICATE_CONTENT = "#authenticateContent";
+        static String AUTHENTICATE_RECIPIENT = "#authenticateRecipient";
+        static String AUTHENTICATE_SENDER = "#authenticateSender";
 
         String getID();
     }

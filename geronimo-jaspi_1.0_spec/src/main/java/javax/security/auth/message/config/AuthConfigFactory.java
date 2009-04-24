@@ -35,51 +35,51 @@ public abstract class AuthConfigFactory {
 
     static {
         contextClassLoader = (ClassLoader) java.security.AccessController
-                        .doPrivileged(new java.security.PrivilegedAction() {
-                            public Object run() {
-                                return Thread.currentThread().getContextClassLoader();
-                            }
-                        });
+                .doPrivileged(new java.security.PrivilegedAction() {
+                    public Object run() {
+                        return Thread.currentThread().getContextClassLoader();
+                    }
+                });
     }
-    
-    public static AuthConfigFactory getFactory() throws AuthException, SecurityException {
+
+    public static AuthConfigFactory getFactory() {
         SecurityManager sm = System.getSecurityManager();
         if (sm != null) {
             sm.checkPermission(new AuthPermission("getAuthConfigFactory"));
         }
         if (factory == null) {
             String className = (String) java.security.AccessController
-                            .doPrivileged(new java.security.PrivilegedAction() {
-                                public Object run() {
-                                    return java.security.Security.getProperty("DEFAULT_FACTORY_SECURITY_PROPERTY");
-                                }
-                            });
+                    .doPrivileged(new java.security.PrivilegedAction() {
+                        public Object run() {
+                            return java.security.Security.getProperty("DEFAULT_FACTORY_SECURITY_PROPERTY");
+                        }
+                    });
             if (className == null) {
                 className = DEFAULT_JASPI_AUTHCONFIGFACTORYIMPL;
             }
             try {
                 final String finalClassName = className;
                 factory = (AuthConfigFactory) java.security.AccessController
-                                .doPrivileged(new java.security.PrivilegedExceptionAction() {
-                                    public Object run() throws ClassNotFoundException, InstantiationException,
-                                                    IllegalAccessException {
-                                        return Class.forName(finalClassName, true, contextClassLoader).newInstance();
-                                    }
-                                });
+                        .doPrivileged(new java.security.PrivilegedExceptionAction() {
+                            public Object run() throws ClassNotFoundException, InstantiationException,
+                                    IllegalAccessException {
+                                return Class.forName(finalClassName, true, contextClassLoader).newInstance();
+                            }
+                        });
             } catch (PrivilegedActionException e) {
                 Exception inner = e.getException();
                 if (inner instanceof InstantiationException) {
-                    throw (AuthException) new AuthException("AuthConfigFactory error:"
-                                    + inner.getCause().getMessage()).initCause(inner.getCause());
+                    throw (SecurityException) new SecurityException("AuthConfigFactory error:"
+                            + inner.getCause().getMessage()).initCause(inner.getCause());
                 } else {
-                    throw (AuthException) new AuthException("AuthConfigFactory error: " + inner).initCause(inner);
+                    throw (SecurityException) new SecurityException("AuthConfigFactory error: " + inner).initCause(inner);
                 }
             }
         }
         return factory;
     }
 
-    public static void setFactory(AuthConfigFactory factory) throws SecurityException {
+    public static void setFactory(AuthConfigFactory factory) {
         SecurityManager sm = System.getSecurityManager();
         if (sm != null) {
             sm.checkPermission(new AuthPermission("setAuthConfigFactory"));
@@ -88,10 +88,10 @@ public abstract class AuthConfigFactory {
     }
 
 
-    protected AuthConfigFactory() {
+    public AuthConfigFactory() {
     }
 
-    public abstract String[] detachListener(RegistrationListener listener, String layer, String appContext) throws SecurityException;
+    public abstract String[] detachListener(RegistrationListener listener, String layer, String appContext);
 
     public abstract AuthConfigProvider getConfigProvider(String layer, String appContext, RegistrationListener listener);
 
@@ -99,13 +99,13 @@ public abstract class AuthConfigFactory {
 
     public abstract String[] getRegistrationIDs(AuthConfigProvider provider);
 
-    public abstract void refresh() throws AuthException, SecurityException;
+    public abstract void refresh();
 
-    public abstract String registerConfigProvider(AuthConfigProvider provider, String layer, String appContext, String description) throws AuthException, SecurityException;
+    public abstract String registerConfigProvider(AuthConfigProvider provider, String layer, String appContext, String description);
 
-    public abstract String registerConfigProvider(String className, Map properties, String layer, String appContext, String description) throws AuthException, SecurityException;
+    public abstract String registerConfigProvider(String className, Map properties, String layer, String appContext, String description);
 
-    public abstract boolean removeRegistration(String registrationID) throws SecurityException;
+    public abstract boolean removeRegistration(String registrationID);
 
     public static interface RegistrationContext {
 
@@ -116,7 +116,7 @@ public abstract class AuthConfigFactory {
         String getMessageLayer();
 
         boolean isPersistent();
-        
+
     }
 
 }

@@ -32,5 +32,5 @@ public interface AuthConfig {
 
     boolean isProtected();
 
-    void refresh() throws AuthException, SecurityException;
+    void refresh();
 }

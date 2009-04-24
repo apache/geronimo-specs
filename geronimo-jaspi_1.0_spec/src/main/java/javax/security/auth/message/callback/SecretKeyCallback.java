@@ -22,7 +22,7 @@ import javax.crypto.SecretKey;
 /**
  * A callback enabling an authentication module to request a secret key from the runtime, by supplying an alias.
  * Other request types may also be supported.
- * 
+ *
  * @version $Rev$ $Date$
  */
 public class SecretKeyCallback implements Callback {
@@ -49,7 +49,7 @@ public class SecretKeyCallback implements Callback {
     public static interface Request {
     }
 
-    public class AliasRequest implements Request {
+    public static class AliasRequest implements Request {
 
         private final String alias;
 
