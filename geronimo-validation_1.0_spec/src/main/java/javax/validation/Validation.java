@@ -152,23 +152,25 @@ public class Validation {
         public T configure() {
             T cfg = null;
 
-            if (cfgType == null)
-                throw new ValidationException(
-                    "No configuration type was supplied");
+            // create a default resolver if not supplied by providerResolver()
             if (vpResolver == null)
                 vpResolver = new DefaultValidationProviderResolver();
 
+            // check each provider discovered by the resolver
             for (ValidationProvider vProvider : vpResolver
                 .getValidationProviders()) {
                 if (vProvider.isSuitable(cfgType)) {
                     GenericBootstrapImpl bootstrap = new GenericBootstrapImpl();
+                    // set the resolver
                     bootstrap.providerResolver(vpResolver);
-                    // FIXME JSR-303 - Need to create a Configuration<T>
-                    // from the above bootstrap and configurationType
-
+                    // Create a Configuration<T> from the above bootstrap state
+                    // and configurationType
+                    cfg = vProvider.createSpecializedConfiguration(bootstrap, 
+                        cfgType);
                 }
             }
 
+            // return the Configuration<T> or throw a Spec required exception
             if (cfg != null)
                 return cfg;
             else
