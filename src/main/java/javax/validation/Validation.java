@@ -18,7 +18,6 @@ package javax.validation;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
@@ -58,8 +57,8 @@ public class Validation {
      * @param configurationType
      * @return ProviderSpecificBootstrap<T>
      */
-    public static <T extends Configuration<T>> ProviderSpecificBootstrap<T> byProvider(
-        Class<T> configurationType) {
+    public static <T extends Configuration<T>> ProviderSpecificBootstrap<T>
+        byProvider(Class<T> configurationType) {
         return new ProviderSpecificBootstrapImpl<T>(configurationType);
     }
 
@@ -71,7 +70,7 @@ public class Validation {
 
         private static final String SPI_CFG =
             "META-INF/services/javax.validation.spi.ValidationProvider";
-        
+
         /*
          * (non-Javadoc)
          * 
@@ -79,12 +78,14 @@ public class Validation {
          * javax.validation.ValidationProviderResolver#getValidationProviders()
          */
         public List<ValidationProvider> getValidationProviders() {
-            List<ValidationProvider> providers = new ArrayList<ValidationProvider>();
+            List<ValidationProvider> providers =
+                new ArrayList<ValidationProvider>();
             try {
                 // get our classloader
                 ClassLoader cl = Thread.currentThread().getContextClassLoader();
-                if ( cl == null )
-                    cl = DefaultValidationProviderResolver.class.getClassLoader();
+                if (cl == null)
+                    cl = DefaultValidationProviderResolver.class.
+                        getClassLoader();
                 // find all service provider cfgs
                 Enumeration<URL> cfgs = cl.getResources(SPI_CFG);
                 while (cfgs.hasMoreElements()) {
@@ -100,37 +101,40 @@ public class Validation {
                             if (!line.startsWith("#")) {
                                 try {
                                     // try loading the specified class
-                                    final Class<?> provider = cl.loadClass(line);
+                                    final Class<?> provider =
+                                        cl.loadClass(line);
                                     // create an instance to return
-                                    providers.add((ValidationProvider)provider.newInstance());
+                                    providers.add((ValidationProvider) provider
+                                        .newInstance());
                                 } catch (ClassNotFoundException e) {
                                     throw new ValidationException(
                                         "Failed to load provider " + line +
-                                        " configured in file " + url, e);
+                                            " configured in file " + url, e);
                                 } catch (InstantiationException e) {
                                     throw new ValidationException(
-                                        "Failed to instantiate provider " + line +
-                                        " configured in file " + url, e);
+                                        "Failed to instantiate provider " +
+                                            line + " configured in file " + url,
+                                        e);
                                 } catch (IllegalAccessException e) {
                                     throw new ValidationException(
                                         "Failed to load provider " + line +
-                                        " configured in file " + url, e);
+                                            " configured in file " + url, e);
                                 }
                             }
                             line = br.readLine();
                         }
                         br.close();
                     } catch (IOException e) {
-                        throw new ValidationException(
-                            "Error trying to read " + url, e);
+                        throw new ValidationException("Error trying to read " +
+                            url, e);
                     } finally {
                         if (br != null)
                             br.close();
                     }
                 }
             } catch (IOException e) {
-                throw new ValidationException(
-                    "Error trying to read a " + SPI_CFG, e);
+                throw new ValidationException("Error trying to read a " +
+                    SPI_CFG, e);
             }
             // caller must handle the case of no providers found
             return providers;
@@ -158,8 +162,8 @@ public class Validation {
                 return resolv.getValidationProviders().get(0)
                     .createGenericConfiguration(this);
             } catch (Exception e) {
-                throw new ValidationException(
-                    "Could not create configuration.", e);
+                throw new ValidationException("Could not create configuration",
+                    e);
             }
         }
 
@@ -227,7 +231,7 @@ public class Validation {
                     bootstrap.providerResolver(vpResolver);
                     // Create a Configuration<T> from the above bootstrap state
                     // and configurationType
-                    cfg = vProvider.createSpecializedConfiguration(bootstrap, 
+                    cfg = vProvider.createSpecializedConfiguration(bootstrap,
                         cfgType);
                 }
             }
