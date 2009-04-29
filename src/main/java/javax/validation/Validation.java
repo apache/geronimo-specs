@@ -16,6 +16,13 @@
  */
 package javax.validation;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 
 import javax.validation.bootstrap.GenericBootstrap;
@@ -62,15 +69,71 @@ public class Validation {
     private static class DefaultValidationProviderResolver implements
         ValidationProviderResolver {
 
+        private static final String SPI_CFG =
+            "META-INF/services/javax.validation.spi.ValidationProvider";
+        
         /*
          * (non-Javadoc)
          * 
          * @see
          * javax.validation.ValidationProviderResolver#getValidationProviders()
          */
-        // FIXME JSR-303 - Needs to be implemented
         public List<ValidationProvider> getValidationProviders() {
-            throw new ValidationException("TODO - Not implemented yet");
+            List<ValidationProvider> providers = new ArrayList<ValidationProvider>();
+            try {
+                // get our classloader
+                ClassLoader cl = Thread.currentThread().getContextClassLoader();
+                if ( cl == null )
+                    cl = DefaultValidationProviderResolver.class.getClassLoader();
+                // find all service provider cfgs
+                Enumeration<URL> cfgs = cl.getResources(SPI_CFG);
+                while (cfgs.hasMoreElements()) {
+                    URL url = cfgs.nextElement();
+                    BufferedReader br = null;
+                    try {
+                        br = new BufferedReader(new InputStreamReader(
+                            url.openStream()), 256);
+                        String line = br.readLine();
+                        // cfgs may contain multiple providers and/or comments
+                        while (line != null) {
+                            line = line.trim();
+                            if (!line.startsWith("#")) {
+                                try {
+                                    // try loading the specified class
+                                    final Class<?> provider = cl.loadClass(line);
+                                    // create an instance to return
+                                    providers.add((ValidationProvider)provider.newInstance());
+                                } catch (ClassNotFoundException e) {
+                                    throw new ValidationException(
+                                        "Failed to load provider " + line +
+                                        " configured in file " + url, e);
+                                } catch (InstantiationException e) {
+                                    throw new ValidationException(
+                                        "Failed to instantiate provider " + line +
+                                        " configured in file " + url, e);
+                                } catch (IllegalAccessException e) {
+                                    throw new ValidationException(
+                                        "Failed to load provider " + line +
+                                        " configured in file " + url, e);
+                                }
+                            }
+                            line = br.readLine();
+                        }
+                        br.close();
+                    } catch (IOException e) {
+                        throw new ValidationException(
+                            "Error trying to read " + url, e);
+                    } finally {
+                        if (br != null)
+                            br.close();
+                    }
+                }
+            } catch (IOException e) {
+                throw new ValidationException(
+                    "Error trying to read a " + SPI_CFG, e);
+            }
+            // caller must handle the case of no providers found
+            return providers;
         }
     }
 
@@ -96,8 +159,7 @@ public class Validation {
                     .createGenericConfiguration(this);
             } catch (Exception e) {
                 throw new ValidationException(
-                    "Could not create configuration.  Nested exception = " +
-                        e.getMessage());
+                    "Could not create configuration.", e);
             }
         }
 
