@@ -51,7 +51,7 @@ public abstract class AuthConfigFactory {
             String className = (String) java.security.AccessController
                     .doPrivileged(new java.security.PrivilegedAction() {
                         public Object run() {
-                            return java.security.Security.getProperty("DEFAULT_FACTORY_SECURITY_PROPERTY");
+                            return java.security.Security.getProperty(DEFAULT_FACTORY_SECURITY_PROPERTY);
                         }
                     });
             if (className == null) {
