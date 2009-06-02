@@ -25,16 +25,20 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.apache.geronimo.specs</groupId>
-        <artifactId>specs-parent</artifactId>
-        <version>1.6</version>
+        <groupId>org.apache.geronimo.genesis.flava</groupId>
+        <artifactId>genesis-java1.4-flava</artifactId>
+        <version>2.0-SNAPSHOT</version>
     </parent>
 
+    <groupId>org.apache.geronimo.specs</groupId>
     <artifactId>geronimo-activation_1.1_spec</artifactId>
-    <packaging>jar</packaging>
+    <packaging>bundle</packaging>
     <name>Activation 1.1</name>
     <version>1.0.3-SNAPSHOT</version>
 
+    <description>Java Activation Spec API 1.1</description>
+    <!-- n.b. the tets will not pass on java 6 because the jdk contains an incompatible implementation -->
+    
     <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
     <distributionManagement>
         <site>
@@ -45,9 +49,6 @@
 
     <properties>
         <siteId>specs/${artifactId}</siteId>
-
-        <geronimo.osgi.export.pkg>javax.activation*</geronimo.osgi.export.pkg>
-        <geronimo.osgi.export.version>1.1</geronimo.osgi.export.version>
     </properties>
 
     <scm>
@@ -55,5 +56,28 @@
         <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-activation_1.1_spec/</developerConnection>
         <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-activation_1.1_spec/</url>
     </scm>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.2</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+      <plugins>
+        <plugin>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>maven-bundle-plugin</artifactId>
+            <configuration>
+                <instructions>
+                  <Export-Package>javax.activation*;version=1.1</Export-Package>
+                </instructions>
+            </configuration>
+        </plugin>
+      </plugins>
+    </build>
 
 </project>
