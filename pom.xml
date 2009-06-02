@@ -25,15 +25,17 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.apache.geronimo.specs</groupId>
-        <artifactId>specs-parent</artifactId>
-        <version>1.6</version>
+        <groupId>org.apache.geronimo.genesis.flava</groupId>
+        <artifactId>genesis-java5-flava</artifactId>
+        <version>2.0-SNAPSHOT</version>
     </parent>
 
+    <groupId>org.apache.geronimo.specs</groupId>
     <artifactId>geronimo-interceptor_3.0_spec</artifactId>
-    <packaging>jar</packaging>
+    <packaging>bundle</packaging>
     <name>Interceptor 3.0</name>
     <version>1.0.2-SNAPSHOT</version>
+    <description>Interceptor API 3.0</description>
 
     <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
     <distributionManagement>
@@ -45,8 +47,6 @@
 
     <properties>
         <siteId>specs/${artifactId}</siteId>
-
-        <geronimo.osgi.export.version>3.0</geronimo.osgi.export.version>
     </properties>
 
     <scm>
@@ -54,5 +54,19 @@
         <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-interceptor_3.0_spec/</developerConnection>
         <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-interceptor_3.0_spec/</url>
     </scm>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <configuration>
+                    <instructions>
+                        <Export-Package>javax.interceptor*;version=3.0</Export-Package>
+                    </instructions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
