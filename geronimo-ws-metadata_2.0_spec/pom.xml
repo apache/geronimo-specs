@@ -25,15 +25,17 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.apache.geronimo.specs</groupId>
-        <artifactId>specs-parent</artifactId>
-        <version>1.6</version>
+        <groupId>org.apache.geronimo.genesis.flava</groupId>
+        <artifactId>genesis-java5-flava</artifactId>
+        <version>2.0-SNAPSHOT</version>
     </parent>
 
+    <groupId>org.apache.geronimo.specs</groupId>
     <artifactId>geronimo-ws-metadata_2.0_spec</artifactId>
-    <packaging>jar</packaging>
+    <packaging>bundle</packaging>
     <name>Web Services Metadata 2.0</name>
     <version>1.1.3-SNAPSHOT</version>
+    <description>Web Services Metadata 2.0 API</description>
 
     <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
     <distributionManagement>
@@ -55,5 +57,19 @@
         <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-ws-metadata_2.0_spec/</developerConnection>
         <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-ws-metadata_2.0_spec/</url>
     </scm>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <configuration>
+                    <instructions>
+                        <Export-Package>javax.jws*;version=2.0</Export-Package>
+                    </instructions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

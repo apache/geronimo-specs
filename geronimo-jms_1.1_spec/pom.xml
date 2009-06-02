@@ -25,15 +25,17 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.apache.geronimo.specs</groupId>
-        <artifactId>specs-parent</artifactId>
-        <version>1.6</version>
+        <groupId>org.apache.geronimo.genesis.flava</groupId>
+        <artifactId>genesis-java1.4-flava</artifactId>
+        <version>2.0-SNAPSHOT</version>
     </parent>
 
+    <groupId>org.apache.geronimo.specs</groupId>
     <artifactId>geronimo-jms_1.1_spec</artifactId>
-    <packaging>jar</packaging>
+    <packaging>bundle</packaging>
     <name>JMS 1.1</name>
     <version>1.1.2-SNAPSHOT</version>
+    <description>Java Message Service 1.1 API</description>
 
     <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
     <distributionManagement>
@@ -45,12 +47,16 @@
 
     <properties>
         <siteId>specs/${artifactId}</siteId>
-
-        <geronimo.osgi.export.pkg>javax.jms*</geronimo.osgi.export.pkg>
-        <geronimo.osgi.export.version>1.1</geronimo.osgi.export.version>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.2</version>
+            <scope>test</scope>
+        </dependency>
+
         <dependency>
             <groupId>mockobjects</groupId>
             <artifactId>mockobjects-core</artifactId>
@@ -71,5 +77,19 @@
         <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jms_1.1_spec/</developerConnection>
         <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-jms_1.1_spec/</url>
     </scm>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <configuration>
+                    <instructions>
+                        <Export-Package>javax.jms*;version=1.1</Export-Package>
+                    </instructions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

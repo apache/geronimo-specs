@@ -25,15 +25,17 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.apache.geronimo.specs</groupId>
-        <artifactId>specs-parent</artifactId>
-        <version>1.6</version>
+        <groupId>org.apache.geronimo.genesis.flava</groupId>
+        <artifactId>genesis-java5-flava</artifactId>
+        <version>2.0-SNAPSHOT</version>
     </parent>
 
+    <groupId>org.apache.geronimo.specs</groupId>
     <artifactId>geronimo-jaxws_2.1_spec</artifactId>
-    <packaging>jar</packaging>
+    <packaging>bundle</packaging>
     <name>Apache Geronimo JAX-WS 2.1 API</name>
     <version>1.0.1-SNAPSHOT</version>
+    <description>Java API for XML Web Services 2.1</description>
 
     <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
     <distributionManagement>
@@ -45,9 +47,6 @@
 
     <properties>
         <siteId>specs/${artifactId}</siteId>
-
-        <geronimo.osgi.export.pkg>javax.xml.ws*</geronimo.osgi.export.pkg>
-        <geronimo.osgi.export.version>2.1</geronimo.osgi.export.version>
     </properties>
 
     <scm>
@@ -56,61 +55,45 @@
         <url>https://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-jaxws_2.1_spec/</url>
     </scm>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.apache.geronimo.specs</groupId>
-                <artifactId>geronimo-saaj_1.3_spec</artifactId>
-                <version>1.0.0</version>
-            </dependency>
-            <dependency>
-                <groupId>javax.xml.bind</groupId>
-                <artifactId>jaxb-api</artifactId>
-                <version>2.1</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>javax.xml.stream</groupId>
-                        <artifactId>stax-api</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>javax.activation</groupId>
-                        <artifactId>activation</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.geronimo.specs</groupId>
-                <artifactId>geronimo-stax-api_1.0_spec</artifactId>
-                <version>1.0.1</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.geronimo.specs</groupId>
-                <artifactId>geronimo-activation_1.1_spec</artifactId>
-                <version>1.0.2</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <dependencies>
         <dependency>
             <groupId>org.apache.geronimo.specs</groupId>
             <artifactId>geronimo-saaj_1.3_spec</artifactId>
+            <version>1.0.0</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>javax.xml.bind</groupId>
-            <artifactId>jaxb-api</artifactId>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-jaxb_2.1_spec</artifactId>
+            <version>1.0-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.geronimo.specs</groupId>
             <artifactId>geronimo-stax-api_1.0_spec</artifactId>
+            <version>1.0.1</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.geronimo.specs</groupId>
             <artifactId>geronimo-activation_1.1_spec</artifactId>
+            <version>1.0.2</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <configuration>
+                    <instructions>
+                        <Export-Package>javax.xml.ws*;version=2.1</Export-Package>
+                    </instructions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

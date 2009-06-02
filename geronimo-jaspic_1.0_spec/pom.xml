@@ -20,7 +20,8 @@
 
 <!-- $Rev$ $Date$ -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
@@ -36,7 +37,7 @@
     <name>Java Authentication SPI for Containers</name>
     <version>1.0-SNAPSHOT</version>
 
-    <description>The JASPIC (JSR-196) api</description>
+    <description>Java Authentication Service Provider Interface for Containers (JSR-196) api</description>
 
     <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
     <distributionManagement>
@@ -48,9 +49,6 @@
 
     <properties>
         <siteId>specs/${artifactId}</siteId>
-
-        <geronimo.osgi.export.pkg>javax.security.auth.message*</geronimo.osgi.export.pkg>
-        <geronimo.osgi.export.version>1.0</geronimo.osgi.export.version>
     </properties>
 
     <scm>
@@ -60,18 +58,17 @@
     </scm>
 
     <build>
-      <plugins>
-        <plugin>
-            <groupId>org.apache.felix</groupId>
-            <artifactId>maven-bundle-plugin</artifactId>
-            <configuration>
-                <instructions>
-                  <Export-Package>javax.security.auth.message*;version=1.0</Export-Package>
-                </instructions>
-            </configuration>
-        </plugin>
-      </plugins>
-
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <configuration>
+                    <instructions>
+                        <Export-Package>javax.security.auth.message*;version=1.0</Export-Package>
+                    </instructions>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 
 
