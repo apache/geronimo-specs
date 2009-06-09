@@ -34,7 +34,7 @@
     <artifactId>geronimo-jaspic_1.0_spec</artifactId>
     <packaging>bundle</packaging>
     <name>Java Authentication SPI for Containers</name>
-    <version>1.0</version>
+    <version>1.1-SNAPSHOT</version>
 
     <description>Java Authentication Service Provider Interface for Containers (JSR-196) api</description>
 
@@ -51,9 +51,9 @@
     </properties>
 
     <scm>
-        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-jaspic_1.0_spec-1.0</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-jaspic_1.0_spec-1.0</developerConnection>
-        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/tags/geronimo-jaspic_1.0_spec-1.0</url>
+        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jaspic_1.0_spec/</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jaspic_1.0_spec/</developerConnection>
+        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-jaspic_1.0_spec/</url>
     </scm>
 
     <build>
