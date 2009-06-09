@@ -37,8 +37,8 @@
     <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
     <distributionManagement>
         <site>
-            <id>geronimo-website</id>
-            <url>${staging.siteURL}/${siteId}/${version}</url>
+            <id>apache-website</id>
+            <url>${site.deploy.url}/maven/${siteId}/${version}</url>
         </site>
     </distributionManagement>
 
