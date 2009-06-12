@@ -22,9 +22,16 @@ package javax.xml.ws.soap;
 import javax.xml.ws.WebServiceFeature;
 
 public final class AddressingFeature extends WebServiceFeature {
+    /**
+     * @since 2.2
+     */
+    public enum Responses {ALL, ANONYMOUS, NON_ANONYMOUS};
+
+    
     public static final String ID = "http://www.w3.org/2005/08/addressing/module";
     
     protected boolean required;
+    private Responses responses = Responses.ALL;
     
     public AddressingFeature() {
         this(true, false);
@@ -38,6 +45,15 @@ public final class AddressingFeature extends WebServiceFeature {
         this.enabled  = enabled;
         this.required = required;
     }
+    
+    /**
+     * @since 2.2
+     */
+    public AddressingFeature(boolean enabled, boolean required, Responses responses) {
+        this.enabled  = enabled;
+        this.required = required;
+        this.responses = responses;
+    }
 
     public boolean isRequired() {
         return required;
@@ -46,5 +62,12 @@ public final class AddressingFeature extends WebServiceFeature {
     @Override
     public String getID() {
         return ID;
+    }
+    
+    /**
+     * @since 2.2
+     */
+    public Responses getResponses() {
+        return responses;
     }
 }
