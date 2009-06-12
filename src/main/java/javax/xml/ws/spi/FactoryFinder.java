@@ -65,7 +65,7 @@ class FactoryFinder {
         // the caller already has a doPriv.  I added the doPriv in case someone changes the 
         // visibility of this method to non-private.
         ClassLoader cl = (ClassLoader)
-            doPrivileged( new PrivilegedAction() {
+            doPrivileged( new PrivilegedAction<Object>() {
                 public Object run() {
                 
                     Method m = null;
@@ -120,7 +120,7 @@ class FactoryFinder {
         // the caller already has a doPriv.  I added the doPriv in case someone changes the 
         // visibility of this method to non-private.
         Object obj = 
-            doPrivileged( new PrivilegedAction() {
+            doPrivileged( new PrivilegedAction<Object>() {
                 public Object run() {
                     try {
                         if (iClassLoader != null) {
@@ -163,7 +163,7 @@ class FactoryFinder {
         final String iFallbackClassName = fallbackClassName;
         
         Object obj = 
-            doPrivileged( new PrivilegedAction() {
+            doPrivileged( new PrivilegedAction<Object>() {
                 public Object run() {
                     debugPrintln("debug is on");
                     
@@ -258,10 +258,10 @@ class FactoryFinder {
         return obj;
     }
 
-    private static Object doPrivileged(PrivilegedAction action) {
+    private static <T> T doPrivileged(PrivilegedAction<T> action) {
         SecurityManager sm = System.getSecurityManager();
         if (sm == null) {
-            return(action.run());
+            return action.run();
         } else {
             return java.security.AccessController.doPrivileged(action);
         }
