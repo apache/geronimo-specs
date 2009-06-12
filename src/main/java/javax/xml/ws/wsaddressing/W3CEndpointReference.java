@@ -155,7 +155,7 @@ public final class W3CEndpointReference extends EndpointReference {
         @XmlSchemaType(name = "anyURI")
         protected String value;
         @XmlAnyAttribute
-        private Map<QName, String> otherAttributes = new HashMap<QName, String>();
+        protected Map<QName, String> otherAttributes = new HashMap<QName, String>();
         
         public AttributedURIType() {
         }
@@ -189,7 +189,7 @@ public final class W3CEndpointReference extends EndpointReference {
         @XmlAnyElement(lax = true)
         protected List<Object> any;
         @XmlAnyAttribute
-        private Map<QName, String> otherAttributes = new HashMap<QName, String>();
+        protected Map<QName, String> otherAttributes = new HashMap<QName, String>();
         
         public ReferenceParametersType() {
         }
@@ -223,7 +223,7 @@ public final class W3CEndpointReference extends EndpointReference {
         @XmlAnyElement(lax = true)
         protected List<Object> any;
         @XmlAnyAttribute
-        private Map<QName, String> otherAttributes = new HashMap<QName, String>();
+        protected Map<QName, String> otherAttributes = new HashMap<QName, String>();
         
         public MetadataType() {
         }
