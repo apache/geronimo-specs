@@ -5,11 +5,6 @@ INFO: 7011: javax.xml.ws.Endpoint: Method 'public void publish(javax.xml.ws.spi.
 INFO: 7011: javax.xml.ws.Service: Method 'protected Service(java.net.URL, javax.xml.namespace.QName, javax.xml.ws.WebServiceFeature[])' has been added
 INFO: 7011: javax.xml.ws.Service: Method 'public javax.xml.ws.Service create(java.net.URL, javax.xml.namespace.QName, javax.xml.ws.WebServiceFeature[])' has been added
 INFO: 7011: javax.xml.ws.Service: Method 'public javax.xml.ws.Service create(javax.xml.namespace.QName, javax.xml.ws.WebServiceFeature[])' has been added
-ERROR: 7014: javax.xml.ws.Service$Mode: Method 'public javax.xml.ws.Service$Mode[] values()' is now final
-ERROR: 7012: javax.xml.ws.soap.Addressing: Method 'public javax.xml.ws.soap.AddressingFeature$Responses responses()' has been added to an interface
-INFO: 7011: javax.xml.ws.soap.AddressingFeature: Method 'public AddressingFeature(boolean, boolean, javax.xml.ws.soap.AddressingFeature$Responses)' has been added
-INFO: 7011: javax.xml.ws.soap.AddressingFeature: Method 'public javax.xml.ws.soap.AddressingFeature$Responses getResponses()' has been added
-INFO: 8000: javax.xml.ws.soap.AddressingFeature$Responses: Class javax.xml.ws.soap.AddressingFeature$Responses added
 INFO: 8000: javax.xml.ws.spi.http.HttpContext: Class javax.xml.ws.spi.http.HttpContext added
 INFO: 8000: javax.xml.ws.spi.http.HttpExchange: Class javax.xml.ws.spi.http.HttpExchange added
 INFO: 8000: javax.xml.ws.spi.http.HttpHandler: Class javax.xml.ws.spi.http.HttpHandler added
