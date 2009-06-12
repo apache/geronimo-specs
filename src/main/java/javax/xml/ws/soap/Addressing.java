@@ -19,6 +19,7 @@
 
 package javax.xml.ws.soap;
 
+import javax.xml.ws.soap.AddressingFeature.Responses;
 import javax.xml.ws.spi.WebServiceFeatureAnnotation;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -31,10 +32,14 @@ import java.lang.annotation.Target;
 @Target(value=ElementType.TYPE)                                                                               
 @WebServiceFeatureAnnotation(id=AddressingFeature.ID, bean=AddressingFeature.class)
                                                                                                               
-public @interface Addressing {                                                                            
-                                                                                                              
+public @interface Addressing {
+    
     public boolean enabled() default true;
     
     public boolean required() default false;
-                                                                                                              
+                              
+    /**
+     * @since 2.2
+     */
+    public Responses responses() default Responses.ALL;
 }
