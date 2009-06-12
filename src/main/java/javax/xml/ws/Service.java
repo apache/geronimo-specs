@@ -29,12 +29,18 @@ import java.util.Iterator;
 import java.util.concurrent.Executor;
 
 public class Service {
-    public enum Mode {
-        MESSAGE, PAYLOAD }
+    public enum Mode { MESSAGE, PAYLOAD }
 
     protected Service(URL wsdlDocumentLocation, QName serviceName) {
         delegate = Provider.provider().createServiceDelegate(wsdlDocumentLocation, serviceName, getClass());
     }
+    /**
+     * @since 2.2
+     */
+    protected Service(URL wsdlDocumentLocation, QName serviceName, WebServiceFeature... features) {
+        delegate = Provider.provider().createServiceDelegate(wsdlDocumentLocation, serviceName, getClass(), features);
+    }
+    
 
     public <T> T getPort(QName portName, Class<T> serviceEndpointInterface) {
         return (T) delegate.getPort(portName, serviceEndpointInterface);
@@ -119,6 +125,19 @@ public class Service {
     public static Service create(QName serviceName) {
         return new Service(null, serviceName);
     }
+    /**
+     * @since 2.2
+     */
+    public static Service create(URL url, QName sn, javax.xml.ws.WebServiceFeature ... features) {
+        return new Service(url, sn,  features);
+    }
+    /**
+     * @since 2.2
+     */
+    public static Service create(QName sn, WebServiceFeature ... features) {
+        return new Service(null, sn,  features);        
+    }
+
 
     private ServiceDelegate delegate;
 }

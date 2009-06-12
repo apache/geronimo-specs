@@ -1,10 +1,25 @@
-INFO: 7011: javax.xml.ws.Endpoint: Method 'public javax.xml.ws.Endpoint create(java.lang.Object, javax.xml.ws.WebServiceFeature[])' has been added
-INFO: 7011: javax.xml.ws.Endpoint: Method 'public javax.xml.ws.Endpoint create(java.lang.String, java.lang.Object, javax.xml.ws.WebServiceFeature[])' has been added
-INFO: 7011: javax.xml.ws.Endpoint: Method 'public javax.xml.ws.Endpoint publish(java.lang.String, java.lang.Object, javax.xml.ws.WebServiceFeature[])' has been added
-INFO: 7011: javax.xml.ws.Endpoint: Method 'public void publish(javax.xml.ws.spi.http.HttpContext)' has been added
-INFO: 7011: javax.xml.ws.Service: Method 'protected Service(java.net.URL, javax.xml.namespace.QName, javax.xml.ws.WebServiceFeature[])' has been added
-INFO: 7011: javax.xml.ws.Service: Method 'public javax.xml.ws.Service create(java.net.URL, javax.xml.namespace.QName, javax.xml.ws.WebServiceFeature[])' has been added
-INFO: 7011: javax.xml.ws.Service: Method 'public javax.xml.ws.Service create(javax.xml.namespace.QName, javax.xml.ws.WebServiceFeature[])' has been added
-INFO: 8000: javax.xml.ws.spi.http.HttpContext: Class javax.xml.ws.spi.http.HttpContext added
-INFO: 8000: javax.xml.ws.spi.http.HttpExchange: Class javax.xml.ws.spi.http.HttpExchange added
-INFO: 8000: javax.xml.ws.spi.http.HttpHandler: Class javax.xml.ws.spi.http.HttpHandler added
+INFO: 6000: javax.xml.ws.spi.http.HttpExchange: Added public field REQUEST_CIPHER_SUITE
+INFO: 6000: javax.xml.ws.spi.http.HttpExchange: Added public field REQUEST_KEY_SIZE
+INFO: 6000: javax.xml.ws.spi.http.HttpExchange: Added public field REQUEST_X509CERTIFICATE
+ERROR: 7013: javax.xml.ws.spi.http.HttpExchange: Abstract method 'public void addResponseHeader(java.lang.String, java.lang.String)' has been added
+ERROR: 7013: javax.xml.ws.spi.http.HttpExchange: Abstract method 'public void close()' has been added
+ERROR: 7013: javax.xml.ws.spi.http.HttpExchange: Abstract method 'public java.lang.Object getAttribute(java.lang.String)' has been added
+ERROR: 7013: javax.xml.ws.spi.http.HttpExchange: Abstract method 'public java.util.Set getAttributeNames()' has been added
+ERROR: 7013: javax.xml.ws.spi.http.HttpExchange: Abstract method 'public java.lang.String getContextPath()' has been added
+ERROR: 7013: javax.xml.ws.spi.http.HttpExchange: Abstract method 'public javax.xml.ws.spi.http.HttpContext getHttpContext()' has been added
+ERROR: 7013: javax.xml.ws.spi.http.HttpExchange: Abstract method 'public java.net.InetSocketAddress getLocalAddress()' has been added
+ERROR: 7013: javax.xml.ws.spi.http.HttpExchange: Abstract method 'public java.lang.String getPathInfo()' has been added
+ERROR: 7013: javax.xml.ws.spi.http.HttpExchange: Abstract method 'public java.lang.String getProtocol()' has been added
+ERROR: 7013: javax.xml.ws.spi.http.HttpExchange: Abstract method 'public java.lang.String getQueryString()' has been added
+ERROR: 7013: javax.xml.ws.spi.http.HttpExchange: Abstract method 'public java.net.InetSocketAddress getRemoteAddress()' has been added
+ERROR: 7013: javax.xml.ws.spi.http.HttpExchange: Abstract method 'public java.io.InputStream getRequestBody()' has been added
+ERROR: 7013: javax.xml.ws.spi.http.HttpExchange: Abstract method 'public java.lang.String getRequestHeader(java.lang.String)' has been added
+ERROR: 7013: javax.xml.ws.spi.http.HttpExchange: Abstract method 'public java.util.Map getRequestHeaders()' has been added
+ERROR: 7013: javax.xml.ws.spi.http.HttpExchange: Abstract method 'public java.lang.String getRequestMethod()' has been added
+ERROR: 7013: javax.xml.ws.spi.http.HttpExchange: Abstract method 'public java.lang.String getRequestURI()' has been added
+ERROR: 7013: javax.xml.ws.spi.http.HttpExchange: Abstract method 'public java.io.OutputStream getResponseBody()' has been added
+ERROR: 7013: javax.xml.ws.spi.http.HttpExchange: Abstract method 'public java.util.Map getResponseHeaders()' has been added
+ERROR: 7013: javax.xml.ws.spi.http.HttpExchange: Abstract method 'public java.lang.String getScheme()' has been added
+ERROR: 7013: javax.xml.ws.spi.http.HttpExchange: Abstract method 'public java.security.Principal getUserPrincipal()' has been added
+ERROR: 7013: javax.xml.ws.spi.http.HttpExchange: Abstract method 'public boolean isUserInRole(java.lang.String)' has been added
+ERROR: 7013: javax.xml.ws.spi.http.HttpExchange: Abstract method 'public void setStatus(int)' has been added
