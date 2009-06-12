@@ -33,4 +33,10 @@ public @interface ResponseWrapper {
     public String localName() default "";
     public String targetNamespace() default "";
     public String className() default "";
+    
+    /**
+     * @since 2.2
+     */
+    public String partName() default "result";
+
 }
