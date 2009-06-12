@@ -24,15 +24,20 @@ import org.w3c.dom.Element;
 import javax.xml.namespace.QName;
 import javax.xml.ws.spi.Provider;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public final class W3CEndpointReferenceBuilder {
     private String address;
     private QName serviceName;
     private QName endpointName;
+    private QName interfaceName;
     private String wsdlDocumentLocation;
     private List<Element> referenceParameters;
     private List<Element> metadataElements;
+    private List<Element> elements;
+    private Map<QName, String> attributes;
     
     public W3CEndpointReferenceBuilder() {
     }
@@ -90,18 +95,64 @@ public final class W3CEndpointReferenceBuilder {
         return this;
     }
     
-    public W3CEndpointReference build() {
-        return Provider.provider().createW3CEndpointReference(address,
-                serviceName,
-                endpointName,
-                metadataElements,
-                wsdlDocumentLocation,
-                referenceParameters);
+    /**
+     * @since 2.2
+     */
+    public W3CEndpointReferenceBuilder attribute(QName name, String value) {
+        if (name == null || value == null) {
+            throw new IllegalArgumentException("An attribute name or value cannot be null.");
+        }
+        
+        if (this.attributes == null) {
+            this.attributes = new HashMap<QName, String>();
+        }
+        attributes.put(name, value);
+        return this;
+    }
+    /**
+     * @since 2.2
+     */
+    public W3CEndpointReferenceBuilder element(Element el) {
+        if (el == null) {
+            throw new IllegalArgumentException("An element cannot be null.");
+        }
+        
+        if (this.elements == null) {
+            this.elements = new ArrayList<Element>();
+        }
+        elements.add(el);
+        return this;
+    }
+    /**
+     * @since 2.2
+     */
+    public W3CEndpointReferenceBuilder interfaceName(QName iname) {
+        interfaceName = iname;
+        return this;
     }
 
-    @Override
-    public String toString() {
-        // TODO Auto-generated method stub
-        return super.toString();
+    
+    public W3CEndpointReference build() {
+        try {
+            //JAX-WS 2.2 runtime
+            return Provider.provider().createW3CEndpointReference(address, 
+                                                                  interfaceName, 
+                                                                  serviceName,
+                                                                  endpointName,
+                                                                  metadataElements,
+                                                                  wsdlDocumentLocation,
+                                                                  referenceParameters,
+                                                                  elements,
+                                                                  attributes);            
+        } catch (UnsupportedOperationException ex) {
+            //Probably a JAX-WS 2.1 runtime
+            return Provider.provider().createW3CEndpointReference(address,
+                                                                  serviceName,
+                                                                  endpointName,
+                                                                  metadataElements,
+                                                                  wsdlDocumentLocation,
+                                                                  referenceParameters);
+        }
     }
+
 }

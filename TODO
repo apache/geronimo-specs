@@ -16,7 +16,3 @@ INFO: 8000: javax.xml.ws.soap.AddressingFeature$Responses: Class javax.xml.ws.so
 INFO: 8000: javax.xml.ws.spi.http.HttpContext: Class javax.xml.ws.spi.http.HttpContext added
 INFO: 8000: javax.xml.ws.spi.http.HttpExchange: Class javax.xml.ws.spi.http.HttpExchange added
 INFO: 8000: javax.xml.ws.spi.http.HttpHandler: Class javax.xml.ws.spi.http.HttpHandler added
-INFO: 7011: javax.xml.ws.wsaddressing.W3CEndpointReferenceBuilder: Method 'public javax.xml.ws.wsaddressing.W3CEndpointReferenceBuilder attribute(javax.xml.namespace.QName, java.lang.String)' has been added
-INFO: 7011: javax.xml.ws.wsaddressing.W3CEndpointReferenceBuilder: Method 'public javax.xml.ws.wsaddressing.W3CEndpointReferenceBuilder element(org.w3c.dom.Element)' has been added
-INFO: 7011: javax.xml.ws.wsaddressing.W3CEndpointReferenceBuilder: Method 'public javax.xml.ws.wsaddressing.W3CEndpointReferenceBuilder interfaceName(javax.xml.namespace.QName)' has been added
-INFO: 7003: javax.xml.ws.wsaddressing.W3CEndpointReferenceBuilder: Method 'public java.lang.String toString()' has been removed, but an inherited definition exists.
