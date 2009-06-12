@@ -4,8 +4,6 @@ INFO: 7011: javax.xml.ws.Endpoint: Method 'public javax.xml.ws.Endpoint publish(
 INFO: 7011: javax.xml.ws.Endpoint: Method 'public void publish(javax.xml.ws.spi.http.HttpContext)' has been added
 INFO: 7011: javax.xml.ws.Endpoint: Method 'public void setEndpointContext(javax.xml.ws.EndpointContext)' has been added
 INFO: 8000: javax.xml.ws.EndpointContext: Class javax.xml.ws.EndpointContext added
-ERROR: 7012: javax.xml.ws.RequestWrapper: Method 'public java.lang.String partName()' has been added to an interface
-ERROR: 7012: javax.xml.ws.ResponseWrapper: Method 'public java.lang.String partName()' has been added to an interface
 INFO: 7011: javax.xml.ws.Service: Method 'protected Service(java.net.URL, javax.xml.namespace.QName, javax.xml.ws.WebServiceFeature[])' has been added
 INFO: 7011: javax.xml.ws.Service: Method 'public javax.xml.ws.Service create(java.net.URL, javax.xml.namespace.QName, javax.xml.ws.WebServiceFeature[])' has been added
 INFO: 7011: javax.xml.ws.Service: Method 'public javax.xml.ws.Service create(javax.xml.namespace.QName, javax.xml.ws.WebServiceFeature[])' has been added
