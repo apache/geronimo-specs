@@ -31,11 +31,11 @@
     </parent>
 
     <groupId>org.apache.geronimo.specs</groupId>
-    <artifactId>geronimo-jaxws_2.1_spec</artifactId>
+    <artifactId>geronimo-jaxws_2.2_spec</artifactId>
     <packaging>bundle</packaging>
-    <name>Apache Geronimo JAX-WS 2.1 API</name>
-    <version>1.0.1-SNAPSHOT</version>
-    <description>Java API for XML Web Services 2.1</description>
+    <name>Apache Geronimo JAX-WS 2.2 API</name>
+    <version>1.0.0-SNAPSHOT</version>
+    <description>Java API for XML Web Services 2.2</description>
 
     <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
     <distributionManagement>
@@ -50,22 +50,16 @@
     </properties>
 
     <scm>
-        <connection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jaxws_2.1_spec/</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jaxws_2.1_spec/</developerConnection>
-        <url>https://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-jaxws_2.1_spec/</url>
+        <connection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jaxws_2.2_spec/</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jaxws_2.2_spec/</developerConnection>
+        <url>https://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-jaxws_2.2_spec/</url>
     </scm>
 
     <dependencies>
         <dependency>
             <groupId>org.apache.geronimo.specs</groupId>
             <artifactId>geronimo-saaj_1.3_spec</artifactId>
-            <version>1.0.0</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-jaxb_2.1_spec</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0.1</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -80,6 +74,29 @@
             <version>1.0.2</version>
             <scope>provided</scope>
         </dependency>
+
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>2.2</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.xml.stream</groupId>
+                    <artifactId>stax-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>javax.activation</groupId>
+                    <artifactId>activation</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!--dependency>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-jaxb_2.1_spec</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency-->
     </dependencies>
 
     <build>
