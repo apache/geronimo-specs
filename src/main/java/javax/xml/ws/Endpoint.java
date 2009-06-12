@@ -69,6 +69,14 @@ public abstract class Endpoint {
 
     public abstract <T extends EndpointReference> T getEndpointReference(Class<T> clazz, org.w3c.dom.Element... referenceParameters);
 
+    
+    /**
+     * @since 2.2
+     */
+    public void setEndpointContext(javax.xml.ws.EndpointContext ctx) {
+        throw new UnsupportedOperationException("JAX-WS 2.2 implementations must override this method.");
+    }
+    
     public static final String WSDL_SERVICE = "javax.xml.ws.wsdl.service";
     public static final String WSDL_PORT = "javax.xml.ws.wsdl.port";
 }

@@ -35,4 +35,6 @@ public @interface WebFault {
     public String targetNamespace() default "";
 
     public String faultBean() default "";
+    
+    public String messageName() default "";
 }
