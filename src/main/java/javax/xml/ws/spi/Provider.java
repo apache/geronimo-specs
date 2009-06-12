@@ -53,7 +53,7 @@ public abstract class Provider {
      * @since 2.2
      */
     public ServiceDelegate createServiceDelegate(URL url, QName qname, Class<? extends Service> cls,
-                                                 WebServiceFeature[] features) {
+                                                 WebServiceFeature ... features) {
         throw new UnsupportedOperationException("JAX-WS 2.2 implementations must override this method.");        
     }
 
@@ -66,7 +66,7 @@ public abstract class Provider {
      * Creates an Endpoint object with the provided bindingId, implementation class, invoker, and web service features.
      * @since 2.2
      */
-    public Endpoint createEndpoint(String bindingId, Class<?> cls, Invoker invoker, WebServiceFeature[] features) {
+    public Endpoint createEndpoint(String bindingId, Class<?> cls, Invoker invoker, WebServiceFeature ... features) {
         throw new UnsupportedOperationException("JAX-WS 2.2 implementations must override this method.");        
     }
     
@@ -74,7 +74,7 @@ public abstract class Provider {
      * Creates an Endpoint object with the provided bindingId, implementation object, and web service features.
      * @since 2.2
      */
-    public Endpoint createEndpoint(String bindingId, Object obj, WebServiceFeature[] features) {
+    public Endpoint createEndpoint(String bindingId, Object obj, WebServiceFeature ... features) {
         throw new UnsupportedOperationException("JAX-WS 2.2 implementations must override this method.");        
     }
 
@@ -88,7 +88,7 @@ public abstract class Provider {
      * Creates and publishes an Endpoint object with the specified address, implementation object and web service features.
      * @since 2.2
      */
-    public Endpoint createAndPublishEndpoint(String address, Object obj, WebServiceFeature[] features) {
+    public Endpoint createAndPublishEndpoint(String address, Object obj, WebServiceFeature ... features) {
         throw new UnsupportedOperationException("JAX-WS 2.2 implementations must override this method.");
     }
     

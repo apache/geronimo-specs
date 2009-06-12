@@ -36,6 +36,28 @@ public abstract class Endpoint {
     public static Endpoint create(String bindingId, Object implementor) {
         return Provider.provider().createEndpoint(bindingId, implementor);
     }
+    /**
+     * @since 2.2
+     */
+    public static Endpoint create(Object implementor, WebServiceFeature ... features) {
+        return Provider.provider().createEndpoint(null, implementor, features);                
+    }
+    /**
+     * @since 2.2
+     */
+    public static Endpoint create(String bindingId, Object implementor, WebServiceFeature ... features) {
+        return Provider.provider().createEndpoint(bindingId, implementor, features);        
+    }
+    
+    public static Endpoint publish(String address, Object implementor) {
+        return Provider.provider().createAndPublishEndpoint(address, implementor);
+    }
+    /**
+     * @since 2.2
+     */
+    public static Endpoint publish(String address, Object implementor, WebServiceFeature ... features) {
+        return Provider.provider().createAndPublishEndpoint(address, implementor, features);        
+    }
 
     public abstract Binding getBinding();
 
@@ -43,9 +65,6 @@ public abstract class Endpoint {
 
     public abstract void publish(String s);
 
-    public static Endpoint publish(String address, Object implementor) {
-        return Provider.provider().createAndPublishEndpoint(address, implementor);
-    }
 
     public abstract void publish(Object obj);
 
@@ -73,9 +92,16 @@ public abstract class Endpoint {
     /**
      * @since 2.2
      */
-    public void setEndpointContext(javax.xml.ws.EndpointContext ctx) {
+    public void setEndpointContext(EndpointContext ctx) {
         throw new UnsupportedOperationException("JAX-WS 2.2 implementations must override this method.");
     }
+    /**
+     * @since 2.2
+     */
+    public void publish(javax.xml.ws.spi.http.HttpContext context) {
+        throw new UnsupportedOperationException("JAX-WS 2.2 implementations must override this method.");        
+    }
+    
     
     public static final String WSDL_SERVICE = "javax.xml.ws.wsdl.service";
     public static final String WSDL_PORT = "javax.xml.ws.wsdl.port";
