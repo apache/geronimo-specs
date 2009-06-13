@@ -34,7 +34,7 @@
     <artifactId>geronimo-jaxws_2.2_spec</artifactId>
     <packaging>bundle</packaging>
     <name>Apache Geronimo JAX-WS 2.2 API</name>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0-alpha-SNAPSHOT</version>
     <description>Java API for XML Web Services 2.2</description>
 
     <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
