@@ -28,9 +28,8 @@ import java.lang.annotation.Target;
                                                                                                               
 @Documented                                                                                                   
 @Retention(value=RetentionPolicy.RUNTIME)                                                                     
-@Target(value=ElementType.TYPE)                                                                               
+@Target(value={ElementType.TYPE,ElementType.METHOD,ElementType.FIELD})                                                                               
 @WebServiceFeatureAnnotation(id=MTOMFeature.ID, bean=MTOMFeature.class)
-                                                                                                              
 public @interface MTOM {                                                                            
                                                                                                               
     public boolean enabled() default true;

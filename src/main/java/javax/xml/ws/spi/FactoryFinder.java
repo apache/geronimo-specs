@@ -169,6 +169,18 @@ class FactoryFinder {
                     
                     ClassLoader classLoader = findClassLoader();
                     
+                    try {
+                        //If we are deployed into an OSGi environment, leverage it
+                        Class<?> cls = Class.forName("org.apache.servicemix.specs.locator.OsgiLocator");
+                        Method m = cls.getMethod("locate", new Class[] {String.class});
+                        Class<?> spiClass = (Class)m.invoke(null, iFactoryId);
+                        if (spiClass != null) {
+                            return spiClass.newInstance();
+                        }
+                    } catch (Throwable e) {
+                        //ignore
+                    }
+			
                     // Use the system property first
                     try {
                         String systemProp =

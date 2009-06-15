@@ -28,6 +28,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+/**
+ * Utility class to build W3CEndpointReference instances.  
+ */
 public final class W3CEndpointReferenceBuilder {
     private String address;
     private QName serviceName;

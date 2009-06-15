@@ -20,13 +20,16 @@
 package javax.xml.ws;
 
 import javax.xml.ws.handler.MessageContext;
+
+import org.w3c.dom.Element;
+
 import java.security.Principal;
 
 public interface WebServiceContext {
 
-    public abstract EndpointReference getEndpointReference(org.w3c.dom.Element... referenceParameters);
+    public abstract EndpointReference getEndpointReference(Element... referenceParameters);
 
-    public abstract <T extends EndpointReference> T getEndpointReference(Class<T> clazz, org.w3c.dom.Element... referenceParameters);
+    public abstract <T extends EndpointReference> T getEndpointReference(Class<T> clazz, Element... referenceParameters);
 
     public abstract MessageContext getMessageContext();
 

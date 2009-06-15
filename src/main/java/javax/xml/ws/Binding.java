@@ -24,9 +24,21 @@ import java.util.List;
 
 public interface Binding {
 
+    /**
+     * Get the BindingId of this binding instance
+     * @return
+     */
     public abstract String getBindingID();
     
+    /**
+     * Get the list of handlers that are associated with this binding instance
+     * @return
+     */
     public abstract List<Handler> getHandlerChain();
 
+    /**
+     * Set's the list of handlers for this binding instance
+     * @param list
+     */
     public abstract void setHandlerChain(List<Handler> list);
 }

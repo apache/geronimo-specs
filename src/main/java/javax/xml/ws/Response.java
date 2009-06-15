@@ -25,5 +25,5 @@ import java.util.concurrent.Future;
 public interface Response<T>
         extends Future<T> {
 
-    public abstract Map<java.lang.String, java.lang.Object> getContext();
+    public abstract Map<String, Object> getContext();
 }

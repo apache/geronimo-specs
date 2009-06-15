@@ -25,10 +25,14 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;                                                                       
                                                                                                               
+          
+/**
+ * The Action annotation allows controlling the WS-Addressing Action properties 
+ * for the input/output/fault messages                                                                                                   
+ */
 @Documented                                                                                                   
 @Retention(value=RetentionPolicy.RUNTIME)                                                                     
 @Target(value=ElementType.METHOD)                                                                               
-                                                                                                              
 public @interface Action {                                                                            
                                                                                                               
     public FaultAction[] fault() default {};

@@ -27,9 +27,9 @@ public interface BindingProvider {
     
     public abstract <T extends EndpointReference> T getEndpointReference(Class<T> clazz);
 
-    public abstract Map<java.lang.String, java.lang.Object>      getRequestContext();
+    public abstract Map<String, Object> getRequestContext();
 
-    public abstract Map<java.lang.String, java.lang.Object>      getResponseContext();
+    public abstract Map<String, Object> getResponseContext();
 
     public abstract Binding getBinding();
 
@@ -39,4 +39,9 @@ public interface BindingProvider {
     public static final String SESSION_MAINTAIN_PROPERTY = "javax.xml.ws.session.maintain";
     public static final String SOAPACTION_USE_PROPERTY = "javax.xml.ws.soap.http.soapaction.use";
     public static final String SOAPACTION_URI_PROPERTY = "javax.xml.ws.soap.http.soapaction.uri";
+    
+    public static final String FAULTTO_PROPERTY = "javax.xml.ws.addressing.faultto";
+    public static final String TO_PROPERTY = "javax.xml.ws.addressing.to";
+    public static final String REPLYTO_PROPERTY = "javax.xml.ws.addressing.replyto";
+    
 }

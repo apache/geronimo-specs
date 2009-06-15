@@ -19,7 +19,16 @@
 
 package javax.xml.ws;
 
-
+/**
+ * The AsyncHandler interface in implemented for clients that would like to
+ * receive their responses back asynchronously. 
+ * @param <T>
+ */
 public interface AsyncHandler<T> {
+    
+    /**
+     * Called when the response is available.
+     * @param response
+     */
     public abstract void handleResponse(Response<T> response);
 }
