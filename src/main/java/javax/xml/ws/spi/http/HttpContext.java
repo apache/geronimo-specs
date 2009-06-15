@@ -22,6 +22,7 @@ package javax.xml.ws.spi.http;
 import java.util.Set;
 
 /**
+ * 
  * @since 2.2
  */
 public abstract class HttpContext {
@@ -31,7 +32,6 @@ public abstract class HttpContext {
     }
     
     public abstract Object getAttribute(String name);
-    
     public abstract Set<String> getAttributeNames(); 
     public abstract String  getPath(); 
     

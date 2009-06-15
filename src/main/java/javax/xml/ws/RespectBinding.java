@@ -28,7 +28,7 @@ import java.lang.annotation.Target;
                                                                                                               
 @Documented                                                                                                   
 @Retention(value=RetentionPolicy.RUNTIME)                                                                     
-@Target(value=ElementType.TYPE)                                                                               
+@Target(value={ElementType.TYPE,ElementType.METHOD,ElementType.FIELD})                                                                               
 @WebServiceFeatureAnnotation(id=RespectBindingFeature.ID, bean=RespectBindingFeature.class)                                                                                                              
 
 public @interface RespectBinding {                                                                            

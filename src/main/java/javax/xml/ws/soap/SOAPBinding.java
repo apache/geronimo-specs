@@ -27,9 +27,9 @@ import java.util.Set;
 public interface SOAPBinding
         extends Binding {
 
-    public abstract Set<java.lang.String> getRoles();
+    public abstract Set<String> getRoles();
 
-    public abstract void setRoles(Set<java.lang.String> set);
+    public abstract void setRoles(Set<String> set);
 
     public abstract boolean isMTOMEnabled();
 

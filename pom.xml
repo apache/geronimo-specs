@@ -106,7 +106,9 @@
                 <artifactId>maven-bundle-plugin</artifactId>
                 <configuration>
                     <instructions>
-                        <Export-Package>javax.xml.ws*;version=2.2</Export-Package>
+                        <Export-Package>javax.xml.ws*;version=2.2;-split-package:=merge-first</Export-Package>
+                        <DynamicImport-Package>org.apache.servicemix.specs.locator.*</DynamicImport-Package>
+                        <Import-Package>*</Import-Package>
                     </instructions>
                 </configuration>
             </plugin>

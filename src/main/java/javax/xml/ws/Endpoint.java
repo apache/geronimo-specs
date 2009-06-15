@@ -19,7 +19,11 @@
 
 package javax.xml.ws;
 
+import javax.xml.transform.Source;
 import javax.xml.ws.spi.Provider;
+
+import org.w3c.dom.Element;
+
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Executor;
@@ -72,21 +76,21 @@ public abstract class Endpoint {
 
     public abstract boolean isPublished();
 
-    public abstract List<javax.xml.transform.Source> getMetadata();
+    public abstract List<Source> getMetadata();
 
-    public abstract void setMetadata(List<javax.xml.transform.Source> list);
+    public abstract void setMetadata(List<Source> list);
 
     public abstract Executor getExecutor();
 
     public abstract void setExecutor(Executor executor);
 
-    public abstract Map<java.lang.String, java.lang.Object> getProperties();
+    public abstract Map<String, Object> getProperties();
 
-    public abstract void setProperties(Map<java.lang.String, java.lang.Object> map);
+    public abstract void setProperties(Map<String, Object> map);
 
-    public abstract EndpointReference getEndpointReference(org.w3c.dom.Element... referenceParameters);
+    public abstract EndpointReference getEndpointReference(Element... referenceParameters);
 
-    public abstract <T extends EndpointReference> T getEndpointReference(Class<T> clazz, org.w3c.dom.Element... referenceParameters);
+    public abstract <T extends EndpointReference> T getEndpointReference(Class<T> clazz, Element... referenceParameters);
 
     
     /**
