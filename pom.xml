@@ -32,7 +32,7 @@
 
     <groupId>org.apache.geronimo.specs</groupId>
     <artifactId>geronimo-jaxws_2.2_spec</artifactId>
-    <packaging>jar</packaging>
+    <packaging>bundle</packaging>
     <name>Apache Geronimo JAX-WS 2.2 API</name>
     <version>1.0-EA-SNAPSHOT</version>
     <description>Java API for XML Web Services 2.2</description>
@@ -93,5 +93,18 @@
         </dependency>
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <configuration>
+                    <instructions>
+                        <Export-Package>javax.xml.ws*;version=2.2</Export-Package>
+                    </instructions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
