@@ -25,22 +25,16 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.apache.geronimo.specs</groupId>
-        <artifactId>specs-parent</artifactId>
-        <version>1.6</version>
+        <groupId>org.apache.geronimo.genesis</groupId>
+        <artifactId>genesis-java5-flava</artifactId>
+        <version>2.0</version>
     </parent>
 
-    <!--<parent>-->
-        <!--<groupId>org.apache.geronimo.genesis</groupId>-->
-        <!--<artifactId>genesis-java5-flava</artifactId>-->
-        <!--<version>2.0</version>-->
-    <!--</parent>-->
     <groupId>org.apache.geronimo.specs</groupId>
     <artifactId>geronimo-jpa_2.0_spec</artifactId>
-    <packaging>jar</packaging>
-    <!--<packaging>bundle</packaging>-->
+    <packaging>bundle</packaging>
     <name>Apache Geronimo JSR-317 JPA 2.0 EARLY ACCESS Spec API</name>
-    <version>1.0-EA2-SNAPSHOT</version>
+    <version>1.0-EA3-SNAPSHOT</version>
 
     <description>Implementation of Sun JSR-317 JPA 2.0 EARLY ACCESS Spec API</description>
 
@@ -54,8 +48,6 @@
 
     <properties>
         <siteId>specs/${artifactId}</siteId>
-        <geronimo.osgi.export.pkg>javax.persistence*</geronimo.osgi.export.pkg>
-        <geronimo.osgi.export.version>2.0</geronimo.osgi.export.version>
     </properties>
 
     <scm>
@@ -63,7 +55,7 @@
         <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jpa_2.0_spec/</developerConnection>
         <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-jpa_2.0_spec/</url>
     </scm>
-<!--
+
     <build>
         <plugins>
             <plugin>
@@ -77,5 +69,5 @@
             </plugin>
         </plugins>
     </build>
--->
+
 </project>
