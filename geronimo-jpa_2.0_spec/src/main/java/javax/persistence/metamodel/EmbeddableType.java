@@ -25,5 +25,6 @@
 
 package javax.persistence.metamodel;
 
-public interface MappedSuperclass<X> extends IdentifiableType<X> {    
+public interface EmbeddableType<X> extends ManagedType<X> {
+    
 }

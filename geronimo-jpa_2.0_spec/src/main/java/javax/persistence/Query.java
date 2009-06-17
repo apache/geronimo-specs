@@ -27,18 +27,14 @@ package javax.persistence;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
+import java.util.Map;
 
 /**
  * @version $Rev$ $Date$
  */
 public interface Query {
 
-    List<Result> getTypedResultList();
-    
-    Result getTypedSingleResult();
-    
     List getResultList();
 
     Object getSingleResult();
@@ -46,7 +42,7 @@ public interface Query {
     int executeUpdate();
 
     Query setMaxResults(int maxResult);
-    
+
     int getMaxResults();
 
     Query setFirstResult(int startPosition);
@@ -59,23 +55,19 @@ public interface Query {
 
     Set<String> getSupportedHints();
 
-    <T> Query setParameter(Parameter<T> param, T value);
-
     Query setParameter(String name, Object value);
 
-    Query setParameter(String name, Date value,
-        TemporalType temporalType);
+    Query setParameter(String name, Date value, TemporalType temporalType);
 
-    Query setParameter(String name, Calendar value,
-        TemporalType temporalType);
-    
+    Query setParameter(String name, Calendar value, TemporalType temporalType);
+
+    <T> Query setParameter(Parameter<T> param, T value);
+
     Query setParameter(int position, Object value);
-    
-    Query setParameter(int position, Date value,
-        TemporalType temporalType);
 
-    Query setParameter(int position, Calendar value,
-        TemporalType temporalType);
+    Query setParameter(int position, Date value,  TemporalType temporalType);
+
+    Query setParameter(int position, Calendar value,  TemporalType temporalType);
 
     Set<Parameter<?>> getParameters();
 
@@ -84,12 +76,6 @@ public interface Query {
     <T> Parameter<T> getParameter(int position, Class<T> type);
 
     <T> T getParameterValue(Parameter<T> param);
-
-    <T> ResultItem<T> getResultItem(String alias, Class<T> type);
-
-    <T> ResultItem<T> getResultItem(int position, Class<T> type);
-
-    List<ResultItem<?>> getResultItems();
 
     Query setFlushMode(FlushModeType flushMode);
 

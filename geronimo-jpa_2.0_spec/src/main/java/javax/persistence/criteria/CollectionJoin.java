@@ -26,9 +26,10 @@
 package javax.persistence.criteria;
 
 import java.util.Collection;
+import javax.persistence.metamodel.CollectionAttribute;
 
-public interface CollectionJoin<Z, E>
-    extends AbstractCollectionJoin<Z, Collection<E>, E> {
+public interface CollectionJoin<Z, E> 
+        extends PluralJoin<Z, Collection<E>, E> {
 
-    javax.persistence.metamodel.Collection<? super Z, E> getModel();
+    CollectionAttribute<? super Z, E> getModel();
 }

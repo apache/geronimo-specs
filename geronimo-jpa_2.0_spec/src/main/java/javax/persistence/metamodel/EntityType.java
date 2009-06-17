@@ -25,10 +25,8 @@
 
 package javax.persistence.metamodel;
 
-public interface Map<X, K, V>
-    extends AbstractCollection<X, java.util.Map<K, V>, V> {
-    
-    Class<K> getKeyJavaType();
+public interface EntityType<X> 
+    extends IdentifiableType<X>, Bindable<X>{
 
-    Type<K> getKeyType();
+    String getName();
 }

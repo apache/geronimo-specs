@@ -23,11 +23,7 @@
 // DO NOT add / change / or delete method signatures!
 //
 
-package javax.persistence.criteria;
+package javax.persistence.metamodel;
 
-import javax.persistence.TupleElement;
-
-public interface Selection<X> extends TupleElement<X> {
-
-    void setAlias(String name);
+public interface BasicType<X> extends Type<X> {    
 }

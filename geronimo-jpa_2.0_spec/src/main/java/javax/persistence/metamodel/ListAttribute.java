@@ -25,5 +25,7 @@
 
 package javax.persistence.metamodel;
 
-public interface Basic<X> extends Type<X> {    
+public interface ListAttribute<X, E> 
+    extends PluralAttribute<X, java.util.List<E>, E> {
+    
 }

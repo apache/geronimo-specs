@@ -22,23 +22,9 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
+package javax.persistence.criteria;
 
-package javax.persistence.metamodel;
+import javax.persistence.Parameter;
 
-public interface AbstractCollection<X, C, E> 
-    extends Member<X, C>, Bindable<E> {
-    
-    public static enum CollectionType {
-        COLLECTION, SET, LIST, MAP
-    }
-
-    public static enum Multiplicity {
-        MANY_TO_MANY, ONE_TO_MANY, ELEMENT_COLLECTION
-    }
-
-    CollectionType getCollectionType();
-
-    Multiplicity getMultiplicity();
-
-    Type<E> getElementType();
+public interface ParameterExpression<T> extends Parameter<T>, Expression<T> {    
 }

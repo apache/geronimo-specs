@@ -22,35 +22,34 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-
 package javax.persistence.criteria;
 
 import java.util.List;
 import java.util.Set;
-import javax.persistence.Parameter;
 
-public interface CriteriaQuery extends AbstractQuery {
-
-    CriteriaQuery select(Selection<?>... selections);
+public interface CriteriaQuery<T> extends AbstractQuery<T> {
     
-    //override the return type only:
+    CriteriaQuery<T> select(Selection<T> selection);
 
-    CriteriaQuery where(Expression<Boolean> restriction);
+    CriteriaQuery<T> multiselect(Selection<?>... selections);
 
-    CriteriaQuery where(Predicate... restrictions);
+    CriteriaQuery<T> where(Expression<Boolean> restriction);
 
-    CriteriaQuery groupBy(Expression<?>... grouping);
+    CriteriaQuery<T> where(Predicate... restrictions);
 
-    CriteriaQuery having(Expression<Boolean> restriction);
+    CriteriaQuery<T> groupBy(Expression<?>... grouping);
 
-    CriteriaQuery having(Predicate... restrictions);
+    CriteriaQuery<T> having(Expression<Boolean> restriction);
 
-    CriteriaQuery orderBy(Order... o);
+    CriteriaQuery<T> having(Predicate... restrictions);
 
-    CriteriaQuery distinct(boolean distinct);
+    CriteriaQuery<T> orderBy(Order... o);
 
+    CriteriaQuery<T> distinct(boolean distinct);
+ 
     List<Selection<?>> getSelectionList();
-
+    
     List<Order> getOrderList();
-    Set<Parameter<?>> getParameters();
+ 
+    Set<ParameterExpression<?>> getParameters();
 }

@@ -27,9 +27,9 @@ package javax.persistence.criteria;
 
 public interface Order {
 
-    void reverse();
+    Order reverse();
 
     boolean isAscending();
 
-    <T extends Comparable<T>> Expression<T> getExpression();
+   <T extends Comparable<T>> Expression<T> getExpression();
 }

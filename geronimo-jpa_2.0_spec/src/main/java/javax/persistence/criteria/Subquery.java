@@ -25,19 +25,12 @@
 
 package javax.persistence.criteria;
 
-import javax.persistence.metamodel.Collection;
-import javax.persistence.metamodel.List;
-import javax.persistence.metamodel.Map;
-import javax.persistence.metamodel.Set;
+public interface Subquery<T> extends AbstractQuery<T>, Expression<T> {
 
-public interface Subquery<T> extends AbstractQuery, Expression<T> {
-
-    AbstractQuery getParent();
-
+    AbstractQuery<?> getParent();
+    
     Subquery<T> select(Expression<T> expression);
-
-    //override the return type only:
-
+    
     Subquery<T> where(Expression<Boolean> restriction);
 
     Subquery<T> where(Predicate... restrictions);
@@ -49,15 +42,14 @@ public interface Subquery<T> extends AbstractQuery, Expression<T> {
     Subquery<T> having(Predicate... restrictions);
 
     Subquery<T> distinct(boolean distinct);
-
+    
     Expression<T> getSelection();
-
+    
     <Y> Root<Y> correlate(Root<Y> parentRoot);
 
     <X, Y> Join<X, Y> correlate(Join<X, Y> parentJoin);
 
-    <X, Y> CollectionJoin<X, Y> correlate(
-        CollectionJoin<X, Y> parentCollection);
+    <X, Y> CollectionJoin<X, Y> correlate(CollectionJoin<X, Y> parentCollection);
 
     <X, Y> SetJoin<X, Y> correlate(SetJoin<X, Y> parentSet);
 

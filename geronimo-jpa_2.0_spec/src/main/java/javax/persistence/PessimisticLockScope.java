@@ -22,9 +22,9 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
+package javax.persistence;
 
-package javax.persistence.metamodel;
-
-public interface List<X, E>
-    extends AbstractCollection<X, java.util.List<E>, E> {    
+public enum PessimisticLockScope {
+    NORMAL,
+    EXTENDED
 }

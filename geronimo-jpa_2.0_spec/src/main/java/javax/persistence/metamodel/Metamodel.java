@@ -27,15 +27,15 @@ package javax.persistence.metamodel;
 
 public interface Metamodel {
 
-    <X> Entity<X> entity(Class<X> cls);
+    <X> EntityType<X> entity(Class<X> cls);
 
     <X> ManagedType<X> type(Class<X> cls);
 
-    <X> Embeddable<X> embeddable(Class<X> cls);
+    <X> EmbeddableType<X> embeddable(Class<X> cls);
 
     java.util.Set<ManagedType<?>> getManagedTypes();
 
-    java.util.Set<Entity<?>> getEntities();
+    java.util.Set<EntityType<?>> getEntities();
 
-    java.util.Set<Embeddable<?>> getEmbeddables();
+    java.util.Set<EmbeddableType<?>> getEmbeddables();
 }

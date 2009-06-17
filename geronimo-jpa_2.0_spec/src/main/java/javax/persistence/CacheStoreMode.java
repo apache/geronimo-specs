@@ -23,11 +23,10 @@
 // DO NOT add / change / or delete method signatures!
 //
 
-package javax.persistence.criteria;
+package javax.persistence;
 
-import javax.persistence.metamodel.AbstractCollection;
-
-public interface AbstractCollectionJoin<Z, C, E> extends Join<Z, E> {
-
-    AbstractCollection<? super Z, C, E> getModel();
+public enum CacheStoreMode {
+    USE,
+    BYPASS,
+    REFRESH
 }

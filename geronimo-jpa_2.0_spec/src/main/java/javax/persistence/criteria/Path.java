@@ -25,27 +25,27 @@
 
 package javax.persistence.criteria;
 
-import javax.persistence.metamodel.AbstractCollection;
-import javax.persistence.metamodel.Attribute;
+import javax.persistence.metamodel.PluralAttribute;
+import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.Bindable;
-import javax.persistence.metamodel.Map;
+import javax.persistence.metamodel.MapAttribute;
 
 public interface Path<X> extends Expression<X> {
 
-    Bindable<X> getModel();
-
+    Bindable<X> getModel(); 
+    
     Path<?> getParentPath();
+    
+    <Y> Path<Y> get(SingularAttribute<? super X, Y> attribute);
 
-    <Y> Path<Y> get(Attribute<? super X, Y> model);
+    <E, C extends java.util.Collection<E>> Expression<C> get(PluralAttribute<X, C, E> collection);
 
-    <E, C extends java.util.Collection<E>> Expression<C>
-        get(AbstractCollection<X, C, E> collection);
-
-    <K, V, M extends java.util.Map<K, V>> Expression<M> 
-        get(Map<X, K, V> collection);
+    <K, V, M extends java.util.Map<K, V>> Expression<M> get(MapAttribute<X, K, V> map);
 
     Expression<Class<? extends X>> type();
     
     //String-based:
-    <Y> Path<Y> get(String attName);
+    
+    <Y> Path<Y> get(String attributeName);
 }
+

@@ -22,12 +22,16 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
+package javax.persistence.metamodel;
 
-package javax.persistence.criteria;
+public interface SingularAttribute<X, T> 
+    extends Attribute<X, T>, Bindable<T> {
 
-import javax.persistence.TupleElement;
+    boolean isId();
 
-public interface Selection<X> extends TupleElement<X> {
+    boolean isVersion();
 
-    void setAlias(String name);
+    boolean isOptional();
+
+    Type<T> getType();
 }

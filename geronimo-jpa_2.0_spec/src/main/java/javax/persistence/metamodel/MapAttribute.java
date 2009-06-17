@@ -23,11 +23,12 @@
 // DO NOT add / change / or delete method signatures!
 //
 
-package javax.persistence.criteria;
+package javax.persistence.metamodel;
 
-import javax.persistence.TupleElement;
+public interface MapAttribute<X, K, V> 
+    extends PluralAttribute<X, java.util.Map<K, V>, V> {
 
-public interface Selection<X> extends TupleElement<X> {
+    Class<K> getKeyJavaType();
 
-    void setAlias(String name);
+    Type<K> getKeyType();
 }

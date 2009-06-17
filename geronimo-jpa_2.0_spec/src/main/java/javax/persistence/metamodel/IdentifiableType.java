@@ -22,22 +22,25 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-
 package javax.persistence.metamodel;
 
 public interface IdentifiableType<X> extends ManagedType<X> {
+    
+    <Y> SingularAttribute<? super X, Y> getId(Class<Y> type);
 
-    <Y> Attribute<? super X, Y> getId(Class<Y> type);
+    <Y> SingularAttribute<? super X, Y> getVersion(Class<Y> type);
 
-    <Y> Attribute<? super X, Y> getVersion(Class<Y> type);
+    <Y> SingularAttribute<X, Y> getDeclaredId(Class<Y> type);
 
-    <Y> Attribute<X, Y> getDeclaredId(Class<Y> type);
-
-    <Y> Attribute<X, Y> getDeclaredVersion(Class<Y> type);
-
+    <Y> SingularAttribute<X, Y> getDeclaredVersion(Class<Y> type);
+    
     IdentifiableType<? super X> getSupertype();
 
-    boolean hasIdAttribute();
+    boolean hasSingleIdAttribute();
+
+    boolean hasVersionAttribute();
+
+    java.util.Set<SingularAttribute<? super X, ?>> getIdClassAttributes();
 
     Type<?> getIdType();
 }

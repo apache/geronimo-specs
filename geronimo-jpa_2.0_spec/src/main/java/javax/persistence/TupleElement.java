@@ -22,8 +22,11 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
+package javax.persistence;
 
-package javax.persistence.metamodel;
+public interface TupleElement <X> {
+    
+    Class<X> getJavaType();
 
-public interface Embeddable<X> extends ManagedType<X> {    
+    String getAlias();
 }

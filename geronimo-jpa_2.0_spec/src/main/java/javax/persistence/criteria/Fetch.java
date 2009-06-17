@@ -25,11 +25,11 @@
 
 package javax.persistence.criteria;
 
-import javax.persistence.metamodel.Member;
+import javax.persistence.metamodel.Attribute;
 
 public interface Fetch<Z, X> extends FetchParent<Z, X> {
 
-    Member<? extends Z, X> getMember();
+    Attribute<? extends Z, X> getAttribute();
 
     FetchParent<?, Z> getParent();
 

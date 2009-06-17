@@ -22,20 +22,16 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-
 package javax.persistence.metamodel;
 
-public interface Member<X, Y> {
+public interface PluralAttribute<X, C, E> 
+    extends Attribute<X, C>, Bindable<E> {
 
-    String getName();
+    public static enum CollectionType {
+        COLLECTION, SET, LIST, MAP
+    }
 
-    ManagedType<X> getDeclaringType();
+    CollectionType getCollectionType();
 
-    Class<Y> getMemberJavaType();
-
-    java.lang.reflect.Member getJavaMember();
-
-    boolean isAssociation();
-
-    boolean isCollection();
+    Type<E> getElementType();
 }

@@ -25,57 +25,55 @@
 
 package javax.persistence.criteria;
 
-import javax.persistence.metamodel.Attribute;
-import javax.persistence.metamodel.Collection;
-import javax.persistence.metamodel.List;
-import javax.persistence.metamodel.Map;
-import javax.persistence.metamodel.Set;
+import javax.persistence.metamodel.SingularAttribute;
+import javax.persistence.metamodel.CollectionAttribute;
+import javax.persistence.metamodel.ListAttribute;
+import javax.persistence.metamodel.MapAttribute;
+import javax.persistence.metamodel.SetAttribute;
 
 public interface From<Z, X> extends Path<X>, FetchParent<Z, X> {
 
     java.util.Set<Join<X, ?>> getJoins();
+    
+    <Y> Join<X, Y> join(SingularAttribute<? super X, Y> attribute);
 
-    <Y> Join<X, Y> join(Attribute<? super X, Y> attribute);
+    <Y> Join<X, Y> join(SingularAttribute<? super X, Y> attribute, JoinType jt);
 
-    <Y> Join<X, Y> join(Attribute<? super X, Y> attribute, JoinType jt);
+    <Y> CollectionJoin<X, Y> join(CollectionAttribute<? super X, Y> collection);
 
-    <Y> CollectionJoin<X, Y> join(Collection<? super X, Y> collection);
+    <Y> SetJoin<X, Y> join(SetAttribute<? super X, Y> set);
 
-    <Y> SetJoin<X, Y> join(Set<? super X, Y> set);
+    <Y> ListJoin<X, Y> join(ListAttribute<? super X, Y> list);
 
-    <Y> ListJoin<X, Y> join(List<? super X, Y> list);
+    <K, V> MapJoin<X, K, V> join(MapAttribute<? super X, K, V> map);
 
-    <K, V> MapJoin<X, K, V> join(Map<? super X, K, V> map);
+    <Y> CollectionJoin<X, Y> join(CollectionAttribute<? super X, Y> collection, JoinType jt);
 
-    <Y> CollectionJoin<X, Y> join(Collection<? super X, Y> collection,
-        JoinType jt);
+    <Y> SetJoin<X, Y> join(SetAttribute<? super X, Y> set, JoinType jt);
 
-    <Y> SetJoin<X, Y> join(Set<? super X, Y> set, JoinType jt);
+    <Y> ListJoin<X, Y> join(ListAttribute<? super X, Y> list, JoinType jt);
 
-    <Y> ListJoin<X, Y> join(List<? super X, Y> list, JoinType jt);
-
-    <K, V> MapJoin<X, K, V> join(Map<? super X, K, V> map, JoinType jt);
-
+    <K, V> MapJoin<X, K, V> join(MapAttribute<? super X, K, V> map, JoinType jt);
+    
     //String-based:
 
-    <W, Y> Join<W, Y> join(String attributeName);
+    <X, Y> Join<X, Y> join(String attributeName);   
 
-    <W, Y> CollectionJoin<W, Y> joinCollection(String attributeName);
+    <X, Y> CollectionJoin<X, Y> joinCollection(String attributeName);   
 
-    <W, Y> SetJoin<W, Y> joinSet(String attributeName);
+    <X, Y> SetJoin<X, Y> joinSet(String attributeName); 
 
-    <W, Y> ListJoin<W, Y> joinList(String attributeName);
+    <X, Y> ListJoin<X, Y> joinList(String attributeName);       
 
-    <W, K, V> MapJoin<W, K, V> joinMap(String attributeName);
+    <X, K, V> MapJoin<X, K, V> joinMap(String attributeName);   
 
-    <W, Y> Join<W, Y> join(String attributeName, JoinType jt);
+    <X, Y> Join<X, Y> join(String attributeName, JoinType jt);  
 
-    <W, Y> CollectionJoin<W, Y> joinCollection(String attributeName,
-        JoinType jt);
+    <X, Y> CollectionJoin<X, Y> joinCollection(String attributeName, JoinType jt);  
 
-    <W, Y> SetJoin<W, Y> joinSet(String attributeName, JoinType jt);
+    <X, Y> SetJoin<X, Y> joinSet(String attributeName, JoinType jt);    
 
-    <W, Y> ListJoin<W, Y> joinList(String attributeName, JoinType jt);
+    <X, Y> ListJoin<X, Y> joinList(String attributeName, JoinType jt);  
 
-    <W, K, V> MapJoin<W, K, V> joinMap(String attributeName, JoinType jt);
+    <X, K, V> MapJoin<X, K, V> joinMap(String attributeName, JoinType jt);  
 }

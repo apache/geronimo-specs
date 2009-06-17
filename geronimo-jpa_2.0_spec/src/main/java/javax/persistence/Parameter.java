@@ -25,10 +25,8 @@
 
 package javax.persistence;
 
-import javax.persistence.criteria.Expression;
+public interface Parameter<T> {
 
-public interface Parameter<T> extends Expression<T> {
-    
     String getName();
 
     Integer getPosition();

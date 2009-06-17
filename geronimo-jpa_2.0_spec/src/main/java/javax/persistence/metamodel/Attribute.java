@@ -25,19 +25,24 @@
 
 package javax.persistence.metamodel;
 
-public interface Attribute<X, T> extends Member<X, T>, Bindable<T> {
+public interface Attribute<X, Y> {
 
-    public static enum Multiplicity {
-        MANY_TO_ONE, ONE_TO_ONE, EMBEDDED, BASIC
+    public static enum PersistentAttributeType {
+        MANY_TO_ONE, ONE_TO_ONE, BASIC, EMBEDDED,
+        MANY_TO_MANY, ONE_TO_MANY, ELEMENT_COLLECTION
     }
 
-    Multiplicity getMultiplicity();
+    String getName();
 
-    boolean isId();
+    PersistentAttributeType getPersistentAttributeType();
 
-    boolean isVersion();
+    ManagedType<X> getDeclaringType();
 
-    boolean isOptional();
+    Class<Y> getJavaType();
 
-    Type<T> getAttributeType();
+    java.lang.reflect.Member getJavaMember();
+
+    boolean isAssociation();
+
+    boolean isCollection();
 }

@@ -25,12 +25,11 @@
 
 package javax.persistence;
 
-import java.util.Map;
 import java.util.Set;
-
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.QueryBuilder;
+import java.util.Map;
 import javax.persistence.metamodel.Metamodel;
+import javax.persistence.criteria.QueryBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 
 /**
  * @version $Rev$ $Date$
@@ -41,39 +40,44 @@ public interface EntityManager {
     public <T> T merge(T entity);
     public void remove(Object entity);
     public <T> T find(Class<T> entityClass, Object primaryKey);
+    public <T> T find(Class<T> entityClass, Object primaryKey, 
+                      Map<String, Object> properties); 
     public <T> T find(Class<T> entityClass, Object primaryKey,
-        Map<String, Object> properties);
+                      LockModeType lockMode);
     public <T> T find(Class<T> entityClass, Object primaryKey,
-        LockModeType lockMode);
-    public <T> T find(Class<T> entityClass, Object primaryKey,
-        LockModeType lockMode, Map<String, Object> properties);
-    public <T> T getReference(Class<T> entityClass, Object primaryKey);
+                      LockModeType lockMode, 
+                      Map<String, Object> properties);
+    public <T> T getReference(Class<T> entityClass, 
+                                  Object primaryKey);
     public void flush();
     public void setFlushMode(FlushModeType flushMode);
     public FlushModeType getFlushMode();
     public void lock(Object entity, LockModeType lockMode);
     public void lock(Object entity, LockModeType lockMode,
-        Map<String, Object> properties);
+                     Map<String, Object> properties);
     public void refresh(Object entity);
-    public void refresh(Object entity, Map<String, Object> properties);
+    public void refresh(Object entity,
+                            Map<String, Object> properties); 
     public void refresh(Object entity, LockModeType lockMode);
     public void refresh(Object entity, LockModeType lockMode,
-        Map<String, Object> properties);
+                        Map<String, Object> properties);
     public void clear();
-    public void detach(Object entity);
+    public void detach(Object entity); 
     public boolean contains(Object entity);
     public LockModeType getLockMode(Object entity);
     public void setProperty(String propertyName, Object value);
     public Map<String, Object> getProperties();
     public Set<String> getSupportedProperties();
     public Query createQuery(String qlString);
-    public Query createQuery(CriteriaQuery criteriaQuery);
+    public <T> TypedQuery<T> createQuery(String qlString, Class<T> resultClass);
+    public <T> TypedQuery<T> createQuery(CriteriaQuery<T> criteriaQuery); 
     public Query createNamedQuery(String name);
+    public <T> TypedQuery<T> createNamedQuery(String name, Class<T> resultClass);
     public Query createNativeQuery(String sqlString);
     public Query createNativeQuery(String sqlString, Class resultClass);
     public Query createNativeQuery(String sqlString, String resultSetMapping);
     public void joinTransaction();
-    public <T> T unwrap(Class<T> cls);
+    public <T> T unwrap(Class<T> cls); 
     public Object getDelegate();
     public void close();
     public boolean isOpen();

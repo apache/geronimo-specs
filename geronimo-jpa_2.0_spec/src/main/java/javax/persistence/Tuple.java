@@ -22,10 +22,21 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
+package javax.persistence;
 
-package javax.persistence.metamodel;
+import java.util.List;
 
-public interface Collection<X, E>
-    extends AbstractCollection<X, java.util.Collection<E>, E> {
-    
+public interface Tuple {
+
+    <X> X get(TupleElement<X> tupleElement);
+
+    <X> X get(String alias, Class<X> type); 
+
+    <X> X get(int i, Class<X> type);
+
+    Object get(int i);
+
+    Object[] toArray();
+
+    List<TupleElement<?>> getElements();
 }

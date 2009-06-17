@@ -24,11 +24,11 @@
 //
 package javax.persistence;
 
-import java.util.Map;
 import java.util.Set;
+import java.util.Map;
 
-import javax.persistence.criteria.QueryBuilder;
 import javax.persistence.metamodel.Metamodel;
+import javax.persistence.criteria.QueryBuilder;
 
 /**
  *
