@@ -23,10 +23,15 @@
 // DO NOT add / change / or delete method signatures!
 //
 
-package javax.persistence;
+package javax.persistence.metamodel;
 
-public enum CachePutMode {
-    USE,
-    BYPASS,
-    REFRESH
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface StaticMetamodel {
+    Class<?> value();
 }

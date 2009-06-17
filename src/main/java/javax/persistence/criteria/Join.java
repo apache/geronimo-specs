@@ -25,11 +25,11 @@
 
 package javax.persistence.criteria;
 
-import javax.persistence.metamodel.Member;
+import javax.persistence.metamodel.Attribute;
 
 public interface Join<Z, X> extends From<Z, X> {
 
-    Member<? extends Z, X> getMember();
+    Attribute<? super Z, ?> getAttribute();
 
     From<?, Z> getParent();
 

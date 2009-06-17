@@ -24,63 +24,67 @@
 //
 package javax.persistence.metamodel;
 
-public interface ManagedType<X> extends Type<X>, Bindable<X> {
-
-    <Y> Attribute<? super X, Y> getAttribute(String name,
-        Class<Y> type);
-
-    <Y> Attribute<X, Y> getDeclaredAttribute(String name,
-        Class<Y> type);
+public interface ManagedType<X> extends Type<X> {
 
     java.util.Set<Attribute<? super X, ?>> getAttributes();
 
     java.util.Set<Attribute<X, ?>> getDeclaredAttributes();
 
-    <E> Collection<? super X, E> getCollection(String name,
-        Class<E> elementType);
+    <Y> SingularAttribute<? super X, Y> getSingularAttribute(String name, Class<Y> type);
 
-    <E> Set<? super X, E> getSet(String name, Class<E> elementType);
-
-    <E> List<? super X, E> getList(String name, Class<E> elementType);
-
-    <K, V> Map<? super X, K, V> getMap(String name,
-        Class<K> keyType,
-        Class<V> valueType);
-
-    <E> Collection<X, E> getDeclaredCollection(String name,
-        Class<E> elementType);
-
-    <E> Set<X, E> getDeclaredSet(String name, Class<E> elementType);
-
-    <E> List<X, E> getDeclaredList(String name, Class<E> elementType);
-
-    <K, V> Map<X, K, V> getDeclaredMap(String name,
-        Class<K> keyType,
-        Class<V> valueType);
-
-    java.util.Set<AbstractCollection<? super X, ?, ?>> getCollections();
-
-    java.util.Set<AbstractCollection<X, ?, ?>> getDeclaredCollections();
+    <Y> SingularAttribute<X, Y> getDeclaredSingularAttribute(String name, Class<Y> type);
     
-    //String-based:
+    java.util.Set<SingularAttribute<? super X, ?>> getSingularAttributes();
 
-    Attribute<? super X, ?> getAttribute(String name);
+    java.util.Set<SingularAttribute<X, ?>> getDeclaredSingularAttributes();
+    
+    <E> CollectionAttribute<? super X, E> getCollection(String name, Class<E> elementType);
 
-    Attribute<X, ?> getDeclaredAttribute(String name);
+    <E> SetAttribute<? super X, E> getSet(String name, Class<E> elementType);
 
-    Collection<? super X, ?> getCollection(String name);
+    <E> ListAttribute<? super X, E> getList(String name, Class<E> elementType);
 
-    Set<? super X, ?> getSet(String name);
+    <K, V> MapAttribute<? super X, K, V> getMap(String name, 
+                                                Class<K> keyType, 
+                                                Class<V> valueType);
 
-    List<? super X, ?> getList(String name);
+    <E> CollectionAttribute<X, E> getDeclaredCollection(String name, Class<E> elementType);
 
-    Map<? super X, ?, ?> getMap(String name);
+    <E> SetAttribute<X, E> getDeclaredSet(String name, Class<E> elementType);
 
-    Collection<X, ?> getDeclaredCollection(String name);
+    <E> ListAttribute<X, E> getDeclaredList(String name, Class<E> elementType);
 
-    Set<X, ?> getDeclaredSet(String name);
+    <K, V> MapAttribute<X, K, V> getDeclaredMap(String name, 
+                                                Class<K> keyType, 
+                                                Class<V> valueType);
+    
+    java.util.Set<PluralAttribute<? super X, ?, ?>> getCollections();
 
-    List<X, ?> getDeclaredList(String name);
+    java.util.Set<PluralAttribute<X, ?, ?>> getDeclaredCollections();
 
-    Map<X, ?, ?> getDeclaredMap(String name);
+//String-based:
+
+    Attribute<? super X, ?> getAttribute(String name); 
+
+    Attribute<X, ?> getDeclaredAttribute(String name); 
+
+    SingularAttribute<? super X, ?> getSingularAttribute(String name);
+
+    SingularAttribute<X, ?> getDeclaredSingularAttribute(String name);
+
+    CollectionAttribute<? super X, ?> getCollection(String name); 
+
+    SetAttribute<? super X, ?> getSet(String name);
+
+    ListAttribute<? super X, ?> getList(String name);
+
+    MapAttribute<? super X, ?, ?> getMap(String name); 
+
+    CollectionAttribute<X, ?> getDeclaredCollection(String name); 
+
+    SetAttribute<X, ?> getDeclaredSet(String name);
+
+    ListAttribute<X, ?> getDeclaredList(String name);
+
+    MapAttribute<X, ?, ?> getDeclaredMap(String name);
 }

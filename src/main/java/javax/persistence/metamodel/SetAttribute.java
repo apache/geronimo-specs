@@ -22,9 +22,10 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-package javax.persistence;
 
-public enum CacheGetMode {
-    USE,
-    BYPASS
+package javax.persistence.metamodel;
+
+public interface SetAttribute<X, E> 
+    extends PluralAttribute<X, java.util.Set<E>, E> {
+    
 }

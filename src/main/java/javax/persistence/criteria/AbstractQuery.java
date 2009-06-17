@@ -27,27 +27,30 @@ package javax.persistence.criteria;
 
 import java.util.List;
 import java.util.Set;
-import javax.persistence.metamodel.Entity;
 
-public interface AbstractQuery {
+import javax.persistence.metamodel.EntityType;
 
-    <X> Root<X> from(Entity<X> entity);
+public interface AbstractQuery<T> {
+
+    <X> Root<X> from(EntityType<X> entity);
 
     <X> Root<X> from(Class<X> entityClass);
 
     Set<Root<?>> getRoots();
+    
+    AbstractQuery<T> where(Expression<Boolean> restriction);
 
-    AbstractQuery where(Expression<Boolean> restriction);
+    AbstractQuery<T> where(Predicate... restrictions);
 
-    AbstractQuery where(Predicate... restrictions);
+    AbstractQuery<T> groupBy(Expression<?>... grouping);
 
-    AbstractQuery groupBy(Expression<?>... grouping);
+    AbstractQuery<T> having(Expression<Boolean> restriction);
 
-    AbstractQuery having(Expression<Boolean> restriction);
+    AbstractQuery<T> having(Predicate... restrictions);
 
-    AbstractQuery having(Predicate... restrictions);
-
-    AbstractQuery distinct(boolean distinct);
+    AbstractQuery<T> distinct(boolean distinct);
+ 
+    Selection<T> getSelection();
 
     List<Expression<?>> getGroupList();
 
@@ -56,6 +59,6 @@ public interface AbstractQuery {
     Predicate getGroupRestriction();
 
     boolean isDistinct();
-
-    <U> Subquery<U> subquery(Class<U> type);
+    
+    <U> Subquery<U> subquery(Class<U> type);    
 }

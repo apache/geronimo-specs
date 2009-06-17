@@ -22,10 +22,11 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
+package javax.persistence.criteria;
 
-package javax.persistence.metamodel;
+import javax.persistence.metamodel.PluralAttribute;
 
-public interface Entity<X> extends IdentifiableType<X> {
+public interface PluralJoin<Z, C, E> extends Join<Z, E> {
 
-    String getName();
+    PluralAttribute<? super Z, C, E> getModel();
 }

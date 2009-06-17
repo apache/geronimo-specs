@@ -28,18 +28,18 @@ package javax.persistence.criteria;
 import java.util.List;
 
 public interface Predicate extends Expression<Boolean> {
-
+    
     public static enum BooleanOperator {
         AND, OR
     }
-
+    
     BooleanOperator getOperator();
-
+    
     boolean isNegated();
 
     List<Expression<Boolean>> getExpressions();
-
-    Predicate add(Expression<Boolean> s);
-
+    
+    Predicate add(Expression<Boolean> exp);
+    
     Predicate negate();
 }

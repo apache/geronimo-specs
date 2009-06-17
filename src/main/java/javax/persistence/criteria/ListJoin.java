@@ -26,11 +26,12 @@
 package javax.persistence.criteria;
 
 import java.util.List;
+import javax.persistence.metamodel.ListAttribute;
 
-public interface ListJoin<Z, E>
-    extends AbstractCollectionJoin<Z, List<E>, E> {
+public interface ListJoin<Z, E> 
+        extends PluralJoin<Z, List<E>, E> {
 
-    javax.persistence.metamodel.List<? super Z, E> getModel();
+    ListAttribute<? super Z, E> getModel();
 
     Expression<Integer> index();
 }

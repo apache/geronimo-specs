@@ -25,25 +25,24 @@
 
 package javax.persistence.criteria;
 
-import javax.persistence.metamodel.AbstractCollection;
-import javax.persistence.metamodel.Attribute;
+import javax.persistence.metamodel.PluralAttribute;
+import javax.persistence.metamodel.SingularAttribute;
 
 public interface FetchParent<Z, X> {
 
     java.util.Set<Fetch<X, ?>> getFetches();
 
-    <Y> Fetch<X, Y> fetch(Attribute<? super X, Y> assoc);
+    <Y> Fetch<X, Y> fetch(SingularAttribute<? super X, Y> attribute);
 
-    <Y> Fetch<X, Y> fetch(Attribute<? super X, Y> assoc, JoinType jt);
+    <Y> Fetch<X, Y> fetch(SingularAttribute<? super X, Y> attribute, JoinType jt);
 
-    <Y> Fetch<X, Y> fetch(AbstractCollection<? super X, ?, Y> assoc);
-
-    <Y> Fetch<X, Y> fetch(AbstractCollection<? super X, ?, Y> assoc,
-        JoinType jt);
-
+    <Y> Fetch<X, Y> fetch(PluralAttribute<? super X, ?, Y> attribute);
+    
+    <Y> Fetch<X, Y> fetch(PluralAttribute<? super X, ?, Y> attribute, JoinType jt);
+    
     //String-based:
+    
+    <Y> Fetch<X, Y> fetch(String attributeName);
 
-    <Y> Fetch<X, Y> fetch(String assocName);
-
-    <Y> Fetch<X, Y> fetch(String assocName, JoinType jt);
+    <Y> Fetch<X, Y> fetch(String attributeName, JoinType jt);
 }

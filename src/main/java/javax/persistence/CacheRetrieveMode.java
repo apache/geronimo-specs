@@ -22,10 +22,9 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
+package javax.persistence;
 
-package javax.persistence.metamodel;
-
-public interface Set<X, E>
-    extends AbstractCollection<X, java.util.Set<E>, E> {
-    
+public enum CacheRetrieveMode {
+    USE,
+    BYPASS
 }
