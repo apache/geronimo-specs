@@ -232,7 +232,7 @@ final class HTTPMethodSpec {
                 actions = "";
             } else {
                 boolean first = true;
-                StringBuffer buffer = new StringBuffer();
+                StringBuilder buffer = new StringBuilder();
                 if (isExcluded) {
                     buffer.append("!");
                 }

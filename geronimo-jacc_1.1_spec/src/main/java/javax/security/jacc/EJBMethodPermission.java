@@ -48,9 +48,9 @@ public final class EJBMethodPermission extends Permission implements Serializabl
     private static String[] methodInterfaces;
 
     static {
-        String newMethodInterfaces = (String) AccessController.doPrivileged(new
-                PrivilegedAction() {
-                    public Object run() {
+        String newMethodInterfaces = AccessController.doPrivileged(new
+                PrivilegedAction<String>() {
+                    public String run() {
                         return System.getProperty(NEW_METHOD_INTERFACES);
                     }
                 });
@@ -162,8 +162,8 @@ public final class EJBMethodPermission extends Permission implements Serializabl
                             checkMethodInterface(tokens[1]);
                             if (tokens[2].indexOf(',') > -1) {
                                 String[] test = tokens[2].split(",", -1);
-                                for (int i = 0; i < test.length; i++) {
-                                    if (test[i].length() == 0) throw new IllegalArgumentException("Invalid type name");
+                                for (String aTest : test) {
+                                    if (aTest.length() == 0) throw new IllegalArgumentException("Invalid type name");
                                 }
                             }
 
@@ -189,7 +189,7 @@ public final class EJBMethodPermission extends Permission implements Serializabl
             } else {
                 if (methodParamsArray[0] == null || methodParamsArray[0].length() == 0) throw new IllegalArgumentException("Invalid type name");
 
-                StringBuffer buffer = new StringBuffer(methodParamsArray[0]);
+                StringBuilder buffer = new StringBuilder(methodParamsArray[0]);
                 for (int i = 1; i < methodParamsArray.length; i++) {
                     if (methodParamsArray[i] == null || methodParamsArray[i].length() == 0) throw new IllegalArgumentException("Invalid type name");
 
@@ -212,16 +212,26 @@ public final class EJBMethodPermission extends Permission implements Serializabl
             if (paramTypes.length == 0) {
                 methodParams = "";
             } else {
-                StringBuffer buffer = new StringBuffer(paramTypes[0].getName());
+                StringBuilder buffer = new StringBuilder(paramTypes[0].getName());
                 for (int i = 1; i < paramTypes.length; i++) {
                     buffer.append(",");
-                    buffer.append(paramTypes[i].getName());
+                    getName(paramTypes[i], buffer);
                 }
                 methodParams = buffer.toString();
             }
 
             initActions();
         }
+
+        private static void getName(Class<?> paramType, StringBuilder buffer){
+            if(paramType.isArray()){
+                getName(paramType.getComponentType(), buffer);
+                buffer.append("[]");
+            }else{
+                buffer.append(paramType.getName());
+            }
+        }
+
 
         public boolean equals(MethodSpec spec) {
             return implies(spec) && spec.implies(this);
@@ -313,7 +323,7 @@ public final class EJBMethodPermission extends Permission implements Serializabl
 
         private LinkedList collection = new LinkedList();
         private HashMap permissions = new HashMap();
-        private static final String WILDCARD = new String("$WILDCARD");
+        private static final String WILDCARD = "$WILDCARD";
 
         /**
          * Adds a permission object to the current collection of permission objects.
