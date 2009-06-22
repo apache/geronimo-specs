@@ -41,7 +41,7 @@ public class EJBMethodPermissionTest extends TestCase {
 
     public void setUp() {
         try {
-            method = TestClass.class.getDeclaredMethod("cat", new Class[] { Integer.class, Float.class, Long.class, Double.class });
+            method = TestClass.class.getDeclaredMethod("cat", new Class[] { Integer.class, Float.class, Long.class, Double.class,int[].class });
         } catch (NoSuchMethodException e) {
             e.printStackTrace();  //To change body of catch statement use Options | File Templates.
         } catch (SecurityException e) {
@@ -79,35 +79,35 @@ public class EJBMethodPermissionTest extends TestCase {
         doTestSerialization(permission);
         permission = new EJBMethodPermission("foo", "cat,Home,");
         doTestSerialization(permission);
-        permission = new EJBMethodPermission("foo", ",,a,b,c,d");
+        permission = new EJBMethodPermission("foo", ",,a,b,c,d,e");
         doTestSerialization(permission);
-        permission = new EJBMethodPermission("foo", "cat,,a,b,c,d");
+        permission = new EJBMethodPermission("foo", "cat,,a,b,c,d,e");
         doTestSerialization(permission);
-        permission = new EJBMethodPermission("foo", ",Home,a,b,c,d");
+        permission = new EJBMethodPermission("foo", ",Home,a,b,c,d,e");
         doTestSerialization(permission);
-        permission = new EJBMethodPermission("foo", "cat,Home,a,b,c,d");
+        permission = new EJBMethodPermission("foo", "cat,Home,a,b,c,d,e");
         doTestSerialization(permission);
 
 
         // methodInterface ::= "Home" | "LocalHome" | "Remote" | "Local" | "ServiceEndpoint"
-        permission = new EJBMethodPermission("foo", "cat,Home,a,b,c,d");
+        permission = new EJBMethodPermission("foo", "cat,Home,a,b,c,d,e");
         doTestSerialization(permission);
-        permission = new EJBMethodPermission("foo", "cat,LocalHome,a,b,c,d");
+        permission = new EJBMethodPermission("foo", "cat,LocalHome,a,b,c,d,e");
         doTestSerialization(permission);
-        permission = new EJBMethodPermission("foo", "cat,Remote,a,b,c,d");
+        permission = new EJBMethodPermission("foo", "cat,Remote,a,b,c,d,e");
         doTestSerialization(permission);
-        permission = new EJBMethodPermission("foo", "cat,Local,a,b,c,d");
+        permission = new EJBMethodPermission("foo", "cat,Local,a,b,c,d,e");
         doTestSerialization(permission);
-        permission = new EJBMethodPermission("foo", "cat,ServiceEndpoint,a,b,c,d");
+        permission = new EJBMethodPermission("foo", "cat,ServiceEndpoint,a,b,c,d,e");
         doTestSerialization(permission);
 
         assertEquals(permission.getName(), "foo");
-        assertEquals(permission.getActions(), "cat,ServiceEndpoint,a,b,c,d");
+        assertEquals(permission.getActions(), "cat,ServiceEndpoint,a,b,c,d,e");
 
 
         // bad methodInterface
         try {
-            permission = new EJBMethodPermission("foo", "cat,Interface,a,b,c,d");
+            permission = new EJBMethodPermission("foo", "cat,Interface,a,b,c,d,e");
             fail("Bad method interface");
         } catch(IllegalArgumentException iae) {
         }
@@ -143,9 +143,9 @@ public class EJBMethodPermissionTest extends TestCase {
 
     public void testImpliesStringString() throws Exception {
         EJBMethodPermission permissionFooEEE = new EJBMethodPermission("foo", "");
-        EJBMethodPermission permissionFooMIP = new EJBMethodPermission("foo", "cat,LocalHome,a,b,c,d");
+        EJBMethodPermission permissionFooMIP = new EJBMethodPermission("foo", "cat,LocalHome,a,b,c,d,e");
         EJBMethodPermission permissionBarEEE = new EJBMethodPermission("bar", "");
-        EJBMethodPermission permissionFooEIP = new EJBMethodPermission("foo", ",LocalHome,a,b,c,d");
+        EJBMethodPermission permissionFooEIP = new EJBMethodPermission("foo", ",LocalHome,a,b,c,d,e");
         EJBMethodPermission permissionFooEIE = new EJBMethodPermission("foo", ",LocalHome,");
         EJBMethodPermission permissionFooEI  = new EJBMethodPermission("foo", ",LocalHome");
 
@@ -212,35 +212,35 @@ public class EJBMethodPermissionTest extends TestCase {
         doTestSerialization(permission);
         permission = new EJBMethodPermission("foo", "cat", "Home", new String[] {});
         doTestSerialization(permission);
-        permission = new EJBMethodPermission("foo", "", "", new String[] { "a", "b", "c", "d" });
+        permission = new EJBMethodPermission("foo", "", "", new String[] { "a", "b", "c", "d", "e"});
         doTestSerialization(permission);
-        permission = new EJBMethodPermission("foo", "cat", "", new String[] { "a", "b", "c", "d" });
+        permission = new EJBMethodPermission("foo", "cat", "", new String[] { "a", "b", "c", "d", "e"});
         doTestSerialization(permission);
-        permission = new EJBMethodPermission("foo", "", "Home", new String[] { "a", "b", "c", "d" });
+        permission = new EJBMethodPermission("foo", "", "Home", new String[] { "a", "b", "c", "d", "e"});
         doTestSerialization(permission);
-        permission = new EJBMethodPermission("foo", "cat", "Home", new String[] { "a", "b", "c", "d" });
+        permission = new EJBMethodPermission("foo", "cat", "Home", new String[] { "a", "b", "c", "d", "e"});
         doTestSerialization(permission);
 
 
         // methodInterface ::= "Home" | "LocalHome" | "Remote" | "Local" | "ServiceEndpoint"
-        permission = new EJBMethodPermission("foo", "cat", "Home", new String[] { "a", "b", "c", "d" });
+        permission = new EJBMethodPermission("foo", "cat", "Home", new String[] { "a", "b", "c", "d", "e"});
         doTestSerialization(permission);
-        permission = new EJBMethodPermission("foo", "cat", "LocalHome", new String[] { "a", "b", "c", "d" });
+        permission = new EJBMethodPermission("foo", "cat", "LocalHome", new String[] { "a", "b", "c", "d", "e"});
         doTestSerialization(permission);
-        permission = new EJBMethodPermission("foo", "cat", "Remote", new String[] { "a", "b", "c", "d" });
+        permission = new EJBMethodPermission("foo", "cat", "Remote", new String[] { "a", "b", "c", "d", "e"});
         doTestSerialization(permission);
-        permission = new EJBMethodPermission("foo", "cat", "Local", new String[] { "a", "b", "c", "d" });
+        permission = new EJBMethodPermission("foo", "cat", "Local", new String[] { "a", "b", "c", "d", "e"});
         doTestSerialization(permission);
-        permission = new EJBMethodPermission("foo", "cat", "ServiceEndpoint", new String[] { "a", "b", "c", "d" });
+        permission = new EJBMethodPermission("foo", "cat", "ServiceEndpoint", new String[] { "a", "b", "c", "d", "e"});
         doTestSerialization(permission);
 
         assertEquals(permission.getName(), "foo");
-        assertEquals(permission.getActions(), "cat,ServiceEndpoint,a,b,c,d");
+        assertEquals(permission.getActions(), "cat,ServiceEndpoint,a,b,c,d,e");
 
 
         // bad methodInterface
         try {
-            permission = new EJBMethodPermission("foo", "cat", "Interface", new String[] { "a", "b", "c", "d" });
+            permission = new EJBMethodPermission("foo", "cat", "Interface", new String[] { "a", "b", "c", "d", "e"});
             fail("Bad method interface");
         } catch(IllegalArgumentException iae) {
         }
@@ -248,9 +248,9 @@ public class EJBMethodPermissionTest extends TestCase {
 
     public void testImpliesStringStringStringStringArray() throws Exception {
         EJBMethodPermission permissionFooEEE = new EJBMethodPermission("foo", "", "", null);
-        EJBMethodPermission permissionFooMIP = new EJBMethodPermission("foo", "cat", "LocalHome", new String[] { "a", "b", "c", "d" });
+        EJBMethodPermission permissionFooMIP = new EJBMethodPermission("foo", "cat", "LocalHome", new String[] { "a", "b", "c", "d", "e"});
         EJBMethodPermission permissionBarEEE = new EJBMethodPermission("bar", "", "", new String[] {});
-        EJBMethodPermission permissionFooEIP = new EJBMethodPermission("foo", "", "LocalHome", new String[] { "a", "b", "c", "d" });
+        EJBMethodPermission permissionFooEIP = new EJBMethodPermission("foo", "", "LocalHome", new String[] { "a", "b", "c", "d", "e"});
         EJBMethodPermission permissionFooEIE = new EJBMethodPermission("foo", "", "LocalHome", new String[] {});
         EJBMethodPermission permissionFooEI  = new EJBMethodPermission("foo", "", "LocalHome", null);
 
@@ -311,7 +311,7 @@ public class EJBMethodPermissionTest extends TestCase {
         doTestSerialization(permission);
 
         assertEquals(permission.getName(), "foo");
-        assertEquals(permission.getActions(), "cat,ServiceEndpoint,java.lang.Integer,java.lang.Float,java.lang.Long,java.lang.Double");
+        assertEquals(permission.getActions(), "cat,ServiceEndpoint,java.lang.Integer,java.lang.Float,java.lang.Long,java.lang.Double,int[]");
 
         // Parameter method must not be null
         try {
@@ -336,9 +336,10 @@ public class EJBMethodPermissionTest extends TestCase {
     }
 
     class TestClass {
-        public Object cat(Integer a, Float b, Long c, Double d) {
+        public Object cat(Integer a, Float b, Long c, Double d, int[] e) {
             return null;
         }
+       
     }
 }
 
