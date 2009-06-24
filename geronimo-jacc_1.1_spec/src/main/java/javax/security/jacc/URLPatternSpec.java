@@ -118,6 +118,10 @@ final class URLPatternSpec {
         return pattern;
     }
 
+    public String toString() {
+        return pattern;
+    }
+
     public boolean implies(URLPatternSpec p) {
 
         // The first URLPattern in the name of the argument permission is

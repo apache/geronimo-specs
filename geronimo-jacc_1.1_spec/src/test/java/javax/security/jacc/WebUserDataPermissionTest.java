@@ -38,7 +38,7 @@ import junit.framework.TestCase;
  * @version $Rev$ $Date$
  */
 public class WebUserDataPermissionTest extends TestCase {
-
+    
     /*
      * Testing WebResourcePermission(java.lang.String, java.lang.String)
      */
@@ -79,6 +79,7 @@ public class WebUserDataPermissionTest extends TestCase {
         testSerialization(new WebUserDataPermission("/foo", ""));
         testSerialization(new WebUserDataPermission("/foo", ":NONE"));
         testSerialization(new WebUserDataPermission("/foo", "GET,POST"));
+        testSerialization(new WebUserDataPermission("/foo", "!:CONFIDENTIAL"));
     }
 
     private void testSerialization(WebUserDataPermission permission) throws IOException, ClassNotFoundException {
