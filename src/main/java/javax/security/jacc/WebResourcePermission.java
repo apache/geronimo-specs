@@ -39,6 +39,9 @@ import javax.servlet.http.HttpServletRequest;
  * @version $Rev$ $Date$
  */
 public final class WebResourcePermission extends Permission implements Serializable {
+
+    private static final long serialVersionUID = -3750758202597932275L;
+    
     private transient int cachedHashCode = 0;
     private transient URLPatternSpec urlPatternSpec;
     private transient HTTPMethodSpec httpMethodSpec;

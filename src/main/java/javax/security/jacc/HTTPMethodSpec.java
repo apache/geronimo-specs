@@ -228,7 +228,7 @@ final class HTTPMethodSpec {
 
     public String getActions() {
         if (actions == null) {
-            if (isAll()) {
+            if (isAllWebResources()) {
                 actions = "";
             } else {
                 boolean first = true;
@@ -269,12 +269,16 @@ final class HTTPMethodSpec {
         return actions;
     }
 
-    private boolean isAll() {
-        return isExcluded && mask == 0x00;
+    private boolean isAllWebResources() {
+        return isExcluded && mask == 0x00 && transport == NA && extensionMethods.length == 0;
     }
 
     public int hashCode() {
         return mask ^ transport;
+    }
+
+    public String toString() {
+        return getActions();
     }
 
     public boolean implies(HTTPMethodSpec p) {
