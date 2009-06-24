@@ -21,17 +21,15 @@ package javax.servlet;
 
 import java.util.Enumeration;
 
-
-
 /**
  * 
  * A servlet configuration object used by a servlet container
  * to pass information to a servlet during initialization. 
  *
+ * @version $Rev$ $Date$
  */
  
 public interface ServletConfig {
-    
 
     /**
      * Returns the name of this servlet instance.
@@ -40,26 +38,19 @@ public interface ServletConfig {
      * unnamed) servlet instance it will be the servlet's class name.
      *
      * @return		the name of the servlet instance
-     *
-     *
-     *
      */
-
     public String getServletName();
 
     /**
      * Returns a reference to the {@link ServletContext} in which the caller
      * is executing.
      *
-     *
      * @return		a {@link ServletContext} object, used
      *			by the caller to interact with its servlet 
      *                  container
      * 
      * @see		ServletContext
-     *
      */
-
     public ServletContext getServletContext();
     
     /**
@@ -69,14 +60,10 @@ public interface ServletConfig {
      *
      * @param name	a <code>String</code> specifying the name
      *			of the initialization parameter
-     *
-     * @return		a <code>String</code> containing the value 
+     * @return		a <code>String</code> containing the value
      *			of the initialization parameter
-     *
      */
-
     public String getInitParameter(String name);
-
 
     /**
      * Returns the names of the servlet's initialization parameters
@@ -87,12 +74,7 @@ public interface ServletConfig {
      * @return		an <code>Enumeration</code> of <code>String</code> 
      *			objects containing the names of the servlet's 
      *			initialization parameters
-     *
-     *
-     *
      */
-
-    public Enumeration getInitParameterNames();
-
+    public Enumeration<String> getInitParameterNames();
 
 }

@@ -18,24 +18,38 @@
  */
 
 
-package javax.servlet.http.annotation.jaxrs;
+package javax.servlet.annotation;
 
 import java.lang.annotation.Target;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Documented;
 
 /**
- * @version $Rev:$ $Date:$
+ * @version $Rev$ $Date$
  * @since 3.0
  */
 
-@Target(value= ElementType.ANNOTATION_TYPE)
+@Target(value= ElementType.TYPE)
 @Retention(value= RetentionPolicy.RUNTIME)
-@Documented
-public @interface HttpMethod {
+public @interface WebServlet {
 
-    String value();
-    
+    boolean asyncSupported() default false;
+
+    String description() default "";
+
+    WebInitParam[] initParams() default {};
+
+    String largeIcon() default "";
+
+    int loadOnStartup() default -1;
+
+    String name() default "";
+
+    String smallIcon() default "";
+
+    String[] urlPatterns() default {};
+
+    String[] value() default {};
+
 }

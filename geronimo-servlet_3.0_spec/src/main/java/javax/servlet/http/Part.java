@@ -18,20 +18,35 @@
  */
 
 
-package javax.servlet.http.annotation.jaxrs;
+package javax.servlet.http;
 
-import java.lang.annotation.Target;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
+import java.io.InputStream;
+import java.io.IOException;
 
 /**
- * @version $Rev:$ $Date:$
+ * multipart/form-data part or form item
+ *
+ * @version $Rev$ $Date$
  * @since 3.0
  */
+public interface Part {
 
-@Target(value= ElementType.METHOD)
-@Retention(value= RetentionPolicy.RUNTIME)
-@HttpMethod(value="DELETE")
-public @interface DELETE {
+    void delete() throws IOException;
+
+    String getContentType();
+
+    String getHeader();
+
+    Iterable<String> getHeaderNames();
+
+    Iterable<String> getHeaders();
+
+    InputStream getInputStream() throws IOException;
+
+    String getName();
+
+    long getSize();
+
+    void write(String fileName) throws IOException;
+
 }

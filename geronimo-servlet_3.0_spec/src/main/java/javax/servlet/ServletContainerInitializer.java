@@ -18,25 +18,16 @@
  */
 
 
-package javax.servlet.http.annotation;
+package javax.servlet;
 
-import java.lang.annotation.Target;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
+import java.util.Set;
 
 /**
- * @version $Rev:$ $Date:$
+ * @version $Rev$ $Date$
+ * @since Servlet 3.0
  */
+public interface ServletContainerInitializer {
 
-@Target(value= ElementType.TYPE)
-@Retention(value= RetentionPolicy.RUNTIME)
-public @interface InitParam {
+    void onStartup(Set<Class<?>> classes, ServletContext ctx);
 
-    String description() default "";
-
-    String name() default "";
-
-    String value() default "";
-    
 }

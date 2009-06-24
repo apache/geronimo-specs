@@ -18,7 +18,7 @@
  */
 
 
-package javax.servlet.http.annotation;
+package javax.servlet.annotation;
 
 import java.lang.annotation.Target;
 import java.lang.annotation.ElementType;
@@ -26,21 +26,13 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
- * @version $Rev:$ $Date:$
+ * @version $Rev$ $Date$
  * @since 3.0
  */
 
 @Target(value= ElementType.TYPE)
 @Retention(value= RetentionPolicy.RUNTIME)
-public @interface Servlet {
-    String[] urlMappings();
+public @interface WebListener {
 
-    String icon() default "";
-
-    InitParam[] initParams() default {};
-
-    int loadOnStartup() default -1;
-
-    String name() default "";
-    
+    String description() default "";
 }

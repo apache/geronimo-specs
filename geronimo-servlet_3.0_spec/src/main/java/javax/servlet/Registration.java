@@ -18,21 +18,24 @@
  */
 
 
-package javax.servlet.http.annotation;
+package javax.servlet;
 
-import java.lang.annotation.Target;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
+import java.util.Map;
 
 /**
- * @version $Rev:$ $Date:$
+ * @version $Rev$ $Date$
  * @since 3.0
  */
+public interface Registration {
+    boolean setInitParameter(String name, String value);
 
-@Target(value= ElementType.TYPE)
-@Retention(value= RetentionPolicy.RUNTIME)
-public @interface ServletContextListener {
+    void setInitParameters(Map<String, String> initParameters);
 
-    String description() default "";
+    public interface Dynamic extends Registration {
+
+        void setAsyncSupported(boolean asyncSupported);
+
+        boolean setDescription(String description);
+        
+    }
 }

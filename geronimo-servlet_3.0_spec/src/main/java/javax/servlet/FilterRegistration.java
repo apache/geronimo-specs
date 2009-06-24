@@ -27,17 +27,14 @@ import java.util.Map;
  * @version $Rev$ $Date$
  * @since 3.0
  */
-public interface FilterRegistration {
-    boolean setDescription(String description);
 
-    void setAsyncSupported(boolean asyncSupported);
+public interface FilterRegistration extends Registration {
 
     void addMappingForServletNames(EnumSet<DispatcherType> dispatcherTypes, boolean isMatchAfter, String ... servletNames);
 
     void addMappingForUrlPatterns(EnumSet<DispatcherType> dispatcherTypes, boolean isMatchAfter, String ... urlPatterns);
 
-    boolean setInitParameter(String name, String value);
+    public interface Dynamic extends FilterRegistration, Registration.Dynamic {
 
-    void setInitParameters(Map<String, String> initParameters);
-
+    }
 }

@@ -43,18 +43,14 @@ package javax.servlet;
  * of time suggested by the exception, rather than rejecting them until
  * the servlet container restarts.
  *
- *
- * @author 	Various
- * @version 	$Version$
- *
+ * @version $Rev$ $Date$
  */
 
-public class UnavailableException
-extends ServletException {
+public class UnavailableException extends ServletException {
 
-    private Servlet     servlet;           // what's unavailable
-    private boolean     permanent;         // needs admin action?
-    private int         seconds;           // unavailability estimate
+    private final Servlet servlet;           // what's unavailable
+    private final boolean permanent;         // needs admin action?
+    private final int seconds;           // unavailability estimate
 
     /**
      * 
@@ -68,11 +64,11 @@ extends ServletException {
      *                  descriptive message
      *
      */
-
     public UnavailableException(Servlet servlet, String msg) {
 	super(msg);
 	this.servlet = servlet;
 	permanent = true;
+        seconds = -1;
     }
  
     /**
@@ -91,7 +87,6 @@ extends ServletException {
      *			displayed for the user.
      *
      */
-    
     public UnavailableException(int seconds, Servlet servlet, String msg) {
 	super(msg);
 	this.servlet = servlet;
@@ -112,11 +107,11 @@ extends ServletException {
      *                  descriptive message
      *
      */
-
     public UnavailableException(String msg) {
 	super(msg);
-
+        servlet = null;
 	permanent = true;
+        seconds = -1;
     }
 
     /**
@@ -140,10 +135,9 @@ extends ServletException {
      *			can't make an estimate
      *
      */
-    
     public UnavailableException(String msg, int seconds) {
 	super(msg);
-
+        servlet = null;
 	if (seconds <= 0)
 	    this.seconds = -1;
 	else
@@ -165,7 +159,6 @@ extends ServletException {
      *			unavailable
      *
      */
-     
     public boolean isPermanent() {
 	return permanent;
     }
@@ -179,7 +172,6 @@ extends ServletException {
      *			throwing the <code>UnavailableException</code>
      *
      */
-     
     public Servlet getServlet() {
 	return servlet;
     }
@@ -200,8 +192,8 @@ extends ServletException {
      *			unavailable or cannot make an estimate
      *
      */
-     
     public int getUnavailableSeconds() {
 	return permanent ? -1 : seconds;
     }
+    
 }

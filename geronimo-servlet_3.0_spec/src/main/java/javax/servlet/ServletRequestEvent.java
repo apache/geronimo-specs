@@ -20,40 +20,44 @@
 package javax.servlet;
 
 
-    /** 
-      * Events of this kind indicate lifecycle
-      * events for a ServletRequest.
-      * The source of the event
-      * is the ServletContext of this web application.
-      * @see ServletRequestListener
-      * @since	Servlet 2.4
-      */
+/**
+ * Events of this kind indicate lifecycle
+ * events for a ServletRequest.
+ * The source of the event
+ * is the ServletContext of this web application.
+ *
+ * @since Servlet 2.4
+ * @see ServletRequestListener
+ * @version $Rev$ $Date$
+ */
 
-public class ServletRequestEvent extends java.util.EventObject { 
-    private ServletRequest request;
+public class ServletRequestEvent extends java.util.EventObject {
 
-    /** Construct a ServletRequestEvent for the given ServletContext
-      * and ServletRequest.
-      *
-      * @param sc		the ServletContext of the web application.
-      * @param request		the ServletRequest that is sending the event.
-      */
+    private final ServletRequest request;
+
+    /**
+     * Construct a ServletRequestEvent for the given ServletContext
+     * and ServletRequest.
+     *
+     * @param sc      the ServletContext of the web application.
+     * @param request the ServletRequest that is sending the event.
+     */
     public ServletRequestEvent(ServletContext sc, ServletRequest request) {
         super(sc);
         this.request = request;
     }
-    
+
     /**
-      * Returns the ServletRequest that is changing.
-      */
-    public ServletRequest getServletRequest () { 
-        return this.request;
+     * Returns the ServletRequest that is changing.
+     */
+    public ServletRequest getServletRequest() {
+        return request;
     }
 
     /**
-      * Returns the ServletContext of this web application.
-      */
-    public ServletContext getServletContext () { 
+     * Returns the ServletContext of this web application.
+     */
+    public ServletContext getServletContext() {
         return (ServletContext) super.getSource();
     }
 }

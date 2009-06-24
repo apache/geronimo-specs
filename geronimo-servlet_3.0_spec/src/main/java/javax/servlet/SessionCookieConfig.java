@@ -26,13 +26,36 @@ package javax.servlet;
  */
 public interface SessionCookieConfig {
 
+    String getComment();
+
     String getDomain();
 
-    String getPath();
+    /**
+     *
+     * @return max age in seconds for this session cookie
+     */
+    int getMaxAge();
 
-    String getComment();
+    String getName();
+
+    String getPath();
 
     boolean isHttpOnly();
 
     boolean isSecure();
+
+    void setComment(String comment);
+
+    void setDomain(String domain);
+
+    void setHttpOnly(boolean httpOnly);
+
+    void setMaxAge(int maxAge);
+
+    void setName(String name);
+
+    void setPath(String path);
+
+    void setSecure(boolean secure);
+    
 }
