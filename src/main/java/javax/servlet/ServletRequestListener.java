@@ -30,8 +30,8 @@ import java.util.EventListener;
  * the last servlet or the first filter in the chain.
  *
  * @since Servlet 2.4
+ * @version $Rev$ $Date$
  */
-
 
 public interface ServletRequestListener extends EventListener {
 
@@ -40,33 +40,13 @@ public interface ServletRequestListener extends EventListener {
      *
      * @param sre event containing request
      */
-    public void requestDestroyed(ServletRequestEvent sre);
+    void requestDestroyed(ServletRequestEvent sre);
 
     /**
      * The request is about to come into scope of the web application.
      *
      * @param sre event containing request
      */
-    public void requestInitialized(ServletRequestEvent sre);
+    void requestInitialized(ServletRequestEvent sre);
 
-    /**
-     * Called after suspend
-     * @param sre event containing request
-     * @since 3.0
-     */
-    void requestSuspended(ServletRequestEvent sre);
-
-    /**
-     * called before resume
-     * @param sre event containing request
-     * @since 3.0
-     */
-    void requestResumed(ServletRequestEvent sre);
-
-    /**
-     * called after completion
-     * @param sre event containing request
-     * @since 3.0
-     */
-    void requestCompleted(ServletRequestEvent sre);
 }

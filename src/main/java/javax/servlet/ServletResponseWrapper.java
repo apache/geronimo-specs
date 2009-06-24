@@ -24,56 +24,55 @@ import java.io.PrintWriter;
 import java.util.Locale;
 
 /**
- * 
  * Provides a convenient implementation of the ServletResponse interface that
  * can be subclassed by developers wishing to adapt the response from a Servlet.
  * This class implements the Wrapper or Decorator pattern. Methods default to
  * calling through to the wrapped response object.
- * 
- * @author 	Various
- * @version 	$Version$
- * @since	v 2.3
  *
- * @see 	javax.servlet.ServletResponse
- *
+ * @version $Rev$ $Date$
+ * @see javax.servlet.ServletResponse
+ * @since v 2.3
  */
 
- 
 public class ServletResponseWrapper implements ServletResponse {
-	private ServletResponse response;
-	/**
-	* Creates a ServletResponse adaptor wrapping the given response object.
-	* @throws java.lang.IllegalArgumentException if the response is null.
-	*/
+    private ServletResponse response;
 
+    /**
+     * Creates a ServletResponse adaptor wrapping the given response object.
+     *
+     * @param response response to wrap
+     * @throws java.lang.IllegalArgumentException
+     *          if the response is null.
+     */
+    public ServletResponseWrapper(ServletResponse response) {
+        if (response == null) {
+            throw new IllegalArgumentException("Response cannot be null");
+        }
+        this.response = response;
+    }
 
-	public ServletResponseWrapper(ServletResponse response) {
-	    if (response == null) {
-		throw new IllegalArgumentException("Response cannot be null");
-	    }
-	    this.response = response;
-	}
+    /**
+     * Return the wrapped ServletResponse object.
+     *
+     * @return wrapped response
+     */
+    public ServletResponse getResponse() {
+        return this.response;
+    }
 
-	/**
-	* Return the wrapped ServletResponse object.
-	*/
-
-	public ServletResponse getResponse() {
-		return this.response;
-	}	
-	
-	
-	/**
-	* Sets the response being wrapped. 
-	* @throws java.lang.IllegalArgumentException if the response is null.
-	*/
-	
-	public void setResponse(ServletResponse response) {
-	    if (response == null) {
-		throw new IllegalArgumentException("Response cannot be null");
-	    }
-	    this.response = response;
-	}
+    /**
+     * Sets the response being wrapped.
+     *
+     * @param response response to wrap
+     * @throws java.lang.IllegalArgumentException
+     *          if the response is null.
+     */
+    public void setResponse(ServletResponse response) {
+        if (response == null) {
+            throw new IllegalArgumentException("Response cannot be null");
+        }
+        this.response = response;
+    }
 
     /**
      * The default behavior of this method is to call setCharacterEncoding(String charset)
@@ -81,56 +80,48 @@ public class ServletResponseWrapper implements ServletResponse {
      *
      * @since 2.4
      */
-
     public void setCharacterEncoding(String charset) {
-	this.response.setCharacterEncoding(charset);
+        this.response.setCharacterEncoding(charset);
     }
 
     /**
      * The default behavior of this method is to return getCharacterEncoding()
      * on the wrapped response object.
      */
-
     public String getCharacterEncoding() {
-	return this.response.getCharacterEncoding();
-	}
-    
-    
-	  /**
+        return this.response.getCharacterEncoding();
+    }
+
+    /**
      * The default behavior of this method is to return getOutputStream()
      * on the wrapped response object.
      */
-
     public ServletOutputStream getOutputStream() throws IOException {
-	return this.response.getOutputStream();
-    }  
-      
-     /**
+        return this.response.getOutputStream();
+    }
+
+    /**
      * The default behavior of this method is to return getWriter()
      * on the wrapped response object.
      */
-
-
     public PrintWriter getWriter() throws IOException {
-	return this.response.getWriter();
-	}
-    
+        return this.response.getWriter();
+    }
+
     /**
      * The default behavior of this method is to call setContentLength(int len)
      * on the wrapped response object.
      */
-
     public void setContentLength(int len) {
-	this.response.setContentLength(len);
+        this.response.setContentLength(len);
     }
-    
+
     /**
      * The default behavior of this method is to call setContentType(String type)
      * on the wrapped response object.
      */
-
     public void setContentType(String type) {
-	this.response.setContentType(type);
+        this.response.setContentType(type);
     }
 
     /**
@@ -139,107 +130,73 @@ public class ServletResponseWrapper implements ServletResponse {
      *
      * @since 2.4
      */
-
     public String getContentType() {
-	return this.response.getContentType();
+        return this.response.getContentType();
     }
-    
+
     /**
      * The default behavior of this method is to call setBufferSize(int size)
      * on the wrapped response object.
      */
     public void setBufferSize(int size) {
-	this.response.setBufferSize(size);
+        this.response.setBufferSize(size);
     }
-    
+
     /**
      * The default behavior of this method is to return getBufferSize()
      * on the wrapped response object.
      */
     public int getBufferSize() {
-	return this.response.getBufferSize();
+        return this.response.getBufferSize();
     }
 
     /**
      * The default behavior of this method is to call flushBuffer()
      * on the wrapped response object.
      */
-
     public void flushBuffer() throws IOException {
-	this.response.flushBuffer();
+        this.response.flushBuffer();
     }
-    
+
     /**
      * The default behavior of this method is to return isCommitted()
      * on the wrapped response object.
      */
     public boolean isCommitted() {
-	return this.response.isCommitted();
+        return this.response.isCommitted();
     }
 
     /**
      * The default behavior of this method is to call reset()
      * on the wrapped response object.
      */
-
     public void reset() {
-	this.response.reset();
+        this.response.reset();
     }
-    
+
     /**
      * The default behavior of this method is to call resetBuffer()
      * on the wrapped response object.
      */
-     
     public void resetBuffer() {
-	this.response.resetBuffer();
+        this.response.resetBuffer();
     }
-    
+
     /**
      * The default behavior of this method is to call setLocale(Locale loc)
      * on the wrapped response object.
      */
-
     public void setLocale(Locale loc) {
-	this.response.setLocale(loc);
+        this.response.setLocale(loc);
     }
-    
+
     /**
      * The default behavior of this method is to return getLocale()
      * on the wrapped response object.
      */
     public Locale getLocale() {
-	return this.response.getLocale();
+        return this.response.getLocale();
     }
-
-    /**
-     * Helper for suspend/resume: disables output
-     *
-     * @since 3.0
-     */
-    public void disable() {
-        response.disable();
-    }
-
-    /**
-     * Helper for suspend/resume: enables output
-     *
-     * @since 3.0
-     */
-    public void enable() {
-        response.enable();
-    }
-
-    /**
-     * Helper for suspend/resume, shows disabled state
-     *
-     * @return true if disable is most recent disable/enable call
-     * @since 3.0
-     */
-    public boolean isDisabled() {
-        return response.isDisabled();
-    }
-
 
 }
 

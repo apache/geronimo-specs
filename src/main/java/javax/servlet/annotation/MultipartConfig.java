@@ -18,28 +18,28 @@
  */
 
 
-package javax.servlet.http.annotation;
+package javax.servlet.annotation;
 
 import java.lang.annotation.Target;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-import javax.servlet.DispatcherType;
-
 /**
- * @version $Rev:$ $Date:$
+ * @version $Rev$ $Date$
  * @since 3.0
  */
 
-@Target(value=ElementType.TYPE)
-@Retention(value= RetentionPolicy.RUNTIME)
-public @interface FilterMapping {
+@Target(value = ElementType.TYPE)
+@Retention(value = RetentionPolicy.RUNTIME)
+public @interface MultipartConfig {
 
-    String[] urlPattern();
+    int fileSizeThreshhold() default 0;
 
-    String[] servletNames() default {};
+    String location() default "";
 
-    DispatcherType[] dispatcherTypes() default {DispatcherType.REQUEST};
-    
+    long maxFileSize() default 0L;
+
+    long maxRequestSize() default 0L;
+
 }

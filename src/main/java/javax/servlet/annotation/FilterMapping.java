@@ -18,29 +18,28 @@
  */
 
 
-package javax.servlet.http.annotation;
+package javax.servlet.annotation;
 
 import java.lang.annotation.Target;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
+import javax.servlet.DispatcherType;
+
 /**
- * @version $Rev:$ $Date:$
+ * @version $Rev$ $Date$
  * @since 3.0
  */
 
-@Target(value= ElementType.TYPE)
+@Target(value=ElementType.TYPE)
 @Retention(value= RetentionPolicy.RUNTIME)
-public @interface ServletFilter {
+public @interface FilterMapping {
 
-    String description() default "";
+    String[] urlPattern();
 
-    String displayName() default "";
+    String[] servletNames() default {};
 
-    String filterName() default "";
-
-    String icon() default "";
-
-    InitParam[] initParams() default {};
+    DispatcherType[] dispatcherTypes() default {DispatcherType.REQUEST};
+    
 }

@@ -20,24 +20,17 @@
 
 package javax.servlet;
 
-import java.util.Map;
-
 /**
  * @version $Rev$ $Date$
  * @since 3.0
  */
-public interface ServletRegistration {
-
-    boolean setDescription(String description);
-
-    void setAsyncSupported(boolean asyncSupported);
-
-    void setLoadOnStartup(int loadOnStartup);
+public interface ServletRegistration extends Registration {
 
     void addMapping(String... urlPatterns);
 
-    boolean setInitParameter(String name, String value);
+    public interface Dynamic extends ServletRegistration, Registration.Dynamic {
 
-    void setInitParameters(Map<String, String> initParameters);
-
+        void setLoadOnStartup(int loadOnStartup);
+        
+    }
 }

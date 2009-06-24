@@ -18,20 +18,22 @@
  */
 
 
-package javax.servlet.http.annotation.jaxrs;
+package javax.servlet.annotation;
 
 import java.lang.annotation.Target;
-import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.ElementType;
 
 /**
- * @version $Rev:$ $Date:$
+ * @version $Rev$ $Date$
  * @since 3.0
  */
 
-@Target(value= ElementType.METHOD)
-@Retention(value= RetentionPolicy.RUNTIME)
-@HttpMethod(value="HEAD")
-public @interface HEAD {
+@Target(value = ElementType.TYPE)
+@Retention(value = RetentionPolicy.RUNTIME)
+public @interface HandlesTypes {
+
+    Class[] value();
+
 }

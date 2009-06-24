@@ -21,7 +21,7 @@
 package javax.servlet;
 
 /**
- * @version $Rev:$ $Date:$
+ * @version $Rev$ $Date$
  * @since 3.0
  */
 public interface AsyncContext {
@@ -37,6 +37,8 @@ public interface AsyncContext {
     void dispatch();
 
     void dispatch(ServletContext servletContext, String path);
+
+    void dispatch(String path);
 
     ServletRequest getRequest();
 

@@ -18,20 +18,50 @@
  */
 
 
-package javax.servlet.http.annotation.jaxrs;
+package javax.servlet.annotation;
 
 import java.lang.annotation.Target;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
+import javax.servlet.DispatcherType;
+
 /**
- * @version $Rev:$ $Date:$
+ * @version $Rev$ $Date$
  * @since 3.0
  */
 
-@Target(value= ElementType.METHOD)
+@Target(value= ElementType.TYPE)
 @Retention(value= RetentionPolicy.RUNTIME)
-@HttpMethod(value="GET")
-public @interface GET {
+public @interface WebFilter {
+
+    boolean asyncSupported();
+
+    String description() default "";
+
+    DispatcherType[] dispatcherTypes() default DispatcherType.REQUEST;
+
+    String displayName() default "";
+
+    String filterName() default "";
+
+    WebInitParam[] initParams() default {};
+
+    String largeIcon() default "";
+
+    String[] servletNames() default {};
+
+    String smallIcon() default "";
+
+    String[] urlPatterns() default {};
+
+    String[] value() default {};
+
+
+
+
+
+
+
 }

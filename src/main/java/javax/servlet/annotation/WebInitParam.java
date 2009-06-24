@@ -18,7 +18,7 @@
  */
 
 
-package javax.servlet.http.annotation.jaxrs;
+package javax.servlet.annotation;
 
 import java.lang.annotation.Target;
 import java.lang.annotation.ElementType;
@@ -26,12 +26,17 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
- * @version $Rev:$ $Date:$
- * @since 3.0
+ * @version $Rev$ $Date$
  */
 
-@Target(value= ElementType.METHOD)
+@Target(value= ElementType.TYPE)
 @Retention(value= RetentionPolicy.RUNTIME)
-@HttpMethod(value="POST")
-public @interface POST {
+public @interface WebInitParam {
+
+    String description() default "";
+
+    String name();
+
+    String value();
+    
 }

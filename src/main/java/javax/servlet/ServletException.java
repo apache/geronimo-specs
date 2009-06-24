@@ -25,7 +25,7 @@ package javax.servlet;
  * encounters difficulty.
  *
  * @author 	Various
- * @version 	$Version$
+ * @version $Rev$ $Date$
  */
 public class ServletException extends Exception {
 

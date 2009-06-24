@@ -21,14 +21,15 @@
 package javax.servlet;
 
 import java.util.EventListener;
+import java.io.IOException;
 
 /**
- * @version $Rev:$ $Date:$
+ * @version $Rev$ $Date$
  * @since 3.0
  */
 public interface AsyncListener extends EventListener {
 
-    void onComplete(AsyncEvent event);
+    void onComplete(AsyncEvent event) throws IOException;
 
-    void onTimeout(AsyncEvent event);
+    void onTimeout(AsyncEvent event) throws IOException;
 }
