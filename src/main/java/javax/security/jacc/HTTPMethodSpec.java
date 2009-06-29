@@ -25,10 +25,8 @@
 
 package javax.security.jacc;
 
-import java.util.List;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
+import java.util.Arrays;
 import java.util.regex.Pattern;
 
 
@@ -92,26 +90,28 @@ final class HTTPMethodSpec {
             if (isExcluded = name.charAt(0) == '!') {
                 name = name.substring(1);
             }
-            String[] methods = name.split(",", -1);
             int tmpMask = 0;
 
-            for (int i = 0; i < methods.length; i++) {
-                boolean found = false;
+            if (name.length() > 0) {
+                String[] methods = name.split(",", -1);
+                for (int i = 0; i < methods.length; i++) {
+                    boolean found = false;
 
-                for (int j = 0; j < HTTP_METHODS.length; j++) {
-                    if (methods[i].equals(HTTP_METHODS[j])) {
-                        tmpMask |= HTTP_MASKS[j];
-                        found = true;
+                    for (int j = 0; j < HTTP_METHODS.length; j++) {
+                        if (methods[i].equals(HTTP_METHODS[j])) {
+                            tmpMask |= HTTP_MASKS[j];
+                            found = true;
 
-                        break;
+                            break;
+                        }
                     }
-                }
-                if (!found) {
-                    checkToken(methods[i]);
-                    if (extensions == null) {
-                        extensions = new ArrayList<String>(methods.length);
+                    if (!found) {
+                        checkToken(methods[i]);
+                        if (extensions == null) {
+                            extensions = new ArrayList<String>(methods.length);
+                        }
+                        add(extensions, methods[i]);
                     }
-                    add(extensions, methods[i]);
                 }
             }
             this.mask = tmpMask;
@@ -223,20 +223,25 @@ final class HTTPMethodSpec {
 
 
     public boolean equals(HTTPMethodSpec o) {
-        return mask == o.mask && transport == o.transport;
+        return mask == o.mask && transport == o.transport && Arrays.equals(extensionMethods, o.extensionMethods);
     }
 
     public String getActions() {
         if (actions == null) {
-            if (isAllWebResources()) {
-                actions = "";
+            StringBuilder buffer;
+            if (isAllHttpActions()) {
+                if (hasTransportGuarantee()) {
+                    buffer = new StringBuilder();
+                } else {
+                    return "";
+                }
             } else {
-                boolean first = true;
-                StringBuilder buffer = new StringBuilder();
+                buffer = new StringBuilder();
                 if (isExcluded) {
                     buffer.append("!");
                 }
 
+                boolean first = true;
                 for (int i = 0; i < HTTP_MASKS.length; i++) {
                     if ((mask & HTTP_MASKS[i]) > 0) {
                         if (first) {
@@ -247,8 +252,7 @@ final class HTTPMethodSpec {
                         buffer.append(HTTP_METHODS[i]);
                     }
                 }
-                for (int i = 0; i < extensionMethods.length; i++) {
-                    String method = extensionMethods[i];
+                for (String method : extensionMethods) {
                     if (first) {
                         first = false;
                     } else {
@@ -256,21 +260,27 @@ final class HTTPMethodSpec {
                     }
                     buffer.append(method);
                 }
+            }
 
+            if (hasTransportGuarantee()) {
                 if (transport == INTEGRAL) {
                     buffer.append(":INTEGRAL");
                 } else if (transport == CONFIDENTIAL) {
                     buffer.append(":CONFIDENTIAL");
                 }
-
-                actions = buffer.toString();
             }
+
+            actions = buffer.toString();
         }
         return actions;
     }
 
-    private boolean isAllWebResources() {
-        return isExcluded && mask == 0x00 && transport == NA && extensionMethods.length == 0;
+    private boolean isAllHttpActions() {
+        return isExcluded && mask == 0x00 && extensionMethods.length == 0;
+    }
+
+    private boolean hasTransportGuarantee() {
+        return  !(transport == NA || transport == NONE);
     }
 
     public int hashCode() {
