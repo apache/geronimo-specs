@@ -31,11 +31,12 @@ class ContextFinder {
     private static final String JAXB_CONTEXT_FACTORY = JAXBContext.JAXB_CONTEXT_FACTORY;
 
     public static JAXBContext find(String contextPath, ClassLoader classLoader, Map properties) throws JAXBException {
-        String className = null;
-        String[] packages = contextPath.split(":");
-        if (packages == null || packages.length == 0) {
+        contextPath = contextPath.trim();
+        if (contextPath.length() == 0 || contextPath.equals(":")) {
             throw new JAXBException("Invalid contextPath");
         }
+        String className = null;
+        String[] packages = contextPath.split("[:]");
         for (String pkg : packages) {
             String url = pkg.replace('.', '/') + "/jaxb.properties";
             className = loadClassNameFromProperties(url, classLoader);
