@@ -21,6 +21,14 @@
 //
 package javax.ejb;
 
-public enum LockType {
-    READ, WRITE;
+/**
+ * @version $Revision$ $Date$
+ */
+public class NoMoreTimeoutsException extends EJBException {
+    public NoMoreTimeoutsException() {
+    }
+
+    public NoMoreTimeoutsException(String s) {
+        super(s);
+    }
 }
