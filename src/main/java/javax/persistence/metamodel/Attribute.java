@@ -25,24 +25,32 @@
 
 package javax.persistence.metamodel;
 
+
 public interface Attribute<X, Y> {
 
-    public static enum PersistentAttributeType {
-        MANY_TO_ONE, ONE_TO_ONE, BASIC, EMBEDDED,
-        MANY_TO_MANY, ONE_TO_MANY, ELEMENT_COLLECTION
-    }
+	public static enum PersistentAttributeType {
+	    MANY_TO_ONE, ONE_TO_ONE, BASIC, EMBEDDED,
+	    MANY_TO_MANY, ONE_TO_MANY, ELEMENT_COLLECTION
+	}
 
+    
     String getName();
 
+    
     PersistentAttributeType getPersistentAttributeType();
 
+    
     ManagedType<X> getDeclaringType();
 
+    
     Class<Y> getJavaType();
 
+    
     java.lang.reflect.Member getJavaMember();
 
+    
     boolean isAssociation();
 
+    
     boolean isCollection();
 }

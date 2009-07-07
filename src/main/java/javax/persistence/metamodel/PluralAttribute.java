@@ -22,16 +22,20 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
+
 package javax.persistence.metamodel;
 
+
 public interface PluralAttribute<X, C, E> 
-    extends Attribute<X, C>, Bindable<E> {
-
-    public static enum CollectionType {
-        COLLECTION, SET, LIST, MAP
-    }
-
+		extends Attribute<X, C>, Bindable<E> {
+	
+	public static enum CollectionType {
+		COLLECTION, SET, LIST, MAP
+	}
+		
+    
     CollectionType getCollectionType();
 
+    
     Type<E> getElementType();
 }

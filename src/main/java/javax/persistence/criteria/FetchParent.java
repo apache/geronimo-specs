@@ -28,21 +28,30 @@ package javax.persistence.criteria;
 import javax.persistence.metamodel.PluralAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 
+
 public interface FetchParent<Z, X> {
 
+    
     java.util.Set<Fetch<X, ?>> getFetches();
 
+    	
     <Y> Fetch<X, Y> fetch(SingularAttribute<? super X, Y> attribute);
 
+    	
     <Y> Fetch<X, Y> fetch(SingularAttribute<? super X, Y> attribute, JoinType jt);
 
+    
     <Y> Fetch<X, Y> fetch(PluralAttribute<? super X, ?, Y> attribute);
+	
     
     <Y> Fetch<X, Y> fetch(PluralAttribute<? super X, ?, Y> attribute, JoinType jt);
+	
+
     
-    //String-based:
-    
+	
+    	
     <Y> Fetch<X, Y> fetch(String attributeName);
 
+    	
     <Y> Fetch<X, Y> fetch(String attributeName, JoinType jt);
 }

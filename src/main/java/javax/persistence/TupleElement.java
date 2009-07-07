@@ -22,11 +22,15 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
+
 package javax.persistence;
 
-public interface TupleElement <X> {
+
+public interface TupleElement<X> {
+    
     
     Class<X> getJavaType();
 
+    
     String getAlias();
 }

@@ -25,6 +25,5 @@
 
 package javax.persistence.metamodel;
 
-public interface EmbeddableType<X> extends ManagedType<X> {
-    
-}
+
+public interface EmbeddableType<X> extends ManagedType<X> {}
