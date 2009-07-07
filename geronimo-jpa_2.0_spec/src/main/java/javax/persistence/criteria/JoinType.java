@@ -22,8 +22,10 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
+
 package javax.persistence.criteria;
 
+
 public enum JoinType {
-    INNER, LEFT, RIGHT
+	INNER, LEFT, RIGHT
 }

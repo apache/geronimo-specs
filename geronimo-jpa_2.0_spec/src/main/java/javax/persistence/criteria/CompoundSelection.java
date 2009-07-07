@@ -23,18 +23,13 @@
 // DO NOT add / change / or delete method signatures!
 //
 
-package javax.persistence.metamodel;
+package javax.persistence.criteria;
+
+import java.util.List;
 
 
-public interface Bindable<T> {
-	
-	public static enum BindableType { 
-		SINGULAR_ATTRIBUTE, PLURAL_ATTRIBUTE, ENTITY_TYPE
-	}
+public interface CompoundSelection<X> extends Selection<X> {
 
-    	
-    BindableType getBindableType();
-	
     
-    Class<T> getBindableJavaType();
+    List<Selection<?>> getSelectionItems();
 }

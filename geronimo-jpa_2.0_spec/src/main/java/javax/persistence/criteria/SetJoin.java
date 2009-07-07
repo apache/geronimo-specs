@@ -28,7 +28,9 @@ package javax.persistence.criteria;
 import java.util.Set;
 import javax.persistence.metamodel.SetAttribute;
 
+
 public interface SetJoin<Z, E> extends PluralJoin<Z, Set<E>, E> {
 
+    
     SetAttribute<? super Z, E> getModel();
 }

@@ -25,11 +25,15 @@
 
 package javax.persistence.criteria;
 
+
 public interface Order {
 
+   
     Order reverse();
 
+   
     boolean isAscending();
 
+   
    <T extends Comparable<T>> Expression<T> getExpression();
 }

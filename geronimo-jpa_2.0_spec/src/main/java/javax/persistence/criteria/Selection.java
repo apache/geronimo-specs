@@ -26,8 +26,18 @@
 package javax.persistence.criteria;
 
 import javax.persistence.TupleElement;
+import java.util.List;
+
 
 public interface Selection<X> extends TupleElement<X> {
 
-    void setAlias(String name);
+    
+    Selection<X> alias(String name);
+
+    
+    boolean isCompoundSelection();
+
+    
+    List<Selection<?>> getCompoundSelectionItems();
+
 }

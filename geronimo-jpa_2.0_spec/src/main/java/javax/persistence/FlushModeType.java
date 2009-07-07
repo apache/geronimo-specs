@@ -21,11 +21,11 @@
 // This source code implements specifications defined by the Java
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
+//
+
 package javax.persistence;
 
-/**
- * @version $Rev$ $Date$
- */
 public enum FlushModeType {
-    COMMIT, AUTO
+	COMMIT,
+	AUTO
 }

@@ -22,11 +22,14 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
+
 package javax.persistence.criteria;
 
 import javax.persistence.metamodel.PluralAttribute;
 
+
 public interface PluralJoin<Z, C, E> extends Join<Z, E> {
 
+    
     PluralAttribute<? super Z, C, E> getModel();
 }

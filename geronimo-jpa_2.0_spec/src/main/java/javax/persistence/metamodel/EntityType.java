@@ -25,8 +25,10 @@
 
 package javax.persistence.metamodel;
 
-public interface EntityType<X> 
-    extends IdentifiableType<X>, Bindable<X>{
 
+public interface EntityType<X> 
+	extends IdentifiableType<X>, Bindable<X>{
+
+    
     String getName();
 }

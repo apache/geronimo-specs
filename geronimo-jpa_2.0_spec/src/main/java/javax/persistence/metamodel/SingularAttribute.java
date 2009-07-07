@@ -22,16 +22,22 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
+
 package javax.persistence.metamodel;
 
-public interface SingularAttribute<X, T> 
-    extends Attribute<X, T>, Bindable<T> {
 
+public interface SingularAttribute<X, T> 
+		extends Attribute<X, T>, Bindable<T> {
+	
+    
     boolean isId();
 
+    
     boolean isVersion();
 
+    
     boolean isOptional();
 
+    
     Type<T> getType();
 }

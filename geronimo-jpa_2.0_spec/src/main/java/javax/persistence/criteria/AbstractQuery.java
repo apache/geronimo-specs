@@ -30,35 +30,52 @@ import java.util.Set;
 
 import javax.persistence.metamodel.EntityType;
 
+
 public interface AbstractQuery<T> {
 
+    
     <X> Root<X> from(EntityType<X> entity);
 
+    
     <X> Root<X> from(Class<X> entityClass);
 
-    Set<Root<?>> getRoots();
     
+    Set<Root<?>> getRoots();
+	
+        
     AbstractQuery<T> where(Expression<Boolean> restriction);
 
+    
     AbstractQuery<T> where(Predicate... restrictions);
 
+    
     AbstractQuery<T> groupBy(Expression<?>... grouping);
 
+    
     AbstractQuery<T> having(Expression<Boolean> restriction);
 
+    
     AbstractQuery<T> having(Predicate... restrictions);
 
+    
     AbstractQuery<T> distinct(boolean distinct);
- 
-    Selection<T> getSelection();
 
+    
+    Selection<T> getSelection();
+ 
+    
     List<Expression<?>> getGroupList();
 
+    
     Predicate getRestriction();
 
+    
     Predicate getGroupRestriction();
 
-    boolean isDistinct();
     
-    <U> Subquery<U> subquery(Class<U> type);    
+    boolean isDistinct();
+	
+    
+    <U> Subquery<U> subquery(Class<U> type);
+	
 }

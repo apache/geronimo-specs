@@ -27,7 +27,9 @@ package javax.persistence.criteria;
 
 import javax.persistence.metamodel.EntityType;
 
+
 public interface Root<X> extends From<X, X> {
 
+    
     EntityType<X> getModel();
 }

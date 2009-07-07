@@ -22,35 +22,42 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
+
+
 package javax.persistence;
 
 import java.util.Set;
 import java.util.Map;
-
 import javax.persistence.metamodel.Metamodel;
 import javax.persistence.criteria.QueryBuilder;
 
-/**
- *
- * @version $Rev$ $Date$
- */
+
 public interface EntityManagerFactory {
 
-    public EntityManager createEntityManager();
+	
+	public EntityManager createEntityManager();
 
-    public EntityManager createEntityManager(Map map);
+	
+	public EntityManager createEntityManager(Map map);
 
-    public QueryBuilder getQueryBuilder();
+	
+	public QueryBuilder getQueryBuilder();
 
-    public Metamodel getMetamodel();
+	
+	public Metamodel getMetamodel();
 
-    public boolean isOpen();
+	
+	public boolean isOpen();
 
-    public void close();
+	
+	public void close();
 
-    public Map<String, Object> getProperties();
+	
+	public Map<String, Object> getProperties();
 
-    public Set<String> getSupportedProperties();
+	
+	public Set<String> getSupportedProperties();
 
-    public Cache getCache();
+	
+	public Cache getCache();
 }
