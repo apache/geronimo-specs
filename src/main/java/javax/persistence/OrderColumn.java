@@ -43,5 +43,4 @@ public @interface OrderColumn {
     
     String columnDefinition() default "";
     
-    String table() default "";
 }
