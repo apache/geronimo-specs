@@ -22,20 +22,21 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-package javax.annotation.security;
 
-import java.lang.annotation.Target;
-import java.lang.annotation.Retention;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Documented;
+package javax.annotation.security;
+import java.lang.annotation.*;
+import static java.lang.annotation.ElementType.*;
+import static java.lang.annotation.RetentionPolicy.*;
+
 
 /**
  * @version $Rev$ $Date$
  */
 
-@Documented
-@Target(ElementType.TYPE, ElementType.METHOD)
-@Retention(RetentionPolicy.RUNTIME)
-public @interface DenyAll {
+
+@Retention (RUNTIME)
+@Target({TYPE, METHOD})
+public @interface TransportProtected {
+     boolean value() default true;
 }
+
