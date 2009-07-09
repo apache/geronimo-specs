@@ -18,58 +18,55 @@ package javax.validation;
 
 import java.io.InputStream;
 
-/**
- * @version $Rev$ $Date$
- */
+
 public interface Configuration<T extends Configuration<T>> {
 
-    /**
-     * @param stream
-     * @return this
-     * @throws IllegalArgumentException
-     */
-    T addMapping(InputStream stream);
+	/**
+	 * @return this
+	 */
+	T ignoreXmlConfiguration();
 
-    /**
-     * @param name
-     * @param value
-     * @return this
-     * @throws IllegalArgumentException
-     */
-    T addProperty(String name, String value);
+	/**
+	 * @param interpolator
+	 * @return this
+	 */
+	T messageInterpolator(MessageInterpolator interpolator);
 
-    /**
-     * @return ValidatorFactory
-     * @throws ValidationException
-     */
-    ValidatorFactory buildValidatorFactory();
+	/**
+	 * @param resolver
+	 * @return this
+	 */
+	T traversableResolver(TraversableResolver resolver);
 
-    /**
-     * @param constraintValidatorFactory
-     * @return this
-     */
-    T constraintValidatorFactory(
-        ConstraintValidatorFactory constraintValidatorFactory);
+	/**
+	 * @param constraintValidatorFactory
+	 * @return this
+	 */
+	T constraintValidatorFactory(ConstraintValidatorFactory constraintValidatorFactory);
 
-    /**
-     * @return MessageInterpolator
-     */
-    MessageInterpolator getDefaultMessageInterpolator();
+	/**
+	 * @param stream
+	 * @return this
+	 * @throws IllegalArgumentException
+	 */
+	T addMapping(InputStream stream);
 
-    /**
-     * @return this
-     */
-    T ignoreXmlConfiguration();
+	/**
+	 * @param name
+	 * @param value
+	 * @return this
+	 * @throws IllegalArgumentException
+	 */
+	T addProperty(String name, String value);
 
-    /**
-     * @param interpolator
-     * @return this
-     */
-    T messageInterpolator(MessageInterpolator interpolator);
+	/**
+	 * @return MessageInterpolator
+	 */
+	MessageInterpolator getDefaultMessageInterpolator();
 
-    /**
-     * @param resolver
-     * @return this
-     */
-    T traversableResolver(TraversableResolver resolver);
+	/**
+	 * @return ValidatorFactory
+	 * @throws ValidationException
+	 */
+	ValidatorFactory buildValidatorFactory();
 }

@@ -17,38 +17,37 @@
 package javax.validation.spi;
 
 import javax.validation.Configuration;
-import javax.validation.ValidationException;
 import javax.validation.ValidatorFactory;
 
 /**
  * @version $Rev$ $Date$
  */
 public interface ValidationProvider {
-
-    /**
-     * @param configurationState
-     * @return ValidatorFactory
-     * @throws ValidationException
-     */
-    ValidatorFactory buildValidatorFactory(ConfigurationState configurationState);
-
-    /**
-     * @param state
-     * @return Configuration
-     */
-    Configuration<?> createGenericConfiguration(BootstrapState state);
-
-    /**
-     * @param state
-     * @param configurationClass
-     * @return Class<T>
-     */
-    <T extends Configuration<T>> T createSpecializedConfiguration(
-        BootstrapState state, Class<T> configurationClass);
-
     /**
      * @param configurationClass
      * @return boolean
      */
     boolean isSuitable(Class<? extends Configuration<?>> configurationClass);
+
+    /**
+     * @param configurationClass
+     * @param state
+     * @return Configuration<T>
+     */
+    <T extends Configuration<T>> T createSpecializedConfiguration(
+        BootstrapState state,
+        Class<T> configurationClass);
+
+    /**
+     * @param state
+     * @return Configuration<?>
+     */
+    Configuration<?> createGenericConfiguration(BootstrapState state);
+
+    /**
+     * @param configurationState
+     * @return ValidatorFactory
+     * @throws javax.validation.ValidationException
+     */
+    ValidatorFactory buildValidatorFactory(ConfigurationState configurationState);
 }

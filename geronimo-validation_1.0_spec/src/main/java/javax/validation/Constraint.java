@@ -16,23 +16,23 @@
  */
 package javax.validation;
 
-import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
-
 import java.lang.annotation.Documented;
+import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import java.lang.annotation.Retention;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import java.lang.annotation.Target;
+import java.lang.annotation.Annotation;
+
 
 /**
  * @version $Rev$ $Date$
  */
 @Documented
-@Target( { ANNOTATION_TYPE })
+@Target({ ANNOTATION_TYPE })
 @Retention(RUNTIME)
 public @interface Constraint {
-
     /**
      * @return ConstraintValidator[]
      */
-    public Class<? extends ConstraintValidator<?, ?>>[] validatedBy();
+    public Class<? extends ConstraintValidator<?,?>>[] validatedBy();
 }

@@ -16,16 +16,15 @@
  */
 package javax.validation;
 
-import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
-
-import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
+import java.lang.annotation.Retention;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 
 /**
  * @version $Rev$ $Date$
  */
-@Target( { ANNOTATION_TYPE })
+@Target({ ANNOTATION_TYPE })
 @Retention(RUNTIME)
 public @interface ReportAsSingleViolation {
 }

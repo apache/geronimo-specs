@@ -20,12 +20,6 @@ package javax.validation;
  * @version $Rev$ $Date$
  */
 public interface ValidatorFactory {
-
-    /**
-     * @return MessageInterpolator
-     */
-    MessageInterpolator getMessageInterpolator();
-
     /**
      * @return Validator
      */
@@ -35,4 +29,9 @@ public interface ValidatorFactory {
      * @return ValidatorContext
      */
     ValidatorContext usingContext();
+
+    /**
+     * @return MessageInterpolator
+     */
+    MessageInterpolator getMessageInterpolator();
 }

@@ -21,34 +21,19 @@ package javax.validation;
  * 
  * @version $Rev$ $Date$
  */
-@SuppressWarnings("serial")
 public class GroupDefinitionException extends ValidationException {
-
-    /**
-     * Default no-arg constructor
-     */
-    public GroupDefinitionException() {
-        super();
-    }
-
-    /**
-     * @param message
-     */
     public GroupDefinitionException(String message) {
         super(message);
     }
 
-    /**
-     * @param message
-     * @param cause
-     */
+    public GroupDefinitionException() {
+        super();
+    }
+
     public GroupDefinitionException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    /**
-     * @param cause
-     */
     public GroupDefinitionException(Throwable cause) {
         super(cause);
     }

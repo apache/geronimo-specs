@@ -16,22 +16,30 @@
  */
 package javax.validation.constraints;
 
-import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
-import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
-
-import java.lang.annotation.Documented;
-import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Documented;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
+import javax.validation.Constraint;
 
 /**
  * @version $Rev$ $Date$
  */
-@Target( { FIELD, METHOD, ANNOTATION_TYPE })
+@Target( { METHOD, FIELD, ANNOTATION_TYPE })
 @Retention(RUNTIME)
 @Documented
+@Constraint(validatedBy = {})
 public @interface Pattern {
+    String regexp();
+
+    Flag[] flags() default {};
+
+    String message() default "{constraint.pattern}";
+
+    Class<?>[] groups() default {};
 
     public static enum Flag {
         /**
@@ -70,35 +78,10 @@ public @interface Pattern {
         CANON_EQ
     }
 
-    /**
-     * Pattern[]
-     */
-    @Target( { FIELD, METHOD, ANNOTATION_TYPE })
+    @Target( { METHOD, FIELD, ANNOTATION_TYPE })
     @Retention(RUNTIME)
     @Documented
     @interface List {
         Pattern[] value();
     }
-
-    /**
-     * @return Flag[]
-     */
-    Flag[] flags() default {};
-
-    /**
-     * @return Class[]
-     */
-    Class<?>[] groups() default {};
-
-    /**
-     * Default message interpolation
-     * 
-     * @return String
-     */
-    String message() default "{constraint.pattern}";
-
-    /**
-     * @return String
-     */
-    String regexp();
 }

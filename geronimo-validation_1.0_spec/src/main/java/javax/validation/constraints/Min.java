@@ -16,47 +16,33 @@
  */
 package javax.validation.constraints;
 
+import java.lang.annotation.Documented;
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
-
-import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import java.lang.annotation.Target;
+import javax.validation.Constraint;
 
 /**
  * @version $Rev$ $Date$
  */
-@Target( { FIELD, METHOD, ANNOTATION_TYPE })
+@Target( { METHOD, FIELD, ANNOTATION_TYPE })
 @Retention(RUNTIME)
 @Documented
+@Constraint(validatedBy = {})
 public @interface Min {
+    String message() default "{constraint.min}";
 
-    /**
-     * Min[]
-     */
-    @Target( { FIELD, METHOD, ANNOTATION_TYPE })
+    Class<?>[] groups() default {};
+
+    long value();
+
+    @Target( { METHOD, FIELD, ANNOTATION_TYPE })
     @Retention(RUNTIME)
     @Documented
     @interface List {
         Min[] value();
     }
-
-    /**
-     * @return Class[]
-     */
-    Class<?>[] groups() default {};
-
-    /**
-     * Default message interpolation
-     * 
-     * @return String
-     */
-    String message() default "{constraint.min}";
-
-    /**
-     * @return long
-     */
-    long value();
 }

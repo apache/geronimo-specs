@@ -23,18 +23,18 @@ import java.util.Set;
  */
 public interface ElementDescriptor {
 
-	/**
-	 * @return Set
-	 */
-	Set<ConstraintDescriptor<?>> getConstraintDescriptors();
-
-	/**
-	 * @return Class
-	 */
-	Class<?> getType();
-
-	/**
+    /**
      * @return boolean
      */
     boolean hasConstraints();
+
+    /**
+     * @return Class
+     */
+    Class<?> getType();
+
+    /**
+     * @return Set<ConstraintDescriptors>
+     */
+    Set<ConstraintDescriptor<?>> getConstraintDescriptors();
 }

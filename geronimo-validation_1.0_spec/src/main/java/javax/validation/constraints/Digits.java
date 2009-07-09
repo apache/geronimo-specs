@@ -16,52 +16,35 @@
  */
 package javax.validation.constraints;
 
+import java.lang.annotation.Documented;
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
-
-import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import java.lang.annotation.Target;
+import javax.validation.Constraint;
 
 /**
  * @version $Rev$ $Date$
  */
-@Target( { FIELD, METHOD, ANNOTATION_TYPE })
+@Target( { METHOD, FIELD, ANNOTATION_TYPE })
 @Retention(RUNTIME)
 @Documented
+@Constraint(validatedBy = {})
 public @interface Digits {
+    String message() default "{constraint.digits}";
 
-    /**
-     * Digits[]
-     */
-    @Target( { FIELD, METHOD, ANNOTATION_TYPE })
+    Class<?>[] groups() default {};
+
+    int integer();
+
+    int fraction();
+
+    @Target( { METHOD, FIELD, ANNOTATION_TYPE })
     @Retention(RUNTIME)
     @Documented
     @interface List {
         Digits[] value();
     }
-
-    /**
-     * @return int
-     */
-    int fraction();
-
-    /**
-     * @return Class[]
-     */
-    Class<?>[] groups() default {};
-
-    /**
-     * @return int
-     */
-    int integer();
-
-    /**
-     * Default message interpolation
-     * 
-     * @return String
-     */
-    String message() default "{constraint.digits}";
 }

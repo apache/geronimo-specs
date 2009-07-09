@@ -16,47 +16,33 @@
  */
 package javax.validation.constraints;
 
+import java.lang.annotation.Documented;
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
-
-import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import java.lang.annotation.Target;
+import javax.validation.Constraint;
 
 /**
  * @version $Rev$ $Date$
  */
-@Target( { FIELD, METHOD, ANNOTATION_TYPE })
+@Target( { METHOD, FIELD, ANNOTATION_TYPE })
 @Retention(RUNTIME)
 @Documented
+@Constraint(validatedBy = {})
 public @interface Max {
+    String message() default "{constraint.max}";
 
-    /**
-     * Max[]
-     */
-    @Target( { FIELD, METHOD, ANNOTATION_TYPE })
+    Class<?>[] groups() default {};
+
+    long value();
+
+    @Target( { METHOD, FIELD, ANNOTATION_TYPE })
     @Retention(RUNTIME)
     @Documented
     @interface List {
         Max[] value();
     }
-
-    /**
-     * @return Class[]
-     */
-    Class<?>[] groups() default {};
-
-    /**
-     * Default message interpolation
-     * 
-     * @return String
-     */
-    String message() default "{constraint.max}";
-
-    /**
-     * @return long
-     */
-    long value();
 }
