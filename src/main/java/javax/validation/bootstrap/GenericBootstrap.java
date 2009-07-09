@@ -16,24 +16,22 @@
  */
 package javax.validation.bootstrap;
 
-import javax.validation.Configuration;
-import javax.validation.ValidationException;
 import javax.validation.ValidationProviderResolver;
+import javax.validation.Configuration;
 
 /**
  * @version $Rev$ $Date$
  */
 public interface GenericBootstrap {
-
-    /**
-     * @return Configuration
-     * @throws ValidationException
-     */
-    Configuration<?> configure() throws ValidationException;
-
     /**
      * @param resolver
      * @return GenericBootstrap
      */
     GenericBootstrap providerResolver(ValidationProviderResolver resolver);
+
+    /**
+     * @return Configuration
+     * @throws javax.validation.ValidationException
+     */
+    Configuration<?> configure();
 }

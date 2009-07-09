@@ -18,15 +18,14 @@ package javax.validation;
 
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
-
 import java.lang.annotation.Retention;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import java.lang.annotation.Target;
 
 /**
  * @version $Rev$ $Date$
  */
-@Target( { FIELD, METHOD })
+@Target({ METHOD, FIELD })
 @Retention(RUNTIME)
 public @interface Valid {
 }

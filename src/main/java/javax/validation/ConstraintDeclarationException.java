@@ -21,34 +21,19 @@ package javax.validation;
  * 
  * @version $Rev$ $Date$
  */
-@SuppressWarnings("serial")
 public class ConstraintDeclarationException extends ValidationException {
-
-    /**
-     * Default no-arg constructor
-     */
-    public ConstraintDeclarationException() {
-        super();
-    }
-
-    /**
-     * @param message
-     */
     public ConstraintDeclarationException(String message) {
         super(message);
     }
 
-    /**
-     * @param message
-     * @param cause
-     */
+    public ConstraintDeclarationException() {
+        super();
+    }
+
     public ConstraintDeclarationException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    /**
-     * @param cause
-     */
     public ConstraintDeclarationException(Throwable cause) {
         super(cause);
     }

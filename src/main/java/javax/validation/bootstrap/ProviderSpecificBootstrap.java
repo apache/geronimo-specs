@@ -16,22 +16,20 @@
  */
 package javax.validation.bootstrap;
 
-import javax.validation.Configuration;
-import javax.validation.ValidationException;
 import javax.validation.ValidationProviderResolver;
+import javax.validation.Configuration;
 
 public interface ProviderSpecificBootstrap<T extends Configuration<T>> {
-
-    /**
-     * @return T
-     * @throws ValidationException
-     */
-    public T configure() throws ValidationException;
 
     /**
      * @param resolver
      * @return ProviderSpecificBootstrap<T>
      */
-    public ProviderSpecificBootstrap<T> providerResolver(
-        ValidationProviderResolver resolver);
+    public ProviderSpecificBootstrap<T> providerResolver(ValidationProviderResolver resolver);
+
+    /**
+     * @return T
+     * @throws javax.validation.ValidationException
+     */
+    public T configure();
 }

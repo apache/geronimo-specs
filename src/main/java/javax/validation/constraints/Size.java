@@ -16,52 +16,41 @@
  */
 package javax.validation.constraints;
 
-import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
-import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
-
-import java.lang.annotation.Documented;
-import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Documented;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
+import javax.validation.Constraint;
 
 /**
  * @version $Rev$ $Date$
  */
-@Target( { FIELD, METHOD, ANNOTATION_TYPE })
+@Target( { METHOD, FIELD, ANNOTATION_TYPE })
 @Retention(RUNTIME)
 @Documented
+@Constraint(validatedBy = {})
 public @interface Size {
+    String message() default "{constraint.size}";
 
-    /**
-     * Size[]
-     */
-    @Target( { FIELD, METHOD, ANNOTATION_TYPE })
-    @Retention(RUNTIME)
-    @Documented
-    @interface List {
-        Size[] value();
-    }
-
-    /**
-     * @return Class[]
-     */
     Class<?>[] groups() default {};
+
+    /**
+     * @return int
+     */
+    int min() default 0;
 
     /**
      * @return int
      */
     int max() default Integer.MAX_VALUE;
 
-    /**
-     * Default message interpolation
-     * 
-     * @return String
-     */
-    String message() default "{constraint.size}";
-
-    /**
-     * @return int
-     */
-    int min() default 0;
+    @Target( { METHOD, FIELD, ANNOTATION_TYPE })
+    @Retention(RUNTIME)
+    @Documented
+    @interface List {
+        Size[] value();
+    }
 }

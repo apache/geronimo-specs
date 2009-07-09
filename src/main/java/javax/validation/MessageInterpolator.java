@@ -19,35 +19,30 @@ package javax.validation;
 import java.util.Locale;
 
 public interface MessageInterpolator {
-
-	/**
-	 * Context
-	 */
-	static interface Context {
-
-		/**
-		 * @return ConstraintDescriptor
-		 */
-		ConstraintDescriptor<?> getConstraintDescriptor();
-
-		/**
-		 * @return Object
-		 */
-		Object getValidatedValue();
-	}
-
-	/**
+    /**
      * @param messageTemplate
      * @param context
      * @return String
      */
     String interpolate(String messageTemplate, Context context);
 
-	/**
-	 * @param messageTemplate
-	 * @param context
-	 * @param locale
-	 * @return String
-	 */
-	String interpolate(String messageTemplate, Context context,  Locale locale);
+    /**
+     * @param messageTemplate
+     * @param context
+     * @param locale
+     * @return String
+     */
+    String interpolate(String messageTemplate, Context context, Locale locale);
+
+    static interface Context {
+        /**
+         * @return ConstraintDescriptor
+         */
+        ConstraintDescriptor<?> getConstraintDescriptor();
+
+        /**
+         * @return Object
+         */
+        Object getValidatedValue();
+    }
 }

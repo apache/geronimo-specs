@@ -22,7 +22,6 @@ import java.lang.annotation.ElementType;
  * @version $Rev$ $Date$
  */
 public interface TraversableResolver {
-
     /**
      * @param traversableObject
      * @param traversableProperty
@@ -31,7 +30,9 @@ public interface TraversableResolver {
      * @param elementType
      * @return boolean
      */
-    boolean isTraversable(Object traversableObject, String traversableProperty,
-        Class<?> rootBeanType, String pathToTraversableObject,
+    boolean isTraversable(Object traversableObject,
+        String traversableProperty,
+        Class<?> rootBeanType,
+        String pathToTraversableObject,
         ElementType elementType);
 }

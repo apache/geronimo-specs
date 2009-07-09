@@ -16,35 +16,28 @@
  */
 package javax.validation;
 
-import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
-
 import java.lang.annotation.Annotation;
-import java.lang.annotation.Documented;
+import static java.lang.annotation.ElementType.METHOD;
 import java.lang.annotation.Retention;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import java.lang.annotation.Target;
+import java.lang.annotation.Documented;
 
 /**
  * @version $Rev$ $Date$
  */
 @Retention(RUNTIME)
-@Target( { METHOD })
+@Target({ METHOD })
 public @interface OverridesAttribute {
-
     /**
-     * overrides
-     */
-    @Documented
-    @Target( { METHOD })
-    @Retention(RUNTIME)
-    public @interface List {
-        OverridesAttribute[] value();
-    }
-
-    /**
-     * @return Annotation
+     * @return Class
      */
     Class<? extends Annotation> constraint();
+
+    /**
+     * @return String
+     */
+    String name();
 
     /**
      * @return int
@@ -52,7 +45,12 @@ public @interface OverridesAttribute {
     int constraintIndex() default -1;
 
     /**
-     * @return String
+     * @see {@link OverridesAttribute}
      */
-    String name();
+    @Documented
+    @Target({ METHOD })
+    @Retention(RUNTIME)
+    public @interface List {
+        OverridesAttribute[] value();
+    }
 }

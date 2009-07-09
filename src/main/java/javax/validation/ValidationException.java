@@ -21,34 +21,19 @@ package javax.validation;
  * 
  * @version $Rev$ $Date$
  */
-@SuppressWarnings("serial")
 public class ValidationException extends RuntimeException {
-
-    /**
-     * Default no-arg constructor
-     */
-    public ValidationException() {
-        super();
-    }
-
-    /**
-     * @param message
-     */
     public ValidationException(String message) {
         super(message);
     }
 
-    /**
-     * @param message
-     * @param cause
-     */
+    public ValidationException() {
+        super();
+    }
+
     public ValidationException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    /**
-     * @param cause
-     */
     public ValidationException(Throwable cause) {
         super(cause);
     }

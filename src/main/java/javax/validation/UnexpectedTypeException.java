@@ -21,34 +21,19 @@ package javax.validation;
  * 
  * @version $Rev$ $Date$
  */
-@SuppressWarnings("serial")
 public class UnexpectedTypeException extends ConstraintDeclarationException {
-
-    /**
-     * Default no-arg constructor
-     */
-    public UnexpectedTypeException() {
-        super();
-    }
-
-    /**
-     * @param message
-     */
     public UnexpectedTypeException(String message) {
         super(message);
     }
 
-    /**
-     * @param message
-     * @param cause
-     */
+    public UnexpectedTypeException() {
+        super();
+    }
+
     public UnexpectedTypeException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    /**
-     * @param cause
-     */
     public UnexpectedTypeException(Throwable cause) {
         super(cause);
     }

@@ -20,20 +20,9 @@ package javax.validation;
  * @version $Rev$ $Date$
  */
 public interface ConstraintValidatorContext {
-
 	/**
-	 * @param message
-	 */
-	void addError(String message);
-
-	/**
-     * @param message
-     * @param property
-     */
-    void addError(String message, String property);
-
-	/**
-	 * 
+	 * @see #addError(String)
+	 * @see #addError(String, String)
 	 */
 	void disableDefaultError();
 
@@ -41,4 +30,15 @@ public interface ConstraintValidatorContext {
 	 * @return String
 	 */
 	String getDefaultErrorMessage();
+
+	/**
+	 * @param message
+	 */
+	void addError(String message);
+
+	/**
+	 * @param message
+	 * @param property
+	 */
+	void addError(String message, String property);
 }

@@ -22,43 +22,46 @@ import java.util.Set;
  * @version $Rev$ $Date$
  */
 public interface Validator {
-
     /**
-     * @param clazz
-     * @return BeanDescriptor
-     * @throws ValidationException
-     */
-    BeanDescriptor getConstraintsForClass(Class<?> clazz);
-
-    /**
-     * @param object
-     * @param groups
-     * @return Set<ConstraintViolation>
-     * @throws IllegalArgumentException
-     * @throws ValidationException
+	 * @param object
+	 * @param groups
+	 * @return Set<ConstraintViolation>
+	 * @throws IllegalArgumentException
+	 * @throws ValidationException
      */
     <T> Set<ConstraintViolation<T>> validate(T object, Class<?>... groups);
 
     /**
-     * @param object
-     * @param propertyName
-     * @param groups
-     * @return Set<ConstraintViolation>
-     * @throws IllegalArgumentException
-     * @throws ValidationException
+
+	 * @param object
+	 * @param propertyName
+	 * @param groups
+	 * @return Set<ConstraintViolation>
+	 * @throws IllegalArgumentException
+	 * @throws ValidationException
      */
     <T> Set<ConstraintViolation<T>> validateProperty(T object,
-        String propertyName, Class<?>... groups);
+        String propertyName,
+        Class<?>... groups);
 
     /**
-     * @param beanType
-     * @param propertyName
-     * @param value
-     * @param groups
-     * @return Set<ConstraintViolation>
-     * @throws IllegalArgumentException
-     * @throws ValidationException
+	 * @param beanType
+	 * @param propertyName
+	 * @param value
+	 * @param groups
+	 * @return Set<ConstraintViolation>
+	 * @throws IllegalArgumentException
+	 * @throws ValidationException
      */
     <T> Set<ConstraintViolation<T>> validateValue(Class<T> beanType,
-        String propertyName, Object value, Class<?>... groups);
+        String propertyName,
+        Object value,
+        Class<?>... groups);
+
+	/**
+	 * @param clazz
+	 * @return BeanDescriptor
+	 * @throws ValidationException
+	 */
+	BeanDescriptor getConstraintsForClass(Class<?> clazz);
 }

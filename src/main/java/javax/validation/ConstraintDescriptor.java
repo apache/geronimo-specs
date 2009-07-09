@@ -25,31 +25,34 @@ import java.util.Set;
  * @version $Rev$ $Date$
  */
 public interface ConstraintDescriptor<T extends Annotation> {
+	/**
+	 * @return constraint annotation
+	 */
+	T getAnnotation();
 
-    T getAnnotation();
+	/**
+	 * @return Set of groups
+	 */
+	Set<Class<?>> getGroups();
 
-    /**
-     * @return Map
-     */
-    Map<String, Object> getAttributes();
+	/**
+	 * @return List of classes
+	 */
+	List<Class<? extends ConstraintValidator<T, ?>>>
+	getConstraintValidatorClasses();
 
-    /**
-     * @return Set
-     */
-    Set<ConstraintDescriptor<?>> getComposingConstraints();
+	/**
+	 * @return Map of the annotation attribute/value pairs
+	 */
+	Map<String, Object> getAttributes();
 
-    /**
-     * @return List
-     */
-    List<Class<? extends ConstraintValidator<T, ?>>> getConstraintValidatorClasses();
+	/**
+	 * @return Set of ConstraintDescriptor
+	 */
+	Set<ConstraintDescriptor<?>> getComposingConstraints();
 
-    /**
-     * @return Set
-     */
-    Set<Class<?>> getGroups();
-
-    /**
-     * @return boolean
-     */
-    boolean isReportAsSingleViolation();
+	/**
+	 * @return boolean
+	 */
+	boolean isReportAsSingleViolation();
 }

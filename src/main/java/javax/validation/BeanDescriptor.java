@@ -22,7 +22,6 @@ import java.util.Set;
  * @version $Rev$ $Date$
  */
 public interface BeanDescriptor extends ElementDescriptor {
-
     /**
      * @return boolean
      */

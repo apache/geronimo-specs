@@ -57,138 +57,9 @@ public class Validation {
      * @param configurationType
      * @return ProviderSpecificBootstrap<T>
      */
-    public static <T extends Configuration<T>> ProviderSpecificBootstrap<T>
-        byProvider(Class<T> configurationType) {
+    public static <T extends Configuration<T>>
+        ProviderSpecificBootstrap<T> byProvider(Class<T> configurationType) {
         return new ProviderSpecificBootstrapImpl<T>(configurationType);
-    }
-
-    /*
-     * (non-Javadoc) See Section 4.4.5 Validation - Must be private
-     */
-    private static class DefaultValidationProviderResolver implements
-        ValidationProviderResolver {
-
-        private static final String SPI_CFG =
-            "META-INF/services/javax.validation.spi.ValidationProvider";
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see
-         * javax.validation.ValidationProviderResolver#getValidationProviders()
-         */
-        public List<ValidationProvider> getValidationProviders() {
-            List<ValidationProvider> providers =
-                new ArrayList<ValidationProvider>();
-            try {
-                // get our classloader
-                ClassLoader cl = Thread.currentThread().getContextClassLoader();
-                if (cl == null)
-                    cl = DefaultValidationProviderResolver.class.
-                        getClassLoader();
-                // find all service provider cfgs
-                Enumeration<URL> cfgs = cl.getResources(SPI_CFG);
-                while (cfgs.hasMoreElements()) {
-                    URL url = cfgs.nextElement();
-                    BufferedReader br = null;
-                    try {
-                        br = new BufferedReader(new InputStreamReader(
-                            url.openStream()), 256);
-                        String line = br.readLine();
-                        // cfgs may contain multiple providers and/or comments
-                        while (line != null) {
-                            line = line.trim();
-                            if (!line.startsWith("#")) {
-                                try {
-                                    // try loading the specified class
-                                    final Class<?> provider =
-                                        cl.loadClass(line);
-                                    // create an instance to return
-                                    providers.add((ValidationProvider) provider
-                                        .newInstance());
-                                } catch (ClassNotFoundException e) {
-                                    throw new ValidationException(
-                                        "Failed to load provider " + line +
-                                            " configured in file " + url, e);
-                                } catch (InstantiationException e) {
-                                    throw new ValidationException(
-                                        "Failed to instantiate provider " +
-                                            line + " configured in file " + url,
-                                        e);
-                                } catch (IllegalAccessException e) {
-                                    throw new ValidationException(
-                                        "Failed to load provider " + line +
-                                            " configured in file " + url, e);
-                                }
-                            }
-                            line = br.readLine();
-                        }
-                        br.close();
-                    } catch (IOException e) {
-                        throw new ValidationException("Error trying to read " +
-                            url, e);
-                    } finally {
-                        if (br != null)
-                            br.close();
-                    }
-                }
-            } catch (IOException e) {
-                throw new ValidationException("Error trying to read a " +
-                    SPI_CFG, e);
-            }
-            // caller must handle the case of no providers found
-            return providers;
-        }
-    }
-
-    /*
-     * (non-Javadoc) See Section 4.4.5 Validation - Must be private
-     */
-    private static class GenericBootstrapImpl implements GenericBootstrap,
-        BootstrapState {
-
-        private ValidationProviderResolver vpResolver;
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.validation.bootstrap.GenericBootstrap#configure()
-         */
-        public Configuration<?> configure() {
-            ValidationProviderResolver resolv = vpResolver;
-            try {
-                if (resolv == null)
-                    resolv = new DefaultValidationProviderResolver();
-                return resolv.getValidationProviders().get(0)
-                    .createGenericConfiguration(this);
-            } catch (Exception e) {
-                throw new ValidationException("Could not create configuration",
-                    e);
-            }
-        }
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see
-         * javax.validation.spi.BootstrapState#getValidationProviderResolver()
-         */
-        public ValidationProviderResolver getValidationProviderResolver() {
-            return vpResolver;
-        }
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see
-         * javax.validation.bootstrap.GenericBootstrap#providerResolver(javax
-         * .validation.ValidationProviderResolver)
-         */
-        public GenericBootstrap providerResolver(
-            ValidationProviderResolver resolver) {
-            vpResolver = resolver;
-            return this;
-        }
     }
 
     /*
@@ -213,48 +84,161 @@ public class Validation {
         /*
          * (non-Javadoc)
          * 
-         * @see javax.validation.bootstrap.ProviderSpecificBootstrap#configure()
+         * @see javax.validation.bootstrap.ProviderSpecificBootstrap#providerResolver(javax.validation.ValidationProviderResolver)
          */
-        public T configure() {
-            T cfg = null;
-
-            // create a default resolver if not supplied by providerResolver()
-            if (vpResolver == null)
-                vpResolver = new DefaultValidationProviderResolver();
-
-            // check each provider discovered by the resolver
-            for (ValidationProvider vProvider : vpResolver
-                .getValidationProviders()) {
-                if (vProvider.isSuitable(cfgType)) {
-                    GenericBootstrapImpl bootstrap = new GenericBootstrapImpl();
-                    // set the resolver
-                    bootstrap.providerResolver(vpResolver);
-                    // Create a Configuration<T> from the above bootstrap state
-                    // and configurationType
-                    cfg = vProvider.createSpecializedConfiguration(bootstrap,
-                        cfgType);
-                }
-            }
-
-            // return the Configuration<T> or throw a Spec required exception
-            if (cfg != null)
-                return cfg;
-            else
-                throw new ValidationException("No provider found for " +
-                    "configuration type " + cfgType);
+        public ProviderSpecificBootstrap<T> providerResolver(ValidationProviderResolver resolver) {
+            vpResolver = resolver;
+            return this;
         }
 
         /*
          * (non-Javadoc)
          * 
-         * @see
-         * javax.validation.bootstrap.ProviderSpecificBootstrap#providerResolver
-         * (javax.validation.ValidationProviderResolver)
+         * @see javax.validation.bootstrap.ProviderSpecificBootstrap#configure()
          */
-        public ProviderSpecificBootstrap<T> providerResolver(
-            ValidationProviderResolver resolver) {
+        public T configure() {
+            if (cfgType == null)
+                throw new ValidationException("No configuration builder provided");
+
+            // create a default resolver if not supplied by providerResolver()
+            GenericBootstrapImpl state = new GenericBootstrapImpl();
+            if ( vpResolver == null )
+                vpResolver = state.getDefaultValidationProviderResolver();
+            else
+                state.providerResolver(vpResolver);
+
+            // check each provider discovered by the resolver
+            for (ValidationProvider vProvider : vpResolver.getValidationProviders()) {
+                if (vProvider.isSuitable(cfgType)) {
+                    // Create a Configuration<T> from the above bootstrap state
+                    // and configurationType
+                    return vProvider.createSpecializedConfiguration(state, cfgType);
+                }
+            }
+
+            // throw a Spec required exception
+            throw new ValidationException("No provider found for configuration type " + cfgType);
+        }
+    }
+
+    /*
+     * (non-Javadoc) See Section 4.4.5 Validation - Must be private
+     */
+    private static class GenericBootstrapImpl implements GenericBootstrap, BootstrapState {
+
+        private ValidationProviderResolver vpDefaultResolver;
+        private ValidationProviderResolver vpResolver;
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see
+         * javax.validation.bootstrap.GenericBootstrap#providerResolver(javax
+         * .validation.ValidationProviderResolver)
+         */
+        public GenericBootstrap providerResolver(ValidationProviderResolver resolver) {
             vpResolver = resolver;
             return this;
         }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see javax.validation.spi.BootstrapState#getValidationProviderResolver()
+         */
+        public ValidationProviderResolver getValidationProviderResolver() {
+            return vpResolver;
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see javax.validation.spi.BootstrapState#getDefaultValidationProviderResolver()
+         */
+        public ValidationProviderResolver getDefaultValidationProviderResolver() {
+            if (vpDefaultResolver == null)
+                vpDefaultResolver = new DefaultValidationProviderResolver();
+            return vpDefaultResolver;
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see javax.validation.bootstrap.GenericBootstrap#configure()
+         */
+        public Configuration<?> configure() {
+            ValidationProviderResolver resolv = vpResolver;
+            try {
+                if (resolv == null)
+                    resolv = getDefaultValidationProviderResolver();
+                return resolv.getValidationProviders().get(0).createGenericConfiguration(this);
+            } catch (Exception e) {
+                throw new ValidationException("Could not create configuration", e);
+            }
+        }
     }
-}
+
+    /*
+     * (non-Javadoc) See Section 4.4.5 Validation - Must be private
+     */
+    private static class DefaultValidationProviderResolver implements ValidationProviderResolver {
+
+        private static final String SPI_CFG =
+            "META-INF/services/javax.validation.spi.ValidationProvider";
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see
+         * javax.validation.ValidationProviderResolver#getValidationProviders()
+         */
+        public List<ValidationProvider> getValidationProviders() {
+            List<ValidationProvider> providers = new ArrayList<ValidationProvider>();
+            try {
+                // get our classloader
+                ClassLoader cl = Thread.currentThread().getContextClassLoader();
+                if (cl == null)
+                    cl = DefaultValidationProviderResolver.class.getClassLoader();
+                // find all service provider cfgs
+                Enumeration<URL> cfgs = cl.getResources(SPI_CFG);
+                while (cfgs.hasMoreElements()) {
+                    URL url = cfgs.nextElement();
+                    BufferedReader br = null;
+                    try {
+                        br = new BufferedReader(new InputStreamReader(url.openStream()), 256);
+                        String line = br.readLine();
+                        // cfgs may contain multiple providers and/or comments
+                        while (line != null) {
+                            line = line.trim();
+                            if (!line.startsWith("#")) {
+                                try {
+                                    // try loading the specified class
+                                    final Class<?> provider = cl.loadClass(line);
+                                    // create an instance to return
+                                    providers.add((ValidationProvider) provider.newInstance());
+                                } catch (ClassNotFoundException e) {
+                                    throw new ValidationException("Failed to load provider " + line + " configured in file " + url, e);
+                                } catch (InstantiationException e) {
+                                    throw new ValidationException("Failed to instantiate provider " + line + " configured in file " + url, e);
+                                } catch (IllegalAccessException e) {
+                                    throw new ValidationException("Failed to access provider " + line + " configured in file " + url, e);
+                                }
+                            }
+                            line = br.readLine();
+                        }
+                        br.close();
+                    } catch (IOException e) {
+                        throw new ValidationException("Error trying to read " + url, e);
+                    } finally {
+                        if (br != null)
+                            br.close();
+                    }
+                }
+            } catch (IOException e) {
+                throw new ValidationException("Error trying to read a " + SPI_CFG, e);
+            }
+            // caller must handle the case of no providers found
+            return providers;
+        }
+    }
+ }

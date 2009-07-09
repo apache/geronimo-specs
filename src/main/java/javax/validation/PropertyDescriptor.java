@@ -20,14 +20,13 @@ package javax.validation;
  * @version $Rev$ $Date$
  */
 public interface PropertyDescriptor extends ElementDescriptor {
+    /**
+     * @return boolean
+     */
+    boolean isCascaded();
 
-	/**
-	 * @return boolean
-	 */
-	boolean isCascaded();
-
-	/**
-	 * @return String
-	 */
-	String getPropertyName();
+    /**
+     * @return String
+     */
+    String getPropertyName();
 }

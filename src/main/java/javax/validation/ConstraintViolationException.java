@@ -23,34 +23,31 @@ import java.util.Set;
  * 
  * @version $Rev$ $Date$
  */
-@SuppressWarnings("serial")
 public class ConstraintViolationException extends ValidationException {
-
-    private final Set<ConstraintViolation<?>> constraintViolations;
-
-    /**
-     * @param constraintViolations
-     */
-    public ConstraintViolationException(
-        Set<ConstraintViolation<?>> constraintViolations) {
-        super();
-        this.constraintViolations = constraintViolations;
-    }
+    private final Set<ConstraintViolation> constraintViolations;
 
     /**
      * @param message
      * @param constraintViolations
      */
     public ConstraintViolationException(String message,
-        Set<ConstraintViolation<?>> constraintViolations) {
+        Set<ConstraintViolation> constraintViolations) {
         super(message);
         this.constraintViolations = constraintViolations;
     }
 
     /**
-     * @return Set<ConstraintViolation>
+     * @param constraintViolations
      */
-    public Set<ConstraintViolation<?>> getConstraintViolations() {
+    public ConstraintViolationException(Set<ConstraintViolation> constraintViolations) {
+        super();
+        this.constraintViolations = constraintViolations;
+    }
+
+    /**
+     * @return Set<CosntraintViolation>
+     */
+    public Set<ConstraintViolation> getConstraintViolations() {
         return constraintViolations;
     }
 }
