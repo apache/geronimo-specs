@@ -28,6 +28,12 @@ package javax.security.jacc;
 import junit.framework.TestCase;
 
 import java.security.PermissionCollection;
+import java.security.Permission;
+import java.io.ByteArrayOutputStream;
+import java.io.ObjectOutputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
+import java.util.Enumeration;
 
 
 /**
@@ -240,5 +246,24 @@ public class EJBMethodPermissionCollectionTest extends TestCase {
         assertTrue(collection.implies(new EJBMethodPermission("HelloWorld", "hello,Local,")));
         assertFalse(collection.implies(new EJBMethodPermission("GoodbyeWorld", "hello,Local,")));
 
+    }
+    
+    public void testSerialization() throws Exception {
+        EJBMethodPermission p = new EJBMethodPermission("HelloWorld", "");
+        PermissionCollection collection = p.newPermissionCollection();
+        collection.add(new EJBMethodPermission("HelloWorld", ""));
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(baos);
+        oos.writeObject(collection);
+        oos.flush();
+        byte[] bytes = baos.toByteArray();
+        ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+        ObjectInputStream ois = new ObjectInputStream(bais);
+        PermissionCollection collection2 = (PermissionCollection) ois.readObject();
+        Enumeration <Permission> ps = collection2.elements();
+        Permission p2 = ps.nextElement();
+        assertEquals(p2, p);
+        assertFalse(ps.hasMoreElements());
+        assertTrue(collection2.implies(p));
     }
 }
