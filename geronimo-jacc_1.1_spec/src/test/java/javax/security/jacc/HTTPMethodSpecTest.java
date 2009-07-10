@@ -44,5 +44,6 @@ public class HTTPMethodSpecTest extends TestCase {
         assertEquals("!GET", new HTTPMethodSpec("!GET", parseTransport).getActions());
         assertEquals("!FOO", new HTTPMethodSpec("!FOO", parseTransport).getActions());
         assertEquals("!GET,PUT", new HTTPMethodSpec("!PUT,GET", parseTransport).getActions());
+        assertFalse(new HTTPMethodSpec("GET", parseTransport).equals(new HTTPMethodSpec("!GET", parseTransport)));
     }
 }

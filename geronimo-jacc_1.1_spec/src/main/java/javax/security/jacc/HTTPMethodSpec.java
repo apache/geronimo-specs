@@ -223,7 +223,7 @@ final class HTTPMethodSpec {
 
 
     public boolean equals(HTTPMethodSpec o) {
-        return mask == o.mask && transport == o.transport && Arrays.equals(extensionMethods, o.extensionMethods);
+        return mask == o.mask && transport == o.transport && isExcluded == o.isExcluded && Arrays.equals(extensionMethods, o.extensionMethods);
     }
 
     public String getActions() {
@@ -284,7 +284,7 @@ final class HTTPMethodSpec {
     }
 
     public int hashCode() {
-        return mask ^ transport;
+        return mask ^ (transport <<8) ^ (isExcluded? 0:0x200);
     }
 
     public String toString() {
