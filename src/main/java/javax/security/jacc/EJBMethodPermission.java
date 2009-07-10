@@ -38,11 +38,14 @@ import java.util.LinkedList;
 import java.util.HashMap;
 import java.util.Enumeration;
 import java.util.Collections;
+import java.util.HashSet;
 
 /**
  * @version $Rev$ $Date$
  */
 public final class EJBMethodPermission extends Permission implements Serializable {
+
+    private static final long serialVersionUID = 4513173161293901832L;
 
     private final static String NEW_METHOD_INTERFACES = "org.apache.security.jacc.EJBMethodPermission.methodInterfaces";
     private static String[] methodInterfaces;
@@ -321,9 +324,12 @@ public final class EJBMethodPermission extends Permission implements Serializabl
 
     private static final class EJBMethodPermissionCollection extends PermissionCollection {
 
-        private LinkedList collection = new LinkedList();
-        private HashMap permissions = new HashMap();
+        private static final long serialVersionUID = -3557818912959683053L;
+
         private static final String WILDCARD = "$WILDCARD";
+        private static final HashMap<String, HashMap<String, HashSet<String>>> ALL_METHODS = new HashMap<String, HashMap<String, HashSet<String>>>();
+        private LinkedList<Permission> collection = new LinkedList<Permission>();
+        private transient HashMap<String, HashMap<String, HashMap<String, HashSet<String>>>> permissions = new HashMap<String, HashMap<String, HashMap<String, HashSet<String>>>>();
 
         /**
          * Adds a permission object to the current collection of permission objects.
@@ -340,50 +346,58 @@ public final class EJBMethodPermission extends Permission implements Serializabl
 
             if (!(permission instanceof EJBMethodPermission)) throw new IllegalArgumentException("Wrong permission type");
 
-            if (collection.contains(permission)) return;
-            else collection.add(permission);
-
             EJBMethodPermission p = (EJBMethodPermission)permission;
-            EJBMethodPermission.MethodSpec spec = p.methodSpec;
-            Object test =  permissions.get(p.getName());
+            if (collection.contains(p)) return;
+            else collection.add(p);
 
-            if (test instanceof Boolean) return;
+            addEJBMethodPermission(p);
+
+        }
+
+        private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
+            in.defaultReadObject();
+            permissions = new HashMap<String, HashMap<String, HashMap<String, HashSet<String>>>>();
+            for (Permission p: collection) {
+                addEJBMethodPermission((EJBMethodPermission)p);
+            }
+        }
+
+        private void addEJBMethodPermission(EJBMethodPermission p) {
+            MethodSpec spec = p.methodSpec;
+            HashMap<String, HashMap<String, HashSet<String>>> methods =  permissions.get(p.getName());
+
+            if (methods == ALL_METHODS) return;
 
             if (spec.methodName == null && spec.methodInterface == null && spec.methodParams == null) {
-                permissions.put(p.getName(), new Boolean(true));
+                permissions.put(p.getName(), ALL_METHODS);
                 return;
             }
 
-            HashMap methods = (HashMap)test;
             if (methods == null) {
-                methods = new HashMap();
+                methods = new HashMap<String, HashMap<String, HashSet<String>>>();
                 permissions.put(p.getName(), methods);
             }
 
-            Object methodKey = (spec.methodName == null || spec.methodName.length() == 0? WILDCARD:spec.methodName);
-            HashMap interfaces = (HashMap)methods.get(methodKey);
+            String methodKey = (spec.methodName == null || spec.methodName.length() == 0? WILDCARD:spec.methodName);
+            HashMap<String, HashSet<String>> interfaces = methods.get(methodKey);
             if (interfaces == null) {
-                interfaces = new HashMap();
+                interfaces = new HashMap<String, HashSet<String>>();
                 methods.put(methodKey, interfaces);
             }
 
-            Object interfaceKey = (spec.methodInterface == null || spec.methodInterface.length() == 0? WILDCARD:spec.methodInterface);
-            HashMap parameters = (HashMap)interfaces.get(interfaceKey);
+            String interfaceKey = (spec.methodInterface == null || spec.methodInterface.length() == 0? WILDCARD:spec.methodInterface);
+            HashSet<String> parameters = interfaces.get(interfaceKey);
             if (parameters == null) {
-                parameters = new HashMap();
+                parameters = new HashSet<String>();
                 interfaces.put(interfaceKey, parameters);
             }
 
 
-
             // an empty string for a parameter spec indicates a method w/ no parameters
-            Object parametersKey = (spec.methodParams == null? WILDCARD:spec.methodParams);
-            Object parameter = parameters.get(parametersKey);
-            if (parameter == null) {
-                parameter = new Boolean(true);
-                parameters.put(parametersKey, parameter);
+            String parametersKey = (spec.methodParams == null? WILDCARD:spec.methodParams);
+            if (!parameters.contains(parametersKey)) {
+                parameters.add(parametersKey);
             }
-
         }
 
         /**
@@ -402,19 +416,17 @@ public final class EJBMethodPermission extends Permission implements Serializabl
             EJBMethodPermission p = (EJBMethodPermission)permission;
 
             EJBMethodPermission.MethodSpec spec = p.methodSpec;
-            Object test = permissions.get(p.getName());
+            HashMap<String, HashMap<String, HashSet<String>>> methods = permissions.get(p.getName());
 
-            if (test == null) return false;
-            if (test instanceof Boolean) return true;
+            if (methods == null) return false;
+            if (methods == ALL_METHODS) return true;
 
-            HashMap methods = (HashMap)test;
-
-            Object methodKey = (spec.methodName == null || spec.methodName.length() == 0? WILDCARD:spec.methodName);
-            HashMap interfaces = (HashMap)methods.get(methodKey);
+            String methodKey = (spec.methodName == null || spec.methodName.length() == 0? WILDCARD:spec.methodName);
+            HashMap<String, HashSet<String>> interfaces = methods.get(methodKey);
 
             if (methodImplies(interfaces, spec)) return true;
             if (methodKey != WILDCARD) {
-                return methodImplies((HashMap)methods.get(WILDCARD), spec);
+                return methodImplies(methods.get(WILDCARD), spec);
             }
 
             return false;
@@ -422,16 +434,16 @@ public final class EJBMethodPermission extends Permission implements Serializabl
 
 
 
-        protected boolean methodImplies(HashMap interfaces, EJBMethodPermission.MethodSpec spec) {
+        protected boolean methodImplies(HashMap<String, HashSet<String>> interfaces, EJBMethodPermission.MethodSpec spec) {
 
             if (interfaces == null) return false;
 
-            Object interfaceKey = (spec.methodInterface == null || spec.methodInterface.length() == 0? WILDCARD:spec.methodInterface);
-            HashMap parameters = (HashMap)interfaces.get(interfaceKey);
+            String interfaceKey = (spec.methodInterface == null || spec.methodInterface.length() == 0? WILDCARD:spec.methodInterface);
+            HashSet<String> parameters = interfaces.get(interfaceKey);
 
             if (interfaceImplies(parameters, spec)) return true;
             if (interfaceKey != WILDCARD) {
-                return interfaceImplies((HashMap)interfaces.get(WILDCARD), spec);
+                return interfaceImplies(interfaces.get(WILDCARD), spec);
             }
 
             return false;
@@ -439,18 +451,17 @@ public final class EJBMethodPermission extends Permission implements Serializabl
 
 
 
-        protected boolean interfaceImplies(HashMap parameters, EJBMethodPermission.MethodSpec spec) {
+        protected boolean interfaceImplies(HashSet<String> parameters, EJBMethodPermission.MethodSpec spec) {
 
             if (parameters == null) return false;
 
             // An empty string for a parameter spec indicates a method w/ no parameters
             // so we won't convert an empty string to a wildcard.
-            Object parametersKey = (spec.methodParams == null? WILDCARD:spec.methodParams);
-            Object parameter = parameters.get(parametersKey);
+            String parametersKey = (spec.methodParams == null? WILDCARD:spec.methodParams);
 
-            if (parameter != null) return true;
+            if (parameters.contains(parametersKey)) return true;
             if (parametersKey != WILDCARD) {
-                return parameters.containsKey(WILDCARD);
+                return parameters.contains(WILDCARD);
             }
 
             return false;
@@ -463,7 +474,7 @@ public final class EJBMethodPermission extends Permission implements Serializabl
          *
          * @return an enumeration of all the Permissions.
          */
-        public Enumeration elements() {
+        public Enumeration<Permission> elements() {
             return Collections.enumeration(collection);
         }
     }
