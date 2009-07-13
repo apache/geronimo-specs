@@ -179,10 +179,22 @@ public class Persistence {
     }
     
     /*
-    * Return the PersistenceUtil instance
+    * @return PersistenceUtil instance
     */
-    public PersistenceUtil getPersistenceUtil() {
-        // TODO: must implement this method as required by JSR-317
-        return null;
+    public static PersistenceUtil getPersistenceUtil() {
+        // TODO: OPENJPA-1076 - Required by JSR-317.  
+        // Dummy impl for Bean Validation testing.
+        return new PersistenceUtil() {
+
+            public boolean isLoaded(Object entity, String attributeName) {
+                // TODO Auto-generated dummy method stub
+                return true;
+            }
+
+            public boolean isLoaded(Object entity) {
+                // TODO Auto-generated dummy method stub
+                return true;
+            }
+        };
     }
 }
