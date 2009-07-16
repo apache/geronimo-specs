@@ -32,7 +32,7 @@
 
     <groupId>org.apache.geronimo.specs</groupId>
     <artifactId>geronimo-validation_1.0_spec</artifactId>
-    <version>1.0-EA3-SNAPSHOT</version>
+    <version>1.0-EA4-SNAPSHOT</version>
     <packaging>bundle</packaging>
     <name>Bean Validation 1.0 Spec API</name>
     <description>Bean Validation Spec API 1.0 JSR-303</description>
