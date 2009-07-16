@@ -16,11 +16,10 @@
  */
 package javax.validation;
 
+/**
+ * @version $Rev$ $Date$
+ */
 public interface ConstraintValidatorFactory {
 
-    /**
-     * @param key
-     * @return Class<T extends ConstraintValidator>
-     */
-    <T extends ConstraintValidator<?,?>> T getInstance(Class<T> key);
+    <T extends ConstraintValidator<?, ?>> T getInstance(Class<T> key);
 }

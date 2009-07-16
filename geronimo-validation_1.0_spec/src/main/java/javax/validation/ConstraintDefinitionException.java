@@ -17,8 +17,6 @@
 package javax.validation;
 
 /**
- * @see javax.validation.ValidationException
- * 
  * @version $Rev$ $Date$
  */
 public class ConstraintDefinitionException extends ValidationException {

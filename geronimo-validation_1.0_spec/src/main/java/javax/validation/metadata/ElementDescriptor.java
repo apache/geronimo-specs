@@ -14,45 +14,20 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package javax.validation;
+package javax.validation.metadata;
 
-import java.lang.annotation.Annotation;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 /**
  * @version $Rev$ $Date$
  */
-public interface ConstraintDescriptor<T extends Annotation> {
-	/**
-	 * @return constraint annotation
-	 */
-	T getAnnotation();
+public interface ElementDescriptor {
 
-	/**
-	 * @return Set of groups
-	 */
-	Set<Class<?>> getGroups();
+    boolean hasConstraints();
 
-	/**
-	 * @return List of classes
-	 */
-	List<Class<? extends ConstraintValidator<T, ?>>>
-	getConstraintValidatorClasses();
+    Class<?> getElementClass();
 
-	/**
-	 * @return Map of the annotation attribute/value pairs
-	 */
-	Map<String, Object> getAttributes();
+    Set<ConstraintDescriptor<?>> getConstraintDescriptors();
 
-	/**
-	 * @return Set of ConstraintDescriptor
-	 */
-	Set<ConstraintDescriptor<?>> getComposingConstraints();
-
-	/**
-	 * @return boolean
-	 */
-	boolean isReportAsSingleViolation();
+    Set<ConstraintDescriptor<?>> getUnorderdConstraintDescriptorsMatchingGroups(Class<?>... groups);
 }

@@ -23,8 +23,5 @@ import javax.validation.spi.ValidationProvider;
  * @version $Rev$ $Date$
  */
 public interface ValidationProviderResolver {
-    /**
-     * @return List<ValidationProvider>
-     */
-    List<ValidationProvider> getValidationProviders();
+    List<ValidationProvider<?>> getValidationProviders();
 }

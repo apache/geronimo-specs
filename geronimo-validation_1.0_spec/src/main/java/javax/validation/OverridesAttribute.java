@@ -17,11 +17,11 @@
 package javax.validation;
 
 import java.lang.annotation.Annotation;
+import java.lang.annotation.Documented;
 import static java.lang.annotation.ElementType.METHOD;
 import java.lang.annotation.Retention;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import java.lang.annotation.Target;
-import java.lang.annotation.Documented;
 
 /**
  * @version $Rev$ $Date$
@@ -29,24 +29,12 @@ import java.lang.annotation.Documented;
 @Retention(RUNTIME)
 @Target({ METHOD })
 public @interface OverridesAttribute {
-    /**
-     * @return Class
-     */
     Class<? extends Annotation> constraint();
 
-    /**
-     * @return String
-     */
     String name();
 
-    /**
-     * @return int
-     */
     int constraintIndex() default -1;
 
-    /**
-     * @see {@link OverridesAttribute}
-     */
     @Documented
     @Target({ METHOD })
     @Retention(RUNTIME)

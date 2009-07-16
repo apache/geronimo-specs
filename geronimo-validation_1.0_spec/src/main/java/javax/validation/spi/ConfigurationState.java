@@ -17,8 +17,8 @@
 package javax.validation.spi;
 
 import java.io.InputStream;
-import java.util.Set;
 import java.util.Map;
+import java.util.Set;
 import javax.validation.ConstraintValidatorFactory;
 import javax.validation.MessageInterpolator;
 import javax.validation.TraversableResolver;
@@ -28,33 +28,15 @@ import javax.validation.TraversableResolver;
  */
 public interface ConfigurationState {
 
-    /**
-     * @return boolean
-     */
     boolean isIgnoreXmlConfiguration();
 
-    /**
-     * @return MessageInterpolator
-     */
     MessageInterpolator getMessageInterpolator();
 
-    /**
-     * @return Set<InputStream>
-     */
     Set<InputStream> getMappingStreams();
 
-    /**
-     * @return ConstraintValidatorFactory
-     */
     ConstraintValidatorFactory getConstraintValidatorFactory();
 
-    /**
-     * @return TraversableResolver
-     */
     TraversableResolver getTraversableResolver();
 
-    /**
-     * @return Map<String, String>
-     */
     Map<String, String> getProperties();
 }

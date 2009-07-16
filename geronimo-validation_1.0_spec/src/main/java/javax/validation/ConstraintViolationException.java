@@ -19,35 +19,23 @@ package javax.validation;
 import java.util.Set;
 
 /**
- * @see javax.validation.ValidationException
- * 
  * @version $Rev$ $Date$
  */
 public class ConstraintViolationException extends ValidationException {
-    private final Set<ConstraintViolation> constraintViolations;
+    private final Set<ConstraintViolation<?>> constraintViolations;
 
-    /**
-     * @param message
-     * @param constraintViolations
-     */
-    public ConstraintViolationException(String message,
-        Set<ConstraintViolation> constraintViolations) {
+    public <T> ConstraintViolationException(String message,
+            Set<ConstraintViolation<?>> constraintViolations) {
         super(message);
         this.constraintViolations = constraintViolations;
     }
 
-    /**
-     * @param constraintViolations
-     */
-    public ConstraintViolationException(Set<ConstraintViolation> constraintViolations) {
+    public <T> ConstraintViolationException(Set<ConstraintViolation<?>> constraintViolations) {
         super();
         this.constraintViolations = constraintViolations;
     }
 
-    /**
-     * @return Set<CosntraintViolation>
-     */
-    public Set<ConstraintViolation> getConstraintViolations() {
+    public Set<ConstraintViolation<?>> getConstraintViolations() {
         return constraintViolations;
     }
 }

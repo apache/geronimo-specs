@@ -19,14 +19,5 @@ package javax.validation;
 /**
  * @version $Rev$ $Date$
  */
-public interface PropertyDescriptor extends ElementDescriptor {
-    /**
-     * @return boolean
-     */
-    boolean isCascaded();
-
-    /**
-     * @return String
-     */
-    String getPropertyName();
+public interface ConstraintPayload {
 }

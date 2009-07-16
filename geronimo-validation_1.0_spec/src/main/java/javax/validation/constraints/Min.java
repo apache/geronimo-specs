@@ -18,28 +18,34 @@ package javax.validation.constraints;
 
 import java.lang.annotation.Documented;
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
+import static java.lang.annotation.ElementType.CONSTRUCTOR;
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.ElementType.PARAMETER;
 import java.lang.annotation.Retention;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import java.lang.annotation.Target;
+
 import javax.validation.Constraint;
+import javax.validation.ConstraintPayload;
 
 /**
  * @version $Rev$ $Date$
  */
-@Target( { METHOD, FIELD, ANNOTATION_TYPE })
+@Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER })
 @Retention(RUNTIME)
 @Documented
 @Constraint(validatedBy = {})
 public @interface Min {
-    String message() default "{constraint.min}";
+    String message() default "{javax.validation.constraints.Min.message}";
 
     Class<?>[] groups() default {};
 
+    Class<? extends ConstraintPayload>[] payload() default {};
+
     long value();
 
-    @Target( { METHOD, FIELD, ANNOTATION_TYPE })
+    @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER })
     @Retention(RUNTIME)
     @Documented
     @interface List {

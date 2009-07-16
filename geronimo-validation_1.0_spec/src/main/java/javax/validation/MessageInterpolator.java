@@ -17,32 +17,19 @@
 package javax.validation;
 
 import java.util.Locale;
+import javax.validation.metadata.ConstraintDescriptor;
 
+/**
+ * @version $Rev$ $Date$
+ */
 public interface MessageInterpolator {
-    /**
-     * @param messageTemplate
-     * @param context
-     * @return String
-     */
     String interpolate(String messageTemplate, Context context);
 
-    /**
-     * @param messageTemplate
-     * @param context
-     * @param locale
-     * @return String
-     */
     String interpolate(String messageTemplate, Context context, Locale locale);
 
-    static interface Context {
-        /**
-         * @return ConstraintDescriptor
-         */
+    interface Context {
         ConstraintDescriptor<?> getConstraintDescriptor();
 
-        /**
-         * @return Object
-         */
         Object getValidatedValue();
     }
 }

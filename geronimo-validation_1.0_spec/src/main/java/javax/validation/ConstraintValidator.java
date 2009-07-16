@@ -22,16 +22,7 @@ import java.lang.annotation.Annotation;
  * @version $Rev$ $Date$
  */
 public interface ConstraintValidator<A extends Annotation, T> {
-    /**
-     * @param constraintAnnotation
-     */
     void initialize(A constraintAnnotation);
 
-    /**
-     * @param value
-     * @param constraintValidatorContext
-     * @return boolean
-     */
     boolean isValid(T value, ConstraintValidatorContext constraintValidatorContext);
 }
- 

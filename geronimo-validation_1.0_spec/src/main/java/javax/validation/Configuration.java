@@ -18,55 +18,24 @@ package javax.validation;
 
 import java.io.InputStream;
 
-
+/**
+ * @version $Rev$ $Date$
+ */
 public interface Configuration<T extends Configuration<T>> {
 
-	/**
-	 * @return this
-	 */
 	T ignoreXmlConfiguration();
 
-	/**
-	 * @param interpolator
-	 * @return this
-	 */
 	T messageInterpolator(MessageInterpolator interpolator);
 
-	/**
-	 * @param resolver
-	 * @return this
-	 */
 	T traversableResolver(TraversableResolver resolver);
 
-	/**
-	 * @param constraintValidatorFactory
-	 * @return this
-	 */
 	T constraintValidatorFactory(ConstraintValidatorFactory constraintValidatorFactory);
 
-	/**
-	 * @param stream
-	 * @return this
-	 * @throws IllegalArgumentException
-	 */
 	T addMapping(InputStream stream);
 
-	/**
-	 * @param name
-	 * @param value
-	 * @return this
-	 * @throws IllegalArgumentException
-	 */
 	T addProperty(String name, String value);
 
-	/**
-	 * @return MessageInterpolator
-	 */
 	MessageInterpolator getDefaultMessageInterpolator();
 
-	/**
-	 * @return ValidatorFactory
-	 * @throws ValidationException
-	 */
 	ValidatorFactory buildValidatorFactory();
 }

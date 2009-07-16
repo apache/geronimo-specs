@@ -20,25 +20,42 @@ package javax.validation;
  * @version $Rev$ $Date$
  */
 public interface ConstraintValidatorContext {
-	/**
-	 * @see #addError(String)
-	 * @see #addError(String, String)
-	 */
-	void disableDefaultError();
+    void disableDefaultError();
 
-	/**
-	 * @return String
-	 */
-	String getDefaultErrorMessage();
+    String getDefaultErrorMessageTemplate();
 
-	/**
-	 * @param message
-	 */
-	void addError(String message);
+    ErrorBuilder buildErrorWithMessageTemplate(String messageTemplate);
 
-	/**
-	 * @param message
-	 * @param property
-	 */
-	void addError(String message, String property);
+    interface ErrorBuilder {
+        NodeBuilderDefinedContext addSubNode(String name);
+
+        ConstraintValidatorContext addError();
+
+        interface NodeBuilderDefinedContext {
+
+            NodeBuilderCustomizableContext addSubNode(String name);
+
+            ConstraintValidatorContext addError();
+        }
+
+        interface NodeBuilderCustomizableContext {
+
+            NodeContextBuilder inIterable();
+
+            NodeBuilderCustomizableContext addSubNode(String name);
+
+            ConstraintValidatorContext addError();
+        }
+
+        interface NodeContextBuilder {
+
+            NodeBuilderDefinedContext atKey(Object key);
+
+            NodeBuilderDefinedContext atIndex(Integer index);
+
+            NodeBuilderCustomizableContext addSubNode(String name);
+
+            ConstraintValidatorContext addError();
+        }
+    }
 }

@@ -22,13 +22,7 @@ import javax.validation.ValidationProviderResolver;
  * @version $Rev$ $Date$
  */
 public interface BootstrapState {
-    /**
-     * @return ValidationProviderResolver
-     */
     ValidationProviderResolver getValidationProviderResolver();
 
-    /**
-     * @return ValidationProviderResolver
-     */
     ValidationProviderResolver getDefaultValidationProviderResolver();
 }

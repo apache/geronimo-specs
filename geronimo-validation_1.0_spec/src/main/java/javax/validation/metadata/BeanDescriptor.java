@@ -14,16 +14,17 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package javax.validation.bootstrap;
+package javax.validation.metadata;
 
-import javax.validation.Configuration;
-import javax.validation.ValidationProviderResolver;
+import java.util.Set;
 
 /**
  * @version $Rev$ $Date$
  */
-public interface GenericBootstrap {
-    GenericBootstrap providerResolver(ValidationProviderResolver resolver);
+public interface BeanDescriptor extends ElementDescriptor {
+    boolean isBeanConstrained();
 
-    Configuration<?> configure();
+    PropertyDescriptor getConstraintsForProperty(String propertyName);
+
+    Set<PropertyDescriptor> getConstrainedProperties();
 }

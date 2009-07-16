@@ -16,47 +16,26 @@
  */
 package javax.validation;
 
+import javax.validation.metadata.ConstraintDescriptor;
+
 /**
+ * @version $Rev$ $Date$
  */
 public interface ConstraintViolation<T> {
 
-    /**
-     * @return The interpolated error message for this constraint violation.
-     */
     String getMessage();
 
-    /**
-     * @return String
-     */
     String getMessageTemplate();
 
-    /**
-     * @return root bean
-     */
     T getRootBean();
 
-    /**
-     * @return Class
-     */
     Class<T> getRootBeanClass();
 
-    /**
-     * @return Object
-     */
     Object getLeafBean();
 
-    /**
-     * @return String
-     */
-    String getPropertyPath();
+    Path getPropertyPath();
 
-    /**
-     * @return Object
-     */
     Object getInvalidValue();
 
-    /**
-     * @return ConstraintDescriptor
-     */
     ConstraintDescriptor<?> getConstraintDescriptor();
 }
