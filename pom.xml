@@ -57,4 +57,18 @@
         <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/branches/geronimo-validation_1.0_spec-1.0-EA/</url>
     </scm>
 
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-eclipse-plugin</artifactId>
+                    <configuration>
+                        <addVersionToProjectName>true</addVersionToProjectName>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
 </project>
