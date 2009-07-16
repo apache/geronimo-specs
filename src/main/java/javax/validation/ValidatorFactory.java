@@ -20,18 +20,11 @@ package javax.validation;
  * @version $Rev$ $Date$
  */
 public interface ValidatorFactory {
-    /**
-     * @return Validator
-     */
     Validator getValidator();
 
-    /**
-     * @return ValidatorContext
-     */
     ValidatorContext usingContext();
 
-    /**
-     * @return MessageInterpolator
-     */
     MessageInterpolator getMessageInterpolator();
+
+    public <T> T unwrap(Class<T> type);
 }

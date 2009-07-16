@@ -20,20 +20,9 @@ package javax.validation;
  * @version $Rev$ $Date$
  */
 public interface ValidatorContext {
-    /**
-     * @param messageInterpolator
-     * @return ValidatorContext
-     */
     ValidatorContext messageInterpolator(MessageInterpolator messageInterpolator);
 
-    /**
-     * @param traversableResolver
-     * @return ValidatorContext
-     */
     ValidatorContext traversableResolver(TraversableResolver traversableResolver);
 
-    /**
-     * @return Validator
-     */
     Validator getValidator();
 }

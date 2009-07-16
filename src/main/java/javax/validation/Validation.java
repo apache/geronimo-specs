@@ -38,38 +38,27 @@ import javax.validation.spi.ValidationProvider;
  */
 public class Validation {
 
-    /**
-     * @return ValidatorFactory
-     * @throws ValidationException
-     */
     public static ValidatorFactory buildDefaultValidatorFactory() {
         return byDefaultProvider().configure().buildValidatorFactory();
     }
 
-    /**
-     * @return GenericBootstrap
-     */
     public static GenericBootstrap byDefaultProvider() {
         return new GenericBootstrapImpl();
     }
 
-    /**
-     * @param configurationType
-     * @return ProviderSpecificBootstrap<T>
-     */
-    public static <T extends Configuration<T>>
-        ProviderSpecificBootstrap<T> byProvider(Class<T> configurationType) {
-        return new ProviderSpecificBootstrapImpl<T>(configurationType);
+    public static <T extends Configuration<T>, U extends ValidationProvider<T>>
+            ProviderSpecificBootstrap<T> byProvider(Class<U> providerType) {
+        return new ProviderSpecificBootstrapImpl<T, U>(providerType);
     }
 
     /*
      * (non-Javadoc) See Section 4.4.5 Validation - Must be private
      */
-    private static class ProviderSpecificBootstrapImpl<T extends Configuration<T>>
+	private static class ProviderSpecificBootstrapImpl<T extends Configuration<T>, U extends ValidationProvider<T>>
         implements ProviderSpecificBootstrap<T> {
 
-        private Class<T> cfgType = null;
-        private ValidationProviderResolver vpResolver = null;
+		private final Class<U> providerClass;
+		private ValidationProviderResolver vpResolver;
 
         /*
          * (non-Javadoc)
@@ -77,8 +66,9 @@ public class Validation {
          * @seejavax.validation.bootstrap.ProviderSpecificBootstrap#
          * ProviderSpecificBootstrap(Class<T>)
          */
-        public ProviderSpecificBootstrapImpl(Class<T> configurationType) {
-            cfgType = configurationType;
+		
+		public ProviderSpecificBootstrapImpl(Class<U> validationProviderClass) {
+			providerClass = validationProviderClass;
         }
 
         /*
@@ -97,8 +87,8 @@ public class Validation {
          * @see javax.validation.bootstrap.ProviderSpecificBootstrap#configure()
          */
         public T configure() {
-            if (cfgType == null)
-                throw new ValidationException("No configuration builder provided");
+            if (providerClass == null)
+                throw new ValidationException("No resolver provided");
 
             // create a default resolver if not supplied by providerResolver()
             GenericBootstrapImpl state = new GenericBootstrapImpl();
@@ -108,16 +98,16 @@ public class Validation {
                 state.providerResolver(vpResolver);
 
             // check each provider discovered by the resolver
-            for (ValidationProvider vProvider : vpResolver.getValidationProviders()) {
-                if (vProvider.isSuitable(cfgType)) {
-                    // Create a Configuration<T> from the above bootstrap state
+            for (ValidationProvider<?> vProvider : vpResolver.getValidationProviders()) {
+                if (providerClass.isAssignableFrom(vProvider.getClass())) {
+                    // Create a ValidationProvider<T> from the above bootstrap state
                     // and configurationType
-                    return vProvider.createSpecializedConfiguration(state, cfgType);
+                    return providerClass.cast(vProvider).createSpecializedConfiguration(state);
                 }
             }
 
             // throw a Spec required exception
-            throw new ValidationException("No provider found for configuration type " + cfgType);
+            throw new ValidationException("No resover found for provider " + providerClass);
         }
     }
 
@@ -173,18 +163,21 @@ public class Validation {
                     resolv = getDefaultValidationProviderResolver();
                 return resolv.getValidationProviders().get(0).createGenericConfiguration(this);
             } catch (Exception e) {
-                throw new ValidationException("Could not create configuration", e);
+                throw new ValidationException("Could not create a default provider", e);
             }
         }
     }
 
     /*
      * (non-Javadoc) See Section 4.4.5 Validation - Must be private
+     * 
+     * TODO - Spec recommends caching per classloader
+     * 
      */
     private static class DefaultValidationProviderResolver implements ValidationProviderResolver {
-
-        private static final String SPI_CFG =
-            "META-INF/services/javax.validation.spi.ValidationProvider";
+ 
+        private static final String SERVICES_FILENAME = "META-INF/services/" +
+            ValidationProvider.class.getName();
 
         /*
          * (non-Javadoc)
@@ -192,15 +185,16 @@ public class Validation {
          * @see
          * javax.validation.ValidationProviderResolver#getValidationProviders()
          */
-        public List<ValidationProvider> getValidationProviders() {
-            List<ValidationProvider> providers = new ArrayList<ValidationProvider>();
+        public List<ValidationProvider<?>> getValidationProviders() {
+            List<ValidationProvider<?>> providers = new ArrayList<ValidationProvider<?>>();
             try {
                 // get our classloader
                 ClassLoader cl = Thread.currentThread().getContextClassLoader();
                 if (cl == null)
                     cl = DefaultValidationProviderResolver.class.getClassLoader();
+
                 // find all service provider cfgs
-                Enumeration<URL> cfgs = cl.getResources(SPI_CFG);
+                Enumeration<URL> cfgs = cl.getResources(SERVICES_FILENAME);
                 while (cfgs.hasMoreElements()) {
                     URL url = cfgs.nextElement();
                     BufferedReader br = null;
@@ -215,7 +209,7 @@ public class Validation {
                                     // try loading the specified class
                                     final Class<?> provider = cl.loadClass(line);
                                     // create an instance to return
-                                    providers.add((ValidationProvider) provider.newInstance());
+                                    providers.add((ValidationProvider<?>) provider.newInstance());
                                 } catch (ClassNotFoundException e) {
                                     throw new ValidationException("Failed to load provider " + line + " configured in file " + url, e);
                                 } catch (InstantiationException e) {
@@ -227,6 +221,7 @@ public class Validation {
                             line = br.readLine();
                         }
                         br.close();
+                        br = null;
                     } catch (IOException e) {
                         throw new ValidationException("Error trying to read " + url, e);
                     } finally {
@@ -235,7 +230,7 @@ public class Validation {
                     }
                 }
             } catch (IOException e) {
-                throw new ValidationException("Error trying to read a " + SPI_CFG, e);
+                throw new ValidationException("Error trying to read a " + SERVICES_FILENAME, e);
             }
             // caller must handle the case of no providers found
             return providers;

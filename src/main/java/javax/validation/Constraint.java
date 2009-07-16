@@ -21,8 +21,6 @@ import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import java.lang.annotation.Retention;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import java.lang.annotation.Target;
-import java.lang.annotation.Annotation;
-
 
 /**
  * @version $Rev$ $Date$
@@ -31,8 +29,5 @@ import java.lang.annotation.Annotation;
 @Target({ ANNOTATION_TYPE })
 @Retention(RUNTIME)
 public @interface Constraint {
-    /**
-     * @return ConstraintValidator[]
-     */
     public Class<? extends ConstraintValidator<?,?>>[] validatedBy();
 }

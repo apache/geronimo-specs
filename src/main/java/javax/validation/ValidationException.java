@@ -17,8 +17,6 @@
 package javax.validation;
 
 /**
- * @see java.lang.RuntmeException
- * 
  * @version $Rev$ $Date$
  */
 public class ValidationException extends RuntimeException {

@@ -17,22 +17,21 @@
 package javax.validation;
 
 import java.lang.annotation.ElementType;
+import javax.validation.Path;
 
 /**
  * @version $Rev$ $Date$
  */
 public interface TraversableResolver {
-    /**
-     * @param traversableObject
-     * @param traversableProperty
-     * @param rootBeanType
-     * @param pathToTraversableObject
-     * @param elementType
-     * @return boolean
-     */
-    boolean isTraversable(Object traversableObject,
-        String traversableProperty,
+    boolean isReachable(Object traversableObject,
+        Path.Node traversableProperty,
         Class<?> rootBeanType,
-        String pathToTraversableObject,
+        Path pathToTraversableObject,
+        ElementType elementType);
+
+    boolean isCascadable(Object traversableObject,
+        Path.Node traversableProperty,
+        Class<?> rootBeanType,
+        Path pathToTraversableObject,
         ElementType elementType);
 }

@@ -16,69 +16,66 @@
  */
 package javax.validation.constraints;
 
-import java.lang.annotation.Target;
-import java.lang.annotation.Retention;
 import java.lang.annotation.Documented;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
-import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
+import static java.lang.annotation.ElementType.CONSTRUCTOR;
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.ElementType.PARAMETER;
+import java.lang.annotation.Retention;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+import java.lang.annotation.Target;
+
 import javax.validation.Constraint;
+import javax.validation.ConstraintPayload;
 
 /**
  * @version $Rev$ $Date$
  */
-@Target( { METHOD, FIELD, ANNOTATION_TYPE })
+@Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER })
 @Retention(RUNTIME)
 @Documented
 @Constraint(validatedBy = {})
 public @interface Pattern {
+    
     String regexp();
 
     Flag[] flags() default {};
 
-    String message() default "{constraint.pattern}";
+    String message() default "{javax.validation.constraints.Pattern.message}";
 
     Class<?>[] groups() default {};
 
+    Class<? extends ConstraintPayload>[] payload() default {};
+
     public static enum Flag {
-        /**
-         * @see java.util.regex.Pattern#UNIX_LINES
-         */
-        UNIX_LINES,
 
-        /**
-         * @see java.util.regex.Pattern#CASE_INSENSITIVE
-         */
-        CASE_INSENSITIVE,
+        UNIX_LINES(java.util.regex.Pattern.UNIX_LINES),
 
-        /**
-         * @see java.util.regex.Pattern#COMMENTS
-         */
-        COMMENTS,
+        CASE_INSENSITIVE(java.util.regex.Pattern.CASE_INSENSITIVE),
 
-        /**
-         * @see java.util.regex.Pattern#MULTILINE
-         */
-        MULTILINE,
+        COMMENTS(java.util.regex.Pattern.COMMENTS),
 
-        /**
-         * @see java.util.regex.Pattern#DOTALL
-         */
-        DOTALL,
+        MULTILINE(java.util.regex.Pattern.MULTILINE),
 
-        /**
-         * @see java.util.regex.Pattern#UNICODE_CASE
-         */
-        UNICODE_CASE,
+        DOTALL(java.util.regex.Pattern.DOTALL),
 
-        /**
-         * @see java.util.regex.Pattern#CANON_EQ
-         */
-        CANON_EQ
+        UNICODE_CASE(java.util.regex.Pattern.UNICODE_CASE),
+
+        CANON_EQ(java.util.regex.Pattern.CANON_EQ);
+
+        private final int value;
+
+        private Flag(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
     }
 
-    @Target( { METHOD, FIELD, ANNOTATION_TYPE })
+    @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER })
     @Retention(RUNTIME)
     @Documented
     @interface List {

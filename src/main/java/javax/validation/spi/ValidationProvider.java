@@ -22,32 +22,11 @@ import javax.validation.ValidatorFactory;
 /**
  * @version $Rev$ $Date$
  */
-public interface ValidationProvider {
-    /**
-     * @param configurationClass
-     * @return boolean
-     */
-    boolean isSuitable(Class<? extends Configuration<?>> configurationClass);
+public interface ValidationProvider<T extends Configuration<T>> {
 
-    /**
-     * @param configurationClass
-     * @param state
-     * @return Configuration<T>
-     */
-    <T extends Configuration<T>> T createSpecializedConfiguration(
-        BootstrapState state,
-        Class<T> configurationClass);
+    T createSpecializedConfiguration(BootstrapState state);
 
-    /**
-     * @param state
-     * @return Configuration<?>
-     */
     Configuration<?> createGenericConfiguration(BootstrapState state);
 
-    /**
-     * @param configurationState
-     * @return ValidatorFactory
-     * @throws javax.validation.ValidationException
-     */
     ValidatorFactory buildValidatorFactory(ConfigurationState configurationState);
 }

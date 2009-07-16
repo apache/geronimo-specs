@@ -14,27 +14,13 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package javax.validation;
-
-import java.util.Set;
+package javax.validation.metadata;
 
 /**
  * @version $Rev$ $Date$
  */
-public interface BeanDescriptor extends ElementDescriptor {
-    /**
-     * @return boolean
-     */
-    boolean isBeanConstrained();
+public interface PropertyDescriptor extends ElementDescriptor {
+    boolean isCascaded();
 
-    /**
-     * @param propertyName
-     * @return PropertyDescriptor
-     */
-    PropertyDescriptor getConstraintsForProperty(String propertyName);
-
-    /**
-     * @return Set<PropertyDescriptor>
-     */
-    Set<PropertyDescriptor> getConstrainedProperties();
+    String getPropertyName();
 }

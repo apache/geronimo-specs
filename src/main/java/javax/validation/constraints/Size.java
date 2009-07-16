@@ -16,38 +16,38 @@
  */
 package javax.validation.constraints;
 
-import java.lang.annotation.Target;
-import java.lang.annotation.Retention;
 import java.lang.annotation.Documented;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
-import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
+import static java.lang.annotation.ElementType.CONSTRUCTOR;
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.ElementType.PARAMETER;
+import java.lang.annotation.Retention;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+import java.lang.annotation.Target;
+
 import javax.validation.Constraint;
+import javax.validation.ConstraintPayload;
 
 /**
  * @version $Rev$ $Date$
  */
-@Target( { METHOD, FIELD, ANNOTATION_TYPE })
+@Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER })
 @Retention(RUNTIME)
 @Documented
 @Constraint(validatedBy = {})
 public @interface Size {
-    String message() default "{constraint.size}";
+    String message() default "{javax.validation.constraints.Size.message}";
 
     Class<?>[] groups() default {};
 
-    /**
-     * @return int
-     */
+    Class<? extends ConstraintPayload>[] payload() default {};
+
     int min() default 0;
 
-    /**
-     * @return int
-     */
     int max() default Integer.MAX_VALUE;
 
-    @Target( { METHOD, FIELD, ANNOTATION_TYPE })
+    @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER })
     @Retention(RUNTIME)
     @Documented
     @interface List {

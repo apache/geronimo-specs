@@ -14,16 +14,20 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package javax.validation.bootstrap;
-
-import javax.validation.Configuration;
-import javax.validation.ValidationProviderResolver;
+package javax.validation;
 
 /**
  * @version $Rev$ $Date$
  */
-public interface GenericBootstrap {
-    GenericBootstrap providerResolver(ValidationProviderResolver resolver);
+public interface Path extends Iterable<Path.Node> {
 
-    Configuration<?> configure();
+    interface Node {
+        String getName();
+
+        boolean isInIterable();
+
+        Integer getIndex();
+
+        Object getKey();
+    }
 }

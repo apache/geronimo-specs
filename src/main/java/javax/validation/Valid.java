@@ -16,8 +16,10 @@
  */
 package javax.validation;
 
+import static java.lang.annotation.ElementType.CONSTRUCTOR;
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.ElementType.PARAMETER;
 import java.lang.annotation.Retention;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import java.lang.annotation.Target;
@@ -25,7 +27,7 @@ import java.lang.annotation.Target;
 /**
  * @version $Rev$ $Date$
  */
-@Target({ METHOD, FIELD })
+@Target({ METHOD, FIELD, CONSTRUCTOR, PARAMETER })
 @Retention(RUNTIME)
 public @interface Valid {
 }
