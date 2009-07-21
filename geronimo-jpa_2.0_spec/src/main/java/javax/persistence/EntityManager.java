@@ -86,9 +86,9 @@ public interface EntityManager {
 
 	public Query createQuery(String qlString);
 
-	public <T> TypedQuery<T> createQuery(String qlString, Class<T> resultClass);
-
 	public <T> TypedQuery<T> createQuery(CriteriaQuery<T> criteriaQuery); 
+
+	public <T> TypedQuery<T> createQuery(String qlString, Class<T> resultClass);
 
 	public Query createNamedQuery(String name);
 

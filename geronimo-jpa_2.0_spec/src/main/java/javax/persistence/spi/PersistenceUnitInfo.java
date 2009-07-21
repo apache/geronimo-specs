@@ -22,26 +22,23 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
+
 package javax.persistence.spi;
 
-import java.net.URL;
+import javax.sql.DataSource;
 import java.util.List;
 import java.util.Properties;
+import java.net.URL;
 
-import javax.persistence.Caching;
-import javax.persistence.ValidationMode;
-import javax.sql.DataSource;
 
-/**
- * @version $Rev$ $Date$
- */
+
 public interface PersistenceUnitInfo {
-
     public String getPersistenceUnitName();
 
     public String getPersistenceProviderClassName();
 
     public PersistenceUnitTransactionType getTransactionType();
+
 
     public DataSource getJtaDataSource();
 
@@ -52,6 +49,7 @@ public interface PersistenceUnitInfo {
     public List<URL> getJarFileUrls();
 
     public URL getPersistenceUnitRootUrl();
+
 
     public List<String> getManagedClassNames();
 
@@ -66,6 +64,7 @@ public interface PersistenceUnitInfo {
     public String PersistenceXMLSchemaVersion();
 
     public ClassLoader getClassLoader();
+
 
     public void addTransformer(ClassTransformer transformer);
 
