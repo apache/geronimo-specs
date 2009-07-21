@@ -31,60 +31,41 @@ import java.util.Calendar;
 
 
 public interface TypedQuery<X> extends Query {
-	
-    
     List<X> getResultList();
 
-    
     X getSingleResult();
 
-    
     TypedQuery<X> setMaxResults(int maxResult);
 
-    
     TypedQuery<X> setFirstResult(int startPosition);
 
-    
     TypedQuery<X> setHint(String hintName, Object value);
 
-    
      <T> TypedQuery<X> setParameter(Parameter<T> param, T value);
 
-    
     TypedQuery<X> setParameter(Parameter<Date> param, Date value,  TemporalType temporalType);
 
 
-    
     TypedQuery<X> setParameter(Parameter<Calendar> param, Calendar value,  TemporalType temporalType);
 
-    
     TypedQuery<X> setParameter(String name, Object value);
 
-    
     TypedQuery<X> setParameter(String name, Date value, TemporalType temporalType);
 
-    
     TypedQuery<X> setParameter(String name, Calendar value, TemporalType temporalType);
 
-    
     TypedQuery<X> setParameter(int position, Object value);
 
-    
     TypedQuery<X> setParameter(int position, Date value,  TemporalType temporalType);
 
-    
     TypedQuery<X> setParameter(int position, Calendar value,  TemporalType temporalType);
 
-    
     <T> Parameter<T> getParameter(String name, Class<T> type);
 
-    
     <T> Parameter<T> getParameter(int position, Class<T> type);
 
-     
      TypedQuery<X> setFlushMode(FlushModeType flushMode);
 
-     
      TypedQuery<X> setLockMode(LockModeType lockMode);
 
 }

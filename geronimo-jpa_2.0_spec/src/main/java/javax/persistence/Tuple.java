@@ -30,24 +30,17 @@ import java.util.List;
 
 public interface Tuple {
 
-    
     <X> X get(TupleElement<X> tupleElement);
 
-    
     <X> X get(String alias, Class<X> type); 
 
-    
     Object get(String alias); 
 
-    
     <X> X get(int i, Class<X> type);
 
-    
     Object get(int i);
 
-    
     Object[] toArray();
 
-    
     List<TupleElement<?>> getElements();
 }

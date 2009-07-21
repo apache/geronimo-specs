@@ -30,6 +30,5 @@ import javax.persistence.metamodel.PluralAttribute;
 
 public interface PluralJoin<Z, C, E> extends Join<Z, E> {
 
-    
     PluralAttribute<? super Z, C, E> getModel();
 }

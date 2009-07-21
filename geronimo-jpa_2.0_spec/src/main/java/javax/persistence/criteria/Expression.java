@@ -30,24 +30,17 @@ import java.util.Collection;
 
 public interface Expression<T> extends Selection<T> {
 
-    
     Predicate isNull();
 
-    
     Predicate isNotNull();
 
-    
     Predicate in(Object... values);
 
-    
     Predicate in(Expression<?>... values);
 
-    
     Predicate in(Collection<?> values);
 
-    
     Predicate in(Expression<Collection<?>> values);
 
-    
     <X> Expression<X> as(Class<X> type);
 }

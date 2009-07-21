@@ -33,24 +33,17 @@ public interface Attribute<X, Y> {
 	    MANY_TO_MANY, ONE_TO_MANY, ELEMENT_COLLECTION
 	}
 
-    
     String getName();
 
-    
     PersistentAttributeType getPersistentAttributeType();
 
-    
     ManagedType<X> getDeclaringType();
 
-    
     Class<Y> getJavaType();
 
-    
     java.lang.reflect.Member getJavaMember();
 
-    
     boolean isAssociation();
 
-    
     boolean isCollection();
 }
