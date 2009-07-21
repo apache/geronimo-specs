@@ -21,21 +21,53 @@
 package javax.servlet;
 
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @version $Rev$ $Date$
  * @since 3.0
  */
 public interface Registration {
+
+    /**
+     *
+     * @return the class name of filter or servlet this registered
+     */
+    String getClassName();
+
+    /**
+     *
+     * @param name init parameter name
+     * @return init parameter value or null if not set
+     */
+    String getInitParameter(String name);
+
+    /**
+     *
+     * @return non-null immutable map of all init parameters
+     */
+    Map<String, String> getInitParameters();
+
+    /**
+     *
+     * @return name of filter or servlet this initialised
+     */
+    String getName();
+
     boolean setInitParameter(String name, String value);
 
-    void setInitParameters(Map<String, String> initParameters);
+    /**
+     *
+     * @param initParameters map of name-value paramters
+     * @return set of previously set parameter names
+     */
+    Set<String> setInitParameters(Map<String, String> initParameters);
 
     public interface Dynamic extends Registration {
 
         void setAsyncSupported(boolean asyncSupported);
 
-        boolean setDescription(String description);
+        void setDescription(String description);
         
     }
 }
