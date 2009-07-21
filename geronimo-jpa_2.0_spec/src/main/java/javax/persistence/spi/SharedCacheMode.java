@@ -25,48 +25,10 @@
 
 package javax.persistence.spi;
 
-import javax.sql.DataSource;
-import java.util.List;
-import java.util.Properties;
-import java.net.URL;
-
-
-
-public interface PersistenceUnitInfo {
-	public String getPersistenceUnitName();
-
-	public String getPersistenceProviderClassName();
-
-	public PersistenceUnitTransactionType getTransactionType();
-
-
-	public DataSource getJtaDataSource();
-
-	public DataSource getNonJtaDataSource();
-
-	public List<String> getMappingFileNames();
-
-	public List<URL> getJarFileUrls();
-
-	public URL getPersistenceUnitRootUrl();
-
-
-	public List<String> getManagedClassNames();
-
-	public boolean excludeUnlistedClasses();
-
-	public SharedCacheMode getSharedCacheMode();
-
-	public ValidationMode getValidationMode();
-
-	public Properties getProperties();
-
-	public String PersistenceXMLSchemaVersion();
-
-	public ClassLoader getClassLoader();
-
-
-	public void addTransformer(ClassTransformer transformer);
-
-	public ClassLoader getNewTempClassLoader();
+public enum SharedCacheMode {
+	ALL,
+	NONE,
+	ENABLE_SELECTIVE,
+	DISABLE_SELECTIVE,
+	UNSPECIFIED
 }

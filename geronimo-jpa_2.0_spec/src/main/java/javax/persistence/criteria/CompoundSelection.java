@@ -25,10 +25,5 @@
 
 package javax.persistence.criteria;
 
-import java.util.List;
 
-
-public interface CompoundSelection<X> extends Selection<X> {
-
-    List<Selection<?>> getSelectionItems();
-}
+public interface CompoundSelection<X> extends Selection<X> {}
