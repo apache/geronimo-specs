@@ -22,10 +22,16 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-package javax.persistence;
 
-public enum ValidationMode {
-    AUTO,
-    CALLBACK,
-    NONE
+
+package javax.persistence.spi;
+
+
+public interface ProviderUtil { 
+
+	public LoadState isLoadedWithoutReference(Object entity, String attributeName);
+
+	public LoadState isLoadedWithReference(Object entity, String attributeName);
+
+	public LoadState isLoaded(Object entity);
 }

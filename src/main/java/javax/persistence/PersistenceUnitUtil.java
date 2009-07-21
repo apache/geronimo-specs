@@ -23,50 +23,14 @@
 // DO NOT add / change / or delete method signatures!
 //
 
-package javax.persistence.spi;
-
-import javax.sql.DataSource;
-import java.util.List;
-import java.util.Properties;
-import java.net.URL;
+package javax.persistence;
 
 
+public interface PersistenceUnitUtil extends PersistenceUtil {
 
-public interface PersistenceUnitInfo {
-	public String getPersistenceUnitName();
+    public boolean isLoaded(Object entity, String attributeName);
 
-	public String getPersistenceProviderClassName();
+    public boolean isLoaded(Object entity);
 
-	public PersistenceUnitTransactionType getTransactionType();
-
-
-	public DataSource getJtaDataSource();
-
-	public DataSource getNonJtaDataSource();
-
-	public List<String> getMappingFileNames();
-
-	public List<URL> getJarFileUrls();
-
-	public URL getPersistenceUnitRootUrl();
-
-
-	public List<String> getManagedClassNames();
-
-	public boolean excludeUnlistedClasses();
-
-	public SharedCacheMode getSharedCacheMode();
-
-	public ValidationMode getValidationMode();
-
-	public Properties getProperties();
-
-	public String PersistenceXMLSchemaVersion();
-
-	public ClassLoader getClassLoader();
-
-
-	public void addTransformer(ClassTransformer transformer);
-
-	public ClassLoader getNewTempClassLoader();
-}
+    public Object getIdentifier(Object entity);
+} 

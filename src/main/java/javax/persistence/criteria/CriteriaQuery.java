@@ -52,7 +52,7 @@ public interface CriteriaQuery<T> extends AbstractQuery<T> {
 
     CriteriaQuery<T> distinct(boolean distinct);
 
-    Class getResultType();
+    Class<T> getResultType();  
     List<Order> getOrderList();
     Set<ParameterExpression<?>> getParameters();
 }

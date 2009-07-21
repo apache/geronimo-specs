@@ -35,12 +35,6 @@ public interface PersistenceProvider {
 
     public EntityManagerFactory createContainerEntityManagerFactory(PersistenceUnitInfo info, Map map);
 
-    public LoadState isLoadedWithoutReference(Object entity, 
-        String attributeName);
-    
-    public LoadState isLoadedWithReference(Object entity, 
-        String attributeName);
-
-    public LoadState isLoaded(Object entity);
+    public ProviderUtil getProviderUtil();
 }
 

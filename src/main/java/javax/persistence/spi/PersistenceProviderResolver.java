@@ -30,5 +30,7 @@ import java.util.List;
 
 public interface PersistenceProviderResolver {
 
-    List<PersistenceProvider> getPersistenceProviders();
-}
+	List<PersistenceProvider> getPersistenceProviders();
+
+	 public void clearCachedProviders();
+} 
