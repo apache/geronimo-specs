@@ -22,11 +22,10 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
+
 package javax.persistence.spi;
 
-/**
- * @version $Rev$ $Date$
- */
 public enum PersistenceUnitTransactionType {
-    JTA, RESOURCE_LOCAL
+	JTA,
+	RESOURCE_LOCAL
 }

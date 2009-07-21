@@ -63,12 +63,9 @@ public interface From<Z, X> extends Path<X>, FetchParent<Z, X> {
     <X, Y> SetJoin<X, Y> joinSet(String attributeName);	
 
     <X, Y> ListJoin<X, Y> joinList(String attributeName);		
-
     <X, K, V> MapJoin<X, K, V> joinMap(String attributeName);	
 
-
     <X, Y> Join<X, Y> join(String attributeName, JoinType jt);	
-
     <X, Y> CollectionJoin<X, Y> joinCollection(String attributeName, JoinType jt);	
 
     <X, Y> SetJoin<X, Y> joinSet(String attributeName, JoinType jt);	
