@@ -31,13 +31,10 @@ import java.util.List;
 
 public interface Selection<X> extends TupleElement<X> {
 
-    
     Selection<X> alias(String name);
 
-    
     boolean isCompoundSelection();
 
-    
     List<Selection<?>> getCompoundSelectionItems();
 
 }

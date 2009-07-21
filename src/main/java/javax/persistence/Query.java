@@ -35,93 +35,63 @@ import java.util.Map;
 
 public interface Query {
 
-    
     List getResultList();
 
-    
     Object getSingleResult();
 
-    
     int executeUpdate();
 
-    
     Query setMaxResults(int maxResult);
 
-    
     int getMaxResults();
 
-    
     Query setFirstResult(int startPosition);
 
-    
     int getFirstResult();
 
-    
     Query setHint(String hintName, Object value);
 
-    
     Map<String, Object> getHints();
 
-    
     Set<String> getSupportedHints();
 
-   
     <T> Query setParameter(Parameter<T> param, T value);
 
-    
     Query setParameter(Parameter<Date> param, Date value,  TemporalType temporalType);
 
-    
     Query setParameter(Parameter<Calendar> param, Calendar value,  TemporalType temporalType);
 
-    
     Query setParameter(String name, Object value);
 
-    
     Query setParameter(String name, Date value, TemporalType temporalType);
 
-    
     Query setParameter(String name, Calendar value, TemporalType temporalType);
 
-     
     Query setParameter(int position, Object value);
 
-    
     Query setParameter(int position, Date value,  TemporalType temporalType);
 
-    
     Query setParameter(int position, Calendar value,  TemporalType temporalType);
 
-    
     Set<Parameter<?>> getParameters();
 
-    
     Parameter<?> getParameter(String name);
 
-    
     Parameter<?> getParameter(int position);
 
-    
     <T> T getParameterValue(Parameter<T> param);
 
-    
     Object getParameterValue(String name);
 
-    
     Object getParameterValue(int position);
 
-    
     Query setFlushMode(FlushModeType flushMode);
 
-    
     FlushModeType getFlushMode();
 
-    
     Query setLockMode(LockModeType lockMode);
 
-    
     LockModeType getLockMode();
 
-    
     <T> T unwrap(Class<T> cls);
 }

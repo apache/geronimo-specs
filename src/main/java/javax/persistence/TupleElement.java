@@ -27,10 +27,7 @@ package javax.persistence;
 
 
 public interface TupleElement<X> {
-    
-    
     Class<X> getJavaType();
 
-    
     String getAlias();
 }

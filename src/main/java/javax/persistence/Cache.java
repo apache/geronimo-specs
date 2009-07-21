@@ -29,15 +29,11 @@ package javax.persistence;
 
 public interface Cache {
 
-    
     public boolean contains(Class cls, Object primaryKey);
 
-    
     public void evict(Class cls, Object primaryKey);
 
-    
     public void evict(Class cls);
 
-    
     public void evictAll();
 }

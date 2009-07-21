@@ -30,6 +30,5 @@ import java.util.List;
 
 public interface CompoundSelection<X> extends Selection<X> {
 
-    
     List<Selection<?>> getSelectionItems();
 }

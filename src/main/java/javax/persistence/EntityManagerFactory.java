@@ -34,30 +34,21 @@ import javax.persistence.criteria.QueryBuilder;
 
 public interface EntityManagerFactory {
 
-	
 	public EntityManager createEntityManager();
 
-	
 	public EntityManager createEntityManager(Map map);
 
-	
 	public QueryBuilder getQueryBuilder();
 
-	
 	public Metamodel getMetamodel();
 
-	
 	public boolean isOpen();
 
-	
 	public void close();
 
-	
 	public Map<String, Object> getProperties();
 
-	
 	public Set<String> getSupportedProperties();
 
-	
 	public Cache getCache();
 }

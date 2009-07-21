@@ -28,10 +28,8 @@ package javax.persistence;
 
 public interface Parameter<T> {
 
-    
     String getName();
 
-    
     Integer getPosition();
 }
 

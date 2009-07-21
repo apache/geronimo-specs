@@ -28,9 +28,7 @@ package javax.persistence;
 
 public interface PersistenceUtil {
 
-    
     public boolean isLoaded(Object entity, String attributeName);
 
-    
     public boolean isLoaded(Object entity);
 }

@@ -30,12 +30,9 @@ import javax.persistence.metamodel.Attribute;
 
 public interface Fetch<Z, X> extends FetchParent<Z, X> {
 
-    
     Attribute<? super Z, ?> getAttribute();
 
-    
     FetchParent<?, Z> getParent();
 
-    
     JoinType getJoinType();
 }
