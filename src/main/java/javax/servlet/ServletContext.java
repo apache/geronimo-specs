@@ -25,6 +25,8 @@ import java.net.URL;
 import java.util.EnumSet;
 import java.util.Enumeration;
 import java.util.Set;
+import java.util.Map;
+import java.util.EventListener;
 
 
 /**
@@ -562,7 +564,15 @@ public interface ServletContext {
      * @return ServletRegistration for servlet you want
      * @since 3.0
      */
-    ServletRegistration findServletRegistration(String servletName);
+    ServletRegistration getServletRegistration(String servletName);
+
+    /**
+     * Fish out the servlet registration for a named servlet
+     *
+     * @return Map of name to ServletRegistration for all registered servlets
+     * @since 3.0
+     */
+    Map<String, ServletRegistration> getServletRegistrations();
 
     /**
      * Add a filter to this context
@@ -611,11 +621,50 @@ public interface ServletContext {
     <T extends Filter> T createFilter(Class<T> clazz) throws ServletException;
 
     /**
+     * Return the FilterRegistration corresponding to the named filter
      * @param filterName Name of filter you want to configure
      * @return FilterRegistration allowing configuration of filter
      * @since 3.0
      */
-    FilterRegistration findFilterRegistration(String filterName);
+    FilterRegistration getFilterRegistration(String filterName);
+
+    /**
+     * Return a possibly empty immutable map of registrations for all filters.
+     * @return FilterRegistration allowing configuration of filter
+     * @since 3.0
+     */
+    Map<String, FilterRegistration > getFilterRegistrations();
+
+    /**
+     * Add a listener created from the specified class
+     * @param listenerClass class of listener to add
+     * @since Servlet 3.0
+     */
+    void addListener(Class<? extends EventListener> listenerClass);
+
+    /**
+     * Add a listener created from the specified class name
+     * @param className name of class of listener to add
+     * @since Servlet 3.0
+     */
+    void addListener(String className);
+
+    /**
+     * add the listener instance
+     * @param t listener instance
+     * @param <T> type of listener
+     * @since Servlet 3.0
+     */
+    <T extends EventListener> void addListener(T t);
+
+    /**
+     * create a fully initialized listener
+     * @param clazz listener class
+     * @param <T> type of listener class
+     * @return fully initialized listener object
+     * @since Servlet 3.0
+     */
+    <T extends EventListener> T createListener(Class<T> clazz);
 
     /**
      * @param sessionCookieConfig configuration of session cookie
