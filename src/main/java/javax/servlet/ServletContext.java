@@ -22,11 +22,12 @@ package javax.servlet;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.EnumSet;
 import java.util.Enumeration;
-import java.util.Set;
-import java.util.Map;
 import java.util.EventListener;
+import java.util.Map;
+import java.util.Set;
+
+import javax.servlet.descriptor.JspConfigDescriptor;
 
 
 /**
@@ -57,6 +58,10 @@ import java.util.EventListener;
 
 public interface ServletContext {
 
+    /**
+     * @since Servlet 3.0
+     */
+    String ORDERED_LIGS = "javax.servlet.context.orderedLibs";
     /**
      * @since Servlet 3.0
      */
@@ -682,19 +687,33 @@ public interface ServletContext {
      * @param sessionTrackingModes set of SessionTrackingModes for this web app
      * @since 3.0
      */
-    void setSessionTrackingModes(EnumSet<SessionTrackingMode> sessionTrackingModes);
+    void setSessionTrackingModes(Set<SessionTrackingMode> sessionTrackingModes);
 
     /**
      * @return the default session tracking modes
      * @since 3.0
      */
-    EnumSet<SessionTrackingMode> getDefaultSessionTrackingModes();
+    Set<SessionTrackingMode> getDefaultSessionTrackingModes();
 
     /**
      * @return the actual session tracking modes.  These will be the default ones unless they've been explicitly set.
      * @since 3.0
      */
-    EnumSet<SessionTrackingMode> getEffectiveSessionTrackingModes();
+    Set<SessionTrackingMode> getEffectiveSessionTrackingModes();
+
+    /**
+     *
+     * @return the classloader for this web app
+     * @since 3.0
+     */
+    ClassLoader getClassLoader();
+
+    /**
+     * 
+     * @return jsp config aggregated from xml bits or null
+     * @since 3.0
+     */
+    JspConfigDescriptor getJspConfigDescriptor ();
 
 }
 

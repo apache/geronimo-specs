@@ -484,7 +484,7 @@ public interface HttpServletResponse extends ServletResponse {
      * @return all the header values
      * @since 3.0
      */
-    Iterable<String> getHeaders();
+    Iterable<String> getHeaders(String headerName);
 
     /**
      * @return current http status

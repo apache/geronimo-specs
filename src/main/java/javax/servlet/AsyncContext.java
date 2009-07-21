@@ -44,7 +44,7 @@ public interface AsyncContext {
 
     ServletResponse getResponse();
 
-    boolean hasOriginalRequestAndResonse();
+    boolean hasOriginalRequestAndResponse();
 
     void start(Runnable run);
 }
