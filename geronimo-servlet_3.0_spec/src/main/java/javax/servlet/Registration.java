@@ -54,12 +54,18 @@ public interface Registration {
      */
     String getName();
 
+    /**
+     * Set one init parameter
+     * @param name parameter name
+     * @param value parameter value
+     * @return true if init parameter was set, false if it was previously set.
+     */
     boolean setInitParameter(String name, String value);
 
     /**
      *
      * @param initParameters map of name-value paramters
-     * @return set of previously set parameter names
+     * @return set of previously set parameter names (i.e. those where setInitParameter would have returned false)
      */
     Set<String> setInitParameters(Map<String, String> initParameters);
 

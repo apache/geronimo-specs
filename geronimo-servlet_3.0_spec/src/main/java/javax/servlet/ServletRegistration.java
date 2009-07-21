@@ -20,13 +20,22 @@
 
 package javax.servlet;
 
+import java.util.Set;
+
 /**
  * @version $Rev$ $Date$
  * @since 3.0
  */
 public interface ServletRegistration extends Registration {
 
-    void addMapping(String... urlPatterns);
+    /**
+     *
+     * @param urlPatterns patterns to map
+     * @return patterns already mapped to another servlet
+     */
+    Set<String> addMapping(String... urlPatterns);
+
+    Iterable<String> getMappings();
 
     public interface Dynamic extends ServletRegistration, Registration.Dynamic {
 

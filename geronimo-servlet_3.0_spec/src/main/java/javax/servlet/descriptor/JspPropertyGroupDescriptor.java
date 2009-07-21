@@ -18,28 +18,36 @@
  */
 
 
-package javax.servlet.annotation;
-
-import java.lang.annotation.Target;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-
-import javax.servlet.DispatcherType;
+package javax.servlet.descriptor;
 
 /**
  * @version $Rev$ $Date$
- * @since 3.0
+ * @since Servlet 3.0
  */
+public interface JspPropertyGroupDescriptor {
 
-@Target(value=ElementType.TYPE)
-@Retention(value= RetentionPolicy.RUNTIME)
-public @interface FilterMapping {
+    String getBuffer();
 
-    String[] urlPattern();
+    String getDefaultContextType();
 
-    String[] servletNames() default {};
+    String getDeferredSyntaxAllowedAsLiteral();
 
-    DispatcherType[] dispatcherTypes() default {DispatcherType.REQUEST};
-    
+    String getElIgnored();
+
+    String getErrorOnUndeclaredNamespace();
+
+    Iterable<String> getIncludedCodas();
+
+    Iterable<String> getIncludedPreludes();
+
+    String getIsXml();
+
+    String getPageEncoding();
+
+    String getScriptingInvalid();
+
+    String getTrimDirectiveWhitespace();
+
+    Iterable<String> getUrlPatterms();
+
 }

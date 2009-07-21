@@ -109,8 +109,8 @@ public class HttpServletResponseWrapper extends ServletResponseWrapper implement
         return getHttpServletResponse().getHeaderNames();
     }
 
-    public Iterable<String> getHeaders() {
-        return getHttpServletResponse().getHeaders();
+    public Iterable<String> getHeaders(String headerName) {
+        return getHttpServletResponse().getHeaders(headerName);
     }
 
     public int getStatus() {

@@ -18,27 +18,15 @@
  */
 
 
-package javax.servlet;
-
-import java.util.EnumSet;
-import java.util.Map;
+package javax.servlet.descriptor;
 
 /**
  * @version $Rev$ $Date$
- * @since 3.0
+ * @since Servlet 3.0
  */
+public interface JspConfigDescriptor {
 
-public interface FilterRegistration extends Registration {
+    Iterable<JspPropertyGroupDescriptor> getJspPropertyGroups();
 
-    void addMappingForServletNames(EnumSet<DispatcherType> dispatcherTypes, boolean isMatchAfter, String ... servletNames);
-
-    void addMappingForUrlPatterns(EnumSet<DispatcherType> dispatcherTypes, boolean isMatchAfter, String ... urlPatterns);
-
-    Iterable<String> getServletNameMappings();
-
-    Iterable<String> getUrlPatternMappings();
-
-    public interface Dynamic extends FilterRegistration, Registration.Dynamic {
-
-    }
+    Iterable<TaglibDescriptor> getTagLibs();
 }

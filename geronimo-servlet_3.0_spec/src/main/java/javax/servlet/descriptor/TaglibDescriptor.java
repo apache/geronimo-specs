@@ -18,27 +18,16 @@
  */
 
 
-package javax.servlet;
-
-import java.util.EnumSet;
-import java.util.Map;
+package javax.servlet.descriptor;
 
 /**
  * @version $Rev$ $Date$
- * @since 3.0
+ * @since Servlet 3.0
  */
+public interface TaglibDescriptor {
 
-public interface FilterRegistration extends Registration {
+    String getTaglibLocation();
 
-    void addMappingForServletNames(EnumSet<DispatcherType> dispatcherTypes, boolean isMatchAfter, String ... servletNames);
+    String getTablibURI();
 
-    void addMappingForUrlPatterns(EnumSet<DispatcherType> dispatcherTypes, boolean isMatchAfter, String ... urlPatterns);
-
-    Iterable<String> getServletNameMappings();
-
-    Iterable<String> getUrlPatternMappings();
-
-    public interface Dynamic extends FilterRegistration, Registration.Dynamic {
-
-    }
 }
