@@ -18,11 +18,14 @@ package javax.validation;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Map;
+import java.util.WeakHashMap;
 
 import javax.validation.bootstrap.GenericBootstrap;
 import javax.validation.bootstrap.ProviderSpecificBootstrap;
@@ -53,6 +56,8 @@ public class Validation {
 
     /*
      * (non-Javadoc) See Section 4.4.5 Validation - Must be private
+     * 
+     * Geronimo implementation specific code.
      */
 	private static class ProviderSpecificBootstrapImpl<T extends Configuration<T>, U extends ValidationProvider<T>>
         implements ProviderSpecificBootstrap<T> {
@@ -63,8 +68,7 @@ public class Validation {
         /*
          * (non-Javadoc)
          * 
-         * @seejavax.validation.bootstrap.ProviderSpecificBootstrap#
-         * ProviderSpecificBootstrap(Class<T>)
+         * @see javax.validation.bootstrap.ProviderSpecificBootstrap#ProviderSpecificBootstrap(Class<T>)
          */
 		
 		public ProviderSpecificBootstrapImpl(Class<U> validationProviderClass) {
@@ -113,6 +117,8 @@ public class Validation {
 
     /*
      * (non-Javadoc) See Section 4.4.5 Validation - Must be private
+     * 
+     * Geronimo implementation specific code.
      */
     private static class GenericBootstrapImpl implements GenericBootstrap, BootstrapState {
 
@@ -122,9 +128,7 @@ public class Validation {
         /*
          * (non-Javadoc)
          * 
-         * @see
-         * javax.validation.bootstrap.GenericBootstrap#providerResolver(javax
-         * .validation.ValidationProviderResolver)
+         * @see javax.validation.bootstrap.GenericBootstrap#providerResolver(javax.validation.ValidationProviderResolver)
          */
         public GenericBootstrap providerResolver(ValidationProviderResolver resolver) {
             vpResolver = resolver;
@@ -171,67 +175,89 @@ public class Validation {
     /*
      * (non-Javadoc) See Section 4.4.5 Validation - Must be private
      * 
-     * TODO - Spec recommends caching per classloader
-     * 
+     * Geronimo implementation specific code.
      */
     private static class DefaultValidationProviderResolver implements ValidationProviderResolver {
  
         private static final String SERVICES_FILENAME = "META-INF/services/" +
             ValidationProvider.class.getName();
 
+        // cache of providers per class loader
+        private static final Map<ClassLoader, List<ValidationProvider<?>>> providerCache =
+            new WeakHashMap<ClassLoader, List<ValidationProvider<?>>>();
+        
         /*
          * (non-Javadoc)
          * 
-         * @see
-         * javax.validation.ValidationProviderResolver#getValidationProviders()
+         * @see javax.validation.ValidationProviderResolver#getValidationProviders()
          */
         public List<ValidationProvider<?>> getValidationProviders() {
-            List<ValidationProvider<?>> providers = new ArrayList<ValidationProvider<?>>();
-            try {
-                // get our classloader
-                ClassLoader cl = Thread.currentThread().getContextClassLoader();
-                if (cl == null)
-                    cl = DefaultValidationProviderResolver.class.getClassLoader();
+            List<ValidationProvider<?>> providers;
 
-                // find all service provider cfgs
-                Enumeration<URL> cfgs = cl.getResources(SERVICES_FILENAME);
-                while (cfgs.hasMoreElements()) {
-                    URL url = cfgs.nextElement();
-                    BufferedReader br = null;
-                    try {
-                        br = new BufferedReader(new InputStreamReader(url.openStream()), 256);
-                        String line = br.readLine();
-                        // cfgs may contain multiple providers and/or comments
-                        while (line != null) {
-                            line = line.trim();
-                            if (!line.startsWith("#")) {
-                                try {
-                                    // try loading the specified class
-                                    final Class<?> provider = cl.loadClass(line);
-                                    // create an instance to return
-                                    providers.add((ValidationProvider<?>) provider.newInstance());
-                                } catch (ClassNotFoundException e) {
-                                    throw new ValidationException("Failed to load provider " + line + " configured in file " + url, e);
-                                } catch (InstantiationException e) {
-                                    throw new ValidationException("Failed to instantiate provider " + line + " configured in file " + url, e);
-                                } catch (IllegalAccessException e) {
-                                    throw new ValidationException("Failed to access provider " + line + " configured in file " + url, e);
-                                }
-                            }
-                            line = br.readLine();
-                        }
-                        br.close();
-                        br = null;
-                    } catch (IOException e) {
-                        throw new ValidationException("Error trying to read " + url, e);
-                    } finally {
-                        if (br != null)
-                            br.close();
-                    }
-                }
-            } catch (IOException e) {
-                throw new ValidationException("Error trying to read a " + SERVICES_FILENAME, e);
+            // get our class loader
+            ClassLoader cl = Thread.currentThread().getContextClassLoader();
+            if (cl == null)
+                cl = DefaultValidationProviderResolver.class.getClassLoader();
+
+            // use any previously cached providers
+            synchronized (providerCache) {
+                providers = providerCache.get(cl);
             }
+            if (providers == null) {
+                // need to discover and load them for this class loader
+                providers = new ArrayList<ValidationProvider<?>>();
+                try {
+                    // find all service provider files
+                    Enumeration<URL> cfgs = cl.getResources(SERVICES_FILENAME);
+                    while (cfgs.hasMoreElements()) {
+                        URL url = cfgs.nextElement();
+                        InputStream is = null;
+                        try {
+                            is = url.openStream();
+                            BufferedReader br = new BufferedReader(
+                                new InputStreamReader(is, "UTF-8"), 256);
+                            String line = br.readLine();
+                            // cfgs may contain multiple providers and/or comments
+                            while (line != null) {
+                                line = line.trim();
+                                if (!line.startsWith("#")) {
+                                    try {
+                                        // try loading the specified class
+                                        final Class<?> provider = cl.loadClass(line);
+                                        // create an instance to return
+                                        providers.add((ValidationProvider<?>) provider.newInstance());
+                                    } catch (ClassNotFoundException e) {
+                                        throw new ValidationException("Failed to load provider " +
+                                            line + " configured in file " + url, e);
+                                    } catch (InstantiationException e) {
+                                        throw new ValidationException("Failed to instantiate provider " +
+                                            line + " configured in file " + url, e);
+                                    } catch (IllegalAccessException e) {
+                                        throw new ValidationException("Failed to access provider " +
+                                            line + " configured in file " + url, e);
+                                    }
+                                }
+                                line = br.readLine();
+                            }
+                            is.close();
+                            is = null;
+                        } catch (IOException e) {
+                            throw new ValidationException("Error trying to read " + url, e);
+                        } finally {
+                            if (is != null)
+                                is.close();
+                        }
+                    }
+                } catch (IOException e) {
+                    throw new ValidationException("Error trying to load " + SERVICES_FILENAME, e);
+                }
+                
+                // cache the discovered providers
+                synchronized (providerCache) {
+                    providerCache.put(cl, providers);
+                }
+            }
+            
             // caller must handle the case of no providers found
             return providers;
         }
