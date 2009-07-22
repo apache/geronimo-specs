@@ -58,9 +58,10 @@ public class PersistenceProviderResolverHolder {
     }
     
     /*
-     * (non-Javadoc) Geronimo implementation specific code.
-     * Default implementation of a PersistenceProviderResolver
+     * (non-Javadoc) Default implementation of a PersistenceProviderResolver
      * to use when none are provided.
+     * 
+     * Geronimo implementation specific code.
      */
     private static class DefaultPersistenceProviderResolver implements PersistenceProviderResolver {
  
@@ -100,7 +101,7 @@ public class PersistenceProviderResolverHolder {
                         try {
                             is = url.openStream();
                             BufferedReader br = new BufferedReader(
-                                new InputStreamReader(is), 256);
+                                new InputStreamReader(is, "UTF-8"), 256);
                             String line = br.readLine();
                             // files may contain multiple providers and/or comments
                             while (line != null) {
