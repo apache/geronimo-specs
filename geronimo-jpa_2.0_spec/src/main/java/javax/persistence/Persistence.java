@@ -24,17 +24,15 @@
 //
 package javax.persistence;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
 import java.util.Collections;
-import java.util.Enumeration;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.spi.PersistenceProvider;
+import javax.persistence.spi.PersistenceProviderResolver;
+import javax.persistence.spi.PersistenceProviderResolverHolder;
 
 /**
  * @version $Rev$ $Date$
@@ -43,6 +41,8 @@ import javax.persistence.spi.PersistenceProvider;
 /**
  * Bootstrap class that is used to obtain {@link javax.persistence.EntityManagerFactory}
  * references.
+ * 
+ * Contains Geronimo implemented code as required by the JPA spec.
  */
 public class Persistence {
 
@@ -78,113 +78,83 @@ public class Persistence {
      *         specified persistence unit.
      */
     public static EntityManagerFactory createEntityManagerFactory(
-            String persistenceUnitName,
-            Map properties) {
-
+            String persistenceUnitName, Map properties) {
+        EntityManagerFactory factory = null;
         if (properties == null) {
             properties = Collections.EMPTY_MAP;
         }
 
-        // start by loading a provider explicitly specified in properties. The spec
-        // doesn't seem to forbid providers that are not deployed as a service
+        /*
+         * Geronimo/OpenJPA unique behavior - Start by loading a provider
+         * explicitly specified in properties. The spec doesn't seem to forbid
+         *  providers that are not deployed as a service.
+         */
         Object providerName = properties.get(PERSISTENCE_PROVIDER_PROPERTY);
         if (providerName instanceof String) {
-            EntityManagerFactory factory = createFactory(
+            factory = createFactory(
                     providerName.toString(),
                     persistenceUnitName,
                     properties);
-            if (factory != null) {
-                return factory;
-            }
         }
 
-        // load correctly deployed providers
-        ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        try {
-            Enumeration<URL> providers = loader
-                    .getResources(PERSISTENCE_PROVIDER_SERVICE);
-            while (providers.hasMoreElements()) {
-
-                String name = getProviderName(providers.nextElement());
-
-                if (name != null) {
-
-                    EntityManagerFactory factory = createFactory(
-                            name,
-                            persistenceUnitName,
-                            properties);
-
-                    if (factory != null) {
-                        return factory;
-                    }
+        if (factory == null) {
+            /*
+             * Now, the default behavior of loading a provider from our resolver
+             */
+            PersistenceProviderResolver resolver =
+                PersistenceProviderResolverHolder.getPersistenceProviderResolver();
+            List<PersistenceProvider> providers = resolver.getPersistenceProviders();
+            for (PersistenceProvider provider : providers) {
+                factory = provider.createEntityManagerFactory(
+                    persistenceUnitName, properties);
+                if (factory != null) {
+                    break;
                 }
             }
         }
-        catch (IOException e) {
-            // spec doesn't mention any exceptions thrown by this method
-        }
 
-        return null;
+        // spec doesn't mention any exceptions thrown by this method if no emf
+        return factory;
     }
 
-    static String getProviderName(URL url) throws IOException {
-
-        BufferedReader in = new BufferedReader(new InputStreamReader(
-                url.openStream(),
-                "UTF-8"));
-
-        String providerName;
-
-        try {
-            providerName = in.readLine();
-        }
-        finally {
-            in.close();
-        }
-
-        if (providerName != null) {
-            providerName = providerName.trim();
-        }
-
-        return providerName;
-    }
-
-    static EntityManagerFactory createFactory(
+    /*
+     * Geronimo/OpenJPA private helper code for PERSISTENCE_PROVIDER_PROPERTY
+     */
+    private static EntityManagerFactory createFactory(
             String providerName,
             String persistenceUnitName,
             Map properties)
             throws PersistenceException {
 
-        Class providerClass;
+        Class<?> providerClass;
+        ClassLoader cl = Thread.currentThread().getContextClassLoader();
+        if (cl == null)
+            cl = Persistence.class.getClassLoader();
         try {
-            providerClass = Class.forName(providerName, true, Thread
-                    .currentThread().getContextClassLoader());
+            providerClass = Class.forName(providerName, true, cl);
+        } catch (Exception e) {
+            throw new PersistenceException("Invalid or inaccessible provider class: " + providerName, e);
         }
-        catch (Exception e) {
-            throw new PersistenceException(
-                    "Invalid or inaccessible provider class: " + providerName,
-                    e);
-        }
-
         try {
-            PersistenceProvider provider = (PersistenceProvider) providerClass
-                    .newInstance();
-            return provider.createEntityManagerFactory(persistenceUnitName,
-                    properties);
-        }
-        catch (Exception e) {
-            throw new PersistenceException("Provider error. Provider: "
-                    + providerName, e);
+            PersistenceProvider provider = (PersistenceProvider) providerClass.newInstance();
+            return provider.createEntityManagerFactory(persistenceUnitName, properties);
+        } catch (Exception e) {
+            throw new PersistenceException("Provider error. Provider: " + providerName, e);
         }
     }
     
     /*
     * @return PersistenceUtil instance
+    * @since 2.0
     */
     public static PersistenceUtil getPersistenceUtil() {
-        // TODO: OPENJPA-1076 - Required by JSR-317.  
-        // Dummy impl for Bean Validation testing.
-        return new PersistenceUtil() {
+        return new PersistenceUtilImpl();
+    }
+    
+    /*
+     * Geronimo implementation specific code
+     */
+    private static class PersistenceUtilImpl implements PersistenceUtil {
 
             public boolean isLoaded(Object entity, String attributeName) {
                 // TODO Auto-generated dummy method stub
@@ -195,6 +165,6 @@ public class Persistence {
                 // TODO Auto-generated dummy method stub
                 return true;
             }
-        };
     }
+    
 }
