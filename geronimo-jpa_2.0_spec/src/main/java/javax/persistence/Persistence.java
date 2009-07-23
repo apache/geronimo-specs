@@ -105,8 +105,13 @@ public class Persistence {
                 PersistenceProviderResolverHolder.getPersistenceProviderResolver();
             List<PersistenceProvider> providers = resolver.getPersistenceProviders();
             for (PersistenceProvider provider : providers) {
-                factory = provider.createEntityManagerFactory(
-                    persistenceUnitName, properties);
+                try {
+                    factory = provider.createEntityManagerFactory(
+                        persistenceUnitName, properties);                    
+                } catch (Exception e) {
+                    // TODO - Grey area of Spec - mimic old 1.0 behavior for now
+                    throw new PersistenceException("Provider error. Provider: " + providerName, e);
+                }
                 if (factory != null) {
                     break;
                 }
