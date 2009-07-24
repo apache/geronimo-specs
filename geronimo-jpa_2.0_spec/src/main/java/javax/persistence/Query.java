@@ -57,9 +57,9 @@ public interface Query {
 
     <T> Query setParameter(Parameter<T> param, T value);
 
-    Query setParameter(Parameter<Date> param, Date value,  TemporalType temporalType);
+    Query setParameter(Parameter<Date> param, Date value, TemporalType temporalType);
 
-    Query setParameter(Parameter<Calendar> param, Calendar value,  TemporalType temporalType);
+    Query setParameter(Parameter<Calendar> param, Calendar value, TemporalType temporalType);
 
     Query setParameter(String name, Object value);
 
@@ -78,6 +78,12 @@ public interface Query {
     Parameter<?> getParameter(String name);
 
     Parameter<?> getParameter(int position);
+
+    <T> Parameter<T> getParameter(String name, Class<T> type);
+
+    <T> Parameter<T> getParameter(int position, Class<T> type);
+
+    boolean isBound(Parameter<?> param);
 
     <T> T getParameterValue(Parameter<T> param);
 

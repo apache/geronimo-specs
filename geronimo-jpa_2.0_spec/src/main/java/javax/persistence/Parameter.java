@@ -31,5 +31,7 @@ public interface Parameter<T> {
     String getName();
 
     Integer getPosition();
+
+     Class<T> getJavaType();
 }
 
