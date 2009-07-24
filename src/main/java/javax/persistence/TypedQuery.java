@@ -60,10 +60,6 @@ public interface TypedQuery<X> extends Query {
 
     TypedQuery<X> setParameter(int position, Calendar value,  TemporalType temporalType);
 
-    <T> Parameter<T> getParameter(String name, Class<T> type);
-
-    <T> Parameter<T> getParameter(int position, Class<T> type);
-
      TypedQuery<X> setFlushMode(FlushModeType flushMode);
 
      TypedQuery<X> setLockMode(LockModeType lockMode);

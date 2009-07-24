@@ -32,5 +32,5 @@ public interface Order {
 
     boolean isAscending();
 
-   <T extends Comparable<T>> Expression<T> getExpression();
+   Expression<?> getExpression();
 }

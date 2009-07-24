@@ -30,9 +30,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.persistence.spi.LoadState;
 import javax.persistence.spi.PersistenceProvider;
 import javax.persistence.spi.PersistenceProviderResolver;
 import javax.persistence.spi.PersistenceProviderResolverHolder;
+import javax.persistence.spi.ProviderUtil;
 
 /**
  * @version $Rev$ $Date$
@@ -161,13 +163,78 @@ public class Persistence {
      */
     private static class PersistenceUtilImpl implements PersistenceUtil {
 
+        /*
+         * Determines the load state of the attribute of an entity 
+         * @see javax.persistence.PersistenceUtil#isLoaded(java.lang.Object, java.lang.String)
+         */
             public boolean isLoaded(Object entity, String attributeName) {
-                // TODO Auto-generated dummy method stub
+                boolean isLoaded = true;
+
+                // Get the list of persistence providers from the resolver
+                PersistenceProviderResolver ppr = 
+                    PersistenceProviderResolverHolder.getPersistenceProviderResolver();
+                List<PersistenceProvider> pps = ppr.getPersistenceProviders();
+
+                // Iterate through the list using ProviderUtil.isLoadedWithoutReference()
+                for (PersistenceProvider pp : pps) {
+                    try {
+                        ProviderUtil pu = pp.getProviderUtil();                        
+                        LoadState ls = pu.isLoadedWithoutReference(entity, attributeName);
+                        if (ls == LoadState.LOADED)
+                            return true;
+                        if (ls == LoadState.NOT_LOADED)
+                            return false;
+                    }
+                    catch (Throwable t) {
+                        // JPA 1.0 providers will not implement the getProviderUtil
+                        // method.  Eat the exception and try the next provider.
+                    }
+                 }
+                // Iterate through the list a second time using ProviderUtil.isLoadedWithReference()
+                for (PersistenceProvider pp : pps) {
+                    try {
+                        ProviderUtil pu = pp.getProviderUtil();                        
+                        LoadState ls = pu.isLoadedWithoutReference(entity, attributeName);
+                        if (ls == LoadState.LOADED)
+                            return true;
+                        if (ls == LoadState.NOT_LOADED)
+                            return false;
+                    }
+                    catch (Throwable t) {
+                        // JPA 1.0 providers will not implement the getProviderUtil
+                        // method.  Eat the exception and try the next provider.
+                    }
+                 }
+                
+                // All providers returned a load state of unknown.  Return true.
                 return true;
             }
 
             public boolean isLoaded(Object entity) {
-                // TODO Auto-generated dummy method stub
+                // Get the list of persistence providers from the resolver
+                PersistenceProviderResolver ppr = 
+                    PersistenceProviderResolverHolder.getPersistenceProviderResolver();
+                List<PersistenceProvider> pps = ppr.getPersistenceProviders();
+
+                // Iterate through the list of providers, using ProviderUtil to
+                // determine the load state
+                for (PersistenceProvider pp : pps) {
+                    try {
+                        ProviderUtil pu = pp.getProviderUtil();
+                        LoadState ls = pu.isLoaded(entity);
+                        if (ls == LoadState.LOADED)
+                            return true;
+                        if (ls == LoadState.NOT_LOADED)
+                            return false;
+                        // Otherwise, load state is unknown.  Query the next provider.
+                    }
+                    catch (Throwable t) {
+                        // JPA 1.0 providers will not implement the getProviderUtil
+                        // method.  Eat the exception and try the next provider.
+                    }                   
+                }
+                
+                // All providers returned a load state of unknown.  Return true.
                 return true;
             }
     }

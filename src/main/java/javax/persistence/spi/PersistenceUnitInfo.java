@@ -61,7 +61,7 @@ public interface PersistenceUnitInfo {
 
 	public Properties getProperties();
 
-	public String PersistenceXMLSchemaVersion();
+	public String getPersistenceXMLSchemaVersion();
 
 	public ClassLoader getClassLoader();
 
