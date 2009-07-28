@@ -25,6 +25,7 @@
 package javax.persistence;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -83,11 +84,11 @@ public class Persistence {
             String persistenceUnitName, Map properties) {
         
         EntityManagerFactory factory = null;
-        
-        if (properties == null) {
-            properties = Collections.EMPTY_MAP;
+        Map props = properties;
+        if (props == null) {
+            props = Collections.EMPTY_MAP;
         }
-
+        
         // get the discovered set of providers
         PersistenceProviderResolver resolver =
             PersistenceProviderResolverHolder.getPersistenceProviderResolver();
@@ -96,9 +97,9 @@ public class Persistence {
 
         /*
          * Geronimo/OpenJPA 1.0 unique behavior - Start by loading a provider
-         * explicitly specified in properties and return any exceptions. The
-         * spec doesn't forbid providers that aren't a service - it only states
-         * that they "should" be implemented as one in Sect. 9.2.
+         * explicitly specified in the properties and return any exceptions.
+         * The spec doesn't forbid providers that aren't a service - it only
+         * states that they "should" be implemented as services in Sect. 9.2.
          * 
          * For 2.0 - We only perform the above behavior if the specified
          * provider is not in the discovered list.
@@ -106,7 +107,7 @@ public class Persistence {
          * Note: This special non-spec defined case will rethrow any encountered
          * Exceptions as a PersistenceException.
          */
-        Object providerName = properties.get(PERSISTENCE_PROVIDER_PROPERTY);
+        Object providerName = props.get(PERSISTENCE_PROVIDER_PROPERTY);
         if ((providerName != null) && (providerName instanceof String)) {
             boolean isLoaded = false;
             // search the discovered providers for this explicit provider
@@ -118,47 +119,54 @@ public class Persistence {
             }
             /*
              * Only try to explicitly create this provider if we didn't
-             * find it as a service, while rethrowing any Exceptions to
+             * find it as a service, while rethrowing any exceptions to
              * match the old 1.0 behavior
              */
             if (!isLoaded) {
                 factory = createFactory(
                     providerName.toString(),
                     persistenceUnitName,
-                    properties);
+                    props);
                 if (factory != null) {
                     return factory;
                 }
             }
         }
         
-        // Now, the default behavior of loading a provider from our resolver
-        for (PersistenceProvider provider : providers) {
-            try {
-                factory = provider.createEntityManagerFactory(
-                    persistenceUnitName, properties);                    
-            } catch (Exception e) {
-                /*
-                 * Note:  Change in behavior from 1.0 -
-                 *   Spec states that a provider "must" return null if it
-                 *   cannot fulfill an EMF request, so ignore any exceptions
-                 *   that are thrown if we have more than one provider,
-                 *   so the other providers have a chance to return an EMF.
-                 */
-                if (providers.size() == 1)
-                {
-                    // this is the only provider, so rethrow exception
-                    throw new PersistenceException(e);
+        /*
+         * Now, the default behavior of loading a provider from our resolver
+         * Note:  Change in behavior from 1.0, which always returned exceptions:
+         *   Spec states that a provider "must" return null if it
+         *   cannot fulfill an EMF request, so ignore any exceptions
+         *   that are thrown if we have more than one provider,
+         *   so the other providers have a chance to return an EMF.
+         *   Otherwise, return any exceptions and rethrow/wrapper as a
+         *   PersistenceException if needed to match 1.0 behavior.
+         */
+        if (providers.size() == 1) {
+            // allow any exceptions to pass thru to caller
+            return providers.get(0).createEntityManagerFactory(
+                persistenceUnitName, props);                    
+        } else {
+            for (PersistenceProvider provider : providers) {
+                try {
+                    factory = provider.createEntityManagerFactory(
+                        persistenceUnitName, props);                    
+                } catch (Exception e) {
+                    // ignore and give other providers a chance
                 }
-            }
-            if (factory != null) {
-                return factory;
+                if (factory != null) {
+                    return factory;
+                }
             }
         }
 
-        // spec doesn't mention any exceptions thrown by this method if no emf
-        // returned, but old 1.0 behavior always generated an EMF or exception
-        throw new PersistenceException("No Persistence providers found for PU=" + persistenceUnitName);
+        /*
+         * Spec doesn't mention any exceptions thrown by this method if no emf
+         * returned, but old 1.0 behavior always generated an EMF or exception.
+         */
+        throw new PersistenceException("No Persistence providers found for PU="
+            + persistenceUnitName);
     }
 
     /*
