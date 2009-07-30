@@ -59,9 +59,9 @@ public class Persistence {
     /**
      * Create and return an EntityManagerFactory for the named persistence unit.
      *
-     * @param persistenceUnitName The name of the persistence unit
-     * @return The factory that creates EntityManagers configured according to the
-     *         specified persistence unit
+     * @param persistenceUnitName Name of the persistence unit
+     * @return The factory for the specified persistence unit or null if none
+     *         are applicable.
      */
     public static EntityManagerFactory createEntityManagerFactory(
             String persistenceUnitName) {
@@ -69,68 +69,112 @@ public class Persistence {
     }
 
     /**
-     * Create and return an EntityManagerFactory for the named persistence unit using the
-     * given properties.
+     * Create and return an EntityManagerFactory for the named persistence unit
+     * using the given properties.
      *
-     * @param persistenceUnitName The name of the persistence unit
-     * @param properties          Additional properties to use when creating the factory. The values of
-     *                            these properties override any values that may have been configured
-     *                            elsewhere.
-     * @return The factory that creates EntityManagers configured according to the
-     *         specified persistence unit.
+     * @param persistenceUnitName Name of the persistence unit
+     * @param properties Additional properties to use when creating the
+     *                   persistence unit factory. These properties override any
+     *                   values that have been configured elsewhere.
+     * @return The factory for the specified persistence unit or null if none
+     *         are applicable.
      */
     public static EntityManagerFactory createEntityManagerFactory(
             String persistenceUnitName, Map properties) {
+        
         EntityManagerFactory factory = null;
-        if (properties == null) {
-            properties = Collections.EMPTY_MAP;
+        Map props = properties;
+        if (props == null) {
+            props = Collections.EMPTY_MAP;
         }
+
+        // get the discovered set of providers
+        PersistenceProviderResolver resolver =
+            PersistenceProviderResolverHolder.getPersistenceProviderResolver();
+        // following will throw PersistenceExceptions for invalid services
+        List<PersistenceProvider> providers = resolver.getPersistenceProviders();
 
         /*
-         * Geronimo/OpenJPA unique behavior - Start by loading a provider
-         * explicitly specified in properties. The spec doesn't seem to forbid
-         *  providers that are not deployed as a service.
+         * Geronimo/OpenJPA 1.0 unique behavior - Start by loading a provider
+         * explicitly specified in the properties and return any exceptions.
+         * The spec doesn't forbid providers that aren't a service - it only
+         * states that they "should" be implemented as services in Sect. 9.2.
+         * 
+         * For 2.0 - We only perform the above behavior if the specified
+         * provider is not in the discovered list.
+         * 
+         * Note: This special non-spec defined case will rethrow any encountered
+         * Exceptions as a PersistenceException.
          */
-        Object providerName = properties.get(PERSISTENCE_PROVIDER_PROPERTY);
-        if (providerName instanceof String) {
-            factory = createFactory(
+        Object providerName = props.get(PERSISTENCE_PROVIDER_PROPERTY);
+        if ((providerName != null) && (providerName instanceof String)) {
+            boolean isLoaded = false;
+            // search the discovered providers for this explicit provider
+            for (PersistenceProvider provider : providers) {
+                if (provider.getClass().getName().compareTo(providerName.toString()) == 0) {
+                    isLoaded = true;
+                    break;
+                }
+            }
+            /*
+             * Only try to explicitly create this provider if we didn't
+             * find it as a service, while rethrowing any exceptions to
+             * match the old 1.0 behavior
+             */
+            if (!isLoaded) {
+                factory = createFactory(
                     providerName.toString(),
                     persistenceUnitName,
-                    properties);
+                    props);
+                if (factory != null) {
+                    return factory;
+                }
+            }
         }
-
-        if (factory == null) {
-            /*
-             * Now, the default behavior of loading a provider from our resolver
-             */
-            PersistenceProviderResolver resolver =
-                PersistenceProviderResolverHolder.getPersistenceProviderResolver();
-            List<PersistenceProvider> providers = resolver.getPersistenceProviders();
+        
+        /*
+         * Now, the default behavior of loading a provider from our resolver
+         * Note:  Change in behavior from 1.0, which always returned exceptions:
+         *   Spec states that a provider "must" return null if it
+         *   cannot fulfill an EMF request, so ignore any exceptions
+         *   that are thrown if we have more than one provider,
+         *   so the other providers have a chance to return an EMF.
+         *   Otherwise, return any exceptions and rethrow/wrapper as a
+         *   PersistenceException if needed to match 1.0 behavior.
+         */
+        if (providers.size() == 1) {
+            // allow any exceptions to pass thru to caller
+            return providers.get(0).createEntityManagerFactory(
+                persistenceUnitName, props);                    
+        } else {
             for (PersistenceProvider provider : providers) {
                 try {
                     factory = provider.createEntityManagerFactory(
-                        persistenceUnitName, properties);                    
+                        persistenceUnitName, props);                    
                 } catch (Exception e) {
-                    // TODO - Grey area of Spec - mimic old 1.0 behavior for now
-                    throw new PersistenceException("Provider error. Provider: " + providerName, e);
+                    // ignore and give other providers a chance
                 }
                 if (factory != null) {
-                    break;
+                    return factory;
                 }
             }
         }
 
-        // spec doesn't mention any exceptions thrown by this method if no emf
-        return factory;
+        /*
+         * Spec doesn't mention any exceptions thrown by this method if no emf
+         * returned, but old 1.0 behavior always generated an EMF or exception.
+         */
+        throw new PersistenceException("No Persistence providers found for PU="
+            + persistenceUnitName);
     }
 
     /*
      * Geronimo/OpenJPA private helper code for PERSISTENCE_PROVIDER_PROPERTY
+     * @return EntityManagerFactory or null
+     * @throws PersistenceException
      */
-    private static EntityManagerFactory createFactory(
-            String providerName,
-            String persistenceUnitName,
-            Map properties)
+    private static EntityManagerFactory createFactory(String providerName,
+            String persistenceUnitName, Map properties)
             throws PersistenceException {
 
         Class<?> providerClass;
@@ -140,13 +184,15 @@ public class Persistence {
         try {
             providerClass = Class.forName(providerName, true, cl);
         } catch (Exception e) {
-            throw new PersistenceException("Invalid or inaccessible provider class: " + providerName, e);
+            throw new PersistenceException("Invalid or inaccessible explicit provider class: " +
+                providerName, e);
         }
         try {
             PersistenceProvider provider = (PersistenceProvider) providerClass.newInstance();
             return provider.createEntityManagerFactory(persistenceUnitName, properties);
         } catch (Exception e) {
-            throw new PersistenceException("Provider error. Provider: " + providerName, e);
+            throw new PersistenceException("Explicit error returned from provider: " +
+                providerName, e);
         }
     }
     
