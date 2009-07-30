@@ -240,7 +240,7 @@ public class Persistence {
                 for (PersistenceProvider pp : pps) {
                     try {
                         ProviderUtil pu = pp.getProviderUtil();                        
-                        LoadState ls = pu.isLoadedWithoutReference(entity, attributeName);
+                        LoadState ls = pu.isLoadedWithReference(entity, attributeName);
                         if (ls == LoadState.LOADED)
                             return true;
                         if (ls == LoadState.NOT_LOADED)
