@@ -669,7 +669,7 @@ public interface ServletContext {
      * @return fully initialized listener object
      * @since Servlet 3.0
      */
-    <T extends EventListener> T createListener(Class<T> clazz);
+    <T extends EventListener> T createListener(Class<T> clazz) throws ServletException;
 
     /**
      * @param sessionCookieConfig configuration of session cookie
