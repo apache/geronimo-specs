@@ -324,47 +324,47 @@ public class ServletRequestWrapper implements ServletRequest {
      * @since 3.0
      */
     public ServletContext getServletContext() {
-        return request.getServletContext();
+        return this.request.getServletContext();
     }
 
     public void addAsyncListener(AsyncListener listener) {
-        request.addAsyncListener(listener);
+        this.request.addAsyncListener(listener);
     }
 
     public void addAsyncListener(AsyncListener listener, ServletRequest request, ServletResponse response) {
-        request.addAsyncListener(listener, request, response);
+        this.request.addAsyncListener(listener, request, response);
     }
 
     public AsyncContext getAsyncContext() {
-        return request.getAsyncContext();
+        return this.request.getAsyncContext();
     }
 
     public long getAsyncTimeout() {
-        return request.getAsyncTimeout();
+        return this.request.getAsyncTimeout();
     }
 
     public boolean isAsyncStarted() {
-        return request.isAsyncStarted();
+        return this.request.isAsyncStarted();
     }
 
     public boolean isAsyncSupported() {
-        return request.isAsyncSupported();
+        return this.request.isAsyncSupported();
     }
 
     public void setAsyncTimeout(long timeout) {
-        request.setAsyncTimeout(timeout);
+        this.request.setAsyncTimeout(timeout);
     }
 
     public AsyncContext startAsync() {
-        return request.startAsync();
+        return this.request.startAsync();
     }
 
     public AsyncContext startAsync(ServletRequest request, ServletResponse response) {
-        return request.startAsync(request, response);
+        return this.request.startAsync(request, response);
     }
 
     public DispatcherType getDispatcherType() {
-        return request.getDispatcherType();
+        return this.request.getDispatcherType();
     }
 
 }
