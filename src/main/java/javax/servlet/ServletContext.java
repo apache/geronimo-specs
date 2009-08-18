@@ -696,6 +696,22 @@ public interface ServletContext {
     Set<SessionTrackingMode> getDefaultSessionTrackingModes();
 
     /**
+     *
+     * @return the major version of the servlet spec the web app thinks it is using.
+     * @throws UnsupportedOperationException if this ServletContext was constructed in a way where the spec version cannot be determined.
+     * @since 3.0
+     */
+    int getEffectiveMajorVersion() throws UnsupportedOperationException;
+
+    /**
+     *
+     * @return the minor version of the servlet spec the web app thinks it is using.
+     * @throws UnsupportedOperationException if this ServletContext was constructed in a way where the spec version cannot be determined.
+     * @since 3.0
+     */
+    int getEffectiveMinorersion() throws UnsupportedOperationException;
+
+    /**
      * @return the actual session tracking modes.  These will be the default ones unless they've been explicitly set.
      * @since 3.0
      */
