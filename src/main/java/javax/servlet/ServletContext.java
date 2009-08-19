@@ -709,7 +709,7 @@ public interface ServletContext {
      * @throws UnsupportedOperationException if this ServletContext was constructed in a way where the spec version cannot be determined.
      * @since 3.0
      */
-    int getEffectiveMinorersion() throws UnsupportedOperationException;
+    int getEffectiveMinorVersion() throws UnsupportedOperationException;
 
     /**
      * @return the actual session tracking modes.  These will be the default ones unless they've been explicitly set.
