@@ -50,6 +50,8 @@ public interface AbstractQuery<T> {
 
     AbstractQuery<T> distinct(boolean distinct);
 
+    <U> Subquery<U> subquery(Class<U> type);
+
     Selection<T> getSelection();
     List<Expression<?>> getGroupList();
 
@@ -58,5 +60,6 @@ public interface AbstractQuery<T> {
     Predicate getGroupRestriction();
 
     boolean isDistinct();
-    <U> Subquery<U> subquery(Class<U> type);
+
+    Class<T> getResultType();  	
 }
