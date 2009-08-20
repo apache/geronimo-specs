@@ -181,6 +181,7 @@ public interface QueryBuilder {
 
     <T> Expression<T> literal(T value);
 
+    <T> Expression<T> nullLiteral(Class<T> resultClass);
 
 
     <T> ParameterExpression<T> parameter(Class<T> paramClass);
@@ -266,6 +267,7 @@ public interface QueryBuilder {
 		In<T> value(Expression<? extends T> value);
 	}
     <T> In<T> in(Expression<? extends T> expression);
+
 
     <Y> Expression<Y> coalesce(Expression<? extends Y> x, Expression<? extends Y> y);
 

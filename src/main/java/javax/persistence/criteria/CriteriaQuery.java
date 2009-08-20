@@ -37,7 +37,6 @@ public interface CriteriaQuery<T> extends AbstractQuery<T> {
 
     CriteriaQuery<T> multiselect(List<Selection<?>> selectionList);
 
-
     CriteriaQuery<T> where(Expression<Boolean> restriction);
 
     CriteriaQuery<T> where(Predicate... restrictions);
@@ -51,8 +50,6 @@ public interface CriteriaQuery<T> extends AbstractQuery<T> {
     CriteriaQuery<T> orderBy(Order... o);
 
     CriteriaQuery<T> distinct(boolean distinct);
-
-    Class<T> getResultType();  
     List<Order> getOrderList();
     Set<ParameterExpression<?>> getParameters();
 }
