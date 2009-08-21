@@ -48,7 +48,7 @@ import java.util.WeakHashMap;
  * shared by multiple applications on a desktop; with process isolation and no
  * real concept of shared memory, this seems challenging. These properties and
  * defaults rely on system properties, making management in a app server harder,
- * and on resources loaded from "mail.jar" which may lead to skew between                    
+ * and on resources loaded from "mail.jar" which may lead to skew between
  * differnet independent implementations of this API.
  *
  * @version $Rev$ $Date$
@@ -94,7 +94,12 @@ public final class Session {
      * @return a new session
      */
     public static Session getInstance(Properties properties, Authenticator authenticator) {
-        return new Session(new Properties(properties), authenticator);
+        // if we have a properties bundle, we need a copy of the provided one
+        if (properties != null) {
+            properties = (Properties)properties.clone();
+        }
+
+        return new Session(properties, authenticator);
     }
 
     /**
@@ -476,7 +481,7 @@ public final class Session {
     private Service getService(Provider provider, URLName name) throws NoSuchProviderException {
         try {
             if (name == null) {
-                name = new URLName(provider.getProtocol(), null, -1, null, null, null); 
+                name = new URLName(provider.getProtocol(), null, -1, null, null, null);
            }
             ClassLoader cl = getClassLoader();
             Class clazz = cl.loadClass(provider.getClassName());
@@ -607,9 +612,9 @@ public final class Session {
         } catch (IOException e) {
             // ignore
         }
-        
+
         // make sure this is added to the global map.
-        providersByClassLoader.put(cl, info); 
+        providersByClassLoader.put(cl, info);
 
         return info;
     }
@@ -618,11 +623,11 @@ public final class Session {
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
         String line;
         while ((line = reader.readLine()) != null) {
-            // Lines beginning with "#" are just comments.  
+            // Lines beginning with "#" are just comments.
             if (line.startsWith("#")) {
-                continue; 
+                continue;
             }
-            
+
             StringTokenizer tok = new StringTokenizer(line, ";");
             String protocol = null;
             Provider.Type type = null;
