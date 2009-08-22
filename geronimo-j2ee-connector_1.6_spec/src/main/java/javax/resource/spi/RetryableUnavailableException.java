@@ -17,22 +17,31 @@
  * under the License.
  */
 
-//
-// This source code implements specifications defined by the Java
-// Community Process. In order to remain compliant with the specification
-// DO NOT add / change / or delete method signatures!
-//
 
 package javax.resource.spi;
 
-import javax.resource.ResourceException;
-
 /**
- * @since 1.5
+ * @since 1.6
  * @version $Rev$ $Date$
  */
-public interface ResourceAdapterAssociation {
-    ResourceAdapter getResourceAdapter();
+public class RetryableUnavailableException extends UnavailableException implements RetryableException {
 
-    void setResourceAdapter(ResourceAdapter ra) throws ResourceException;
+    public RetryableUnavailableException() {
+    }
+
+    public RetryableUnavailableException(String message) {
+        super(message);
+    }
+
+    public RetryableUnavailableException(Throwable cause) {
+        super(cause);
+    }
+
+    public RetryableUnavailableException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public RetryableUnavailableException(String message, String errorCode) {
+        super(message, errorCode);
+    }
 }

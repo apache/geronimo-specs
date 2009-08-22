@@ -30,6 +30,7 @@ import javax.resource.spi.endpoint.MessageEndpointFactory;
 import javax.transaction.xa.XAResource;
 
 /**
+ * @since 1.5
  * @version $Rev$ $Date$
  */
 public interface ResourceAdapter {

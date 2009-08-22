@@ -28,6 +28,7 @@ package javax.resource.spi;
 import javax.resource.ResourceException;
 
 /**
+ * @since 1.5
  * @version $Rev$ $Date$
  */
 public interface LazyAssociatableConnectionManager {

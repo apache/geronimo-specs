@@ -17,26 +17,33 @@
  * under the License.
  */
 
-//
-// This source code implements specifications defined by the Java
-// Community Process. In order to remain compliant with the specification
-// DO NOT add / change / or delete method signatures!
-//
 
-package javax.resource.spi.work;
+package javax.resource.spi;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Documented;
 
 /**
  * @since 1.6
- * @version $Rev:$ $Date:$
+ * @version $Rev$ $Date$
  */
-public class InflowContextErrorCodes {
+@Documented
+@Retention(value= RetentionPolicy.RUNTIME)
+@Target(value= {ElementType.FIELD, ElementType.METHOD})
+public @interface ConfigProperty {
 
-    public static final String UNSUPPORTED_CONTEXT_TYPE = "1";
-    public static final String DUPLICATE_CONTEXTS = "2";
-    public static final String CONTEXT_SETUP_FAILED = "3";
-    public static final String CONTEXT_SETUP_UNSUPPORTED = "4";
+    boolean confidential() default false;
 
-    private InflowContextErrorCodes() {
-    }
-    
+    String defaultValue() default "";
+
+    String description() default "";
+
+    boolean ignore() default false;
+
+    boolean supportsDynamicUpdates() default false;
+
+    Class type() default Object.class;
 }

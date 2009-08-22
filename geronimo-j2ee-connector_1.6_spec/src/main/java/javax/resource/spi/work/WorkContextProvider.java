@@ -17,32 +17,26 @@
  * under the License.
  */
 
+
 //
 // This source code implements specifications defined by the Java
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
 
-package javax.resource.spi.endpoint;
+package javax.resource.spi.work;
 
-import java.lang.reflect.Method;
-import javax.resource.spi.UnavailableException;
-import javax.transaction.xa.XAResource;
+import java.util.List;
+import java.io.Serializable;
 
 /**
+ *
+ * Implemented by a Work instance that supplies InflowContexts for context setup.
+ * 
+ * @since 1.6
  * @version $Rev$ $Date$
  */
-public interface MessageEndpointFactory {
-    MessageEndpoint createEndpoint(XAResource xaResource) throws UnavailableException;
+public interface WorkContextProvider extends Serializable {
 
-    /**
-     * @since 1.6
-     * @param xaResource XAResource endpoint can use
-     * @param timeout timeout
-     * @return MessageEndpoint
-     * @throws UnavailableException if endpoint cannot be created right now.
-     */
-    MessageEndpoint createEndpoint(XAResource xaResource, long timeout) throws UnavailableException;
-
-    boolean isDeliveryTransacted(Method method) throws NoSuchMethodException;
+    List<WorkContext> getWorkContexts();
 }

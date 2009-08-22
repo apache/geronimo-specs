@@ -30,6 +30,7 @@ import javax.transaction.xa.Xid;
 
 /**
  * @version $Rev$ $Date$
+ * @since 1.5
  */
 public class ExecutionContext {
     private Xid xid;

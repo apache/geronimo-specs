@@ -17,36 +17,49 @@
  * under the License.
  */
 
-//
-// This source code implements specifications defined by the Java
-// Community Process. In order to remain compliant with the specification
-// DO NOT add / change / or delete method signatures!
-//
 
 package javax.resource.spi.work;
 
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
- * @since 1.5
  * @version $Rev$ $Date$
+ * @since 1.6
  */
-public class WorkRejectedException extends WorkException {
-    public WorkRejectedException() {
-        super();
+public class HintsContext implements WorkContext {
+
+    public static final String LONGRUNNING_HINT = "javax.resource.LongRunning";
+    public static final String NAME_HINT = "javax.resource.Name";
+
+    protected String description;
+
+    protected String name;
+
+    private final Map<String, Serializable> hints = new HashMap<String, Serializable>();
+
+    public String getDescription() {
+        return description;
     }
 
-    public WorkRejectedException(String message) {
-        super(message);
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public WorkRejectedException(Throwable cause) {
-        super(cause);
+    public String getName() {
+        return name;
     }
 
-    public WorkRejectedException(String message, Throwable cause) {
-        super(message, cause);
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public WorkRejectedException(String message, String errorCode) {
-        super(message, errorCode);
+    public Map<String, Serializable> getHints() {
+        return hints;
+    }
+
+    public void setHint(String name, Serializable hint) {
+        hints.put(name, hint);
     }
 }

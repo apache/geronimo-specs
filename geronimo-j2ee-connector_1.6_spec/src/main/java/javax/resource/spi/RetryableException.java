@@ -17,22 +17,14 @@
  * under the License.
  */
 
-//
-// This source code implements specifications defined by the Java
-// Community Process. In order to remain compliant with the specification
-// DO NOT add / change / or delete method signatures!
-//
 
 package javax.resource.spi;
 
-import javax.resource.ResourceException;
+import java.io.Serializable;
 
 /**
- * @since 1.5
+ * @since 1.6
  * @version $Rev$ $Date$
  */
-public interface ResourceAdapterAssociation {
-    ResourceAdapter getResourceAdapter();
-
-    void setResourceAdapter(ResourceAdapter ra) throws ResourceException;
+public interface RetryableException extends Serializable {
 }

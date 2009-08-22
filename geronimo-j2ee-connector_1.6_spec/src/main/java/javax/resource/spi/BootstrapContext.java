@@ -26,8 +26,11 @@
 package javax.resource.spi;
 
 import javax.resource.spi.work.WorkManager;
+import javax.resource.spi.work.WorkContext;
+import javax.transaction.TransactionSynchronizationRegistry;
 
 /**
+ * @since 1.5
  * @version $Rev$ $Date$
  */
 public interface BootstrapContext {
@@ -36,4 +39,8 @@ public interface BootstrapContext {
     XATerminator getXATerminator();
 
     java.util.Timer createTimer() throws UnavailableException;
+
+    boolean isContextSupported(Class<? extends WorkContext> workContextClass);
+
+    TransactionSynchronizationRegistry getTransactionSynchronizationRegistry();
 }

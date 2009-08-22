@@ -17,22 +17,33 @@
  * under the License.
  */
 
-//
-// This source code implements specifications defined by the Java
-// Community Process. In order to remain compliant with the specification
-// DO NOT add / change / or delete method signatures!
-//
 
-package javax.resource.spi.work;
+package javax.resource.spi;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Documented;
 
 /**
  * @since 1.6
- * @version $Rev:$ $Date:$
+ * @version $Rev$ $Date$
  */
-public interface InflowContextLifecycleListener {
 
-    void contextSetupComplete();
+@Documented
+@Retention(value= RetentionPolicy.RUNTIME)
+@Target(value= ElementType.TYPE)
+public @interface AuthenticationMechanism {
 
-    void contextSetupFailed(String errorCode);
+    public enum CredentialInterface {
+        GenericCredential, GSSCredential, PasswordCredential
+    }
 
+    String authMechanism() default "BasicPassword";
+
+    CredentialInterface credentialInterface() default CredentialInterface.PasswordCredential;
+
+    String description() default "";
+    
 }
