@@ -26,6 +26,7 @@
 package javax.resource.spi;
 
 /**
+ * @since 1.5
  * @version $Rev$ $Date$
  */
 public interface ActivationSpec extends ResourceAdapterAssociation {

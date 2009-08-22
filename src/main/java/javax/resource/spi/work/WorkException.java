@@ -28,6 +28,7 @@ package javax.resource.spi.work;
 import javax.resource.ResourceException;
 
 /**
+ * @since 1.5
  * @version $Rev$ $Date$
  */
 public class WorkException extends ResourceException {

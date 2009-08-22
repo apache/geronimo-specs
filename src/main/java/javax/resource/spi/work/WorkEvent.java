@@ -28,6 +28,7 @@ package javax.resource.spi.work;
 import java.util.EventObject;
 
 /**
+ * @since 1.5
  * @version $Rev$ $Date$
  */
 public class WorkEvent extends EventObject {

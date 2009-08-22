@@ -20,12 +20,14 @@
 
 package javax.resource.spi;
 
+import java.io.Serializable;
+
 /**
  * Runtime transaction support level available fom a ManagedConnectionFactory
  * @since 1.6
- * @version $Rev:$ $Date:$
+ * @version $Rev$ $Date$
  */
-public interface TransactionSupport {
+public interface TransactionSupport extends Serializable {
 
     TransactionSupportLevel getTransactionSupport();
 

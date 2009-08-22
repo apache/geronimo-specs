@@ -17,29 +17,24 @@
  * under the License.
  */
 
-//
-// This source code implements specifications defined by the Java
-// Community Process. In order to remain compliant with the specification
-// DO NOT add / change / or delete method signatures!
-//
 
-package javax.resource.spi.work;
+package javax.resource.spi;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Documented;
 
 /**
  * @since 1.6
- * @version $Rev:$ $Date:$
+ * @version $Rev$ $Date$
  */
-public interface InflowContext {
+@Documented
+@Retention(value= RetentionPolicy.RUNTIME)
+@Target(value= ElementType.TYPE)
+public @interface ConnectionDefinitions {
 
-    /**
-     * Human readable name of the inflow context
-     * @return human readable name of the inflow context
-     */
-    String getName();
-
-    /**
-     * Human readable description of the inflow context
-     * @return human-readable description of the inflow context
-     */
-    String getDescription();
+    ConnectionDefinition[] value();
+    
 }

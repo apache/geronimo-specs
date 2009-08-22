@@ -28,6 +28,7 @@ package javax.resource.spi.work;
 import java.util.EventListener;
 
 /**
+ * @since 1.5
  * @version $Rev$ $Date$
  */
 public interface WorkListener extends EventListener {

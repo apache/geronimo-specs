@@ -23,26 +23,31 @@
 // DO NOT add / change / or delete method signatures!
 //
 
-package javax.resource.spi.endpoint;
-
-import java.lang.reflect.Method;
-import javax.resource.spi.UnavailableException;
-import javax.transaction.xa.XAResource;
+package javax.resource.spi.work;
 
 /**
+ * @since 1.6
  * @version $Rev$ $Date$
  */
-public interface MessageEndpointFactory {
-    MessageEndpoint createEndpoint(XAResource xaResource) throws UnavailableException;
+public class TransactionContext extends ExecutionContext implements WorkContext {
+
+    private static final String NAME = "TransactionContext";
+    private static final String DESCRIPTION = "TransactionContext";
+    /**
+     * Human readable name of the inflow context
+     *
+     * @return human readable name of the inflow context
+     */
+    public String getName() {
+        return NAME;
+    }
 
     /**
-     * @since 1.6
-     * @param xaResource XAResource endpoint can use
-     * @param timeout timeout
-     * @return MessageEndpoint
-     * @throws UnavailableException if endpoint cannot be created right now.
+     * Human readable description of the inflow context
+     *
+     * @return human-readable description of the inflow context
      */
-    MessageEndpoint createEndpoint(XAResource xaResource, long timeout) throws UnavailableException;
-
-    boolean isDeliveryTransacted(Method method) throws NoSuchMethodException;
+    public String getDescription() {
+        return DESCRIPTION;
+    }
 }

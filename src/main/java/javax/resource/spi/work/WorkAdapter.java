@@ -27,6 +27,7 @@ package javax.resource.spi.work;
 
 /**
  * @version $Rev$ $Date$
+ * @since 1.5
  */
 public class WorkAdapter implements WorkListener {
     public WorkAdapter() {

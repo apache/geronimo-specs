@@ -23,26 +23,20 @@
 // DO NOT add / change / or delete method signatures!
 //
 
-package javax.resource.spi.endpoint;
-
-import java.lang.reflect.Method;
-import javax.resource.spi.UnavailableException;
-import javax.transaction.xa.XAResource;
+package javax.resource.spi.work;
 
 /**
+ * @since 1.6
  * @version $Rev$ $Date$
  */
-public interface MessageEndpointFactory {
-    MessageEndpoint createEndpoint(XAResource xaResource) throws UnavailableException;
+public class WorkContextErrorCodes {
 
-    /**
-     * @since 1.6
-     * @param xaResource XAResource endpoint can use
-     * @param timeout timeout
-     * @return MessageEndpoint
-     * @throws UnavailableException if endpoint cannot be created right now.
-     */
-    MessageEndpoint createEndpoint(XAResource xaResource, long timeout) throws UnavailableException;
+    public static final String UNSUPPORTED_CONTEXT_TYPE = "1";
+    public static final String DUPLICATE_CONTEXTS = "2";
+    public static final String CONTEXT_SETUP_FAILED = "3";
+    public static final String CONTEXT_SETUP_UNSUPPORTED = "4";
 
-    boolean isDeliveryTransacted(Method method) throws NoSuchMethodException;
+    public WorkContextErrorCodes() {
+    }
+
 }

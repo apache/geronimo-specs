@@ -17,37 +17,14 @@
  * under the License.
  */
 
-//
-// This source code implements specifications defined by the Java
-// Community Process. In order to remain compliant with the specification
-// DO NOT add / change / or delete method signatures!
-//
 
 package javax.resource.spi.work;
 
+import java.io.Serializable;
+
 /**
+ * @version $Rev$ $Date$
  * @since 1.6
- * @version $Rev:$ $Date:$
  */
-public class TransactionInflowContext extends ExecutionContext implements InflowContext {
-
-    private static final String NAME = "TransactionInflowContext";
-    private static final String DESCRIPTION = "TransactionInflowContext";
-    /**
-     * Human readable name of the inflow context
-     *
-     * @return human readable name of the inflow context
-     */
-    public String getName() {
-        return NAME;
-    }
-
-    /**
-     * Human readable description of the inflow context
-     *
-     * @return human-readable description of the inflow context
-     */
-    public String getDescription() {
-        return DESCRIPTION;
-    }
+public interface DistributableWork extends Work, Serializable {
 }

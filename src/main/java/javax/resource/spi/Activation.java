@@ -17,22 +17,22 @@
  * under the License.
  */
 
-//
-// This source code implements specifications defined by the Java
-// Community Process. In order to remain compliant with the specification
-// DO NOT add / change / or delete method signatures!
-//
 
 package javax.resource.spi;
 
-import javax.resource.ResourceException;
+import java.lang.annotation.Target;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Documented;
 
 /**
- * @since 1.5
+ * @since 1.6
  * @version $Rev$ $Date$
  */
-public interface ResourceAdapterAssociation {
-    ResourceAdapter getResourceAdapter();
-
-    void setResourceAdapter(ResourceAdapter ra) throws ResourceException;
+@Documented
+@Retention(value= RetentionPolicy.RUNTIME)
+@Target(value= ElementType.TYPE)
+public @interface Activation {
+    Class[] messageListeners() default {};
 }

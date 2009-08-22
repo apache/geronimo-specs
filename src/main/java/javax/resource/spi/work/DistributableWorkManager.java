@@ -17,22 +17,12 @@
  * under the License.
  */
 
-//
-// This source code implements specifications defined by the Java
-// Community Process. In order to remain compliant with the specification
-// DO NOT add / change / or delete method signatures!
-//
 
-package javax.resource.spi;
-
-import javax.resource.ResourceException;
+package javax.resource.spi.work;
 
 /**
- * @since 1.5
  * @version $Rev$ $Date$
+ * @since 1.6
  */
-public interface ResourceAdapterAssociation {
-    ResourceAdapter getResourceAdapter();
-
-    void setResourceAdapter(ResourceAdapter ra) throws ResourceException;
+public interface DistributableWorkManager extends WorkManager {
 }

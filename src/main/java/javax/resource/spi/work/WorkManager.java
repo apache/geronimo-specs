@@ -26,6 +26,7 @@
 package javax.resource.spi.work;
 
 /**
+ * @since 1.5
  * @version $Rev$ $Date$
  */
 public interface WorkManager {
