@@ -367,5 +367,25 @@ public class ServletRequestWrapper implements ServletRequest {
         return this.request.getDispatcherType();
     }
 
+    public boolean isWrapperFor(Class wrappedType) {
+        if (this.request.getClass().isAssignableFrom(wrappedType)) {
+            return true;
+        }
+        if (this.request instanceof ServletRequestWrapper) {
+            return ((ServletRequestWrapper)this.request).isWrapperFor(wrappedType);
+        }
+        return false;
+    }
+
+    public boolean isWrapperFor(ServletRequest instance) {
+        if (instance == this.request) {
+            return true;
+        }
+        if (this.request instanceof ServletRequestWrapper) {
+            return ((ServletRequestWrapper)this.request).isWrapperFor(instance);
+        }
+        return false;
+    }
+
 }
 

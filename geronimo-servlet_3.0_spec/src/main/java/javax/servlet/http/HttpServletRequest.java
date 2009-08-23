@@ -23,6 +23,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletException;
 
 import java.util.Enumeration;
+import java.io.IOException;
 
 /**
  * Extends the {@link javax.servlet.ServletRequest} interface
@@ -59,9 +60,10 @@ public interface HttpServletRequest extends ServletRequest {
      *
      * @param response response to use to conduct a dialog if necessary
      * @return whether authentication was successful
+     * @throws javax.servlet.ServletException if something goes wrong
      * @since 3.0
      */
-    boolean authenticate(HttpServletResponse response);
+    boolean authenticate(HttpServletResponse response) throws IOException, ServletException;
 
     /**
      * Returns the name of the authentication scheme used to protect
@@ -238,15 +240,17 @@ public interface HttpServletRequest extends ServletRequest {
     /**
      * @param name part name
      * @return named part
+     * @throws javax.servlet.ServletException if something goes wrong
      * @since 3.0
      */
-    Part getPart(String name);
+    Part getPart(String name) throws IOException, ServletException;
 
     /**
      * @return all the parts
+     * @throws javax.servlet.ServletException if something goes wrong
      * @since 3.0
      */
-    Iterable<Part> getParts();
+    Iterable<Part> getParts() throws IOException, ServletException;
 
     /**
      * Returns any extra path information associated with

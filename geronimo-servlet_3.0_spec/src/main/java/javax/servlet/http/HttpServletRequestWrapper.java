@@ -23,6 +23,7 @@ import javax.servlet.ServletRequestWrapper;
 import javax.servlet.ServletException;
 
 import java.util.Enumeration;
+import java.io.IOException;
 
 /**
  * Provides a convenient implementation of the HttpServletRequest interface that
@@ -53,7 +54,7 @@ public class HttpServletRequestWrapper extends ServletRequestWrapper implements 
         return (HttpServletRequest) super.getRequest();
     }
 
-    public boolean authenticate(HttpServletResponse response) {
+    public boolean authenticate(HttpServletResponse response) throws IOException, ServletException {
         return getHttpServletRequest().authenticate(response);
     }
 
@@ -123,11 +124,11 @@ public class HttpServletRequestWrapper extends ServletRequestWrapper implements 
         return getHttpServletRequest().getMethod();
     }
 
-    public Part getPart(String name) {
+    public Part getPart(String name) throws IOException, ServletException {
         return getHttpServletRequest().getPart(name);
     }
 
-    public Iterable<Part> getParts() {
+    public Iterable<Part> getParts() throws IOException, ServletException {
         return getHttpServletRequest().getParts();
     }
 

@@ -198,6 +198,27 @@ public class ServletResponseWrapper implements ServletResponse {
         return this.response.getLocale();
     }
 
+    public boolean isWrapperFor(Class wrappedType) {
+        if (this.response.getClass().isAssignableFrom(wrappedType)) {
+            return true;
+        }
+        if (this.response instanceof ServletResponseWrapper) {
+            return ((ServletResponseWrapper)this.response).isWrapperFor(wrappedType);
+        }
+        return false;
+    }
+
+    public boolean isWrapperFor(ServletResponse instance) {
+        if (instance == this.response) {
+            return true;
+        }
+        if (this.response instanceof ServletResponseWrapper) {
+            return ((ServletResponseWrapper)this.response).isWrapperFor(instance);
+        }
+        return false;
+    }
+
+
 }
 
 
