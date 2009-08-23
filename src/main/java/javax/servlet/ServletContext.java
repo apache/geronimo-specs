@@ -61,7 +61,7 @@ public interface ServletContext {
     /**
      * @since Servlet 3.0
      */
-    String ORDERED_LIGS = "javax.servlet.context.orderedLibs";
+    String ORDERED_LIBS = "javax.servlet.context.orderedLibs";
     /**
      * @since Servlet 3.0
      */
@@ -670,12 +670,6 @@ public interface ServletContext {
      * @since Servlet 3.0
      */
     <T extends EventListener> T createListener(Class<T> clazz) throws ServletException;
-
-    /**
-     * @param sessionCookieConfig configuration of session cookie
-     * @since 3.0
-     */
-    void setSessionCookieConfig(SessionCookieConfig sessionCookieConfig);
 
     /**
      * @return configuration of session cookie

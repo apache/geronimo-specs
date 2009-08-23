@@ -35,11 +35,11 @@ public interface Part {
 
     String getContentType();
 
-    String getHeader();
+    String getHeader(String headerName);
 
     Iterable<String> getHeaderNames();
 
-    Iterable<String> getHeaders();
+    Iterable<String> getHeaders(String headerName);
 
     InputStream getInputStream() throws IOException;
 

@@ -24,6 +24,7 @@ import java.lang.annotation.Target;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Documented;
 
 import javax.servlet.DispatcherType;
 
@@ -32,11 +33,12 @@ import javax.servlet.DispatcherType;
  * @since 3.0
  */
 
+@Documented
 @Target(value= ElementType.TYPE)
 @Retention(value= RetentionPolicy.RUNTIME)
 public @interface WebFilter {
 
-    boolean asyncSupported();
+    boolean asyncSupported() default false;
 
     String description() default "";
 

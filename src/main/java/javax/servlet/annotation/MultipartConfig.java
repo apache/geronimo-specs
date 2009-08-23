@@ -20,10 +20,10 @@
 
 package javax.servlet.annotation;
 
-import java.lang.annotation.Target;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * @version $Rev$ $Date$
@@ -34,12 +34,12 @@ import java.lang.annotation.RetentionPolicy;
 @Retention(value = RetentionPolicy.RUNTIME)
 public @interface MultipartConfig {
 
-    int fileSizeThreshhold() default 0;
+    int fileSizeThreshold() default 0;
 
     String location() default "";
 
-    long maxFileSize() default 0L;
+    long maxFileSize() default -1L;
 
-    long maxRequestSize() default 0L;
+    long maxRequestSize() default -1L;
 
 }
