@@ -25,8 +25,11 @@
 
 package javax.ejb;
 
+import java.util.Map;
+
 /**
  * @version $Rev$ $Date$
  */
 public interface MessageDrivenContext extends EJBContext {
+    Map<String,Object> getContextData();
 }
