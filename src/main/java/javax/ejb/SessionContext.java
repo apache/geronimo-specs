@@ -26,6 +26,7 @@
 package javax.ejb;
 
 import javax.xml.rpc.handler.MessageContext;
+import java.util.Map;
 
 /**
  * @version $Rev$ $Date$
@@ -43,4 +44,5 @@ public interface SessionContext extends EJBContext {
 
     boolean wasCancelCalled();
 
+    Map<String,Object> getContextData();
 }
