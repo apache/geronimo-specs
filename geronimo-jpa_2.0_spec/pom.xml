@@ -34,7 +34,7 @@
     <artifactId>geronimo-jpa_2.0_spec</artifactId>
     <packaging>bundle</packaging>
     <name>Apache Geronimo JSR-317 JPA 2.0 EARLY ACCESS Spec API</name>
-    <version>1.0-EA7-SNAPSHOT</version>
+    <version>1.0-EA8-SNAPSHOT</version>
 
     <description>Implementation of Sun JSR-317 JPA 2.0 EARLY ACCESS Spec API</description>
 
