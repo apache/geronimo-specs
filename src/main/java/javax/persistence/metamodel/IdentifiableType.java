@@ -29,9 +29,9 @@ package javax.persistence.metamodel;
 public interface IdentifiableType<X> extends ManagedType<X> {
     <Y> SingularAttribute<? super X, Y> getId(Class<Y> type);
 
-    <Y> SingularAttribute<? super X, Y> getVersion(Class<Y> type);
-
     <Y> SingularAttribute<X, Y> getDeclaredId(Class<Y> type);
+
+    <Y> SingularAttribute<? super X, Y> getVersion(Class<Y> type);
 
     <Y> SingularAttribute<X, Y> getDeclaredVersion(Class<Y> type);
     IdentifiableType<? super X> getSupertype();

@@ -43,11 +43,15 @@ public interface CriteriaQuery<T> extends AbstractQuery<T> {
 
     CriteriaQuery<T> groupBy(Expression<?>... grouping);
 
+    CriteriaQuery<T> groupBy(List<Expression<?>> grouping);
+
     CriteriaQuery<T> having(Expression<Boolean> restriction);
 
     CriteriaQuery<T> having(Predicate... restrictions);
 
     CriteriaQuery<T> orderBy(Order... o);
+
+    CriteriaQuery<T> orderBy(List<Order> o);
 
     CriteriaQuery<T> distinct(boolean distinct);
     List<Order> getOrderList();

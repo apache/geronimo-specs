@@ -32,6 +32,6 @@ public interface Parameter<T> {
 
     Integer getPosition();
 
-     Class<T> getJavaType();
+     Class<T> getParameterType();
 }
 
