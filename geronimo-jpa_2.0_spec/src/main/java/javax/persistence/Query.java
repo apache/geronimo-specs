@@ -57,29 +57,29 @@ public interface Query {
 
     <T> Query setParameter(Parameter<T> param, T value);
 
-    Query setParameter(Parameter<Date> param, Date value, TemporalType temporalType);
-
     Query setParameter(Parameter<Calendar> param, Calendar value, TemporalType temporalType);
+
+    Query setParameter(Parameter<Date> param, Date value, TemporalType temporalType);
 
     Query setParameter(String name, Object value);
 
-    Query setParameter(String name, Date value, TemporalType temporalType);
-
     Query setParameter(String name, Calendar value, TemporalType temporalType);
+
+    Query setParameter(String name, Date value, TemporalType temporalType);
 
     Query setParameter(int position, Object value);
 
-    Query setParameter(int position, Date value,  TemporalType temporalType);
-
     Query setParameter(int position, Calendar value,  TemporalType temporalType);
+
+    Query setParameter(int position, Date value,  TemporalType temporalType);
 
     Set<Parameter<?>> getParameters();
 
     Parameter<?> getParameter(String name);
 
-    Parameter<?> getParameter(int position);
-
     <T> Parameter<T> getParameter(String name, Class<T> type);
+
+    Parameter<?> getParameter(int position);
 
     <T> Parameter<T> getParameter(int position, Class<T> type);
 

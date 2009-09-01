@@ -25,10 +25,10 @@
 
 package javax.persistence.criteria;
 
+import java.util.List;
+
 
 public interface Subquery<T> extends AbstractQuery<T>, Expression<T> {
-
-    AbstractQuery<?> getParent();
     Subquery<T> select(Expression<T> expression);
     Subquery<T> where(Expression<Boolean> restriction);
 
@@ -36,12 +36,13 @@ public interface Subquery<T> extends AbstractQuery<T>, Expression<T> {
 
     Subquery<T> groupBy(Expression<?>... grouping);
 
+    Subquery<T> groupBy(List<Expression<?>> grouping);
+
     Subquery<T> having(Expression<Boolean> restriction);
 
     Subquery<T> having(Predicate... restrictions);
 
     Subquery<T> distinct(boolean distinct);
-    Expression<T> getSelection();
     <Y> Root<Y> correlate(Root<Y> parentRoot);
 
     <X, Y> Join<X, Y> correlate(Join<X, Y> parentJoin);
@@ -53,6 +54,9 @@ public interface Subquery<T> extends AbstractQuery<T>, Expression<T> {
     <X, Y> ListJoin<X, Y> correlate(ListJoin<X, Y> parentList);
 
     <X, K, V> MapJoin<X, K, V> correlate(MapJoin<X, K, V> parentMap);
+
+    AbstractQuery<?> getParent();
+    Expression<T> getSelection();
 
     java.util.Set<Join<?, ?>> getJoins();
 

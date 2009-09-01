@@ -73,9 +73,9 @@ public interface QueryBuilder {
 
 
     Predicate and(Expression<Boolean> x, Expression<Boolean> y);
+    Predicate and(Predicate... restrictions);
 
     Predicate or(Expression<Boolean> x, Expression<Boolean> y);
-    Predicate and(Predicate... restrictions);
 
     Predicate or(Predicate... restrictions);
 
@@ -95,42 +95,42 @@ public interface QueryBuilder {
     Predicate isNotNull(Expression<?> x);
 
     Predicate equal(Expression<?> x, Expression<?> y);
+    Predicate equal(Expression<?> x, Object y);
 
     Predicate notEqual(Expression<?> x, Expression<?> y);
-    Predicate equal(Expression<?> x, Object y);
     Predicate notEqual(Expression<?> x, Object y);
 
 
     <Y extends Comparable<Y>> Predicate greaterThan(Expression<? extends Y> x, Expression<? extends Y> y);
-
-    <Y extends Comparable<Y>> Predicate lessThan(Expression<? extends Y> x, Expression<? extends Y> y);
-    <Y extends Comparable<Y>> Predicate greaterThanOrEqualTo(Expression<? extends Y> x, Expression<? extends Y> y);
-    <Y extends Comparable<Y>> Predicate lessThanOrEqualTo(Expression<? extends Y> x, Expression<? extends Y> y);
-
-    <Y extends Comparable<Y>> Predicate between(Expression<? extends Y> v, Expression<? extends Y> x, Expression<? extends Y> y);
     <Y extends Comparable<Y>> Predicate greaterThan(Expression<? extends Y> x, Y y);
-
-    <Y extends Comparable<Y>> Predicate lessThan(Expression<? extends Y> x, Y y);
+    <Y extends Comparable<Y>> Predicate greaterThanOrEqualTo(Expression<? extends Y> x, Expression<? extends Y> y);
 
     <Y extends Comparable<Y>> Predicate greaterThanOrEqualTo(Expression<? extends Y> x, Y y);
 
+    <Y extends Comparable<Y>> Predicate lessThan(Expression<? extends Y> x, Expression<? extends Y> y);
+
+    <Y extends Comparable<Y>> Predicate lessThan(Expression<? extends Y> x, Y y);
+    <Y extends Comparable<Y>> Predicate lessThanOrEqualTo(Expression<? extends Y> x, Expression<? extends Y> y);
+
     <Y extends Comparable<Y>> Predicate lessThanOrEqualTo(Expression<? extends Y> x, Y y);
+
+    <Y extends Comparable<Y>> Predicate between(Expression<? extends Y> v, Expression<? extends Y> x, Expression<? extends Y> y);
 
     <Y extends Comparable<Y>> Predicate between(Expression<? extends Y> v, Y x, Y y);
 
     Predicate gt(Expression<? extends Number> x, Expression<? extends Number> y);
 
-    Predicate lt(Expression<? extends Number> x, Expression<? extends Number> y);
+    Predicate gt(Expression<? extends Number> x, Number y);
 
     Predicate ge(Expression<? extends Number> x, Expression<? extends Number> y);
 
-    Predicate le(Expression<? extends Number> x, Expression<? extends Number> y);
+    Predicate ge(Expression<? extends Number> x, Number y);
 
-    Predicate gt(Expression<? extends Number> x, Number y);
+    Predicate lt(Expression<? extends Number> x, Expression<? extends Number> y);
 
     Predicate lt(Expression<? extends Number> x, Number y);
 
-    Predicate ge(Expression<? extends Number> x, Number y);
+    Predicate le(Expression<? extends Number> x, Expression<? extends Number> y);
 
     Predicate le(Expression<? extends Number> x, Number y);
 
@@ -138,19 +138,19 @@ public interface QueryBuilder {
 
     <N extends Number> Expression<N> abs(Expression<N> x);
     <N extends Number> Expression<N> sum(Expression<? extends N> x, Expression<? extends N> y);
-
-    <N extends Number> Expression<N> prod(Expression<? extends N> x, Expression<? extends N> y);
-
-    <N extends Number> Expression<N> diff(Expression<? extends N> x, Expression<? extends N> y);
     <N extends Number> Expression<N> sum(Expression<? extends N> x, N y);
-
-    <N extends Number> Expression<N> prod(Expression<? extends N> x, N y);
-
-    <N extends Number> Expression<N> diff(Expression<? extends N> x, N y);
 
     <N extends Number> Expression<N> sum(N x, Expression<? extends N> y);
 
+    <N extends Number> Expression<N> prod(Expression<? extends N> x, Expression<? extends N> y);
+
+    <N extends Number> Expression<N> prod(Expression<? extends N> x, N y);
+
     <N extends Number> Expression<N> prod(N x, Expression<? extends N> y);
+
+    <N extends Number> Expression<N> diff(Expression<? extends N> x, Expression<? extends N> y);
+
+    <N extends Number> Expression<N> diff(Expression<? extends N> x, N y);
 
     <N extends Number> Expression<N> diff(N x, Expression<? extends N> y);
     Expression<Number> quot(Expression<? extends Number> x, Expression<? extends Number> y);
@@ -188,19 +188,20 @@ public interface QueryBuilder {
 
     <T> ParameterExpression<T> parameter(Class<T> paramClass, String name);
 
+
     <C extends Collection<?>> Predicate isEmpty(Expression<C> collection);
 
     <C extends Collection<?>> Predicate isNotEmpty(Expression<C> collection);
-    <C extends Collection<?>> Expression<Integer> size(C collection);
 
     <C extends java.util.Collection<?>> Expression<Integer> size(Expression<C> collection);
+    <C extends Collection<?>> Expression<Integer> size(C collection);
+    <E, C extends Collection<E>> Predicate isMember(Expression<E> elem, Expression<C> collection);
 
     <E, C extends Collection<E>> Predicate isMember(E elem, Expression<C> collection);
 
-    <E, C extends Collection<E>> Predicate isNotMember(E elem, Expression<C> collection);
-    <E, C extends Collection<E>> Predicate isMember(Expression<E> elem, Expression<C> collection);
-
     <E, C extends Collection<E>> Predicate isNotMember(Expression<E> elem, Expression<C> collection);
+    <E, C extends Collection<E>> Predicate isNotMember(E elem, Expression<C> collection);
+
 
 
     <V, M extends Map<?, V>> Expression<Collection<V>> values(M map);
@@ -208,18 +209,18 @@ public interface QueryBuilder {
     <K, M extends Map<K, ?>> Expression<Set<K>> keys(M map);
 
     Predicate like(Expression<String> x, Expression<String> pattern);
+    Predicate like(Expression<String> x, String pattern);
     Predicate like(Expression<String> x, Expression<String> pattern, Expression<Character> escapeChar);
     Predicate like(Expression<String> x, Expression<String> pattern, char escapeChar);
-    Predicate like(Expression<String> x, String pattern);
     Predicate like(Expression<String> x, String pattern, Expression<Character> escapeChar);
 
     Predicate like(Expression<String> x, String pattern, char escapeChar);
     Predicate notLike(Expression<String> x, Expression<String> pattern);
+    Predicate notLike(Expression<String> x, String pattern);
 
     Predicate notLike(Expression<String> x, Expression<String> pattern, Expression<Character> escapeChar);
 
     Predicate notLike(Expression<String> x, Expression<String> pattern, char escapeChar);
-    Predicate notLike(Expression<String> x, String pattern);
 
     Predicate notLike(Expression<String> x, String pattern, Expression<Character> escapeChar);
     Predicate notLike(Expression<String> x, String pattern, char escapeChar);
@@ -246,9 +247,9 @@ public interface QueryBuilder {
     Expression<String> upper(Expression<String> x);
     Expression<Integer> length(Expression<String> x);
     Expression<Integer> locate(Expression<String> x, Expression<String> pattern);
+    Expression<Integer> locate(Expression<String> x, String pattern);
 
     Expression<Integer> locate(Expression<String> x, Expression<String> pattern, Expression<Integer> from);
-    Expression<Integer> locate(Expression<String> x, String pattern);
 
     Expression<Integer> locate(Expression<String> x, String pattern, int from);
 
