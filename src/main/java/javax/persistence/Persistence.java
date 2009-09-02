@@ -24,6 +24,8 @@
 //
 package javax.persistence;
 
+import java.security.AccessController;
+import java.security.PrivilegedAction;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -178,9 +180,12 @@ public class Persistence {
             throws PersistenceException {
 
         Class<?> providerClass;
-        ClassLoader cl = Thread.currentThread().getContextClassLoader();
+
+        // get our class loader
+        ClassLoader cl = PrivClassLoader.get(null);
         if (cl == null)
-            cl = Persistence.class.getClassLoader();
+            cl = PrivClassLoader.get(Persistence.class);
+
         try {
             providerClass = Class.forName(providerName, true, cl);
         } catch (Exception e) {
@@ -284,5 +289,28 @@ public class Persistence {
                 return true;
             }
     }
-    
+
+    private static class PrivClassLoader implements PrivilegedAction<ClassLoader> {
+        private final Class<?> c;
+
+        public static ClassLoader get(Class<?> c) {
+            final PrivClassLoader action = new PrivClassLoader(c);
+            if (System.getSecurityManager() != null)
+                return AccessController.doPrivileged(action);
+            else
+                return action.run();
+        }
+
+        private PrivClassLoader(Class<?> c) {
+            this.c = c;
+        }
+
+        public ClassLoader run() {
+            if (c != null)
+                return c.getClassLoader();
+            else
+                return Thread.currentThread().getContextClassLoader();
+        }
+    }
 }
+

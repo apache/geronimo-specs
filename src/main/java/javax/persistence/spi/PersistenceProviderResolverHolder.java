@@ -30,6 +30,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.security.AccessController;
+import java.security.PrivilegedAction;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -81,9 +83,9 @@ public class PersistenceProviderResolverHolder {
             List<PersistenceProvider> providers;
             
             // get our class loader
-            ClassLoader cl = Thread.currentThread().getContextClassLoader();
+            ClassLoader cl = PrivClassLoader.get(null);
             if (cl == null)
-                cl = DefaultPersistenceProviderResolver.class.getClassLoader();
+                cl = PrivClassLoader.get(DefaultPersistenceProviderResolver.class);
 
             // use any previously cached providers
             synchronized (providerCache) {
@@ -158,6 +160,29 @@ public class PersistenceProviderResolverHolder {
                 providerCache.clear();
             }
         }
-    }
 
+        private static class PrivClassLoader implements PrivilegedAction<ClassLoader> {
+            private final Class<?> c;
+
+            public static ClassLoader get(Class<?> c) {
+                final PrivClassLoader action = new PrivClassLoader(c);
+                if (System.getSecurityManager() != null)
+                    return AccessController.doPrivileged(action);
+                else
+                    return action.run();
+            }
+
+            private PrivClassLoader(Class<?> c) {
+                this.c = c;
+            }
+
+            public ClassLoader run() {
+                if (c != null)
+                    return c.getClassLoader();
+                else
+                    return Thread.currentThread().getContextClassLoader();
+            }
+        }
+    }
 }
+
