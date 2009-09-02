@@ -36,3 +36,4 @@ public class GroupDefinitionException extends ValidationException {
         super(cause);
     }
 }
+

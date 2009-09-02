@@ -24,3 +24,4 @@ public interface PropertyDescriptor extends ElementDescriptor {
 
     String getPropertyName();
 }
+

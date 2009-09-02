@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintPayload;
+import javax.validation.Payload;
 
 /**
  * @version $Rev$ $Date$
@@ -31,7 +31,7 @@ public interface ConstraintDescriptor<T extends Annotation> {
 
     Set<Class<?>> getGroups();
 
-    Set<Class<ConstraintPayload>> getPayload();
+    Set<Class<? extends Payload>> getPayload();
 
     List<Class<? extends ConstraintValidator<T, ?>>>
         getConstraintValidatorClasses();
@@ -42,3 +42,4 @@ public interface ConstraintDescriptor<T extends Annotation> {
 
     boolean isReportAsSingleViolation();
 }
+

@@ -38,3 +38,4 @@ public class UnexpectedTypeException extends ConstraintDeclarationException {
         super(cause);
     }
 }
+

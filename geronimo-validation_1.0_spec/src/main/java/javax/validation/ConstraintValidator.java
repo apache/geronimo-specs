@@ -26,3 +26,4 @@ public interface ConstraintValidator<A extends Annotation, T> {
 
     boolean isValid(T value, ConstraintValidatorContext constraintValidatorContext);
 }
+

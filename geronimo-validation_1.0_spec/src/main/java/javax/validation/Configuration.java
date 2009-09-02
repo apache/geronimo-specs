@@ -39,3 +39,4 @@ public interface Configuration<T extends Configuration<T>> {
 
 	ValidatorFactory buildValidatorFactory();
 }
+

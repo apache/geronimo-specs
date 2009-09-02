@@ -26,7 +26,7 @@ import java.lang.annotation.Retention;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import java.lang.annotation.Target;
 import javax.validation.Constraint;
-import javax.validation.ConstraintPayload;
+import javax.validation.Payload;
 
 /**
  * @version $Rev$ $Date$
@@ -40,7 +40,7 @@ public @interface AssertTrue {
 
     Class<?>[] groups() default {};
 
-    Class<? extends ConstraintPayload>[] payload() default {};
+    Class<? extends Payload>[] payload() default {};
 
     @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER })
     @Retention(RUNTIME)
@@ -49,3 +49,4 @@ public @interface AssertTrue {
         AssertTrue[] value();
     }
 }
+
