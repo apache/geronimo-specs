@@ -39,3 +39,4 @@ public interface ConstraintViolation<T> {
 
     ConstraintDescriptor<?> getConstraintDescriptor();
 }
+

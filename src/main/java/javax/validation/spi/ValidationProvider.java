@@ -30,3 +30,4 @@ public interface ValidationProvider<T extends Configuration<T>> {
 
     ValidatorFactory buildValidatorFactory(ConfigurationState configurationState);
 }
+

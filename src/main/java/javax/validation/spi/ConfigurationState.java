@@ -40,3 +40,4 @@ public interface ConfigurationState {
 
     Map<String, String> getProperties();
 }
+

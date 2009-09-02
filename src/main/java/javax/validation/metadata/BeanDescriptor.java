@@ -28,3 +28,4 @@ public interface BeanDescriptor extends ElementDescriptor {
 
     Set<PropertyDescriptor> getConstrainedProperties();
 }
+

@@ -29,5 +29,6 @@ public interface ElementDescriptor {
 
     Set<ConstraintDescriptor<?>> getConstraintDescriptors();
 
-    Set<ConstraintDescriptor<?>> getUnorderdConstraintDescriptorsMatchingGroups(Class<?>... groups);
+    Set<ConstraintDescriptor<?>> getUnorderedConstraintDescriptorsMatchingGroups(Class<?>... groups);
 }
+

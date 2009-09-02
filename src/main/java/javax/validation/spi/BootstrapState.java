@@ -26,3 +26,4 @@ public interface BootstrapState {
 
     ValidationProviderResolver getDefaultValidationProviderResolver();
 }
+

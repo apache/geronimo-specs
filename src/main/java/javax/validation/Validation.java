@@ -21,6 +21,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.security.AccessController;
+import java.security.PrivilegedAction;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -95,23 +97,23 @@ public class Validation {
                 throw new ValidationException("No resolver provided");
 
             // create a default resolver if not supplied by providerResolver()
-            GenericBootstrapImpl state = new GenericBootstrapImpl();
+            GenericBootstrapImpl impl = new GenericBootstrapImpl();
             if ( vpResolver == null )
-                vpResolver = state.getDefaultValidationProviderResolver();
+                vpResolver = impl.getDefaultValidationProviderResolver();
             else
-                state.providerResolver(vpResolver);
+                impl.providerResolver(vpResolver);
 
             // check each provider discovered by the resolver
             for (ValidationProvider<?> vProvider : vpResolver.getValidationProviders()) {
                 if (providerClass.isAssignableFrom(vProvider.getClass())) {
-                    // Create a ValidationProvider<T> from the above bootstrap state
+                    // Create a ValidationProvider<T> from the above bootstrap impl
                     // and configurationType
-                    return providerClass.cast(vProvider).createSpecializedConfiguration(state);
+                    return providerClass.cast(vProvider).createSpecializedConfiguration(impl);
                 }
             }
 
             // throw a Spec required exception
-            throw new ValidationException("No resover found for provider " + providerClass);
+            throw new ValidationException("No provider found for " + providerClass);
         }
     }
 
@@ -167,7 +169,7 @@ public class Validation {
                     resolv = getDefaultValidationProviderResolver();
                 return resolv.getValidationProviders().get(0).createGenericConfiguration(this);
             } catch (Exception e) {
-                throw new ValidationException("Could not create a default provider", e);
+                throw new ValidationException("Could not create Configuration.", e);
             }
         }
     }
@@ -195,9 +197,9 @@ public class Validation {
             List<ValidationProvider<?>> providers;
 
             // get our class loader
-            ClassLoader cl = Thread.currentThread().getContextClassLoader();
+            ClassLoader cl = PrivClassLoader.get(null);
             if (cl == null)
-                cl = DefaultValidationProviderResolver.class.getClassLoader();
+                cl = PrivClassLoader.get(DefaultValidationProviderResolver.class);
 
             // use any previously cached providers
             synchronized (providerCache) {
@@ -261,5 +263,29 @@ public class Validation {
             // caller must handle the case of no providers found
             return providers;
         }
+
+        private static class PrivClassLoader implements PrivilegedAction<ClassLoader> {
+            private final Class<?> c;
+
+            public static ClassLoader get(Class<?> c) {
+                final PrivClassLoader action = new PrivClassLoader(c);
+                if (System.getSecurityManager() != null)
+                    return AccessController.doPrivileged(action);
+                else
+                    return action.run();
+            }
+
+            private PrivClassLoader(Class<?> c) {
+                this.c = c;
+            }
+
+            public ClassLoader run() {
+                if (c != null)
+                    return c.getClassLoader();
+                else
+                    return Thread.currentThread().getContextClassLoader();
+            }
+        }
     }
- }
+}
+

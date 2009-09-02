@@ -29,3 +29,4 @@ import java.lang.annotation.Target;
 public @interface GroupSequence {
     Class<?>[] value();
 }
+

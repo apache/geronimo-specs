@@ -23,3 +23,4 @@ public interface ConstraintValidatorFactory {
 
     <T extends ConstraintValidator<?, ?>> T getInstance(Class<T> key);
 }
+

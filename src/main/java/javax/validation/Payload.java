@@ -17,7 +17,10 @@
 package javax.validation;
 
 /**
+ * Non-portable implementation specific way to provide metadata to constraints.
+ *
  * @version $Rev$ $Date$
  */
-public interface ConstraintPayload {
+public interface Payload {
 }
+

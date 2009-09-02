@@ -36,3 +36,4 @@ public class ConstraintDefinitionException extends ValidationException {
         super(cause);
     }
 }
+
