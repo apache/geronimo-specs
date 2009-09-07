@@ -25,20 +25,56 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.apache.geronimo.specs</groupId>
-        <artifactId>specs</artifactId>
-        <version>1.2</version>
-        <relativePath>../pom.xml</relativePath>
+        <groupId>org.apache.geronimo.genesis</groupId>
+        <artifactId>genesis-java1.4-flava</artifactId>
+        <version>2.0</version>
     </parent>
 
+    <groupId>org.apache.geronimo.specs</groupId>
     <artifactId>geronimo-j2ee-deployment_1.1_spec</artifactId>
+    <packaging>bundle</packaging>
     <name>J2EE Deployment 1.1</name>
-    <version>1.1</version>
+    <version>1.2-SNAPSHOT</version>
+    <description>J2EE Deployment API (JSR-88)</description>
 
+    <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
+    <distributionManagement>
+        <site>
+            <id>apache-website</id>
+            <url>${site.deploy.url}/maven/${siteId}/${version}</url>
+        </site>
+    </distributionManagement>
+    <properties>
+        <siteId>specs/${artifactId}</siteId>
+    </properties>
 
-  <scm>
-    <connection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-j2ee-deployment_1.1_spec-1.1</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-j2ee-deployment_1.1_spec-1.1</developerConnection>
-    <url>https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-j2ee-deployment_1.1_spec-1.1</url>
-  </scm>
+    <scm>
+        <connection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-j2ee-deployment_1.1_spec</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-j2ee-deployment_1.1_spec</developerConnection>
+        <url>https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-j2ee-deployment_1.1_spec</url>
+    </scm>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.2</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+      <plugins>
+        <plugin>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>maven-bundle-plugin</artifactId>
+            <configuration>
+                <instructions>
+                  <Export-Package>javax.enterprise.deploy*;version=1.1</Export-Package>
+                </instructions>
+            </configuration>
+        </plugin>
+      </plugins>
+    </build>
+
 </project>
