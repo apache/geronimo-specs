@@ -26,7 +26,8 @@
 package javax.security.jacc;
 
 import java.security.SecurityPermission;
-import java.util.Hashtable;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 
@@ -35,9 +36,9 @@ import java.util.Set;
  */
 public final class PolicyContext {
 
-    private static ThreadLocal contextId = new ThreadLocal();
-    private static ThreadLocal handlerData = new ThreadLocal();
-    private static Hashtable handlers = new Hashtable();
+    private final static ThreadLocal<String> contextId = new ThreadLocal<String>();
+    private final static ThreadLocal<Object> handlerData = new ThreadLocal<Object>();
+    private static volatile Map<String, PolicyContextHandler> handlers = new HashMap<String, PolicyContextHandler>();
     private final static SecurityPermission SET_POLICY = new SecurityPermission("setPolicy");
 
     private PolicyContext() {
@@ -51,7 +52,7 @@ public final class PolicyContext {
     }
 
     public static String getContextID() {
-        return (String) contextId.get();
+        return contextId.get();
     }
 
     public static void setHandlerData(Object data) {
@@ -64,12 +65,18 @@ public final class PolicyContext {
     public static void registerHandler(String key, PolicyContextHandler handler, boolean replace) throws PolicyContextException {
         if (key == null) throw new IllegalArgumentException("Key must not be null");
         if (handler == null) throw new IllegalArgumentException("Handler must not be null");
-        if (!replace && handlers.containsKey(key)) throw new IllegalArgumentException("A handler has already been registered under '" + key + "' and replace is false.");
+        if (!handler.supports(key)) throw new IllegalArgumentException("Registered handler does not support the key '" + key + "'");
 
         SecurityManager sm = System.getSecurityManager();
         if (sm != null) sm.checkPermission(SET_POLICY);
 
-        handlers.put(key, handler);
+        synchronized (PolicyContext.class) {
+            if (!replace && handlers.containsKey(key))
+                throw new IllegalArgumentException("A handler has already been registered under '" + key + "' and replace is false.");
+            Map<String, PolicyContextHandler> newHandlers = new HashMap<String, PolicyContextHandler>(handlers);
+            newHandlers.put(key, handler);
+            handlers = newHandlers;
+        }
     }
 
     public static Set getHandlerKeys() {
@@ -79,7 +86,7 @@ public final class PolicyContext {
     public static Object getContext(String key) throws PolicyContextException {
         if (key == null) throw new IllegalArgumentException("Key must not be null");
 
-        PolicyContextHandler handler = (PolicyContextHandler) handlers.get(key);
+        PolicyContextHandler handler = handlers.get(key);
 
         if (handler == null) throw new IllegalArgumentException("No handler can be found for the key '" + key + "'");
         if (!handler.supports(key)) throw new IllegalArgumentException("Registered handler no longer supports the key '" + key + "'");
