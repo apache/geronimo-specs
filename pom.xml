@@ -34,7 +34,7 @@
     <artifactId>geronimo-jacc_1.1_spec</artifactId>
     <packaging>bundle</packaging>
     <name>J2EE JACC 1.1</name>
-    <version>1.0.2</version>
+    <version>1.0.3-SNAPSHOT</version>
 
     <description>Java Access Control for Containers 1.1 API</description>
 
@@ -51,9 +51,9 @@
     </properties>
 
     <scm>
-        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-jacc_1.1_spec-1.0.2</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-jacc_1.1_spec-1.0.2</developerConnection>
-        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/tags/geronimo-jacc_1.1_spec-1.0.2</url>
+        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jacc_1.1_spec/</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jacc_1.1_spec/</developerConnection>
+        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-jacc_1.1_spec/</url>
     </scm>
 
     <dependencies>
