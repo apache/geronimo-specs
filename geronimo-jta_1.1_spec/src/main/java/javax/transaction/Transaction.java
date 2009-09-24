@@ -31,7 +31,7 @@ import javax.transaction.xa.XAResource;
  * @version $Rev$ $Date$
  */
 public interface Transaction {
-    void commit() throws HeuristicMixedException, HeuristicRollbackException, RollbackException, SecurityException, SystemException;
+    void commit() throws HeuristicMixedException, HeuristicRollbackException, RollbackException, SecurityException, IllegalStateException, SystemException;
 
     boolean delistResource(XAResource xaRes, int flag) throws IllegalStateException, SystemException;
 
