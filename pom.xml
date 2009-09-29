@@ -25,13 +25,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.apache.geronimo.specs</groupId>
-        <artifactId>specs-parent</artifactId>
-        <version>1.6</version>
+        <groupId>org.apache.geronimo.genesis</groupId>
+        <artifactId>genesis-java5-flava</artifactId>
+        <version>2.0</version>
     </parent>
 
+    <groupId>org.apache.geronimo.specs</groupId>
     <artifactId>geronimo-jpa_2.0_spec</artifactId>
-    <packaging>jar</packaging>
+    <packaging>bundle</packaging>
     <name>Apache Geronimo JSR-317 JPA 2.0 EARLY ACCESS Spec API</name>
     <version>1.0-EA2-SNAPSHOT</version>
 
@@ -40,15 +41,13 @@
     <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
     <distributionManagement>
         <site>
-            <id>geronimo-website</id>
-            <url>${staging.siteURL}/${siteId}/${version}</url>
+            <id>apache-website</id>
+            <url>${site.deploy.url}/maven/${siteId}/${version}</url>
         </site>
     </distributionManagement>
 
     <properties>
         <siteId>specs/${artifactId}</siteId>
-        <geronimo.osgi.export.pkg>javax.persistence*</geronimo.osgi.export.pkg>
-        <geronimo.osgi.export.version>2.0</geronimo.osgi.export.version>
     </properties>
 
     <scm>
@@ -56,5 +55,30 @@
         <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/branches/geronimo-jpa_2.0_spec-1.0-EA2/</developerConnection>
         <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/branches/geronimo-jpa_2.0_spec-1.0-EA2/</url>
     </scm>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-eclipse-plugin</artifactId>
+                    <configuration>
+                        <addVersionToProjectName>true</addVersionToProjectName>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <configuration>
+                    <instructions>
+                        <Export-Package>javax.persistence*;version=2.0</Export-Package>
+                    </instructions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
