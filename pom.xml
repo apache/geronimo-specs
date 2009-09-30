@@ -32,7 +32,7 @@
 
     <groupId>org.apache.geronimo.specs</groupId>
     <artifactId>geronimo-validation_1.0_spec</artifactId>
-    <version>1.0-EA5-SNAPSHOT</version>
+    <version>1.0-CR5-SNAPSHOT</version>
     <packaging>bundle</packaging>
     <name>Bean Validation 1.0 Spec API</name>
     <description>Bean Validation Spec API 1.0 JSR-303</description>
@@ -50,9 +50,9 @@
     </properties>
 
     <scm>
-        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/branches/geronimo-validation_1.0_spec-1.0-EA5/</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/branches/geronimo-validation_1.0_spec-1.0-EA5/</developerConnection>
-        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/branches/geronimo-validation_1.0_spec-1.0-EA5/</url>
+        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/branches/geronimo-validation_1.0_spec-1.0-CR5/</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/branches/geronimo-validation_1.0_spec-1.0-CR5/</developerConnection>
+        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/branches/geronimo-validation_1.0_spec-1.0-CR5/</url>
     </scm>
 
     <build>
