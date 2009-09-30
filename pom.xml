@@ -33,10 +33,10 @@
     <groupId>org.apache.geronimo.specs</groupId>
     <artifactId>geronimo-jpa_2.0_spec</artifactId>
     <packaging>bundle</packaging>
-    <name>Apache Geronimo JSR-317 JPA 2.0 PFD2 Spec API</name>
+    <name>Apache Geronimo JSR-317 JPA 2.0 EARLY ACCESS Spec API</name>
     <version>1.0-PFD2-SNAPSHOT</version>
 
-    <description>Implementation of Sun JSR-317 JPA 2.0 PFD2 Spec API</description>
+    <description>Implementation of Sun JSR-317 JPA 2.0 EARLY ACCESS Spec API</description>
 
     <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
     <distributionManagement>
@@ -51,9 +51,9 @@
     </properties>
 
     <scm>
-        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/branches/geronimo-jpa_2.0_spec-1.0-PFD2/</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/branches/geronimo-jpa_2.0_spec-1.0-PFD2/</developerConnection>
-        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/branches/geronimo-jpa_2.0_spec-1.0-PFD2/</url>
+        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jpa_2.0_spec/</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jpa_2.0_spec/</developerConnection>
+        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-jpa_2.0_spec/</url>
     </scm>
 
     <build>
