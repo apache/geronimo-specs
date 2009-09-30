@@ -192,8 +192,8 @@ public class Persistence {
             // we encountered one or more exceptions, so format and throw as a single exception
             throw createPersistenceException(
                 "Explicit persistence provider error(s) occurred for \"" + persistenceUnitName +
-                "\" after trying the following discovered implementations: " + foundProviders +
-                " with the following failures:", exceptions);
+                "\" after trying the following discovered implementations: " + foundProviders,
+                exceptions);
         }
     }
 
@@ -238,7 +238,19 @@ public class Persistence {
         String newline = System.getProperty("line.separator");
         StringWriter strWriter = new StringWriter();
         strWriter.append(msg);
-        if (!failures.isEmpty()) {
+        if (failures.size() <= 1) {
+            // we caught an exception, so include it as the cause
+            Throwable t = null;
+            for (String providerName : failures.keySet()) {
+                t = failures.get(providerName);
+                strWriter.append(" from provider: ");
+                strWriter.append(providerName);
+                break;
+            }
+            return new PersistenceException(strWriter.toString(), t);                
+        } else {
+            // we caught multiple exceptions, so format them into the message string and don't set a cause
+            strWriter.append(" with the following failures:");
             strWriter.append(newline);
             for (String providerName : failures.keySet()) {
                 strWriter.append(providerName);
@@ -246,8 +258,8 @@ public class Persistence {
                 failures.get(providerName).printStackTrace(new PrintWriter(strWriter));
             }
             strWriter.append(newline);
+            return new PersistenceException(strWriter.toString());
         }
-        return new PersistenceException(strWriter.toString());
     }
 
     /*
