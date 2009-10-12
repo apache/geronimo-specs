@@ -25,18 +25,16 @@
 
 package javax.persistence;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.lang.annotation.Retention;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-/**
- * @version $Rev$ $Date$
- */
-@Target({})
-@Retention(RetentionPolicy.RUNTIME)
+
+@Target({}) 
+@Retention(RUNTIME)
 public @interface UniqueConstraint {
 
     String name() default "";
-    
-    String[] columnNames();    
+
+    String[] columnNames();
 }

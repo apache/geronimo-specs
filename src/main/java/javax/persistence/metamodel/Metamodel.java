@@ -25,18 +25,19 @@
 
 package javax.persistence.metamodel;
 
+import java.util.Set;
+
 
 public interface Metamodel {
 
     <X> EntityType<X> entity(Class<X> cls);
 
-    <X> ManagedType<X> type(Class<X> cls);
-
+    <X> ManagedType<X> managedType(Class<X> cls);
     <X> EmbeddableType<X> embeddable(Class<X> cls);
 
-    java.util.Set<ManagedType<?>> getManagedTypes();
+    Set<ManagedType<?>> getManagedTypes();
 
-    java.util.Set<EntityType<?>> getEntities();
+    Set<EntityType<?>> getEntities();
 
-    java.util.Set<EmbeddableType<?>> getEmbeddables();
+    Set<EmbeddableType<?>> getEmbeddables();
 }

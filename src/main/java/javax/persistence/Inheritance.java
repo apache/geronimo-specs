@@ -22,19 +22,19 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-
 package javax.persistence;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.lang.annotation.Retention;
+import static java.lang.annotation.ElementType.TYPE;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+import static javax.persistence.InheritanceType.SINGLE_TABLE;
 
-/**
- * @version $Rev$ $Date$
- */
-@Target({ElementType.TYPE})
-@Retention(RetentionPolicy.RUNTIME)
+
+@Target({TYPE})
+@Retention(RUNTIME)
+
 public @interface Inheritance {
-    InheritanceType strategy() default InheritanceType.SINGLE_TABLE;
+
+    InheritanceType strategy() default SINGLE_TABLE;
 }

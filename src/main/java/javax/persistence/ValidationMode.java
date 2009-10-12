@@ -22,13 +22,13 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
+package javax.persistence;
 
-package javax.persistence.spi;
 
-public enum SharedCacheMode {
-	ALL,
-	NONE,
-	ENABLE_SELECTIVE,
-	DISABLE_SELECTIVE,
-	UNSPECIFIED
-}
+public enum ValidationMode {
+    AUTO,
+
+    CALLBACK,
+
+    NONE
+    }

@@ -23,6 +23,7 @@
 // DO NOT add / change / or delete method signatures!
 //
 
+
 package javax.persistence.spi;
 
 import java.util.List;
@@ -30,7 +31,7 @@ import java.util.List;
 
 public interface PersistenceProviderResolver {
 
-	List<PersistenceProvider> getPersistenceProviders();
+    List<PersistenceProvider> getPersistenceProviders();
 
-	 public void clearCachedProviders();
+    void clearCachedProviders();
 } 

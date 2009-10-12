@@ -24,22 +24,21 @@
 //
 package javax.persistence;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.lang.annotation.Retention;
+import static javax.persistence.LockModeType.NONE;
+import static java.lang.annotation.ElementType.TYPE;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-/**
- * @version $Rev$ $Date$
- */
-@Target({ElementType.TYPE})
-@Retention(RetentionPolicy.RUNTIME)
+
+@Target({TYPE}) 
+@Retention(RUNTIME)
 public @interface NamedQuery {
+
     String name();
 
     String query();
 
-    LockModeType lockMode() default LockModeType.NONE;
-
+    LockModeType lockMode() default NONE;
     QueryHint[] hints() default {};
 }

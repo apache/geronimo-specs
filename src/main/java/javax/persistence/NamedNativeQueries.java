@@ -22,18 +22,17 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-package javax.persistence;
+package javax.persistence; 
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.lang.annotation.Retention;
+import static java.lang.annotation.ElementType.TYPE;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-/**
- * @version $Rev$ $Date$
- */
-@Target({ElementType.TYPE})
-@Retention(RetentionPolicy.RUNTIME)
-public @interface NamedNativeQueries {
-    NamedNativeQuery[] value();
+
+@Target({TYPE}) 
+@Retention(RUNTIME)
+public @interface NamedNativeQueries { 
+
+    NamedNativeQuery[] value ();
 }

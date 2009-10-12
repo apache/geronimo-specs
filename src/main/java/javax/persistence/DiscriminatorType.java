@@ -24,9 +24,12 @@
 //
 package javax.persistence;
 
-/**
- * @version $Rev$ $Date$
- */
-public enum DiscriminatorType {
-    STRING, CHAR, INTEGER
-};
+
+public enum DiscriminatorType { 
+
+    STRING,
+
+    CHAR,
+
+    INTEGER
+}

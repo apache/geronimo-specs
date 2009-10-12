@@ -24,13 +24,16 @@
 //
 package javax.persistence;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
 
-@Target({ElementType.METHOD, ElementType.FIELD})
-@Retention(RetentionPolicy.RUNTIME)
-public @interface MappedById {
-    String value() default "";
+public enum SharedCacheMode {
+
+    ALL, 
+
+    NONE, 
+
+    ENABLE_SELECTIVE, 
+
+    DISABLE_SELECTIVE, 
+
+    UNSPECIFIED
 }

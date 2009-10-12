@@ -25,19 +25,23 @@
 
 package javax.persistence.metamodel;
 
+import java.util.Set;
+
 
 public interface ManagedType<X> extends Type<X> {
 
-     java.util.Set<Attribute<? super X, ?>> getAttributes();
+     Set<Attribute<? super X, ?>> getAttributes();
 
-     java.util.Set<Attribute<X, ?>> getDeclaredAttributes();
+     Set<Attribute<X, ?>> getDeclaredAttributes();
 
     <Y> SingularAttribute<? super X, Y> getSingularAttribute(String name, Class<Y> type);
 
     <Y> SingularAttribute<X, Y> getDeclaredSingularAttribute(String name, Class<Y> type);
-    java.util.Set<SingularAttribute<? super X, ?>> getSingularAttributes();
 
-    java.util.Set<SingularAttribute<X, ?>> getDeclaredSingularAttributes();
+    Set<SingularAttribute<? super X, ?>> getSingularAttributes();
+
+    Set<SingularAttribute<X, ?>> getDeclaredSingularAttributes();
+
     <E> CollectionAttribute<? super X, E> getCollection(String name, Class<E> elementType);
 
     <E> CollectionAttribute<X, E> getDeclaredCollection(String name, Class<E> elementType);
@@ -57,9 +61,9 @@ public interface ManagedType<X> extends Type<X> {
     <K, V> MapAttribute<X, K, V> getDeclaredMap(String name, 
                                                 Class<K> keyType, 
                                                 Class<V> valueType);
-    java.util.Set<PluralAttribute<? super X, ?, ?>> getPluralAttributes();
+    Set<PluralAttribute<? super X, ?, ?>> getPluralAttributes();
 
-    java.util.Set<PluralAttribute<X, ?, ?>> getDeclaredPluralAttributes();
+    Set<PluralAttribute<X, ?, ?>> getDeclaredPluralAttributes();
 
 
 

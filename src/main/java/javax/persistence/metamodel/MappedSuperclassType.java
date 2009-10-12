@@ -23,6 +23,7 @@
 // DO NOT add / change / or delete method signatures!
 //
 
+
 package javax.persistence.metamodel;
 
 

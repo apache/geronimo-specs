@@ -43,21 +43,28 @@ public interface TypedQuery<X> extends Query {
 
      <T> TypedQuery<X> setParameter(Parameter<T> param, T value);
 
-    TypedQuery<X> setParameter(Parameter<Calendar> param, Calendar value,  TemporalType temporalType);
+    TypedQuery<X> setParameter(Parameter<Calendar> param, 
+                               Calendar value,  
+                               TemporalType temporalType);
 
-    TypedQuery<X> setParameter(Parameter<Date> param, Date value,  TemporalType temporalType);
+    TypedQuery<X> setParameter(Parameter<Date> param, Date value,  
+                               TemporalType temporalType);
 
     TypedQuery<X> setParameter(String name, Object value);
 
-    TypedQuery<X> setParameter(String name, Calendar value, TemporalType temporalType);
+    TypedQuery<X> setParameter(String name, Calendar value, 
+                               TemporalType temporalType);
 
-    TypedQuery<X> setParameter(String name, Date value, TemporalType temporalType);
+    TypedQuery<X> setParameter(String name, Date value, 
+                               TemporalType temporalType);
 
     TypedQuery<X> setParameter(int position, Object value);
 
-    TypedQuery<X> setParameter(int position, Calendar value,  TemporalType temporalType);
+    TypedQuery<X> setParameter(int position, Calendar value,  
+                               TemporalType temporalType);
 
-    TypedQuery<X> setParameter(int position, Date value,  TemporalType temporalType);
+    TypedQuery<X> setParameter(int position, Date value,  
+                               TemporalType temporalType);
 
      TypedQuery<X> setFlushMode(FlushModeType flushMode);
 

@@ -24,9 +24,10 @@
 //
 package javax.persistence;
 
-/**
- * @version $Rev$ $Date$
- */
+
 public enum PersistenceContextType {
-    TRANSACTION, EXTENDED
+
+    TRANSACTION,
+
+    EXTENDED
 }

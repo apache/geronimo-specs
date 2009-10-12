@@ -29,7 +29,7 @@ package javax.persistence;
 import java.util.Set;
 import java.util.Map;
 import javax.persistence.metamodel.Metamodel;
-import javax.persistence.criteria.QueryBuilder;
+import javax.persistence.criteria.CriteriaBuilder;
 
 
 public interface EntityManagerFactory {
@@ -37,15 +37,13 @@ public interface EntityManagerFactory {
     public EntityManager createEntityManager();
     public EntityManager createEntityManager(Map map);
 
-    public QueryBuilder getQueryBuilder();
+    public CriteriaBuilder getCriteriaBuilder();
     public Metamodel getMetamodel();
 
     public boolean isOpen();
     public void close();
 
     public Map<String, Object> getProperties();
-
-    public Set<String> getSupportedProperties();
 
     public Cache getCache();
 

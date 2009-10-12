@@ -29,44 +29,41 @@ import javax.sql.DataSource;
 import java.util.List;
 import java.util.Properties;
 import java.net.URL;
-
+import javax.persistence.SharedCacheMode;
+import javax.persistence.ValidationMode;
 
 
 public interface PersistenceUnitInfo {
-	public String getPersistenceUnitName();
+    public String getPersistenceUnitName();
 
-	public String getPersistenceProviderClassName();
+    public String getPersistenceProviderClassName();
 
-	public PersistenceUnitTransactionType getTransactionType();
+    public PersistenceUnitTransactionType getTransactionType();
 
+    public DataSource getJtaDataSource();
 
-	public DataSource getJtaDataSource();
+    public DataSource getNonJtaDataSource();
 
-	public DataSource getNonJtaDataSource();
+    public List<String> getMappingFileNames();
 
-	public List<String> getMappingFileNames();
+    public List<URL> getJarFileUrls();
 
-	public List<URL> getJarFileUrls();
+    public URL getPersistenceUnitRootUrl();
 
-	public URL getPersistenceUnitRootUrl();
+    public List<String> getManagedClassNames();
 
+    public boolean excludeUnlistedClasses();
 
-	public List<String> getManagedClassNames();
+    public SharedCacheMode getSharedCacheMode();
 
-	public boolean excludeUnlistedClasses();
+    public ValidationMode getValidationMode();
 
-	public SharedCacheMode getSharedCacheMode();
+    public Properties getProperties();
+    public String getPersistenceXMLSchemaVersion();
 
-	public ValidationMode getValidationMode();
+    public ClassLoader getClassLoader();
 
-	public Properties getProperties();
+    public void addTransformer(ClassTransformer transformer);
 
-	public String getPersistenceXMLSchemaVersion();
-
-	public ClassLoader getClassLoader();
-
-
-	public void addTransformer(ClassTransformer transformer);
-
-	public ClassLoader getNewTempClassLoader();
+    public ClassLoader getNewTempClassLoader();
 }

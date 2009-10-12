@@ -24,9 +24,10 @@
 //
 package javax.persistence;
 
-/**
- * @version $Rev$ $Date$
- */
+
 public enum FetchType {
-    LAZY, EAGER
-};
+
+    LAZY,
+
+    EAGER
+}

@@ -24,9 +24,12 @@
 //
 package javax.persistence;
 
-/**
- * @version $Rev$ $Date$
- */
+
 public enum TemporalType {
-    DATE, TIME, TIMESTAMP
+
+    DATE, 
+
+    TIME, 
+
+    TIMESTAMP
 }

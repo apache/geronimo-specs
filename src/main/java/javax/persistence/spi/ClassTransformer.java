@@ -31,10 +31,10 @@ import java.lang.instrument.IllegalClassFormatException;
 
 public interface ClassTransformer {
 
-	byte[] transform(ClassLoader loader,
-                 String className,
-                 Class<?> classBeingRedefined,
-                 ProtectionDomain protectionDomain, 
-                 byte[] classfileBuffer) 
-					throws IllegalClassFormatException;
+    byte[] transform(ClassLoader loader,
+                     String className,
+                     Class<?> classBeingRedefined,
+                     ProtectionDomain protectionDomain, 
+                     byte[] classfileBuffer) 
+        throws IllegalClassFormatException;
 }

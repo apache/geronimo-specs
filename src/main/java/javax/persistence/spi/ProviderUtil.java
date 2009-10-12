@@ -23,15 +23,14 @@
 // DO NOT add / change / or delete method signatures!
 //
 
-
 package javax.persistence.spi;
 
 
 public interface ProviderUtil { 
 
-	public LoadState isLoadedWithoutReference(Object entity, String attributeName);
+    public LoadState isLoadedWithoutReference(Object entity, String attributeName);
 
-	public LoadState isLoadedWithReference(Object entity, String attributeName);
+    public LoadState isLoadedWithReference(Object entity, String attributeName);
 
-	public LoadState isLoaded(Object entity);
+    public LoadState isLoaded(Object entity);
 }

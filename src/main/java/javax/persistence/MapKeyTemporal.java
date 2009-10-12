@@ -22,16 +22,19 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-
 package javax.persistence;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.lang.annotation.Retention;
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-@Target({ElementType.METHOD, ElementType.FIELD}) 
-@Retention(RetentionPolicy.RUNTIME)
+
+@Target({METHOD, FIELD}) 
+@Retention(RUNTIME)
 public @interface MapKeyTemporal {
+
     TemporalType value();
 }
+

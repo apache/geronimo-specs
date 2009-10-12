@@ -25,10 +25,9 @@
 
 package javax.persistence;
 
-/**
- * @version $Rev$ $Date$
- */
+
 public enum EnumType {
     ORDINAL,
+
     STRING
 }

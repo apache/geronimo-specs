@@ -53,25 +53,29 @@ public interface Query {
 
     Map<String, Object> getHints();
 
-    Set<String> getSupportedHints();
-
     <T> Query setParameter(Parameter<T> param, T value);
 
-    Query setParameter(Parameter<Calendar> param, Calendar value, TemporalType temporalType);
+    Query setParameter(Parameter<Calendar> param, Calendar value, 
+                       TemporalType temporalType);
 
-    Query setParameter(Parameter<Date> param, Date value, TemporalType temporalType);
+    Query setParameter(Parameter<Date> param, Date value, 
+                       TemporalType temporalType);
 
     Query setParameter(String name, Object value);
 
-    Query setParameter(String name, Calendar value, TemporalType temporalType);
+    Query setParameter(String name, Calendar value, 
+                       TemporalType temporalType);
 
-    Query setParameter(String name, Date value, TemporalType temporalType);
+    Query setParameter(String name, Date value, 
+                       TemporalType temporalType);
 
     Query setParameter(int position, Object value);
 
-    Query setParameter(int position, Calendar value,  TemporalType temporalType);
+    Query setParameter(int position, Calendar value,  
+                       TemporalType temporalType);
 
-    Query setParameter(int position, Date value,  TemporalType temporalType);
+    Query setParameter(int position, Date value,  
+                       TemporalType temporalType);
 
     Set<Parameter<?>> getParameters();
 

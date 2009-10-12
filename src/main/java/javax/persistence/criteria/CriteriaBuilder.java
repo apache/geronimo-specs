@@ -22,7 +22,6 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-
 package javax.persistence.criteria;
 
 import java.math.BigDecimal;
@@ -33,7 +32,7 @@ import java.util.Set;
 import javax.persistence.Tuple;
 
 
-public interface QueryBuilder {
+public interface CriteriaBuilder {
 
     CriteriaQuery<Object> createQuery();
 
@@ -41,7 +40,8 @@ public interface QueryBuilder {
 
     CriteriaQuery<Tuple> createTupleQuery();
 
-    <Y> CompoundSelection<Y> construct(Class<Y> result, Selection<?>... selections);
+
+    <Y> CompoundSelection<Y> construct(Class<Y> resultClass, Selection<?>... selections);
 
     CompoundSelection<Tuple> tuple(Selection<?>... selections);
 
@@ -55,11 +55,15 @@ public interface QueryBuilder {
     <N extends Number> Expression<Double> avg(Expression<N> x);
 
     <N extends Number> Expression<N> sum(Expression<N> x);
+
+    Expression<Long> sumAsLong(Expression<Integer> x);
+
+    Expression<Double> sumAsDouble(Expression<Float> x);
     <N extends Number> Expression<N> max(Expression<N> x);
     <N extends Number> Expression<N> min(Expression<N> x);
 
-    <X extends Comparable<X>> Expression<X> greatest(Expression<X> x);
-    <X extends Comparable<X>> Expression<X> least(Expression<X> x);
+    <X extends Comparable<? super X>> Expression<X> greatest(Expression<X> x);
+    <X extends Comparable<? super X>> Expression<X> least(Expression<X> x);
 
     Expression<Long> count(Expression<?> x);
 
@@ -101,22 +105,22 @@ public interface QueryBuilder {
     Predicate notEqual(Expression<?> x, Object y);
 
 
-    <Y extends Comparable<Y>> Predicate greaterThan(Expression<? extends Y> x, Expression<? extends Y> y);
-    <Y extends Comparable<Y>> Predicate greaterThan(Expression<? extends Y> x, Y y);
-    <Y extends Comparable<Y>> Predicate greaterThanOrEqualTo(Expression<? extends Y> x, Expression<? extends Y> y);
+    <Y extends Comparable<? super Y>> Predicate greaterThan(Expression<? extends Y> x, Expression<? extends Y> y);
+    <Y extends Comparable<? super Y>> Predicate greaterThan(Expression<? extends Y> x, Y y);
+    <Y extends Comparable<? super Y>> Predicate greaterThanOrEqualTo(Expression<? extends Y> x, Expression<? extends Y> y);
 
-    <Y extends Comparable<Y>> Predicate greaterThanOrEqualTo(Expression<? extends Y> x, Y y);
+    <Y extends Comparable<? super Y>> Predicate greaterThanOrEqualTo(Expression<? extends Y> x, Y y);
 
-    <Y extends Comparable<Y>> Predicate lessThan(Expression<? extends Y> x, Expression<? extends Y> y);
+    <Y extends Comparable<? super Y>> Predicate lessThan(Expression<? extends Y> x, Expression<? extends Y> y);
 
-    <Y extends Comparable<Y>> Predicate lessThan(Expression<? extends Y> x, Y y);
-    <Y extends Comparable<Y>> Predicate lessThanOrEqualTo(Expression<? extends Y> x, Expression<? extends Y> y);
+    <Y extends Comparable<? super Y>> Predicate lessThan(Expression<? extends Y> x, Y y);
+    <Y extends Comparable<? super Y>> Predicate lessThanOrEqualTo(Expression<? extends Y> x, Expression<? extends Y> y);
 
-    <Y extends Comparable<Y>> Predicate lessThanOrEqualTo(Expression<? extends Y> x, Y y);
+    <Y extends Comparable<? super Y>> Predicate lessThanOrEqualTo(Expression<? extends Y> x, Y y);
 
-    <Y extends Comparable<Y>> Predicate between(Expression<? extends Y> v, Expression<? extends Y> x, Expression<? extends Y> y);
+    <Y extends Comparable<? super Y>> Predicate between(Expression<? extends Y> v, Expression<? extends Y> x, Expression<? extends Y> y);
 
-    <Y extends Comparable<Y>> Predicate between(Expression<? extends Y> v, Y x, Y y);
+    <Y extends Comparable<? super Y>> Predicate between(Expression<? extends Y> v, Y x, Y y);
 
     Predicate gt(Expression<? extends Number> x, Expression<? extends Number> y);
 
@@ -234,7 +238,13 @@ public interface QueryBuilder {
 
     Expression<String> substring(Expression<String> x, Expression<Integer> from, Expression<Integer> len);
     Expression<String> substring(Expression<String> x, int from, int len);
-    public static enum Trimspec { LEADING, TRAILING, BOTH }
+    public static enum Trimspec { 
+
+        LEADING,
+        TRAILING, 
+
+        BOTH 
+    }
     Expression<String> trim(Expression<String> x);
     Expression<String> trim(Trimspec ts, Expression<String> x);
 
@@ -262,11 +272,11 @@ public interface QueryBuilder {
 
     public static interface In<T> extends Predicate {
 
-		Expression<T> getExpression();
-		In<T> value(T value);
+         Expression<T> getExpression();
+         In<T> value(T value);
 
-		In<T> value(Expression<? extends T> value);
-	}
+         In<T> value(Expression<? extends T> value);
+     }
     <T> In<T> in(Expression<? extends T> expression);
 
 
@@ -281,9 +291,9 @@ public interface QueryBuilder {
 
     public static interface Coalesce<T> extends Expression<T> {
 
-		Coalesce<T> value(T value);
+         Coalesce<T> value(T value);
 
-		Coalesce<T> value(Expression<? extends T> value);
+         Coalesce<T> value(Expression<? extends T> value);
 	}
     <T> Coalesce<T> coalesce();
 
