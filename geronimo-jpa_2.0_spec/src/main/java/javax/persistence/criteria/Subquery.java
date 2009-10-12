@@ -26,6 +26,7 @@
 package javax.persistence.criteria;
 
 import java.util.List;
+import java.util.Set;
 
 
 public interface Subquery<T> extends AbstractQuery<T>, Expression<T> {
@@ -58,7 +59,7 @@ public interface Subquery<T> extends AbstractQuery<T>, Expression<T> {
     AbstractQuery<?> getParent();
     Expression<T> getSelection();
 
-    java.util.Set<Join<?, ?>> getJoins();
+    Set<Join<?, ?>> getCorrelatedJoins();
 
 }
 

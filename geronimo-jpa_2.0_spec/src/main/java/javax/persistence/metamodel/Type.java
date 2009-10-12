@@ -27,9 +27,19 @@ package javax.persistence.metamodel;
 
 
 public interface Type<X> {
-	public static enum PersistenceType {
-		ENTITY, EMBEDDABLE, MAPPED_SUPERCLASS, BASIC
-	}
+
+       public static enum PersistenceType {
+
+           ENTITY, 
+
+	   EMBEDDABLE, 
+
+	   MAPPED_SUPERCLASS, 
+
+	   BASIC
+       }
+
     PersistenceType getPersistenceType();
+
     Class<X> getJavaType();
 }

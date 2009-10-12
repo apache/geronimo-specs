@@ -24,9 +24,14 @@
 //
 package javax.persistence;
 
-/**
- * @version $Rev$ $Date$
- */
-public enum GenerationType {
-    TABLE, SEQUENCE, IDENTITY, AUTO
-};
+
+public enum GenerationType { 
+
+    TABLE, 
+
+    SEQUENCE, 
+
+    IDENTITY, 
+
+    AUTO
+}

@@ -22,19 +22,20 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
+
+
 package javax.persistence;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.lang.annotation.Retention;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-/**
- * @version $Rev$ $Date$
- */
-@Target({})
-@Retention(RetentionPolicy.RUNTIME)
-public @interface EntityResult {
-    Class entityClass();
+
+@Target({}) 
+@Retention(RUNTIME)
+public @interface EntityResult { 
+
+    Class entityClass(); 
 
     FieldResult[] fields() default {};
 

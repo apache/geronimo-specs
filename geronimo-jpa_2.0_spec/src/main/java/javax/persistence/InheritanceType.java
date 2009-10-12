@@ -24,9 +24,12 @@
 //
 package javax.persistence;
 
-/**
- * @version $Rev$ $Date$
- */
-public enum InheritanceType {
-    SINGLE_TABLE, JOINED, TABLE_PER_CLASS
-};
+
+public enum InheritanceType { 
+
+    SINGLE_TABLE, 
+
+    TABLE_PER_CLASS, 
+
+    JOINED 
+}

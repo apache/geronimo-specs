@@ -24,16 +24,17 @@
 //
 package javax.persistence;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.lang.annotation.Retention;
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+import static javax.persistence.EnumType.ORDINAL;
 
-/**
- * @version $Rev$ $Date$
- */
-@Target({ElementType.METHOD, ElementType.FIELD})
-@Retention(RetentionPolicy.RUNTIME)
+
+@Target({METHOD, FIELD}) 
+@Retention(RUNTIME)
 public @interface Enumerated {
-    EnumType value() default EnumType.ORDINAL;
+
+    EnumType value() default ORDINAL;
 }

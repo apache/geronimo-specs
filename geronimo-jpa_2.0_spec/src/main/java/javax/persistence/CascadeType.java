@@ -22,11 +22,20 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
+
 package javax.persistence;
 
-/**
- * @version $Rev$ $Date$
- */
-public enum CascadeType {
-    ALL, PERSIST, MERGE, REMOVE, REFRESH, DETACH
-};
+public enum CascadeType { 
+
+    ALL, 
+
+    PERSIST, 
+
+    MERGE, 
+
+    REMOVE,
+
+    REFRESH,
+
+    DETACH
+}

@@ -30,11 +30,17 @@ import javax.persistence.metamodel.CollectionAttribute;
 import javax.persistence.metamodel.ListAttribute;
 import javax.persistence.metamodel.MapAttribute;
 import javax.persistence.metamodel.SetAttribute;
+import java.util.Set;
 
 
+@SuppressWarnings("hiding")
 public interface From<Z, X> extends Path<X>, FetchParent<Z, X> {
 
-    java.util.Set<Join<X, ?>> getJoins();
+    Set<Join<X, ?>> getJoins();
+    boolean isCorrelated();
+
+    From<Z, X> getCorrelationParent();
+
     <Y> Join<X, Y> join(SingularAttribute<? super X, Y> attribute);
 
     <Y> Join<X, Y> join(SingularAttribute<? super X, Y> attribute, JoinType jt);

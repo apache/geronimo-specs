@@ -24,31 +24,34 @@
 //
 package javax.persistence;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.lang.annotation.Retention;
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-@Target({ElementType.METHOD, ElementType.FIELD})
-@Retention(RetentionPolicy.RUNTIME)
+
+@Target( { METHOD, FIELD })
+@Retention(RUNTIME)
 public @interface MapKeyColumn {
-    String name() default "";
 
-    boolean unique() default false;
+	String name() default "";
 
-    boolean nullable() default false;
+	boolean unique() default false;
 
-    boolean insertable() default true;
+	boolean nullable() default false;
 
-    boolean updatable() default true;
+	boolean insertable() default true;
 
-    String columnDefinition() default "";
+	boolean updatable() default true;
 
-    String table() default "";
+	String columnDefinition() default "";
 
-    int length() default 255;
+	String table() default "";
 
-    int precision() default 0;
+	int length() default 255;
 
-    int scale() default 0;
+	int precision() default 0; 
+
+	int scale() default 0; 
 }

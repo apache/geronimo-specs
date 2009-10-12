@@ -33,9 +33,6 @@ public interface MapJoin<Z, K, V>
 		extends PluralJoin<Z, Map<K, V>, V> {
 
     MapAttribute<? super Z, K, V> getModel();
-    Join<Map<K, V>, K> joinKey();
-
-    Join<Map<K, V>, K> joinKey(JoinType jt);
     Path<K> key();
     Path<V> value(); 
     Expression<Map.Entry<K, V>> entry();

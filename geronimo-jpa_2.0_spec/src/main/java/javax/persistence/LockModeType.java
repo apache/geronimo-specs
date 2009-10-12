@@ -22,17 +22,24 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-
 package javax.persistence;
+
 
 public enum LockModeType
 {
     READ,
+
     WRITE,
+
     OPTIMISTIC,
+
     OPTIMISTIC_FORCE_INCREMENT,
+
     PESSIMISTIC_READ,
+
     PESSIMISTIC_WRITE,
+
     PESSIMISTIC_FORCE_INCREMENT,
+
     NONE
 }

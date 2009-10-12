@@ -24,23 +24,24 @@
 //
 package javax.persistence;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.lang.annotation.Retention;
+import javax.persistence.CascadeType;
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+import static javax.persistence.FetchType.LAZY;
 
-/**
- * @version $Rev$ $Date$
- */
-@Target({ElementType.METHOD, ElementType.FIELD})
-@Retention(RetentionPolicy.RUNTIME)
+
+@Target({METHOD, FIELD}) 
+@Retention(RUNTIME)
 public @interface ManyToMany {
+
     Class targetEntity() default void.class;
 
     CascadeType[] cascade() default {};
 
-    FetchType fetch() default FetchType.LAZY;
+    FetchType fetch() default LAZY;
 
     String mappedBy() default "";
 }
-

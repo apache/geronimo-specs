@@ -22,21 +22,20 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-
 package javax.persistence;
 
 
 public interface EntityTransaction {
 
-	public void begin();
+     public void begin();
 
-	public void commit();
+     public void commit();
 
-	public void rollback();
+     public void rollback();
 
-	public void setRollbackOnly();
+     public void setRollbackOnly();
 
-	public boolean getRollbackOnly();
+     public boolean getRollbackOnly();
 
-	public boolean isActive();
+     public boolean isActive();
 }
