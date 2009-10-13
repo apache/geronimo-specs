@@ -26,6 +26,10 @@ public interface ValidatorFactory {
 
     MessageInterpolator getMessageInterpolator();
 
+    TraversableResolver getTraversableResolver();
+
+    ConstraintValidatorFactory getConstraintValidatorFactory();
+
     public <T> T unwrap(Class<T> type);
 }
 

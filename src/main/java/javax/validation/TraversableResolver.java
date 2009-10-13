@@ -17,7 +17,6 @@
 package javax.validation;
 
 import java.lang.annotation.ElementType;
-import javax.validation.Path;
 
 /**
  * @version $Rev$ $Date$

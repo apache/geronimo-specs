@@ -27,3 +27,4 @@ public interface GenericBootstrap {
 
     Configuration<?> configure();
 }
+

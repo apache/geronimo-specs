@@ -26,3 +26,4 @@ public interface ProviderSpecificBootstrap<T extends Configuration<T>> {
 
     public T configure();
 }
+
