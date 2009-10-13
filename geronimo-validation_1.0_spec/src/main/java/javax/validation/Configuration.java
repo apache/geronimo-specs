@@ -23,20 +23,24 @@ import java.io.InputStream;
  */
 public interface Configuration<T extends Configuration<T>> {
 
-	T ignoreXmlConfiguration();
+    T ignoreXmlConfiguration();
 
-	T messageInterpolator(MessageInterpolator interpolator);
+    T messageInterpolator(MessageInterpolator interpolator);
 
-	T traversableResolver(TraversableResolver resolver);
+    T traversableResolver(TraversableResolver resolver);
 
-	T constraintValidatorFactory(ConstraintValidatorFactory constraintValidatorFactory);
+    T constraintValidatorFactory(ConstraintValidatorFactory constraintValidatorFactory);
 
-	T addMapping(InputStream stream);
+    T addMapping(InputStream stream);
 
-	T addProperty(String name, String value);
+    T addProperty(String name, String value);
 
-	MessageInterpolator getDefaultMessageInterpolator();
+    MessageInterpolator getDefaultMessageInterpolator();
 
-	ValidatorFactory buildValidatorFactory();
+    TraversableResolver getDefaultTraversableResolver();
+
+    ConstraintValidatorFactory getDefaultConstraintValidatorFactory();
+
+    ValidatorFactory buildValidatorFactory();
 }
 

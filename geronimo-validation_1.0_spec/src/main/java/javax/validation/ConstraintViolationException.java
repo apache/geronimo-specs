@@ -24,13 +24,13 @@ import java.util.Set;
 public class ConstraintViolationException extends ValidationException {
     private final Set<ConstraintViolation<?>> constraintViolations;
 
-    public <T> ConstraintViolationException(String message,
+    public ConstraintViolationException(String message,
             Set<ConstraintViolation<?>> constraintViolations) {
         super(message);
         this.constraintViolations = constraintViolations;
     }
 
-    public <T> ConstraintViolationException(Set<ConstraintViolation<?>> constraintViolations) {
+    public ConstraintViolationException(Set<ConstraintViolation<?>> constraintViolations) {
         super();
         this.constraintViolations = constraintViolations;
     }

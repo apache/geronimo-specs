@@ -20,31 +20,31 @@ package javax.validation;
  * @version $Rev$ $Date$
  */
 public interface ConstraintValidatorContext {
-    void disableDefaultError();
+    void disableDefaultConstraintViolation();
 
-    String getDefaultErrorMessageTemplate();
+    String getDefaultConstraintMessageTemplate();
 
-    ErrorBuilder buildErrorWithMessageTemplate(String messageTemplate);
+    ConstraintViolationBuilder buildConstraintViolationWithTemplate(String messageTemplate);
 
-    interface ErrorBuilder {
-        NodeBuilderDefinedContext addSubNode(String name);
+    interface ConstraintViolationBuilder {
+        NodeBuilderDefinedContext addNode(String name);
 
-        ConstraintValidatorContext addError();
+        ConstraintValidatorContext addConstraintViolation();
 
         interface NodeBuilderDefinedContext {
 
-            NodeBuilderCustomizableContext addSubNode(String name);
+            NodeBuilderCustomizableContext addNode(String name);
 
-            ConstraintValidatorContext addError();
+            ConstraintValidatorContext addConstraintViolation();
         }
 
         interface NodeBuilderCustomizableContext {
 
             NodeContextBuilder inIterable();
 
-            NodeBuilderCustomizableContext addSubNode(String name);
+            NodeBuilderCustomizableContext addNode(String name);
 
-            ConstraintValidatorContext addError();
+            ConstraintValidatorContext addConstraintViolation();
         }
 
         interface NodeContextBuilder {
@@ -53,9 +53,9 @@ public interface ConstraintValidatorContext {
 
             NodeBuilderDefinedContext atIndex(Integer index);
 
-            NodeBuilderCustomizableContext addSubNode(String name);
+            NodeBuilderCustomizableContext addNode(String name);
 
-            ConstraintValidatorContext addError();
+            ConstraintValidatorContext addConstraintViolation();
         }
     }
 }
