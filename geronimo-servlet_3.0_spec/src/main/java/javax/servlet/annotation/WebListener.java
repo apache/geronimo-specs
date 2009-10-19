@@ -36,5 +36,5 @@ import java.lang.annotation.Documented;
 @Retention(value= RetentionPolicy.RUNTIME)
 public @interface WebListener {
 
-    String description() default "";
+    String value() default "";
 }
