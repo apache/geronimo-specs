@@ -21,7 +21,7 @@ package javax.mail;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.List;   
+import java.util.List;
 import java.util.Vector;
 
 import javax.mail.event.ConnectionEvent;
@@ -47,12 +47,12 @@ public abstract class Service {
 
     private boolean connected;
     private final Vector connectionListeners = new Vector(2);
-    // the EventQueue spins off a new thread, so we only create this 
-    // if we have actual listeners to dispatch an event to. 
+    // the EventQueue spins off a new thread, so we only create this
+    // if we have actual listeners to dispatch an event to.
     private EventQueue queue = null;
-    // when returning the URL, we need to ensure that the password and file information is 
-    // stripped out. 
-    private URLName exposedUrl; 
+    // when returning the URL, we need to ensure that the password and file information is
+    // stripped out.
+    private URLName exposedUrl;
 
     /**
      * Construct a new Service.
@@ -138,8 +138,8 @@ public abstract class Service {
         if (url != null) {
             protocol = url.getProtocol();
         }
-        
-        // if the port is -1, see if we have an override from url. 
+
+        // if the port is -1, see if we have an override from url.
         if (port == -1) {
             if (protocol != null) {
                 port = url.getPort();
@@ -174,24 +174,27 @@ public abstract class Service {
                 if (password == null) {
                     password = url.getPassword();
                 }
-                // user still null?  We have several levels of properties to try yet
-                if (user == null) {
-                	if (protocol != null) {
-                		user = session.getProperty("mail." + protocol + ".user");
-                	}
-                }
             }
 
-            // this may still be null...get the global mail property
+            // user still null?  We have several levels of properties to try yet
             if (user == null) {
-                user = session.getProperty("mail.user");
-            }
+                if (protocol != null) {
+                    user = session.getProperty("mail." + protocol + ".user");
+                }
 
-            // finally, we try getting the system defined user name
-            try {
-                user = System.getProperty("user.name");
-            } catch (SecurityException e) {
-                // we ignore this, and just us a null username.
+                // this may still be null...get the global mail property
+                if (user == null) {
+                    user = session.getProperty("mail.user");
+                    // still null, try using the user.name system property
+                    if (user == null) {
+                        // finally, we try getting the system defined user name
+                        try {
+                            user = System.getProperty("user.name");
+                        } catch (SecurityException e) {
+                            // we ignore this, and just us a null username.
+                        }
+                    }
+                }
             }
         }
         // if we have an explicitly given user name, we need to see if this matches the url one and
@@ -293,18 +296,18 @@ public abstract class Service {
     /**
      * Attempt the protocol-specific connection; subclasses should override this to establish
      * a connection in the appropriate manner.
-     * 
+     *
      * This method should return true if the connection was established.
      * It may return false to cause the {@link #connect(String, int, String, String)} method to
      * reattempt the connection after trying to obtain user and password information from the user.
      * Alternatively it may throw a AuthenticatedFailedException to abandon the conection attempt.
-     * 
+     *
      * @param host     The target host name of the service.
      * @param port     The connection port for the service.
      * @param user     The user name used for the connection.
      * @param password The password used for the connection.
-     * 
-     * @return true if a connection was established, false if there was authentication 
+     *
+     * @return true if a connection was established, false if there was authentication
      *         error with the connection.
      * @throws AuthenticationFailedException
      *                if authentication fails
@@ -359,14 +362,14 @@ public abstract class Service {
      * @return the URLName for this service
      */
     public URLName getURLName() {
-        // if we haven't composed the URL version we hand out, create it now.  But only if we really 
-        // have a URL. 
+        // if we haven't composed the URL version we hand out, create it now.  But only if we really
+        // have a URL.
         if (exposedUrl == null) {
             if (url != null) {
                 exposedUrl = new URLName(url.getProtocol(), url.getHost(), url.getPort(), null, url.getUsername(), null);
             }
         }
-        return exposedUrl; 
+        return exposedUrl;
     }
 
     /**
@@ -390,30 +393,30 @@ public abstract class Service {
     }
 
     public String toString() {
-        // NOTE:  We call getURLName() rather than use the URL directly 
-        // because the get method strips out the password information. 
-        URLName url = getURLName(); 
-        
+        // NOTE:  We call getURLName() rather than use the URL directly
+        // because the get method strips out the password information.
+        URLName url = getURLName();
+
         return url == null ? super.toString() : url.toString();
     }
 
     protected void queueEvent(MailEvent event, Vector listeners) {
-        // if there are no listeners to dispatch this to, don't put it on the queue. 
-        // This allows us to delay creating the queue (and its new thread) until 
-        // we 
+        // if there are no listeners to dispatch this to, don't put it on the queue.
+        // This allows us to delay creating the queue (and its new thread) until
+        // we
         if (listeners.isEmpty()) {
-            return; 
+            return;
         }
-        // first real event?  Time to get the queue kicked off. 
+        // first real event?  Time to get the queue kicked off.
         if (queue == null) {
-            queue = new EventQueue(); 
+            queue = new EventQueue();
         }
-        // tee it up and let it rip. 
-        queue.queueEvent(event, (List)listeners.clone()); 
+        // tee it up and let it rip.
+        queue.queueEvent(event, (List)listeners.clone());
     }
 
     protected void finalize() throws Throwable {
-        // stop our event queue if we had to create one 
+        // stop our event queue if we had to create one
         if (queue != null) {
             queue.stop();
         }
