@@ -56,6 +56,50 @@
         <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-jpa_2.0_spec/</url>
     </scm>
 
+    <dependencies>
+<!--
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.core</artifactId>
+            <version>4.2.0</version>
+            <scope>provided</scope>
+        </dependency>
+-->
+        <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.osgi.core</artifactId>
+            <version>1.4.0</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.felix</groupId>
+                    <artifactId>org.osgi.foundation</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.osgi.compendium</artifactId>
+            <version>1.2.0</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.felix</groupId>
+                    <artifactId>org.osgi.core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.felix</groupId>
+                    <artifactId>org.osgi.foundation</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.felix</groupId>
+                    <artifactId>javax.servlet</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+    </dependencies>
+
     <build>
         <pluginManagement>
             <plugins>
@@ -74,8 +118,21 @@
                 <artifactId>maven-bundle-plugin</artifactId>
                 <configuration>
                     <instructions>
-                        <Export-Package>javax.persistence*;version=2.0</Export-Package>
+                        <Bundle-SymbolicName>${groupId}.${artifactId};singleton=
+true</Bundle-SymbolicName>
+                        <Bundle-Activator>org.apache.geronimo.specs.jpa.PersistenceActivator</Bundle-Activator>
+                        <Specification-Title>JSR-317 Java Persistence API 2.0</Specification-Title>
+                        <Specification-Vendor>Sun Microsystems, Inc.</Specification-Vendor>
+                        <Specification-Version>2.0</Specification-Version>
+                        <Private-Package>org.apache.geronimo.specs.jpa.*</Private-Package>
+                        <Export-Package>javax.persistence.*;version=2.0</Export-Package>
+                        <Import-Package>javax.persistence.*;version=2.0,javax.sql;resolution:=optional,org.osgi.framework;resolution:=optional,org.osgi.util.tracker;resolution:=optional</Import-Package>
+                        <!-- Eclipse metadata
+                        <Eclipse-Autostart>false</Eclipse-Autostart>
+                        <Bundle-ClassPath>.</Bundle-ClassPath>
+                        -->
                     </instructions>
+                    <unpackBundle>true</unpackBundle>
                 </configuration>
             </plugin>
         </plugins>

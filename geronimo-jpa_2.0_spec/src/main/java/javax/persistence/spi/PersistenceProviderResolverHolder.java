@@ -51,11 +51,15 @@ public class PersistenceProviderResolverHolder {
     }
     
     public static void setPersistenceProviderResolver(PersistenceProviderResolver resolver) {
+        if (persistenceResolver != null) {
+            persistenceResolver.clearCachedProviders();
+            persistenceResolver = null;
+        }
         if (resolver != null) {
-            if (persistenceResolver != null) {
-                persistenceResolver.clearCachedProviders();
-            }
             persistenceResolver = resolver;
+        } else {
+            // handle removing a resolver for OSGi environments
+            persistenceResolver = new DefaultPersistenceProviderResolver();
         }
     }
     
