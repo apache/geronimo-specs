@@ -20,39 +20,9 @@
 
 package javax.servlet;
 
-import java.util.Set;
-
 /**
  * @version $Rev$ $Date$
  * @since 3.0
  */
-public interface ServletRegistration extends Registration {
-
-    /**
-     *
-     * @param urlPatterns patterns to map
-     * @return patterns already mapped to another servlet
-     */
-    Set<String> addMapping(String... urlPatterns);
-
-    Iterable<String> getMappings();
-
-    String getRunAsRole();
-
-    public interface Dynamic extends ServletRegistration, Registration.Dynamic {
-
-        void setLoadOnStartup(int loadOnStartup);
-
-        void setMultipartConfig(MultipartConfigElement element);
-
-        void setRunAsRole(String role);
-
-        /**
-         *
-         * @param securityElement
-         * @return set of url mappings that were not changed
-         */
-        Set<String> setServletSecurity(ServletSecurityElement securityElement);
-        
-    }
+public class ServletSecurityElement {
 }

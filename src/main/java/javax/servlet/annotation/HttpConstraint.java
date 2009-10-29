@@ -18,41 +18,24 @@
  */
 
 
-package javax.servlet;
+package javax.servlet.annotation;
 
-import java.util.Set;
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 /**
  * @version $Rev$ $Date$
  * @since 3.0
  */
-public interface ServletRegistration extends Registration {
 
-    /**
-     *
-     * @param urlPatterns patterns to map
-     * @return patterns already mapped to another servlet
-     */
-    Set<String> addMapping(String... urlPatterns);
+@Documented
+@Retention(value= RetentionPolicy.RUNTIME)
+public @interface HttpConstraint {
 
-    Iterable<String> getMappings();
+    String[] rolesAllowed() default {};
 
-    String getRunAsRole();
+    ServletSecurity.TransportGuarantee transportGuarantee() default ServletSecurity.TransportGuarantee.NONE;
 
-    public interface Dynamic extends ServletRegistration, Registration.Dynamic {
-
-        void setLoadOnStartup(int loadOnStartup);
-
-        void setMultipartConfig(MultipartConfigElement element);
-
-        void setRunAsRole(String role);
-
-        /**
-         *
-         * @param securityElement
-         * @return set of url mappings that were not changed
-         */
-        Set<String> setServletSecurity(ServletSecurityElement securityElement);
-        
-    }
+    ServletSecurity.EmptyRoleSemantic value() default ServletSecurity.EmptyRoleSemantic.PERMIT;
 }
