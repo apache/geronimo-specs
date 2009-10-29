@@ -19,11 +19,12 @@
 
 package javax.servlet.http;
 
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletException;
-
-import java.util.Enumeration;
 import java.io.IOException;
+import java.util.Collection;
+import java.util.Enumeration;
+
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
 
 /**
  * Extends the {@link javax.servlet.ServletRequest} interface
@@ -61,6 +62,7 @@ public interface HttpServletRequest extends ServletRequest {
      * @param response response to use to conduct a dialog if necessary
      * @return whether authentication was successful
      * @throws javax.servlet.ServletException if something goes wrong
+     * @throws java.io.IOException if something IO related goes wrong
      * @since 3.0
      */
     boolean authenticate(HttpServletResponse response) throws IOException, ServletException;
@@ -240,6 +242,7 @@ public interface HttpServletRequest extends ServletRequest {
     /**
      * @param name part name
      * @return named part
+     * @throws java.io.IOException if something IO related goes wrong
      * @throws javax.servlet.ServletException if something goes wrong
      * @since 3.0
      */
@@ -247,10 +250,11 @@ public interface HttpServletRequest extends ServletRequest {
 
     /**
      * @return all the parts
+     * @throws java.io.IOException if something IO related goes wrong
      * @throws javax.servlet.ServletException if something goes wrong
      * @since 3.0
      */
-    Iterable<Part> getParts() throws IOException, ServletException;
+    Collection<Part> getParts() throws IOException, ServletException;
 
     /**
      * Returns any extra path information associated with

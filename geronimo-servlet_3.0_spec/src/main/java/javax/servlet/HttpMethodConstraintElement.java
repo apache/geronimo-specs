@@ -20,39 +20,24 @@
 
 package javax.servlet;
 
-import java.util.Set;
-
 /**
  * @version $Rev$ $Date$
  * @since 3.0
  */
-public interface ServletRegistration extends Registration {
+public class HttpMethodConstraintElement extends HttpConstraintElement {
 
-    /**
-     *
-     * @param urlPatterns patterns to map
-     * @return patterns already mapped to another servlet
-     */
-    Set<String> addMapping(String... urlPatterns);
+    private final String methodName;
 
-    Iterable<String> getMappings();
+    public HttpMethodConstraintElement(String methodName) {
+        this.methodName = methodName;
+    }
 
-    String getRunAsRole();
+    public HttpMethodConstraintElement(String methodName, HttpConstraintElement constraintElement) {
+        super(constraintElement.getEmptyRoleSemantic(), constraintElement.getTransportGuarantee(), constraintElement.getRolesAllowed());
+        this.methodName = methodName;
+    }
 
-    public interface Dynamic extends ServletRegistration, Registration.Dynamic {
-
-        void setLoadOnStartup(int loadOnStartup);
-
-        void setMultipartConfig(MultipartConfigElement element);
-
-        void setRunAsRole(String role);
-
-        /**
-         *
-         * @param securityElement
-         * @return set of url mappings that were not changed
-         */
-        Set<String> setServletSecurity(ServletSecurityElement securityElement);
-        
+    public String getMethodName() {
+        return methodName;
     }
 }
