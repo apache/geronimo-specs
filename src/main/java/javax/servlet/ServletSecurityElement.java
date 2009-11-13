@@ -20,9 +20,54 @@
 
 package javax.servlet;
 
+import java.util.Collection;
+import java.util.Collections;
+
+import javax.servlet.annotation.ServletSecurity;
+
 /**
  * @version $Rev$ $Date$
  * @since 3.0
  */
-public class ServletSecurityElement {
+public class ServletSecurityElement extends HttpConstraintElement {
+
+    private final Collection<HttpMethodConstraintElement> httpMethodConstraints;
+
+    private final Collection<String> methodNames;
+
+    public ServletSecurityElement() {
+        httpMethodConstraints = Collections.emptySet();
+        methodNames = Collections.emptySet();
+    }
+
+    public ServletSecurityElement(HttpConstraintElement httpConstraintElement) {
+        super(httpConstraintElement.getEmptyRoleSemantic(), httpConstraintElement.getTransportGuarantee(), httpConstraintElement.getRolesAllowed());
+        httpMethodConstraints = Collections.emptySet();
+        methodNames = Collections.emptySet();
+    }
+
+    public ServletSecurityElement(Collection<HttpMethodConstraintElement> httpMethodConstraints) {
+        this.httpMethodConstraints = httpMethodConstraints;
+        this.methodNames = Collections.emptySet();
+    }
+
+    public ServletSecurityElement(HttpConstraintElement httpConstraintElement, Collection<HttpMethodConstraintElement> httpMethodConstraints) {
+        super(httpConstraintElement.getEmptyRoleSemantic(), httpConstraintElement.getTransportGuarantee(), httpConstraintElement.getRolesAllowed());
+        this.httpMethodConstraints = httpMethodConstraints;
+        this.methodNames = Collections.emptySet();
+    }
+
+    public ServletSecurityElement(ServletSecurity servletSecurity) {
+        super(servletSecurity.value().value(), servletSecurity.value().transportGuarantee(), servletSecurity.value().rolesAllowed());
+        httpMethodConstraints = Collections.emptySet();
+        methodNames = Collections.emptySet();
+    }
+
+    public Collection<HttpMethodConstraintElement> getHttpMethodConstraints() {
+        return httpMethodConstraints;
+    }
+
+    public Collection<String> getMethodNames() {
+        return methodNames;
+    }
 }

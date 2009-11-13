@@ -40,6 +40,8 @@ public @interface WebServlet {
 
     String description() default "";
 
+    String displayName() default "";
+
     WebInitParam[] initParams() default {};
 
     String largeIcon() default "";

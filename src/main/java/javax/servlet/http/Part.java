@@ -20,8 +20,9 @@
 
 package javax.servlet.http;
 
-import java.io.InputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Collection;
 
 /**
  * multipart/form-data part or form item
@@ -37,9 +38,9 @@ public interface Part {
 
     String getHeader(String headerName);
 
-    Iterable<String> getHeaderNames();
+    Collection<String> getHeaderNames();
 
-    Iterable<String> getHeaders(String headerName);
+    Collection<String> getHeaders(String headerName);
 
     InputStream getInputStream() throws IOException;
 

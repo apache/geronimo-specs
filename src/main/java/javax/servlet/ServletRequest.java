@@ -43,30 +43,10 @@ import java.util.Map;
 public interface ServletRequest {
 
     /**
-     * @param listener async listener to add
-     * @since Servlet 3.0
-     */
-    void addAsyncListener(AsyncListener listener);
-
-    /**
-     * @param listener async listener to add
-     * @param request  request for listener
-     * @param response response for listener
-     * @since Servlet 3.0
-     */
-    void addAsyncListener(AsyncListener listener, ServletRequest request, ServletResponse response);
-
-    /**
      * @return async context
      * @since Servlet 3.0
      */
     AsyncContext getAsyncContext();
-
-    /**
-     * @since Servlet 3.0
-     * @return async timeout in milliseconds
-     */
-    long getAsyncTimeout();
 
     /**
      * Returns the value of the named attribute as an <code>Object</code>,
@@ -460,12 +440,6 @@ public interface ServletRequest {
     void removeAttribute(String name);
 
     /**
-     * @param timeout timeout in milliseconds
-     * @since Servlet 3.0
-     */
-    void setAsyncTimeout(long timeout);
-
-    /**
      * Stores an attribute in this request.
      * Attributes are reset between requests.  This method is most
      * often used in conjunction with {@link RequestDispatcher}.
@@ -501,7 +475,7 @@ public interface ServletRequest {
 
     /**
      *
-     * @return AsyncContext to control further work
+     * @return AsyncContext to control further work, initialized with the original request and response
      * @since 3.0
      */
     AsyncContext startAsync();
@@ -510,7 +484,7 @@ public interface ServletRequest {
      *
      * @param request servlet request
      * @param response servlet response
-     * @return AsyncContext to control further work
+     * @return AsyncContext to control further work, initialized with the supplied request and response
      * @since 3.0
      */
     AsyncContext startAsync(ServletRequest request, ServletResponse response);

@@ -32,19 +32,27 @@ public interface AsyncContext {
     String ASYNC_REQUEST_URI = "javax.servlet.async.request_uri";
     String ASYNC_SERVLET_PATH = "javax.servlet.async.servlet_path";
 
+    void addListener(AsyncListener listener) throws IllegalStateException;
+
+    void addListener(AsyncListener listener, ServletRequest request, ServletResponse response) throws IllegalStateException;
+
     void complete();
 
-    void dispatch();
+    <T extends AsyncListener> T createListener(Class<T> clazz) throws ServletException;
 
-    void dispatch(ServletContext servletContext, String path);
+    void dispatch() throws IllegalStateException;
 
-    void dispatch(String path);
+    void dispatch(ServletContext servletContext, String path) throws IllegalStateException;
+
+    void dispatch(String path) throws IllegalStateException;
 
     ServletRequest getRequest();
 
     ServletResponse getResponse();
 
     boolean hasOriginalRequestAndResponse();
+
+    void setTimeout(long timeout) throws IllegalStateException;
 
     void start(Runnable run);
 }

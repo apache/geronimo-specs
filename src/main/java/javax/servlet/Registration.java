@@ -73,7 +73,5 @@ public interface Registration {
 
         void setAsyncSupported(boolean asyncSupported);
 
-        void setDescription(String description);
-        
     }
 }
