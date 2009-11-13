@@ -672,6 +672,13 @@ public interface ServletContext {
     <T extends EventListener> T createListener(Class<T> clazz) throws ServletException;
 
     /**
+     * declare the roles used in the web app as argumnents to isUserInRole
+     * @param roleNames the role names used in the web app
+     * @since Servlet 3.0
+     */
+    void declareRoles(String... roleNames);
+
+    /**
      * @return configuration of session cookie
      * @since 3.0
      */

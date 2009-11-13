@@ -327,20 +327,8 @@ public class ServletRequestWrapper implements ServletRequest {
         return this.request.getServletContext();
     }
 
-    public void addAsyncListener(AsyncListener listener) {
-        this.request.addAsyncListener(listener);
-    }
-
-    public void addAsyncListener(AsyncListener listener, ServletRequest request, ServletResponse response) {
-        this.request.addAsyncListener(listener, request, response);
-    }
-
     public AsyncContext getAsyncContext() {
         return this.request.getAsyncContext();
-    }
-
-    public long getAsyncTimeout() {
-        return this.request.getAsyncTimeout();
     }
 
     public boolean isAsyncStarted() {
@@ -349,10 +337,6 @@ public class ServletRequestWrapper implements ServletRequest {
 
     public boolean isAsyncSupported() {
         return this.request.isAsyncSupported();
-    }
-
-    public void setAsyncTimeout(long timeout) {
-        this.request.setAsyncTimeout(timeout);
     }
 
     public AsyncContext startAsync() {

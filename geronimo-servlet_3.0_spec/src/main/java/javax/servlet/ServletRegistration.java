@@ -20,6 +20,7 @@
 
 package javax.servlet;
 
+import java.util.Collection;
 import java.util.Set;
 
 /**
@@ -35,7 +36,7 @@ public interface ServletRegistration extends Registration {
      */
     Set<String> addMapping(String... urlPatterns);
 
-    Iterable<String> getMappings();
+    Collection<String> getMappings();
 
     String getRunAsRole();
 

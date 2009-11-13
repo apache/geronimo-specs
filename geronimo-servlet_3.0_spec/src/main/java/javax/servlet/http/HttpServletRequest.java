@@ -513,11 +513,14 @@ public interface HttpServletRequest extends ServletRequest {
      * @param username username
      * @param password password
      * @since 3.0
+     * @throws javax.servlet.ServletException if username/password authentication not supported,
+     * if a user has already been established, or if authentication fails.
      */
     void login(String username, String password) throws ServletException;
 
     /**
      * @since 3.0
+     * @throws javax.servlet.ServletException if logout fails
      */
     void logout() throws ServletException;
 

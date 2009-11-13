@@ -29,9 +29,9 @@ import java.io.IOException;
 /**
  * @version $Rev$ $Date$
  * @deprecated As of Java(tm) Servlet API 2.3.
- * These methods were only useful
- * with the default encoding and have been moved
- * to the request interfaces.
+ *             These methods were only useful
+ *             with the default encoding and have been moved
+ *             to the request interfaces.
  */
 
 
@@ -70,10 +70,10 @@ public class HttpUtils {
      * converted to ASCII characters.
      *
      * @param s a string containing the query to be parsed
+     * @return a <code>HashTable</code> object built
+     *         from the parsed key-value pairs
      * @throws IllegalArgumentException if the query string
      *                                  is invalid
-     * @return a <code>HashTable</code> object built
-     * from the parsed key-value pairs
      */
     static public Hashtable<String, String[]> parseQueryString(String s) {
 
@@ -135,15 +135,15 @@ public class HttpUtils {
      * @param in  the <code>ServletInputStream</code>
      *            object that contains the data sent
      *            from the client
+     * @return a <code>HashTable</code> object built
+     *         from the parsed key-value pairs
      * @throws IllegalArgumentException if the data
      *                                  sent by the POST method is invalid
-     * @return a <code>HashTable</code> object built
-     * from the parsed key-value pairs
      */
 
 
     static public Hashtable<String, String[]> parsePostData(int len,
-                                          ServletInputStream in) {
+                                                            ServletInputStream in) {
         // XXX
         // should a length of 0 be an IllegalArgumentException
 
@@ -243,7 +243,7 @@ public class HttpUtils {
      * @param req a <code>HttpServletRequest</code> object
      *            containing the client's request
      * @return a <code>StringBuffer</code> object containing
-     * the reconstructed URL
+     *         the reconstructed URL
      */
     public static StringBuffer getRequestURL(HttpServletRequest req) {
         StringBuffer url = new StringBuffer();
