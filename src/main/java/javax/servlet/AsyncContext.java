@@ -50,9 +50,17 @@ public interface AsyncContext {
 
     ServletResponse getResponse();
 
+    /**
+     * Returns current timeout value in milliseconds. Zero or less means no timeout.
+     * If setTimeout has not been called, the container-specific default timeout is returned.
+     *
+     * @return timeout in milliseconds
+     */
+    long getTimeout();
+
     boolean hasOriginalRequestAndResponse();
 
-    void setTimeout(long timeout) throws IllegalStateException;
+    void setTimeout(long timeoutMilliseconds) throws IllegalStateException;
 
     void start(Runnable run);
 }
