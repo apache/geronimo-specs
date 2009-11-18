@@ -34,11 +34,18 @@ import java.util.Date;
 public interface Timer {
     void cancel() throws EJBException, IllegalStateException, NoSuchObjectLocalException;
 
-    long getTimeRemaining() throws EJBException, IllegalStateException, NoSuchObjectLocalException;
+    long getTimeRemaining() throws EJBException, IllegalStateException, NoSuchObjectLocalException, NoMoreTimeoutsException;
 
-    Date getNextTimeout() throws EJBException, IllegalStateException, NoSuchObjectLocalException;
+    Date getNextTimeout() throws EJBException, IllegalStateException, NoSuchObjectLocalException, NoMoreTimeoutsException;
 
     Serializable getInfo() throws EJBException, IllegalStateException, NoSuchObjectLocalException;
 
     TimerHandle getHandle() throws EJBException, IllegalStateException, NoSuchObjectLocalException;
+
+    ScheduleExpression getSchedule() throws EJBException, IllegalStateException, NoSuchObjectLocalException;
+
+    boolean isPersistent() throws EJBException, IllegalStateException, NoSuchObjectLocalException;
+
+    boolean isCalendarTimer() throws EJBException, IllegalStateException, NoSuchObjectLocalException;
+
 }
