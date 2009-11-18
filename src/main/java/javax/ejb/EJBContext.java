@@ -28,6 +28,7 @@ package javax.ejb;
 import java.security.Identity;
 import java.security.Principal;
 import java.util.Properties;
+import java.util.Map;
 import javax.transaction.UserTransaction;
 
 /**
@@ -66,5 +67,7 @@ public interface EJBContext {
     TimerService getTimerService() throws IllegalStateException;
 
     Object lookup(String name);
+
+    Map<String,Object> getContextData();
 
 }

@@ -42,4 +42,18 @@ public interface TimerService {
     Timer createTimer(long duration, Serializable info) throws IllegalArgumentException, IllegalStateException, EJBException;
 
     Collection getTimers() throws IllegalStateException, EJBException;
+
+    Timer createSingleActionTimer(long duration, TimerConfig timerConfig) throws IllegalArgumentException, IllegalStateException, EJBException;
+
+    Timer createSingleActionTimer(java.util.Date expiration, TimerConfig timerConfig) throws IllegalArgumentException, IllegalStateException, EJBException;
+
+    Timer createIntervalTimer(long initialDuration, long intervalDuration, TimerConfig timerConfig) throws IllegalArgumentException, IllegalStateException, EJBException;
+
+    Timer createIntervalTimer(java.util.Date initialExpiration, long intervalDuration, TimerConfig timerConfig) throws IllegalArgumentException, IllegalStateException, EJBException;
+
+    Timer createCalendarTimer(ScheduleExpression schedule) throws IllegalArgumentException, IllegalStateException, EJBException;
+
+    Timer createCalendarTimer(ScheduleExpression schedule, TimerConfig timerConfig) throws IllegalArgumentException, IllegalStateException, EJBException;
+
+
 }

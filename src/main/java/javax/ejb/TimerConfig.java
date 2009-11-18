@@ -26,8 +26,16 @@ import java.io.Serializable;
 public class TimerConfig {
 	private Serializable info;
 	private boolean persistent;
-	
-	public Serializable getInfo() {
+
+    public TimerConfig() {
+    }
+
+    public TimerConfig(Serializable info, boolean persistent) {
+        this.info = info;
+        this.persistent = persistent;
+    }
+
+    public Serializable getInfo() {
 		return info;
 	}
 	
