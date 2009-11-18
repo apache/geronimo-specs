@@ -21,7 +21,14 @@
 //
 package javax.ejb.embeddable;
 
+import javax.ejb.EJBException;
+import javax.ejb.spi.EJBContainerProvider;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.Collections;
+import java.util.Enumeration;
 
 public abstract class EJBContainer {
 
@@ -39,9 +46,76 @@ public abstract class EJBContainer {
     }
 
     public static EJBContainer createEJBContainer(java.util.Map<?, ?> properties) {
-        return null; // TODO
+
+        if (properties == null) {
+            properties = Collections.EMPTY_MAP;
+        }
+
+        String providerName = null;
+
+        Object o = properties.get(PROVIDER);
+
+        if (o instanceof String) {
+            providerName = (String) o;
+        } else {
+            ClassLoader loader = Thread.currentThread().getContextClassLoader();
+            try {
+                String service = "META-INF/services/" + EJBContainerProvider.class.getName();
+                Enumeration<URL> providers = loader.getResources(service);
+
+                while (providers.hasMoreElements()) {
+
+                    String name = getProviderName(providers.nextElement());
+
+                    if (name != null) {
+                        providerName = name;
+                        break;
+                    }
+                }
+            } catch (IOException e) {
+            }
+        }
+
+        if (providerName == null) {
+            throw new EJBException("No provider found");
+        }
+
+        Class providerClass;
+
+        try {
+            providerClass = Class.forName(providerName, true, Thread.currentThread().getContextClassLoader());
+        } catch (Exception e) {
+            throw new EJBException("Invalid or inaccessible provider class: " + providerName, e);
+        }
+
+        try {
+            EJBContainerProvider provider = (EJBContainerProvider) providerClass.newInstance();
+            return provider.createEJBContainer(properties);
+        } catch (Exception e) {
+            throw new EJBException("Provider error. Provider: " + providerName, e);
+        }
+    }
+
+    static String getProviderName(URL url) throws IOException {
+
+        BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
+
+        String providerName;
+
+        try {
+            providerName = in.readLine();
+        } finally {
+            in.close();
+        }
+
+        if (providerName != null) {
+            providerName = providerName.trim();
+        }
+
+        return providerName;
     }
 
     public abstract javax.naming.Context getContext();
+
 
 }
