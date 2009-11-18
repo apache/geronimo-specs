@@ -43,4 +43,6 @@ public interface InvocationContext {
     public java.util.Map<String,Object> getContextData();
 
     public Object proceed() throws Exception;
+
+    public Object getTimer();
 }
