@@ -31,7 +31,7 @@ public class CompositeELResolver extends ELResolver {
 		this.resolvers = new ELResolver[2];
 	}
 
-	public void add(ELResolver elResolver) {
+	synchronized public void add(ELResolver elResolver) {
 		if (elResolver == null) {
 			throw new NullPointerException();
 		}
@@ -47,10 +47,15 @@ public class CompositeELResolver extends ELResolver {
 	public Object getValue(ELContext context, Object base, Object property)
 			throws NullPointerException, PropertyNotFoundException, ELException {
 		context.setPropertyResolved(false);
-		int sz = this.size;
+                int sz;
+                ELResolver[] rslvrs;
+                synchronized (this) {
+                    sz = this.size;
+                    rslvrs = this.resolvers;
+                }
 		Object result = null;
 		for (int i = 0; i < sz; i++) {
-			result = this.resolvers[i].getValue(context, base, property);
+			result = rslvrs[i].getValue(context, base, property);
 			if (context.isPropertyResolved()) {
 				return result;
 			}
@@ -63,9 +68,14 @@ public class CompositeELResolver extends ELResolver {
 			PropertyNotFoundException, PropertyNotWritableException,
 			ELException {
 		context.setPropertyResolved(false);
-		int sz = this.size;
+                int sz;
+                ELResolver[] rslvrs;
+                synchronized (this) {
+                    sz = this.size;
+                    rslvrs = this.resolvers;
+                }
 		for (int i = 0; i < sz; i++) {
-			this.resolvers[i].setValue(context, base, property, value);
+			rslvrs[i].setValue(context, base, property, value);
 			if (context.isPropertyResolved()) {
 				return;
 			}
@@ -75,10 +85,15 @@ public class CompositeELResolver extends ELResolver {
 	public boolean isReadOnly(ELContext context, Object base, Object property)
 			throws NullPointerException, PropertyNotFoundException, ELException {
 		context.setPropertyResolved(false);
-		int sz = this.size;
+                int sz;
+                ELResolver[] rslvrs;
+                synchronized (this) {
+                    sz = this.size;
+                    rslvrs = this.resolvers;
+                }
 		boolean readOnly = false;
 		for (int i = 0; i < sz; i++) {
-			readOnly = this.resolvers[i].isReadOnly(context, base, property);
+			readOnly = rslvrs[i].isReadOnly(context, base, property);
 			if (context.isPropertyResolved()) {
 				return readOnly;
 			}
@@ -86,15 +101,20 @@ public class CompositeELResolver extends ELResolver {
 		return false;
 	}
 
-	public Iterator<FeatureDescriptor> getFeatureDescriptors(ELContext context, Object base) {
+	synchronized public Iterator<FeatureDescriptor> getFeatureDescriptors(ELContext context, Object base) {
 		return new FeatureIterator(context, base, this.resolvers, this.size);
 	}
 
 	public Class<?> getCommonPropertyType(ELContext context, Object base) {
-		int sz = this.size;
+                int sz;
+                ELResolver[] rslvrs;
+                synchronized (this) {
+                    sz = this.size;
+                    rslvrs = this.resolvers;
+                }
 		Class<?> commonType = null, type = null;
 		for (int i = 0; i < sz; i++) {
-			type = this.resolvers[i].getCommonPropertyType(context, base);
+			type = rslvrs[i].getCommonPropertyType(context, base);
 			if (type != null
 					&& (commonType == null || commonType.isAssignableFrom(type))) {
 				commonType = type;
@@ -106,10 +126,15 @@ public class CompositeELResolver extends ELResolver {
 	public Class<?> getType(ELContext context, Object base, Object property)
 			throws NullPointerException, PropertyNotFoundException, ELException {
 		context.setPropertyResolved(false);
-		int sz = this.size;
+                int sz;
+                ELResolver[] rslvrs;
+                synchronized (this) {
+                    sz = this.size;
+                    rslvrs = this.resolvers;
+                }
 		Class<?> type;
 		for (int i = 0; i < sz; i++) {
-			type = this.resolvers[i].getType(context, base, property);
+			type = rslvrs[i].getType(context, base, property);
 			if (context.isPropertyResolved()) {
 				return type;
 			}
