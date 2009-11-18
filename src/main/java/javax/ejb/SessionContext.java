@@ -43,6 +43,4 @@ public interface SessionContext extends EJBContext {
     Class getInvokedBusinessInterface();
 
     boolean wasCancelCalled();
-
-    Map<String,Object> getContextData();
 }
