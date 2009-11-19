@@ -60,7 +60,7 @@ public class AsyncEvent {
         this.throwable = throwable;
     }
 
-    public AsyncContext getContext() {
+    public AsyncContext getAsyncContext() {
         return context;
     }
 
