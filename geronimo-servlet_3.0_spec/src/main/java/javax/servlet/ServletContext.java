@@ -26,6 +26,7 @@ import java.util.Enumeration;
 import java.util.EventListener;
 import java.util.Map;
 import java.util.Set;
+import java.util.EnumSet;
 
 import javax.servlet.descriptor.JspConfigDescriptor;
 
@@ -577,7 +578,7 @@ public interface ServletContext {
      * @return Map of name to ServletRegistration for all registered servlets
      * @since 3.0
      */
-    Map<String, ServletRegistration> getServletRegistrations();
+    Map<String, ? extends ServletRegistration> getServletRegistrations();
 
     /**
      * Add a filter to this context
@@ -638,7 +639,7 @@ public interface ServletContext {
      * @return FilterRegistration allowing configuration of filter
      * @since 3.0
      */
-    Map<String, FilterRegistration > getFilterRegistrations();
+    Map<String, ? extends FilterRegistration> getFilterRegistrations();
 
     /**
      * Add a listener created from the specified class
@@ -685,10 +686,10 @@ public interface ServletContext {
     SessionCookieConfig getSessionCookieConfig();
 
     /**
-     * @param sessionTrackingModes set of SessionTrackingModes for this web app
+     * @param sessionTrackingModes enumset of SessionTrackingModes for this web app
      * @since 3.0
      */
-    void setSessionTrackingModes(Set<SessionTrackingMode> sessionTrackingModes);
+    void setSessionTrackingModes(EnumSet<SessionTrackingMode> sessionTrackingModes);
 
     /**
      * @return the default session tracking modes
