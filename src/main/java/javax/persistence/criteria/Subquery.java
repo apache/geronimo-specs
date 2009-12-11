@@ -30,7 +30,9 @@ import java.util.Set;
 
 
 public interface Subquery<T> extends AbstractQuery<T>, Expression<T> {
+
     Subquery<T> select(Expression<T> expression);
+
     Subquery<T> where(Expression<Boolean> restriction);
 
     Subquery<T> where(Predicate... restrictions);
@@ -44,6 +46,7 @@ public interface Subquery<T> extends AbstractQuery<T>, Expression<T> {
     Subquery<T> having(Predicate... restrictions);
 
     Subquery<T> distinct(boolean distinct);
+
     <Y> Root<Y> correlate(Root<Y> parentRoot);
 
     <X, Y> Join<X, Y> correlate(Join<X, Y> parentJoin);
@@ -57,9 +60,9 @@ public interface Subquery<T> extends AbstractQuery<T>, Expression<T> {
     <X, K, V> MapJoin<X, K, V> correlate(MapJoin<X, K, V> parentMap);
 
     AbstractQuery<?> getParent();
+
     Expression<T> getSelection();
 
     Set<Join<?, ?>> getCorrelatedJoins();
-
 }
 

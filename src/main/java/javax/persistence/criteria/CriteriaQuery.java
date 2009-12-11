@@ -30,10 +30,10 @@ import java.util.Set;
 
 
 public interface CriteriaQuery<T> extends AbstractQuery<T> {
+
     CriteriaQuery<T> select(Selection<? extends T> selection);
 
     CriteriaQuery<T> multiselect(Selection<?>... selections);
-
 
     CriteriaQuery<T> multiselect(List<Selection<?>> selectionList);
 
@@ -54,6 +54,8 @@ public interface CriteriaQuery<T> extends AbstractQuery<T> {
     CriteriaQuery<T> orderBy(List<Order> o);
 
     CriteriaQuery<T> distinct(boolean distinct);
+
     List<Order> getOrderList();
+
     Set<ParameterExpression<?>> getParameters();
 }

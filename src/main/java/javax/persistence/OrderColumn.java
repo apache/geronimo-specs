@@ -35,13 +35,13 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 public @interface OrderColumn {
 
-	String name() default "";
+    String name() default "";
 
-	boolean nullable() default true;
+    boolean nullable() default true;
 
-	boolean insertable() default true;
+    boolean insertable() default true;
 
-	boolean updatable() default true;
+    boolean updatable() default true;
 
-	String columnDefinition() default "";
+    String columnDefinition() default "";
 }

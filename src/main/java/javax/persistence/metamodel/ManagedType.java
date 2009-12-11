@@ -66,8 +66,6 @@ public interface ManagedType<X> extends Type<X> {
     Set<PluralAttribute<X, ?, ?>> getDeclaredPluralAttributes();
 
 
-
-
     Attribute<? super X, ?> getAttribute(String name); 
 
     Attribute<X, ?> getDeclaredAttribute(String name); 

@@ -38,6 +38,7 @@ public interface FetchParent<Z, X> {
     <Y> Fetch<X, Y> fetch(SingularAttribute<? super X, Y> attribute, JoinType jt);
 
     <Y> Fetch<X, Y> fetch(PluralAttribute<? super X, ?, Y> attribute);
+
     <Y> Fetch<X, Y> fetch(PluralAttribute<? super X, ?, Y> attribute, JoinType jt);
 
     @SuppressWarnings("hiding")

@@ -36,5 +36,4 @@ public interface Selection<X> extends TupleElement<X> {
     boolean isCompoundSelection();
 
     List<Selection<?>> getCompoundSelectionItems();
-
 }

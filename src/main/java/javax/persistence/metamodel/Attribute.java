@@ -28,20 +28,22 @@ package javax.persistence.metamodel;
 
 public interface Attribute<X, Y> {
 
-	public static enum PersistentAttributeType {
-	     MANY_TO_ONE, 
+    public static enum PersistentAttributeType {
 
-	     ONE_TO_ONE, 
-	     BASIC, 
+        MANY_TO_ONE,
 
-	     EMBEDDED,
+        ONE_TO_ONE,
 
-	     MANY_TO_MANY, 
+        BASIC,
 
-	     ONE_TO_MANY, 
+        EMBEDDED,
 
-	     ELEMENT_COLLECTION
-	}
+        MANY_TO_MANY,
+
+        ONE_TO_MANY,
+
+        ELEMENT_COLLECTION
+    }
 
     String getName();
 
