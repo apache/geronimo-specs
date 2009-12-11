@@ -185,7 +185,7 @@ public class Validation {
             ValidationProvider.class.getName();
 
         // cache of providers per class loader
-        private static final Map<ClassLoader, List<ValidationProvider<?>>> providerCache =
+        private volatile WeakHashMap<ClassLoader, List<ValidationProvider<?>>> providerCache =
             new WeakHashMap<ClassLoader, List<ValidationProvider<?>>>();
         
         /*
@@ -202,9 +202,7 @@ public class Validation {
                 cl = PrivClassLoader.get(DefaultValidationProviderResolver.class);
 
             // use any previously cached providers
-            synchronized (providerCache) {
-                providers = providerCache.get(cl);
-            }
+            providers = providerCache.get(cl);
             if (providers == null) {
                 // need to discover and load them for this class loader
                 providers = new ArrayList<ValidationProvider<?>>();
@@ -255,9 +253,7 @@ public class Validation {
                 }
                 
                 // cache the discovered providers
-                synchronized (providerCache) {
-                    providerCache.put(cl, providers);
-                }
+                providerCache.put(cl, providers);
             }
             
             // caller must handle the case of no providers found
