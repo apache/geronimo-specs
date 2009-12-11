@@ -77,8 +77,8 @@ public abstract class ExpressionEvaluator {
      * @exception ELException Thrown if parsing errors were found.
      */ 
     public abstract Expression parseExpression( String expression, 
-				       Class expectedType, 
-				       FunctionMapper fMapper ) 
+                                Class<?> expectedType, 
+                                FunctionMapper fMapper ) 
       throws ELException; 
 
 
@@ -100,9 +100,9 @@ public abstract class ExpressionEvaluator {
      * @exception ELException Thrown if the expression evaluation failed.
      */ 
     public abstract Object evaluate( String expression, 
-			    Class expectedType, 
-			    VariableResolver vResolver,
-			    FunctionMapper fMapper ) 
+                                Class<?> expectedType, 
+                                VariableResolver vResolver,
+                                FunctionMapper fMapper ) 
       throws ELException; 
 }
 
