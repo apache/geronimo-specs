@@ -35,7 +35,6 @@ import java.security.PrivilegedAction;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
-import java.util.Map;
 import java.util.WeakHashMap;
 
 import javax.persistence.PersistenceException;
@@ -83,7 +82,7 @@ public class PersistenceProviderResolverHolder {
             PersistenceProvider.class.getName();
 
         // cache of providers per class loader
-        private static final Map<ClassLoader, List<PersistenceProvider>> providerCache =
+        private volatile WeakHashMap<ClassLoader, List<PersistenceProvider>> providerCache =
             new WeakHashMap<ClassLoader, List<PersistenceProvider>>();
         
         /*
@@ -92,17 +91,13 @@ public class PersistenceProviderResolverHolder {
          * @see javax.persistence.spi.PersistenceProviderResolver#getPersistenceProviders()
          */
         public List<PersistenceProvider> getPersistenceProviders() {
-            List<PersistenceProvider> providers;
-            
             // get our class loader
             ClassLoader cl = PrivClassLoader.get(null);
             if (cl == null)
                 cl = PrivClassLoader.get(DefaultPersistenceProviderResolver.class);
 
             // use any previously cached providers
-            synchronized (providerCache) {
-                providers = providerCache.get(cl);
-            }
+            List<PersistenceProvider> providers = providerCache.get(cl);
             if (providers == null) {
                 // need to discover and load them for this class loader
                 providers = new ArrayList<PersistenceProvider>();
@@ -153,9 +148,7 @@ public class PersistenceProviderResolverHolder {
                 }
                 
                 // cache the discovered providers
-                synchronized (providerCache) {
-                    providerCache.put(cl, providers);
-                }
+                providerCache.put(cl, providers);
             }
 
             // caller must handle the case of no providers found
@@ -168,9 +161,7 @@ public class PersistenceProviderResolverHolder {
          * @see javax.persistence.spi.PersistenceProviderResolver#clearCachedProviders()
          */
         public void clearCachedProviders() {
-            synchronized (providerCache) {
-                providerCache.clear();
-            }
+            providerCache.clear();
         }
 
         private static class PrivClassLoader implements PrivilegedAction<ClassLoader> {
