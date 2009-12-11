@@ -24,21 +24,14 @@
 //
 package javax.persistence;
 
-/**
- * @version $Rev$ $Date$
- */
+
 public class TransactionRequiredException extends PersistenceException {
-    /**
-     *
-     */
-    private static final long serialVersionUID = 2115931496795913403L;
 
     public TransactionRequiredException() {
         super();
     }
 
-    public TransactionRequiredException(String string) {
-        super(string);
+    public TransactionRequiredException(String message) {
+        super(message);
     }
-
 }

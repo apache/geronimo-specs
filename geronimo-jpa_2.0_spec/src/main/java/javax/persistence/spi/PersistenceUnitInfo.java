@@ -59,6 +59,7 @@ public interface PersistenceUnitInfo {
     public ValidationMode getValidationMode();
 
     public Properties getProperties();
+
     public String getPersistenceXMLSchemaVersion();
 
     public ClassLoader getClassLoader();

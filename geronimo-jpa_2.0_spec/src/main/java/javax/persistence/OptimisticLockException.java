@@ -25,38 +25,35 @@
 package javax.persistence;
 
 public class OptimisticLockException extends PersistenceException {
-    private final Object entity;
+
+    Object entity;
 
     public OptimisticLockException() {
-        this.entity = null;
+        super();
+    }
+
+    public OptimisticLockException(String message) {
+        super(message);
+    }
+
+    public OptimisticLockException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public OptimisticLockException(Throwable cause) {
+        super(cause);
     }
 
     public OptimisticLockException(Object entity) {
-        super();
         this.entity = entity;
     }
 
-    public OptimisticLockException(String string) {
-        super(string);
-        this.entity = null;
-    }
-
-    public OptimisticLockException(String string, Throwable throwable) {
-        super(string, throwable);
-        this.entity = null;
-    }
-
-    public OptimisticLockException(String string, Throwable throwable, Object entity) {
-        super(string, throwable);
+    public OptimisticLockException(String message, Throwable cause, Object entity) {
+        super(message, cause);
         this.entity = entity;
-    }
-
-    public OptimisticLockException(Throwable throwable) {
-        super(throwable);
-        this.entity = null;
     }
 
     public Object getEntity() {
-        return entity;
+        return this.entity;
     }
 }

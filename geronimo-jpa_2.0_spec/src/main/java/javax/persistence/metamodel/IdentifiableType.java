@@ -36,6 +36,7 @@ public interface IdentifiableType<X> extends ManagedType<X> {
     <Y> SingularAttribute<? super X, Y> getVersion(Class<Y> type);
 
     <Y> SingularAttribute<X, Y> getDeclaredVersion(Class<Y> type);
+
     IdentifiableType<? super X> getSupertype();
 
     boolean hasSingleIdAttribute();

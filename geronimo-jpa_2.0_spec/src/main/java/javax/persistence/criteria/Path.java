@@ -33,8 +33,10 @@ import javax.persistence.metamodel.MapAttribute;
 
 public interface Path<X> extends Expression<X> {
 
-    Bindable<X> getModel(); 
+    Bindable<X> getModel();
+
     Path<?> getParentPath();
+
     <Y> Path<Y> get(SingularAttribute<? super X, Y> attribute);
 
     <E, C extends java.util.Collection<E>> Expression<C> get(PluralAttribute<X, C, E> collection);
@@ -42,7 +44,6 @@ public interface Path<X> extends Expression<X> {
     <K, V, M extends java.util.Map<K, V>> Expression<M> get(MapAttribute<X, K, V> map);
 
     Expression<Class<? extends X>> type();
-
 
     <Y> Path<Y> get(String attributeName);
 }

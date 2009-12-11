@@ -25,38 +25,34 @@
 package javax.persistence;
 
 public class PessimisticLockException extends PersistenceException {
-    private final Object entity;
+    Object entity;
 
     public PessimisticLockException() {
-        this.entity = null;
+        super();
+    }
+
+    public PessimisticLockException(String message) {
+        super(message);
+    }
+
+    public PessimisticLockException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public PessimisticLockException(Throwable cause) {
+        super(cause);
     }
 
     public PessimisticLockException(Object entity) {
-        super();
         this.entity = entity;
     }
 
-    public PessimisticLockException(String string) {
-        super(string);
-        this.entity = null;
-    }
-
-    public PessimisticLockException(String string, Throwable throwable) {
-        super(string, throwable);
-        this.entity = null;
-    }
-
-    public PessimisticLockException(String string, Throwable throwable, Object entity) {
-        super(string, throwable);
+    public PessimisticLockException(String message, Throwable cause, Object entity) {
+        super(message, cause);
         this.entity = entity;
     }
-
-    public PessimisticLockException(Throwable throwable) {
-        super(throwable);
-        this.entity = null;
-    }
-
+    
     public Object getEntity() {
-        return entity;
+        return this.entity;
     }
 }

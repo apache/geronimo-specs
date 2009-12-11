@@ -24,24 +24,21 @@
 //
 package javax.persistence;
 
-/**
- * @version $Revision$ $Date$
- */
+
 public class EntityExistsException extends PersistenceException {
 
     public EntityExistsException() {
-
+        super();
     }
 
     public EntityExistsException(String message) {
         super(message);
     }
+    public EntityExistsException(String message, Throwable cause) {
+        super(message, cause);
+    }
 
     public EntityExistsException(Throwable cause) {
         super(cause);
-    }
-
-    public EntityExistsException(String message, Throwable cause) {
-        super(message, cause);
     }
 }

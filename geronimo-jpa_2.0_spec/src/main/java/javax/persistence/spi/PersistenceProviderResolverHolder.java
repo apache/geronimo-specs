@@ -40,7 +40,15 @@ import java.util.WeakHashMap;
 
 import javax.persistence.PersistenceException;
 
-
+/**
+ * Contains Geronimo implemented code as required by the JPA spec.
+ *
+ * Finds/Creates the global {@link javax.persistence.spi.PersistenceProviderResolver}
+ * 
+ * Implementations must be thread-safe.
+ * 
+ * @since Java Persistence 2.0
+ */
 public class PersistenceProviderResolverHolder {
 
     private static PersistenceProviderResolver persistenceResolver =

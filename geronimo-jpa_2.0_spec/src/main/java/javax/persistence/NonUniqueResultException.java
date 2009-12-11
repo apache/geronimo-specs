@@ -25,15 +25,7 @@
 package javax.persistence;
 
 
-/**
- * @version $Rev$ $Date$
- */
 public class NonUniqueResultException extends PersistenceException {
-
-    /**
-     *
-     */
-    private static final long serialVersionUID = 8841586522747620836L;
 
     public NonUniqueResultException() {
         super();
@@ -42,5 +34,5 @@ public class NonUniqueResultException extends PersistenceException {
     public NonUniqueResultException(String message) {
         super(message);
     }
-
 }
+

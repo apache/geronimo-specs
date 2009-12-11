@@ -27,15 +27,16 @@ package javax.persistence.metamodel;
 
 
 public interface Bindable<T> {
-	public static enum BindableType { 
+    public static enum BindableType { 
 
-	    SINGULAR_ATTRIBUTE, 
+        SINGULAR_ATTRIBUTE, 
 
-	    PLURAL_ATTRIBUTE, 
+        PLURAL_ATTRIBUTE, 
 
-	    ENTITY_TYPE
-	}
+        ENTITY_TYPE
+    }
 
     BindableType getBindableType();
+
     Class<T> getBindableJavaType();
 }

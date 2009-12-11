@@ -33,6 +33,7 @@ public interface Metamodel {
     <X> EntityType<X> entity(Class<X> cls);
 
     <X> ManagedType<X> managedType(Class<X> cls);
+
     <X> EmbeddableType<X> embeddable(Class<X> cls);
 
     Set<ManagedType<?>> getManagedTypes();
