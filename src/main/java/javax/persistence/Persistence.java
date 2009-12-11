@@ -42,7 +42,7 @@ import javax.persistence.spi.PersistenceProviderResolverHolder;
 import javax.persistence.spi.ProviderUtil;
 
 /**
- * Bootstrap class that is used to obtain {@link javax.persistence.EntityManagerFactory}
+ * Bootstrap class to obtain {@link javax.persistence.EntityManagerFactory}
  * references.
  * 
  * Contains Geronimo implemented code as required by the JPA spec.
@@ -51,36 +51,27 @@ import javax.persistence.spi.ProviderUtil;
  */
 public class Persistence {
 
+    // The following variable is only here for TCK backward compatibility
+    @Deprecated
     protected static final Set<PersistenceProvider> providers = new HashSet<PersistenceProvider>();
-    // Changed to the hard coded PERSISTENCE_PROVIDER value to pass signature tests.
-    // public static final java.lang.String PERSISTENCE_PROVIDER = PersistenceProvider.class.getName(); 
-    public static final java.lang.String PERSISTENCE_PROVIDER = "javax.persistence.spi.PeristenceProvider";
+
+    // The following string is only here for TCK backward compatibility
+    @Deprecated
+    public static final String PERSISTENCE_PROVIDER = "javax.persistence.spi.PeristenceProvider";
+
     static final String PERSISTENCE_PROVIDER_PROPERTY = "javax.persistence.provider";
+
     static final String PERSISTENCE_PROVIDER_SERVICE = "META-INF/services/"
             + PersistenceProvider.class.getName();
 
-    /**
-     * Create and return an EntityManagerFactory for the named persistence unit.
-     *
-     * @param persistenceUnitName Name of the persistence unit
-     * @return The factory for the specified persistence unit or null if none
-     *         are applicable.
-     */
+
     public static EntityManagerFactory createEntityManagerFactory(
             String persistenceUnitName) {
         return createEntityManagerFactory(persistenceUnitName, Collections.EMPTY_MAP);
     }
 
     /**
-     * Create and return an EntityManagerFactory for the named persistence unit
-     * using the given properties.
-     *
-     * @param persistenceUnitName Name of the persistence unit
-     * @param properties Additional properties to use when creating the
-     *                   persistence unit factory. These properties override any
-     *                   values that have been configured elsewhere.
-     * @return The factory for the specified persistence unit or null if none
-     *         are applicable.
+     * Geronimo implementation specific code
      */
     public static EntityManagerFactory createEntityManagerFactory(
             String persistenceUnitName, Map properties) {
@@ -230,6 +221,7 @@ public class Persistence {
     
     
     /**
+     * Geronimo/OpenJPA private helper code for creating a PersistenceException
      * @param msg String to use as the exception message
      * @param failures Persistence provider exceptions to add to the exception message
      * @return PersistenceException
@@ -262,20 +254,16 @@ public class Persistence {
         }
     }
 
-    /*
-    * @return PersistenceUtil instance
-    * @since 2.0
-    */
     public static PersistenceUtil getPersistenceUtil() {
         return new PersistenceUtilImpl();
     }
     
-    /*
+    /**
      * Geronimo implementation specific code
      */
     private static class PersistenceUtilImpl implements PersistenceUtil {
 
-        /*
+        /**
          * Determines the load state of the attribute of an entity 
          * @see javax.persistence.PersistenceUtil#isLoaded(java.lang.Object, java.lang.String)
          */
@@ -351,6 +339,9 @@ public class Persistence {
             }
     }
 
+    /**
+     * Geronimo/OpenJPA private helper code for handling class loaders
+     */
     private static class PrivClassLoader implements PrivilegedAction<ClassLoader> {
         private final Class<?> c;
 
