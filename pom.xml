@@ -29,10 +29,27 @@
     <artifactId>geronimo-cdi_1.0_spec</artifactId>
     <packaging>bundle</packaging>
     <name>Apache Geronimo JSR-299 Spec API</name>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>
 
     <description>Apache Geronimo implementation of the JSR-299 Context and Dependency Injection for the Java EE Platform</description>
     <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
+
+    <distributionManagement>
+        <site>
+            <id>apache-website</id>
+            <url>${site.deploy.url}/maven/${siteId}/${version}</url>
+        </site>
+    </distributionManagement>
+
+    <properties>
+        <siteId>specs/${artifactId}</siteId>
+    </properties>
+
+    <scm>
+        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-cdi_1.0_spec/</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-cdi_1.0_spec/</developerConnection>
+        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-cdi_1.0_spec/</url>
+    </scm>
 
     <dependencies>
         <dependency>
@@ -44,20 +61,34 @@
         <dependency>
             <groupId>org.apache.geronimo.specs</groupId>
             <artifactId>geronimo-el_1.0_spec</artifactId>
+            <version>1.0.2-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.geronimo.specs</groupId>
             <artifactId>geronimo-atinject_1.0_spec</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
-
-    <distributionManagement>
-        <site>
-            <id>apache-website</id>
-            <url>${site.deploy.url}/maven/${siteId}/${version}</url>
-        </site>
-    </distributionManagement>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <configuration>
+                    <instructions>
+                        <Export-Package>javax.decorator*;version=1.0</Export-Package>
+                        <Export-Package>javax.enterprise.context*;version=1.0</Export-Package>
+                        <Export-Package>javax.enterprise.event*;version=1.0</Export-Package>
+                        <Export-Package>javax.enterprise.inject*;version=1.0</Export-Package>
+                        <Export-Package>javax.enterprise.util*;version=1.0</Export-Package>
+                        <Export-Package>javax.interceptor*;version=1.0</Export-Package>
+                    </instructions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
