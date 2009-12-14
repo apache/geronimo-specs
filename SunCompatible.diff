@@ -1,0 +1,39 @@
+Index: src/main/java/javax/ejb/EJBException.java
+===================================================================
+--- src/main/java/javax/ejb/EJBException.java	(revision 890521)
++++ src/main/java/javax/ejb/EJBException.java	(working copy)
+@@ -34,13 +34,13 @@
+ public class EJBException extends RuntimeException {
+ 
+     private static final long serialVersionUID = 796770993296843510L;
++    private Exception ex;
+ 
+     public EJBException() {
+-        super();
+     }
+ 
+     public EJBException(Exception ex) {
+-        super(ex);
++        this.ex = ex;
+     }
+ 
+     public EJBException(String message) {
+@@ -48,15 +48,12 @@
+     }
+ 
+     public EJBException(String message, Exception ex) {
+-        super(message, ex);
++        super(message);
++        this.ex = ex;
+     }
+ 
+     public Exception getCausedByException() {
+-        Throwable cause = getCause();
+-        if (cause instanceof Exception) {
+-            return (Exception) cause;
+-        }
+-        return null;
++        return ex;
+     }
+ 
+     public String getMessage() {
