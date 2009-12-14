@@ -29,7 +29,7 @@
     <artifactId>geronimo-atinject_1.0_spec</artifactId>
     <packaging>bundle</packaging>
     <name>Apache Geronimo JSR-330 Spec API</name>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>
 
     <description>Apache Geronimo implementation of the JSR-330 Dependency Injection Spec API</description>
     <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
@@ -40,5 +40,25 @@
             <url>${site.deploy.url}/maven/${siteId}/${version}</url>
         </site>
     </distributionManagement>
+
+    <scm>
+        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-atinject_1.0_spec/</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-atinject_1.0_spec/</developerConnection>
+        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-atinject_1.0_spec/</url>
+    </scm>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <configuration>
+                    <instructions>
+                        <Export-Package>javax.inject*;version=1.0</Export-Package>
+                    </instructions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
