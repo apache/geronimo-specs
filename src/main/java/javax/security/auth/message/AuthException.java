@@ -22,7 +22,8 @@ import javax.security.auth.login.LoginException;
  * @version $Rev$ $Date$
  */
 public class AuthException extends LoginException {
-
+    private static final long serialVersionUID = -1156951780670243758L;
+    
     public AuthException() {
     }
 
