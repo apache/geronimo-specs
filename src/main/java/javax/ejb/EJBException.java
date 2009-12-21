@@ -34,6 +34,7 @@ import java.io.PrintWriter;
 public class EJBException extends RuntimeException {
 
     private static final long serialVersionUID = 796770993296843510L;
+    private Exception causeException;
 
     public EJBException() {
         super();
