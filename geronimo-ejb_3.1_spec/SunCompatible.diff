@@ -1,30 +1,27 @@
 Index: src/main/java/javax/ejb/EJBException.java
 ===================================================================
---- src/main/java/javax/ejb/EJBException.java	(revision 890521)
+--- src/main/java/javax/ejb/EJBException.java	(revision 893040)
 +++ src/main/java/javax/ejb/EJBException.java	(working copy)
-@@ -34,13 +34,13 @@
- public class EJBException extends RuntimeException {
- 
-     private static final long serialVersionUID = 796770993296843510L;
-+    private Exception ex;
+@@ -37,11 +37,10 @@
+     private Exception causeException;
  
      public EJBException() {
 -        super();
      }
  
-     public EJBException(Exception ex) {
--        super(ex);
-+        this.ex = ex;
+     public EJBException(Exception causeException) {
+-        super(causeException);
++        this.causeException = causeException;
      }
  
      public EJBException(String message) {
-@@ -48,15 +48,12 @@
+@@ -49,33 +48,52 @@
      }
  
-     public EJBException(String message, Exception ex) {
--        super(message, ex);
+     public EJBException(String message, Exception causeException) {
+-        super(message, causeException);
 +        super(message);
-+        this.ex = ex;
++        this.causeException = causeException;
      }
  
      public Exception getCausedByException() {
@@ -33,7 +30,155 @@ Index: src/main/java/javax/ejb/EJBException.java
 -            return (Exception) cause;
 -        }
 -        return null;
-+        return ex;
++        return causeException;
      }
  
      public String getMessage() {
+-        return super.getMessage();
++
++        if (causeException == null) return super.getMessage();
++
++        StringBuilder sb = new StringBuilder();
++
++        if (super.getMessage() != null) {
++            sb.append(super.getMessage());
++            sb.append("; ");
++        }
++
++        sb.append("nested exception is: ");
++        sb.append(causeException.toString());
++
++        return sb.toString();
+     }
+ 
+-
+     public void printStackTrace(PrintStream ps) {
+-        super.printStackTrace(ps);
++        if (causeException == null) {
++            super.printStackTrace(ps);
++        } else synchronized (ps) {
++            ps.println(this);
++            causeException.printStackTrace(ps);
++            super.printStackTrace(ps);
++        }
+     }
+ 
+-
+     public void printStackTrace() {
+-        super.printStackTrace();
++        printStackTrace(System.err);
+     }
+ 
+-
+     public void printStackTrace(PrintWriter pw) {
+-        super.printStackTrace(pw);
++        if (causeException == null) {
++            super.printStackTrace(pw);
++        } else synchronized (pw) {
++            pw.println(this);
++            causeException.printStackTrace(pw);
++            super.printStackTrace(pw);
++        }
+     }
+ }
+Index: SunCompatible.diff
+===================================================================
+--- SunCompatible.diff	(revision 893025)
++++ SunCompatible.diff	(working copy)
+@@ -1,30 +1,27 @@
+ Index: src/main/java/javax/ejb/EJBException.java
+ ===================================================================
+---- src/main/java/javax/ejb/EJBException.java	(revision 890521)
++--- src/main/java/javax/ejb/EJBException.java	(revision 893040)
+ +++ src/main/java/javax/ejb/EJBException.java	(working copy)
+-@@ -34,13 +34,13 @@
+- public class EJBException extends RuntimeException {
++@@ -37,11 +37,10 @@
++     private Exception causeException;
+  
+-     private static final long serialVersionUID = 796770993296843510L;
+-+    private Exception ex;
+- 
+      public EJBException() {
+ -        super();
+      }
+  
+-     public EJBException(Exception ex) {
+--        super(ex);
+-+        this.ex = ex;
++     public EJBException(Exception causeException) {
++-        super(causeException);
+++        this.causeException = causeException;
+      }
+  
+      public EJBException(String message) {
+-@@ -48,15 +48,12 @@
++@@ -49,33 +48,52 @@
+      }
+  
+-     public EJBException(String message, Exception ex) {
+--        super(message, ex);
++     public EJBException(String message, Exception causeException) {
++-        super(message, causeException);
+ +        super(message);
+-+        this.ex = ex;
+++        this.causeException = causeException;
+      }
+  
+      public Exception getCausedByException() {
+@@ -33,7 +30,54 @@
+ -            return (Exception) cause;
+ -        }
+ -        return null;
+-+        return ex;
+++        return causeException;
+      }
+  
+      public String getMessage() {
++-        return super.getMessage();
+++
+++        if (causeException == null) return super.getMessage();
+++
+++        StringBuilder sb = new StringBuilder();
+++
+++        if (super.getMessage() != null) {
+++            sb.append(super.getMessage());
+++            sb.append("; ");
+++        }
+++
+++        sb.append("nested exception is: ");
+++        sb.append(causeException.toString());
+++
+++        return sb.toString();
++     }
++ 
++-
++     public void printStackTrace(PrintStream ps) {
++-        super.printStackTrace(ps);
+++        if (causeException == null) {
+++            super.printStackTrace(ps);
+++        } else synchronized (ps) {
+++            ps.println(this);
+++            causeException.printStackTrace(ps);
+++            super.printStackTrace(ps);
+++        }
++     }
++ 
++-
++     public void printStackTrace() {
++-        super.printStackTrace();
+++        printStackTrace(System.err);
++     }
++ 
++-
++     public void printStackTrace(PrintWriter pw) {
++-        super.printStackTrace(pw);
+++        if (causeException == null) {
+++            super.printStackTrace(pw);
+++        } else synchronized (pw) {
+++            pw.println(this);
+++            causeException.printStackTrace(pw);
+++            super.printStackTrace(pw);
+++        }
++     }
++ }
