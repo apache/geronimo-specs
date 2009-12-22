@@ -40,16 +40,16 @@ public class EJBException extends RuntimeException {
         super();
     }
 
-    public EJBException(Exception ex) {
-        super(ex);
+    public EJBException(Exception causeException) {
+        super(causeException);
     }
 
     public EJBException(String message) {
         super(message);
     }
 
-    public EJBException(String message, Exception ex) {
-        super(message, ex);
+    public EJBException(String message, Exception causeException) {
+        super(message, causeException);
     }
 
     public Exception getCausedByException() {
