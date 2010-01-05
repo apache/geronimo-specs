@@ -20,6 +20,7 @@
 package javax.servlet.http;
 
 import java.io.IOException;
+import java.util.Collection;
 
 import javax.servlet.ServletResponse;
 
@@ -478,13 +479,14 @@ public interface HttpServletResponse extends ServletResponse {
      * @return all the header names
      * @since 3.0
      */
-    Iterable<String> getHeaderNames();
+    Collection<String> getHeaderNames();
 
     /**
+     * @param headerName header name for which headers are requested
      * @return all the header values
      * @since 3.0
      */
-    Iterable<String> getHeaders(String headerName);
+    Collection<String> getHeaders(String headerName);
 
     /**
      * @return current http status

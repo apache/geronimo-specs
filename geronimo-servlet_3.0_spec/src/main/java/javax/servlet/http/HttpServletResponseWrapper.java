@@ -20,6 +20,7 @@
 package javax.servlet.http;
 
 import java.io.IOException;
+import java.util.Collection;
 
 import javax.servlet.ServletResponseWrapper;
 
@@ -40,6 +41,7 @@ public class HttpServletResponseWrapper extends ServletResponseWrapper implement
     /**
      * Constructs a response adaptor wrapping the given response.
      *
+     * @param response response to wrap
      * @throws java.lang.IllegalArgumentException
      *          if the response is null
      */
@@ -105,11 +107,11 @@ public class HttpServletResponseWrapper extends ServletResponseWrapper implement
         return getHttpServletResponse().getHeader(name);
     }
 
-    public Iterable<String> getHeaderNames() {
+    public Collection<String> getHeaderNames() {
         return getHttpServletResponse().getHeaderNames();
     }
 
-    public Iterable<String> getHeaders(String headerName) {
+    public Collection<String> getHeaders(String headerName) {
         return getHttpServletResponse().getHeaders(headerName);
     }
 
