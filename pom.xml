@@ -31,11 +31,11 @@
     </parent>
 
     <groupId>org.apache.geronimo.specs</groupId>
-    <artifactId>geronimo-el_1.0_spec</artifactId>
+    <artifactId>geronimo-el_2.2_spec</artifactId>
     <packaging>bundle</packaging>
-    <name>Expression Language 1.0</name>
-    <version>1.0.2-SNAPSHOT</version>
-    <description>Expression Languague API 1.0</description>
+    <name>Expression Language 2.2</name>
+    <version>1.0-SNAPSHOT</version>
+    <description>Expression Languague API 2.2</description>
 
     <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
     <distributionManagement>
@@ -50,9 +50,9 @@
     </properties>
 
     <scm>
-        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-el_1.0_spec/</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-el_1.0_spec/</developerConnection>
-        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-el_1.0_spec/</url>
+        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-el_2.2_spec/</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-el_2.2_spec/</developerConnection>
+        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-el_2.2_spec/</url>
     </scm>
 
     <build>
@@ -62,7 +62,7 @@
                 <artifactId>maven-bundle-plugin</artifactId>
                 <configuration>
                     <instructions>
-                        <Export-Package>javax.el*;version=1.0</Export-Package>
+                        <Export-Package>javax.el*;version=2.2</Export-Package>
                     </instructions>
                 </configuration>
             </plugin>
