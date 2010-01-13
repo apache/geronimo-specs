@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -200,7 +200,7 @@ public class BeanELResolver extends ELResolver {
         public BeanProperty getBeanProperty(String name) {
             return get(null, name);
         }
-        
+
         private Class<?> getType() {
             return type;
         }
@@ -287,7 +287,7 @@ public class BeanELResolver extends ELResolver {
 		Method mp;
         for (Class anInf : inf) {
             try {
-                mp = anInf.getMethod(m.getName(), (Class[]) m.getParameterTypes());
+                mp = anInf.getMethod(m.getName(), m.getParameterTypes());
                 mp = getMethod(mp.getDeclaringClass(), mp);
                 if (mp != null) {
                     return mp;
@@ -299,7 +299,7 @@ public class BeanELResolver extends ELResolver {
         Class sup = type.getSuperclass();
 		if (sup != null) {
 			try {
-				mp = sup.getMethod(m.getName(), (Class[]) m.getParameterTypes());
+				mp = sup.getMethod(m.getName(), m.getParameterTypes());
 				mp = getMethod(mp.getDeclaringClass(), mp);
 				if (mp != null) {
 					return mp;
@@ -310,19 +310,19 @@ public class BeanELResolver extends ELResolver {
 		}
 		return null;
 	}
-	
+
 	private final static class ConcurrentCache<K,V> {
 
 		private final int size;
 		private final Map<K,V> eden;
 		private final Map<K,V> longterm;
-		
+
 		public ConcurrentCache(int size) {
 			this.size = size;
 			this.eden = new ConcurrentHashMap<K,V>(size);
 			this.longterm = new WeakHashMap<K,V>(size);
 		}
-		
+
 		public V get(K key) {
 			V value = this.eden.get(key);
 			if (value == null) {
@@ -333,7 +333,7 @@ public class BeanELResolver extends ELResolver {
 			}
 			return value;
 		}
-		
+
 		public void put(K key, V value) {
 			if (this.eden.size() >= this.size) {
 				this.longterm.putAll(this.eden);
@@ -343,4 +343,9 @@ public class BeanELResolver extends ELResolver {
 		}
 
 	}
+
+    public Object invoke(ELContext context, Object base, Object method, Class<?>[] paramTypes, Object[] params) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }
