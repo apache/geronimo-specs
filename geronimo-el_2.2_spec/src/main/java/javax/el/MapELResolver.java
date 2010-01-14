@@ -138,9 +138,4 @@ public class MapELResolver extends ELResolver {
 		return null;
 	}
 
-    public Object invoke(ELContext context, Object base, Object method, Class<?>[] paramTypes, Object[] params) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
 }
