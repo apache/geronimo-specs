@@ -67,5 +67,7 @@ public abstract class ELResolver {
 
     public abstract Class<?> getCommonPropertyType(ELContext context, Object base);
 
-    public abstract Object invoke(ELContext context, Object base, Object method, Class<?>[] paramTypes, Object[] params);
+    public Object invoke(ELContext context, Object base, Object method, Class<?>[] paramTypes, Object[] params) {
+        return null;
+    }
 }

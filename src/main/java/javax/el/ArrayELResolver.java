@@ -155,9 +155,4 @@ public class ArrayELResolver extends ELResolver {
 		throw new IllegalArgumentException(property != null ? property
 				.toString() : "null");
 	}
-
-    public Object invoke(ELContext context, Object base, Object method, Class<?>[] paramTypes, Object[] params) {
-        // TODO Auto-generated method stub
-        return null;
-    }
 }
