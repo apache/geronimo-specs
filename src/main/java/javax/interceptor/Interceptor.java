@@ -20,15 +20,10 @@ package javax.interceptor;
 
 import java.lang.annotation.Documented;
 import static java.lang.annotation.ElementType.TYPE;
-import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
-
-import javax.enterprise.inject.Stereotype;
 
 /**
  * Annotation for used defining the interceptors.
@@ -36,9 +31,7 @@ import javax.enterprise.inject.Stereotype;
  * @version $Rev$ $Id: Interceptor.java 782259 2009-06-06 13:31:32Z gerdogdu $
  */
 @Retention(RUNTIME)
-@Target({TYPE,METHOD,FIELD})
-@Stereotype
-@Inherited
+@Target({TYPE})
 @Documented
 public @interface Interceptor
 {
