@@ -54,8 +54,8 @@
     <dependencies>
         <dependency>
             <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-interceptor_3.0_spec</artifactId>
-            <version>1.0.1</version>
+            <artifactId>geronimo-interceptor_1.1_spec</artifactId>
+            <version>1.0.0-EA1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -84,8 +84,7 @@
                             javax.enterprise.context*;version=1.0,
                             javax.enterprise.event*;version=1.0,
                             javax.enterprise.inject*;version=1.0,
-                            javax.enterprise.util*;version=1.0,
-                            javax.interceptor*;version=1.0
+                            javax.enterprise.util*;version=1.0
                         </Export-Package>
                     </instructions>
                 </configuration>
