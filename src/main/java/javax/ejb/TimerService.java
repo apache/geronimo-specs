@@ -41,7 +41,7 @@ public interface TimerService {
 
     Timer createTimer(long duration, Serializable info) throws IllegalArgumentException, IllegalStateException, EJBException;
 
-    Collection getTimers() throws IllegalStateException, EJBException;
+    Collection<Timer> getTimers() throws IllegalStateException, EJBException;
 
     Timer createSingleActionTimer(long duration, TimerConfig timerConfig) throws IllegalArgumentException, IllegalStateException, EJBException;
 

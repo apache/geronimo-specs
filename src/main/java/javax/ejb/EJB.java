@@ -44,4 +44,6 @@ public @interface EJB {
     String mappedName() default "";
 
     String description() default "";
+
+    String lookup() default "";
 }

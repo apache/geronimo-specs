@@ -24,7 +24,7 @@ package javax.ejb;
 import java.io.Serializable;
 import java.util.Date;
 
-public final class ScheduleExpression implements Serializable {
+public class ScheduleExpression implements Serializable {
 
     private static final long serialVersionUID = -3813254457230997879L;
     
