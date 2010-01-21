@@ -26,7 +26,6 @@ import java.util.Enumeration;
 import java.util.EventListener;
 import java.util.Map;
 import java.util.Set;
-import java.util.EnumSet;
 
 import javax.servlet.descriptor.JspConfigDescriptor;
 
@@ -689,7 +688,7 @@ public interface ServletContext {
      * @param sessionTrackingModes enumset of SessionTrackingModes for this web app
      * @since 3.0
      */
-    void setSessionTrackingModes(EnumSet<SessionTrackingMode> sessionTrackingModes);
+    void setSessionTrackingModes(Set<SessionTrackingMode> sessionTrackingModes);
 
     /**
      * @return the default session tracking modes

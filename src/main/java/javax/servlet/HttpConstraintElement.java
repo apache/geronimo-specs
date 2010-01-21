@@ -55,15 +55,15 @@ public class HttpConstraintElement {
         this.transportGuarantee = transportGuarantee;
     }
 
-    ServletSecurity.EmptyRoleSemantic getEmptyRoleSemantic() {
+    public ServletSecurity.EmptyRoleSemantic getEmptyRoleSemantic() {
         return emptyRoleSemantic;
     }
 
-    String[] getRolesAllowed() {
+    public String[] getRolesAllowed() {
         return rolesAllowed;
     }
 
-    ServletSecurity.TransportGuarantee getTransportGuarantee() {
+    public ServletSecurity.TransportGuarantee getTransportGuarantee() {
         return transportGuarantee;
     }
 }

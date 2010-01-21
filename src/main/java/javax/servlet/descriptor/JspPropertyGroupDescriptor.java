@@ -20,6 +20,8 @@
 
 package javax.servlet.descriptor;
 
+import java.util.Collection;
+
 /**
  * @version $Rev$ $Date$
  * @since Servlet 3.0
@@ -28,7 +30,7 @@ public interface JspPropertyGroupDescriptor {
 
     String getBuffer();
 
-    String getDefaultContextType();
+    String getDefaultContentType();
 
     String getDeferredSyntaxAllowedAsLiteral();
 
@@ -36,9 +38,9 @@ public interface JspPropertyGroupDescriptor {
 
     String getErrorOnUndeclaredNamespace();
 
-    Iterable<String> getIncludedCodas();
+    Collection<String> getIncludedCodas();
 
-    Iterable<String> getIncludedPreludes();
+    Collection<String> getIncludedPreludes();
 
     String getIsXml();
 
@@ -46,8 +48,8 @@ public interface JspPropertyGroupDescriptor {
 
     String getScriptingInvalid();
 
-    String getTrimDirectiveWhitespace();
+    String getTrimDirectiveWhitespaces();
 
-    Iterable<String> getUrlPatterms();
+    Collection<String> getUrlPatterms();
 
 }

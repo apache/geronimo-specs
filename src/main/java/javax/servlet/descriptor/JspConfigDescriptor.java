@@ -20,13 +20,15 @@
 
 package javax.servlet.descriptor;
 
+import java.util.Collection;
+
 /**
  * @version $Rev$ $Date$
  * @since Servlet 3.0
  */
 public interface JspConfigDescriptor {
 
-    Iterable<JspPropertyGroupDescriptor> getJspPropertyGroups();
+    Collection<JspPropertyGroupDescriptor> getJspPropertyGroups();
 
-    Iterable<TaglibDescriptor> getTagLibs();
+    Collection<TaglibDescriptor> getTagLibs();
 }

@@ -19,6 +19,7 @@
 
 package javax.servlet.http;
 
+import java.io.Serializable;
 import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
@@ -58,11 +59,8 @@ import java.util.ResourceBundle;
  * @version $Rev$ $Date$
  */
 
-// XXX would implement java.io.Serializable too, but can't do that
-// so long as sun.servlet.* must run on older JDK 1.02 JVMs which
-// don't include that support.
-
-public class Cookie implements Cloneable {
+public class Cookie implements Cloneable, Serializable {
+    private static final long serialVersionUID = -6454587001725327448L;
 
     private static final String LSTRING_FILE =
             "javax.servlet.http.LocalStrings";
