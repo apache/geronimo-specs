@@ -31,7 +31,7 @@ import java.lang.annotation.Target;
                                                                                                               
 public @interface FaultAction {                                                                            
     
-    public Class className();
+    public Class<? extends Exception> className();
     
     public String value() default "";
                                                                                                               
