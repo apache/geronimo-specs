@@ -39,7 +39,7 @@ public @interface ConfigProperty {
 
     String defaultValue() default "";
 
-    String description() default "";
+    String[] description();
 
     boolean ignore() default false;
 

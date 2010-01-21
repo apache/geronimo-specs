@@ -27,13 +27,13 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Documented;
 
 /**
- * @since 1.6
  * @version $Rev$ $Date$
+ * @since 1.6
  */
 
 @Documented
-@Retention(value= RetentionPolicy.RUNTIME)
-@Target(value= ElementType.TYPE)
+@Retention(value = RetentionPolicy.RUNTIME)
+@Target(value = {})
 public @interface AuthenticationMechanism {
 
     public enum CredentialInterface {
@@ -44,6 +44,6 @@ public @interface AuthenticationMechanism {
 
     CredentialInterface credentialInterface() default CredentialInterface.PasswordCredential;
 
-    String description() default "";
-    
+    String[] description();
+
 }

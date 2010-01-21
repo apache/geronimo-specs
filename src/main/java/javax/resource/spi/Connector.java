@@ -59,8 +59,6 @@ public @interface Connector {
 
     String[] smallIcon() default {};
 
-    String specVersion() default "1.6";
-
     TransactionSupport.TransactionSupportLevel transactionSupport() default TransactionSupport.TransactionSupportLevel.NoTransaction;
 
     String vendorName() default "";
