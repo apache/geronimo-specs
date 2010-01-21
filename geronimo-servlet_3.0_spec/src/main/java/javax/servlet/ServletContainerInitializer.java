@@ -28,6 +28,6 @@ import java.util.Set;
  */
 public interface ServletContainerInitializer {
 
-    void onStartup(Set<Class<?>> classes, ServletContext ctx);
+    void onStartup(Set<Class<?>> classes, ServletContext ctx) throws ServletException;
 
 }

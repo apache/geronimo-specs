@@ -20,8 +20,8 @@
 
 package javax.servlet;
 
+import java.util.Collection;
 import java.util.EnumSet;
-import java.util.Map;
 
 /**
  * @version $Rev$ $Date$
@@ -34,9 +34,9 @@ public interface FilterRegistration extends Registration {
 
     void addMappingForUrlPatterns(EnumSet<DispatcherType> dispatcherTypes, boolean isMatchAfter, String ... urlPatterns);
 
-    Iterable<String> getServletNameMappings();
+    Collection<String> getServletNameMappings();
 
-    Iterable<String> getUrlPatternMappings();
+    Collection<String> getUrlPatternMappings();
 
     public interface Dynamic extends FilterRegistration, Registration.Dynamic {
 

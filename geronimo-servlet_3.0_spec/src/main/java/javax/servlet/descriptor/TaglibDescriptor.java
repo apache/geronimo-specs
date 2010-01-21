@@ -28,6 +28,6 @@ public interface TaglibDescriptor {
 
     String getTaglibLocation();
 
-    String getTablibURI();
+    String getTaglibURI();
 
 }
