@@ -46,13 +46,13 @@ public abstract class Provider {
     /**
      * Creates a service delegate object for the URL and service Qname
      */
-    public abstract ServiceDelegate createServiceDelegate(URL url, QName qname, Class class1);
+    public abstract ServiceDelegate createServiceDelegate(URL url, QName qname, Class<? extends Service> class1);
     
     /**
      * Creates a service delegate object for the URL, service Qname, and web service features.
      * @since 2.2
      */
-    public ServiceDelegate createServiceDelegate(URL url, QName qname, Class cls,
+    public ServiceDelegate createServiceDelegate(URL url, QName qname, Class<? extends Service> cls,
                                                  WebServiceFeature ... features) {
         throw new UnsupportedOperationException("JAX-WS 2.2 implementations must override this method.");        
     }
@@ -66,7 +66,7 @@ public abstract class Provider {
      * Creates an Endpoint object with the provided bindingId, implementation class, invoker, and web service features.
      * @since 2.2
      */
-    public Endpoint createEndpoint(String bindingId, Class cls, Invoker invoker, WebServiceFeature ... features) {
+    public Endpoint createEndpoint(String bindingId, Class<?> cls, Invoker invoker, WebServiceFeature ... features) {
         throw new UnsupportedOperationException("JAX-WS 2.2 implementations must override this method.");        
     }
     
