@@ -27,19 +27,19 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Documented;
 
 /**
- * @since 1.6
  * @version $Rev$ $Date$
+ * @since 1.6
  */
 @Documented
-@Retention(value= RetentionPolicy.RUNTIME)
-@Target(value= {ElementType.FIELD, ElementType.METHOD})
+@Retention(value = RetentionPolicy.RUNTIME)
+@Target(value = {ElementType.FIELD, ElementType.METHOD})
 public @interface ConfigProperty {
 
     boolean confidential() default false;
 
     String defaultValue() default "";
 
-    String[] description();
+    String[] description() default {};
 
     boolean ignore() default false;
 

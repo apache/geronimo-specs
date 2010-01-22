@@ -44,6 +44,6 @@ public @interface AuthenticationMechanism {
 
     CredentialInterface credentialInterface() default CredentialInterface.PasswordCredential;
 
-    String[] description();
+    String[] description() default {};
 
 }

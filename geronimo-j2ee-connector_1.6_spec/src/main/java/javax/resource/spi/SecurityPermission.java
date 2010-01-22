@@ -35,7 +35,7 @@ import java.lang.annotation.Documented;
 @Target(value = {})
 public @interface SecurityPermission {
 
-    String[] description();
+    String[] description() default {};
 
     String permissionSpec() default "";
 
