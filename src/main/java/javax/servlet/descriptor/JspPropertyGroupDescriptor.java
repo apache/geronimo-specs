@@ -38,9 +38,9 @@ public interface JspPropertyGroupDescriptor {
 
     String getErrorOnUndeclaredNamespace();
 
-    Collection<String> getIncludedCodas();
+    Collection<String> getIncludeCodas();
 
-    Collection<String> getIncludedPreludes();
+    Collection<String> getIncludePreludes();
 
     String getIsXml();
 
@@ -50,6 +50,6 @@ public interface JspPropertyGroupDescriptor {
 
     String getTrimDirectiveWhitespaces();
 
-    Collection<String> getUrlPatterms();
+    Collection<String> getUrlPatterns();
 
 }
