@@ -30,5 +30,5 @@ public interface JspConfigDescriptor {
 
     Collection<JspPropertyGroupDescriptor> getJspPropertyGroups();
 
-    Collection<TaglibDescriptor> getTagLibs();
+    Collection<TaglibDescriptor> getTaglibs();
 }
