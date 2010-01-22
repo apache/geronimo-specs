@@ -199,7 +199,31 @@ public class CompositeELResolver extends ELResolver {
 	}
 
     public Object invoke(ELContext context, Object base, Object method, Class<?>[] paramTypes, Object[] params) {
-        // TODO Auto-generated method stub
+        if (context == null) {
+            throw new NullPointerException("ELContext could not be null");
+        }
+        if (method == null || base == null) {
+            return null;
+        }
+        ExpressionFactory expressionFactory = (ExpressionFactory) context.getContext(ExpressionFactory.class);
+        if (expressionFactory == null) {
+            expressionFactory = ExpressionFactory.newInstance();
+        }
+        String targetMethod = (String) expressionFactory.coerceToType(method, String.class);
+        if (targetMethod.length() == 0) {
+            throw new ELException(new NoSuchMethodException());
+        }
+        context.setPropertyResolved(false);
+        if (context.getContext(ExpressionFactory.class) == null) {
+            context.putContext(ExpressionFactory.class, ExpressionFactory.newInstance());
+        }
+        Object retValue = null;
+        for (ELResolver resolver : resolvers) {
+            retValue = resolver.invoke(context, base, targetMethod, paramTypes, params);
+            if (context.isPropertyResolved()) {
+                return retValue;
+            }
+        }
         return null;
     }
 }
