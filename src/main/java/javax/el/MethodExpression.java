@@ -26,7 +26,7 @@ public abstract class MethodExpression extends Expression {
 
     public abstract Object invoke(ELContext context, Object[] params) throws NullPointerException, PropertyNotFoundException, MethodNotFoundException, ELException;
 
-    public boolean isParameterProvided() {
+    public boolean isParmetersProvided() {
         return false;
     }
 }
