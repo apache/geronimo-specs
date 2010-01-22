@@ -32,13 +32,13 @@ public @interface WebServiceRef {
 
     public String name() default "";
 
-    public Class<?> type();
+    public Class<?> type() default Object.class;
 
     public String mappedName() default "";
 
-    public Class<? extends Service> value();
+    public Class<? extends Service> value() default Service.class;
 
     public String wsdlLocation() default "";
 
-    public String lookup();
+    public String lookup() default "";
 }
