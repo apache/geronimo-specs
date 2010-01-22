@@ -40,8 +40,4 @@ public interface BindingProvider {
     public static final String SOAPACTION_USE_PROPERTY = "javax.xml.ws.soap.http.soapaction.use";
     public static final String SOAPACTION_URI_PROPERTY = "javax.xml.ws.soap.http.soapaction.uri";
     
-    public static final String FAULTTO_PROPERTY = "javax.xml.ws.addressing.faultto";
-    public static final String TO_PROPERTY = "javax.xml.ws.addressing.to";
-    public static final String REPLYTO_PROPERTY = "javax.xml.ws.addressing.replyto";
-    
 }
