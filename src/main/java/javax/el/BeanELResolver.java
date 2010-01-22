@@ -429,7 +429,7 @@ public class BeanELResolver extends ELResolver {
                     finalParamValues[iCurrentIndex] = Array.newInstance(varArgsClassType.getComponentType(), 0);
                 } else if (iCurrentIndex == params.length - 1 && varArgsClassType == params[iCurrentIndex].getClass()
                         && varArgsClassType.getClassLoader() == params[iCurrentIndex].getClass().getClassLoader()) {
-                    finalParamValues[iCurrentIndex] = paramTypes[iCurrentIndex];
+                    finalParamValues[iCurrentIndex] = params[iCurrentIndex];
                 } else {
                     Object targetArray = Array.newInstance(varArgsClassType.getComponentType(), params.length - iCurrentIndex);
                     Class<?> componentClassType = varArgsClassType.getComponentType();
