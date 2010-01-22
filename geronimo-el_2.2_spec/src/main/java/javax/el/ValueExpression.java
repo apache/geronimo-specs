@@ -32,8 +32,7 @@ public abstract class ValueExpression extends Expression {
 
     public abstract Object getValue(ELContext context) throws NullPointerException, PropertyNotFoundException, ELException;
 
-    public ValueReference getValueReference(ELContext context) {
-        //TODO
+    public ValueReference getValueReference(ELContext context){
         return null;
     }
 }
