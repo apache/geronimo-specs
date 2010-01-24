@@ -42,6 +42,13 @@ public abstract class ExpressionFactory {
 
     private static final String JAVA_RUNTIME_PROPERTY_FILE_LOCATION = "lib" + File.separator + "el.properties";
 
+    static {
+        try {
+            ELUtils.setCachedExpressionFactory(newInstance());
+        } catch (Exception e) {
+        }
+    }
+
     public abstract Object coerceToType(Object obj, Class<?> expectedType) throws ELException;
 
     public abstract ValueExpression createValueExpression(ELContext context, String expression, Class<?> expectedType) throws NullPointerException, ELException;

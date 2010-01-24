@@ -205,7 +205,10 @@ public class CompositeELResolver extends ELResolver {
         if (method == null || base == null) {
             return null;
         }
-        ExpressionFactory expressionFactory = (ExpressionFactory) context.getContext(ExpressionFactory.class);
+        ExpressionFactory expressionFactory = null;
+        if (ELUtils.isCachedExpressionFactoryEnabled()) {
+            expressionFactory = ELUtils.getCachedExpressionFactory();
+        }
         if (expressionFactory == null) {
             expressionFactory = ExpressionFactory.newInstance();
         }

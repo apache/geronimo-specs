@@ -32,28 +32,11 @@ public abstract class ELContext {
 
     private boolean resolved;
 
-    private static ExpressionFactory expressionFactory;
-
-    private static boolean useCachedExpressionFactory;
-
-    static{
-        useCachedExpressionFactory = Boolean.valueOf(System.getProperty("org.apache.geronimo.spec.el.useCachedExpressionFactory","true"));
-        if (useCachedExpressionFactory) {
-            try {
-                expressionFactory = ExpressionFactory.newInstance();
-            } catch (Exception e) {
-            }
-        }
-    }
-
     /**
      *
      */
     public ELContext() {
         this.resolved = false;
-        if (useCachedExpressionFactory) {
-            putContext(ExpressionFactory.class, expressionFactory);
-        }
     }
 
     public Object getContext(Class key) {

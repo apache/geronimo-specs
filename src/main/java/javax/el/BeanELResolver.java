@@ -357,7 +357,10 @@ public class BeanELResolver extends ELResolver {
         if (params == null) {
             params = new Object[0];
         }
-        ExpressionFactory expressionFactory = (ExpressionFactory) context.getContext(ExpressionFactory.class);
+        ExpressionFactory expressionFactory = null;
+        if (ELUtils.isCachedExpressionFactoryEnabled()) {
+            expressionFactory = ELUtils.getCachedExpressionFactory();
+        }
         if (expressionFactory == null) {
             expressionFactory = ExpressionFactory.newInstance();
         }
