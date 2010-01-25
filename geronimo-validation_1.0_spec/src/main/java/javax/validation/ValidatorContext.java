@@ -24,6 +24,8 @@ public interface ValidatorContext {
 
     ValidatorContext traversableResolver(TraversableResolver traversableResolver);
 
+    ValidatorContext constraintValidatorFactory(ConstraintValidatorFactory factory);
+
     Validator getValidator();
 }
 
