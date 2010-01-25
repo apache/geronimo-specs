@@ -16,7 +16,6 @@
  */
 package javax.validation.metadata;
 
-import java.lang.annotation.ElementType;
 import java.util.Set;
 
 /**
@@ -30,17 +29,5 @@ public interface ElementDescriptor {
 
     Set<ConstraintDescriptor<?>> getConstraintDescriptors();
 
-    ConstraintFinder findConstraints();
-
-    interface ConstraintFinder {
-        ConstraintFinder unorderedAndMatchingGroups(Class<?>... groups);
-
-        ConstraintFinder lookingAt(Scope scope);
-
-        ConstraintFinder declaredOn(ElementType... types);
-
-        Set<ConstraintDescriptor<?>> getConstraintDescriptors();
-
-        boolean hasConstraints();
-    }
+    Set<ConstraintDescriptor<?>> getUnorderedConstraintDescriptorsMatchingGroups(Class<?>... groups);
 }
