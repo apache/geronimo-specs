@@ -31,5 +31,5 @@ import static java.lang.annotation.ElementType.TYPE;
 @Retention(value = RUNTIME)
 public @interface StatefulTimeout {
     long value();
-    TimeUnit unit() default TimeUnit.MILLISECONDS;
+    TimeUnit unit() default TimeUnit.MINUTES;
 }
