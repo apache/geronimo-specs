@@ -21,14 +21,18 @@
 package javax.servlet;
 
 /**
+ * Dispatcher types.  Expected order is shown at
+ * http://javadoc.glassfish.org/javaee6/apidoc/javax/servlet/DispatcherType.html
+ * under "Enum constant detail", not "Enum constant summary"
+ *
  * @version $Rev$ $Date$
  * @since 3.0
  */
 public enum DispatcherType {
 
-    ASYNC,
-    ERROR,
     FORWARD,
     INCLUDE,
-    REQUEST
+    REQUEST,
+    ASYNC,
+    ERROR
 }

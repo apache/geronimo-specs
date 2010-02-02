@@ -21,13 +21,17 @@
 package javax.servlet;
 
 /**
- * @version $Rev:$ $Date:$
+ * Session tracking modes.  Expected order is shown at
+ * http://javadoc.glassfish.org/javaee6/apidoc/javax/servlet/SessionTrackingMode.html
+ * under "Enum constant details, not "Enum constant summary"
+ *
+ * @version $Rev$ $Date$
  * @since 3.0
  */
 public enum SessionTrackingMode {
 
     COOKIE,
-    SSL,
-    URL
+    URL,
+    SSL
 
 }
