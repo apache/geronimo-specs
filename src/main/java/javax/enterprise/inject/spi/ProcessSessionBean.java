@@ -25,7 +25,7 @@ package javax.enterprise.inject.spi;
  *
  * @param <X> bean class
  */
-public interface ProcessSessionBean<X> extends ProcessManagedBean<X>
+public interface ProcessSessionBean<X> extends ProcessManagedBean<Object>
 {
     /**
      * Returns ejb name.

@@ -18,6 +18,7 @@
  */
 package javax.enterprise.util;
 
+import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
@@ -30,8 +31,9 @@ import java.lang.reflect.Type;
  * @version $Rev$ $Date$
  */
 @SuppressWarnings("unchecked")
-public abstract class AnnotationLiteral<T extends Annotation> implements Annotation
+public abstract class AnnotationLiteral<T extends Annotation> implements Annotation, Serializable
 {
+    private static final long serialVersionUID = -1885320698638161810L;
 
     private Class<T> annotationType;
     
@@ -43,13 +45,12 @@ public abstract class AnnotationLiteral<T extends Annotation> implements Annotat
 
     }
 
-    @Override
     public Class<? extends Annotation> annotationType()
     {
         return annotationType;
     }
 
-    protected Class<T> getAnnotationType(Class<?> definedClazz)
+    private Class<T> getAnnotationType(Class<?> definedClazz)
     {
         Type superClazz = definedClazz.getGenericSuperclass();
         
@@ -127,7 +128,7 @@ public abstract class AnnotationLiteral<T extends Annotation> implements Annotat
         return false;
     }
 
-    protected Object callMethod(Object instance, Method method)
+    private Object callMethod(Object instance, Method method)
     {
         boolean access = method.isAccessible();
 

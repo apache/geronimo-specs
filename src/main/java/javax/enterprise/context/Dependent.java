@@ -46,7 +46,7 @@ import javax.inject.Scope;
  * 
  */
 @Scope
-@Target( { ElementType.TYPE, ElementType.METHOD, ElementType.FIELD })
+@Target( { ElementType.METHOD, ElementType.TYPE, ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 @Documented

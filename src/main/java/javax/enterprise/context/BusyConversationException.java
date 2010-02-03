@@ -41,6 +41,11 @@ public class BusyConversationException extends ContextException
 
     private static final long serialVersionUID = 4783816486073845333L;
     
+    public BusyConversationException()
+    {
+        
+    }
+    
     /**
      * Creates a new exception with message.
      * 

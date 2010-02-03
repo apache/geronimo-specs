@@ -35,7 +35,7 @@ import javax.inject.Qualifier;
  *
  * @version $Rev$ $Date$
  */
-@Target( { TYPE, METHOD, PARAMETER, FIELD })
+@Target( { TYPE, METHOD, FIELD, PARAMETER })
 @Retention(RUNTIME)
 @Documented
 @Qualifier
