@@ -17,11 +17,11 @@
 
 package javax.el;
 
-public class ELUtils {
+class ELUtils {
 
     private static volatile ExpressionFactory cachedExpressionFactory;
 
-    private static volatile boolean cachedExpressionFactoryEnabled = Boolean.valueOf(System.getProperty("org.apache.geronimo.spec.el.useCachedExpressionFactory", "true"));
+    private static boolean cachedExpressionFactoryEnabled = Boolean.valueOf(System.getProperty("org.apache.geronimo.spec.el.useCachedExpressionFactory", "true"));
 
     public static ExpressionFactory getCachedExpressionFactory() {
         return cachedExpressionFactory;
@@ -34,5 +34,4 @@ public class ELUtils {
     public static void setCachedExpressionFactory(ExpressionFactory expressionFactory) {
         cachedExpressionFactory = expressionFactory;
     }
-
 }
