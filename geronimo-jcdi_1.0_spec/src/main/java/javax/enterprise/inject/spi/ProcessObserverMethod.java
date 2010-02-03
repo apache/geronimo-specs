@@ -26,7 +26,7 @@ package javax.enterprise.inject.spi;
  * @param <X> bean class
  * @param <T> observed event type
  */
-public interface ProcessObserverMethod<X, T>
+public interface ProcessObserverMethod<T, X>
 {
     /**
      * Returns annotated method.
@@ -41,7 +41,7 @@ public interface ProcessObserverMethod<X, T>
      * 
      * @return observer method instance
      */
-    public ObserverMethod<X> getObserverMethod();
+    public ObserverMethod<T> getObserverMethod();
 
     /**
      * Add throwable.

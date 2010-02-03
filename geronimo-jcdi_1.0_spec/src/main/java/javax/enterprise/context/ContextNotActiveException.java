@@ -34,6 +34,11 @@ public class ContextNotActiveException extends ContextException
 
     private static final long serialVersionUID = 4783816486073845333L;
     
+    public ContextNotActiveException()
+    {
+        
+    }
+    
     /**
      * Creates a new exception with message.
      * 

@@ -18,6 +18,7 @@
  */
 package javax.enterprise.util;
 
+import java.io.Serializable;
 import java.lang.reflect.GenericArrayType;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -29,8 +30,10 @@ import java.lang.reflect.Type;
  * @param <T> wrapped type
  */
 @SuppressWarnings("unchecked")
-public abstract class TypeLiteral<T>
+public abstract class TypeLiteral<T> implements Serializable
 {
+    private static final long serialVersionUID = 6993258591899719600L;
+    
     private Type definedType;
 
     protected TypeLiteral()
@@ -69,7 +72,7 @@ public abstract class TypeLiteral<T>
         return rawType;
     }
 
-    protected Type getDefinedType(Class<?> clazz)
+    private Type getDefinedType(Class<?> clazz)
     {
         Type type = null;
 

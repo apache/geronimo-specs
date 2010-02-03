@@ -30,7 +30,7 @@ import java.lang.annotation.Target;
  * @version $Rev$ $Date$
  * 
  */
-@Target(value={ElementType.METHOD, ElementType.TYPE, ElementType.FIELD})
+@Target(value={ElementType.FIELD, ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface Typed

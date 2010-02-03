@@ -30,11 +30,11 @@ import java.lang.annotation.Target;
  * 
  * @see Conversation
  */
-@NormalScope(passivating=true)
-@Target( { ElementType.TYPE, ElementType.METHOD , ElementType.FIELD})
+@Target( { ElementType.TYPE, ElementType.METHOD, ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
-@Inherited
 @Documented
+@NormalScope(passivating = true)
+@Inherited
 public @interface ConversationScoped
 {
 
