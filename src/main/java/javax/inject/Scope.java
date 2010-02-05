@@ -30,9 +30,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Documented
 @Target(value=ElementType.ANNOTATION_TYPE)
 @Retention(value=RetentionPolicy.RUNTIME)
+@Documented
 public @interface Scope 
 {
     
