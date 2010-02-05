@@ -26,7 +26,7 @@ package javax.enterprise.inject;
  */
 public class AmbiguousResolutionException extends ResolutionException
 {
-    private static final long serialVersionUID = -870939668365532685L;
+    private static final long serialVersionUID = -2132733164534544788L ;
 
     public AmbiguousResolutionException()
     {
