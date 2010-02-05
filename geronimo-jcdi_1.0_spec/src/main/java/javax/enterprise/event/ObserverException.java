@@ -25,7 +25,7 @@ package javax.enterprise.event;
  */
 public class ObserverException extends RuntimeException
 {
-    private static final long serialVersionUID = -6392759733390664652L;
+    private static final long serialVersionUID = -801836224808304381L;
 
     /**
      * Creates new exception.

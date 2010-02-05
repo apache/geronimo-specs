@@ -28,7 +28,7 @@ package javax.enterprise.inject;
  */
 public class UnproxyableResolutionException extends ResolutionException
 {
-    private static final long serialVersionUID = 7022231794856380239L;
+    private static final long serialVersionUID = 1667539354548135465L;
 
     public UnproxyableResolutionException()
     {

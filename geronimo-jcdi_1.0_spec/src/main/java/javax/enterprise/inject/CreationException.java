@@ -20,7 +20,7 @@ package javax.enterprise.inject;
 
 public class CreationException extends InjectionException
 {
-    private static final long serialVersionUID = -3952691051791639005L;
+    private static final long serialVersionUID = 1002854668862145298L;
 
     public CreationException()
     {

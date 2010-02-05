@@ -26,9 +26,12 @@ public class CompositeELResolver extends ELResolver {
 
 	private ELResolver[] resolvers;
 
+    private ExpressionFactory expressionFactory;
+
 	public CompositeELResolver() {
 		this.size = 0;
 		this.resolvers = new ELResolver[2];
+		expressionFactory = ExpressionFactory.newInstance();
 	}
 
 	synchronized public void add(ELResolver elResolver) {

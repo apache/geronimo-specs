@@ -36,7 +36,7 @@ import javax.enterprise.context.spi.CreationalContext;
 public class NonexistentConversationException extends ContextException
 {
 
-    private static final long serialVersionUID = 4783816486073845333L;
+    private static final long serialVersionUID = -3599813072560026919L;
     
     public NonexistentConversationException()
     {

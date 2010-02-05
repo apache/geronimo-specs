@@ -35,9 +35,9 @@ import java.lang.annotation.RetentionPolicy;
  * given webbeans component, its name is null.
  * </p>
  */
+@Qualifier
 @Documented
 @Retention(value=RetentionPolicy.RUNTIME)
-@Qualifier
 public @interface Named 
 {
  
