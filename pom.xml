@@ -77,8 +77,8 @@
         </dependency>
         <dependency>
             <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-el_1.0_spec</artifactId>
-            <version>1.0.2</version>
+            <artifactId>geronimo-el_2.2_spec</artifactId>
+            <version>1.0-beta</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -92,7 +92,7 @@
             <artifactId>jsr250-api</artifactId>
             <version>1.0</version>
             <scope>provided</scope>
-        </dependency>        
+        </dependency>
     </dependencies>
 
     <build>

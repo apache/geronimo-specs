@@ -26,7 +26,7 @@ package javax.enterprise.inject;
  */
 public class IllegalProductException extends InjectionException
 {
-    private static final long serialVersionUID = 1490337449170464997L;
+    private static final long serialVersionUID = -6280627846071966243L;
 
     public IllegalProductException()
     {

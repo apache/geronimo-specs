@@ -25,7 +25,7 @@ package javax.enterprise.inject;
  */
 public class InjectionException extends RuntimeException
 {
-	private static final long serialVersionUID = -1311377696674849873L;
+	private static final long serialVersionUID = -2132733164534544788L;
 
 	public InjectionException()
     {
