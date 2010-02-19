@@ -68,9 +68,7 @@ public class ListELResolver extends ELResolver {
 			context.setPropertyResolved(true);
 			List list = (List) base;
 			int idx = coerce(property);
-			if (idx < 0 || idx >= list.size()) {
-				return null;
-			}
+			checkBounds(list, idx);
 			Object obj = list.get(idx);
 			return (obj != null) ? obj.getClass() : null;
 		}
@@ -97,6 +95,7 @@ public class ListELResolver extends ELResolver {
 			}
 
 			int idx = coerce(property);
+			checkBounds(list, idx);
 			try {
 				list.set(idx, value);
 			} catch (UnsupportedOperationException e) {
@@ -117,10 +116,7 @@ public class ListELResolver extends ELResolver {
 			context.setPropertyResolved(true);
 			List list = (List) base;
 			int idx = coerce(property);
-			if (idx < 0 || idx >= list.size()) {
-				throw new PropertyNotFoundException(
-						new ArrayIndexOutOfBoundsException(idx).getMessage());
-			}
+			checkBounds(list, idx);
 			return this.readOnly || UNMODIFIABLE.equals(list.getClass());
 		}
 
@@ -152,6 +148,13 @@ public class ListELResolver extends ELResolver {
 		return null;
 	}
 
+	private final static void checkBounds(List base, int idx) {
+	    if (idx < 0 || idx >= base.size()) {
+	        throw new PropertyNotFoundException(
+	                new ArrayIndexOutOfBoundsException(idx).getMessage());
+	    }
+	}
+	   
 	private final static int coerce(Object property) {
 		if (property instanceof Number) {
 			return ((Number) property).intValue();
