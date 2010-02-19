@@ -88,7 +88,13 @@ public class ArrayELResolver extends ELResolver {
 
 			int idx = coerce(property);
 			checkBounds(base, idx);
-			Array.set(base, idx, value);
+			try {
+			    Array.set(base, idx, value);
+			} catch (IllegalArgumentException e) {
+			    ClassCastException ex = new ClassCastException(e.getMessage());
+			    ex.initCause(e);
+			    throw ex;
+			}
 		}
 	}
 
