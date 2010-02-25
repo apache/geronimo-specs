@@ -20,9 +20,12 @@
 
 package javax.servlet;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.LinkedHashSet;
 
+import javax.servlet.annotation.HttpMethodConstraint;
 import javax.servlet.annotation.ServletSecurity;
 
 /**
@@ -40,27 +43,34 @@ public class ServletSecurityElement extends HttpConstraintElement {
         methodNames = Collections.emptySet();
     }
 
-    public ServletSecurityElement(HttpConstraintElement httpConstraintElement) {
-        super(httpConstraintElement.getEmptyRoleSemantic(), httpConstraintElement.getTransportGuarantee(), httpConstraintElement.getRolesAllowed());
+    public ServletSecurityElement(HttpConstraintElement defaultHttpConstraintElement) {
+        super(defaultHttpConstraintElement.getEmptyRoleSemantic(), defaultHttpConstraintElement.getTransportGuarantee(), defaultHttpConstraintElement.getRolesAllowed());
         httpMethodConstraints = Collections.emptySet();
         methodNames = Collections.emptySet();
     }
 
-    public ServletSecurityElement(Collection<HttpMethodConstraintElement> httpMethodConstraints) {
+    public ServletSecurityElement(Collection<HttpMethodConstraintElement> httpMethodConstraints) throws IllegalArgumentException {
         this.httpMethodConstraints = httpMethodConstraints;
-        this.methodNames = Collections.emptySet();
+        this.methodNames = toMethodNames(httpMethodConstraints);
     }
 
-    public ServletSecurityElement(HttpConstraintElement httpConstraintElement, Collection<HttpMethodConstraintElement> httpMethodConstraints) {
+    public ServletSecurityElement(HttpConstraintElement httpConstraintElement, Collection<HttpMethodConstraintElement> httpMethodConstraints) throws IllegalArgumentException {
         super(httpConstraintElement.getEmptyRoleSemantic(), httpConstraintElement.getTransportGuarantee(), httpConstraintElement.getRolesAllowed());
-        this.httpMethodConstraints = httpMethodConstraints;
-        this.methodNames = Collections.emptySet();
+        this.httpMethodConstraints = Collections.unmodifiableCollection(httpMethodConstraints);
+        this.methodNames = toMethodNames(httpMethodConstraints);
     }
 
-    public ServletSecurityElement(ServletSecurity servletSecurity) {
+    public ServletSecurityElement(ServletSecurity servletSecurity) throws IllegalArgumentException {
         super(servletSecurity.value().value(), servletSecurity.value().transportGuarantee(), servletSecurity.value().rolesAllowed());
-        httpMethodConstraints = Collections.emptySet();
-        methodNames = Collections.emptySet();
+        Collection<HttpMethodConstraintElement> httpMethodConstraints = new ArrayList<HttpMethodConstraintElement>();
+        for (HttpMethodConstraint constraint: servletSecurity.httpMethodConstraints()) {
+            httpMethodConstraints.add(new HttpMethodConstraintElement(constraint.value(),
+                    new HttpConstraintElement(constraint.emptyRoleSemantic(),
+                            constraint.transportGuarantee(),
+                            constraint.rolesAllowed())));
+        }
+        this.httpMethodConstraints = Collections.unmodifiableCollection(httpMethodConstraints);
+        methodNames = toMethodNames(httpMethodConstraints);
     }
 
     public Collection<HttpMethodConstraintElement> getHttpMethodConstraints() {
@@ -69,5 +79,15 @@ public class ServletSecurityElement extends HttpConstraintElement {
 
     public Collection<String> getMethodNames() {
         return methodNames;
+    }
+
+    private static Collection<String> toMethodNames(Collection<HttpMethodConstraintElement> constraints) throws IllegalArgumentException {
+        Collection<String> methodNames = new LinkedHashSet<String>(constraints.size());
+        for (HttpMethodConstraintElement constraint: constraints) {
+            if (!methodNames.add(constraint.getMethodName())) {
+                throw new IllegalArgumentException("duplicate method name: " + constraint.getMethodName());
+            }
+        }
+        return Collections.unmodifiableCollection(methodNames);
     }
 }
