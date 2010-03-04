@@ -39,24 +39,26 @@ import java.util.WeakHashMap;
 
 import javax.persistence.PersistenceException;
 
+import org.apache.geronimo.osgi.locator.ProviderLocator;
+
 /**
  * Contains Geronimo implemented code as required by the JPA spec.
  *
  * Finds/Creates the global {@link javax.persistence.spi.PersistenceProviderResolver}
- * 
+ *
  * Implementations must be thread-safe.
- * 
+ *
  * @since Java Persistence 2.0
  */
 public class PersistenceProviderResolverHolder {
 
     private static PersistenceProviderResolver persistenceResolver =
         new DefaultPersistenceProviderResolver();
-    
+
     public static PersistenceProviderResolver getPersistenceProviderResolver() {
         return persistenceResolver;
     }
-    
+
     public static void setPersistenceProviderResolver(PersistenceProviderResolver resolver) {
         if (persistenceResolver != null) {
             persistenceResolver.clearCachedProviders();
@@ -69,25 +71,25 @@ public class PersistenceProviderResolverHolder {
             persistenceResolver = new DefaultPersistenceProviderResolver();
         }
     }
-    
+
     /*
      * (non-Javadoc) Default implementation of a PersistenceProviderResolver
      * to use when none are provided.
-     * 
+     *
      * Geronimo implementation specific code.
      */
     private static class DefaultPersistenceProviderResolver implements PersistenceProviderResolver {
- 
+
         private static final String SERVICES_FILENAME = "META-INF/services/" +
             PersistenceProvider.class.getName();
 
         // cache of providers per class loader
         private volatile WeakHashMap<ClassLoader, List<PersistenceProvider>> providerCache =
             new WeakHashMap<ClassLoader, List<PersistenceProvider>>();
-        
+
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see javax.persistence.spi.PersistenceProviderResolver#getPersistenceProviders()
          */
         public List<PersistenceProvider> getPersistenceProviders() {
@@ -146,7 +148,25 @@ public class PersistenceProviderResolverHolder {
                 } catch (IOException e) {
                     throw new PersistenceException("Error trying to load " + SERVICES_FILENAME, e);
                 }
-                
+
+                try {
+
+                    // if we're running in an OSGi environment, there might be additional reqistered
+                    // persistence providers.   Process them also
+                    List<Class<?>> osgiProviders = ProviderLocator.locateAll(PersistenceProvider.class.getName());
+
+                    for (Class<?> provider : osgiProviders) {
+                        // add this instance to the cache of providers
+                        providers.add((PersistenceProvider) provider.newInstance());
+                    }
+                } catch (InstantiationException e) {
+                    throw new PersistenceException("Failed to instantiate provider osgi provider", e);
+                } catch (IllegalAccessException e) {
+                    throw new PersistenceException("Failed to access osgi provider", e);
+                } catch (ClassCastException e) {
+                    throw new PersistenceException("Invalid osgi provider definition", e);
+                }
+
                 // cache the discovered providers
                 providerCache.put(cl, providers);
             }
@@ -157,7 +177,7 @@ public class PersistenceProviderResolverHolder {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see javax.persistence.spi.PersistenceProviderResolver#clearCachedProviders()
          */
         public void clearCachedProviders() {

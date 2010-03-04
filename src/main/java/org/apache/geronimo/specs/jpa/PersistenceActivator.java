@@ -32,13 +32,14 @@ import org.osgi.framework.InvalidSyntaxException;
 import org.osgi.framework.ServiceReference;
 import org.osgi.util.tracker.ServiceTracker;
 import org.osgi.util.tracker.ServiceTrackerCustomizer;
+import org.apache.geronimo.osgi.locator.Activator;
 
 /**
  * Used to discover/resolve JPA providers in an OSGi environment.
  *
  * @version $Rev$ $Date$
  */
-public class PersistenceActivator implements BundleActivator, PersistenceProviderResolver {
+public class PersistenceActivator extends Activator implements BundleActivator, PersistenceProviderResolver {
 
     public static final String PERSISTENCE_PROVIDER = PersistenceProvider.class.getName();
 
@@ -50,9 +51,10 @@ public class PersistenceActivator implements BundleActivator, PersistenceProvide
      * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)
      */
     public void start(BundleContext arg0) throws Exception {
+        super.start(arg0);
         // bundle context for later ServiceReference lookups
         ctx = arg0;
-        
+
         // track providers as they register themselves
         ServiceTrackerCustomizer customizer = new PersistenceTracker(this);
         tracker = new ServiceTracker(ctx, PERSISTENCE_PROVIDER, customizer);
@@ -69,16 +71,18 @@ public class PersistenceActivator implements BundleActivator, PersistenceProvide
         // cleanup provider tracker
         tracker.close();
         tracker = null;
-        
+
         // cleanup providers and remove ourselves as a JPA provider resolver
         PersistenceProviderResolverHolder.setPersistenceProviderResolver(null);
         providers.clear();
-        
+
         // cleanup context
         ctx = null;
+
+        super.stop(arg0);
     }
 
-    
+
     /* (non-Javadoc)
      * @see javax.persistence.spi.PersistenceProviderResolver#clearCachedProviders()
      */
@@ -99,7 +103,7 @@ public class PersistenceActivator implements BundleActivator, PersistenceProvide
         providers.put(name, provider);
         return provider;
     }
-    
+
     protected void removeProvider(ServiceReference ref) {
         String name = (String) ref.getProperty(PERSISTENCE_PROVIDER);
         providers.remove(name);
