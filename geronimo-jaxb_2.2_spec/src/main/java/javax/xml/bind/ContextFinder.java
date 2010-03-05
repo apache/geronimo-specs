@@ -24,6 +24,8 @@ import java.io.InputStream;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
+import org.apache.geronimo.osgi.locator.ProviderLocator;
+
 class ContextFinder {
 
     private static final String PLATFORM_DEFAULT_FACTORY_CLASS = "com.sun.xml.bind.v2.ContextFactory";
@@ -164,7 +166,11 @@ class ContextFinder {
                 spiClass = Class.forName(className);
             }
         } catch (ClassNotFoundException e) {
-            throw new JAXBException("Provider " + className + " not found", e);
+            // last gasp, use the OSGi locator to try to find this
+            spiClass = ProviderLocator.locate(className);
+            if (spiClass == null) {
+                throw new JAXBException("Provider " + className + " not found", e);
+            }
         }
         return spiClass;
     }

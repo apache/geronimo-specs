@@ -59,6 +59,12 @@
             <version>1.0.2</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-osgi-locator</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <scm>
@@ -74,7 +80,14 @@
                 <artifactId>maven-bundle-plugin</artifactId>
                 <configuration>
                     <instructions>
+                        <Bundle-SymbolicName>${groupId}.${artifactId};singleton=true</Bundle-SymbolicName>
+                        <Specification-Title>JSR-222 Java Architecture for XML Binding 2.2</Specification-Title>
+                        <Specification-Vendor>Sun Microsystems, Inc.</Specification-Vendor>
+                        <Specification-Version>2.2</Specification-Version>
                         <Export-Package>javax.xml.bind*;version=2.2</Export-Package>
+                        <Import-Package>org.apache.geronimo.osgi.registry.api;resolution:=optional,*</Import-Package>
+                        <Private-Package>org.apache.geronimo.osgi.locator</Private-Package>
+                        <Bundle-Activator>org.apache.geronimo.osgi.locator.Activator</Bundle-Activator>
                     </instructions>
                 </configuration>
             </plugin>
