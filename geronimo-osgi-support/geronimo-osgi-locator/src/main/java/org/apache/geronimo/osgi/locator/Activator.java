@@ -20,7 +20,7 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleEvent;
 
 public class Activator implements BundleActivator {
-    private BundleContext bundleContext;
+    protected BundleContext bundleContext;
 
     public synchronized void start(BundleContext bundleContext) throws Exception {
         this.bundleContext = bundleContext;
