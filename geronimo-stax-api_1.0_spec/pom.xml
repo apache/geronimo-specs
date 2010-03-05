@@ -20,8 +20,8 @@
 
 <!-- $Rev$ $Date$ -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" 
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
@@ -36,17 +36,43 @@
     <artifactId>geronimo-stax-api_1.0_spec</artifactId>
     <packaging>bundle</packaging>
     <name>Streaming API for XML (STAX API 1.0)</name>
-    <version>1.0.1</version>
-
-    <properties>
-	    <geronimo.osgi.export.pkg>javax.xml.stream*</geronimo.osgi.export.pkg>
-        <geronimo.osgi.export.version>1.0</geronimo.osgi.export.version>
-	</properties>
+    <version>1.0.2-SNAPSHOT</version>
 
     <scm>
         <connection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-stax-api_1.0_spec-1.0.1</connection>
         <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/trunk/tags/geronimo-stax-api_1.0_spec-1.0.1</developerConnection>
         <url>https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-stax-api_1.0_spec-1.0.1</url>
     </scm>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-osgi-locator</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <configuration>
+                    <instructions>
+                        <Bundle-SymbolicName>${groupId}.${artifactId};singleton=true</Bundle-SymbolicName>
+                        <Specification-Title>JSR-137 Streaming API for XML 1.0</Specification-Title>
+                        <Specification-Vendor>Sun Microsystems, Inc.</Specification-Vendor>
+                        <Specification-Version>1.0</Specification-Version>
+                        <Export-Package>javax.xml.stream*;version=1.0.1</Export-Package>
+                        <Import-Package>org.apache.geronimo.osgi.registry.api;resolution:=optional,*</Import-Package>
+                        <Private-Package>org.apache.geronimo.osgi.locator</Private-Package>
+                        <Bundle-Activator>org.apache.geronimo.osgi.locator.Activator</Bundle-Activator>
+                    </instructions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
