@@ -25,6 +25,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Properties;
 
+import org.apache.geronimo.osgi.locator.ProviderLocator;
+
 /**
  * This class is used to locate factory classes for javax.xml.soap. It has package scope since it is
  * not part of JAXM and should not be accessed from other packages.
@@ -57,7 +59,18 @@ class FactoryFinder {
             }
             if (factory == null) {
                 classloader = FactoryFinder.class.getClassLoader();
-                factory = classloader.loadClass(factoryClassName);
+                try {
+                    factory = classloader.loadClass(factoryClassName);
+                } catch (ClassNotFoundException e) {
+                    // if the got a ClassNotFoundException using the provided class loader,
+                    // we might be running in an OSGi environment.  In that case, there's
+                    // an additional registry we can check to locate the provider.
+                    factory = ProviderLocator.locate(factoryClassName);
+                    // if not found here, then go ahead and throw the exception
+                    if (factory == null) {
+                        throw e;
+                    }
+                }
             }
             return factory.newInstance();
         } catch (ClassNotFoundException classnotfoundexception) {
