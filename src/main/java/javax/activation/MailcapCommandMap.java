@@ -37,6 +37,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.geronimo.osgi.locator.ProviderLocator;
+
 /**
  * @version $Rev$ $Date$
  */
@@ -469,7 +471,18 @@ public class MailcapCommandMap extends CommandMap {
         try {
             return (DataContentHandler) cl.loadClass(info.getCommandClass()).newInstance();
         } catch (ClassNotFoundException e) {
-            return null;
+            // last gasp, use the OSGi locator to try to find this
+            Class cls = ProviderLocator.locate(info.getCommandClass());
+            if (cls == null) {
+                return null;
+            }
+            try {
+                return (DataContentHandler)cls.newInstance();
+            } catch (IllegalAccessException ex) {
+                return null;
+            } catch (InstantiationException ex) {
+                return null;
+            }
         } catch (IllegalAccessException e) {
             return null;
         } catch (InstantiationException e) {
