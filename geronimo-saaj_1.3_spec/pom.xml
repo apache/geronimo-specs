@@ -80,7 +80,7 @@
                         <Bundle-SymbolicName>${groupId}.${artifactId};singleton=true</Bundle-SymbolicName>
                         <Specification-Title>JSR-67 Soap with Attachments API for Java 1.3</Specification-Title>
                         <Specification-Vendor>Sun Microsystems, Inc.</Specification-Vendor>
-                        <Specification-Version>1.0</Specification-Version>
+                        <Specification-Version>1.3</Specification-Version>
                         <Export-Package>javax.xml.soap*;version=1.3</Export-Package>
                         <Import-Package>org.apache.geronimo.osgi.registry.api;resolution:=optional,*</Import-Package>
                         <Private-Package>org.apache.geronimo.osgi.locator</Private-Package>
