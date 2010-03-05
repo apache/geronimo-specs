@@ -30,7 +30,9 @@ public class ProviderLocator {
     // our bundle context
     static private BundleContext context;
     // a service tracker for the registry service
-    static private ServiceTracker registryTracker;
+    // NB:  This is declared as just Object to avoid classloading issues if we're running
+    // outside of an OSGi environment.
+    static private Object registryTracker;
 
     private ProviderLocator() {
         // private constructor to prevent an instance from getting created.
@@ -45,7 +47,7 @@ public class ProviderLocator {
         context = c;
         // just create a tracker for our lookup service
         registryTracker = new ServiceTracker(context, ProviderRegistry.class.getName(), null);
-        registryTracker.open();
+        ((ServiceTracker)registryTracker).open();
     }
 
 
@@ -54,7 +56,7 @@ public class ProviderLocator {
      */
     public static void destroy() {
         // shutdown our tracking of the provider registry.
-        registryTracker.close();
+        ((ServiceTracker)registryTracker).close();
         registryTracker = null;
     }
 
@@ -76,7 +78,7 @@ public class ProviderLocator {
         // get the service, if it exists.  NB:  if the tracker exists, then we
         // were able to load the interface class in the first place, so we don't
         // need to protect against that.
-        ProviderRegistry registry = (ProviderRegistry)registryTracker.getService();
+        ProviderRegistry registry = (ProviderRegistry)((ServiceTracker)registryTracker).getService();
         // it is also a failure if the service is not there.
         if (registry == null) {
             return null;
@@ -102,7 +104,7 @@ public class ProviderLocator {
         // get the service, if it exists.  NB:  if the tracker exists, then we
         // were able to load the interface class in the first place, so we don't
         // need to protect against that.
-        ProviderRegistry registry = (ProviderRegistry)registryTracker.getService();
+        ProviderRegistry registry = (ProviderRegistry)((ServiceTracker)registryTracker).getService();
         // it is also a failure if the service is not there.
         if (registry == null) {
             return new ArrayList<Class<?>>();

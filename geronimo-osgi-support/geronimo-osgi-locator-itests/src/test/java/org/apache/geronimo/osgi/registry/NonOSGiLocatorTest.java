@@ -35,6 +35,16 @@ import org.apache.geronimo.osgi.locator.ProviderLocator;
 public class NonOSGiLocatorTest {
     @Test
     public void testLocator() throws Exception {
+        // this is verifying that the ProviderLocater can be called when used outside of
+        // an OSGi framework without causing an exception.  This will verify that the OSGi
+        // classes are not on the classpath before attempting this.
+        try {
+            this.getClass().getClassLoader().loadClass("org.osgi.util.tracker.ServiceTracker");
+            fail("OSGi framework classes must not be on the class path for this test");
+        } catch (ClassNotFoundException e) {
+            // this should happen if the test is run correctly.
+        }
+
         // Run outside of an OSGi framework, this should just return null without
         // causing an error
         Class<?> target = ProviderLocator.locate("org.apache.geronimo.osgi.registry.TestTarget");

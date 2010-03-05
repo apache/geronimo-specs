@@ -21,6 +21,7 @@ package org.apache.geronimo.osgi.registry;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import org.apache.geronimo.osgi.locator.Activator;
 import org.apache.geronimo.osgi.locator.ProviderLocator;
@@ -34,11 +35,11 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ops4j.pax.exam.CoreOptions;
+import static org.ops4j.pax.exam.CoreOptions.bundle;
 import static org.ops4j.pax.exam.CoreOptions.equinox;
 import static org.ops4j.pax.exam.CoreOptions.felix;
 import static org.ops4j.pax.exam.CoreOptions.options;
 import static org.ops4j.pax.exam.CoreOptions.provision;
-import static org.ops4j.pax.exam.CoreOptions.bundle;
 import static org.ops4j.pax.exam.CoreOptions.wrappedBundle;
 import org.ops4j.pax.exam.Customizer;
 import org.ops4j.pax.exam.Inject;
@@ -52,15 +53,15 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.Constants;
 
 @RunWith(JUnit4TestRunner.class)
-public class OSGiLocatorMultipleProviderTest {
+public class OSGiLocatorTest {
     @Inject
     protected BundleContext bundleContext;
 
     @org.ops4j.pax.exam.junit.Configuration
     public static Option[] configuration() throws Exception {
         Option[] options = options(
-            // the target code we're testing...loaded directly from the project build directory
-            bundle(new File(System.getProperty("build.bundle.name")).toURI().toURL().toString()),
+            // the target code we're testing...
+            mavenBundle("org.apache.geronimo.specs", "geronimo-osgi-registry"),
             mavenBundle("org.ops4j.pax.logging", "pax-logging-api"),
             felix(),
             equinox().version("3.5.0"),
@@ -85,15 +86,18 @@ public class OSGiLocatorMultipleProviderTest {
                 }
             },
             provision(newBundle()
+                // need to ensure we have all of the loaded test classes
                 .add(TestTarget.class)
-                .add("OSGI-INF/providers/org.apache.geronimo.osgi.registry.TestTarget", OSGiLocatorMultipleProviderTest.class.getResource("/test/OSGI-INF/providers/org.apache.geronimo.osgi.registry.TestTarget"))
-                .set(Constants.BUNDLE_SYMBOLICNAME, "TestTargetProvider")
-                .set(Constants.BUNDLE_VERSION, "2.0.0")
-                .build(withBnd())),
-            provision(newBundle()
                 .add(TestTargetTwo.class)
-                .add("OSGI-INF/providers/org.apache.geronimo.osgi.registry.TestTarget", OSGiLocatorMultipleProviderTest.class.getResource("/test/OSGI-INF/providers/org.apache.geronimo.osgi.registry.TestTarget2"))
-                .set( Constants.BUNDLE_SYMBOLICNAME, "TestTarget2Provider" )
+                .add(TestTarget2.class)
+                .add(TestTarget3.class)
+                // we're going to define multiple providers under different interface names, using a variety of
+                // control file types.
+                .add("OSGI-INF/providers/org.apache.geronimo.osgi.registry.TestTarget", OSGiLocatorTest.class.getResource("/test/OSGI-INF/providers/org.apache.geronimo.osgi.registry.TestTarget"))
+                .add("OSGI-INF/providers/org.apache.geronimo.osgi.registry.TestTarget2", OSGiLocatorTest.class.getResource("/test/OSGI-INF/providers/org.apache.geronimo.osgi.registry.TestTarget2"))
+                .add("OSGI-INF/providers/org.apache.geronimo.osgi.registry.TestTarget3", OSGiLocatorTest.class.getResource("/test/OSGI-INF/providers/org.apache.geronimo.osgi.registry.DefaultTarget"))
+                .add("OSGI-INF/providers/org.apache.geronimo.osgi.registry.TestTarget4", OSGiLocatorTest.class.getResource("/test/OSGI-INF/providers/org.apache.geronimo.osgi.registry.MultipleTarget"))
+                .set(Constants.BUNDLE_SYMBOLICNAME, "TestTargetProvider")
                 .set(Constants.BUNDLE_VERSION, "2.0.0")
                 .build(withBnd()))
         );
@@ -105,35 +109,66 @@ public class OSGiLocatorMultipleProviderTest {
     @Test
     public void testLocator() throws Exception {
         Bundle bundle1 = getInstalledBundle("TestTargetProvider");
-        Bundle bundle2 = getInstalledBundle("TestTarget2Provider");
         // check for the target class a verify we got the correct one
         Class<?> target = ProviderLocator.locate("org.apache.geronimo.osgi.registry.TestTarget");
         assertNotNull(target);
         // this should return the given class instance
         assertEquals("org.apache.geronimo.osgi.registry.TestTarget", target.getName());
 
+        List<Class<?>> targets = ProviderLocator.locateAll("org.apache.geronimo.osgi.registry.TestTarget");
+        // should return one entry and it should be the same class mapping
+        assertEquals(1, targets.size());
+        assertEquals("org.apache.geronimo.osgi.registry.TestTarget", targets.get(0).getName());
+
+        // now load the second target interface.  This is really the same as the first, but
+        // uses a different commenting style.
+        target = ProviderLocator.locate("org.apache.geronimo.osgi.registry.TestTarget2");
+        assertNotNull(target);
+        // this should return the given class instance
+        assertEquals("org.apache.geronimo.osgi.registry.TestTargetTwo", target.getName());
+
+        targets = ProviderLocator.locateAll("org.apache.geronimo.osgi.registry.TestTarget2");
+        // should return one entry and it should be the same class mapping
+        assertEquals(1, targets.size());
+        assertEquals("org.apache.geronimo.osgi.registry.TestTargetTwo", targets.get(0).getName());
+
+        // this uses a default loading style that derives the implementation class from the control
+        // file name.
+        target = ProviderLocator.locate("org.apache.geronimo.osgi.registry.TestTarget3");
+        assertNotNull(target);
+        // this should return the given class instance
+        assertEquals("org.apache.geronimo.osgi.registry.TestTarget3", target.getName());
+
+        targets = ProviderLocator.locateAll("org.apache.geronimo.osgi.registry.TestTarget3");
+        // should return one entry and it should be the same class mapping
+        assertEquals(1, targets.size());
+        assertEquals("org.apache.geronimo.osgi.registry.TestTarget3", targets.get(0).getName());
+
+
+        // this mapping defines multiple classes for the single key.  The first should be returned for
+        // a singleton request, the locate all should return in definition order
+        target = ProviderLocator.locate("org.apache.geronimo.osgi.registry.TestTarget4");
+        assertNotNull(target);
+        // this should return the given class instance
+        assertEquals("org.apache.geronimo.osgi.registry.TestTarget", target.getName());
+
+        targets = ProviderLocator.locateAll("org.apache.geronimo.osgi.registry.TestTarget4");
+        // should return one entry and it should be the same class mapping
+        assertEquals(2, targets.size());
+        assertEquals("org.apache.geronimo.osgi.registry.TestTarget", targets.get(0).getName());
+        assertEquals("org.apache.geronimo.osgi.registry.TestTarget2", targets.get(1).getName());
+
         // now stop the first bundle, which should shuffle the deck
         bundle1.stop();
-
-// ideally, we'd try loading again and verify that this reverts to the second registered
-// class.  Unfortunately, there appears to be a strange error in the PAX exam/tinybundles combination.
-// When we provision these two dynamically loaded bundles this way, for some strange reason we're
-// unable to load any classes from whichever bundle is created second.  So we'll just stop the
-// the second bundle and verify that a locate() call returns null.
-
-
-        // The returned class should now be from the second provisioned bundle
-//      target = ProviderLocator.locate("org.apache.geronimo.osgi.registry.TestTarget");
-//      assertNotNull(target);
-        // this should return the given class instance
-//      assertEquals("org.apache.geronimo.osgi.registry.TestTarget", target.getName());
-
-        // now stop the the second bundle.  There should not be anything registred with that name now.
-        bundle2.stop();
 
         // The returned class should now be null since there are no registered providers
         target = ProviderLocator.locate("org.apache.geronimo.osgi.registry.TestTarget");
         assertNull(target);
+
+        targets = ProviderLocator.locateAll("org.apache.geronimo.osgi.registry.TestTarget3");
+        // should return an empty list
+        assertNotNull(targets);
+        assertEquals(0, targets.size());
     }
 
     protected Bundle getInstalledBundle(String symbolicName) {
