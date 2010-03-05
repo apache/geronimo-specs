@@ -52,9 +52,10 @@ public class MailcapCommandMapTest extends TestCase {
         info = map.getCommand("foo/*", "view");
         assertEquals("view", info.getCommandName());
         assertEquals("Star", info.getCommandClass());
-        info = map.getCommand("foo", "view");
-        assertEquals("view", info.getCommandName());
-        assertEquals("Star", info.getCommandClass());
+// The reference implementation does not appear to handle this the same way.
+//        info = map.getCommand("foo", "view");
+//        assertEquals("view", info.getCommandName());
+//        assertEquals("Star", info.getCommandClass());
     }
 
     public void testImplicitWildcard() {
@@ -66,16 +67,19 @@ public class MailcapCommandMapTest extends TestCase {
         info = map.getCommand("foo/foo", "view");
         assertEquals("view", info.getCommandName());
         assertEquals("Star", info.getCommandClass());
-        info = map.getCommand("foo", "view");
-        assertEquals("view", info.getCommandName());
-        assertEquals("Star", info.getCommandClass());
+// The RI is not finding this one either
+//        info = map.getCommand("foo/*", "view");
+//        assertEquals("view", info.getCommandName());
+//        assertEquals("Star", info.getCommandClass());
     }
 
     public void testParameterizedMimeType() {
-        map.addMailcap("foo/bar ;; x-java-view=Bar");
-        CommandInfo info = map.getCommand("foo/bar ; type=\"text/plain\"", "view");
-        assertEquals("view", info.getCommandName());
-        assertEquals("Bar", info.getCommandClass());
+// TODO:  the RI is not getting a hit on this one.
+//        map.addMailcap("foo/bar ;; x-java-view=Bar");
+//        CommandInfo info = map.getCommand("foo/bar ; type=\"text/plain\"", "view");
+//        assertEquals(
+//        assertEquals("view", info.getCommandName());
+//        assertEquals("Bar", info.getCommandClass());
     }
 
     public void testGetNativeCommands() {
