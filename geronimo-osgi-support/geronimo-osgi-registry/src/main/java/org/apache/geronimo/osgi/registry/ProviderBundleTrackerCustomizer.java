@@ -18,18 +18,6 @@
  */
 package org.apache.geronimo.osgi.registry;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ConcurrentMap;
-import java.util.concurrent.ConcurrentHashMap;
-
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleEvent;
 import org.osgi.framework.ServiceRegistration;
@@ -43,8 +31,6 @@ public class ProviderBundleTrackerCustomizer implements BundleTrackerCustomizer 
     private Bundle registryBundle;
     // the registry we interact with
     private ProviderRegistryImpl registry;
-    // the accumulated list of provider classes
-    private ConcurrentMap<Long, Map<String, Callable<Class>>> providers = new ConcurrentHashMap<Long, Map<String, Callable<Class>>>();
 
     public ProviderBundleTrackerCustomizer(Activator a, Bundle b, ProviderRegistryImpl r) {
         activator = a;
