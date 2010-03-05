@@ -27,9 +27,11 @@ import java.util.Properties;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
+import org.apache.geronimo.osgi.locator.ProviderLocator;
+
 /*
  * Here is the beef on the finding the Factory Class
- * 
+ *
  * 1. Use the javax.xml.stream.XMLInputFactory system property. 2. Use the
  * properties file "lib/stax.properties" in the JRE directory. This
  * configuration file is in standard java.util.Properties format and contains
@@ -39,8 +41,8 @@ import java.io.InputStreamReader;
  * API will look for a classname in the file
  * META-INF/services/javax.xml.stream.XMLInputFactory in jars available to the
  * runtime. Platform default XMLInputFactory instance.
- * 
- * If the user provided a classloader we'll use that...if not, we'll assume the 
+ *
+ * If the user provided a classloader we'll use that...if not, we'll assume the
  * classloader of this class.
  */
 
@@ -117,9 +119,23 @@ class FactoryLocator {
 
 			return factoryClass.newInstance();
 		} catch (ClassNotFoundException x) {
-			throw new FactoryConfigurationError("Requested factory "
-					+ className + " cannot be located.  Classloader ="
-					+ classLoader.toString(), x);
+			// if the got a ClassNotFoundException using the provided class loader,
+			// we might be running in an OSGi environment.  In that case, there's
+			// an additional registry we can check to locate the provider.
+			Class factoryClass = ProviderLocator.locate(className);
+			// if not found here, then go ahead and throw the exception
+			if (factoryClass == null) {
+				throw new FactoryConfigurationError("Requested factory "
+						+ className + " cannot be located.  Classloader ="
+						+ classLoader.toString(), x);
+			}
+			// another attempt at instantiating this
+			try {
+				return factoryClass.newInstance();
+			} catch (Exception ex) {
+				throw new FactoryConfigurationError("Requested factory "
+						+ className + " could not be instantiated: " + ex, ex);
+			}
 		} catch (Exception x) {
 			throw new FactoryConfigurationError("Requested factory "
 					+ className + " could not be instantiated: " + x, x);
