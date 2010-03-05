@@ -29,6 +29,8 @@ import java.lang.reflect.Method;
 import java.security.PrivilegedAction;
 import java.util.Properties;
 
+import org.apache.geronimo.osgi.locator.ProviderLocator;
+
 /**
  * This code is designed to implement the pluggability
  * feature and is designed to both compile and run on JDK version 1.1 and
@@ -61,13 +63,13 @@ class FactoryFinder {
      */
     private static ClassLoader findClassLoader()
             throws ConfigurationError {
-        // REVIEW This doPriv block may be unnecessary because this method is private and 
-        // the caller already has a doPriv.  I added the doPriv in case someone changes the 
+        // REVIEW This doPriv block may be unnecessary because this method is private and
+        // the caller already has a doPriv.  I added the doPriv in case someone changes the
         // visibility of this method to non-private.
         ClassLoader cl = (ClassLoader)
             doPrivileged( new PrivilegedAction() {
                 public Object run() {
-                
+
                     Method m = null;
 
                     try {
@@ -94,7 +96,7 @@ class FactoryFinder {
             }
         );
         return cl;
-        
+
     }
 
     /**
@@ -112,14 +114,14 @@ class FactoryFinder {
     private static Object newInstance(String className,
                                       ClassLoader classLoader)
             throws ConfigurationError {
-        
+
         final ClassLoader iClassLoader = classLoader;
         final String iClassName = className;
-        
-        // REVIEW This doPriv block may be unnecessary because this method is private and 
-        // the caller already has a doPriv.  I added the doPriv in case someone changes the 
+
+        // REVIEW This doPriv block may be unnecessary because this method is private and
+        // the caller already has a doPriv.  I added the doPriv in case someone changes the
         // visibility of this method to non-private.
-        Object obj = 
+        Object obj =
             doPrivileged( new PrivilegedAction() {
                 public Object run() {
                     try {
@@ -130,7 +132,16 @@ class FactoryFinder {
                                 // try again
                             }
                         }
-                        return Class.forName(iClassName).newInstance();
+                        try {
+                            return Class.forName(iClassName).newInstance();
+                        } catch (ClassNotFoundException x) {
+                            // last gasp, use the OSGi locator to try to find this
+                            Class cls = ProviderLocator.locate(iClassName);
+                            if (cls == null) {
+                                throw x;
+                            }
+                            return cls.newInstance();
+                        }
                     } catch (ClassNotFoundException x) {
                         throw new ConfigurationError(
                                 "Provider " + iClassName + " not found", x);
@@ -158,17 +169,17 @@ class FactoryFinder {
      */
     static Object find(String factoryId, String fallbackClassName)
             throws ConfigurationError {
-        
+
         final String iFactoryId = factoryId;
         final String iFallbackClassName = fallbackClassName;
-        
-        Object obj = 
+
+        Object obj =
             doPrivileged( new PrivilegedAction() {
                 public Object run() {
                     debugPrintln("debug is on");
-                    
+
                     ClassLoader classLoader = findClassLoader();
-                    
+
                     // Use the system property first
                     try {
                         String systemProp =
@@ -179,7 +190,7 @@ class FactoryFinder {
                         }
                     } catch (SecurityException se) {
                     }
-                    
+
                     // try to read from $java.home/lib/xml.properties
                     try {
                         String javah = System.getProperty("java.home");
@@ -196,7 +207,7 @@ class FactoryFinder {
                     } catch (Exception ex) {
                         if (debug) ex.printStackTrace();
                     }
-                    
+
                     String serviceId = "META-INF/services/" + iFactoryId;
                     // try to find services in CLASSPATH
                     try {
@@ -206,10 +217,10 @@ class FactoryFinder {
                         } else {
                             is = classLoader.getResourceAsStream(serviceId);
                         }
-                        
+
                         if (is != null) {
                             debugPrintln("found " + serviceId);
-                            
+
                             // Read the service provider name in UTF-8 as specified in
                             // the jar spec.  Unfortunately this fails in Microsoft
                             // VJ++, which does not implement the UTF-8
@@ -232,10 +243,10 @@ class FactoryFinder {
                             } catch (java.io.UnsupportedEncodingException e) {
                                 rd = new BufferedReader(new InputStreamReader(is));
                             }
-                            
+
                             String factoryClassName = rd.readLine();
                             rd.close();
-                            
+
                             if (factoryClassName != null &&
                                     ! "".equals(factoryClassName)) {
                                 debugPrintln("loaded from services: " + factoryClassName);
@@ -245,12 +256,12 @@ class FactoryFinder {
                     } catch (Exception ex) {
                         if (debug) ex.printStackTrace();
                     }
-                    
+
                     if (iFallbackClassName == null) {
                         throw new ConfigurationError(
                                 "Provider for " + iFactoryId + " cannot be found", null);
                     }
-                    
+
                     debugPrintln("loaded from fallback value: " + iFallbackClassName);
                     return newInstance(iFallbackClassName, classLoader);
                 }
