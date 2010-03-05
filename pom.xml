@@ -102,7 +102,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-osgi-support</artifactId>
+            <artifactId>geronimo-osgi-locator</artifactId>
             <version>1.0.0-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
@@ -133,9 +133,9 @@ true</Bundle-SymbolicName>
                         <Specification-Title>JSR-317 Java Persistence API 2.0</Specification-Title>
                         <Specification-Vendor>Sun Microsystems, Inc.</Specification-Vendor>
                         <Specification-Version>2.0</Specification-Version>
-                        <Private-Package>org.apache.geronimo.specs.jpa.*;org.apache.geronimo.osgi.locator;-split-package:=merge-first</Private-Package>
+                        <Private-Package>org.apache.geronimo.specs.jpa.*;org.apache.geronimo.osgi.locator</Private-Package>
                         <Export-Package>javax.persistence.*;version=2.0</Export-Package>
-                        <Import-Package>javax.persistence.*;version=2.0,javax.sql;resolution:=optional,org.osgi.framework;resolution:=optional,org.osgi.util.tracker;resolution:=optional,org.apache.geronimo.osgi.registry.api</Import-Package>
+                        <Import-Package>javax.persistence.*;version=2.0,javax.sql;resolution:=optional,org.osgi.framework;resolution:=optional,org.osgi.util.tracker;resolution:=optional,org.apache.geronimo.osgi.registry.api;resolution:=optional</Import-Package>
                         <!-- Eclipse metadata
                         <Eclipse-Autostart>false</Eclipse-Autostart>
                         <Bundle-ClassPath>.</Bundle-ClassPath>
