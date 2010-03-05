@@ -32,17 +32,13 @@
 
     <groupId>org.apache.geronimo.specs</groupId>
     <artifactId>geronimo-osgi-support</artifactId>
-    <packaging>bundle</packaging>
-    <name>OSGI factory registry</name>
+    <packaging>pom</packaging>
+    <name>OSGI spec bundle support</name>
     <version>1.0.0-SNAPSHOT</version>
 
     <description>
-This bundle contains an extender that facilitates the use
-of Geronimo spec providers (components typically plugged in to the
-JRE through META-INF/services resources).  The service created by this
-extender will maintain a registry of factory class implementations that
-can be used by the spec bundles to locate factory classes that reside in
-other bundles.
+This project is a set of bundles and integration tests for implementing
+OSGi-specific lookup in the Geronimo spec projects.
     </description>
 
     <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
@@ -63,146 +59,127 @@ other bundles.
         <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-osgi-support/</url>
     </scm>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.osgi</groupId>
-            <artifactId>org.osgi.core</artifactId>
-            <version>4.2.0</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.osgi</groupId>
-            <artifactId>org.osgi.compendium</artifactId>
-            <version>4.2.0</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.ops4j.pax.exam</groupId>
-            <artifactId>pax-exam</artifactId>
-            <version>1.2.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.ops4j.pax.exam</groupId>
-            <artifactId>pax-exam-junit</artifactId>
-            <version>1.2.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.ops4j.pax.exam</groupId>
-            <artifactId>pax-exam-container-default</artifactId>
-            <version>1.2.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.ops4j.pax.exam</groupId>
-            <artifactId>pax-exam-junit-extender-impl</artifactId>
-            <version>1.2.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.ops4j.pax.swissbox</groupId>
-            <artifactId>pax-swissbox-tinybundles</artifactId>
-            <version>1.2.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.ops4j.pax.logging</groupId>
-            <artifactId>pax-logging-api</artifactId>
-            <version>1.4</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.felix</groupId>
-            <artifactId>org.apache.felix.configadmin</artifactId>
-            <version>1.2.4</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.apache.geronimo.specs</groupId>
+                <artifactId>geronimo-osgi-registry</artifactId>
+                <version>${version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.geronimo.specs</groupId>
+                <artifactId>geronimo-osgi-locator</artifactId>
+                <version>${version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.osgi</groupId>
+                <artifactId>org.osgi.core</artifactId>
+                <version>4.2.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.osgi</groupId>
+                <artifactId>org.osgi.compendium</artifactId>
+                <version>4.2.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ops4j.pax.exam</groupId>
+                <artifactId>pax-exam</artifactId>
+                <version>1.2.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ops4j.pax.exam</groupId>
+                <artifactId>pax-exam-junit</artifactId>
+                <version>1.2.0</version>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.5</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ops4j.pax.exam</groupId>
+                <artifactId>pax-exam-container-default</artifactId>
+                <version>1.2.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ops4j.pax.exam</groupId>
+                <artifactId>pax-exam-junit-extender-impl</artifactId>
+                <version>1.2.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ops4j.pax.swissbox</groupId>
+                <artifactId>pax-swissbox-tinybundles</artifactId>
+                <version>1.2.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ops4j.pax.logging</groupId>
+                <artifactId>pax-logging-api</artifactId>
+                <version>1.4</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>org.apache.felix.configadmin</artifactId>
+                <version>1.2.4</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
-      <plugins>
-        <plugin>
-            <groupId>org.apache.servicemix.tooling</groupId>
-            <artifactId>depends-maven-plugin</artifactId>
-            <version>1.1</version>
-            <executions>
-                <execution>
-                    <id>generate-depends-file</id>
-                    <goals>
-                        <goal>generate-depends-file</goal>
-                    </goals>
-                </execution>
-            </executions>
-        </plugin>
-        <plugin>
-            <groupId>org.apache.felix</groupId>
-            <artifactId>maven-bundle-plugin</artifactId>
-            <configuration>
-                <instructions>
-                  <Export-Package>org.apache.geronimo.osgi.registry.api;version=1.0</Export-Package>
-                  <Import-Package>
-                      *
-                  </Import-Package>
-                  <Private-Package>
-                      org.apache.geronimo.osgi.registry,org.apache.geronimo.osgi.locator
-                  </Private-Package>
-                  <Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
-                  <Bundle-Activator>org.apache.geronimo.osgi.registry.Activator</Bundle-Activator>
-                </instructions>
-            </configuration>
-        </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <redirectTestOutputToFile>true</redirectTestOutputToFile>
-                    <failIfNoTests>false</failIfNoTests>
-                    <includes>
-                        <include>**/NonOSGi*.java</include>
-                    </includes>
-                    <excludes>
-                        <exclude>**/OSGi*.java</exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>failsafe-maven-plugin</artifactId>
-                <version>2.4.3-alpha-1</version>
-                <executions>
-                    <execution>
-                        <id>integration-test</id>
-                        <goals>
-                            <goal>integration-test</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>verify</id>
-                        <goals>
-                            <goal>verify</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <redirectTestOutputToFile>true</redirectTestOutputToFile>
-                    <failIfNoTests>false</failIfNoTests>
-                    <includes>
-                        <include>**/OSGiLocatorTest.java</include>
-                        <include>**/OSGiLocatorMultipleProviderTest.java</include>
-                    </includes>
-                    <excludes>
-                        <exclude>**/NonOSGi*.java</exclude>
-                    </excludes>
-                    <systemProperties>
-                      <property>
-                        <name>build.bundle.name</name>
-                        <value>${basedir}/target/${project.artifactId}-${project.version}.jar</value>
-                      </property>
-                    </systemProperties>
-                </configuration>
-            </plugin>
-      </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.servicemix.tooling</groupId>
+                    <artifactId>depends-maven-plugin</artifactId>
+                    <version>1.1</version>
+                    <executions>
+                        <execution>
+                            <id>generate-depends-file</id>
+                            <goals>
+                                <goal>generate-depends-file</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <configuration>
+                        <redirectTestOutputToFile>true</redirectTestOutputToFile>
+                        <failIfNoTests>false</failIfNoTests>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>failsafe-maven-plugin</artifactId>
+                    <version>2.4.3-alpha-1</version>
+                    <executions>
+                        <execution>
+                            <id>integration-test</id>
+                            <goals>
+                                <goal>integration-test</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>verify</id>
+                            <goals>
+                                <goal>verify</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <redirectTestOutputToFile>true</redirectTestOutputToFile>
+                        <failIfNoTests>false</failIfNoTests>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
+
+    <modules>
+        <module>geronimo-osgi-registry</module>
+        <module>geronimo-osgi-locator</module>
+        <module>geronimo-osgi-registry-itests</module>
+        <module>geronimo-osgi-locator-itests</module>
+    </modules>
 
 </project>
