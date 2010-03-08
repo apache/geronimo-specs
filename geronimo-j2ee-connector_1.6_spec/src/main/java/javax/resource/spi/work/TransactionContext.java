@@ -31,6 +31,7 @@ package javax.resource.spi.work;
  */
 public class TransactionContext extends ExecutionContext implements WorkContext {
 
+    private static final long serialVersionUID = 6205067498708597824L;
     private static final String NAME = "TransactionContext";
     private static final String DESCRIPTION = "TransactionContext";
     /**

@@ -28,6 +28,8 @@ import javax.resource.spi.RetryableException;
  */
 public class RetryableWorkRejectedException extends WorkRejectedException implements RetryableException {
 
+    private static final long serialVersionUID=8198870267352154108L;
+
     public RetryableWorkRejectedException() {
     }
 
