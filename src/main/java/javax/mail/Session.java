@@ -31,6 +31,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.InetAddress;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -39,6 +40,8 @@ import java.util.Properties;
 import java.util.StringTokenizer;
 import java.util.WeakHashMap;
 
+import org.apache.geronimo.osgi.locator.ProviderLocator;
+import org.apache.geronimo.mail.MailProviderRegistry;
 
 /**
  * OK, so we have a final class in the API with a heck of a lot of implementation required...
@@ -482,13 +485,20 @@ public final class Session {
         try {
             if (name == null) {
                 name = new URLName(provider.getProtocol(), null, -1, null, null, null);
-           }
+            }
             ClassLoader cl = getClassLoader();
-            Class clazz = cl.loadClass(provider.getClassName());
+            Class clazz = null;
+            try {
+                clazz = cl.loadClass(provider.getClassName());
+            } catch (ClassNotFoundException e) {
+                // last gasp, use the OSGi locator to try to find this
+                clazz  = ProviderLocator.locate(provider.getClassName());
+                if (clazz == null) {
+                    throw (NoSuchProviderException) new NoSuchProviderException("Unable to load class for provider: " + provider).initCause(e);
+                }
+            }
             Constructor ctr = clazz.getConstructor(PARAM_TYPES);
-            return (Service) ctr.newInstance(new Object[]{this, name});
-        } catch (ClassNotFoundException e) {
-            throw (NoSuchProviderException) new NoSuchProviderException("Unable to load class for provider: " + provider).initCause(e);
+            return(Service) ctr.newInstance(new Object[]{this, name});
         } catch (NoSuchMethodException e) {
             throw (NoSuchProviderException) new NoSuchProviderException("Provider class does not have a constructor(Session, URLName): " + provider).initCause(e);
         } catch (InstantiationException e) {
@@ -592,6 +602,27 @@ public final class Session {
             // ignore
         }
 
+        // we could be running in an OSGi environment, so there might be some globally defined
+        // providers
+        try {
+            Collection<URL> l = MailProviderRegistry.getProviders();
+            for (URL url : l) {
+                if (debug) {
+                    writeDebug("Loading META-INF/javamail.providers from " + url.toString());
+                }
+                InputStream is = url.openStream();
+                try {
+                    loadProviders(info, is);
+                } finally{
+                    is.close();
+                }
+            }
+        } catch (SecurityException e) {
+            // ignore
+        } catch (IOException e) {
+            // ignore
+        }
+
         try {
             Enumeration e = cl.getResources("META-INF/javamail.default.providers");
             while (e.hasMoreElements()) {
@@ -600,6 +631,27 @@ public final class Session {
                     writeDebug("Loading javamail.default.providers from " + url.toString());
                 }
 
+                InputStream is = url.openStream();
+                try {
+                    loadProviders(info, is);
+                } finally{
+                    is.close();
+                }
+            }
+        } catch (SecurityException e) {
+            // ignore
+        } catch (IOException e) {
+            // ignore
+        }
+
+        // we could be running in an OSGi environment, so there might be some globally defined
+        // providers
+        try {
+            Collection<URL> l = MailProviderRegistry.getDefaultProviders();
+            for (URL url : l) {
+                if (debug) {
+                    writeDebug("Loading META-INF/javamail.providers from " + url.toString());
+                }
                 InputStream is = url.openStream();
                 try {
                     loadProviders(info, is);

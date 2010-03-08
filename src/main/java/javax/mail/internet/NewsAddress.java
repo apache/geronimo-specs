@@ -25,8 +25,6 @@ import java.util.StringTokenizer;
 
 import javax.mail.Address;
 
-import sun.security.provider.Sun;
-
 /**
  * A representation of an RFC1036 Internet newsgroup address.
  *

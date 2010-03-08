@@ -1,0 +1,1 @@
+org.apache.geronimo.mail.handlers.TextHandler   # This is directly mapped back to the same class name
