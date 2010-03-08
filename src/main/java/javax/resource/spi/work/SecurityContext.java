@@ -34,6 +34,7 @@ import javax.security.auth.Subject;
  */
 public abstract class SecurityContext implements WorkContext {
 
+    private static final long serialVersionUID = 7730296651802712658L;
     private static final String NAME = "SecurityContext";
     private static final String DESCRIPTION = "SecurityContext";
     /**

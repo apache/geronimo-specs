@@ -26,6 +26,8 @@ package javax.resource.spi;
  */
 public class RetryableUnavailableException extends UnavailableException implements RetryableException {
 
+    private static final long serialVersionUID=3730185319227786830L;    
+
     public RetryableUnavailableException() {
     }
 

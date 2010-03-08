@@ -32,6 +32,8 @@ public class HintsContext implements WorkContext {
 
     public static final String LONGRUNNING_HINT = "javax.resource.LongRunning";
     public static final String NAME_HINT = "javax.resource.Name";
+    
+    private static final long serialVersionUID=7956353628297167255L;
 
     protected String description;
 
