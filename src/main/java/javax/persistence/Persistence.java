@@ -41,10 +41,12 @@ import javax.persistence.spi.PersistenceProviderResolver;
 import javax.persistence.spi.PersistenceProviderResolverHolder;
 import javax.persistence.spi.ProviderUtil;
 
+import org.apache.geronimo.osgi.locator.ProviderLocator;
+
 /**
  * Bootstrap class to obtain {@link javax.persistence.EntityManagerFactory}
  * references.
- * 
+ *
  * Contains Geronimo implemented code as required by the JPA spec.
  *
  * @version $Rev$ $Date$
@@ -75,7 +77,7 @@ public class Persistence {
      */
     public static EntityManagerFactory createEntityManagerFactory(
             String persistenceUnitName, Map properties) {
-        
+
         EntityManagerFactory factory = null;
         Map props = properties;
         if (props == null) {
@@ -93,10 +95,10 @@ public class Persistence {
          * explicitly specified in the properties and return any exceptions.
          * The spec doesn't forbid providers that aren't a service - it only
          * states that they "should" be implemented as services in Sect. 9.2.
-         * 
+         *
          * For 2.0 - We only perform the above behavior if the specified
          * provider is not in the discovered list.
-         * 
+         *
          * Note: This special non-spec defined case will rethrow any encountered
          * Exceptions as a PersistenceException.
          */
@@ -126,10 +128,10 @@ public class Persistence {
                 }
             }
         }
-        
+
         /*
          * Now, the default JPA2 behavior of loading a provider from our resolver
-         * 
+         *
          * Note:  Change in behavior from 1.0, which always returned exceptions:
          *   Spec states that a provider "must" return null if it
          *   cannot fulfill an EMF request, so that if we have more than one
@@ -138,16 +140,16 @@ public class Persistence {
          *   PersistenceException to match 1.0 behavior and provide more
          *   diagnostics to the end user.
          */
-        
+
         // capture any provider returned exceptions
         Map<String, Throwable> exceptions = new HashMap<String, Throwable>();
         // capture the provider names to use in the exception text if needed
         StringBuffer foundProviders = null;
-        
+
         for (PersistenceProvider provider : providers) {
             String providerName = provider.getClass().getName();
             try {
-                factory = provider.createEntityManagerFactory(persistenceUnitName, props);                    
+                factory = provider.createEntityManagerFactory(persistenceUnitName, props);
             } catch (Exception e) {
                 // capture the exception details and give other providers a chance
                 exceptions.put(providerName, e);
@@ -205,7 +207,7 @@ public class Persistence {
             cl = PrivClassLoader.get(Persistence.class);
 
         try {
-            providerClass = Class.forName(providerName, true, cl);
+            providerClass = ProviderLocator.loadClass(providerName);
         } catch (Exception e) {
             throw new PersistenceException("Invalid or inaccessible explicit provider class: " +
                 providerName, e);
@@ -218,8 +220,8 @@ public class Persistence {
                 providerName + " for PU: " + persistenceUnitName, e);
         }
     }
-    
-    
+
+
     /**
      * Geronimo/OpenJPA private helper code for creating a PersistenceException
      * @param msg String to use as the exception message
@@ -239,7 +241,7 @@ public class Persistence {
                 strWriter.append(providerName);
                 break;
             }
-            return new PersistenceException(strWriter.toString(), t);                
+            return new PersistenceException(strWriter.toString(), t);
         } else {
             // we caught multiple exceptions, so format them into the message string and don't set a cause
             strWriter.append(" with the following failures:");
@@ -257,28 +259,28 @@ public class Persistence {
     public static PersistenceUtil getPersistenceUtil() {
         return new PersistenceUtilImpl();
     }
-    
+
     /**
      * Geronimo implementation specific code
      */
     private static class PersistenceUtilImpl implements PersistenceUtil {
 
         /**
-         * Determines the load state of the attribute of an entity 
+         * Determines the load state of the attribute of an entity
          * @see javax.persistence.PersistenceUtil#isLoaded(java.lang.Object, java.lang.String)
          */
             public boolean isLoaded(Object entity, String attributeName) {
                 boolean isLoaded = true;
 
                 // Get the list of persistence providers from the resolver
-                PersistenceProviderResolver ppr = 
+                PersistenceProviderResolver ppr =
                     PersistenceProviderResolverHolder.getPersistenceProviderResolver();
                 List<PersistenceProvider> pps = ppr.getPersistenceProviders();
 
                 // Iterate through the list using ProviderUtil.isLoadedWithoutReference()
                 for (PersistenceProvider pp : pps) {
                     try {
-                        ProviderUtil pu = pp.getProviderUtil();                        
+                        ProviderUtil pu = pp.getProviderUtil();
                         LoadState ls = pu.isLoadedWithoutReference(entity, attributeName);
                         if (ls == LoadState.LOADED)
                             return true;
@@ -293,7 +295,7 @@ public class Persistence {
                 // Iterate through the list a second time using ProviderUtil.isLoadedWithReference()
                 for (PersistenceProvider pp : pps) {
                     try {
-                        ProviderUtil pu = pp.getProviderUtil();                        
+                        ProviderUtil pu = pp.getProviderUtil();
                         LoadState ls = pu.isLoadedWithReference(entity, attributeName);
                         if (ls == LoadState.LOADED)
                             return true;
@@ -305,14 +307,14 @@ public class Persistence {
                         // method.  Eat the exception and try the next provider.
                     }
                  }
-                
+
                 // All providers returned a load state of unknown.  Return true.
                 return true;
             }
 
             public boolean isLoaded(Object entity) {
                 // Get the list of persistence providers from the resolver
-                PersistenceProviderResolver ppr = 
+                PersistenceProviderResolver ppr =
                     PersistenceProviderResolverHolder.getPersistenceProviderResolver();
                 List<PersistenceProvider> pps = ppr.getPersistenceProviders();
 
@@ -331,9 +333,9 @@ public class Persistence {
                     catch (Throwable t) {
                         // JPA 1.0 providers will not implement the getProviderUtil
                         // method.  Eat the exception and try the next provider.
-                    }                   
+                    }
                 }
-                
+
                 // All providers returned a load state of unknown.  Return true.
                 return true;
             }
