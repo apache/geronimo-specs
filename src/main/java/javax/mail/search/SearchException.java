@@ -25,6 +25,9 @@ import javax.mail.MessagingException;
  * @version $Rev$ $Date$
  */
 public class SearchException extends MessagingException {
+	
+	private static final long serialVersionUID = -7092886778226268686L;
+	
     public SearchException() {
         super();
     }

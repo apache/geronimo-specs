@@ -27,6 +27,9 @@ import javax.mail.Transport;
  * @version $Rev$ $Date$
  */
 public class TransportEvent extends MailEvent {
+	
+	private static final long serialVersionUID = -4729852364684273073L;
+	
     /**
      * Indicates that the message has successfully been delivered to all
      * recipients.

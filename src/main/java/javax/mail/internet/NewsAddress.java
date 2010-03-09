@@ -31,6 +31,9 @@ import javax.mail.Address;
  * @version $Rev$ $Date$
  */
 public class NewsAddress extends Address {
+	
+	private static final long serialVersionUID = -4203797299824684143L;
+	
     /**
      * The host for this newsgroup
      */

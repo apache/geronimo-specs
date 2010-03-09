@@ -26,6 +26,9 @@ import javax.mail.MessagingException;
  * @version $Rev$ $Date$
  */
 public final class HeaderTerm extends StringTerm {
+	
+	private static final long serialVersionUID = 8342514650333389122L;
+	
     protected String headerName;
 
     public HeaderTerm(String header, String pattern) {

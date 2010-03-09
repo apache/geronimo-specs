@@ -27,6 +27,9 @@ import javax.mail.MessagingException;
  * @version $Rev$ $Date$
  */
 public final class FromTerm extends AddressTerm {
+	
+	private static final long serialVersionUID = 5214730291502658665L;
+	
     public FromTerm(Address match) {
         super(match);
     }

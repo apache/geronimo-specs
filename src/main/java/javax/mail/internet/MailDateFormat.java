@@ -42,6 +42,9 @@ import java.util.TimeZone;
  * @version $Rev$ $Date$
  */
 public class MailDateFormat extends SimpleDateFormat {
+	
+	private static final long serialVersionUID = -8148227605210628779L;
+	
     public MailDateFormat() {
         super("EEE, d MMM yyyy HH:mm:ss Z (z)", Locale.US);
     }

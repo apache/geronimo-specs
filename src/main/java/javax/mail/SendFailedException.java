@@ -23,6 +23,9 @@ package javax.mail;
  * @version $Rev$ $Date$
  */
 public class SendFailedException extends MessagingException {
+	
+	private static final long serialVersionUID = -6457531621682372913L;
+	
     protected transient Address invalid[];
     protected transient Address validSent[];
     protected transient Address validUnsent[];

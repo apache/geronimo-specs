@@ -27,6 +27,10 @@ import javax.mail.MessagingException;
  * @version $Rev$ $Date$
  */
 public final class RecipientTerm extends AddressTerm {
+	
+	
+	private static final long serialVersionUID = 6548700653122680468L;
+	
     protected Message.RecipientType type;
 
     public RecipientTerm(Message.RecipientType type, Address address) {

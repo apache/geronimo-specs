@@ -33,6 +33,9 @@ import javax.mail.BodyPart;
  * @version $Rev$ $Date$
  */
 public final class BodyTerm extends StringTerm {
+	
+	private static final long serialVersionUID = -4888862527916911385L;
+	
     public BodyTerm(String pattern) {
         super(pattern);
     }

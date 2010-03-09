@@ -25,6 +25,9 @@ package javax.mail.search;
  * @version $Rev$ $Date$
  */
 public abstract class ComparisonTerm extends SearchTerm {
+	
+	private static final long serialVersionUID =  1456646953666474308L;
+	
     public static final int LE = 1;
     public static final int LT = 2;
     public static final int EQ = 3;

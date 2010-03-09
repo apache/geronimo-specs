@@ -25,6 +25,9 @@ import javax.mail.Message;
  * @version $Rev$ $Date$
  */
 public class MessageChangedEvent extends MailEvent {
+	
+	private static final long serialVersionUID = -4974972972105535108L;
+	
     /**
      * The message's flags changed.
      */

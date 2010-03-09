@@ -28,6 +28,9 @@ import javax.mail.Message;
  * @version $Rev$ $Date$
  */
 public class MessageCountEvent extends MailEvent {
+	
+	private static final long serialVersionUID = -7447022340837897369L;
+	
     /**
      * Messages were added to the folder.
      */

@@ -31,6 +31,9 @@ import javax.mail.Message;
  * @version $Rev$ $Date$
  */
 public abstract class SearchTerm implements Serializable {
+	
+	private static final long serialVersionUID = -6652358452205992789L;
+	
     /**
      * Checks a matching criteria defined by the concrete subclass of this Term.
      *

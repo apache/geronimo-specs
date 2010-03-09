@@ -23,6 +23,9 @@ package javax.mail;
  * @version $Rev$ $Date$
  */
 public class ReadOnlyFolderException extends MessagingException {
+	
+	private static final long serialVersionUID = 5711829372799039325L;
+	
     private transient Folder _folder;
 
     public ReadOnlyFolderException(Folder folder) {

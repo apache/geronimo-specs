@@ -27,6 +27,9 @@ import javax.mail.Address;
  * @version $Rev$ $Date$
  */
 public abstract class AddressTerm extends SearchTerm {
+	
+	private static final long serialVersionUID = 2005405551929769980L;
+	
     /**
      * The address.
      */
