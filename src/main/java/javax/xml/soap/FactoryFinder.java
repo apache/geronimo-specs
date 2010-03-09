@@ -48,31 +48,7 @@ class FactoryFinder {
         }
 
         try {
-            Class factory = null;
-            if (classloader == null) {
-                factory = Class.forName(factoryClassName);
-            } else {
-                try {
-                    factory = classloader.loadClass(factoryClassName);
-                } catch (ClassNotFoundException cnfe) {
-                }
-            }
-            if (factory == null) {
-                classloader = FactoryFinder.class.getClassLoader();
-                try {
-                    factory = classloader.loadClass(factoryClassName);
-                } catch (ClassNotFoundException e) {
-                    // if the got a ClassNotFoundException using the provided class loader,
-                    // we might be running in an OSGi environment.  In that case, there's
-                    // an additional registry we can check to locate the provider.
-                    factory = ProviderLocator.locate(factoryClassName);
-                    // if not found here, then go ahead and throw the exception
-                    if (factory == null) {
-                        throw e;
-                    }
-                }
-            }
-            return factory.newInstance();
+            return ProviderLocator.loadClass(factoryClassName, classloader).newInstance();
         } catch (ClassNotFoundException classnotfoundexception) {
             throw new SOAPException(
                     "Provider " + factoryClassName + " not found",
