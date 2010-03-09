@@ -22,6 +22,8 @@ import java.util.Map;
 import javax.security.auth.AuthPermission;
 import javax.security.auth.message.AuthException;
 
+import org.apache.geronimo.osgi.locator.ProviderLocator;
+
 /**
  * @version $Rev$ $Date$
  */
@@ -63,7 +65,7 @@ public abstract class AuthConfigFactory {
                         .doPrivileged(new java.security.PrivilegedExceptionAction() {
                             public Object run() throws ClassNotFoundException, InstantiationException,
                                     IllegalAccessException {
-                                return Class.forName(finalClassName, true, contextClassLoader).newInstance();
+                                return ProviderLocator.loadClass(finalClassName, contextClassLoader).newInstance();
                             }
                         });
             } catch (PrivilegedActionException e) {
