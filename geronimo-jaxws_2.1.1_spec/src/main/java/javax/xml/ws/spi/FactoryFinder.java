@@ -125,23 +125,7 @@ class FactoryFinder {
             doPrivileged( new PrivilegedAction() {
                 public Object run() {
                     try {
-                        if (iClassLoader != null) {
-                            try {
-                                return iClassLoader.loadClass(iClassName).newInstance();
-                            } catch (ClassNotFoundException x) {
-                                // try again
-                            }
-                        }
-                        try {
-                            return Class.forName(iClassName).newInstance();
-                        } catch (ClassNotFoundException x) {
-                            // last gasp, use the OSGi locator to try to find this
-                            Class cls = ProviderLocator.locate(iClassName);
-                            if (cls == null) {
-                                throw x;
-                            }
-                            return cls.newInstance();
-                        }
+                        return ProviderLocator.loadClass(iClassName, iClassLoader).newInstance();
                     } catch (ClassNotFoundException x) {
                         throw new ConfigurationError(
                                 "Provider " + iClassName + " not found", x);

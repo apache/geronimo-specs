@@ -112,4 +112,50 @@ public class ProviderLocator {
         // the rest of the work is done by the registry
         return registry.locateAll(providerId);
     }
+
+    /**
+     * Utility class for locating a class with OSGi registry
+     * support.  Uses the thread context classloader as part of
+     * the search order.
+     *
+     * @param className The name of the target class.
+     *
+     * @return The loaded class.
+     * @exception ClassNotFoundException
+     *                   Thrown if the class cannot be located.
+     */
+    static public Class<?> loadClass(String className) throws ClassNotFoundException {
+        return loadClass(className, Thread.currentThread().getContextClassLoader());
+    }
+
+    /**
+     * Standardized utility method for performing class lookups
+     * with support for OSGi registry lookups.
+     *
+     * @param className The name of the target class.
+     * @param loader    An optional class loader.
+     *
+     * @return The loaded class
+     * @exception ClassNotFoundException
+     *                   Thrown if the class cannot be loaded.
+     */
+    static public Class<?> loadClass(String className, ClassLoader loader) throws ClassNotFoundException {
+        if (loader != null) {
+            try {
+                return loader.loadClass(className);
+            } catch (ClassNotFoundException x) {
+                // try again
+            }
+        }
+        try {
+            return Class.forName(className);
+        } catch (ClassNotFoundException x) {
+            // last gasp, use the OSGi locator to try to find this
+            Class cls = locate(className);
+            if (cls == null) {
+                throw x;
+            }
+            return cls;
+        }
+    }
 }

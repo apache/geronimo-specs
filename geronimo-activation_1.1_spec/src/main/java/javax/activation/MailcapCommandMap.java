@@ -469,20 +469,9 @@ public class MailcapCommandMap extends CommandMap {
             cl = getClass().getClassLoader();
         }
         try {
-            return (DataContentHandler) cl.loadClass(info.getCommandClass()).newInstance();
+            return (DataContentHandler) ProviderLocator.loadClass(info.getCommandClass(), cl).newInstance();
         } catch (ClassNotFoundException e) {
-            // last gasp, use the OSGi locator to try to find this
-            Class cls = ProviderLocator.locate(info.getCommandClass());
-            if (cls == null) {
-                return null;
-            }
-            try {
-                return (DataContentHandler)cls.newInstance();
-            } catch (IllegalAccessException ex) {
-                return null;
-            } catch (InstantiationException ex) {
-                return null;
-            }
+            return null;
         } catch (IllegalAccessException e) {
             return null;
         } catch (InstantiationException e) {

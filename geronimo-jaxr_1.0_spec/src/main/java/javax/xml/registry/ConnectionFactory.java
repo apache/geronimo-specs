@@ -51,17 +51,10 @@ public abstract class ConnectionFactory {
             cl = ConnectionFactory.class.getClassLoader();
         }
         try {
-            Class factoryClass = null;
-            try {
-                factoryClass = cl.loadClass(className);
-            } catch (ClassNotFoundException e) {
-                // last gasp, use the OSGi locator to try to find this
-                factoryClass = ProviderLocator.locate(className);
-                if (factoryClass == null) {
-                    throw new JAXRException("Unable to load JAXR ConnectionFactoryClass: " + className, e);
-                }
-            }
+            Class factoryClass = ProviderLocator.loadClass(className, cl);
             return (ConnectionFactory) factoryClass.newInstance();
+        } catch (ClassNotFoundException e) {
+            throw new JAXRException("Unable to load JAXR ConnectionFactoryClass: " + className, e);
         } catch (InstantiationException e) {
             throw new JAXRException("Unable to instantiate JAXR ConnectionFactoryClass: " + className, e);
         } catch (IllegalAccessException e) {

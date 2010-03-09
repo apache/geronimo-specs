@@ -227,14 +227,10 @@ public class Validation {
                                         Class<?> provider = null;
                                         try {
                                             // try loading the specified class
-                                            provider = cl.loadClass(line);
+                                            provider = ProviderLocator.loadClass(line, cl);
                                         } catch (ClassNotFoundException e) {
-                                            // last gasp, use the OSGi locator to try to find this
-                                            provider = ProviderLocator.locate(line);
-                                            if (provider == null) {
-                                                throw new ValidationException("Failed to load provider " +
-                                                    line + " configured in file " + url, e);
-                                            }
+                                            throw new ValidationException("Failed to load provider " +
+                                                line + " configured in file " + url, e);
                                         }
                                         // create an instance to return
                                         providers.add((ValidationProvider<?>) provider.newInstance());

@@ -170,19 +170,9 @@ public abstract class ExpressionFactory {
         String implClassName = null;
         try {
             implClassName = lookupExpressionFactoryImplClass();
-            ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
-            if (contextClassLoader != null) {
-                return contextClassLoader.loadClass(implClassName);
-            } else {
-                return Class.forName(implClassName);
-            }
+            return ProviderLocator.loadClass(implClassName);
         } catch (ClassNotFoundException e) {
-            // last gasp, use the OSGi locator to try to find this
-            Class cls = ProviderLocator.locate(implClassName);
-            if (cls == null) {
-                throw new ELException("Fail to load implementation class " + implClassName, e);
-            }
-            return cls;
+            throw new ELException("Fail to load implementation class " + implClassName, e);
         }
     }
 }

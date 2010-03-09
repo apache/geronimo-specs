@@ -158,21 +158,11 @@ class ContextFinder {
     }
 
     private static Class loadSpi(String className, ClassLoader classLoader) throws JAXBException {
-        Class spiClass;
         try {
-            if (classLoader != null) {
-                spiClass = classLoader.loadClass(className);
-            } else {
-                spiClass = Class.forName(className);
-            }
+            return ProviderLocator.loadClass(className, classLoader);
         } catch (ClassNotFoundException e) {
-            // last gasp, use the OSGi locator to try to find this
-            spiClass = ProviderLocator.locate(className);
-            if (spiClass == null) {
-                throw new JAXBException("Provider " + className + " not found", e);
-            }
+            throw new JAXBException("Provider " + className + " not found", e);
         }
-        return spiClass;
     }
 
 

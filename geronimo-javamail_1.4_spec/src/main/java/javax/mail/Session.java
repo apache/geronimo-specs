@@ -489,13 +489,9 @@ public final class Session {
             ClassLoader cl = getClassLoader();
             Class clazz = null;
             try {
-                clazz = cl.loadClass(provider.getClassName());
+                clazz = ProviderLocator.loadClass(provider.getClassName(), cl);
             } catch (ClassNotFoundException e) {
-                // last gasp, use the OSGi locator to try to find this
-                clazz  = ProviderLocator.locate(provider.getClassName());
-                if (clazz == null) {
-                    throw (NoSuchProviderException) new NoSuchProviderException("Unable to load class for provider: " + provider).initCause(e);
-                }
+                throw (NoSuchProviderException) new NoSuchProviderException("Unable to load class for provider: " + provider).initCause(e);
             }
             Constructor ctr = clazz.getConstructor(PARAM_TYPES);
             return(Service) ctr.newInstance(new Object[]{this, name});
