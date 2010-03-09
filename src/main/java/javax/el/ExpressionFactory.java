@@ -28,6 +28,8 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Properties;
 
+import org.apache.geronimo.osgi.locator.ProviderLocator;
+
 /**
  *
  * @since 2.1
@@ -175,7 +177,12 @@ public abstract class ExpressionFactory {
                 return Class.forName(implClassName);
             }
         } catch (ClassNotFoundException e) {
-            throw new ELException("Fail to load implementation class " + implClassName, e);
+            // last gasp, use the OSGi locator to try to find this
+            Class cls = ProviderLocator.locate(implClassName);
+            if (cls == null) {
+                throw new ELException("Fail to load implementation class " + implClassName, e);
+            }
+            return cls;
         }
     }
 }
