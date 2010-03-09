@@ -104,25 +104,10 @@ class FactoryFinder {
         throws ConfigurationError
     {
         try {
-            if (classLoader != null) {
-                try {
-                    return classLoader.loadClass(className).newInstance ();
-                } catch (ClassNotFoundException x) {
-                      // try again
-                }
-            }
-            try {
-                // try again with just Class.forName()
-                return Class.forName(className).newInstance();
-            } catch (ClassNotFoundException x) {
-                // last gasp, use the OSGi locator to try to find this
-                Class<?> cls = ProviderLocator.locate(className);
-                if (cls == null) {
-                    throw new ConfigurationError(
-                        "Provider " + className + " not found", x);
-                }
-                return cls.newInstance();
-            }
+            return ProviderLocator.loadClass(className, classLoader).newInstance();
+        } catch (ClassNotFoundException x) {
+            throw new ConfigurationError(
+                "Provider " + className + " not found", x);
         } catch (Exception x) {
             throw new ConfigurationError(
                 "Provider " + className + " could not be instantiated: " + x,
