@@ -30,6 +30,8 @@ import java.security.PrivilegedActionException;
 import java.security.PrivilegedExceptionAction;
 import java.security.SecurityPermission;
 
+import org.apache.geronimo.osgi.locator.ProviderLocator;
+
 /**
  * Abstract factory and finder class for obtaining the instance of the class
  * that implements the PolicyConfigurationFactory of a provider. The factory
@@ -84,7 +86,7 @@ public abstract class PolicyConfigurationFactory {
                         if (factoryClassName[0] == null) throw new ClassNotFoundException("Property " + FACTORY_NAME + " not set");
                         Thread currentThread = Thread.currentThread();
                         ClassLoader tccl = currentThread.getContextClassLoader();
-                        return Class.forName(factoryClassName[0], true, tccl).newInstance();
+                        return ProviderLocator.loadClass(factoryClassName[0], tccl).newInstance();
                     }
                 });
         } catch(PrivilegedActionException pae) {

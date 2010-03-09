@@ -140,15 +140,8 @@ public class ProviderLocator {
      *                   Thrown if the class cannot be loaded.
      */
     static public Class<?> loadClass(String className, ClassLoader loader) throws ClassNotFoundException {
-        if (loader != null) {
-            try {
-                return loader.loadClass(className);
-            } catch (ClassNotFoundException x) {
-                // try again
-            }
-        }
         try {
-            return Class.forName(className);
+            return Class.forName(className, true, loader);
         } catch (ClassNotFoundException x) {
             // last gasp, use the OSGi locator to try to find this
             Class cls = locate(className);
