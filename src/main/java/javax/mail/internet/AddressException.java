@@ -23,6 +23,9 @@ package javax.mail.internet;
  * @version $Rev$ $Date$
  */
 public class AddressException extends ParseException {
+	
+	private static final long serialVersionUID = 9134583443539323120L;
+	
     protected int pos;
     protected String ref;
 

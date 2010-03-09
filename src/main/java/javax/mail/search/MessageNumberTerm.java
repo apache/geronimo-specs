@@ -25,6 +25,9 @@ import javax.mail.Message;
  * @version $Rev$ $Date$
  */
 public final class MessageNumberTerm extends IntegerComparisonTerm {
+	
+	private static final long serialVersionUID = -5379625829658623812L;
+	
     public MessageNumberTerm(int number) {
         super(EQ, number);
     }

@@ -25,6 +25,8 @@ import java.util.Date;
  * @version $Rev$ $Date$
  */
 public abstract class DateTerm extends ComparisonTerm {
+	
+	private static final long serialVersionUID =  4818873430063720043L;
     protected Date date;
 
     protected DateTerm(int comparison, Date date) {

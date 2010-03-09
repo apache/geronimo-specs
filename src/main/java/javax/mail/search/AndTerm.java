@@ -28,6 +28,9 @@ import javax.mail.Message;
  * @version $Rev$ $Date$
  */
 public final class AndTerm extends SearchTerm {
+	
+	private static final long serialVersionUID = -3583274505380989582L;
+	
     /**
      * Terms to which the AND operator should be applied.
      */

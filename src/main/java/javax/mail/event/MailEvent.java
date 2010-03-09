@@ -27,6 +27,9 @@ import java.util.EventObject;
  * @version $Rev$ $Date$
  */
 public abstract class MailEvent extends EventObject {
+	
+	private static final long serialVersionUID = 1846275636325456631L;
+	
     public MailEvent(Object source) {
         super(source);
     }

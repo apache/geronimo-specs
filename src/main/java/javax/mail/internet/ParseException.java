@@ -25,6 +25,9 @@ import javax.mail.MessagingException;
  * @version $Rev$ $Date$
  */
 public class ParseException extends MessagingException {
+	
+	private static final long serialVersionUID = 7649991205183658089L;
+	
     public ParseException() {
         super();
     }

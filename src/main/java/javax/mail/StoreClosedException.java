@@ -23,6 +23,9 @@ package javax.mail;
  * @version $Rev$ $Date$
  */
 public class StoreClosedException extends MessagingException {
+	
+	private static final long serialVersionUID = -3145392336120082655L;
+	
     private transient Store _store;
 
     public StoreClosedException(Store store) {

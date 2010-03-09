@@ -25,6 +25,9 @@ package javax.mail.search;
  * @version $Rev$ $Date$
  */
 public abstract class StringTerm extends SearchTerm {
+	
+	private static final long serialVersionUID = 1274042129007696269L;
+	
     /**
      * If true, case should be ignored during matching.
      */

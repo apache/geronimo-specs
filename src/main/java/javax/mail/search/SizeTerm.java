@@ -26,6 +26,9 @@ import javax.mail.MessagingException;
  * @version $Rev$ $Date$
  */
 public final class SizeTerm extends IntegerComparisonTerm {
+	
+	private static final long serialVersionUID = -2556219451005103709L;
+	
     public SizeTerm(int comparison, int size) {
         super(comparison, size);
     }

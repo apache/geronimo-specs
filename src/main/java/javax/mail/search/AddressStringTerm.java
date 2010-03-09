@@ -27,6 +27,9 @@ import javax.mail.Address;
  * @version $Rev$ $Date$
  */
 public abstract class AddressStringTerm extends StringTerm {
+	
+	private static final long serialVersionUID = 3086821234204980368L;
+	
     /**
      * Constructor.
      * @param pattern the pattern to be compared

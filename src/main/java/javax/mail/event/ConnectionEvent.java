@@ -23,6 +23,9 @@ package javax.mail.event;
  * @version $Rev$ $Date$
  */
 public class ConnectionEvent extends MailEvent {
+	
+	private static final long serialVersionUID = -1855480171284792957L;
+	
     /**
      * A connection was opened.
      */

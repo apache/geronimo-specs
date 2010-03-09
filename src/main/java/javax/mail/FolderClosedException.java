@@ -23,6 +23,10 @@ package javax.mail;
  * @version $Rev$ $Date$
  */
 public class FolderClosedException extends MessagingException {
+	
+	private static final long serialVersionUID = 1687879213433302315L;
+
+	
     private transient Folder _folder;
 
     public FolderClosedException(Folder folder) {

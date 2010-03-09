@@ -27,6 +27,9 @@ import javax.mail.Message;
  * @version $Rev$ $Date$
  */
 public final class NotTerm extends SearchTerm {
+	
+	private static final long serialVersionUID = 7152293214217310216L;
+	
     protected SearchTerm term;
 
     public NotTerm(SearchTerm term) {

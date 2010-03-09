@@ -26,6 +26,9 @@ import javax.mail.MessagingException;
  * @version $Rev$ $Date$
  */
 public final class SubjectTerm extends StringTerm {
+	
+	private static final long serialVersionUID = 7481568618055573432L;
+	
     public SubjectTerm(String subject) {
         super(subject);
     }
