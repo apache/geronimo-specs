@@ -30,6 +30,8 @@ import java.net.URL;
 import java.util.Collections;
 import java.util.Enumeration;
 
+import org.apache.geronimo.osgi.locator.ProviderLocator;
+
 public abstract class EJBContainer {
 
     public static final String PROVIDER = "javax.ejb.embeddable.provider";
@@ -83,7 +85,7 @@ public abstract class EJBContainer {
         Class providerClass;
 
         try {
-            providerClass = Class.forName(providerName, true, Thread.currentThread().getContextClassLoader());
+            providerClass = ProviderLocator.loadClass(providerName);
         } catch (Exception e) {
             throw new EJBException("Invalid or inaccessible provider class: " + providerName, e);
         }
