@@ -5,9 +5,9 @@
  * licenses this file to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
@@ -34,11 +34,13 @@ import javax.validation.bootstrap.ProviderSpecificBootstrap;
 import javax.validation.spi.BootstrapState;
 import javax.validation.spi.ValidationProvider;
 
+import org.apache.geronimo.osgi.locator.ProviderLocator;
+
 /**
  * Note: From Section 4.4.5 Validation of the 1.0 PFD Spec - Validation
  * implementations may only provide the following three public static methods:
  * buildDefaultValidatorFactory(), byDefaultProvider(), byProvider()
- * 
+ *
  * @version $Rev$ $Date$
  */
 public class Validation {
@@ -58,7 +60,7 @@ public class Validation {
 
     /*
      * (non-Javadoc) See Section 4.4.5 Validation - Must be private
-     * 
+     *
      * Geronimo implementation specific code.
      */
 	private static class ProviderSpecificBootstrapImpl<T extends Configuration<T>, U extends ValidationProvider<T>>
@@ -69,17 +71,17 @@ public class Validation {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see javax.validation.bootstrap.ProviderSpecificBootstrap#ProviderSpecificBootstrap(Class<T>)
          */
-		
+
 		public ProviderSpecificBootstrapImpl(Class<U> validationProviderClass) {
 			providerClass = validationProviderClass;
         }
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see javax.validation.bootstrap.ProviderSpecificBootstrap#providerResolver(javax.validation.ValidationProviderResolver)
          */
         public ProviderSpecificBootstrap<T> providerResolver(ValidationProviderResolver resolver) {
@@ -89,7 +91,7 @@ public class Validation {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see javax.validation.bootstrap.ProviderSpecificBootstrap#configure()
          */
         public T configure() {
@@ -119,7 +121,7 @@ public class Validation {
 
     /*
      * (non-Javadoc) See Section 4.4.5 Validation - Must be private
-     * 
+     *
      * Geronimo implementation specific code.
      */
     private static class GenericBootstrapImpl implements GenericBootstrap, BootstrapState {
@@ -129,7 +131,7 @@ public class Validation {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see javax.validation.bootstrap.GenericBootstrap#providerResolver(javax.validation.ValidationProviderResolver)
          */
         public GenericBootstrap providerResolver(ValidationProviderResolver resolver) {
@@ -139,7 +141,7 @@ public class Validation {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see javax.validation.spi.BootstrapState#getValidationProviderResolver()
          */
         public ValidationProviderResolver getValidationProviderResolver() {
@@ -148,7 +150,7 @@ public class Validation {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see javax.validation.spi.BootstrapState#getDefaultValidationProviderResolver()
          */
         public ValidationProviderResolver getDefaultValidationProviderResolver() {
@@ -159,7 +161,7 @@ public class Validation {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see javax.validation.bootstrap.GenericBootstrap#configure()
          */
         public Configuration<?> configure() {
@@ -176,21 +178,21 @@ public class Validation {
 
     /*
      * (non-Javadoc) See Section 4.4.5 Validation - Must be private
-     * 
+     *
      * Geronimo implementation specific code.
      */
     private static class DefaultValidationProviderResolver implements ValidationProviderResolver {
- 
+
         private static final String SERVICES_FILENAME = "META-INF/services/" +
             ValidationProvider.class.getName();
 
         // cache of providers per class loader
         private volatile WeakHashMap<ClassLoader, List<ValidationProvider<?>>> providerCache =
             new WeakHashMap<ClassLoader, List<ValidationProvider<?>>>();
-        
+
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see javax.validation.ValidationProviderResolver#getValidationProviders()
          */
         public List<ValidationProvider<?>> getValidationProviders() {
@@ -222,13 +224,20 @@ public class Validation {
                                 line = line.trim();
                                 if (!line.startsWith("#")) {
                                     try {
-                                        // try loading the specified class
-                                        final Class<?> provider = cl.loadClass(line);
+                                        Class<?> provider = null;
+                                        try {
+                                            // try loading the specified class
+                                            provider = cl.loadClass(line);
+                                        } catch (ClassNotFoundException e) {
+                                            // last gasp, use the OSGi locator to try to find this
+                                            provider = ProviderLocator.locate(line);
+                                            if (provider == null) {
+                                                throw new ValidationException("Failed to load provider " +
+                                                    line + " configured in file " + url, e);
+                                            }
+                                        }
                                         // create an instance to return
                                         providers.add((ValidationProvider<?>) provider.newInstance());
-                                    } catch (ClassNotFoundException e) {
-                                        throw new ValidationException("Failed to load provider " +
-                                            line + " configured in file " + url, e);
                                     } catch (InstantiationException e) {
                                         throw new ValidationException("Failed to instantiate provider " +
                                             line + " configured in file " + url, e);
@@ -251,11 +260,11 @@ public class Validation {
                 } catch (IOException e) {
                     throw new ValidationException("Error trying to load " + SERVICES_FILENAME, e);
                 }
-                
+
                 // cache the discovered providers
                 providerCache.put(cl, providers);
             }
-            
+
             // caller must handle the case of no providers found
             return providers;
         }

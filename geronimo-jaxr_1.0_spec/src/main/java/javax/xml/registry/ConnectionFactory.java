@@ -27,6 +27,8 @@ package javax.xml.registry;
 import java.util.Properties;
 import java.util.Collection;
 
+import org.apache.geronimo.osgi.locator.ProviderLocator;
+
 /**
  * @version $Revision$ $Date$
  */
@@ -49,10 +51,17 @@ public abstract class ConnectionFactory {
             cl = ConnectionFactory.class.getClassLoader();
         }
         try {
-            Class factoryClass = cl.loadClass(className);
+            Class factoryClass = null;
+            try {
+                factoryClass = cl.loadClass(className);
+            } catch (ClassNotFoundException e) {
+                // last gasp, use the OSGi locator to try to find this
+                factoryClass = ProviderLocator.locate(className);
+                if (factoryClass == null) {
+                    throw new JAXRException("Unable to load JAXR ConnectionFactoryClass: " + className, e);
+                }
+            }
             return (ConnectionFactory) factoryClass.newInstance();
-        } catch (ClassNotFoundException e) {
-            throw new JAXRException("Unable to load JAXR ConnectionFactoryClass: " + className, e);
         } catch (InstantiationException e) {
             throw new JAXRException("Unable to instantiate JAXR ConnectionFactoryClass: " + className, e);
         } catch (IllegalAccessException e) {
