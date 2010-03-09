@@ -114,28 +114,11 @@ class FactoryLocator {
 	private static Object loadFactory(String className, ClassLoader classLoader)
 			throws FactoryConfigurationError {
 		try {
-			Class factoryClass = classLoader == null ? Class.forName(className)
-					: classLoader.loadClass(className);
-
-			return factoryClass.newInstance();
+			return ProviderLocator.loadClass(className, classLoader).newInstance();
 		} catch (ClassNotFoundException x) {
-			// if the got a ClassNotFoundException using the provided class loader,
-			// we might be running in an OSGi environment.  In that case, there's
-			// an additional registry we can check to locate the provider.
-			Class factoryClass = ProviderLocator.locate(className);
-			// if not found here, then go ahead and throw the exception
-			if (factoryClass == null) {
-				throw new FactoryConfigurationError("Requested factory "
-						+ className + " cannot be located.  Classloader ="
-						+ classLoader.toString(), x);
-			}
-			// another attempt at instantiating this
-			try {
-				return factoryClass.newInstance();
-			} catch (Exception ex) {
-				throw new FactoryConfigurationError("Requested factory "
-						+ className + " could not be instantiated: " + ex, ex);
-			}
+  			throw new FactoryConfigurationError("Requested factory "
+  					+ className + " cannot be located.  Classloader ="
+  					+ classLoader.toString(), x);
 		} catch (Exception x) {
 			throw new FactoryConfigurationError("Requested factory "
 					+ className + " could not be instantiated: " + x, x);
