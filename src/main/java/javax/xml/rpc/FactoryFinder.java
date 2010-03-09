@@ -28,6 +28,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Properties;
 
+import org.apache.geronimo.osgi.locator.ProviderLocator;
+
 /**
  * This code is designed to implement the pluggability
  * feature and is designed to both compile and run on JDK version 1.1 and
@@ -109,10 +111,18 @@ class FactoryFinder {
                       // try again
                 }
             }
-            return Class.forName(className).newInstance();
-        } catch (ClassNotFoundException x) {
-            throw new ConfigurationError(
-                "Provider " + className + " not found", x);
+            try {
+                // try again with just Class.forName()
+                return Class.forName(className).newInstance();
+            } catch (ClassNotFoundException x) {
+                // last gasp, use the OSGi locator to try to find this
+                Class<?> cls = ProviderLocator.locate(className);
+                if (cls == null) {
+                    throw new ConfigurationError(
+                        "Provider " + className + " not found", x);
+                }
+                return cls.newInstance();
+            }
         } catch (Exception x) {
             throw new ConfigurationError(
                 "Provider " + className + " could not be instantiated: " + x,
