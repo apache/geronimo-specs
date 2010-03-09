@@ -37,6 +37,9 @@ import java.util.List;
  * @version $Rev$ $Date$
  */
 public class Flags implements Cloneable, Serializable {
+
+    private static final long serialVersionUID = 6243590407214169028L;
+
     public static final class Flag {
         /**
          * Flag that indicates that the message has been replied to; has a bit value of 1.

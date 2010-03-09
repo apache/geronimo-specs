@@ -23,6 +23,10 @@ package javax.mail;
  * @version $Rev$ $Date$
  */
 public class AuthenticationFailedException extends MessagingException {
+
+    private static final long serialVersionUID = 492080754054436511L;
+
+
     public AuthenticationFailedException() {
         super();
     }

@@ -23,6 +23,9 @@ package javax.mail;
  * @version $Rev$ $Date$
  */
 public class IllegalWriteException extends MessagingException {
+	
+	private static final long serialVersionUID = 3974370223328268013L;
+	
     public IllegalWriteException() {
         super();
     }

@@ -29,6 +29,9 @@ import javax.mail.MessagingException;
  * @version $Rev$ $Date$
  */
 public final class FlagTerm extends SearchTerm {
+	
+	private static final long serialVersionUID = -142991500302030647L; 
+	
     /**
      * If true, test that all flags are set; if false, test that all flags are clear.
      */

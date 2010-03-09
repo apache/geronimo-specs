@@ -23,6 +23,9 @@ package javax.mail;
  * @version $Rev$ $Date$
  */
 public class FolderNotFoundException extends MessagingException {
+	
+	private static final long serialVersionUID = 472612108891249403L;
+	
     private transient Folder _folder;
 
     public FolderNotFoundException() {

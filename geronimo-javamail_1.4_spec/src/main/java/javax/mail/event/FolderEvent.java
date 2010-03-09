@@ -25,6 +25,9 @@ import javax.mail.Folder;
  * @version $Rev$ $Date$
  */
 public class FolderEvent extends MailEvent {
+	
+	private static final long serialVersionUID = 5278131310563694307L;
+	
     public static final int CREATED = 1;
     public static final int DELETED = 2;
     public static final int RENAMED = 3;

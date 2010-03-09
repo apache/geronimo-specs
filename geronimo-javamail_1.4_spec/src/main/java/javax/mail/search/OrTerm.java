@@ -26,6 +26,9 @@ import javax.mail.Message;
  * @version $Rev$ $Date$
  */
 public final class OrTerm extends SearchTerm {
+	
+	private static final long serialVersionUID = 5380534067523646936L;
+	
     protected SearchTerm[] terms;
 
     public OrTerm(SearchTerm a, SearchTerm b) {

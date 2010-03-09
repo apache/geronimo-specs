@@ -27,6 +27,9 @@ import javax.mail.MessagingException;
  * @version $Rev$ $Date$
  */
 public final class SentDateTerm extends DateTerm {
+	
+	private static final long serialVersionUID = 5647755030530907263L;
+	
     public SentDateTerm(int comparison, Date date) {
         super(comparison, date);
     }

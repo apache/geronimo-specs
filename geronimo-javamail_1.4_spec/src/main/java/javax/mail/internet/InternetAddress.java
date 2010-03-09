@@ -41,6 +41,9 @@ import org.apache.geronimo.mail.util.SessionUtil;
  * @version $Rev$ $Date$
  */
 public class InternetAddress extends Address implements Cloneable {
+	
+	private static final long serialVersionUID = -7507595530758302903L;
+	
     /**
      * The address in RFC822 format.
      */

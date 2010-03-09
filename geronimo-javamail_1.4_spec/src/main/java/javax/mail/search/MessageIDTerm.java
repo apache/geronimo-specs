@@ -26,6 +26,10 @@ import javax.mail.MessagingException;
  * @version $Rev$ $Date$
  */
 public final class MessageIDTerm extends StringTerm {
+	
+	
+	private static final long serialVersionUID = -2121096296454691963L;
+	
     public MessageIDTerm(String id) {
         super(id);
     }

@@ -27,6 +27,9 @@ import javax.mail.Store;
  * @version $Rev$ $Date$
  */
 public class StoreEvent extends MailEvent {
+	
+	private static final long serialVersionUID = 1938704919992515330L;
+	
     /**
      * Indicates that this message is an alert.
      */

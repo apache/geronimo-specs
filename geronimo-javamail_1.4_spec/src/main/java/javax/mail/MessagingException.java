@@ -23,6 +23,9 @@ package javax.mail;
  * @version $Rev$ $Date$
  */
 public class MessagingException extends Exception {
+	
+	private static final long serialVersionUID = -7569192289819959253L;
+	
     // Required because serialization expects it to be here
     private Exception next;
 
