@@ -48,7 +48,7 @@ public class Persistence {
 
     protected static final Set<PersistenceProvider> providers = new HashSet<PersistenceProvider>();
     // Changed to the hard coded PERSISTENCE_PROVIDER value to pass signature tests.
-    // public static final java.lang.String PERSISTENCE_PROVIDER = PersistenceProvider.class.getName(); 
+    // public static final java.lang.String PERSISTENCE_PROVIDER = PersistenceProvider.class.getName();
     public static final java.lang.String PERSISTENCE_PROVIDER = "javax.persistence.spi.PeristenceProvider";
     static final String PERSISTENCE_PROVIDER_PROPERTY = "javax.persistence.provider";
     static final String PERSISTENCE_PROVIDER_SERVICE = "META-INF/services/"
@@ -159,7 +159,7 @@ public class Persistence {
         try {
             providerClass = Class.forName(providerName, true, Thread
                     .currentThread().getContextClassLoader());
-        } 
+        }
         catch (Exception e) {
             throw new PersistenceException(
                     "Invalid or inaccessible provider class: " + providerName,

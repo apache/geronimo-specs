@@ -125,7 +125,7 @@ class FactoryFinder {
             doPrivileged( new PrivilegedAction() {
                 public Object run() {
                     try {
-                        return ProviderLocator.loadClass(iClassName, iClassLoader).newInstance();
+                        return ProviderLocator.loadClass(iClassName, FactoryFinder.class, iClassLoader).newInstance();
                     } catch (ClassNotFoundException x) {
                         throw new ConfigurationError(
                                 "Provider " + iClassName + " not found", x);

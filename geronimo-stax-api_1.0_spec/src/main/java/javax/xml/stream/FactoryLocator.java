@@ -59,62 +59,58 @@ class FactoryLocator {
 
 	static Object locate(String factoryId, String altClassName,
 			ClassLoader classLoader) throws FactoryConfigurationError {
-		try {
-			String prop = System.getProperty(factoryId);
-			if (prop != null) {
-				return loadFactory(prop, classLoader);
-			}
-		} catch (Exception e) {
-		}
+        // NOTE:  The stax spec uses the following lookup order, which is the reverse from what is specified
+        // most of the APIs:
+        // 1. Use the javax.xml.stream.XMLInputFactory system property.
+        // 2. Use the properties file lib/xml.stream.properties in the JRE directory. This configuration
+        // file is in standard java.util.Properties format and contains the fully qualified name of the
+        // implementation class with the key being the system property defined in step 1.
+        // 3. Use the Services API (as detailed in the JAR specification), if available, to determine the
+        // classname. The Services API looks for a classname in the file META-INF/services/
+        // javax.xml.stream.XMLInputFactory in jars available to the runtime.
+        // 4. Platform default XMLInputFactory instance.
 
-		try {
-			String configFile = System.getProperty("java.home")
-					+ File.separator + "lib" + File.separator
-					+ "stax.properties";
-			File f = new File(configFile);
-			if (f.exists()) {
-				Properties props = new Properties();
-				props.load(new FileInputStream(f));
-				String factoryClassName = props.getProperty(factoryId);
-				return loadFactory(factoryClassName, classLoader);
-			}
-		} catch (Exception e) {
-		}
 
-		String serviceId = "META-INF/services/" + factoryId;
-		try {
-			InputStream is = null;
+        // Use the system property first
+        try {
+            String systemProp = System.getProperty(factoryId);
+            if (systemProp != null) {
+                return newInstance(systemProp, classLoader);
+            }
+        } catch (SecurityException se) {
+        }
 
-			if (classLoader == null) {
-				is = ClassLoader.getSystemResourceAsStream(serviceId);
-			} else {
-				is = classLoader.getResourceAsStream(serviceId);
-			}
+        try {
+            // NOTE:  The StAX spec gives this property file name as xml.stream.properties, but the javadoc and the maintenance release
+            // state this is stax.properties.
+            String factoryClassName =  ProviderLocator.lookupByJREPropertyFile("lib" + File.separator + "stax.properties", factoryId);
+            if (factoryClassName != null) {
+                return newInstance(factoryClassName, classLoader);
+            }
+        } catch (Exception ex) {
+        }
 
-			if (is != null) {
-				BufferedReader br = new BufferedReader(new InputStreamReader(
-						is, "UTF-8"));
-				String factoryClassName = br.readLine();
-				br.close();
-
-				if (factoryClassName != null && !"".equals(factoryClassName)) {
-					return loadFactory(factoryClassName, classLoader);
-				}
-			}
-		} catch (Exception ex) {
-		}
+        try {
+            // check the META-INF/services definitions, and return it if
+            // we find something.
+            Object service = ProviderLocator.getService(factoryId, FactoryLocator.class, classLoader);
+            if (service != null) {
+                return service;
+            }
+        } catch (Exception ex) {
+        }
 
 		if (altClassName == null) {
 			throw new FactoryConfigurationError("Unable to locate factory for "
 					+ factoryId + ".", null);
 		}
-		return loadFactory(altClassName, classLoader);
+		return newInstance(altClassName, classLoader);
 	}
 
-	private static Object loadFactory(String className, ClassLoader classLoader)
+	private static Object newInstance(String className, ClassLoader classLoader)
 			throws FactoryConfigurationError {
 		try {
-			return ProviderLocator.loadClass(className, classLoader).newInstance();
+			return ProviderLocator.loadClass(className, FactoryLocator.class, classLoader).newInstance();
 		} catch (ClassNotFoundException x) {
   			throw new FactoryConfigurationError("Requested factory "
   					+ className + " cannot be located.  Classloader ="

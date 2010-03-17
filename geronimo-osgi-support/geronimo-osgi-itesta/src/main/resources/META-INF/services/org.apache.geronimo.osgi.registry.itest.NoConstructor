@@ -1,0 +1,2 @@
+# No no-argument constructor for newInstance()
+org.apache.geronimo.osgi.itesta.NoConstructor

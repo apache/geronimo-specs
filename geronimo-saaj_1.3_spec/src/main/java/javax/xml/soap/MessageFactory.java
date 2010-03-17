@@ -81,7 +81,7 @@ public abstract class MessageFactory {
      */
     public static MessageFactory newInstance() throws SOAPException {
         try {
-            MessageFactory factory = (MessageFactory)FactoryFinder.find(MESSAGE_FACTORY_PROPERTY);
+            MessageFactory factory = (MessageFactory)FactoryFinder.find(MessageFactory.class, null);
             if (factory == null) {
             	factory = newInstance(SOAPConstants.SOAP_1_1_PROTOCOL);
             }
@@ -129,7 +129,4 @@ public abstract class MessageFactory {
             throws SOAPException {
         return SAAJMetaFactory.getInstance().newMessageFactory(soapVersion);
     }
-
-    private static final String MESSAGE_FACTORY_PROPERTY =
-            "javax.xml.soap.MessageFactory";
 }

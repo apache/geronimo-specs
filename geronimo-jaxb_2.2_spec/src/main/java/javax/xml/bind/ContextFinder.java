@@ -49,14 +49,18 @@ class ContextFinder {
         if (className == null) {
             className = System.getProperty(JAXB_CONTEXT_PROPERTY);
         }
+        Class spi = null;
+        // if no specifically specified name, check for META-INF/services, and
+        // fall back to the default factory class if that fails
         if (className == null) {
-            String url = "META-INF/services/" + JAXB_CONTEXT_PROPERTY;
-            className = loadClassName(url, classLoader);
+            spi = loadSPIClass(JAXBContext.class, classLoader);
+            if (spi == null) {
+                spi = loadSpi(PLATFORM_DEFAULT_FACTORY_CLASS, classLoader);
+            }
         }
-        if (className == null) {
-            className = PLATFORM_DEFAULT_FACTORY_CLASS;
+        else {
+            spi = loadSpi(className, classLoader);
         }
-        Class spi = loadSpi(className, classLoader);
         try {
             Method m = spi.getMethod("createContext", new Class[] { String.class, ClassLoader.class, Map.class });
             return (JAXBContext) m.invoke(null, new Object[] { contextPath, classLoader, properties });
@@ -91,14 +95,20 @@ class ContextFinder {
         if (className == null) {
             className = System.getProperty(JAXB_CONTEXT_PROPERTY);
         }
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+
+        Class spi = null;
+        // if no specifically specified name, check for META-INF/services, and
+        // fall back to the default factory class if that fails
         if (className == null) {
-            String url = "META-INF/services/" + JAXB_CONTEXT_PROPERTY;
-            className = loadClassName(url, Thread.currentThread().getContextClassLoader());
+            spi = loadSPIClass(JAXBContext.class, classLoader);
+            if (spi == null) {
+                spi = loadSpi(PLATFORM_DEFAULT_FACTORY_CLASS, classLoader);
+            }
         }
-        if (className == null) {
-            className = PLATFORM_DEFAULT_FACTORY_CLASS;
+        else {
+            spi = loadSpi(className, classLoader);
         }
-        Class spi = loadSpi(className, Thread.currentThread().getContextClassLoader());
         try {
             Method m = spi.getMethod("createContext", new Class[] { Class[].class, Map.class });
             return (JAXBContext) m.invoke(null, new Object[] { classes, properties });
@@ -135,31 +145,18 @@ class ContextFinder {
         }
     }
 
-    private static String loadClassName(String url, ClassLoader classLoader) throws JAXBException {
+    private static Class<?> loadSPIClass(Class<?> iface, ClassLoader classLoader) throws JAXBException {
         try {
-            InputStream is;
-            if (classLoader != null) {
-                is = classLoader.getResourceAsStream(url);
-            } else {
-                is = ClassLoader.getSystemResourceAsStream(url);
-            }
-            if (is != null) {
-                try {
-                    BufferedReader r = new BufferedReader(new InputStreamReader(is, "UTF-8"));
-                    return r.readLine().trim();
-                } finally {
-                    is.close();
-                }
-            }
-            return null;
-        } catch (IOException e) {
-            throw new JAXBException(e);
+            // delegate this to common processing
+            return ProviderLocator.locateServiceClass(iface.getName(), ContextFinder.class,classLoader );
+        } catch (ClassNotFoundException e) {
+            throw new JAXBException("Provider " + iface.getName() + " not found", e);
         }
     }
 
     private static Class loadSpi(String className, ClassLoader classLoader) throws JAXBException {
         try {
-            return ProviderLocator.loadClass(className, classLoader);
+            return ProviderLocator.loadClass(className, ContextFinder.class, classLoader);
         } catch (ClassNotFoundException e) {
             throw new JAXBException("Provider " + className + " not found", e);
         }

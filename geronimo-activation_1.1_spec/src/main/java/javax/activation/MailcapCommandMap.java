@@ -469,7 +469,7 @@ public class MailcapCommandMap extends CommandMap {
             cl = getClass().getClassLoader();
         }
         try {
-            return (DataContentHandler) ProviderLocator.loadClass(info.getCommandClass(), cl).newInstance();
+            return (DataContentHandler) ProviderLocator.loadClass(info.getCommandClass(), this.getClass(), cl).newInstance();
         } catch (ClassNotFoundException e) {
             return null;
         } catch (IllegalAccessException e) {

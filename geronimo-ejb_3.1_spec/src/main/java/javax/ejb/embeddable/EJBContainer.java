@@ -48,76 +48,46 @@ public abstract class EJBContainer {
     }
 
     public static EJBContainer createEJBContainer(java.util.Map<?, ?> properties) {
-
         if (properties == null) {
             properties = Collections.EMPTY_MAP;
         }
 
-        String providerName = null;
-
         Object o = properties.get(PROVIDER);
 
         if (o instanceof String) {
-            providerName = (String) o;
-        } else {
-            ClassLoader loader = Thread.currentThread().getContextClassLoader();
+            String providerName = (String) o;
+
+            Class providerClass;
+
             try {
-                String service = "META-INF/services/" + EJBContainerProvider.class.getName();
-                Enumeration<URL> providers = loader.getResources(service);
+                providerClass = ProviderLocator.loadClass(providerName);
+            } catch (Exception e) {
+                throw new EJBException("Invalid or inaccessible provider class: " + providerName, e);
+            }
 
-                while (providers.hasMoreElements()) {
-
-                    String name = getProviderName(providers.nextElement());
-
-                    if (name != null) {
-                        providerName = name;
-                        break;
-                    }
+            try {
+                EJBContainerProvider provider = (EJBContainerProvider) providerClass.newInstance();
+                return provider.createEJBContainer(properties);
+            } catch (Exception e) {
+                throw new EJBException("Provider error. Provider: " + providerName, e);
+            }
+        } else {
+            // do the services search processing.
+            try {
+                ClassLoader loader = Thread.currentThread().getContextClassLoader();
+                // go check the loader files.
+                EJBContainerProvider provider = (EJBContainerProvider)ProviderLocator.getService(EJBContainerProvider.class.getName(), EJBContainer.class, loader);
+                if (provider != null) {
+                    return provider.createEJBContainer(properties);
                 }
-            } catch (IOException e) {
+                else {
+                    throw new EJBException("Provider error. No provider definition found");
+                }
+            } catch (Exception e) {
+                throw new EJBException("Provider error. No provider found", e);
             }
         }
-
-        if (providerName == null) {
-            throw new EJBException("No provider found");
-        }
-
-        Class providerClass;
-
-        try {
-            providerClass = ProviderLocator.loadClass(providerName);
-        } catch (Exception e) {
-            throw new EJBException("Invalid or inaccessible provider class: " + providerName, e);
-        }
-
-        try {
-            EJBContainerProvider provider = (EJBContainerProvider) providerClass.newInstance();
-            return provider.createEJBContainer(properties);
-        } catch (Exception e) {
-            throw new EJBException("Provider error. Provider: " + providerName, e);
-        }
-    }
-
-    static String getProviderName(URL url) throws IOException {
-
-        BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
-
-        String providerName;
-
-        try {
-            providerName = in.readLine();
-        } finally {
-            in.close();
-        }
-
-        if (providerName != null) {
-            providerName = providerName.trim();
-        }
-
-        return providerName;
     }
 
     public abstract javax.naming.Context getContext();
-
-
 }

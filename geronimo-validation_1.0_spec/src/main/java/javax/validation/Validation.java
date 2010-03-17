@@ -24,6 +24,7 @@ import java.net.URL;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
@@ -182,10 +183,6 @@ public class Validation {
      * Geronimo implementation specific code.
      */
     private static class DefaultValidationProviderResolver implements ValidationProviderResolver {
-
-        private static final String SERVICES_FILENAME = "META-INF/services/" +
-            ValidationProvider.class.getName();
-
         // cache of providers per class loader
         private volatile WeakHashMap<ClassLoader, List<ValidationProvider<?>>> providerCache =
             new WeakHashMap<ClassLoader, List<ValidationProvider<?>>>();
@@ -209,52 +206,21 @@ public class Validation {
                 // need to discover and load them for this class loader
                 providers = new ArrayList<ValidationProvider<?>>();
                 try {
-                    // find all service provider files
-                    Enumeration<URL> cfgs = cl.getResources(SERVICES_FILENAME);
-                    while (cfgs.hasMoreElements()) {
-                        URL url = cfgs.nextElement();
-                        InputStream is = null;
-                        try {
-                            is = url.openStream();
-                            BufferedReader br = new BufferedReader(
-                                new InputStreamReader(is, "UTF-8"), 256);
-                            String line = br.readLine();
-                            // cfgs may contain multiple providers and/or comments
-                            while (line != null) {
-                                line = line.trim();
-                                if (!line.startsWith("#")) {
-                                    try {
-                                        Class<?> provider = null;
-                                        try {
-                                            // try loading the specified class
-                                            provider = ProviderLocator.loadClass(line, cl);
-                                        } catch (ClassNotFoundException e) {
-                                            throw new ValidationException("Failed to load provider " +
-                                                line + " configured in file " + url, e);
-                                        }
-                                        // create an instance to return
-                                        providers.add((ValidationProvider<?>) provider.newInstance());
-                                    } catch (InstantiationException e) {
-                                        throw new ValidationException("Failed to instantiate provider " +
-                                            line + " configured in file " + url, e);
-                                    } catch (IllegalAccessException e) {
-                                        throw new ValidationException("Failed to access provider " +
-                                            line + " configured in file " + url, e);
-                                    }
-                                }
-                                line = br.readLine();
-                            }
-                            is.close();
-                            is = null;
-                        } catch (IOException e) {
-                            throw new ValidationException("Error trying to read " + url, e);
-                        } finally {
-                            if (is != null)
-                                is.close();
-                        }
+                    List<Object> serviceProviders = ProviderLocator.getServices(ValidationProvider.class.getName(), this.getClass(), cl);
+                    for (Object provider : serviceProviders) {
+                        // create an instance to return
+                        providers.add((ValidationProvider<?>) provider);
                     }
-                } catch (IOException e) {
-                    throw new ValidationException("Error trying to load " + SERVICES_FILENAME, e);
+                } catch (ClassNotFoundException e) {
+                    throw new ValidationException("Failed to load provider", e);
+                } catch (InstantiationException e) {
+                    throw new ValidationException("Failed to instantiate provider", e);
+                } catch (IllegalAccessException e) {
+                    throw new ValidationException("Failed to access provider", e);
+                } catch (ClassCastException e) {
+                    throw new ValidationException("Invalid provider definition", e);
+                } catch (Exception e) {
+                    throw new ValidationException("Failed to instantiate provider", e);
                 }
 
                 // cache the discovered providers

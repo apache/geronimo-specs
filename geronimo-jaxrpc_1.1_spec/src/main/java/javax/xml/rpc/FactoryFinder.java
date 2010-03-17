@@ -104,7 +104,7 @@ class FactoryFinder {
         throws ConfigurationError
     {
         try {
-            return ProviderLocator.loadClass(className, classLoader).newInstance();
+            return ProviderLocator.loadClass(className, FactoryFinder.class, classLoader).newInstance();
         } catch (ClassNotFoundException x) {
             throw new ConfigurationError(
                 "Provider " + className + " not found", x);
@@ -129,10 +129,16 @@ class FactoryFinder {
      *
      * Package private so this code can be shared.
      */
-    static Object find(String factoryId, String fallbackClassName)
+    static Object find(Class<?> factoryType, String fallbackClassName)
         throws ConfigurationError
     {
+        String factoryId = factoryType.getName();
+
         debugPrintln("debug is on");
+
+        // NOTE:  The spec does not identify the search order for this,
+        // other than to note it can be overridden by the system property. The
+        // STAX ordering is used here.
 
         ClassLoader classLoader = findClassLoader();
 
@@ -147,69 +153,26 @@ class FactoryFinder {
         } catch (SecurityException se) {
         }
 
-        // try to read from $java.home/lib/xml.properties
         try {
-            String javah=System.getProperty( "java.home" );
-            String configFile = javah + File.separator +
-                "lib" + File.separator + "jaxrpc.properties";
-            File f=new File( configFile );
-            if( f.exists()) {
-                Properties props=new Properties();
-                props.load( new FileInputStream(f));
-                String factoryClassName = props.getProperty(factoryId);
+            // try to read from $java.home/lib/jaxrpc.properties
+            String factoryClassName =  ProviderLocator.lookupByJREPropertyFile("lib" + File.separator + "jaxrpc.properties", factoryId);
+            if (factoryClassName != null) {
                 debugPrintln("found java.home property " + factoryClassName);
                 return newInstance(factoryClassName, classLoader);
             }
-        } catch(Exception ex ) {
+        } catch (Exception ex) {
             if( debug ) ex.printStackTrace();
         }
 
-        String serviceId = "META-INF/services/" + factoryId;
-        // try to find services in CLASSPATH
+
         try {
-            InputStream is=null;
-            if (classLoader == null) {
-                is=ClassLoader.getSystemResourceAsStream( serviceId );
-            } else {
-                is=classLoader.getResourceAsStream( serviceId );
+            // check the META-INF/services definitions, and return it if
+            // we find something.
+            Object service = ProviderLocator.getService(factoryId, FactoryFinder.class, classLoader);
+            if (service != null) {
+                return service;
             }
-
-            if( is!=null ) {
-                debugPrintln("found " + serviceId);
-
-                // Read the service provider name in UTF-8 as specified in
-                // the jar spec.  Unfortunately this fails in Microsoft
-                // VJ++, which does not implement the UTF-8
-                // encoding. Theoretically, we should simply let it fail in
-                // that case, since the JVM is obviously broken if it
-                // doesn't support such a basic standard.  But since there
-                // are still some users attempting to use VJ++ for
-                // development, we have dropped in a fallback which makes a
-                // second attempt using the platform's default encoding. In
-                // VJ++ this is apparently ASCII, which is a subset of
-                // UTF-8... and since the strings we'll be reading here are
-                // also primarily limited to the 7-bit ASCII range (at
-                // least, in English versions), this should work well
-                // enough to keep us on the air until we're ready to
-                // officially decommit from VJ++. [Edited comment from
-                // jkesselm]
-                BufferedReader rd;
-                try {
-                    rd = new BufferedReader(new InputStreamReader(is, "UTF-8"));
-                } catch (java.io.UnsupportedEncodingException e) {
-                    rd = new BufferedReader(new InputStreamReader(is));
-                }
-
-                String factoryClassName = rd.readLine();
-                rd.close();
-
-                if (factoryClassName != null &&
-                    ! "".equals(factoryClassName)) {
-                    debugPrintln("loaded from services: " + factoryClassName);
-                    return newInstance(factoryClassName, classLoader);
-                }
-            }
-        } catch( Exception ex ) {
+        } catch (Exception ex) {
             if( debug ) ex.printStackTrace();
         }
 

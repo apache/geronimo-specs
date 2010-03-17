@@ -51,7 +51,7 @@ public abstract class ConnectionFactory {
             cl = ConnectionFactory.class.getClassLoader();
         }
         try {
-            Class factoryClass = ProviderLocator.loadClass(className, cl);
+            Class factoryClass = ProviderLocator.loadClass(className, ConnectionFactory.class, cl);
             return (ConnectionFactory) factoryClass.newInstance();
         } catch (ClassNotFoundException e) {
             throw new JAXRException("Unable to load JAXR ConnectionFactoryClass: " + className, e);

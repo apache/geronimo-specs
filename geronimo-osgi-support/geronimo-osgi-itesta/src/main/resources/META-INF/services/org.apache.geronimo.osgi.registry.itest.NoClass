@@ -1,0 +1,2 @@
+# This class should not be loadable...used to test error conditions.
+org.apache.geronimo.osgi.itesta.NoClass

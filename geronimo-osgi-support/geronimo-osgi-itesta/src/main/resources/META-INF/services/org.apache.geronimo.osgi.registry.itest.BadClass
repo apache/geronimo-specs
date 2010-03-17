@@ -1,0 +1,2 @@
+# This will thrown an exception when instantiated.
+org.apache.geronimo.osgi.itesta.BadTarget

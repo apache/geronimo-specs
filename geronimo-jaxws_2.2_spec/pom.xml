@@ -56,6 +56,15 @@
     </scm>
 
     <dependencies>
+        <!-- NOTE:  Placing this one first ensures this is picking up the most recent locator
+             classes rather than potentially getting built with the ones residing inside
+             one of the other dependency spec jars -->
+        <dependency>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-osgi-locator</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>org.apache.geronimo.specs</groupId>
             <artifactId>geronimo-saaj_1.3_spec</artifactId>
@@ -79,13 +88,6 @@
             <groupId>org.apache.geronimo.specs</groupId>
             <artifactId>geronimo-jaxb_2.2_spec</artifactId>
             <version>1.0-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-osgi-locator</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

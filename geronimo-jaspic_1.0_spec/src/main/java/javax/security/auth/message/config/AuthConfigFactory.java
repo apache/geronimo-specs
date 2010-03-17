@@ -65,7 +65,7 @@ public abstract class AuthConfigFactory {
                         .doPrivileged(new java.security.PrivilegedExceptionAction() {
                             public Object run() throws ClassNotFoundException, InstantiationException,
                                     IllegalAccessException {
-                                return ProviderLocator.loadClass(finalClassName, contextClassLoader).newInstance();
+                                return ProviderLocator.loadClass(finalClassName, this.getClass(), contextClassLoader).newInstance();
                             }
                         });
             } catch (PrivilegedActionException e) {
