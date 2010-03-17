@@ -35,6 +35,12 @@ public final class DatatypeConverter {
             throw new IllegalArgumentException("The DatatypeConverterInterface parameter must not be null");
         }
         if (DatatypeConverter.converter == null) {
+
+            SecurityManager sm = System.getSecurityManager();           
+            if (sm != null) {
+                sm.checkPermission(new JAXBPermission("setDatatypeConverter"));
+            }
+            
             DatatypeConverter.converter = converter;
         }
     }
