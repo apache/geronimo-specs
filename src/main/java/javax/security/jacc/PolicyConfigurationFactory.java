@@ -86,7 +86,7 @@ public abstract class PolicyConfigurationFactory {
                         if (factoryClassName[0] == null) throw new ClassNotFoundException("Property " + FACTORY_NAME + " not set");
                         Thread currentThread = Thread.currentThread();
                         ClassLoader tccl = currentThread.getContextClassLoader();
-                        return ProviderLocator.loadClass(factoryClassName[0], tccl).newInstance();
+                        return ProviderLocator.loadClass(factoryClassName[0], PolicyConfigurationFactory.class, tccl).newInstance();
                     }
                 });
         } catch(PrivilegedActionException pae) {
