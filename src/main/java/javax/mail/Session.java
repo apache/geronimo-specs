@@ -489,7 +489,7 @@ public final class Session {
             ClassLoader cl = getClassLoader();
             Class clazz = null;
             try {
-                clazz = ProviderLocator.loadClass(provider.getClassName(), cl);
+                clazz = ProviderLocator.loadClass(provider.getClassName(), this.getClass(), cl);
             } catch (ClassNotFoundException e) {
                 throw (NoSuchProviderException) new NoSuchProviderException("Unable to load class for provider: " + provider).initCause(e);
             }
