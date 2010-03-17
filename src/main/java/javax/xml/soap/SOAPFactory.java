@@ -120,7 +120,7 @@ public abstract class SOAPFactory {
      */
     public static SOAPFactory newInstance() throws SOAPException {
         try {
-            SOAPFactory factory = (SOAPFactory)FactoryFinder.find(SOAP_FACTORY_PROPERTY);
+            return (SOAPFactory)FactoryFinder.find(SOAPFactory.class, null);
             if (factory == null) {
                 factory = newInstance(SOAPConstants.SOAP_1_1_PROTOCOL);
             }
@@ -192,7 +192,4 @@ public abstract class SOAPFactory {
     public abstract SOAPFault createFault(java.lang.String reasonText,
                                           javax.xml.namespace.QName faultCode)
             throws SOAPException;
-
-    private static final String SOAP_FACTORY_PROPERTY = "javax.xml.soap.SOAPFactory";
-
 }

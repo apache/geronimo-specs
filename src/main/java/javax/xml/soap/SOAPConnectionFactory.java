@@ -42,7 +42,7 @@ public abstract class SOAPConnectionFactory {
             throws SOAPException, UnsupportedOperationException {
 
         try {
-            return (SOAPConnectionFactory)FactoryFinder.find(SF_PROPERTY,
+            return (SOAPConnectionFactory)FactoryFinder.find(SOAPConnectionFactory.class,
                                                              DEFAULT_SOAP_CONNECTION_FACTORY);
         } catch (Exception exception) {
             throw new SOAPException("Unable to create SOAP connection factory: "
@@ -61,7 +61,4 @@ public abstract class SOAPConnectionFactory {
 
     private static final String DEFAULT_SOAP_CONNECTION_FACTORY =
             "org.apache.axis2.saaj.SOAPConnectionFactoryImpl";
-
-    private static final String SF_PROPERTY =
-            "javax.xml.soap.SOAPConnectionFactory";
 }
