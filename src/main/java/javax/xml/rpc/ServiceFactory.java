@@ -42,14 +42,6 @@ public abstract class ServiceFactory {
     protected ServiceFactory() {}
 
     /**
-     * A constant representing the property used to lookup the
-     * name of a <code>ServiceFactory</code> implementation
-     * class.
-     */
-    public static final java.lang.String SERVICEFACTORY_PROPERTY =
-        "javax.xml.rpc.ServiceFactory";
-
-    /**
      * Gets an instance of the <code>ServiceFactory</code>
      *
      * <p>Only one copy of a factory exists and is returned to the
@@ -66,7 +58,7 @@ public abstract class ServiceFactory {
         try {
             return (ServiceFactory) FactoryFinder.find(
                 /* The default property name according to the JAXRPC spec */
-                SERVICEFACTORY_PROPERTY,
+                ServiceFactory.class,
                 /* The fallback implementation class name */
                 "org.apache.axis.client.ServiceFactory");
         } catch (FactoryFinder.ConfigurationError e) {
@@ -95,15 +87,15 @@ public abstract class ServiceFactory {
      */
     public abstract Service createService(QName serviceName)
         throws ServiceException;
-    
+
     public abstract Service loadService(java.lang.Class class1)
                              throws ServiceException;
-    
+
     public abstract Service loadService(java.net.URL url,
                                     java.lang.Class class1,
                                     java.util.Properties properties)
                              throws ServiceException;
-    
+
     public abstract Service loadService(java.net.URL url,
                                     QName qname,
                                     java.util.Properties properties)
