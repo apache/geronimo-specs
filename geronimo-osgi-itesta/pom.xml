@@ -31,46 +31,29 @@
     </parent>
 
     <groupId>org.apache.geronimo.specs</groupId>
-    <artifactId>geronimo-osgi-locator-itests</artifactId>
+    <artifactId>geronimo-osgi-itesta</artifactId>
+    <packaging>bundle</packaging>
+    <name>Geronimo OSGi integration tests</name>
+    <version>1.0.0-SNAPSHOT</version>
 
     <description>
-This project contains integration tests to ensure that the code
-in the locator will function correctly if used outside of an OSGi framework.
-These tests will have no dependnecies on any OSGi classes when run, and should
-function without error.
+Separately built test bundle for use in the various integration tests.  This
+bundle will have provider and services definitions used to test different class
+provider resolution scenarios.
     </description>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-osgi-locator</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-osgi-itesta</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-osgi-itestb</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
 
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
                 <configuration>
-                    <redirectTestOutputToFile>true</redirectTestOutputToFile>
-                    <failIfNoTests>false</failIfNoTests>
+                    <instructions>
+                        <Bundle-SymbolicName>${groupId}.${artifactId};singleton=true</Bundle-SymbolicName>
+                        <Private-Package>org.apache.geronimo.osgi.testa</Private-Package>
+                        <SPI-Provider>true</SPI-Provider>
+                    </instructions>
                 </configuration>
             </plugin>
         </plugins>

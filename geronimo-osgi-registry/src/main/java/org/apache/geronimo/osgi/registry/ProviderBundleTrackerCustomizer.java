@@ -64,7 +64,7 @@ public class ProviderBundleTrackerCustomizer implements BundleTrackerCustomizer 
     @Override
     public void removedBundle(Bundle bundle, BundleEvent event, Object object) {
         // have the registry process this
-        registry.removeBundle(bundle);
+        registry.removeBundle(bundle, object);
     }
 
     private void log(int level, String message) {

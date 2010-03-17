@@ -1,0 +1,1 @@
+org.apache.geronimo.osgi.itesta.TestTargetTwo  # Used as an override to map TestTarget to TestTargetTwo

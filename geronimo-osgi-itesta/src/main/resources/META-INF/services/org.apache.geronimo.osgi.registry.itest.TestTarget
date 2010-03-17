@@ -1,0 +1,4 @@
+# Tests normal class mapping...NOTE:  this uses
+# TestTarget2 to ensure we're picking up the
+# services version, not the providers one.
+org.apache.geronimo.osgi.itesta.TestTarget2

@@ -1,0 +1,3 @@
+# Tests normal class mapping for multiple providers
+org.apache.geronimo.osgi.itesta.TestTarget
+org.apache.geronimo.osgi.itesta.TestTarget2

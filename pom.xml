@@ -72,6 +72,16 @@ OSGi-specific lookup in the Geronimo spec projects.
                 <version>${version}</version>
             </dependency>
             <dependency>
+                <groupId>org.apache.geronimo.specs</groupId>
+                <artifactId>geronimo-osgi-itesta</artifactId>
+                <version>${version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.geronimo.specs</groupId>
+                <artifactId>geronimo-osgi-itestb</artifactId>
+                <version>${version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.osgi</groupId>
                 <artifactId>org.osgi.core</artifactId>
                 <version>4.2.0</version>
@@ -178,6 +188,8 @@ OSGi-specific lookup in the Geronimo spec projects.
     <modules>
         <module>geronimo-osgi-registry</module>
         <module>geronimo-osgi-locator</module>
+        <module>geronimo-osgi-itesta</module>
+        <module>geronimo-osgi-itestb</module>
         <module>geronimo-osgi-registry-itests</module>
         <module>geronimo-osgi-locator-itests</module>
     </modules>

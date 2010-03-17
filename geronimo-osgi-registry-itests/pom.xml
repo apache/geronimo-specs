@@ -49,6 +49,16 @@ Tests for the OSGi provider registry inside of an OSGi framework.
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-osgi-itesta</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-osgi-itestb</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.osgi</groupId>
             <artifactId>org.osgi.core</artifactId>
             <scope>test</scope>
@@ -142,10 +152,6 @@ Tests for the OSGi provider registry inside of an OSGi framework.
                 <configuration>
                     <redirectTestOutputToFile>true</redirectTestOutputToFile>
                     <failIfNoTests>false</failIfNoTests>
-                    <includes>
-                        <include>**/OSGiLocatorTest.java</include>
-                        <include>**/OSGiLocatorMultipleProviderTest.java</include>
-                    </includes>
                 </configuration>
             </plugin>
         </plugins>
