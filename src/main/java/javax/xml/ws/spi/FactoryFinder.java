@@ -125,7 +125,7 @@ class FactoryFinder {
             doPrivileged( new PrivilegedAction<Object>() {
                 public Object run() {
                     try {
-                        return ProviderLocator.loadClass(iClassName, iClassLoader).newInstance();
+                        return ProviderLocator.loadClass(iClassName, FactoryFinder.class, iClassLoader).newInstance();
                     } catch (ClassNotFoundException x) {
                         throw new ConfigurationError(
                                 "Provider " + iClassName + " not found", x);
@@ -162,7 +162,34 @@ class FactoryFinder {
                 public Object run() {
                     debugPrintln("debug is on");
 
+                    // Section 6.2.1 of the jaxws spec gives lookup order as
+                    // 1.  META-INF/services definition
+                    // 2.  ${java.home}/lib/jaxws.properties file
+                    // 3.  System property
+                    // 4.  The default implementation class
+
                     ClassLoader classLoader = findClassLoader();
+
+                    try {
+                        // check the META-INF/services definitions, and return it if
+                        // we find something.
+                        Object service = ProviderLocator.getService(iFactoryId, FactoryFinder.class, classLoader);
+                        if (service != null) {
+                            return service;
+                        }
+                    } catch (Exception ex) {
+                        if (debug) ex.printStackTrace();
+                    }
+
+                    try {
+                        String factoryClassName =  ProviderLocator.lookupByJREPropertyFile("lib" + File.separator + "jaxrpc.properties", iFactoryId);
+                        if (factoryClassName != null) {
+                            debugPrintln("found java.home property " + factoryClassName);
+                            return newInstance(factoryClassName, classLoader);
+                        }
+                    } catch (Exception ex) {
+                        if (debug) ex.printStackTrace();
+                    }
 
                     // Use the system property first
                     try {
@@ -173,72 +200,6 @@ class FactoryFinder {
                             return newInstance(systemProp, classLoader);
                         }
                     } catch (SecurityException se) {
-                    }
-
-                    // try to read from $java.home/lib/xml.properties
-                    try {
-                        String javah = System.getProperty("java.home");
-                        String configFile = javah + File.separator +
-                        "lib" + File.separator + "jaxrpc.properties";
-                        File f = new File(configFile);
-                        if (f.exists()) {
-                            Properties props = new Properties();
-                            props.load(new FileInputStream(f));
-                            String factoryClassName = props.getProperty(iFactoryId);
-                            debugPrintln("found java.home property " + factoryClassName);
-                            return newInstance(factoryClassName, classLoader);
-                        }
-                    } catch (Exception ex) {
-                        if (debug) ex.printStackTrace();
-                    }
-
-                    String serviceId = "META-INF/services/" + iFactoryId;
-                    // try to find services in CLASSPATH
-                    try {
-                        InputStream is = null;
-                        if (classLoader == null) {
-                            is = ClassLoader.getSystemResourceAsStream(serviceId);
-                        } else {
-                            is = classLoader.getResourceAsStream(serviceId);
-                        }
-
-                        if (is != null) {
-                            debugPrintln("found " + serviceId);
-
-                            // Read the service provider name in UTF-8 as specified in
-                            // the jar spec.  Unfortunately this fails in Microsoft
-                            // VJ++, which does not implement the UTF-8
-                            // encoding. Theoretically, we should simply let it fail in
-                            // that case, since the JVM is obviously broken if it
-                            // doesn't support such a basic standard.  But since there
-                            // are still some users attempting to use VJ++ for
-                            // development, we have dropped in a fallback which makes a
-                            // second attempt using the platform's default encoding. In
-                            // VJ++ this is apparently ASCII, which is a subset of
-                            // UTF-8... and since the strings we'll be reading here are
-                            // also primarily limited to the 7-bit ASCII range (at
-                            // least, in English versions), this should work well
-                            // enough to keep us on the air until we're ready to
-                            // officially decommit from VJ++. [Edited comment from
-                            // jkesselm]
-                            BufferedReader rd;
-                            try {
-                                rd = new BufferedReader(new InputStreamReader(is, "UTF-8"));
-                            } catch (java.io.UnsupportedEncodingException e) {
-                                rd = new BufferedReader(new InputStreamReader(is));
-                            }
-
-                            String factoryClassName = rd.readLine();
-                            rd.close();
-
-                            if (factoryClassName != null &&
-                                    ! "".equals(factoryClassName)) {
-                                debugPrintln("loaded from services: " + factoryClassName);
-                                return newInstance(factoryClassName, classLoader);
-                            }
-                        }
-                    } catch (Exception ex) {
-                        if (debug) ex.printStackTrace();
                     }
 
                     if (iFallbackClassName == null) {
