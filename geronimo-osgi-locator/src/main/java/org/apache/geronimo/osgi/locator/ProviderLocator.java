@@ -56,10 +56,19 @@ public class ProviderLocator {
      * @param c      The starup BundleContext.
      */
     public static void init(BundleContext c) {
-        context = c;
-        // just create a tracker for our lookup service
-        registryTracker = new ServiceTracker(context, ProviderRegistry.class.getName(), null);
-        ((ServiceTracker)registryTracker).open();
+        try {
+            // just create a tracker for our lookup service
+            // NB:  We use the hard coded name in case the registry service has not
+            // been started first.  Once this does get started, then everything should
+            // resolved.
+            registryTracker = new ServiceTracker(context, "org.apache.geronimo.osgi.registry.api.ProviderRegistry", null);
+            ((ServiceTracker)registryTracker).open();
+            // do this last...it helps indicate if we have an initialized registry.
+            context = c;
+        } catch (Throwable e) {
+            // if there were any errors, then the registry is not available.
+            registryTracker = null;
+        }
     }
 
 
@@ -67,9 +76,11 @@ public class ProviderLocator {
      * Cleanup resources on bundle shutdown.
      */
     public static void destroy() {
-        // shutdown our tracking of the provider registry.
-        ((ServiceTracker)registryTracker).close();
-        registryTracker = null;
+        if (registryTracker != null) {
+            // shutdown our tracking of the provider registry.
+            ((ServiceTracker)registryTracker).close();
+            registryTracker = null;
+        }
     }
 
 
