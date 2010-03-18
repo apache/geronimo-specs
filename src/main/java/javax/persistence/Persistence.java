@@ -207,7 +207,7 @@ public class Persistence {
             cl = PrivClassLoader.get(Persistence.class);
 
         try {
-            providerClass = ProviderLocator.loadClass(providerName);
+            providerClass = ProviderLocator.loadClass(providerName, Persistence.class, cl);
         } catch (Exception e) {
             throw new PersistenceException("Invalid or inaccessible explicit provider class: " +
                 providerName, e);
