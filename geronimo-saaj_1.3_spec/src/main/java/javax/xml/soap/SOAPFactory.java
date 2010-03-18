@@ -120,7 +120,7 @@ public abstract class SOAPFactory {
      */
     public static SOAPFactory newInstance() throws SOAPException {
         try {
-            return (SOAPFactory)FactoryFinder.find(SOAPFactory.class, null);
+            SOAPFactory factory = (SOAPFactory)FactoryFinder.find(SOAPFactory.class, null);
             if (factory == null) {
                 factory = newInstance(SOAPConstants.SOAP_1_1_PROTOCOL);
             }
