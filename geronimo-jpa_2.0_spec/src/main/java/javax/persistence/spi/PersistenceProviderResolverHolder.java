@@ -104,73 +104,21 @@ public class PersistenceProviderResolverHolder {
                 // need to discover and load them for this class loader
                 providers = new ArrayList<PersistenceProvider>();
                 try {
-                    // find all service provider files
-                    Enumeration<URL> cfgs = cl.getResources(SERVICES_FILENAME);
-                    while (cfgs.hasMoreElements()) {
-                        URL url = cfgs.nextElement();
-                        InputStream is = null;
-                        try {
-                            is = url.openStream();
-                            BufferedReader br = new BufferedReader(
-                                new InputStreamReader(is, "UTF-8"), 256);
-                            String line = br.readLine();
-                            // files may contain multiple providers and/or comments
-                            while (line != null) {
-                                line = line.trim();
-                                if (!line.startsWith("#")) {
-                                    try {
-                                        // try loading the specified class
-                                        final Class<?> provider = cl.loadClass(line);
-                                        // create an instance to return
-                                        providers.add((PersistenceProvider) provider.newInstance());
-                                    } catch (ClassNotFoundException e) {
-                                        throw new PersistenceException("Failed to load provider " +
-                                            line + " configured in file " + url, e);
-                                    } catch (InstantiationException e) {
-                                        throw new PersistenceException("Failed to instantiate provider " +
-                                            line + " configured in file " + url, e);
-                                    } catch (IllegalAccessException e) {
-                                        throw new PersistenceException("Failed to access provider " +
-                                            line + " configured in file " + url, e);
-                                    }
-                                }
-                                line = br.readLine();
-                            }
-                            is.close();
-                            is = null;
-                        } catch (IOException e) {
-                            throw new PersistenceException("Error trying to read " + url, e);
-                        } finally {
-                            if (is != null)
-                                is.close();
-                        }
+                    // add each one to our list
+                    List<Object> serviceProviders = ProviderLocator.getServices(PersistenceProvider.class.getName(), this.getClass(), cl);
+                    for (Object o : serviceProviders) {
+                        providers.add((PersistenceProvider)o);
                     }
-                } catch (IOException e) {
-                    throw new PersistenceException("Error trying to load " + SERVICES_FILENAME, e);
-                }
-
-                try {
-
-                    // if we're running in an OSGi environment, there might be additional reqistered
-                    // persistence providers.   Process them also
-                    List<Class<?>> osgiProviders = ProviderLocator.locateAll(PersistenceProvider.class.getName());
-
-                    for (Class<?> provider : osgiProviders) {
-                        // add this instance to the cache of providers
-                        providers.add((PersistenceProvider) provider.newInstance());
-                    }
+                } catch (ClassNotFoundException e) {
+                    throw new PersistenceException("Failed to load provider from META-INF/services", e);
                 } catch (InstantiationException e) {
-                    throw new PersistenceException("Failed to instantiate provider osgi provider", e);
+                    throw new PersistenceException("Failed to load provider from META-INF/services", e);
                 } catch (IllegalAccessException e) {
-                    throw new PersistenceException("Failed to access osgi provider", e);
-                } catch (ClassCastException e) {
-                    throw new PersistenceException("Invalid osgi provider definition", e);
+                    throw new PersistenceException("Failed to load provider from META-INF/services", e);
+                } catch (Exception e) {
+                    throw new PersistenceException("Failed to load provider from META-INF/services", e);
                 }
-
-                // cache the discovered providers
-                providerCache.put(cl, providers);
             }
-
             // caller must handle the case of no providers found
             return providers;
         }
