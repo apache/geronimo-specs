@@ -109,6 +109,8 @@ public class PersistenceProviderResolverHolder {
                     for (Object o : serviceProviders) {
                         providers.add((PersistenceProvider)o);
                     }
+                    // cache the discovered providers
+                    providerCache.put(cl, providers);
                 } catch (ClassNotFoundException e) {
                     throw new PersistenceException("Failed to load provider from META-INF/services", e);
                 } catch (InstantiationException e) {
