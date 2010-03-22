@@ -22,7 +22,7 @@ import java.io.PrintWriter;
 
 public class JAXBException extends Exception {
 
-    private static final long serialVersionUID = 0x5dd94775L;
+    private static final long serialVersionUID = -5621384651494307979L;
 
     private String errorCode;
     private Throwable linkedException;
