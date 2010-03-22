@@ -23,6 +23,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.Arrays;
 
 /**
  * Annotation literal utility.
@@ -97,7 +98,17 @@ public abstract class AnnotationLiteral<T extends Annotation> implements Annotat
     public boolean equals(Object other)
     {
         Method[] methods = this.annotationType.getDeclaredMethods();
-
+        
+        if(other == this)
+        {
+            return true;
+        }
+        
+        if(other == null)
+        {
+            return false;
+        }
+        
         if (other instanceof Annotation)
         {
             Annotation annotOther = (Annotation) other;
@@ -107,20 +118,86 @@ public abstract class AnnotationLiteral<T extends Annotation> implements Annotat
                 {
                     Object value = callMethod(this, method);
                     Object annotValue = callMethod(annotOther, method);
-
-                    if (value != null && annotValue != null)
+                    
+                    if((value == null && annotValue != null) || (value != null && annotValue == null))
+                    {
+                        return false;
+                    }
+                    
+                    if(value == null && annotValue == null)
+                    {
+                        continue;
+                    }
+                    
+                    Class<?> valueClass = value.getClass();
+                    Class<?> annotValueClass = annotValue.getClass();
+                    
+                    if(valueClass.isPrimitive() && annotValueClass.isPrimitive())
+                    {
+                        if((valueClass != Float.TYPE && annotValue != Float.TYPE)
+                                || (valueClass != Double.TYPE && annotValue != Double.TYPE))
+                        {
+                            if(value != annotValue)
+                            {
+                                return false;
+                            }
+                            
+                        }
+                    }
+                    else if(valueClass.isArray() && annotValueClass.isArray())
+                    {
+                        Class<?> type = valueClass.getComponentType();
+                        if(type.isPrimitive())
+                        {
+                            if(Long.TYPE == type)
+                            {
+                                if(!Arrays.equals(((Long[])value),(Long[])annotValue)) return false;
+                            }
+                            else if(Integer.TYPE == type)
+                            {
+                                if(!Arrays.equals(((Integer[])value),(Integer[])annotValue)) return false;
+                            }
+                            else if(Short.TYPE == type)
+                            {
+                                if(!Arrays.equals(((Short[])value),(Short[])annotValue)) return false;
+                            }
+                            else if(Double.TYPE == type)
+                            {
+                                if(!Arrays.equals(((Double[])value),(Double[])annotValue)) return false;
+                            }
+                            else if(Float.TYPE == type)
+                            {
+                                if(!Arrays.equals(((Float[])value),(Float[])annotValue)) return false;
+                            }
+                            else if(Boolean.TYPE == type)
+                            {
+                                if(!Arrays.equals(((Boolean[])value),(Boolean[])annotValue)) return false;
+                            }
+                            else if(Byte.TYPE == type)
+                            {
+                                if(!Arrays.equals(((Byte[])value),(Byte[])annotValue)) return false;
+                            }
+                            else if(Character.TYPE == type)
+                            {
+                                if(!Arrays.equals(((Character[])value),(Character[])annotValue)) return false;
+                            }                    
+                        }
+                        else
+                        {
+                            if(!Arrays.equals(((Object[])value),(Object[])annotValue)) return false;
+                        }
+                    }
+                    
+                    else if (value != null && annotValue != null)
                     {
                         if (!value.equals(annotValue))
                         {
                             return false;
                         }
-                    }
-                    else if ((value == null && annotValue != null) || (value != null && annotValue == null))
-                    {
-                        return false;
-                    }
+                    } 
 
                 }
+                
                 return true;
             }
         }
@@ -165,11 +242,61 @@ public abstract class AnnotationLiteral<T extends Annotation> implements Annotat
             int name = 127 * method.getName().hashCode();
 
             // Member value
-            int value = callMethod(this, method).hashCode();
+            Object object = callMethod(this, method);
+            int value = 0;
+            if(object.getClass().isArray())
+            {
+                Class<?> type = object.getClass().getComponentType();
+                if(type.isPrimitive())
+                {
+                    if(Long.TYPE == type)
+                    {
+                        value = Arrays.hashCode((Long[])object);
+                    }
+                    else if(Integer.TYPE == type)
+                    {
+                        value = Arrays.hashCode((Integer[])object);
+                    }
+                    else if(Short.TYPE == type)
+                    {
+                        value = Arrays.hashCode((Short[])object);
+                    }
+                    else if(Double.TYPE == type)
+                    {
+                        value = Arrays.hashCode((Double[])object);
+                    }
+                    else if(Float.TYPE == type)
+                    {
+                        value = Arrays.hashCode((Float[])object);
+                    }
+                    else if(Boolean.TYPE == type)
+                    {
+                        value = Arrays.hashCode((Long[])object);
+                    }
+                    else if(Byte.TYPE == type)
+                    {
+                        value = Arrays.hashCode((Byte[])object);
+                    }
+                    else if(Character.TYPE == type)
+                    {
+                        value = Arrays.hashCode((Character[])object);
+                    }                    
+                }
+                else
+                {
+                    value = Arrays.hashCode((Object[])object);
+                }
+            }
+            else
+            {
+                value = object.hashCode();
+            }
+            
             hashCode += name ^ value;
         }
         return hashCode;
     }
+    
 
     @Override
     public String toString()
