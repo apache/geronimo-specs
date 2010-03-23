@@ -32,10 +32,13 @@
         <version>2.0</version>
     </parent>
 
+    <groupId>org.apache.geronimo.specs</groupId>
     <artifactId>geronimo-stax-api_1.0_spec</artifactId>
     <packaging>bundle</packaging>
     <name>Streaming API for XML (STAX API 1.0)</name>
     <version>1.0.2-SNAPSHOT</version>
+
+    <description>Java STAX Spec API 1.0</description>
 
     <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
     <distributionManagement>
