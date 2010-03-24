@@ -61,7 +61,7 @@ public class ProviderLocator {
             // NB:  We use the hard coded name in case the registry service has not
             // been started first.  Once this does get started, then everything should
             // resolved.
-            registryTracker = new ServiceTracker(context, "org.apache.geronimo.osgi.registry.api.ProviderRegistry", null);
+            registryTracker = new ServiceTracker(c, "org.apache.geronimo.osgi.registry.api.ProviderRegistry", null);
             ((ServiceTracker)registryTracker).open();
             // do this last...it helps indicate if we have an initialized registry.
             context = c;
@@ -178,6 +178,14 @@ public class ProviderLocator {
      *                   Thrown if the class cannot be loaded.
      */
     static public Class<?> loadClass(String className, Class<?>contextClass, ClassLoader loader) throws ClassNotFoundException {
+        // ideally, this should be last.  However, some of the bundles duplicate classes
+        // found on the boot delegation, so we need to check this first to keep
+        // from picking up one of the default implementations.
+        Class cls = locate(className);
+        if (cls != null) {
+            return cls;
+        }
+
         if (loader != null) {
             try {
                 return loader.loadClass(className);
@@ -187,17 +195,8 @@ public class ProviderLocator {
         if (contextClass != null) {
             loader = contextClass.getClassLoader();
         }
-        try {
-            // try again using the class context loader
-            return Class.forName(className, true, loader);
-        } catch (ClassNotFoundException x) {
-            // last gasp, use the OSGi locator to try to find this
-            Class cls = locate(className);
-            if (cls == null) {
-                throw x;
-            }
-            return cls;
-        }
+        // try again using the class context loader
+        return Class.forName(className, true, loader);
     }
 
 
@@ -217,27 +216,31 @@ public class ProviderLocator {
      *                      trying to instantiate a service instance.
      */
     static public Object getService(String iface, Class<?> contextClass, ClassLoader loader) throws Exception {
+        // if we are working in an OSGi environment, then process the service
+        // registry first.  Ideally, we would do this last, but because of boot delegation
+        // issues with some API implementations, we must try the OSGi version first
+        if (registryTracker != null) {
+            // get the service, if it exists.  NB:  if the tracker exists, then we
+            // were able to load the interface class in the first place, so we don't
+            // need to protect against that.
+            ProviderRegistry registry = (ProviderRegistry)((ServiceTracker)registryTracker).getService();
+            // if the service is not here, we fall through to the traditional method
+            if (registry != null) {
+                // the rest of the work is done by the registry
+                Object service = registry.getService(iface);
+                if (service != null) {
+                    return service;
+                }
+            }
+        }
         // try for a classpath locatable instance first.  If we find an appropriate class mapping,
         // create an instance and return it.
         Class<?> cls = locateServiceClass(iface, contextClass, loader);
         if (cls != null) {
             return cls.newInstance();
         }
-
-        // if not initialized in an OSGi environment, this is a failure
-        if (registryTracker == null) {
-            return null;
-        }
-        // get the service, if it exists.  NB:  if the tracker exists, then we
-        // were able to load the interface class in the first place, so we don't
-        // need to protect against that.
-        ProviderRegistry registry = (ProviderRegistry)((ServiceTracker)registryTracker).getService();
-        // it is also a failure if the service is not there.
-        if (registry == null) {
-            return null;
-        }
-        // the rest of the work is done by the registry
-        return registry.getService(iface);
+        // a provider was not found
+        return null;
     }
 
 
@@ -257,27 +260,27 @@ public class ProviderLocator {
      *                      trying to load the class.
      */
     static public Class<?> getServiceClass(String iface, Class<?> contextClass, ClassLoader loader) throws ClassNotFoundException {
-        // try for a classpath locatable instance first.  If we find an appropriate class mapping,
-        // create an instance and return it.
-        Class<?> cls = locateServiceClass(iface, contextClass, loader);
-        if (cls != null) {
-            return cls;
+        // if we are working in an OSGi environment, then process the service
+        // registry first.  Ideally, we would do this last, but because of boot delegation
+        // issues with some API implementations, we must try the OSGi version first
+        if (registryTracker != null) {
+            // get the service, if it exists.  NB:  if the tracker exists, then we
+            // were able to load the interface class in the first place, so we don't
+            // need to protect against that.
+            ProviderRegistry registry = (ProviderRegistry)((ServiceTracker)registryTracker).getService();
+            // it is also a failure if the service is not there.
+            if (registry != null) {
+                // If we've located stuff in the registry, then return it
+                Class<?> cls = registry.getServiceClass(iface);
+                if (cls != null) {
+                    return cls;
+                }
+            }
         }
 
-        // if not initialized in an OSGi environment, this is a failure
-        if (registryTracker == null) {
-            return null;
-        }
-        // get the service, if it exists.  NB:  if the tracker exists, then we
-        // were able to load the interface class in the first place, so we don't
-        // need to protect against that.
-        ProviderRegistry registry = (ProviderRegistry)((ServiceTracker)registryTracker).getService();
-        // it is also a failure if the service is not there.
-        if (registry == null) {
-            return null;
-        }
-        // the rest of the work is done by the registry
-        return registry.getServiceClass(iface);
+        // try for a classpath locatable instance first.  If we find an appropriate class mapping,
+        // create an instance and return it.
+        return locateServiceClass(iface, contextClass, loader);
     }
 
 
@@ -300,7 +303,26 @@ public class ProviderLocator {
     static public List<Object> getServices(String iface, Class<?> contextClass, ClassLoader loader) throws Exception {
         List<Object> services = new ArrayList<Object>();
 
-        // try for a classpath locatable instance first.  If we find an appropriate class mapping,
+        // because of boot delegation issues with some of the API implementations, it is necessary
+        // to process the OSGi registered versions first to allow override of JRE provided APIs.
+        // if not initialized in an OSGi environment, we're finished
+        if (registryTracker != null) {
+            // get the service, if it exists.  NB:  if the tracker exists, then we
+            // were able to load the interface class in the first place, so we don't
+            // need to protect against that.
+            ProviderRegistry registry = (ProviderRegistry)((ServiceTracker)registryTracker).getService();
+            // it is also the end if the service is not there.
+            if (registry != null) {
+                // get any registered service instances now
+                List<Object> globalServices = registry.getServices(iface);
+                // add to our list also
+                if (globalServices != null) {
+                    services.addAll(globalServices);
+                }
+            }
+        }
+
+        // try for a classpath locatable instance second.  If we find an appropriate class mapping,
         // create an instance and return it.
         Collection<Class<?>> classes = locateServiceClasses(iface, contextClass, loader);
         if (classes != null) {
@@ -310,25 +332,6 @@ public class ProviderLocator {
             }
         }
 
-        // if not initialized in an OSGi environment, we're finished
-        if (registryTracker == null) {
-            return services;
-        }
-        // get the service, if it exists.  NB:  if the tracker exists, then we
-        // were able to load the interface class in the first place, so we don't
-        // need to protect against that.
-        ProviderRegistry registry = (ProviderRegistry)((ServiceTracker)registryTracker).getService();
-        // it is also the end if the service is not there.
-        if (registry == null) {
-            return services;
-        }
-
-        // get any registered service instances now
-        List<Object> globalServices = registry.getServices(iface);
-        // add to our list also
-        if (globalServices != null) {
-            services.addAll(globalServices);
-        }
         // now return the merged set
         return services;
     }
@@ -352,31 +355,31 @@ public class ProviderLocator {
      */
     static public List<Class<?>> getServiceClasses(String iface, Class<?> contextClass, ClassLoader loader) throws Exception {
         Set<Class<?>> serviceClasses = new LinkedHashSet<Class<?>>();
-        // try for a classpath locatable classes first.  If we find an appropriate class mapping,
+
+        // because of boot delegation issues with some of the API implementations, it is necessary
+        // to process the OSGi registered versions first to allow override of JRE provided APIs.
+        // if not initialized in an OSGi environment, we're finished
+        if (registryTracker != null) {
+            // get the service, if it exists.  NB:  if the tracker exists, then we
+            // were able to load the interface class in the first place, so we don't
+            // need to protect against that.
+            ProviderRegistry registry = (ProviderRegistry)((ServiceTracker)registryTracker).getService();
+            // it is also the end if the service is not there.
+            if (registry != null) {
+                // get any registered service provider classes now
+                List<Class<?>> globalServices = registry.getServiceClasses(iface);
+                // add to our list also
+                if (globalServices != null) {
+                    serviceClasses.addAll(globalServices);
+                }
+            }
+        }
+
+        // try for a classpath locatable classes second.  If we find an appropriate class mapping,
         // add this to our return collection.
         Collection<Class<?>> classes = locateServiceClasses(iface, contextClass, loader);
         if (classes != null) {
             serviceClasses.addAll(classes);
-        }
-
-        // if not initialized in an OSGi environment, we're finished
-        if (registryTracker == null) {
-            return new ArrayList(serviceClasses);
-        }
-        // get the service, if it exists.  NB:  if the tracker exists, then we
-        // were able to load the interface class in the first place, so we don't
-        // need to protect against that.
-        ProviderRegistry registry = (ProviderRegistry)((ServiceTracker)registryTracker).getService();
-        // it is also the end if the service is not there.
-        if (registry == null) {
-            return new ArrayList(serviceClasses);
-        }
-
-        // get any registered service provider classes now
-        List<Class<?>> globalServices = registry.getServiceClasses(iface);
-        // add to our list also
-        if (globalServices != null) {
-            serviceClasses.addAll(globalServices);
         }
         // now return the merged set
         return new ArrayList(serviceClasses);
@@ -412,6 +415,15 @@ public class ProviderLocator {
     }
 
 
+    /**
+     * Locate a classpath-define service mapping.
+     *
+     * @param iface  The required interface name.
+     * @param loader The ClassLoader instance to use to locate the service.
+     *
+     * @return The mapped class name, if one is found.  Returns null if the
+     *         mapping is not located.
+     */
     static private String locateServiceClassName(String iface, ClassLoader loader) {
         if (loader != null) {
             try {
@@ -445,7 +457,7 @@ public class ProviderLocator {
      * @return The mapped provider class, if found.  Returns null if
      *         no mapping is located.
      */
-    static public Class<?> locateServiceClass(String iface, Class<?> contextClass, ClassLoader loader) throws ClassNotFoundException {
+    static private Class<?> locateServiceClass(String iface, Class<?> contextClass, ClassLoader loader) throws ClassNotFoundException {
         String className = locateServiceClassName(iface, contextClass, loader);
         if (className == null) {
             return null;
