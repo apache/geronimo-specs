@@ -122,6 +122,17 @@ public class OSGiLocatorTest {
         assertEquals(1, targets.size());
         assertEquals("org.apache.geronimo.osgi.itesta.TestTargetTwo", targets.get(0).getName());
 
+        // this class is defined using the header form.  It should map back to itself.
+        target = ProviderLocator.locate("org.apache.geronimo.osgi.itesta..TestTarget2");
+        assertNotNull(target);
+        // this should return the given class instance
+        assertEquals("org.apache.geronimo.osgi.itesta.TestTarget2", target.getName());
+
+        targets = ProviderLocator.locateAll("org.apache.geronimo.osgi.itesta..TestTarget2");
+        // should return one entry and it should be the same class mapping
+        assertEquals(1, targets.size());
+        assertEquals("org.apache.geronimo.osgi.itesta.TestTarget2", targets.get(0).getName());
+
         // This is not in the provider registry, so it should just return null.
         target = ProviderLocator.locate("org.apache.geronimo.osgi.registry.itest.ClassNotFound");
         assertNull(target);
@@ -129,6 +140,11 @@ public class OSGiLocatorTest {
         // This is in the provider registry, but the class cannot be loaded.  This should still
         // return null.
         target = ProviderLocator.locate("org.apache.geronimo.osgi.registry.itest.NoClass");
+        assertNull(target);
+
+        // This is defined as a header, but the class cannot be loaded.  This should still
+        // return null.
+        target = ProviderLocator.locate("org.apache.geronimo.osgi.itesta..NoClass");
         assertNull(target);
 
         // Now test some of the class loading support.  This will search the bundle classpath first,
@@ -167,6 +183,13 @@ public class OSGiLocatorTest {
         } catch (ClassNotFoundException e) {
         }
 
+        // this is defined with a header, but there is an error resolving the class
+        try {
+            target = ProviderLocator.loadClass("org.apache.geronimo.osgi.itesta.NoClass", this.getClass());
+            fail("Expected ClassNotFoundException not thrown");
+        } catch (ClassNotFoundException e) {
+        }
+
 
         // this mapping defines multiple classes for the single key.  The first should be returned for
         // a singleton request, the locate all should return in definition order
@@ -192,6 +215,10 @@ public class OSGiLocatorTest {
         // should return an empty list
         assertNotNull(targets);
         assertEquals(0, targets.size());
+
+        // The returned class should now be null since there are no registered providers
+        target = ProviderLocator.locate("org.apache.geronimo.osgi.itesta.TestTarget2");
+        assertNull(target);
 
         // This is in the provider registry, but the class cannot be loaded.  This should still
         // return null.

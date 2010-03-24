@@ -53,6 +53,10 @@ provider resolution scenarios.
                         <Bundle-SymbolicName>${groupId}.${artifactId};singleton=true</Bundle-SymbolicName>
                         <Private-Package>org.apache.geronimo.osgi.testa</Private-Package>
                         <SPI-Provider>true</SPI-Provider>
+                        <Export-Provider>
+                            org.apache.geronimo.osgi.testa.TestTarget2,
+                            org.apache.geronimo.osgi.testa.NoClass
+                        </Export-Provider>
                     </instructions>
                 </configuration>
             </plugin>

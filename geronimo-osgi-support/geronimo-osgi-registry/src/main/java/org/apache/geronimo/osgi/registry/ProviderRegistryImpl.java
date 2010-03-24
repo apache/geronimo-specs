@@ -23,8 +23,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.osgi.framework.Bundle;
 import org.osgi.service.log.LogService;
@@ -36,6 +38,8 @@ import org.osgi.service.log.LogService;
 public class ProviderRegistryImpl implements org.apache.geronimo.osgi.registry.api.ProviderRegistry {
     // indicates a bundle wishes to opt in to the META-INF/services registration and tracking.
     public static final String OPT_IN_HEADER = "SPI-Provider";
+    // provider classes exported via a header.
+    public static final String EXPORT_PROVIDER_HEADER = "Export-SPI-Provider";
     // our mapping between a provider id and the implementation information.  There
     // might be a one-to-many relationship between the ids and implementing classes.
     private SPIRegistry providers = new SPIRegistry();
@@ -221,7 +225,7 @@ public class ProviderRegistryImpl implements org.apache.geronimo.osgi.registry.a
      */
     public List<Object> getServices(String providerId) {
         List<Object> instances = new ArrayList<Object>();
-        List<BundleProviderLoader> l = providers.getLoaders(providerId);
+        List<BundleProviderLoader> l = serviceProviders.getLoaders(providerId);
         // this returns null for nothing found
         if (l != null) {
             for (BundleProviderLoader c : l) {
@@ -249,13 +253,14 @@ public class ProviderRegistryImpl implements org.apache.geronimo.osgi.registry.a
      */
     public List<Class<?>> getServiceClasses(String providerId) {
         List<Class<?>> classes = new ArrayList<Class<?>>();
-        List<BundleProviderLoader> l = providers.getLoaders(providerId);
+        List<BundleProviderLoader> l = serviceProviders.getLoaders(providerId);
         // this returns null for nothing found
         if (l != null) {
             for (BundleProviderLoader c : l) {
                 try {
                     classes.add(c.loadClass());
                 } catch (Exception e) {
+                    e.printStackTrace();
                     // just swallow this and proceed to the next.  The exception has
                     // already been logged.
                 }
@@ -320,15 +325,54 @@ public class ProviderRegistryImpl implements org.apache.geronimo.osgi.registry.a
 
         // locate and process any providers defined in the OSGI-INF/providers directory
         private void locateProviders() {
-            providers = processDefinitions("OSGI-INF/providers/");
+            // we accumulate from the headers and the providers directory.  The headers
+            // are simpler if there is no class mapping and is easier to use when
+            // converting a simple jar to a bundle.
+            Set<BundleProviderLoader> locatedProviders = new LinkedHashSet<BundleProviderLoader>();
+            List<BundleProviderLoader> headerProviders = locateHeaderProviderDefinitions();
+            if (headerProviders != null) {
+                locatedProviders.addAll(headerProviders);
+            }
+
+            List<BundleProviderLoader> directoryProviders = processDefinitions("OSGI-INF/providers/");
+            if (directoryProviders != null) {
+                directoryProviders.addAll(directoryProviders);
+            }
             // if we have anything, add to global registry
-            if (providers != null) {
+            if (!locatedProviders.isEmpty()) {
                 // process the registrations for each item
-                for (BundleProviderLoader loader: providers) {
+                for (BundleProviderLoader loader: locatedProviders) {
                     // add to the mapping table
                     registerProvider(loader);
                 }
             }
+        }
+
+        /**
+         * Parse the Export-Provider: header to create a list of
+         * providers that are exported via the header syntax
+         * rather than via a provider mapping file.
+         *
+         * @return A list of providers defined on the header, or null if
+         *         no providers were exported.
+         */
+        private List<BundleProviderLoader> locateHeaderProviderDefinitions() {
+            // check the header to see if there's anything defined here.
+            String exportedProviders = (String)bundle.getHeaders().get(EXPORT_PROVIDER_HEADER);
+            if (exportedProviders == null) {
+                return null;
+            }
+
+            List<BundleProviderLoader>providers = new ArrayList<BundleProviderLoader>();
+            // split on the separator
+            String[] classNames = exportedProviders.split(",");
+
+            for (String name : classNames) {
+                name = name.trim();
+                // this is a simple mapping
+                providers.add(new BundleProviderLoader(name, name, bundle));
+            }
+            return providers;
         }
 
         // now process any services
@@ -341,7 +385,7 @@ public class ProviderRegistryImpl implements org.apache.geronimo.osgi.registry.a
                 return;
             }
 
-            serviceProviders = processDefinitions("OSGI-INF/providers/");
+            serviceProviders = processDefinitions("META-INF/services/");
             // if we have anything, add to global registry
             if (serviceProviders != null) {
                 // process the registrations for each item
@@ -597,7 +641,7 @@ public class ProviderRegistryImpl implements org.apache.geronimo.osgi.registry.a
 
         @Override
         public String toString() {
-            return "Provider interface=" + providerId + " ,provider class=" + providerClass;
+            return "Provider interface=" + providerId + " , provider class=" + providerClass + ", bundle=" + bundle;
         }
 
         @Override
