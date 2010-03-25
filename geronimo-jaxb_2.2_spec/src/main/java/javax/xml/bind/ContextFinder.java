@@ -148,7 +148,7 @@ class ContextFinder {
     private static Class<?> loadSPIClass(Class<?> iface, ClassLoader classLoader) throws JAXBException {
         try {
             // delegate this to common processing
-            return ProviderLocator.locateServiceClass(iface.getName(), ContextFinder.class,classLoader );
+            return ProviderLocator.getServiceClass(iface.getName(), ContextFinder.class,classLoader );
         } catch (ClassNotFoundException e) {
             throw new JAXBException("Provider " + iface.getName() + " not found", e);
         }
