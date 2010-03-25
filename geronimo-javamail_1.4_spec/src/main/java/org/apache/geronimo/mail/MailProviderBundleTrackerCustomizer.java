@@ -49,7 +49,6 @@ public class MailProviderBundleTrackerCustomizer implements BundleTrackerCustomi
      */
     @Override
     public Object addingBundle(Bundle bundle, BundleEvent event) {
-        log(LogService.LOG_DEBUG, "Bundle Considered for mailcap providers: " + bundle.getSymbolicName());
         if (bundle.equals(activationBundle)) {
             return null;
         }
