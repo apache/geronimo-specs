@@ -380,10 +380,10 @@ public class ProviderRegistryImpl implements org.apache.geronimo.osgi.registry.a
             // we only process these if there is a header indicating this
             // bundle wants to opt-in to this registration process.
             if (bundle.getHeaders().get(OPT_IN_HEADER) == null) {
-                log(LogService.LOG_INFO, "No '" + OPT_IN_HEADER +
-                    "' Manifest header. Skipping bundle: " + bundle.getSymbolicName());
                 return;
             }
+
+            log(LogService.LOG_INFO, OPT_IN_HEADER + " Manifest header found in bundle: " + bundle.getSymbolicName());
 
             serviceProviders = processDefinitions("META-INF/services/");
             // if we have anything, add to global registry
