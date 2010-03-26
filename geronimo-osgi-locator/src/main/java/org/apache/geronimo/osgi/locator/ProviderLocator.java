@@ -59,8 +59,9 @@ public class ProviderLocator {
         try {
             // just create a tracker for our lookup service
             // NB:  We use the hard coded name in case the registry service has not
-            // been started first.  Once this does get started, then everything should
-            // resolved.
+            // been started first.  The ServiceTracker itself only uses the string name.
+            // We need to avoid trying to load the ProviderRegistry interface until the
+            // registry tracker returns a non-null service instance.
             registryTracker = new ServiceTracker(c, "org.apache.geronimo.osgi.registry.api.ProviderRegistry", null);
             ((ServiceTracker)registryTracker).open();
             // do this last...it helps indicate if we have an initialized registry.
@@ -94,20 +95,17 @@ public class ProviderLocator {
      *         loaded.
      */
     static public Class<?> locate(String providerId) {
-        // if not initialized in an OSGi environment, this is a failure
-        if (registryTracker == null) {
-            return null;
-        }
-        // get the service, if it exists.  NB:  if the tracker exists, then we
-        // were able to load the interface class in the first place, so we don't
-        // need to protect against that.
-        ProviderRegistry registry = (ProviderRegistry)((ServiceTracker)registryTracker).getService();
-        // it is also a failure if the service is not there.
+        Object registry = getRegistry();
+        // if no registry service available, this is a failure
         if (registry == null) {
             return null;
         }
+        // get the service, if it exists.  NB, if there is a service object,
+        // then the extender and the interface class are available, so this cast should be
+        // safe now.
+
         // the rest of the work is done by the registry
-        return registry.locate(providerId);
+        return ((ProviderRegistry)registry).locate(providerId);
     }
 
     /**
@@ -120,20 +118,18 @@ public class ProviderLocator {
      *         matching classes can be located.
      */
     static public List<Class<?>> locateAll(String providerId) {
-        // if not initialized in an OSGi environment, this is a lookup failure
-        if (registryTracker == null) {
-            return new ArrayList<Class<?>>();
-        }
-        // get the service, if it exists.  NB:  if the tracker exists, then we
-        // were able to load the interface class in the first place, so we don't
-        // need to protect against that.
-        ProviderRegistry registry = (ProviderRegistry)((ServiceTracker)registryTracker).getService();
-        // it is also a failure if the service is not there.
+        Object registry = getRegistry();
+
+        // if no registry service available, this is a failure
         if (registry == null) {
             return new ArrayList<Class<?>>();
         }
+        // get the service, if it exists.  NB, if there is a service object,
+        // then the extender and the interface class are available, so this cast should be
+        // safe now.
+
         // the rest of the work is done by the registry
-        return registry.locateAll(providerId);
+        return ((ProviderRegistry)registry).locateAll(providerId);
     }
 
     /**
@@ -219,21 +215,19 @@ public class ProviderLocator {
         // if we are working in an OSGi environment, then process the service
         // registry first.  Ideally, we would do this last, but because of boot delegation
         // issues with some API implementations, we must try the OSGi version first
-        if (registryTracker != null) {
-            // get the service, if it exists.  NB:  if the tracker exists, then we
-            // were able to load the interface class in the first place, so we don't
-            // need to protect against that.
-            ProviderRegistry registry = (ProviderRegistry)((ServiceTracker)registryTracker).getService();
-            // if the service is not here, we fall through to the traditional method
-            if (registry != null) {
-                // the rest of the work is done by the registry
-                Object service = registry.getService(iface);
-                if (service != null) {
-                    return service;
-                }
+        Object registry = getRegistry();
+        if (registry != null) {
+            // get the service, if it exists.  NB, if there is a service object,
+            // then the extender and the interface class are available, so this cast should be
+            // safe now.
+            // the rest of the work is done by the registry
+            Object service = ((ProviderRegistry)registry).getService(iface);
+            if (service != null) {
+                return service;
             }
         }
-        // try for a classpath locatable instance first.  If we find an appropriate class mapping,
+
+        // try for a classpath locatable instance next.  If we find an appropriate class mapping,
         // create an instance and return it.
         Class<?> cls = locateServiceClass(iface, contextClass, loader);
         if (cls != null) {
@@ -263,18 +257,16 @@ public class ProviderLocator {
         // if we are working in an OSGi environment, then process the service
         // registry first.  Ideally, we would do this last, but because of boot delegation
         // issues with some API implementations, we must try the OSGi version first
-        if (registryTracker != null) {
-            // get the service, if it exists.  NB:  if the tracker exists, then we
-            // were able to load the interface class in the first place, so we don't
-            // need to protect against that.
-            ProviderRegistry registry = (ProviderRegistry)((ServiceTracker)registryTracker).getService();
-            // it is also a failure if the service is not there.
-            if (registry != null) {
-                // If we've located stuff in the registry, then return it
-                Class<?> cls = registry.getServiceClass(iface);
-                if (cls != null) {
-                    return cls;
-                }
+        Object registry = getRegistry();
+        if (registry != null) {
+            // get the service, if it exists.  NB, if there is a service object,
+            // then the extender and the interface class are available, so this cast should be
+            // safe now.
+
+            // If we've located stuff in the registry, then return it
+            Class<?> cls = ((ProviderRegistry)registry).getServiceClass(iface);
+            if (cls != null) {
+                return cls;
             }
         }
 
@@ -305,20 +297,16 @@ public class ProviderLocator {
 
         // because of boot delegation issues with some of the API implementations, it is necessary
         // to process the OSGi registered versions first to allow override of JRE provided APIs.
-        // if not initialized in an OSGi environment, we're finished
-        if (registryTracker != null) {
-            // get the service, if it exists.  NB:  if the tracker exists, then we
-            // were able to load the interface class in the first place, so we don't
-            // need to protect against that.
-            ProviderRegistry registry = (ProviderRegistry)((ServiceTracker)registryTracker).getService();
-            // it is also the end if the service is not there.
-            if (registry != null) {
-                // get any registered service instances now
-                List<Object> globalServices = registry.getServices(iface);
-                // add to our list also
-                if (globalServices != null) {
-                    services.addAll(globalServices);
-                }
+        Object registry = getRegistry();
+        if (registry != null) {
+            // get the service, if it exists.  NB, if there is a service object,
+            // then the extender and the interface class are available, so this cast should be
+            // safe now.
+            // get any registered service instances now
+            List<Object> globalServices = ((ProviderRegistry)registry).getServices(iface);
+            // add to our list also
+            if (globalServices != null) {
+                services.addAll(globalServices);
             }
         }
 
@@ -358,20 +346,16 @@ public class ProviderLocator {
 
         // because of boot delegation issues with some of the API implementations, it is necessary
         // to process the OSGi registered versions first to allow override of JRE provided APIs.
-        // if not initialized in an OSGi environment, we're finished
-        if (registryTracker != null) {
-            // get the service, if it exists.  NB:  if the tracker exists, then we
-            // were able to load the interface class in the first place, so we don't
-            // need to protect against that.
-            ProviderRegistry registry = (ProviderRegistry)((ServiceTracker)registryTracker).getService();
-            // it is also the end if the service is not there.
-            if (registry != null) {
-                // get any registered service provider classes now
-                List<Class<?>> globalServices = registry.getServiceClasses(iface);
-                // add to our list also
-                if (globalServices != null) {
-                    serviceClasses.addAll(globalServices);
-                }
+        Object registry = getRegistry();
+        if (registry != null) {
+            // get the service, if it exists.  NB, if there is a service object,
+            // then the extender and the interface class are available, so this cast should be
+            // safe now.
+            // get any registered service provider classes now
+            List<Class<?>> globalServices = ((ProviderRegistry)registry).getServiceClasses(iface);
+            // add to our list also
+            if (globalServices != null) {
+                serviceClasses.addAll(globalServices);
             }
         }
 
@@ -620,5 +604,27 @@ public class ProviderLocator {
             }
         }
         return null;
+    }
+
+
+    /**
+     * Retrieve the registry from the tracker if it is available,
+     * all without causing the interface class to load.
+     *
+     * @return The registry service instance, or null if it is not
+     *         available for any reason.
+     */
+    private static Object getRegistry() {
+        // if not initialized in an OSGi environment, this is a failure
+        if (registryTracker == null) {
+            return null;
+        }
+        // get the service, if it exists.  NB:  it is only safe to reference the
+        // interface class if the tracker returns a non-null service object.  The
+        // interface class will not be loaded in our bundle context until the
+        // service class can be statisfied.  Therefore, we always return this as
+        // just an object and the call needs to perform the cast, which will
+        // force the classload at that time.
+        return ((ServiceTracker)registryTracker).getService();
     }
 }

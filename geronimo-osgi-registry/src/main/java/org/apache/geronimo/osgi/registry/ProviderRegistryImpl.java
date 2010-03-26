@@ -156,6 +156,7 @@ public class ProviderRegistryImpl implements org.apache.geronimo.osgi.registry.a
                 // try to load this.  We always return null
                 return loader.loadClass();
             } catch (Exception e) {
+                e.printStackTrace();
                 // just swallow this and return null.  The exception has already
                 // been logged.
             }
@@ -336,7 +337,7 @@ public class ProviderRegistryImpl implements org.apache.geronimo.osgi.registry.a
 
             List<BundleProviderLoader> directoryProviders = processDefinitions("OSGI-INF/providers/");
             if (directoryProviders != null) {
-                directoryProviders.addAll(directoryProviders);
+                locatedProviders.addAll(directoryProviders);
             }
             // if we have anything, add to global registry
             if (!locatedProviders.isEmpty()) {
@@ -345,6 +346,8 @@ public class ProviderRegistryImpl implements org.apache.geronimo.osgi.registry.a
                     // add to the mapping table
                     registerProvider(loader);
                 }
+                // remember this list so we can unregister when the bundle is stopped
+                providers = new ArrayList(locatedProviders);
             }
         }
 

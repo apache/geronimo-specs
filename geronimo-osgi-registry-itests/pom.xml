@@ -152,6 +152,12 @@ Tests for the OSGi provider registry inside of an OSGi framework.
                 <configuration>
                     <redirectTestOutputToFile>true</redirectTestOutputToFile>
                     <failIfNoTests>false</failIfNoTests>
+                    <includes>
+                        <include>**/OSGiLocatorTest.java</include>
+                        <include>**/OSGiNoRegistryTest.java</include>
+                        <include>**/OSGiLocatorMultipleProviderTest.java</include>
+                        <include>**/OSGiServiceLocatorTest.java</include>
+                    </includes>
                 </configuration>
             </plugin>
         </plugins>

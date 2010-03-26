@@ -123,12 +123,12 @@ public class OSGiLocatorTest {
         assertEquals("org.apache.geronimo.osgi.itesta.TestTargetTwo", targets.get(0).getName());
 
         // this class is defined using the header form.  It should map back to itself.
-        target = ProviderLocator.locate("org.apache.geronimo.osgi.itesta..TestTarget2");
+        target = ProviderLocator.locate("org.apache.geronimo.osgi.itesta.TestTarget2");
         assertNotNull(target);
         // this should return the given class instance
         assertEquals("org.apache.geronimo.osgi.itesta.TestTarget2", target.getName());
 
-        targets = ProviderLocator.locateAll("org.apache.geronimo.osgi.itesta..TestTarget2");
+        targets = ProviderLocator.locateAll("org.apache.geronimo.osgi.itesta.TestTarget2");
         // should return one entry and it should be the same class mapping
         assertEquals(1, targets.size());
         assertEquals("org.apache.geronimo.osgi.itesta.TestTarget2", targets.get(0).getName());
@@ -147,20 +147,24 @@ public class OSGiLocatorTest {
         target = ProviderLocator.locate("org.apache.geronimo.osgi.itesta..NoClass");
         assertNull(target);
 
-        // Now test some of the class loading support.  This will search the bundle classpath first,
-        // then the provider registry.  Since there is a matching local class this time, it should
-        // find that test class rather than the registered one.
-        // check for the target class a verify we got the correct one
+        // Now test some of the class loading support.  This will search the provider registry first,
+        // then the classpath.  We should still get the registered class returned.
         target = ProviderLocator.loadClass("org.apache.geronimo.osgi.registry.itest.TestTarget", this.getClass());
         assertNotNull(target);
         // this should return the given class instance
-        assertEquals(TestTarget.class.getName(), target.getName());
+        assertEquals("org.apache.geronimo.osgi.itesta.TestTarget", target.getName());
         // similar to the above, but since the context class is not provided, this will fail to resolve the
         // locally resident class.
         target = ProviderLocator.loadClass("org.apache.geronimo.osgi.registry.itest.TestTarget", null);
         assertNotNull(target);
         // this should return the given class instance
         assertEquals("org.apache.geronimo.osgi.itesta.TestTarget", target.getName());
+
+        // And just a straight load class of a bundle-local class.
+        target = ProviderLocator.loadClass("org.apache.geronimo.osgi.registry.itest.TestTargetTwo", this.getClass());
+        assertNotNull(target);
+        // this should return the given class instance
+        assertEquals("org.apache.geronimo.osgi.registry.itest.TestTargetTwo", target.getName());
 
         // this one should be handled from the provider registry and resolve to a class
         // defined in the test bundle.
