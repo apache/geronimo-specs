@@ -151,12 +151,10 @@ public class OSGiServiceLocatorTest {
         } catch (ClassNotFoundException e) {
         }
 
-        // as should this
-        try {
-            services = ProviderLocator.getServices("org.apache.geronimo.osgi.registry.itest.NoClass", this.getClass(), Thread.currentThread().getContextClassLoader());
-            fail("Expected ClassNotFoundException not thrown");
-        } catch (ClassNotFoundException e) {
-        }
+        // this should return an empty list
+        services = ProviderLocator.getServices("org.apache.geronimo.osgi.registry.itest.NoClass", this.getClass(), Thread.currentThread().getContextClassLoader());
+        assertNotNull(services);
+        assertTrue(services.isEmpty());
 
         // this should result in an exception
         try {
@@ -165,12 +163,10 @@ public class OSGiServiceLocatorTest {
         } catch (NullPointerException e) {
         }
 
-        // as should this
-        try {
-            services = ProviderLocator.getServices("org.apache.geronimo.osgi.registry.itest.BadClass", this.getClass(), Thread.currentThread().getContextClassLoader());
-            fail("Expected Exception not thrown");
-        } catch (NullPointerException e) {
-        }
+        // but this should just give an empty list again
+        services = ProviderLocator.getServices("org.apache.geronimo.osgi.registry.itest.BadClass", this.getClass(), Thread.currentThread().getContextClassLoader());
+        assertNotNull(services);
+        assertTrue(services.isEmpty());
 
         // this should result in an exception
         try {
@@ -179,12 +175,10 @@ public class OSGiServiceLocatorTest {
         } catch (InstantiationException e) {
         }
 
-        // as should this
-        try {
-            services = ProviderLocator.getServices("org.apache.geronimo.osgi.registry.itest.NoConstructor", this.getClass(), Thread.currentThread().getContextClassLoader());
-            fail("Expected Exception not thrown");
-        } catch (InstantiationException e) {
-        }
+        // and again, an empty list
+        services = ProviderLocator.getServices("org.apache.geronimo.osgi.registry.itest.NoConstructor", this.getClass(), Thread.currentThread().getContextClassLoader());
+        assertNotNull(services);
+        assertTrue(services.isEmpty());
 
         // this should result in an exception
         try {
@@ -193,12 +187,10 @@ public class OSGiServiceLocatorTest {
         } catch (IllegalAccessException e) {
         }
 
-        // as should this
-        try {
-            services = ProviderLocator.getServices("org.apache.geronimo.osgi.registry.itest.NoAccess", this.getClass(), Thread.currentThread().getContextClassLoader());
-            fail("Expected Exception not thrown");
-        } catch (IllegalAccessException e) {
-        }
+        // empty list
+        services = ProviderLocator.getServices("org.apache.geronimo.osgi.registry.itest.NoAccess", this.getClass(), Thread.currentThread().getContextClassLoader());
+        assertNotNull(services);
+        assertTrue(services.isEmpty());
 
         // same set of tests, but this time we're looking for classes, not instances
         Class<?> target = ProviderLocator.getServiceClass("org.apache.geronimo.osgi.registry.itest.TestTarget", this.getClass(), Thread.currentThread().getContextClassLoader());
@@ -215,12 +207,12 @@ public class OSGiServiceLocatorTest {
         assertEquals("org.apache.geronimo.osgi.itesta.TestTarget2", classes.get(0).getName());
 
         // this is multiple instances defined in a single services file.
-        classes = ProviderLocator.getServiceClasses("org.apache.geronimo.osgi.registry.itest.MultiTarget", this.getClass(), Thread.currentThread().getContextClassLoader());
+        classes = ProviderLocator.getServiceClasses("org.apache.geronimo.osgi.registry.itesta.MultiTarget", this.getClass(), Thread.currentThread().getContextClassLoader());
         assertNotNull(classes);
         assertEquals(2, classes.size());
         // this should return an instance created from the services definition
-        assertEquals("org.apache.geronimo.osgi.itestb.TestTarget", classes.get(0).getName());
-        assertEquals("org.apache.geronimo.osgi.itestb.TestTarget2", classes.get(1).getName());
+        assertEquals("org.apache.geronimo.osgi.itesta.TestTarget", classes.get(0).getName());
+        assertEquals("org.apache.geronimo.osgi.itesta.TestTarget2", classes.get(1).getName());
 
         // this should not be found
         target = ProviderLocator.getServiceClass("org.apache.geronimo.osgi.registry.itest.NotFound", this.getClass(), Thread.currentThread().getContextClassLoader());
@@ -238,12 +230,10 @@ public class OSGiServiceLocatorTest {
         } catch (ClassNotFoundException e) {
         }
 
-        // as should this
-        try {
-            classes = ProviderLocator.getServiceClasses("org.apache.geronimo.osgi.registry.itest.NoClass", this.getClass(), Thread.currentThread().getContextClassLoader());
-            fail("Expected ClassNotFoundException not thrown");
-        } catch (ClassNotFoundException e) {
-        }
+        // an empty list again
+        classes = ProviderLocator.getServiceClasses("org.apache.geronimo.osgi.registry.itest.NoClass", this.getClass(), Thread.currentThread().getContextClassLoader());
+        assertNotNull(classes);
+        assertTrue(classes.isEmpty());
 
         // now stop the first bundle, which should remove the service defintions.
         bundle1.stop();
