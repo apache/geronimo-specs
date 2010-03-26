@@ -33,10 +33,10 @@
     </parent>
 
     <groupId>org.apache.geronimo.specs</groupId>
-    <artifactId>geronimo-stax-api_1.0_spec</artifactId>
+    <artifactId>geronimo-stax-api_1.2_spec</artifactId>
     <packaging>bundle</packaging>
-    <name>Streaming API for XML (STAX API 1.0)</name>
-    <version>1.0.2-SNAPSHOT</version>
+    <name>Streaming API for XML (STAX API 1.2)</name>
+    <version>1.0.0-SNAPSHOT</version>
 
     <description>Java STAX Spec API 1.0</description>
 
@@ -53,8 +53,8 @@
     </properties>
 
     <scm>
-        <connection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-stax-api_1.0_spec</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-stax-api_1.0_spec</developerConnection>
+        <connection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-stax-api_1.2_spec</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-stax-api_1.2_spec</developerConnection>
         <url>https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-stax-api_1.0_spec</url>
     </scm>
 
@@ -75,10 +75,10 @@
                 <configuration>
                     <instructions>
                         <Bundle-SymbolicName>${groupId}.${artifactId};singleton=true</Bundle-SymbolicName>
-                        <Specification-Title>JSR-137 Streaming API for XML 1.0</Specification-Title>
+                        <Specification-Title>JSR-137 Streaming API for XML 1.2</Specification-Title>
                         <Specification-Vendor>Sun Microsystems, Inc.</Specification-Vendor>
-                        <Specification-Version>1.0</Specification-Version>
-                        <Export-Package>javax.xml.stream*;version=1.0.1</Export-Package>
+                        <Specification-Version>1.2</Specification-Version>
+                        <Export-Package>javax.xml.stream*;version=1.2,javax.xml.namespace*;version=1.0</Export-Package>
                         <Import-Package>org.apache.geronimo.osgi.registry.api;resolution:=optional,*</Import-Package>
                         <Private-Package>org.apache.geronimo.osgi.locator</Private-Package>
                         <Bundle-Activator>org.apache.geronimo.osgi.locator.Activator</Bundle-Activator>

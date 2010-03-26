@@ -41,7 +41,29 @@ public abstract class XMLInputFactory {
 		return (XMLInputFactory)FactoryLocator.locate("javax.xml.stream.XMLInputFactory", "com.ctc.wstx.stax.WstxInputFactory");
 	}
 
+	public static XMLInputFactory newFactory()
+			throws FactoryConfigurationError {
+		// We'll assume the XMLInputFactory from the RI as a backup.
+		return (XMLInputFactory)FactoryLocator.locate("javax.xml.stream.XMLInputFactory", "com.ctc.wstx.stax.WstxInputFactory");
+	}
+
+
+	/**
+	 * Create a new XMLInputFactory
+	 *
+	 * @deprecated to maintain API consistency.  All newInstance methods are
+	 * replaced with corresponding newFactory methods.  The replacement
+	 * newFactory(String factoryId, ClassLoader classLoader)
+	 * method defines no changes in behavior from this method.
+	 */
 	public static XMLInputFactory newInstance(java.lang.String factoryId,
+			java.lang.ClassLoader classLoader) throws FactoryConfigurationError {
+		// We'll assume the XMLInputFactory from the RI as a backup.
+		return (XMLInputFactory)FactoryLocator.locate(factoryId, "com.ctc.wstx.stax.WstxInputFactory", classLoader);
+	}
+
+
+	public static XMLInputFactory newFactory(java.lang.String factoryId,
 			java.lang.ClassLoader classLoader) throws FactoryConfigurationError {
 		// We'll assume the XMLInputFactory from the RI as a backup.
 		return (XMLInputFactory)FactoryLocator.locate(factoryId, "com.ctc.wstx.stax.WstxInputFactory", classLoader);

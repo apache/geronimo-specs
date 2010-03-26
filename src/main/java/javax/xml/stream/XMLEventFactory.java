@@ -41,12 +41,29 @@ public abstract class XMLEventFactory {
 	protected XMLEventFactory() {
 	}
 
-	public static XMLEventFactory newInstance()
-			throws FactoryConfigurationError {
+	public static XMLEventFactory newInstance() throws FactoryConfigurationError {
             return (XMLEventFactory)FactoryLocator.locate("javax.xml.stream.XMLEventFactory", "com.ctc.wstx.stax.WstxEventFactory");
 	}
 
+	public static XMLEventFactory newFactory() throws FactoryConfigurationError {
+            return (XMLEventFactory)FactoryLocator.locate("javax.xml.stream.XMLEventFactory", "com.ctc.wstx.stax.WstxEventFactory");
+	}
+
+	/**
+	 * Create a new XMLEventFactory
+	 *
+	 * @deprecated to maintain API consistency.  All newInstance methods are
+	 * replaced with corresponding newFactory methods.  The replacement
+	 * newFactory(String factoryId, ClassLoader classLoader)
+	 * method defines no changes in behavior from this method.
+         */
 	public static XMLEventFactory newInstance(String factoryId,
+			ClassLoader classLoader) throws FactoryConfigurationError {
+            return (XMLEventFactory)FactoryLocator.locate(factoryId, "com.ctc.wstx.stax.WstxEventFactory", classLoader);
+	}
+
+
+	public static XMLEventFactory newFactory(String factoryId,
 			ClassLoader classLoader) throws FactoryConfigurationError {
             return (XMLEventFactory)FactoryLocator.locate(factoryId, "com.ctc.wstx.stax.WstxEventFactory", classLoader);
 	}

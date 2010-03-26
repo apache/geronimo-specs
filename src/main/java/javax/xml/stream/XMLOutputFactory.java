@@ -23,15 +23,45 @@ public abstract class XMLOutputFactory {
 	public static final String IS_REPAIRING_NAMESPACES = "javax.xml.stream.isRepairingNamespaces";
 
 	protected XMLOutputFactory() { }
-	
-	public static XMLOutputFactory newInstance()
-			throws FactoryConfigurationError {
+
+	public static XMLOutputFactory newInstance() throws FactoryConfigurationError {
 		return (XMLOutputFactory) FactoryLocator.locate("javax.xml.stream.XMLOutputFactory", "com.ctc.wstx.stax.WstxOutputFactory");
 	}
 
+	/**
+	 * Create a new XMLOutputFactory
+	 *
+	 * @deprecated This method has been deprecated because
+     * it returns an instance of XMLInputFactory, which is of the
+     * wrong class.  Use the new method
+     * newFactory(java.lang.String factoryId,java.lang.ClassLoader classLoader)
+     * instead.
+	 */
 	public static XMLInputFactory newInstance(String factoryId,
 			java.lang.ClassLoader classLoader) throws FactoryConfigurationError {
 		return (XMLInputFactory) FactoryLocator.locate(factoryId, "com.ctc.wstx.stax.WstxOutputFactory", classLoader);
+
+	}
+
+
+	/**
+	 * Create a new XMLOutputFactory
+	 *
+	 * This is the replacement for the deprecated newInstance() method
+	 */
+	public static XMLOutputFactory newFactory()	throws FactoryConfigurationError {
+		return (XMLOutputFactory) FactoryLocator.locate("javax.xml.stream.XMLOutputFactory", "com.ctc.wstx.stax.WstxOutputFactory");
+	}
+
+	/**
+	 * Create a new XMLOutputFactory
+	 *
+	 * This is the replacement for the deprecated newInstance() method
+	 */
+	public static XMLOutputFactory newFactory(String factoryId,	ClassLoader classLoader)
+			throws FactoryConfigurationError {
+		// essentially the same thing as deprecated newInstance(), but the correct return type.
+		return (XMLOutputFactory) FactoryLocator.locate(factoryId, "com.ctc.wstx.stax.WstxOutputFactory", classLoader);
 	}
 
 	public abstract XMLStreamWriter createXMLStreamWriter(java.io.Writer stream)
