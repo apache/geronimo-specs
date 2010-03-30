@@ -25,5 +25,6 @@ package javax.ejb;
  * @version $Revision$ $Date$
  */
 public enum ConcurrencyManagementType {
-    BEAN, CONTAINER;
+    CONTAINER,
+    BEAN;
 }
