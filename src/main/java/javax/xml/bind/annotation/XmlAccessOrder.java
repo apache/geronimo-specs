@@ -18,7 +18,7 @@ package javax.xml.bind.annotation;
 
 public enum XmlAccessOrder {
 
-    ALPHABETICAL,
-    UNDEFINED
-    
+    UNDEFINED,
+    ALPHABETICAL
+
 }
