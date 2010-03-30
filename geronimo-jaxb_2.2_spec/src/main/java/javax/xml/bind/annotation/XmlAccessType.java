@@ -18,10 +18,10 @@ package javax.xml.bind.annotation;
 
 public enum XmlAccessType {
 
-    FIELD,
-    NONE,
     PROPERTY,
-    PUBLIC_MEMBER
-    
+    FIELD,
+    PUBLIC_MEMBER,
+    NONE
+
 
 }
