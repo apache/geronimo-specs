@@ -80,9 +80,6 @@
                         <Private-Package>org.apache.geronimo.osgi.locator</Private-Package>
                         <Bundle-Activator>org.apache.geronimo.osgi.locator.Activator</Bundle-Activator>
                     </instructions>
-                    <instructions>
-                        <Export-Package>javax.security.auth.message*;version=1.0</Export-Package>
-                    </instructions>
                 </configuration>
             </plugin>
         </plugins>
