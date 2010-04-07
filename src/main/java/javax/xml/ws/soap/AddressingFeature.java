@@ -25,27 +25,27 @@ public final class AddressingFeature extends WebServiceFeature {
     /**
      * @since 2.2
      */
-    public enum Responses {ALL, ANONYMOUS, NON_ANONYMOUS};
+    public enum Responses {ANONYMOUS, NON_ANONYMOUS, ALL};
 
-    
+
     public static final String ID = "http://www.w3.org/2005/08/addressing/module";
-    
+
     protected boolean required;
     private Responses responses = Responses.ALL;
-    
+
     public AddressingFeature() {
         this(true, false);
     }
-    
+
     public AddressingFeature(boolean enabled) {
         this(enabled, false);
     }
-    
+
     public AddressingFeature(boolean enabled, boolean required) {
         this.enabled  = enabled;
         this.required = required;
     }
-    
+
     /**
      * @since 2.2
      */
@@ -58,12 +58,12 @@ public final class AddressingFeature extends WebServiceFeature {
     public boolean isRequired() {
         return required;
     }
-    
+
     @Override
     public String getID() {
         return ID;
     }
-    
+
     /**
      * @since 2.2
      */
