@@ -23,14 +23,26 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.Principal;
+import java.util.Collection;
 import java.util.Enumeration;
 import java.util.Locale;
 import java.util.Map;
+
+import javax.servlet.AsyncContext;
+import javax.servlet.DispatcherType;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 import javax.servlet.ServletInputStream;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
+
+import com.sun.org.apache.bcel.internal.generic.RETURN;
 
 /**
  * @version $Rev$ $Date$
@@ -267,5 +279,120 @@ public class MockHttpServletRequest implements HttpServletRequest {
 
     public int getLocalPort() {
         return 0;
+    }
+
+    /**
+     * @param username username
+     * @param password password
+     * @since 3.0
+     * @throws javax.servlet.ServletException if username/password authentication not supported,
+     * if a user has already been established, or if authentication fails.
+     */
+    public void login(String username, String password) throws ServletException {
+        // nop
+    }
+
+    /**
+     * @since 3.0
+     * @throws javax.servlet.ServletException if logout fails
+     */
+    public void logout() throws ServletException {
+        // nop
+    }
+
+    /**
+     * @param name part name
+     * @return named part
+     * @throws java.io.IOException if something IO related goes wrong
+     * @throws javax.servlet.ServletException if something goes wrong
+     * @since 3.0
+     */
+    public Part getPart(String name) throws IOException, ServletException {
+        return null;
+    }
+
+    /**
+     * @return all the parts
+     * @throws java.io.IOException if something IO related goes wrong
+     * @throws javax.servlet.ServletException if something goes wrong
+     * @since 3.0
+     */
+    public Collection<Part> getParts() throws IOException, ServletException {
+        return null;
+    }
+
+    /**
+     * authenticate user using container facilities
+     *
+     * @param response response to use to conduct a dialog if necessary
+     * @return whether authentication was successful
+     * @throws javax.servlet.ServletException if something goes wrong
+     * @throws java.io.IOException if something IO related goes wrong
+     * @since 3.0
+     */
+    public boolean authenticate(HttpServletResponse response) throws IOException, ServletException {
+        return true;
+    }
+
+    /**
+     *
+     * @return AsyncContext to control further work, initialized with the original request and response
+     * @since 3.0
+     */
+    public AsyncContext startAsync() {
+        return null;
+    }
+
+    /**
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @return AsyncContext to control further work, initialized with the supplied request and response
+     * @since 3.0
+     */
+    public AsyncContext startAsync(ServletRequest request, ServletResponse response) {
+        return null;
+    }
+
+    /**
+      * Get the servlet context the request-response pair was last dispatched through.
+      *
+      * @return the latest ServletContext on the dispatch chain.
+      * @since 3.0
+      */
+     public ServletContext getServletContext() {
+         return null;
+     }
+
+     /**
+      * @return async context
+      * @since Servlet 3.0
+      */
+     public AsyncContext getAsyncContext() {
+         return null;
+     }
+
+    /**
+     * @since Servlet 3.0
+     * @return if async is started
+     */
+    public boolean isAsyncStarted() {
+        return false;
+    }
+
+    /**
+     * @since Servlet 3.0
+     * @return if async is supported
+     */
+    public boolean isAsyncSupported() {
+        return false;
+    }
+
+    /**
+     * @since Servlet 3.0
+     * @return dispatcher type
+     */
+    public DispatcherType getDispatcherType() {
+        return DispatcherType.REQUEST;
     }
 }

@@ -31,10 +31,10 @@
     </parent>
 
     <groupId>org.apache.geronimo.specs</groupId>
-    <artifactId>geronimo-jacc_1.1_spec</artifactId>
+    <artifactId>geronimo-jacc_1.4_spec</artifactId>
     <packaging>bundle</packaging>
-    <name>J2EE JACC 1.1</name>
-    <version>1.0.3-SNAPSHOT</version>
+    <name>J2EE JACC 1.4</name>
+    <version>1.0-SNAPSHOT</version>
 
     <description>Java Access Control for Containers 1.1 API</description>
 
@@ -59,8 +59,8 @@
     <dependencies>
         <dependency>
             <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-servlet_2.5_spec</artifactId>
-            <version>1.2</version>
+            <artifactId>geronimo-servlet_3.0_spec</artifactId>
+            <version>1.0-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -72,7 +72,7 @@
         <dependency>
             <groupId>org.apache.geronimo.specs</groupId>
             <artifactId>geronimo-osgi-locator</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>1.0-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
@@ -85,10 +85,10 @@
                 <configuration>
                     <instructions>
                         <Bundle-SymbolicName>${groupId}.${artifactId};singleton=true</Bundle-SymbolicName>
-                        <Specification-Title>JSR-115 Java Authorization Contract for Containers 1.1</Specification-Title>
+                        <Specification-Title>JSR-115 Java Authorization Contract for Containers</Specification-Title>
                         <Specification-Vendor>Sun Microsystems, Inc.</Specification-Vendor>
-                        <Specification-Version>1.1</Specification-Version>
-                        <Export-Package>javax.security.jacc*;version=1.1</Export-Package>
+                        <Specification-Version>1.4</Specification-Version>
+                        <Export-Package>javax.security.jacc*;version=1.4</Export-Package>
                         <Import-Package>javax.servlet*;resolution:=optional;version=2.5,org.apache.geronimo.osgi.registry.api;resolution:=optional,*</Import-Package>
                         <Private-Package>org.apache.geronimo.osgi.locator</Private-Package>
                         <Bundle-Activator>org.apache.geronimo.osgi.locator.Activator</Bundle-Activator>

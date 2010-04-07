@@ -45,7 +45,7 @@ import java.util.HashSet;
  */
 public final class EJBMethodPermission extends Permission implements Serializable {
 
-    private static final long serialVersionUID = 4513173161293901832L;
+    private static final long serialVersionUID = 1L;
 
     private final static String NEW_METHOD_INTERFACES = "org.apache.security.jacc.EJBMethodPermission.methodInterfaces";
     private static String[] methodInterfaces;
