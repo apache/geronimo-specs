@@ -34,7 +34,7 @@
     <artifactId>geronimo-osgi-support</artifactId>
     <packaging>pom</packaging>
     <name>OSGI spec bundle support</name>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>
 
     <description>
 This project is a set of bundles and integration tests for implementing
