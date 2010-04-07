@@ -40,8 +40,8 @@ import javax.servlet.http.HttpServletRequest;
  */
 public final class WebResourcePermission extends Permission implements Serializable {
 
-    private static final long serialVersionUID = -3750758202597932275L;
-    
+    private static final long serialVersionUID = 1L;
+
     private transient int cachedHashCode = 0;
     private transient URLPatternSpec urlPatternSpec;
     private transient HTTPMethodSpec httpMethodSpec;
