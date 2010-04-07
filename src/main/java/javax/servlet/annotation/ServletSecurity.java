@@ -38,12 +38,12 @@ import java.lang.annotation.Inherited;
 @Retention(value= RetentionPolicy.RUNTIME)
 public @interface ServletSecurity {
 
-    enum EmptyRoleSemantic {DENY, PERMIT}
+    enum EmptyRoleSemantic {PERMIT, DENY}
 
     enum TransportGuarantee {NONE, CONFIDENTIAL}
 
     HttpMethodConstraint[] httpMethodConstraints() default {};
 
     HttpConstraint value() default @HttpConstraint;
-    
+
 }
