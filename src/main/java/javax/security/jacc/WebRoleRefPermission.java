@@ -33,8 +33,8 @@ import java.security.Permission;
  */
 public final class WebRoleRefPermission extends Permission implements Serializable {
 
-    private static final long serialVersionUID = 7625355096788237915L;
-    
+    private static final long serialVersionUID = 1L;
+
     private transient int cachedHashCode = 0;
     private String actions;
 
