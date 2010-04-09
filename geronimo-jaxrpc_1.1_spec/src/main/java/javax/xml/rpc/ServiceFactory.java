@@ -42,6 +42,14 @@ public abstract class ServiceFactory {
     protected ServiceFactory() {}
 
     /**
+     * A constant representing the property used to lookup the
+     * name of a <code>ServiceFactory</code> implementation
+     * class.
+     */
+    public static final java.lang.String SERVICEFACTORY_PROPERTY =
+        "javax.xml.rpc.ServiceFactory";
+
+    /**
      * Gets an instance of the <code>ServiceFactory</code>
      *
      * <p>Only one copy of a factory exists and is returned to the
