@@ -64,7 +64,29 @@
                 <artifactId>maven-bundle-plugin</artifactId>
                 <configuration>
                     <instructions>
-                        <Export-Package>javax.servlet*;version=3.0</Export-Package>
+                        <!-- The OSGi Alliance defined package numbers don't match up
+                             necessarily with the Java EE versions.  Servlet 3.0 needs to
+                             be exported as 2.6 -->
+                        <Export-Package>
+                            javax.servlet;version=2.6,
+                            javax.servlet.annotation;version=2.6,
+                            javax.servlet.descriptor;version=2.6,
+                            javax.servlet.http;version=2.6,
+                            javax.servlet.resources;version=2.6,
+                            javax.servlet;version=3.0,
+                            javax.servlet.annotation;version=3.0,
+                            javax.servlet.descriptor;version=3.0,
+                            javax.servlet.http;version=3.0,
+                            javax.servlet.resources;version=3.0,
+                        </Export-Package>
+                        <!-- Because of the duplicate exports, explicit imports are required -->
+                        <Import-Package>
+                            javax.servlet;version=2.6,
+                            javax.servlet.annotation;version=2.6,
+                            javax.servlet.descriptor;version=2.6,
+                            javax.servlet.http;version=2.6,
+                            javax.servlet.resources;version=2.6,
+                        </Import-Package>
                     </instructions>
                 </configuration>
             </plugin>
