@@ -70,15 +70,15 @@ public class GenericEntity<T> {
         }
     }
 
-    public T getEntity() {
+    public final T getEntity() {
         return entity;
     }
 
-    public Class<?> getRawType() {
+    public final Class<?> getRawType() {
         return entity.getClass();
     }
 
-    public Type getType() {
+    public final Type getType() {
         return genericType;
     }
 }

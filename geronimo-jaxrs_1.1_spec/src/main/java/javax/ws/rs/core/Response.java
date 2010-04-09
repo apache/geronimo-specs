@@ -71,6 +71,10 @@ public abstract class Response {
             return delegate.createResponseBuilder().status(value.getStatusCode());
         }
 
+        public Response.ResponseBuilder status(Response.StatusType status) {
+            return delegate.createResponseBuilder().status(status.getStatusCode());
+        }
+
         public abstract Response.ResponseBuilder tag(EntityTag value);
 
         public abstract Response.ResponseBuilder tag(String value);
@@ -83,10 +87,6 @@ public abstract class Response {
 
         public abstract Response.ResponseBuilder variants(List<Variant> values);
 
-        public Response.ResponseBuilder status(Response.StatusType status) {
-                return delegate.createResponseBuilder().status(
-                                status.getStatusCode());
-        }
     }
 
     public static enum Status implements StatusType {
@@ -264,6 +264,13 @@ public abstract class Response {
     }
 
     public static Response.ResponseBuilder status(Response.Status status) {
+        if (status == null) {
+            throw new IllegalArgumentException();
+        }
+        return ResponseBuilder.newInstance().status(status);
+    }
+
+    public static Response.ResponseBuilder status(Response.StatusType status) {
         if (status == null) {
             throw new IllegalArgumentException();
         }
