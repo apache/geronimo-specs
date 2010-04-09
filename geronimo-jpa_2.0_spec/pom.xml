@@ -134,8 +134,8 @@ true</Bundle-SymbolicName>
                         <Specification-Vendor>Sun Microsystems, Inc.</Specification-Vendor>
                         <Specification-Version>2.0</Specification-Version>
                         <Private-Package>org.apache.geronimo.specs.jpa.*;org.apache.geronimo.osgi.locator</Private-Package>
-                        <Export-Package>javax.persistence.*;version=2.0</Export-Package>
-                        <Import-Package>javax.persistence.*;version=2.0,javax.sql;resolution:=optional,org.osgi.framework;resolution:=optional,org.osgi.util.tracker;resolution:=optional,org.apache.geronimo.osgi.registry.api;resolution:=optional</Import-Package>
+                        <Export-Package>javax.persistence.*;version=1.1;jpa=2.0</Export-Package>
+                        <Import-Package>javax.persistence.*;version=1.1,javax.sql;resolution:=optional,org.osgi.framework;resolution:=optional,org.osgi.util.tracker;resolution:=optional,org.apache.geronimo.osgi.registry.api;resolution:=optional</Import-Package>
                         <!-- Eclipse metadata
                         <Eclipse-Autostart>false</Eclipse-Autostart>
                         <Bundle-ClassPath>.</Bundle-ClassPath>
