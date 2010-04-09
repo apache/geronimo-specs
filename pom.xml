@@ -127,19 +127,37 @@
                 <artifactId>maven-bundle-plugin</artifactId>
                 <configuration>
                     <instructions>
-                        <Bundle-SymbolicName>${groupId}.${artifactId};singleton=
-true</Bundle-SymbolicName>
+                        <Bundle-SymbolicName>${groupId}.${artifactId};singleton=true</Bundle-SymbolicName>
                         <Bundle-Activator>org.apache.geronimo.specs.jpa.PersistenceActivator</Bundle-Activator>
                         <Specification-Title>JSR-317 Java Persistence API 2.0</Specification-Title>
                         <Specification-Vendor>Sun Microsystems, Inc.</Specification-Vendor>
                         <Specification-Version>2.0</Specification-Version>
                         <Private-Package>org.apache.geronimo.specs.jpa.*;org.apache.geronimo.osgi.locator</Private-Package>
-                        <Export-Package>javax.persistence.*;version=1.1;jpa=2.0</Export-Package>
-                        <Import-Package>javax.persistence.*;version=1.1,javax.sql;resolution:=optional,org.osgi.framework;resolution:=optional,org.osgi.util.tracker;resolution:=optional,org.apache.geronimo.osgi.registry.api;resolution:=optional</Import-Package>
-                        <!-- Eclipse metadata
-                        <Eclipse-Autostart>false</Eclipse-Autostart>
-                        <Bundle-ClassPath>.</Bundle-ClassPath>
-                        -->
+                        <!-- The OSGi specification requires these packages be exported as 1.1.  Unfortunately,
+                             there are bundles out there that are currently expecting to use a 2.0 version.  The duplicate
+                             package exports are done to prevent breaking those packages -->
+                        <Export-Package>
+                            javax.persistence;version=1.1;jpa=2.0,
+                            javax.persistence.criteria;version=1.1;jpa=2.0,
+                            javax.persistence.metamodel;version=1.1;jpa=2.0,
+                            javax.persistence.spi;version=1.1;jpa=2.0,
+                            javax.persistence;version=2.0;jpa=2.0,
+                            javax.persistence.criteria;version=2.0,
+                            javax.persistence.metamodel;version=2.0,
+                            javax.persistence.spi;version=2.0
+                        </Export-Package>
+                        <!-- bnd is not correctly handling these imports using wildcards, so they
+                             need to be explicitly specified -->
+                        <Import-Package>
+                            javax.persistence;version=1.1,
+                            javax.persistence.criteria;version=1.1,
+                            javax.persistence.metamodel;version=1.1,
+                            javax.persistence.spi;version=1.1,
+                            javax.sql;resolution:=optional,
+                            org.osgi.framework;resolution:=optional,
+                            org.osgi.util.tracker;resolution:=optional,
+                            org.apache.geronimo.osgi.registry.api;resolution:=optional
+                        </Import-Package>
                     </instructions>
                     <unpackBundle>true</unpackBundle>
                 </configuration>
