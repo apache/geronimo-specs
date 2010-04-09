@@ -22,7 +22,7 @@ package javax.ws.rs.core;
 import java.util.Collections;
 import java.util.Set;
 
-public abstract class Application {
+public class Application {
 
     public Set<java.lang.Class<?>> getClasses() {
         return Collections.emptySet();

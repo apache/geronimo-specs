@@ -59,13 +59,13 @@ public abstract class UriBuilder {
         return delegate.createUriBuilder();
     }
 
-    public abstract java.net.URI build(Object... values);
+    public abstract URI build(Object... values);
 
-    public abstract java.net.URI buildFromEncoded(Object... values);
+    public abstract URI buildFromEncoded(Object... values);
 
-    public abstract java.net.URI buildFromEncodedMap(Map<String, ? extends Object> values);
+    public abstract URI buildFromEncodedMap(Map<String, ? extends Object> values);
 
-    public abstract java.net.URI buildFromMap(Map<String, ? extends Object> values);
+    public abstract URI buildFromMap(Map<String, ? extends Object> values);
 
     @Override
     public abstract UriBuilder clone();
@@ -76,9 +76,9 @@ public abstract class UriBuilder {
 
     public abstract UriBuilder matrixParam(String name, Object... values);
 
-    public abstract UriBuilder path(Class<?> resourceClass);
+    public abstract UriBuilder path(Class resourceClass);
 
-    public abstract UriBuilder path(Class<?> resourceClass, String resourceMethodName);
+    public abstract UriBuilder path(Class resourceClass, String resourceMethodName);
 
     public abstract UriBuilder path(Method resourceMethod);
 
