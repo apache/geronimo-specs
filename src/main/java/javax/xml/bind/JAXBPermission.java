@@ -18,7 +18,7 @@ package javax.xml.bind;
 
 import java.security.BasicPermission;
 
-public class JAXBPermission extends BasicPermission {
+public final class JAXBPermission extends BasicPermission {
 
     private static final long serialVersionUID = 1L;
     

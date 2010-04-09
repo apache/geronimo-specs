@@ -34,4 +34,5 @@ public @interface XmlElementRef {
 
     Class type() default DEFAULT.class;
 
+    boolean required() default true;
 }
