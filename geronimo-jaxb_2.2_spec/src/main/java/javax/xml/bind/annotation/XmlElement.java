@@ -22,7 +22,7 @@ import java.lang.annotation.Target;
 import java.lang.annotation.ElementType;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target(value  = {ElementType.FIELD, ElementType.METHOD })
+@Target(value  = {ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
 public @interface XmlElement {
 
     final class DEFAULT {
