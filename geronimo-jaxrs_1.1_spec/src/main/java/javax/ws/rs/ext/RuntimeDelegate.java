@@ -146,7 +146,7 @@ public abstract class RuntimeDelegate {
                 // do nothing
             }
 
-            return delegate;
+            throw new RuntimeException("Unable to create jax-rs RuntimeDelegate");
         }
     }
 }
