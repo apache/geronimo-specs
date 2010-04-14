@@ -34,7 +34,7 @@
     <artifactId>geronimo-jaxr_1.0_spec</artifactId>
     <packaging>bundle</packaging>
     <name>JAXR 1.0</name>
-    <version>2.0.1-SNAPSHOT</version>
+    <version>2.0.1</version>
     <description>Java API for XML Registry 1.0</description>
 
     <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
@@ -53,14 +53,14 @@
         <dependency>
             <groupId>org.apache.geronimo.specs</groupId>
             <artifactId>geronimo-activation_1.1_spec</artifactId>
-            <version>1.0.3-SNAPSHOT</version>
+            <version>1.0.3</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.apache.geronimo.specs</groupId>
             <artifactId>geronimo-osgi-locator</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0</version>
             <scope>provided</scope>
         </dependency>
 
@@ -80,9 +80,9 @@
     </dependencies>
 
     <scm>
-        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jaxr_1.0_spec/</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jaxr_1.0_spec/</developerConnection>
-        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-jaxr_1.0_spec/</url>
+        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-jaxr_1.0_spec-2.0.1</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-jaxr_1.0_spec-2.0.1</developerConnection>
+        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/tags/geronimo-jaxr_1.0_spec-2.0.1</url>
     </scm>
 
     <build>
