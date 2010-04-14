@@ -27,14 +27,14 @@
     <parent>
         <groupId>org.apache.geronimo.specs</groupId>
         <artifactId>geronimo-osgi-support</artifactId>
-        <version>1.0</version>
+        <version>1.0.1-SNAPSHOT</version>
     </parent>
 
     <groupId>org.apache.geronimo.specs</groupId>
     <artifactId>geronimo-osgi-itesta</artifactId>
     <packaging>bundle</packaging>
     <name>Geronimo OSGi integration tests</name>
-    <version>1.0</version>
+    <version>1.0.1-SNAPSHOT</version>
 
     <description>
 Separately built test bundle for use in the various integration tests.  This
