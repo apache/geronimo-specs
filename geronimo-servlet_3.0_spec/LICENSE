@@ -206,8 +206,8 @@
 ## ADDITIONAL LICENSES                                                 ##
 #########################################################################
 
-The XMLSchema.dtd included in this project was developed by the
-W3C Consortium (http://www.w3c.org/).
+The XMLSchema.dtd and xml.xsd files included in this project was developed
+by the W3C Consortium (http://www.w3c.org/).
 Use of the source code, thus licensed, and the resultant binary are
 subject to the terms and conditions of the following license.
 
