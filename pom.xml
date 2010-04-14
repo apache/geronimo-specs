@@ -34,7 +34,7 @@
     <artifactId>geronimo-interceptor_1.1_spec</artifactId>
     <packaging>bundle</packaging>
     <name>Interceptor 1.1</name>
-    <version>1.0</version>
+    <version>1.0.1-SNAPSHOT</version>
     <description>Interceptor API 1.1</description>
 
     <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
@@ -50,9 +50,9 @@
     </properties>
 
     <scm>
-        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-interceptor_1.1_spec-1.0</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-interceptor_1.1_spec-1.0</developerConnection>
-        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/tags/geronimo-interceptor_1.1_spec-1.0</url>
+        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-interceptor_1.1_spec/</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-interceptor_1.1_spec/</developerConnection>
+        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-interceptor_1.1_spec/</url>
     </scm>
 
     <build>
