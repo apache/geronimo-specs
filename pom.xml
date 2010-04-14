@@ -49,9 +49,9 @@
     </properties>
 
     <scm>
-        <connection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-j2ee-deployment_1.1MR3_spec</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-j2ee-deployment_1.1MR3_spec</developerConnection>
-        <url>https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-j2ee-deployment_1.1MR3_spec</url>
+        <connection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-javaee-deployment_1.1MR3_spec</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-javaee-deployment_1.1MR3_spec</developerConnection>
+        <url>https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-javaee-deployment_1.1MR3_spec</url>
     </scm>
 
     <dependencies>
