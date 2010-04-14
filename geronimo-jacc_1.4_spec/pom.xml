@@ -34,7 +34,7 @@
     <artifactId>geronimo-jacc_1.4_spec</artifactId>
     <packaging>bundle</packaging>
     <name>J2EE JACC 1.4</name>
-    <version>1.0</version>
+    <version>1.0.1-SNAPSHOT</version>
 
     <description>Java Access Control for Containers 1.1 API</description>
 
@@ -51,16 +51,16 @@
     </properties>
 
     <scm>
-        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-jacc_1.4_spec-1.0</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-jacc_1.4_spec-1.0</developerConnection>
-        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/tags/geronimo-jacc_1.4_spec-1.0</url>
+        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jacc_1.4_spec/</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jacc_1.4_spec/</developerConnection>
+        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-jacc_1.4_spec/</url>
     </scm>
 
     <dependencies>
         <dependency>
             <groupId>org.apache.geronimo.specs</groupId>
             <artifactId>geronimo-servlet_3.0_spec</artifactId>
-            <version>1.0</version>
+            <version>1.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -72,7 +72,7 @@
         <dependency>
             <groupId>org.apache.geronimo.specs</groupId>
             <artifactId>geronimo-osgi-locator</artifactId>
-            <version>1.0</version>
+            <version>1.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
