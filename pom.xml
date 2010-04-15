@@ -34,7 +34,7 @@
     <artifactId>geronimo-jsp_2.2_spec</artifactId>
     <packaging>bundle</packaging>
     <name>JSP 2.2</name>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>
     <description>Java Server Pages 2.2 API</description>
 
     <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
@@ -53,13 +53,13 @@
         <dependency>
             <groupId>org.apache.geronimo.specs</groupId>
             <artifactId>geronimo-servlet_3.0_spec</artifactId>
-            <version>1.1-SNAPSHOT</version>
+            <version>1.0-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.geronimo.specs</groupId>
             <artifactId>geronimo-el_2.2_spec</artifactId>
-            <version>1.1-SNAPSHOT</version>
+            <version>1.0-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
