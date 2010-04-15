@@ -34,7 +34,7 @@
     <artifactId>geronimo-interceptor_1.1_spec</artifactId>
     <packaging>bundle</packaging>
     <name>Interceptor 1.1</name>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>
     <description>Interceptor API 1.1</description>
 
     <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
