@@ -34,7 +34,7 @@
     <artifactId>geronimo-javaee-deployment_1.1MR3_spec</artifactId>
     <packaging>bundle</packaging>
     <name>JAVAEE Deployment 1.1MR3</name>
-    <version>1.0.2-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
     <description>JavaEE Deployment API (JSR-88)</description>
 
     <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
