@@ -34,7 +34,7 @@
     <artifactId>geronimo-activation_1.1_spec</artifactId>
     <packaging>bundle</packaging>
     <name>Activation 1.1</name>
-    <version>1.0.3-SNAPSHOT</version>
+    <version>1.1-SNAPSHOT</version>
 
     <description>Java Activation Spec API 1.1</description>
     <!-- n.b. the tets will not pass on java 6 because the jdk contains an incompatible implementation -->
