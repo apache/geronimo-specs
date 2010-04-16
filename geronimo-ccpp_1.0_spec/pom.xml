@@ -34,7 +34,7 @@
     <artifactId>geronimo-ccpp_1.0_spec</artifactId>
     <packaging>bundle</packaging>
     <name>J2EE CCPP 1.0</name>
-    <version>1.0-beta</version>
+    <version>1.1-SNAPSHOT</version>
 
     <description>Java Client Container Preferences Profile 1.0 API</description>
 
@@ -51,10 +51,10 @@
     </properties>
 
     <scm>
-        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-ccpp_1.0_spec-1.0-beta</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-ccpp_1.0_spec-1.0-beta
+        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-ccpp_1.0_spec/</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-ccpp_1.0_spec/
         </developerConnection>
-        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/tags/geronimo-ccpp_1.0_spec-1.0-beta</url>
+        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-ccpp_1.0_spec/</url>
     </scm>
 
     <dependencies>
