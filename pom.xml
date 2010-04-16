@@ -34,7 +34,7 @@
     <artifactId>geronimo-j2ee-connector_1.6_spec</artifactId>
     <packaging>bundle</packaging>
     <name>J2EE Connector 1.6</name>
-    <version>1.0</version>
+    <version>1.1-SNAPSHOT</version>
     <description>Java 2 Connector Architecture API</description>
 
     <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
@@ -50,9 +50,9 @@
     </properties>
 
     <scm>
-        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-j2ee-connector_1.6_spec-1.0</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-j2ee-connector_1.6_spec-1.0</developerConnection>
-        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/tags/geronimo-j2ee-connector_1.6_spec-1.0</url>
+        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-j2ee-connector_1.6_spec/</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-j2ee-connector_1.6_spec/</developerConnection>
+        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-j2ee-connector_1.6_spec/</url>
     </scm>
 
     <dependencies>
