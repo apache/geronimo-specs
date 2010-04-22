@@ -27,14 +27,14 @@
     <parent>
         <groupId>org.apache.geronimo.specs</groupId>
         <artifactId>geronimo-osgi-support</artifactId>
-        <version>1.0</version>
+        <version>1.1-SNAPSHOT</version>
     </parent>
 
     <groupId>org.apache.geronimo.specs</groupId>
     <artifactId>geronimo-osgi-locator</artifactId>
     <packaging>bundle</packaging>
     <name>Geronimo OSGi-enable spec bundle locator</name>
-    <version>1.0</version>
+    <version>1.1-SNAPSHOT</version>
 
     <description>
 This bundle is not used as a standalone unit, but contains classes that
