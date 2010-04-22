@@ -28,7 +28,7 @@
     <artifactId>geronimo-jcdi_1.0_spec</artifactId>
     <packaging>bundle</packaging>
     <name>Apache Geronimo Java Contexts and Dependency Injection (JSR-299) Spec API</name>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
 
     <description>Apache Geronimo implementation of the JSR-299 Context and Dependency Injection for the Java EE Platform</description>
     <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
@@ -45,9 +45,9 @@
     </properties>
 
     <scm>
-        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jcdi_1.0_spec/</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jcdi_1.0_spec/</developerConnection>
-        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-jcdi_1.0_spec/</url>
+        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-jcdi_1.0_spec-1.0</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-jcdi_1.0_spec-1.0</developerConnection>
+        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/tags/geronimo-jcdi_1.0_spec-1.0</url>
     </scm>
 
     <!-- added so the build can find staged depends -->
@@ -72,25 +72,25 @@
         <dependency>
             <groupId>org.apache.geronimo.specs</groupId>
             <artifactId>geronimo-interceptor_1.1_spec</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.geronimo.specs</groupId>
             <artifactId>geronimo-el_2.2_spec</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.geronimo.specs</groupId>
             <artifactId>geronimo-atinject_1.0_spec</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.geronimo.specs</groupId>
             <artifactId>geronimo-annotation_1.1_spec</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
