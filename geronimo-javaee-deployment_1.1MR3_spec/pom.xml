@@ -34,7 +34,7 @@
     <artifactId>geronimo-javaee-deployment_1.1MR3_spec</artifactId>
     <packaging>bundle</packaging>
     <name>JAVAEE Deployment 1.1MR3</name>
-    <version>1.0.1</version>
+    <version>1.0.2-SNAPSHOT</version>
     <description>JavaEE Deployment API (JSR-88)</description>
 
     <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
@@ -49,9 +49,9 @@
     </properties>
 
     <scm>
-        <connection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-javaee-deployment_1.1MR3_spec-1.0.1</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-javaee-deployment_1.1MR3_spec-1.0.1</developerConnection>
-        <url>https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-javaee-deployment_1.1MR3_spec-1.0.1</url>
+        <connection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-javaee-deployment_1.1MR3_spec</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-javaee-deployment_1.1MR3_spec</developerConnection>
+        <url>https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-javaee-deployment_1.1MR3_spec</url>
     </scm>
 
     <dependencies>
