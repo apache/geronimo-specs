@@ -20,9 +20,12 @@ package javax.enterprise.util;
 
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.security.AccessController;
+import java.security.PrivilegedAction;
 import java.util.Arrays;
 
 /**
@@ -97,7 +100,12 @@ public abstract class AnnotationLiteral<T extends Annotation> implements Annotat
     @Override
     public boolean equals(Object other)
     {
-        Method[] methods = this.annotationType.getDeclaredMethods();
+        Method[] methods = (Method[])AccessController.doPrivileged(new PrivilegedAction() {
+            public Object run() 
+            {
+                return annotationType.getDeclaredMethods();
+            }
+        });
         
         if(other == this)
         {
@@ -213,7 +221,7 @@ public abstract class AnnotationLiteral<T extends Annotation> implements Annotat
         {
             if (!method.isAccessible())
             {
-                method.setAccessible(true);
+            	AccessController.doPrivileged(new PrivilegedActionForAccessibleObject(method, true));
             }
 
             return method.invoke(instance, EMPTY_OBJECT_ARRAY);
@@ -224,16 +232,19 @@ public abstract class AnnotationLiteral<T extends Annotation> implements Annotat
         }
         finally
         {
-            method.setAccessible(access);
+            AccessController.doPrivileged(new PrivilegedActionForAccessibleObject(method, access));
         }
-
-
     }
 
     @Override
     public int hashCode()
     {
-        Method[] methods = this.annotationType.getDeclaredMethods();
+        Method[] methods = (Method[])AccessController.doPrivileged(new PrivilegedAction() {
+            public Object run() 
+            {
+                return annotationType.getDeclaredMethods();
+            }
+        });
 
         int hashCode = 0;
         for (Method method : methods)
@@ -301,8 +312,12 @@ public abstract class AnnotationLiteral<T extends Annotation> implements Annotat
     @Override
     public String toString()
     {
-        Method[] methods = this.annotationType.getDeclaredMethods();
-
+        Method[] methods = (Method[])AccessController.doPrivileged(new PrivilegedAction() {
+            public Object run() 
+            {
+                return annotationType.getDeclaredMethods();
+            }
+        });
         StringBuilder sb = new StringBuilder("@" + annotationType().getName() + "(");
         int lenght = methods.length;
 
@@ -324,4 +339,24 @@ public abstract class AnnotationLiteral<T extends Annotation> implements Annotat
 
         return sb.toString();
     }
+
+    protected static class PrivilegedActionForAccessibleObject implements PrivilegedAction<Object> 
+    {
+        AccessibleObject object;
+        boolean flag;
+
+        protected PrivilegedActionForAccessibleObject(AccessibleObject object, boolean flag) 
+        {
+            this.object = object;
+            this.flag = flag;
+        }
+
+        public Object run() 
+        {
+            object.setAccessible(flag);
+            return null;
+        }
+    }
+
 }
+
