@@ -110,80 +110,80 @@ public class InternetHeaders {
      */
     public void load(InputStream in) throws MessagingException {
         try {
-            StringBuffer buffer = new StringBuffer(128); 
-            String line; 
-            // loop until we hit the end or a null line 
+            StringBuffer buffer = new StringBuffer(128);
+            String line;
+            // loop until we hit the end or a null line
             while ((line = readLine(in)) != null) {
-                // lines beginning with white space get special handling 
+                // lines beginning with white space get special handling
                 if (line.startsWith(" ") || line.startsWith("\t")) {
-                    // this gets handled using the logic defined by 
-                    // the addHeaderLine method.  If this line is a continuation, but 
-                    // there's nothing before it, just call addHeaderLine to add it 
-                    // to the last header in the headers list 
+                    // this gets handled using the logic defined by
+                    // the addHeaderLine method.  If this line is a continuation, but
+                    // there's nothing before it, just call addHeaderLine to add it
+                    // to the last header in the headers list
                     if (buffer.length() == 0) {
-                        addHeaderLine(line); 
+                        addHeaderLine(line);
                     }
                     else {
-                        // preserve the line break and append the continuation 
-                        buffer.append("\r\n"); 
-                        buffer.append(line); 
+                        // preserve the line break and append the continuation
+                        buffer.append("\r\n");
+                        buffer.append(line);
                     }
                 }
                 else {
-                    // if we have a line pending in the buffer, flush it 
+                    // if we have a line pending in the buffer, flush it
                     if (buffer.length() > 0) {
-                        addHeaderLine(buffer.toString()); 
-                        buffer.setLength(0); 
+                        addHeaderLine(buffer.toString());
+                        buffer.setLength(0);
                     }
-                    // add this to the accumulator 
-                    buffer.append(line); 
+                    // add this to the accumulator
+                    buffer.append(line);
                 }
             }
-            
-            // if we have a line pending in the buffer, flush it 
+
+            // if we have a line pending in the buffer, flush it
             if (buffer.length() > 0) {
-                addHeaderLine(buffer.toString()); 
+                addHeaderLine(buffer.toString());
             }
         } catch (IOException e) {
             throw new MessagingException("Error loading headers", e);
         }
     }
-    
-    
+
+
     /**
-     * Read a single line from the input stream 
-     * 
+     * Read a single line from the input stream
+     *
      * @param in     The source stream for the line
-     * 
+     *
      * @return The string value of the line (without line separators)
      */
     private String readLine(InputStream in) throws IOException {
-        StringBuffer buffer = new StringBuffer(128); 
-        
-        int c; 
-        
+        StringBuffer buffer = new StringBuffer(128);
+
+        int c;
+
         while ((c = in.read()) != -1) {
-            // a linefeed is a terminator, always.  
+            // a linefeed is a terminator, always.
             if (c == '\n') {
-                break; 
+                break;
             }
-            // just ignore the CR.  The next character SHOULD be an NL.  If not, we're 
-            // just going to discard this 
+            // just ignore the CR.  The next character SHOULD be an NL.  If not, we're
+            // just going to discard this
             else if (c == '\r') {
-                continue; 
+                continue;
             }
             else {
-                // just add to the buffer 
-                buffer.append((char)c); 
+                // just add to the buffer
+                buffer.append((char)c);
             }
         }
-        
-        // no characters found...this was either an eof or a null line. 
+
+        // no characters found...this was either an eof or a null line.
         if (buffer.length() == 0) {
-            return null; 
+            return null;
         }
-        
-        return buffer.toString(); 
+
+        return buffer.toString();
     }
 
 
@@ -265,10 +265,10 @@ public class InternetHeaders {
             InternetHeader header = (InternetHeader)headers.get(i);
             // found a matching header
             if (name.equalsIgnoreCase(header.getName())) {
-                // we update both the name and the value for a set so that 
+                // we update both the name and the value for a set so that
                 // the header ends up with the same case as what is getting set
                 header.setValue(value);
-                header.setName(name); 
+                header.setName(name);
                 // remove all of the headers from this point
                 removeHeaders(name, i + 1);
                 return;
@@ -459,12 +459,12 @@ public class InternetHeaders {
      *         for a complete mismatch.
      */
     private boolean matchHeader(String name, String[] names) {
-        // the list of names is not required, so treat this as if it 
-        // was an empty list and we didn't get a match. 
+        // the list of names is not required, so treat this as if it
+        // was an empty list and we didn't get a match.
         if (names == null) {
-            return false; 
+            return false;
         }
-        
+
         for (int i = 0; i < names.length; i++) {
             if (name.equalsIgnoreCase(names[i])) {
                 return true;
@@ -535,8 +535,8 @@ public class InternetHeaders {
 
         // tabs and spaces are special.  This is a continuation of the last header in the list.
         if (ch == ' ' || ch == '\t') {
-            int size = headers.size(); 
-            // it's possible that we have a leading blank line. 
+            int size = headers.size();
+            // it's possible that we have a leading blank line.
             if (size > 0) {
                 InternetHeader header = (InternetHeader)headers.get(size - 1);
                 header.appendValue(line);
@@ -583,10 +583,10 @@ public class InternetHeaders {
         if (addresses.length == 0) {
             removeHeader(name);
         } else {
-    
+
             // replace the first header
             setHeader(name, addresses[0].toString());
-    
+
             // now add the rest as extra headers.
             for (int i = 1; i < addresses.length; i++) {
                 Address address = addresses[i];
@@ -597,12 +597,12 @@ public class InternetHeaders {
 
 
     /**
-     * Write out the set of headers, except for any 
-     * headers specified in the optional ignore list. 
-     * 
+     * Write out the set of headers, except for any
+     * headers specified in the optional ignore list.
+     *
      * @param out    The output stream.
      * @param ignore The optional ignore list.
-     * 
+     *
      * @exception IOException
      */
     void writeTo(OutputStream out, String[] ignore) throws IOException {
@@ -675,10 +675,10 @@ public class InternetHeaders {
         /**
          * Package scope method for setting the name value.
          *
-         * @param name   The new header name   
+         * @param name   The new header name
          */
         void setName(String name) {
-            this.name = name;     
+            this.name = name;
         }
 
         /**
@@ -696,10 +696,10 @@ public class InternetHeaders {
         }
 
         void writeTo(OutputStream out) throws IOException {
-            out.write(name.getBytes());
+            out.write(name.getBytes("ISO8859-1"));
             out.write(':');
             out.write(' ');
-            out.write(value.getBytes());
+            out.write(value.getBytes("ISO8859-1"));
             out.write('\r');
             out.write('\n');
         }

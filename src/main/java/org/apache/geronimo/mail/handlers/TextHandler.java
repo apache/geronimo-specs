@@ -23,10 +23,8 @@ import java.awt.datatransfer.DataFlavor;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 
 import javax.activation.ActivationDataFlavor;
@@ -97,38 +95,38 @@ public class TextHandler implements DataContentHandler {
      * @throws IOException
      */
     public Object getContent(DataSource datasource) throws IOException {
-        InputStream is = datasource.getInputStream(); 
-        ByteArrayOutputStream os = new ByteArrayOutputStream(); 
-        
-        int count;  
-        byte[] buffer = new byte[1000]; 
-            
+        InputStream is = datasource.getInputStream();
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+
+        int count;
+        byte[] buffer = new byte[1000];
+
         try {
             while ((count = is.read(buffer, 0, buffer.length)) > 0) {
-                os.write(buffer, 0, count); 
+                os.write(buffer, 0, count);
             }
         } finally {
-            is.close(); 
+            is.close();
         }
-        try {   
-            return os.toString(getCharSet(datasource.getContentType())); 
+        try {
+            return os.toString(getCharSet(datasource.getContentType()));
         } catch (ParseException e) {
-            throw new UnsupportedEncodingException(e.getMessage()); 
+            throw new UnsupportedEncodingException(e.getMessage());
         }
     }
 
-    
+
     /**
-     * Write an object of "our" type out to the provided 
-     * output stream.  The content type might modify the 
-     * result based on the content type parameters. 
-     * 
+     * Write an object of "our" type out to the provided
+     * output stream.  The content type might modify the
+     * result based on the content type parameters.
+     *
      * @param object The object to write.
      * @param contentType
      *               The content mime type, including parameters.
      * @param outputstream
      *               The target output stream.
-     * 
+     *
      * @throws IOException
      */
     public void writeTo(Object object, String contentType, OutputStream outputstream)
