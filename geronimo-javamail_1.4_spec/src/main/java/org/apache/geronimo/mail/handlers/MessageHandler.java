@@ -32,10 +32,7 @@ import javax.mail.internet.MimeUtility;
 import javax.mail.internet.ParseException;
 import java.awt.datatransfer.DataFlavor;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 
 public class MessageHandler implements DataContentHandler {

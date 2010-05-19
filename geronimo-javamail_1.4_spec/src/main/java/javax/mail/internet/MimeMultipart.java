@@ -25,8 +25,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.charset.Charset;
 
-import java.util.Arrays; 
+import java.util.Arrays;
 
 import javax.activation.DataSource;
 import javax.mail.BodyPart;
@@ -90,11 +91,11 @@ public class MimeMultipart extends Multipart {
             super.setMultipartDataSource((MultipartDataSource) dataSource);
             parsed = true;
         } else {
-            // We keep the original, provided content type string so that we 
-            // don't end up changing quoting/formatting of the header unless 
-            // changes are made to the content type.  James is somewhat dependent 
-            // on that behavior. 
-            contentType = ds.getContentType(); 
+            // We keep the original, provided content type string so that we
+            // don't end up changing quoting/formatting of the header unless
+            // changes are made to the content type.  James is somewhat dependent
+            // on that behavior.
+            contentType = ds.getContentType();
             type = new ContentType(contentType);
             parsed = false;
         }
@@ -140,10 +141,10 @@ public class MimeMultipart extends Multipart {
     public void writeTo(OutputStream out) throws IOException, MessagingException {
         parse();
         String boundary = type.getParameter("boundary");
-        byte[] bytes = boundary.getBytes();
+        byte[] bytes = boundary.getBytes("ISO8859-1");
 
         if (preamble != null) {
-            byte[] preambleBytes = preamble.getBytes();
+            byte[] preambleBytes = preamble.getBytes("ISO8859-1");
             // write this out, followed by a line break.
             out.write(preambleBytes);
             out.write(crlf);
@@ -168,24 +169,24 @@ public class MimeMultipart extends Multipart {
         if (parsed) {
             return;
         }
-        
+
         try {
             ContentType cType = new ContentType(contentType);
             InputStream is = new BufferedInputStream(ds.getInputStream());
             BufferedInputStream pushbackInStream = null;
-            String boundaryString = cType.getParameter("boundary"); 
-            byte[] boundary = null; 
+            String boundaryString = cType.getParameter("boundary");
+            byte[] boundary = null;
             if (boundaryString == null) {
-                pushbackInStream = new BufferedInputStream(is, 1200);  
-                // read until we find something that looks like a boundary string 
-                boundary = readTillFirstBoundary(pushbackInStream); 
+                pushbackInStream = new BufferedInputStream(is, 1200);
+                // read until we find something that looks like a boundary string
+                boundary = readTillFirstBoundary(pushbackInStream);
             }
             else {
-                boundary = ("--" + boundaryString).getBytes();
+                boundary = ("--" + boundaryString).getBytes("ISO8859-1");
                 pushbackInStream = new BufferedInputStream(is, boundary.length + 1000);
                 readTillFirstBoundary(pushbackInStream, boundary);
             }
-            
+
             while (true) {
                 MimeBodyPartInputStream partStream;
                 partStream = new MimeBodyPartInputStream(pushbackInStream, boundary);
@@ -198,9 +199,9 @@ public class MimeMultipart extends Multipart {
                     }
                     complete = false;
                 }
-                // if we hit the final boundary, stop processing this 
+                // if we hit the final boundary, stop processing this
                 if (partStream.finalBoundaryFound) {
-                    break; 
+                    break;
                 }
             }
         } catch (Exception e){
@@ -223,61 +224,61 @@ public class MimeMultipart extends Multipart {
 
         try {
             while (true) {
-                // read the next line 
-                byte[] line = readLine(pushbackInStream); 
+                // read the next line
+                byte[] line = readLine(pushbackInStream);
                 // hit an EOF?
                 if (line == null) {
                     throw new MessagingException("Unexpected End of Stream while searching for first Mime Boundary");
                 }
-                // if this looks like a boundary, then make it so 
+                // if this looks like a boundary, then make it so
                 if (line.length > 2 && line[0] == '-' && line[1] == '-') {
                     // save the preamble, if there is one.
                     byte[] preambleBytes = preambleStream.toByteArray();
                     if (preambleBytes.length > 0) {
-                        preamble = new String(preambleBytes);
+                        preamble = new String(preambleBytes, Charset.forName("ISO8859-1"));
                     }
-                    return stripLinearWhiteSpace(line);        
+                    return stripLinearWhiteSpace(line);
                 }
                 else {
                     // this is part of the preamble.
                     preambleStream.write(line);
-                    preambleStream.write('\r'); 
-                    preambleStream.write('\n'); 
+                    preambleStream.write('\r');
+                    preambleStream.write('\n');
                 }
             }
         } catch (IOException ioe) {
             throw new MessagingException(ioe.toString(), ioe);
         }
     }
-    
-    
+
+
     /**
-     * Scan a line buffer stripping off linear whitespace 
-     * characters, returning a new array without the 
-     * characters, if possible. 
-     * 
+     * Scan a line buffer stripping off linear whitespace
+     * characters, returning a new array without the
+     * characters, if possible.
+     *
      * @param line   The source line buffer.
-     * 
-     * @return A byte array with white space characters removed, 
+     *
+     * @return A byte array with white space characters removed,
      *         if necessary.
      */
     private byte[] stripLinearWhiteSpace(byte[] line) {
-        int index = line.length - 1; 
-        // if the last character is not a space or tab, we 
-        // can use this unchanged 
+        int index = line.length - 1;
+        // if the last character is not a space or tab, we
+        // can use this unchanged
         if (line[index] != ' ' && line[index] != '\t') {
-            return line; 
+            return line;
         }
-        // scan backwards for the first non-white space 
+        // scan backwards for the first non-white space
         for (; index > 0; index--) {
             if (line[index] != ' ' && line[index] != '\t') {
-                break;       
+                break;
             }
         }
-        // make a shorter copy of this 
-        byte[] newLine = new byte[index + 1]; 
-        System.arraycopy(line, 0, newLine, 0, index + 1); 
-        return newLine; 
+        // make a shorter copy of this
+        byte[] newLine = new byte[index + 1];
+        System.arraycopy(line, 0, newLine, 0, index + 1);
+        return newLine;
     }
 
     /**
@@ -294,118 +295,118 @@ public class MimeMultipart extends Multipart {
 
         try {
             while (true) {
-                // read the next line 
-                byte[] line = readLine(pushbackInStream); 
+                // read the next line
+                byte[] line = readLine(pushbackInStream);
                 // hit an EOF?
                 if (line == null) {
                     throw new MessagingException("Unexpected End of Stream while searching for first Mime Boundary");
                 }
-                
-                // apply the boundary comparison rules to this 
+
+                // apply the boundary comparison rules to this
                 if (compareBoundary(line, boundary)) {
                     // save the preamble, if there is one.
                     byte[] preambleBytes = preambleStream.toByteArray();
                     if (preambleBytes.length > 0) {
-                        preamble = new String(preambleBytes);
+                        preamble = new String(preambleBytes, Charset.forName("ISO8859-1"));
                     }
-                    return;        
+                    return;
                 }
-                
+
                 // this is part of the preamble.
                 preambleStream.write(line);
-                preambleStream.write('\r'); 
-                preambleStream.write('\n'); 
+                preambleStream.write('\r');
+                preambleStream.write('\n');
             }
         } catch (IOException ioe) {
             throw new MessagingException(ioe.toString(), ioe);
         }
     }
-    
-    
+
+
     /**
-     * Peform a boundary comparison, taking into account 
-     * potential linear white space 
-     * 
+     * Peform a boundary comparison, taking into account
+     * potential linear white space
+     *
      * @param line     The line to compare.
      * @param boundary The boundary we're searching for
-     * 
-     * @return true if this is a valid boundary line, false for 
+     *
+     * @return true if this is a valid boundary line, false for
      *         any mismatches.
      */
     private boolean compareBoundary(byte[] line, byte[] boundary) {
-        // if the line is too short, this is an easy failure 
+        // if the line is too short, this is an easy failure
         if (line.length < boundary.length) {
             return false;
         }
-        
+
         // this is the most common situation
         if (line.length == boundary.length) {
-            return Arrays.equals(line, boundary); 
+            return Arrays.equals(line, boundary);
         }
         // the line might have linear white space after the boundary portions
         for (int i = 0; i < boundary.length; i++) {
-            // fail on any mismatch 
+            // fail on any mismatch
             if (line[i] != boundary[i]) {
-                return false; 
+                return false;
             }
         }
-        // everything after the boundary portion must be linear whitespace 
+        // everything after the boundary portion must be linear whitespace
         for (int i = boundary.length; i < line.length; i++) {
-            // fail on any mismatch 
-            if (line[i] != ' ' && line[i] != '\t') { 
-                return false; 
+            // fail on any mismatch
+            if (line[i] != ' ' && line[i] != '\t') {
+                return false;
             }
         }
-        // these are equivalent 
-        return true; 
+        // these are equivalent
+        return true;
     }
-    
+
     /**
-     * Read a single line of data from the input stream, 
-     * returning it as an array of bytes. 
-     * 
+     * Read a single line of data from the input stream,
+     * returning it as an array of bytes.
+     *
      * @param in     The source input stream.
-     * 
-     * @return A byte array containing the line data.  Returns 
+     *
+     * @return A byte array containing the line data.  Returns
      *         null if there's nothing left in the stream.
      * @exception MessagingException
      */
-    private byte[] readLine(BufferedInputStream in) throws IOException 
+    private byte[] readLine(BufferedInputStream in) throws IOException
     {
         ByteArrayOutputStream line = new ByteArrayOutputStream();
-        
+
         while (in.available() > 0) {
-            int value = in.read(); 
+            int value = in.read();
             if (value == -1) {
-                // if we have nothing in the accumulator, signal an EOF back 
+                // if we have nothing in the accumulator, signal an EOF back
                 if (line.size() == 0) {
-                    return null; 
+                    return null;
                 }
-                break; 
+                break;
             }
             else if (value == '\r') {
-                in.mark(10); 
-                value = in.read(); 
-                // we expect to find a linefeed after the carriage return, but 
-                // some things play loose with the rules. 
+                in.mark(10);
+                value = in.read();
+                // we expect to find a linefeed after the carriage return, but
+                // some things play loose with the rules.
                 if (value != '\n') {
-                    in.reset(); 
+                    in.reset();
                 }
-                break; 
+                break;
             }
             else if (value == '\n') {
-                // naked linefeed, allow that 
-                break; 
+                // naked linefeed, allow that
+                break;
             }
             else {
-                // write this to the line 
-                line.write((byte)value); 
+                // write this to the line
+                line.write((byte)value);
             }
         }
-        // return this as an array of bytes 
-        return line.toByteArray(); 
+        // return this as an array of bytes
+        return line.toByteArray();
     }
-    
+
 
     protected InternetHeaders createInternetHeaders(InputStream in) throws MessagingException {
         return new InternetHeaders(in);
@@ -436,7 +437,7 @@ public class MimeMultipart extends Multipart {
         BufferedInputStream inStream;
         public boolean boundaryFound = false;
         byte[] boundary;
-        public boolean finalBoundaryFound = false; 
+        public boolean finalBoundaryFound = false;
 
         public MimeBodyPartInputStream(BufferedInputStream inStream, byte[] boundary) {
             super();
@@ -445,69 +446,69 @@ public class MimeMultipart extends Multipart {
         }
 
         /**
-         * The base reading method for reading one character 
-         * at a time. 
-         * 
-         * @return The read character, or -1 if an EOF was encountered. 
+         * The base reading method for reading one character
+         * at a time.
+         *
+         * @return The read character, or -1 if an EOF was encountered.
          * @exception IOException
          */
         public int read() throws IOException {
             if (boundaryFound) {
                 return -1;
             }
-            
+
             // read the next value from stream
             int firstChar = inStream.read();
-            // premature end?  Handle it like a boundary located 
+            // premature end?  Handle it like a boundary located
             if (firstChar == -1) {
-                boundaryFound = true; 
-                // also mark this as the end 
-                finalBoundaryFound = true; 
-                return -1; 
+                boundaryFound = true;
+                // also mark this as the end
+                finalBoundaryFound = true;
+                return -1;
             }
-            
-            // we first need to look for a line boundary.  If we find a boundary, it can be followed by the 
-            // boundary marker, so we need to remember what sort of thing we found, then read ahead looking 
-            // for the part boundary. 
-            
+
+            // we first need to look for a line boundary.  If we find a boundary, it can be followed by the
+            // boundary marker, so we need to remember what sort of thing we found, then read ahead looking
+            // for the part boundary.
+
             // NB:, we only handle [\r]\n--boundary marker[--]
-            // we need to at least accept what most mail servers would consider an 
+            // we need to at least accept what most mail servers would consider an
             // invalid format using just '\n'
             if (firstChar != '\r' && firstChar != '\n') {
-                // not a \r, just return the byte as is 
+                // not a \r, just return the byte as is
                 return firstChar;
             }
-            // we might need to rewind to this point.  The padding is to allow for 
-            // line terminators and linear whitespace on the boundary lines 
-            inStream.mark(boundary.length + 1000); 
-            // we need to keep track of the first read character in case we need to 
-            // rewind back to the mark point 
-            int value = firstChar; 
+            // we might need to rewind to this point.  The padding is to allow for
+            // line terminators and linear whitespace on the boundary lines
+            inStream.mark(boundary.length + 1000);
+            // we need to keep track of the first read character in case we need to
+            // rewind back to the mark point
+            int value = firstChar;
             // if this is a '\r', then we require the '\n'
             if (value == '\r') {
-                // now scan ahead for the second character 
+                // now scan ahead for the second character
                 value = inStream.read();
                 if (value != '\n') {
-                    // only a \r, so this can't be a boundary.  Return the 
-                    // \r as if it was data, after first resetting  
-                    inStream.reset(); 
+                    // only a \r, so this can't be a boundary.  Return the
+                    // \r as if it was data, after first resetting
+                    inStream.reset();
                     return '\r';
-                } 
-            } 
-            
-            value = inStream.read();
-            // if the next character is not a boundary start, we 
-            // need to handle this as a normal line end 
-            if ((byte) value != boundary[0]) {
-                // just reset and return the first character as data 
-                inStream.reset(); 
-                return firstChar; 
+                }
             }
-            
-            // we're here because we found a "\r\n-" sequence, which is a potential 
-            // boundary marker.  Read the individual characters of the next line until 
-            // we have a mismatch 
-            
+
+            value = inStream.read();
+            // if the next character is not a boundary start, we
+            // need to handle this as a normal line end
+            if ((byte) value != boundary[0]) {
+                // just reset and return the first character as data
+                inStream.reset();
+                return firstChar;
+            }
+
+            // we're here because we found a "\r\n-" sequence, which is a potential
+            // boundary marker.  Read the individual characters of the next line until
+            // we have a mismatch
+
             // read value is the first byte of the boundary. Start matching the
             // next characters to find a boundary
             int boundaryIndex = 0;
@@ -515,104 +516,104 @@ public class MimeMultipart extends Multipart {
                 value = inStream.read();
                 boundaryIndex++;
             }
-            // if we didn't match all the way, we need to push back what we've read and 
-            // return the EOL character 
-            if (boundaryIndex != boundary.length) { 
+            // if we didn't match all the way, we need to push back what we've read and
+            // return the EOL character
+            if (boundaryIndex != boundary.length) {
                 // Boundary not found. Restoring bytes skipped.
-                // just reset and return the first character as data 
-                inStream.reset(); 
-                return firstChar; 
+                // just reset and return the first character as data
+                inStream.reset();
+                return firstChar;
             }
-            
+
             // The full boundary sequence should be \r\n--boundary string[--]\r\n
-            // if the last character we read was a '-', check for the end terminator 
+            // if the last character we read was a '-', check for the end terminator
             if (value == '-') {
                 value = inStream.read();
-                // crud, we have a bad boundary terminator.  We need to unwind this all the way 
+                // crud, we have a bad boundary terminator.  We need to unwind this all the way
                 // back to the lineend and pretend none of this ever happened
                 if (value != '-') {
                     // Boundary not found. Restoring bytes skipped.
-                    // just reset and return the first character as data 
-                    inStream.reset(); 
-                    return firstChar; 
+                    // just reset and return the first character as data
+                    inStream.reset();
+                    return firstChar;
                 }
-                // on the home stretch, but we need to verify the LWSP/EOL sequence 
+                // on the home stretch, but we need to verify the LWSP/EOL sequence
                 value = inStream.read();
-                // first skip over the linear whitespace 
+                // first skip over the linear whitespace
                 while (value == ' ' || value == '\t') {
                     value = inStream.read();
                 }
-                
-                // We've matched the final boundary, skipped any whitespace, but 
-                // we've hit the end of the stream.  This is highly likely when 
-                // we have nested multiparts, since the linend terminator for the 
-                // final boundary marker is eated up as the start of the outer 
-                // boundary marker.  No CRLF sequence here is ok. 
+
+                // We've matched the final boundary, skipped any whitespace, but
+                // we've hit the end of the stream.  This is highly likely when
+                // we have nested multiparts, since the linend terminator for the
+                // final boundary marker is eated up as the start of the outer
+                // boundary marker.  No CRLF sequence here is ok.
                 if (value == -1) {
                     // we've hit the end of times...
-                    finalBoundaryFound = true; 
-                    // we have a boundary, so return this as an EOF condition 
+                    finalBoundaryFound = true;
+                    // we have a boundary, so return this as an EOF condition
                     boundaryFound = true;
                     return -1;
                 }
-                
-                // this must be a CR or a LF...which leaves us even more to push back and forget 
+
+                // this must be a CR or a LF...which leaves us even more to push back and forget
                 if (value != '\r' && value != '\n') {
                     // Boundary not found. Restoring bytes skipped.
-                    // just reset and return the first character as data 
-                    inStream.reset(); 
-                    return firstChar; 
+                    // just reset and return the first character as data
+                    inStream.reset();
+                    return firstChar;
                 }
-                
-                // if this is carriage return, check for a linefeed  
+
+                // if this is carriage return, check for a linefeed
                 if (value == '\r') {
-                    // last check, this must be a line feed 
+                    // last check, this must be a line feed
                     value = inStream.read();
                     if (value != '\n') {
                         // SO CLOSE!
                         // Boundary not found. Restoring bytes skipped.
-                        // just reset and return the first character as data 
-                        inStream.reset(); 
-                        return firstChar; 
+                        // just reset and return the first character as data
+                        inStream.reset();
+                        return firstChar;
                     }
                 }
-                
+
                 // we've hit the end of times...
-                finalBoundaryFound = true; 
+                finalBoundaryFound = true;
             }
             else {
-                // first skip over the linear whitespace 
+                // first skip over the linear whitespace
                 while (value == ' ' || value == '\t') {
                     value = inStream.read();
                 }
-                // this must be a CR or a LF...which leaves us even more to push back and forget 
+                // this must be a CR or a LF...which leaves us even more to push back and forget
                 if (value != '\r' && value != '\n') {
                     // Boundary not found. Restoring bytes skipped.
-                    // just reset and return the first character as data 
-                    inStream.reset(); 
-                    return firstChar; 
+                    // just reset and return the first character as data
+                    inStream.reset();
+                    return firstChar;
                 }
-                
-                // if this is carriage return, check for a linefeed  
+
+                // if this is carriage return, check for a linefeed
                 if (value == '\r') {
-                    // last check, this must be a line feed 
+                    // last check, this must be a line feed
                     value = inStream.read();
                     if (value != '\n') {
                         // SO CLOSE!
                         // Boundary not found. Restoring bytes skipped.
-                        // just reset and return the first character as data 
-                        inStream.reset(); 
-                        return firstChar; 
+                        // just reset and return the first character as data
+                        inStream.reset();
+                        return firstChar;
                     }
                 }
             }
-            // we have a boundary, so return this as an EOF condition 
+            // we have a boundary, so return this as an EOF condition
             boundaryFound = true;
             return -1;
         }
     }
 
-    
+
     /**
      * Return true if the final boundary line for this multipart was
      * seen when parsing the data.

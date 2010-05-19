@@ -21,6 +21,7 @@ package javax.mail.internet;
 
 import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.util.ArrayList;// Represents lists in things like
 import java.util.Collections;
 import java.util.Enumeration;
@@ -179,13 +180,13 @@ public class ParameterList {
                 byte[] valueBytes = value.getBytes(MimeUtility.javaCharset(charset));
 
                 // the string format is charset''data
-                out.write(charset.getBytes());
+                out.write(charset.getBytes("ISO8859-1"));
                 out.write('\'');
                 out.write('\'');
                 encoder.encode(valueBytes, 0, valueBytes.length, out);
 
                 // default in case there is an exception
-                _parameters.put(name, new ParameterValue(name, value, new String(out.toByteArray())));
+                _parameters.put(name, new ParameterValue(name, value, new String(out.toByteArray(), Charset.forName("ISO8859-1"))));
                 return;
 
             } catch (Exception e) {
@@ -229,7 +230,7 @@ public class ParameterList {
                 // and a CRLF-combo combo.
                 stringValue.append("\r\n\t");
                 // reset the counter for a fresh line
-                // note we use use 8 because we're using a rather than a blank 
+                // note we use use 8 because we're using a rather than a blank
                 used = 8;
             }
             // now add the keyword/value pair.
