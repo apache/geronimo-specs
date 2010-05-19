@@ -141,7 +141,7 @@ public class MimeMultipartTest extends TestCase {
         }
 
         public void writeTo(Object obj, String mimeType, OutputStream os) throws IOException {
-            os.write(((String)obj).getBytes());
+            os.write(((String)obj).getBytes("ISO8859-1"));
         }
     }
 
