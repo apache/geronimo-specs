@@ -33,11 +33,20 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 
-import org.apache.geronimo.osgi.registry.api.ProviderRegistry;
+// Via great attention to detail, all of the imports below
+// are optional and the related classes are not loaded unless
+// the specified conditions are met.
+
+// COND: running in an OSGi environment and the Activator has been activated
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.util.tracker.ServiceTracker;
 
+// COND: the above + the geronimo-osgi-registry is installed and visible
+import org.apache.geronimo.osgi.registry.api.ProviderRegistry;
+
+// NB in comments is Nota Bene (note well)
+// http://en.wikipedia.org/wiki/Nota_bene
 public class ProviderLocator {
     // our bundle context
     static private BundleContext context;
@@ -67,6 +76,8 @@ public class ProviderLocator {
             // do this last...it helps indicate if we have an initialized registry.
             context = c;
         } catch (Throwable e) {
+            // It is expected that the ServiceTracker constructor will fail if the 
+            // ProviderRegistry class cannot be loaded.
             // if there were any errors, then the registry is not available.
             registryTracker = null;
         }
