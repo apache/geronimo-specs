@@ -47,7 +47,6 @@ public class MailProviderBundleTrackerCustomizer implements BundleTrackerCustomi
      *
      * @return A return object.
      */
-    @Override
     public Object addingBundle(Bundle bundle, BundleEvent event) {
         if (bundle.equals(activationBundle)) {
             return null;
@@ -57,13 +56,11 @@ public class MailProviderBundleTrackerCustomizer implements BundleTrackerCustomi
     }
 
 
-    @Override
     public void modifiedBundle(Bundle bundle, BundleEvent event, Object object) {
         // this will update for the new bundle
         MailProviderRegistry.registerBundle(bundle);
     }
 
-    @Override
     public void removedBundle(Bundle bundle, BundleEvent event, Object object) {
         MailProviderRegistry.unregisterBundle(bundle);
     }
