@@ -24,7 +24,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.nio.charset.Charset;
 import java.util.Properties;
 
 import javax.activation.DataHandler;
@@ -49,7 +48,7 @@ public class MimeTest extends TestCase {
         MimeBodyPart jpegPart = new MimeBodyPart();
         jpegPart.setContentID("<jpeg>");
         String filename = "filename";
-        String encodedFilename = "=?UTF-8?B?" + new String(Base64.encode(filename.getBytes()), Charset.forName("ISO8859-1")) + "?=";
+        String encodedFilename = "=?UTF-8?B?" + new String(Base64.encode(filename.getBytes()), "ISO8859-1") + "?=";
         jpegPart.setFileName(encodedFilename);
         jpegPart.setDataHandler(new DataHandler(new ByteArrayDataSource(new byte[] { 0, 1, 2, 3, 4, 5 }, "image/jpeg")));
         parts.addBodyPart(jpegPart);
