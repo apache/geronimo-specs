@@ -21,7 +21,6 @@ package javax.mail.internet;
 
 import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
 import java.util.ArrayList;// Represents lists in things like
 import java.util.Collections;
 import java.util.Enumeration;
@@ -186,7 +185,7 @@ public class ParameterList {
                 encoder.encode(valueBytes, 0, valueBytes.length, out);
 
                 // default in case there is an exception
-                _parameters.put(name, new ParameterValue(name, value, new String(out.toByteArray(), Charset.forName("ISO8859-1"))));
+                _parameters.put(name, new ParameterValue(name, value, new String(out.toByteArray(), "ISO8859-1")));
                 return;
 
             } catch (Exception e) {
