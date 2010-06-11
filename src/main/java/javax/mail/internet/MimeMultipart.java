@@ -25,7 +25,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.nio.charset.Charset;
 
 import java.util.Arrays;
 
@@ -235,7 +234,7 @@ public class MimeMultipart extends Multipart {
                     // save the preamble, if there is one.
                     byte[] preambleBytes = preambleStream.toByteArray();
                     if (preambleBytes.length > 0) {
-                        preamble = new String(preambleBytes, Charset.forName("ISO8859-1"));
+                        preamble = new String(preambleBytes, "ISO8859-1");
                     }
                     return stripLinearWhiteSpace(line);
                 }
@@ -307,7 +306,7 @@ public class MimeMultipart extends Multipart {
                     // save the preamble, if there is one.
                     byte[] preambleBytes = preambleStream.toByteArray();
                     if (preambleBytes.length > 0) {
-                        preamble = new String(preambleBytes, Charset.forName("ISO8859-1"));
+                        preamble = new String(preambleBytes, "ISO8859-1");
                     }
                     return;
                 }
