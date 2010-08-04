@@ -41,7 +41,7 @@ public final class DatatypeConverter {
                 sm.checkPermission(new JAXBPermission("setDatatypeConverter"));
             }
             
-            DatatypeConverter.converter = converter;
+            DatatypeConverter.converter = new DatatypeConverterHelper(converter);
         }
     }
 
