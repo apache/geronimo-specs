@@ -21,15 +21,11 @@
 //
 package javax.ejb.embeddable;
 
+import java.util.Collections;
+import java.util.List;
+
 import javax.ejb.EJBException;
 import javax.ejb.spi.EJBContainerProvider;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.util.Collections;
-import java.util.Enumeration;
-
 import org.apache.geronimo.osgi.locator.ProviderLocator;
 
 public abstract class EJBContainer {
@@ -52,40 +48,19 @@ public abstract class EJBContainer {
             properties = Collections.EMPTY_MAP;
         }
 
-        Object o = properties.get(PROVIDER);
-
-        if (o instanceof String) {
-            String providerName = (String) o;
-
-            Class providerClass;
-
-            try {
-                providerClass = ProviderLocator.loadClass(providerName);
-            } catch (Exception e) {
-                throw new EJBException("Invalid or inaccessible provider class: " + providerName, e);
-            }
-
-            try {
-                EJBContainerProvider provider = (EJBContainerProvider) providerClass.newInstance();
-                return provider.createEJBContainer(properties);
-            } catch (Exception e) {
-                throw new EJBException("Provider error. Provider: " + providerName, e);
-            }
-        } else {
-            // do the services search processing.
-            try {
-                ClassLoader loader = Thread.currentThread().getContextClassLoader();
-                // go check the loader files.
-                EJBContainerProvider provider = (EJBContainerProvider)ProviderLocator.getService(EJBContainerProvider.class.getName(), EJBContainer.class, loader);
-                if (provider != null) {
-                    return provider.createEJBContainer(properties);
+        try {
+            ClassLoader loader = Thread.currentThread().getContextClassLoader();
+            // go check the loader files.
+            List<Object> providers = ProviderLocator.getServices(EJBContainerProvider.class.getName(), EJBContainer.class, loader);
+            for (Object o : providers) {
+                EJBContainer container = ((EJBContainerProvider) o).createEJBContainer(properties);
+                if (container != null) {
+                    return container;
                 }
-                else {
-                    throw new EJBException("Provider error. No provider definition found");
-                }
-            } catch (Exception e) {
-                throw new EJBException("Provider error. No provider found", e);
             }
+            throw new EJBException("Provider error. No provider definition found");
+        } catch (Exception e) {
+            throw new EJBException("Provider error. No provider found", e);
         }
     }
 
