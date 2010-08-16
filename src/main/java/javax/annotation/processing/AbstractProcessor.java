@@ -21,12 +21,15 @@
 //
 package javax.annotation.processing;
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
-import java.util.Set;
 
 /**
  * @version $Revision$ $Date$
@@ -39,29 +42,63 @@ public abstract class AbstractProcessor implements javax.annotation.processing.P
     }
 
     protected boolean isInitialized() {
-        throw new UnsupportedOperationException();
+        return processingEnv != null;
     }
 
     public abstract boolean process(Set<? extends TypeElement> typeElements, RoundEnvironment roundEnvironment);
 
     public Iterable<? extends Completion> getCompletions(Element element, AnnotationMirror annotationMirror, ExecutableElement executableElement, java.lang.String s) {
-        throw new UnsupportedOperationException();
+        // the javadoc defines the base method as always returning an empty collection
+        return Collections.emptyList(); 
     }
 
     public Set<java.lang.String> getSupportedAnnotationTypes() {
-        throw new UnsupportedOperationException();
+        SupportedAnnotationTypes types = this.getClass().getAnnotation(SupportedAnnotationTypes.class);
+        if (types == null) {
+            return Collections.emptySet(); 
+        }
+        else {
+            String[] typeNames = types.value(); 
+            Set<String> result = new HashSet<String>(); 
+            for (String name: typeNames) {
+                result.add(name);
+            }
+            // this is required to be immutable 
+            return Collections.unmodifiableSet(result); 
+        }
     }
 
     public Set<java.lang.String> getSupportedOptions() {
-        throw new UnsupportedOperationException();
+        SupportedOptions options = this.getClass().getAnnotation(SupportedOptions.class);
+        if (options == null) {
+            return Collections.emptySet(); 
+        }
+        else {
+            String[] optionNames = options.value(); 
+            Set<String> result = new HashSet<String>(); 
+            for (String name: optionNames) {
+                result.add(name);
+            }
+            // this is required to be immutable 
+            return Collections.unmodifiableSet(result); 
+        }
     }
 
     public SourceVersion getSupportedSourceVersion() {
-        throw new UnsupportedOperationException();
+        SupportedSourceVersion version = this.getClass().getAnnotation(SupportedSourceVersion.class);
+        if (version == null) {
+            return SourceVersion.RELEASE_6; 
+        }
+        else {
+            return version.value(); 
+        }
     }
 
-    public void init(ProcessingEnvironment processingEnvironment) {
-        throw new UnsupportedOperationException();
+    public void init(ProcessingEnvironment processingEnv) {
+        if (processingEnv == null) {
+            throw new IllegalStateException("No ProcessingEnvironment specified on init()");
+        }
+        this.processingEnv = processingEnv; 
     }
 
 }
