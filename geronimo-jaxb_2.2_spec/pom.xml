@@ -30,7 +30,7 @@
     <groupId>org.apache.geronimo.specs</groupId>
     <artifactId>geronimo-jaxb_2.2_spec</artifactId>
     <packaging>bundle</packaging>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
     <name>Apache JAXB 2.2 Spec</name>
     <description>Java API for XML binding 2.2 API</description>
 
