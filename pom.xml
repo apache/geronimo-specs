@@ -33,7 +33,7 @@
     <groupId>org.apache.geronimo.specs</groupId>
     <artifactId>geronimo-osgi-support</artifactId>
     <packaging>pom</packaging>
-    <name>OSGI spec bundle support</name>
+    <name>Apache Geronimo OSGI spec bundle support</name>
     <version>1.1-SNAPSHOT</version>
 
     <description>

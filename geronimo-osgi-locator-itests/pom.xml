@@ -33,6 +33,7 @@
     <groupId>org.apache.geronimo.specs</groupId>
     <artifactId>geronimo-osgi-locator-itests</artifactId>
 
+    <name>Apache Geronimo OSGi Locator integration tests</name>
     <description>
 This project contains integration tests to ensure that the code
 in the locator will function correctly if used outside of an OSGi framework.
