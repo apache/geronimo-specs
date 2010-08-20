@@ -34,7 +34,7 @@
     <artifactId>geronimo-validation_1.0_spec</artifactId>
     <version>1.2-SNAPSHOT</version>
     <packaging>bundle</packaging>
-    <name>Apache Geronimo JSR-303 Bean Validation Spec API</name>
+    <name>Apache Geronimo Bean Validation Spec 1.0</name>
     <description>Apache Geronimo implementation of the JSR-303 Bean Validation Spec API</description>
 
     <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
