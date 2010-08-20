@@ -33,7 +33,7 @@
     <groupId>org.apache.geronimo.specs</groupId>
     <artifactId>geronimo-jaxws_2.1_spec</artifactId>
     <packaging>bundle</packaging>
-    <name>Apache Geronimo JAX-WS 2.1 API</name>
+    <name>Apache Geronimo JAX-WS Spec 2.1</name>
     <version>1.0.1-SNAPSHOT</version>
     <description>Java API for XML Web Services 2.1</description>
 

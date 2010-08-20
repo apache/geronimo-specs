@@ -33,7 +33,7 @@
     <groupId>org.apache.geronimo.specs</groupId>
     <artifactId>geronimo-el_1.0_spec</artifactId>
     <packaging>bundle</packaging>
-    <name>Expression Language 1.0</name>
+    <name>Apache Geronimo Expression Language Spec 1.0</name>
     <version>1.0.3-SNAPSHOT</version>
     <description>Expression Languague API 1.0</description>
 

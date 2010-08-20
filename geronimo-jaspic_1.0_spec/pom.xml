@@ -33,7 +33,7 @@
     <groupId>org.apache.geronimo.specs</groupId>
     <artifactId>geronimo-jaspic_1.0_spec</artifactId>
     <packaging>bundle</packaging>
-    <name>Java Authentication SPI for Containers</name>
+    <name>Apache Geronimo JASPIC Spec 1.0</name>
     <version>1.2-SNAPSHOT</version>
 
     <description>Java Authentication Service Provider Interface for Containers (JSR-196) api</description>

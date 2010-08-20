@@ -33,7 +33,7 @@
     <groupId>org.apache.geronimo.specs</groupId>
     <artifactId>geronimo-annotation_1.1_spec</artifactId>
     <packaging>bundle</packaging>
-    <name>Annotation 1.1</name>
+    <name>Apache Geronimo Annotation Spec 1.1</name>
     <version>1.0.2-SNAPSHOT</version>
     <description>Annotation spec 1.1 API</description>
 

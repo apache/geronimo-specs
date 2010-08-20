@@ -33,9 +33,9 @@
     <groupId>org.apache.geronimo.specs</groupId>
     <artifactId>geronimo-interceptor_3.0_spec</artifactId>
     <packaging>bundle</packaging>
-    <name>Interceptor 3.0</name>
+    <name>Apache Geronimo Interceptor Spec 1.0</name>
     <version>1.0.2-SNAPSHOT</version>
-    <description>Interceptor API 3.0</description>
+    <description>Interceptor API 1.0</description>
 
     <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
     <distributionManagement>

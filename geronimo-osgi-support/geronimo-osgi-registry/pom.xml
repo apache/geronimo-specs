@@ -33,7 +33,7 @@
     <groupId>org.apache.geronimo.specs</groupId>
     <artifactId>geronimo-osgi-registry</artifactId>
     <packaging>bundle</packaging>
-    <name>OSGI factory registry</name>
+    <name>Apache Geronimo OSGI factory registry</name>
     <version>1.1-SNAPSHOT</version>
 
     <description>

@@ -33,7 +33,7 @@
     <groupId>org.apache.geronimo.specs</groupId>
     <artifactId>geronimo-jaxr_1.0_spec</artifactId>
     <packaging>bundle</packaging>
-    <name>JAXR 1.0</name>
+    <name>Apache Geronimo JAXR Spec 1.0</name>
     <version>2.2-SNAPSHOT</version>
     <description>Java API for XML Registry 1.0</description>
 

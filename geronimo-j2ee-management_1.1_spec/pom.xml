@@ -33,10 +33,10 @@
     <groupId>org.apache.geronimo.specs</groupId>
     <artifactId>geronimo-j2ee-management_1.1_spec</artifactId>
     <packaging>bundle</packaging>
-    <name>J2EE Management 1.1</name>
+    <name>Apache Geronimo Management Spec 1.1</name>
     <version>1.0.2-SNAPSHOT</version>
 
-    <description>Java EE Management API JSR-77</description>
+    <description>Java EE Management API (JSR-77)</description>
 
     <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
     <distributionManagement>

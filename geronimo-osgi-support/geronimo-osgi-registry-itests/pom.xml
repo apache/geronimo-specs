@@ -32,6 +32,7 @@
 
     <groupId>org.apache.geronimo.specs</groupId>
     <artifactId>geronimo-osgi-registry-itests</artifactId>
+    <name>Apache Geronimo OSGi Registry integration tests</name>
 
     <description>
 Tests for the OSGi provider registry inside of an OSGi framework.

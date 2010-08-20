@@ -33,7 +33,7 @@
     <groupId>org.apache.geronimo.specs</groupId>
     <artifactId>geronimo-jacc_1.4_spec</artifactId>
     <packaging>bundle</packaging>
-    <name>J2EE JACC 1.4</name>
+    <name>Apache Geronimo JACC Spec 1.4</name>
     <version>1.1-SNAPSHOT</version>
 
     <description>Java Access Control for Containers 1.1 API</description>

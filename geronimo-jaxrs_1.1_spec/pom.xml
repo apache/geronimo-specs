@@ -31,7 +31,7 @@
     <groupId>org.apache.geronimo.specs</groupId>
     <artifactId>geronimo-jaxrs_1.1_spec</artifactId>
     <packaging>bundle</packaging>
-    <name>Apache Geronimo JAX-RS 1.1 API</name>
+    <name>Apache Geronimo JAX-RS Spec 1.1</name>
     <version>1.1-SNAPSHOT</version>
     <description>Java API for RESTful Web Services 1.1</description>
 

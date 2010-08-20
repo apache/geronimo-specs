@@ -33,9 +33,9 @@
     <groupId>org.apache.geronimo.specs</groupId>
     <artifactId>geronimo-j2ee-deployment_1.1_spec</artifactId>
     <packaging>bundle</packaging>
-    <name>J2EE Deployment 1.1</name>
+    <name>Apache Geronimo Deployment Spec 1.1</name>
     <version>1.2-SNAPSHOT</version>
-    <description>J2EE Deployment API (JSR-88)</description>
+    <description>Java EE Deployment API (JSR-88)</description>
 
     <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
     <distributionManagement>

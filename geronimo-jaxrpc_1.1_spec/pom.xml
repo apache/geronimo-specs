@@ -33,7 +33,7 @@
     <groupId>org.apache.geronimo.specs</groupId>
     <artifactId>geronimo-jaxrpc_1.1_spec</artifactId>
     <packaging>bundle</packaging>
-    <name>JAXRPC 1.1</name>
+    <name>Apache Geronimo JAXRPC Spec 1.1</name>
     <version>2.2-SNAPSHOT</version>
     <description>Java API for XML Remote Procedure Call 1.1 API</description>
 
