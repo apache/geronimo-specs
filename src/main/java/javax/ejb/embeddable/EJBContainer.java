@@ -59,6 +59,10 @@ public abstract class EJBContainer {
                 }
             }
             throw new EJBException("Provider error. No provider definition found");
+        } catch (EJBException e) {
+            // if the container provider throws an EJBException, don't wrap another one 
+            // around the original. 
+            throw e;
         } catch (Exception e) {
             throw new EJBException("Provider error. No provider found", e);
         }
