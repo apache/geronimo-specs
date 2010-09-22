@@ -28,6 +28,7 @@ public class TimerConfig {
 	private boolean persistent;
 
     public TimerConfig() {
+		persistent = true; 
     }
 
     public TimerConfig(Serializable info, boolean persistent) {
