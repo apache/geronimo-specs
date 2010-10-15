@@ -17,20 +17,23 @@
  */
 package javax.availability.management;
 
+import java.util.Map;
+
+
 /**
  * @version $Rev$ $Date$
  */
 public interface AvailabilityContainerController extends AvailabilityUnitController {
 
-    void init(String name, AvailabilityAgentService service) throws AvailabilityException;
-
-    void activate(ActivationReason reason) throws AvailabilityException;
-
-    void deactivate(DeactivationReason reason) throws AvailabilityException;
-
-    void terminate() throws AvailabilityException;
+    void activate(ActivationReason reason, Map<String, String> attributes) throws AvailabilityException;
 
     void checkHealth() throws AvailabilityException;
 
+    void deactivate(DeactivationReason reason) throws AvailabilityException;
+
+    void init(AvailabilityAgentService service) throws AvailabilityException;
+
     AvailabilityUnitController instantiateAvailabilityUnit(String name, AvailabilityAgentService service) throws AvailabilityException;
+
+    void terminate() throws AvailabilityException;
 }

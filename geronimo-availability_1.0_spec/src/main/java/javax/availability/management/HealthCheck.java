@@ -26,8 +26,8 @@ import java.lang.annotation.Target;
 /**
  * @version $Rev$ $Date$
  */
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
+@Retention(value = RetentionPolicy.RUNTIME)
+@Target(value = ElementType.METHOD)
 public @interface HealthCheck {
 
 }

@@ -17,13 +17,15 @@
  */
 package javax.availability.management;
 
+import java.io.Serializable;
+
+
 /**
  * @version $Rev$ $Date$
  */
-public enum ActivationReason {
+public enum ActivationReason implements Serializable, Comparable<ActivationReason> {
 
     START_UP,
     FAIL_OVER,
-    SWITCH_OVER,
-    UPGRADE
+    SWITCH_OVER
 }

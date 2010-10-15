@@ -17,16 +17,21 @@
  */
 package javax.availability.management;
 
+import java.util.Map;
+
+
 /**
  * @version $Rev$ $Date$
  */
 public interface AvailabilityService {
 
-    void reportError();
+    Map<String, String> getActivationAttributes();
 
     ActivationReason getActivationReason();
 
     DeactivationReason getDeactivationReason();
 
     String getName();
+
+    void reportError(HealthState state);
 }

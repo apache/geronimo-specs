@@ -22,9 +22,9 @@ package javax.availability.management;
  */
 public interface AvailabilityAgentService {
 
-    void reportError();
+    void disableHealthchecks();
 
     void enableHealthchecks();
 
-    void disableHealthchecks();
+    void reportError(HealthState state);
 }

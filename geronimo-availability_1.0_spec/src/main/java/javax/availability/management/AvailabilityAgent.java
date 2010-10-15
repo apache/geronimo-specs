@@ -17,6 +17,7 @@
  */
 package javax.availability.management;
 
+import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 
 
@@ -26,6 +27,8 @@ import java.util.concurrent.ExecutorService;
 public interface AvailabilityAgent {
 
     void init(AvailabilityContainerController container, ExecutorService executor) throws AvailabilityException;
+
+    void init(AvailabilityContainerController container, ExecutorService executor, Properties properties) throws AvailabilityException;
 
     void terminate() throws AvailabilityException;
 }

@@ -17,27 +17,38 @@
  */
 package javax.availability.management;
 
+import java.util.Properties;
+
+
 /**
  * @version $Rev$ $Date$
  */
 public class AvailabilityAgentFactory {
 
     private static final Object LOCK = new Object();
-    private static AvailabilityAgent agent;
+    private static AvailabilityAgent AGENT;
 
     public static synchronized AvailabilityAgent instantiateAvailabilityAgent() throws AvailabilityException {
 
+        return instantiateAvailabilityAgent(null);
+    }
+
+    public static AvailabilityAgent instantiateAvailabilityAgent(Properties properties) throws AvailabilityException {
+
+        if (properties == null) properties = new Properties();
+
         synchronized (LOCK) {
 
-            if (agent != null) return agent;
+            if (AGENT != null) return AGENT;
 
-            String agentClassName = System.getProperty("javax.availability.management.agent");
+            String agentClassName = properties.getProperty("javax.availability.management.agent");
+            if (agentClassName == null) agentClassName = System.getProperty("javax.availability.management.agent");
 
             if (agentClassName == null) throw new AvailabilityException("javax.availability.management.agent has not been set");
 
             try {
                 Class<?> agentClass = Class.forName(agentClassName);
-                agent = (AvailabilityAgent) agentClass.newInstance();
+                AGENT = (AvailabilityAgent) agentClass.newInstance();
             } catch (ClassNotFoundException cnfe) {
                 throw new AvailabilityException("Unable to locate class " + agentClassName, cnfe);
             } catch (InstantiationException ie) {
@@ -48,7 +59,7 @@ public class AvailabilityAgentFactory {
                 throw new AvailabilityException("The class " + agentClassName + " does not implement AvailabilityAgent", cce);
             }
 
-            return agent;
+            return AGENT;
         }
     }
 }

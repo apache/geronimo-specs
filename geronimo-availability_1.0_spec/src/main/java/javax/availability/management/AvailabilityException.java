@@ -34,6 +34,6 @@ public class AvailabilityException extends Exception implements Serializable {
     }
 
     public AvailabilityException(Throwable cause) {
-        super(cause);
+        super(cause == null ? null : cause.toString(), cause);
     }
 }

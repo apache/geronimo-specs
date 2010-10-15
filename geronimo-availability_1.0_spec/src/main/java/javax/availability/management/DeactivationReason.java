@@ -26,6 +26,5 @@ import java.io.Serializable;
 public enum DeactivationReason implements Serializable, Comparable<DeactivationReason> {
 
     SHUT_DOWN,
-    SWITCH_OVER,
-    UPGRADE
+    SWITCH_OVER
 }
