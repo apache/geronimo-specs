@@ -29,27 +29,27 @@ import java.util.ResourceBundle;
  */
 public abstract class ELResolver {
 
-	static String message(ELContext context, String name, Object[] props) {
-		Locale locale = context == null? null: context.getLocale();
-		if (locale == null) {
-			locale = Locale.getDefault();
-			if (locale == null) {
-				return "";
-			}
-		}
-		ResourceBundle bundle = ResourceBundle.getBundle(
-				"javax.el.LocalStrings", locale);
-		try {
-			String template = bundle.getString(name);
-			if (props != null) {
-				template = MessageFormat.format(template, props);
-			}
-			return template;
-		} catch (MissingResourceException e) {
-			return "Missing Resource: '" + name + "' for Locale "
-					+ locale.getDisplayName();
-		}
-	}
+    static String message(ELContext context, String name, Object[] props) {
+        Locale locale = context == null? null: context.getLocale();
+        if (locale == null) {
+            locale = Locale.getDefault();
+            if (locale == null) {
+                return "";
+            }
+        }
+        ResourceBundle bundle = ResourceBundle.getBundle(
+                "javax.el.LocalStrings", locale);
+        try {
+            String template = bundle.getString(name);
+            if (props != null) {
+                template = MessageFormat.format(template, props);
+            }
+            return template;
+        } catch (MissingResourceException e) {
+            return "Missing Resource: '" + name + "' for Locale "
+                    + locale.getDisplayName();
+        }
+    }
 
     public final static String RESOLVABLE_AT_DESIGN_TIME = "resolvableAtDesignTime";
 

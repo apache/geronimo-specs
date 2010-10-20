@@ -27,102 +27,102 @@ import java.util.ResourceBundle;
 
 public class ResourceBundleELResolver extends ELResolver {
 
-	public ResourceBundleELResolver() {
-		super();
-	}
+    public ResourceBundleELResolver() {
+        super();
+    }
 
-	public Object getValue(ELContext context, Object base, Object property)
-			throws NullPointerException, PropertyNotFoundException, ELException {
-		if (context == null) {
-			throw new NullPointerException();
-		}
+    public Object getValue(ELContext context, Object base, Object property)
+            throws NullPointerException, PropertyNotFoundException, ELException {
+        if (context == null) {
+            throw new NullPointerException();
+        }
 
-		if (base instanceof ResourceBundle) {
-			context.setPropertyResolved(true);
+        if (base instanceof ResourceBundle) {
+            context.setPropertyResolved(true);
 
-			if (property != null) {
-				try {
-					return ((ResourceBundle) base).getObject(property
-							.toString());
-				} catch (MissingResourceException mre) {
-					return "???" + property.toString() + "???";
-				}
-			}
-		}
+            if (property != null) {
+                try {
+                    return ((ResourceBundle) base).getObject(property
+                            .toString());
+                } catch (MissingResourceException mre) {
+                    return "???" + property.toString() + "???";
+                }
+            }
+        }
 
-		return null;
-	}
+        return null;
+    }
 
-	public Class<?> getType(ELContext context, Object base, Object property)
-			throws NullPointerException, PropertyNotFoundException, ELException {
-		if (context == null) {
-			throw new NullPointerException();
-		}
+    public Class<?> getType(ELContext context, Object base, Object property)
+            throws NullPointerException, PropertyNotFoundException, ELException {
+        if (context == null) {
+            throw new NullPointerException();
+        }
 
-		if (base instanceof ResourceBundle) {
-			context.setPropertyResolved(true);
-		}
+        if (base instanceof ResourceBundle) {
+            context.setPropertyResolved(true);
+        }
 
-		return null;
-	}
+        return null;
+    }
 
-	public void setValue(ELContext context, Object base, Object property,
-			Object value) throws NullPointerException,
-			PropertyNotFoundException, PropertyNotWritableException,
-			ELException {
-		if (context == null) {
-			throw new NullPointerException();
-		}
+    public void setValue(ELContext context, Object base, Object property,
+            Object value) throws NullPointerException,
+            PropertyNotFoundException, PropertyNotWritableException,
+            ELException {
+        if (context == null) {
+            throw new NullPointerException();
+        }
 
-		if (base instanceof ResourceBundle) {
-			context.setPropertyResolved(true);
-			throw new PropertyNotWritableException(message(context,
-					"resolverNotWriteable", new Object[] { base.getClass()
-							.getName() }));
-		}
-	}
+        if (base instanceof ResourceBundle) {
+            context.setPropertyResolved(true);
+            throw new PropertyNotWritableException(message(context,
+                    "resolverNotWriteable", new Object[] { base.getClass()
+                            .getName() }));
+        }
+    }
 
-	public boolean isReadOnly(ELContext context, Object base, Object property)
-			throws NullPointerException, PropertyNotFoundException, ELException {
-		if (context == null) {
-			throw new NullPointerException();
-		}
+    public boolean isReadOnly(ELContext context, Object base, Object property)
+            throws NullPointerException, PropertyNotFoundException, ELException {
+        if (context == null) {
+            throw new NullPointerException();
+        }
 
-		if (base instanceof ResourceBundle) {
-			context.setPropertyResolved(true);
-		}
+        if (base instanceof ResourceBundle) {
+            context.setPropertyResolved(true);
+        }
 
-		return true;
-	}
+        return true;
+    }
 
-	public Iterator getFeatureDescriptors(ELContext context, Object base) {
-		if (base instanceof ResourceBundle) {
-			List<FeatureDescriptor> feats = new ArrayList<FeatureDescriptor>();
-			Enumeration e = ((ResourceBundle) base).getKeys();
-			FeatureDescriptor feat;
-			String key;
-			while (e.hasMoreElements()) {
-				key = (String) e.nextElement();
-				feat = new FeatureDescriptor();
-				feat.setDisplayName(key);
-				feat.setExpert(false);
-				feat.setHidden(false);
-				feat.setName(key);
-				feat.setPreferred(true);
-				feat.setValue(RESOLVABLE_AT_DESIGN_TIME, Boolean.TRUE);
-				feat.setValue(TYPE, String.class);
-				feats.add(feat);
-			}
-			return feats.iterator();
-		}
-		return null;
-	}
+    public Iterator getFeatureDescriptors(ELContext context, Object base) {
+        if (base instanceof ResourceBundle) {
+            List<FeatureDescriptor> feats = new ArrayList<FeatureDescriptor>();
+            Enumeration e = ((ResourceBundle) base).getKeys();
+            FeatureDescriptor feat;
+            String key;
+            while (e.hasMoreElements()) {
+                key = (String) e.nextElement();
+                feat = new FeatureDescriptor();
+                feat.setDisplayName(key);
+                feat.setExpert(false);
+                feat.setHidden(false);
+                feat.setName(key);
+                feat.setPreferred(true);
+                feat.setValue(RESOLVABLE_AT_DESIGN_TIME, Boolean.TRUE);
+                feat.setValue(TYPE, String.class);
+                feats.add(feat);
+            }
+            return feats.iterator();
+        }
+        return null;
+    }
 
-	public Class<?> getCommonPropertyType(ELContext context, Object base) {
-		if (base instanceof ResourceBundle) {
-			return String.class;
-		}
-		return null;
-	}
+    public Class<?> getCommonPropertyType(ELContext context, Object base) {
+        if (base instanceof ResourceBundle) {
+            return String.class;
+        }
+        return null;
+    }
 
 }
