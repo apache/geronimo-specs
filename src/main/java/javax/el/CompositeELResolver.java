@@ -26,12 +26,9 @@ public class CompositeELResolver extends ELResolver {
 
 	private ELResolver[] resolvers;
 
-    private ExpressionFactory expressionFactory;
-
 	public CompositeELResolver() {
 		this.size = 0;
 		this.resolvers = new ELResolver[2];
-		expressionFactory = ExpressionFactory.newInstance();
 	}
 
 	synchronized public void add(ELResolver elResolver) {
@@ -221,7 +218,7 @@ public class CompositeELResolver extends ELResolver {
         }
         context.setPropertyResolved(false);
         if (context.getContext(ExpressionFactory.class) == null) {
-            context.putContext(ExpressionFactory.class, ExpressionFactory.newInstance());
+            context.putContext(ExpressionFactory.class, expressionFactory);
         }
         Object retValue = null;
         for (ELResolver resolver : resolvers) {
