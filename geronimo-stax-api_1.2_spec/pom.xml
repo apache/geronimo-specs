@@ -76,7 +76,7 @@
                         <Specification-Title>JSR-137 Streaming API for XML 1.2</Specification-Title>
                         <Specification-Vendor>Sun Microsystems, Inc.</Specification-Vendor>
                         <Specification-Version>1.2</Specification-Version>
-                        <Export-Package>javax.xml.stream*;version=1.2,javax.xml.namespace*;version=1.0</Export-Package>
+                        <Export-Package>javax.xml.stream*;version=1.2,javax.xml.namespace*</Export-Package>
                         <Import-Package>org.apache.geronimo.osgi.registry.api;resolution:=optional,*</Import-Package>
                         <Private-Package>org.apache.geronimo.osgi.locator</Private-Package>
                         <Bundle-Activator>org.apache.geronimo.osgi.locator.Activator</Bundle-Activator>
