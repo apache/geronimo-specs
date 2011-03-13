@@ -35,12 +35,24 @@ public class Dimension implements Comparable {
     }
 
     public Dimension(String str) throws NumberFormatException {
-        height = 0;
-        width = 0;
+        String[] bits = str.split("x");
+        if (bits.length != 2) {
+            throw new NumberFormatException("can not parse as <width>x<height> string: " + str);
+        }
+        height = Integer.parseInt(bits[1]);
+        width = Integer.parseInt(bits[0]);
     }
 
     public int compareTo(Object o) {
         return DimensionComparator.getInstance().compare(this, o);
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public int getWidth() {
+        return width;
     }
 
     @Override

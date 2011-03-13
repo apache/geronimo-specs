@@ -37,6 +37,11 @@ public class DimensionComparator implements Comparator {
     }
 
     public int compare(Object o, Object o1) {
-        return 0;
+        Dimension d1 = (Dimension) o;
+        Dimension d2 = (Dimension) o1;
+        if (d1.getWidth() == d2.getWidth()) {
+            return d1.getHeight() - d2.getHeight();
+        }
+        return d1.getWidth() - d1.getWidth();
     }
 }
