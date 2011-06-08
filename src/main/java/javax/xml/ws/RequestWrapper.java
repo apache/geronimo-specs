@@ -37,5 +37,5 @@ public @interface RequestWrapper {
     /**
      * @since 2.2
      */
-    public String partName() default "parameters";
+    public String partName() default "";
 }
