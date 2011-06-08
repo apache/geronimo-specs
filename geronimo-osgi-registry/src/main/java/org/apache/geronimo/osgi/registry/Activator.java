@@ -62,8 +62,6 @@ public class Activator implements BundleActivator {
         // register this as a service
         registryRegistration = context.registerService(ProviderRegistry.class.getName(), registry, null);
 
-        org.osgi.framework.ServiceReference ref = context.getServiceReference(ProviderRegistry.class.getName());
-
 	    bt = new BundleTracker(context, Bundle.ACTIVE, new ProviderBundleTrackerCustomizer(this, context.getBundle(), registry));
 	    bt.open();
 	}

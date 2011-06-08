@@ -204,15 +204,19 @@ public class ProviderRegistryImpl implements org.apache.geronimo.osgi.registry.a
      *                      the process of creating this service instance.
      */
     public Object getService(String providerId) throws Exception {
-        // see if we have a registered match for this...getting just the first instance
-        BundleProviderLoader loader = serviceProviders.getLoader(providerId);
-        if (loader != null) {
-            // try to load this and create an instance.  Any/all exceptions get
-            // thrown here
-            return loader.createInstance();
+        List<BundleProviderLoader> loaders = serviceProviders.getLoaders(providerId);
+        if (loaders == null || loaders.size() == 0) {
+            return null;
         }
-        // no match to return
-        return null;
+        String preferenceProviderClassName = System.getProperty(providerId);
+        if (preferenceProviderClassName != null) {
+            for (BundleProviderLoader loader : loaders) {
+                if (loader.providerClass.equals(preferenceProviderClassName)) {
+                    return loader.createInstance();
+                }
+            }
+        }
+        return loaders.get(0).createInstance();
     }
 
     /**
@@ -283,15 +287,19 @@ public class ProviderRegistryImpl implements org.apache.geronimo.osgi.registry.a
      *                      the process of loading this service provider class.
      */
     public Class<?> getServiceClass(String providerId) throws ClassNotFoundException {
-        // see if we have a registered match for this...getting just the first instance
-        BundleProviderLoader loader = serviceProviders.getLoader(providerId);
-        if (loader != null) {
-            // try to load this and create an instance.  Any/all exceptions get
-            // thrown here
-            return loader.loadClass();
+        List<BundleProviderLoader> loaders = serviceProviders.getLoaders(providerId);
+        if (loaders == null || loaders.size() == 0) {
+            return null;
         }
-        // no match to return
-        return null;
+        String preferenceProviderClassName = System.getProperty(providerId);
+        if (preferenceProviderClassName != null) {
+            for (BundleProviderLoader loader : loaders) {
+                if (loader.providerClass.equals(preferenceProviderClassName)) {
+                    return loader.loadClass();
+                }
+            }
+        }
+        return loaders.get(0).loadClass();
     }
 
     private void log(int level, String message) {
@@ -347,7 +355,7 @@ public class ProviderRegistryImpl implements org.apache.geronimo.osgi.registry.a
                     registerProvider(loader);
                 }
                 // remember this list so we can unregister when the bundle is stopped
-                providers = new ArrayList(locatedProviders);
+                providers = new ArrayList<BundleProviderLoader>(locatedProviders);
             }
         }
 
@@ -437,10 +445,11 @@ public class ProviderRegistryImpl implements org.apache.geronimo.osgi.registry.a
 
             // look for services definitions in the bundle...we accumulate these as provider class
             // definitions.
-            Enumeration e = bundle.findEntries(path, "*", false);
+            @SuppressWarnings("unchecked")
+            Enumeration<URL> e = bundle.findEntries(path, "*", false);
             if (e != null) {
                 while (e.hasMoreElements()) {
-                    final URL u = (URL) e.nextElement();
+                    final URL u = e.nextElement();
                     // go parse out the control file
                     parseServiceFile(u, mappings);
                 }
@@ -469,7 +478,6 @@ public class ProviderRegistryImpl implements org.apache.geronimo.osgi.registry.a
             final String providerId = url.substring(url.lastIndexOf("/") + 1);
             try {
                 BufferedReader br = new BufferedReader(new InputStreamReader(u.openStream(), "UTF-8"));
-                String providerClassName = null;
                 // the file can be multiple lines long, with comments.  A single file can define multiple providers
                 // for a single key, so we might need to create multiple entries.  If the file does not contain any
                 // definition lines, then as a default, we use the providerId as an implementation class also.
