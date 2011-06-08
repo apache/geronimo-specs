@@ -38,7 +38,6 @@ import java.util.Set;
 // the specified conditions are met.
 
 // COND: running in an OSGi environment and the Activator has been activated
-import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.util.tracker.ServiceTracker;
 
