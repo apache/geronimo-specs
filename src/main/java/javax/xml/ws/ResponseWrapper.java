@@ -37,6 +37,6 @@ public @interface ResponseWrapper {
     /**
      * @since 2.2
      */
-    public String partName() default "result";
+    public String partName() default "";
 
 }
