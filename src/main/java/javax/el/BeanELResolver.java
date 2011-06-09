@@ -414,35 +414,38 @@ public class BeanELResolver extends ELResolver {
         }
         try {
             Object[] finalParamValues = new Object[paramTypes.length];
-            int iCurrentIndex = 0;
-            for (int iLoopSize = paramTypes.length - 1; iCurrentIndex < iLoopSize; iCurrentIndex++) {
-                finalParamValues[iCurrentIndex] = expressionFactory.coerceToType(params[iCurrentIndex],paramTypes[iCurrentIndex]);
-            }
-            /**
-             * Not sure it is over-designed. Do not find detailed description about how the parameter values are passed if the method is of variable arguments.
-             * It might be an array directly passed or each parameter value passed one by one.
-             */
-            if (targetMethod.isVarArgs()) {
-                // varArgsClassType should be an array type
-                Class<?> varArgsClassType = paramTypes[iCurrentIndex];
-                // 1. If there is no parameter value left for the variable argment, create a zero-length array
-                // 2. If there is only one parameter value left for the variable argment, and it has the same array type with the varArgsClass, pass in directly
-                // 3. Eles, create an array of varArgsClass type, and add all the left coerced parameter values
-                if (iCurrentIndex == params.length) {
-                    finalParamValues[iCurrentIndex] = Array.newInstance(varArgsClassType.getComponentType(), 0);
-                } else if (iCurrentIndex == params.length - 1 && varArgsClassType == params[iCurrentIndex].getClass()
-                        && varArgsClassType.getClassLoader() == params[iCurrentIndex].getClass().getClassLoader()) {
-                    finalParamValues[iCurrentIndex] = params[iCurrentIndex];
-                } else {
-                    Object targetArray = Array.newInstance(varArgsClassType.getComponentType(), params.length - iCurrentIndex);
-                    Class<?> componentClassType = varArgsClassType.getComponentType();
-                    for (int i = 0, iLoopSize = params.length - iCurrentIndex; i < iLoopSize; i++) {
-                        Array.set(targetArray, i, expressionFactory.coerceToType(iCurrentIndex + i, componentClassType));
-                    }
-                    finalParamValues[iCurrentIndex] = targetArray;
+            //Only do the parameter conversion while the method is not a non-parameter one
+            if (paramTypes.length > 0) {
+                int iCurrentIndex = 0;
+                for (int iLoopSize = paramTypes.length - 1; iCurrentIndex < iLoopSize; iCurrentIndex++) {
+                    finalParamValues[iCurrentIndex] = expressionFactory.coerceToType(params[iCurrentIndex], paramTypes[iCurrentIndex]);
                 }
-            } else {
-                finalParamValues[iCurrentIndex] = expressionFactory.coerceToType(params[iCurrentIndex], paramTypes[iCurrentIndex]);
+                /**
+                 * Not sure it is over-designed. Do not find detailed description about how the parameter values are passed if the method is of variable arguments.
+                 * It might be an array directly passed or each parameter value passed one by one.
+                 */
+                if (targetMethod.isVarArgs()) {
+                    // varArgsClassType should be an array type
+                    Class<?> varArgsClassType = paramTypes[iCurrentIndex];
+                    // 1. If there is no parameter value left for the variable argument, create a zero-length array
+                    // 2. If there is only one parameter value left for the variable argument, and it has the same array type with the varArgsClass, pass in directly
+                    // 3. Else, create an array of varArgsClass type, and add all the left coerced parameter values
+                    if (iCurrentIndex == params.length) {
+                        finalParamValues[iCurrentIndex] = Array.newInstance(varArgsClassType.getComponentType(), 0);
+                    } else if (iCurrentIndex == params.length - 1 && varArgsClassType == params[iCurrentIndex].getClass()
+                            && varArgsClassType.getClassLoader() == params[iCurrentIndex].getClass().getClassLoader()) {
+                        finalParamValues[iCurrentIndex] = params[iCurrentIndex];
+                    } else {
+                        Object targetArray = Array.newInstance(varArgsClassType.getComponentType(), params.length - iCurrentIndex);
+                        Class<?> componentClassType = varArgsClassType.getComponentType();
+                        for (int i = 0, iLoopSize = params.length - iCurrentIndex; i < iLoopSize; i++) {
+                            Array.set(targetArray, i, expressionFactory.coerceToType(iCurrentIndex + i, componentClassType));
+                        }
+                        finalParamValues[iCurrentIndex] = targetArray;
+                    }
+                } else {
+                    finalParamValues[iCurrentIndex] = expressionFactory.coerceToType(params[iCurrentIndex], paramTypes[iCurrentIndex]);
+                }
             }
             Object retValue = targetMethod.invoke(base, finalParamValues);
             context.setPropertyResolved(true);
