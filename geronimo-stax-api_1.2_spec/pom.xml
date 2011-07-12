@@ -34,7 +34,7 @@
     <artifactId>geronimo-stax-api_1.2_spec</artifactId>
     <packaging>bundle</packaging>
     <name>Apache Geronimo STAX Spec 1.0</name>
-    <version>1.1</version>
+    <version>1.2-SNAPSHOT</version>
 
     <description>Java STAX Spec API 1.0</description>
 
@@ -51,9 +51,9 @@
     </properties>
 
     <scm>
-        <connection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-stax-api_1.2_spec-1.1</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-stax-api_1.2_spec-1.1</developerConnection>
-        <url>https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-stax-api_1.2_spec-1.1</url>
+        <connection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-stax-api_1.2_spec</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-stax-api_1.2_spec</developerConnection>
+        <url>https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-stax-api_1.2_spec</url>
     </scm>
 
     <dependencies>
