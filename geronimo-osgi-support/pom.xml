@@ -34,7 +34,7 @@
     <artifactId>geronimo-osgi-support</artifactId>
     <packaging>pom</packaging>
     <name>Apache Geronimo OSGI spec bundle support</name>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.1</version>
 
     <description>
 This project is a set of bundles and integration tests for implementing
@@ -54,9 +54,9 @@ OSGi-specific lookup in the Geronimo spec projects.
     </properties>
 
     <scm>
-        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-osgi-support/</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-osgi-support/</developerConnection>
-        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-osgi-support/</url>
+        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-osgi-support-1.1</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-osgi-support-1.1</developerConnection>
+        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/tags/geronimo-osgi-support-1.1</url>
     </scm>
 
     <dependencyManagement>
