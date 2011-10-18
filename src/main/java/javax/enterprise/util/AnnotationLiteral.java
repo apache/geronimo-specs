@@ -228,7 +228,7 @@ public abstract class AnnotationLiteral<T extends Annotation> implements Annotat
         }
         catch (Exception e)
         {
-            throw new RuntimeException("Exception in method call : " + method.getName());
+            throw new RuntimeException("Exception in method call : " + method.getName(), e);
         }
         finally
         {
