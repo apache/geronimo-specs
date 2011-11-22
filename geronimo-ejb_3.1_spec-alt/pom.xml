@@ -86,37 +86,14 @@
                         <Import-Package>org.apache.geronimo.osgi.registry.api;resolution:=optional,*</Import-Package>
                         <Private-Package>org.apache.geronimo.osgi.locator</Private-Package>
                         <Bundle-Activator>org.apache.geronimo.osgi.locator.Activator</Bundle-Activator>
+                        <Embed-Dependency>*;scope=provided;inline=true</Embed-Dependency>
+                        <Include-Resource>
+                            {maven-resources}, javax/ejb/EJBException.class=target/classes/javax/ejb/EJBException.class
+                        </Include-Resource>
                     </instructions>
                 </configuration>
             </plugin>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>2.3</version>
-                <executions>
-                    <execution>
-                        <id>patch</id>
-                        <phase>process-classes</phase>
-                        <goals>
-                            <goal>unpack</goal>
-                        </goals>
-                        <configuration>
-                            <excludes>javax/ejb/EJBException.class</excludes>
-                            <excludes>**/LICENSE*</excludes>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>org.apache.geronimo.specs</groupId>
-                                    <artifactId>geronimo-ejb_3.1_spec</artifactId>
-                                    <version>1.0.2</version>
-                                    <overWrite>false</overWrite>
-                                    <outputDirectory>${project.build.outputDirectory}</outputDirectory>
-                                </artifactItem>
-                            </artifactItems>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
 
