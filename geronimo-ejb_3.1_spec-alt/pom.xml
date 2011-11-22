@@ -34,7 +34,7 @@
     <artifactId>geronimo-ejb_3.1_spec-alt</artifactId>
     <packaging>bundle</packaging>
     <name>Apache Geronimo EJB Spec 3.1 (ALT)</name>
-    <version>1.0.3-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <description>EJB 3.1 API</description>
 
     <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
@@ -51,11 +51,11 @@
 
     <dependencies>
         <dependency>
-	  <groupId>org.apache.geronimo.specs</groupId>
-	  <artifactId>geronimo-ejb_3.1_spec</artifactId>
-	  <version>1.0.2</version>
-	  <scope>provided</scope>
-	</dependency>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-ejb_3.1_spec</artifactId>
+            <version>1.0.2</version>
+            <scope>provided</scope>
+        </dependency>
 
         <dependency>
             <groupId>org.apache.geronimo.specs</groupId>
@@ -90,33 +90,33 @@
                 </configuration>
             </plugin>
 
-	    <plugin>
-              <groupId>org.apache.maven.plugins</groupId>
-              <artifactId>maven-dependency-plugin</artifactId>
-              <version>2.3</version>
-              <executions>
-		<execution>
-		  <id>patch</id>
-		  <phase>process-classes</phase>
-		  <goals>
-		    <goal>unpack</goal>
-		  </goals>
-		  <configuration>
-		    <excludes>javax/ejb/EJBException.class</excludes>
-		    <excludes>**/LICENSE*</excludes>
-		    <artifactItems>
-                      <artifactItem>
-			<groupId>org.apache.geronimo.specs</groupId>
-			<artifactId>geronimo-ejb_3.1_spec</artifactId>
-			<version>1.0.2</version>
-			<overWrite>false</overWrite>
-			<outputDirectory>${project.build.outputDirectory}</outputDirectory>
-                      </artifactItem>
-		    </artifactItems>
-		  </configuration>
-		</execution>
-              </executions>
-	    </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.3</version>
+                <executions>
+                    <execution>
+                        <id>patch</id>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <excludes>javax/ejb/EJBException.class</excludes>
+                            <excludes>**/LICENSE*</excludes>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.apache.geronimo.specs</groupId>
+                                    <artifactId>geronimo-ejb_3.1_spec</artifactId>
+                                    <version>1.0.2</version>
+                                    <overWrite>false</overWrite>
+                                    <outputDirectory>${project.build.outputDirectory}</outputDirectory>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
