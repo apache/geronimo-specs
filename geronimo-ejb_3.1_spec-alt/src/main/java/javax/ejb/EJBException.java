@@ -58,12 +58,12 @@ public class EJBException extends RuntimeException {
 
     @Override
     public Throwable getCause() {
-        return super.getCause() != null? super.getCause(): getCausedByException();
+        return super.getCause() != null ? super.getCause() : getCausedByException();
     }
 
     public String getMessage() {
 
-        if (causeException == null || causeException == super.getCause()) return super.getMessage();
+        if (causeException == null) return super.getMessage();
 
         StringBuilder sb = new StringBuilder();
 
@@ -88,10 +88,6 @@ public class EJBException extends RuntimeException {
         }
     }
 
-    public void printStackTrace() {
-        printStackTrace(System.err);
-    }
-
     public void printStackTrace(PrintWriter pw) {
         if (causeException == null || causeException == super.getCause()) {
             super.printStackTrace(pw);
@@ -100,5 +96,9 @@ public class EJBException extends RuntimeException {
             causeException.printStackTrace(pw);
             super.printStackTrace(pw);
         }
+    }
+
+    public void printStackTrace() {
+        printStackTrace(System.err);
     }
 }
