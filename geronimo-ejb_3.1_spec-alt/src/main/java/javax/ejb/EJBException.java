@@ -79,7 +79,7 @@ public class EJBException extends RuntimeException {
     }
 
     public void printStackTrace(PrintStream ps) {
-        if (causeException == null || causeException == super.getCause()) {
+        if (causeException == null || super.getCause() == null || causeException == super.getCause()) {
             super.printStackTrace(ps);
         } else synchronized (ps) {
             ps.println(this);
@@ -89,7 +89,7 @@ public class EJBException extends RuntimeException {
     }
 
     public void printStackTrace(PrintWriter pw) {
-        if (causeException == null || causeException == super.getCause()) {
+        if (causeException == null || super.getCause() == null ||  causeException == super.getCause()) {
             super.printStackTrace(pw);
         } else synchronized (pw) {
             pw.println(this);

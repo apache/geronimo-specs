@@ -192,7 +192,7 @@ public class EJBExceptionTest {
     }
 
     @Test
-    public void _testPrintStackTrace() throws Exception {
+    public void testPrintStackTrace() throws Exception {
 
         for (String s : printStackTraces(exceptionDefaultConstructor)) {
 
