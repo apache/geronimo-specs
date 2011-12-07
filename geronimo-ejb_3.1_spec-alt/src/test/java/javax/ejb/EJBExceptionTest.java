@@ -41,6 +41,7 @@ public class EJBExceptionTest {
     private static final EJBException exceptionWithCausedBy = createException(true, false);
     private static final EJBException exceptionWithInitCause = createException(false, true);
     private static final EJBException exceptionWithCausedByAndInitCause = createException(true, true);
+    private static final EJBException exceptionWithDifferentCausedByAndInitCause = (EJBException) createException(true, false).initCause(new RuntimeException("initCause"));
 
     private static EJBException createException(boolean causedBy, boolean initCause) {
 
@@ -76,6 +77,9 @@ public class EJBExceptionTest {
         Assert.assertEquals("msg", exceptionWithInitCause.getMessage());
 
         Assert.assertEquals("msg; nested exception is: java.lang.Exception: cause", exceptionWithCausedByAndInitCause.getMessage());
+
+        // TODO Define this behavior
+//        Assert.assertEquals("msg; nested exception is: java.lang.RuntimeException: initCause", exceptionWithDifferentCausedByAndInitCause.getMessage());
     }
 
     @Test
@@ -90,6 +94,10 @@ public class EJBExceptionTest {
         Assert.assertNotNull(exceptionWithCausedBy.getCause());
 
         Assert.assertNotNull(exceptionWithInitCause.getCause());
+
+        Assert.assertNotNull(exceptionWithCausedByAndInitCause.getCause());
+
+        Assert.assertNotNull(exceptionWithDifferentCausedByAndInitCause.getCause());
     }
 
     @Test
@@ -104,6 +112,10 @@ public class EJBExceptionTest {
         Assert.assertSame(exceptionWithCausedBy.getCause(), exceptionWithCausedBy.getCausedByException());
 
         Assert.assertNull(exceptionWithInitCause.getCausedByException());
+
+        Assert.assertNotNull(exceptionWithCausedByAndInitCause.getCausedByException());
+
+        Assert.assertNotNull(exceptionWithDifferentCausedByAndInitCause.getCausedByException());
     }
 
     @Test
