@@ -24,9 +24,6 @@ package javax.servlet.jsp;
 
 public class JspException extends Exception {
 
-    private Throwable rootCause;
-
-
     /**
      * Construct a JspException.
      */
@@ -67,8 +64,7 @@ public class JspException extends Exception {
      */
     
     public JspException(String message, Throwable rootCause) {
-	super(message);
-	this.rootCause = rootCause;
+	super(message, rootCause);
     }
 
 
@@ -76,14 +72,8 @@ public class JspException extends Exception {
      * Constructs a new JSP exception when the JSP 
      * needs to throw an exception and include a message
      * about the "root cause" exception that interfered with its
-     * normal operation.  The exception's message is based on the localized
-     * message of the underlying exception.
+     * normal operation. 
      *
-     * <p>This method calls the <code>getLocalizedMessage</code> method
-     * on the <code>Throwable</code> exception to get a localized exception
-     * message. When subclassing <code>JspException</code>, 
-     * this method can be overridden to create an exception message 
-     * designed for a specific locale.
      *
      * @param rootCause 	the <code>Throwable</code> exception
      * 				that interfered with the JSP's
@@ -93,8 +83,7 @@ public class JspException extends Exception {
      */
 
     public JspException(Throwable rootCause) {
-	super(rootCause.getLocalizedMessage());
-	this.rootCause = rootCause;
+	super(rootCause);
     }
 
     
@@ -106,8 +95,7 @@ public class JspException extends Exception {
      *				that caused this JSP exception
      *
      */
-    
     public Throwable getRootCause() {
-	return rootCause;
+	return getCause();
     }
 }
