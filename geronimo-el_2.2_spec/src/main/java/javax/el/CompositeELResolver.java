@@ -47,12 +47,12 @@ public class CompositeELResolver extends ELResolver {
     public Object getValue(ELContext context, Object base, Object property)
             throws NullPointerException, PropertyNotFoundException, ELException {
         context.setPropertyResolved(false);
-                int sz;
-                ELResolver[] rslvrs;
-                synchronized (this) {
-                    sz = this.size;
-                    rslvrs = this.resolvers;
-                }
+        int sz;
+        ELResolver[] rslvrs;
+        synchronized (this) {
+            sz = this.size;
+            rslvrs = this.resolvers;
+        }
         Object result = null;
         for (int i = 0; i < sz; i++) {
             result = rslvrs[i].getValue(context, base, property);
@@ -68,12 +68,12 @@ public class CompositeELResolver extends ELResolver {
             PropertyNotFoundException, PropertyNotWritableException,
             ELException {
         context.setPropertyResolved(false);
-                int sz;
-                ELResolver[] rslvrs;
-                synchronized (this) {
-                    sz = this.size;
-                    rslvrs = this.resolvers;
-                }
+        int sz;
+        ELResolver[] rslvrs;
+        synchronized (this) {
+            sz = this.size;
+            rslvrs = this.resolvers;
+        }
         for (int i = 0; i < sz; i++) {
             rslvrs[i].setValue(context, base, property, value);
             if (context.isPropertyResolved()) {
@@ -85,12 +85,12 @@ public class CompositeELResolver extends ELResolver {
     public boolean isReadOnly(ELContext context, Object base, Object property)
             throws NullPointerException, PropertyNotFoundException, ELException {
         context.setPropertyResolved(false);
-                int sz;
-                ELResolver[] rslvrs;
-                synchronized (this) {
-                    sz = this.size;
-                    rslvrs = this.resolvers;
-                }
+        int sz;
+        ELResolver[] rslvrs;
+        synchronized (this) {
+            sz = this.size;
+            rslvrs = this.resolvers;
+        }
         boolean readOnly = false;
         for (int i = 0; i < sz; i++) {
             readOnly = rslvrs[i].isReadOnly(context, base, property);
@@ -106,12 +106,12 @@ public class CompositeELResolver extends ELResolver {
     }
 
     public Class<?> getCommonPropertyType(ELContext context, Object base) {
-                int sz;
-                ELResolver[] rslvrs;
-                synchronized (this) {
-                    sz = this.size;
-                    rslvrs = this.resolvers;
-                }
+        int sz;
+        ELResolver[] rslvrs;
+        synchronized (this) {
+            sz = this.size;
+            rslvrs = this.resolvers;
+        }
         Class<?> commonType = null, type = null;
         for (int i = 0; i < sz; i++) {
             type = rslvrs[i].getCommonPropertyType(context, base);
@@ -126,12 +126,12 @@ public class CompositeELResolver extends ELResolver {
     public Class<?> getType(ELContext context, Object base, Object property)
             throws NullPointerException, PropertyNotFoundException, ELException {
         context.setPropertyResolved(false);
-                int sz;
-                ELResolver[] rslvrs;
-                synchronized (this) {
-                    sz = this.size;
-                    rslvrs = this.resolvers;
-                }
+        int sz;
+        ELResolver[] rslvrs;
+        synchronized (this) {
+            sz = this.size;
+            rslvrs = this.resolvers;
+        }
         Class<?> type;
         for (int i = 0; i < sz; i++) {
             type = rslvrs[i].getType(context, base, property);
@@ -220,9 +220,15 @@ public class CompositeELResolver extends ELResolver {
         if (context.getContext(ExpressionFactory.class) == null) {
             context.putContext(ExpressionFactory.class, expressionFactory);
         }
+        int sz;
+        ELResolver[] rslvrs;
+        synchronized (this) {
+            sz = this.size;
+            rslvrs = this.resolvers;
+        }
         Object retValue = null;
-        for (ELResolver resolver : resolvers) {
-            retValue = resolver.invoke(context, base, targetMethod, paramTypes, params);
+        for (int i = 0; i < sz; i++) {
+            retValue = rslvrs[i].invoke(context, base, targetMethod, paramTypes, params);
             if (context.isPropertyResolved()) {
                 return retValue;
             }
