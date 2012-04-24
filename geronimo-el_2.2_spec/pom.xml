@@ -37,16 +37,16 @@
     <version>1.0.3-SNAPSHOT</version>
     <description>Expression Languague API 2.2</description>
 
-    <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
+    <url>http://geronimo.apache.org/maven/${siteId}/${project.version}</url>
     <distributionManagement>
         <site>
             <id>apache-website</id>
-            <url>${site.deploy.url}/maven/${siteId}/${version}</url>
+            <url>${site.deploy.url}/maven/${siteId}/${project.version}</url>
         </site>
     </distributionManagement>
 
     <properties>
-        <siteId>specs/${artifactId}</siteId>
+        <siteId>specs/${project.artifactId}</siteId>
     </properties>
 
     <scm>
@@ -71,7 +71,7 @@
                 <artifactId>maven-bundle-plugin</artifactId>
                 <configuration>
                     <instructions>
-                        <Bundle-SymbolicName>${groupId}.${artifactId};singleton=true</Bundle-SymbolicName>
+                        <Bundle-SymbolicName>${project.groupId}.${project.artifactId};singleton=true</Bundle-SymbolicName>
                         <Specification-Title>JSR-245 Java Expression Language API 2.2</Specification-Title>
                         <Specification-Vendor>Sun Microsystems, Inc.</Specification-Vendor>
                         <Specification-Version>2.2</Specification-Version>
