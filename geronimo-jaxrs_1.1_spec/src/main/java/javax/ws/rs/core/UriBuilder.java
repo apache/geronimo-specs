@@ -32,7 +32,7 @@ public abstract class UriBuilder {
     }
 
     public static UriBuilder fromPath(String value) {
-        return newInstance().replacePath(value);
+        return newInstance().path(value);
     }
 
     public static UriBuilder fromResource(Class<?> resourceClass) {
