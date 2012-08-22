@@ -20,8 +20,8 @@ package javax.servlet.jsp.el;
 import java.beans.FeatureDescriptor;
 import java.util.AbstractMap;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -46,32 +46,37 @@ import javax.servlet.jsp.PageContext;
  */
 public class ImplicitObjectELResolver extends ELResolver {
 
-    private final static String[] SCOPE_NAMES = new String[] {
-            "applicationScope", "cookie", "header", "headerValues",
-            "initParam", "pageContext", "pageScope", "param", "paramValues",
-            "requestScope", "sessionScope" };
-
-    private final static int APPLICATIONSCOPE = 0;
-
-    private final static int COOKIE = 1;
-
-    private final static int HEADER = 2;
-
-    private final static int HEADERVALUES = 3;
-
-    private final static int INITPARAM = 4;
-
-    private final static int PAGECONTEXT = 5;
-
-    private final static int PAGESCOPE = 6;
-
-    private final static int PARAM = 7;
-
-    private final static int PARAM_VALUES = 8;
-
-    private final static int REQUEST_SCOPE = 9;
-
-    private final static int SESSION_SCOPE = 10;
+    private enum Scope {
+        APPLICATIONSCOPE("applicationScope"),
+        COOKIE("cookie"),
+        HEADER("header"),
+        HEADERVALUES("headerValues"),
+        INITPARAM("initParam"),
+        PAGECONTEXT("pageContext"),
+        PAGESCOPE("pageScope"),
+        PARAM("param"),
+        PARAM_VALUES("paramValues"),
+        REQUEST_SCOPE("requestScope"),
+        SESSION_SCOPE("sessionScope");
+        
+        private final String name; 
+        
+        private Scope(String name) {
+            this.name = name;
+        }
+        
+        public String toString() {
+            return name;
+        }        
+    }
+    
+    private final static Map<String, Scope> SCOPE_MAP = new HashMap<String, Scope>();
+    
+    static {
+        for (Scope scope : Scope.values()) {
+            SCOPE_MAP.put(scope.toString(), scope);
+        }
+    }
 
     public ImplicitObjectELResolver() {
         super();
@@ -84,13 +89,13 @@ public class ImplicitObjectELResolver extends ELResolver {
         }
 
         if (base == null && property != null) {
-            int idx = Arrays.binarySearch(SCOPE_NAMES, property.toString());
+            Scope scope = SCOPE_MAP.get(property.toString());
 
-            if (idx >= 0) {
+            if (scope != null) {
                 PageContext page = (PageContext) context
                         .getContext(JspContext.class);
                 context.setPropertyResolved(true);
-                switch (idx) {
+                switch (scope) {
                 case APPLICATIONSCOPE:
                     return ScopeManager.get(page).getApplicationScope();
                 case COOKIE:
@@ -126,8 +131,8 @@ public class ImplicitObjectELResolver extends ELResolver {
         }
 
         if (base == null && property != null) {
-            int idx = Arrays.binarySearch(SCOPE_NAMES, property.toString());
-            if (idx >= 0) {
+            Scope scope = SCOPE_MAP.get(property.toString());
+            if (scope != null) {
                 context.setPropertyResolved(true);
             }
         }
@@ -143,8 +148,8 @@ public class ImplicitObjectELResolver extends ELResolver {
         }
 
         if (base == null && property != null) {
-            int idx = Arrays.binarySearch(SCOPE_NAMES, property.toString());
-            if (idx >= 0) {
+            Scope scope = SCOPE_MAP.get(property.toString());
+            if (scope != null) {
                 context.setPropertyResolved(true);
                 throw new PropertyNotWritableException();
             }
@@ -158,8 +163,8 @@ public class ImplicitObjectELResolver extends ELResolver {
         }
 
         if (base == null && property != null) {
-            int idx = Arrays.binarySearch(SCOPE_NAMES, property.toString());
-            if (idx >= 0) {
+            Scope scope = SCOPE_MAP.get(property.toString());
+            if (scope != null) {
                 context.setPropertyResolved(true);
                 return true;
             }
@@ -168,15 +173,15 @@ public class ImplicitObjectELResolver extends ELResolver {
     }
 
     public Iterator<FeatureDescriptor> getFeatureDescriptors(ELContext context, Object base) {
-        List<FeatureDescriptor> feats = new ArrayList<FeatureDescriptor>(
-                SCOPE_NAMES.length);
+        Scope[] scopes = Scope.values();
+        List<FeatureDescriptor> feats = new ArrayList<FeatureDescriptor>(scopes.length);
         FeatureDescriptor feat;
-        for (int i = 0; i < SCOPE_NAMES.length; i++) {
+        for (int i = 0; i < scopes.length; i++) {
             feat = new FeatureDescriptor();
-            feat.setDisplayName(SCOPE_NAMES[i]);
+            feat.setDisplayName(scopes[i].toString());
             feat.setExpert(false);
             feat.setHidden(false);
-            feat.setName(SCOPE_NAMES[i]);
+            feat.setName(scopes[i].toString());
             feat.setPreferred(true);
             feat.setValue(RESOLVABLE_AT_DESIGN_TIME, Boolean.TRUE);
             feat.setValue(TYPE, String.class);
