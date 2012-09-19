@@ -351,20 +351,11 @@ public class BeanELResolver extends ELResolver {
             throw new NullPointerException("ELContext could not be nulll");
         }
         // Why static invocation is not supported
-        if(base == null || method == null) {
+        if (base == null || method == null) {
             return null;
         }
-        if (params == null) {
-            params = new Object[0];
-        }
-        ExpressionFactory expressionFactory = null;
-        if (ELUtils.isCachedExpressionFactoryEnabled()) {
-            expressionFactory = ELUtils.getCachedExpressionFactory();
-        }
-        if (expressionFactory == null) {
-            expressionFactory = ExpressionFactory.newInstance();
-        }
-        String methodName = (String) expressionFactory.coerceToType(method, String.class);
+
+        String methodName = ELUtils.coerceToString(method);
         if (methodName.length() == 0) {
             throw new MethodNotFoundException("The parameter method could not be zero-length");
         }
@@ -372,17 +363,23 @@ public class BeanELResolver extends ELResolver {
         if (methodName.equals("<init>") || methodName.equals("<cinit>")) {
             throw new MethodNotFoundException(method + " is not found in target class " + targetClass.getName());
         }
+
+        if (params == null) {
+            params = new Object[0];
+        }
+
         Method targetMethod = null;
         if (paramTypes == null) {
             int paramsNumber = params.length;
-            for (Method m : targetClass.getMethods()) {
+            Method[] methods = targetClass.getMethods();
+            for (Method m : methods) {
                 if (m.getName().equals(methodName) && m.getParameterTypes().length == paramsNumber) {
                     targetMethod = m;
                     break;
                 }
             }
             if (targetMethod == null) {
-                for (Method m : targetClass.getMethods()) {
+                for (Method m : methods) {
                     if (m.getName().equals(methodName) && m.isVarArgs() && paramsNumber >= (m.getParameterTypes().length - 1)) {
                         targetMethod = m;
                         break;
@@ -416,6 +413,14 @@ public class BeanELResolver extends ELResolver {
             Object[] finalParamValues = new Object[paramTypes.length];
             //Only do the parameter conversion while the method is not a non-parameter one
             if (paramTypes.length > 0) {
+                ExpressionFactory expressionFactory = null;
+                if (ELUtils.isCachedExpressionFactoryEnabled()) {
+                    expressionFactory = ELUtils.getCachedExpressionFactory();
+                }
+                if (expressionFactory == null) {
+                    expressionFactory = ExpressionFactory.newInstance();
+                }
+
                 int iCurrentIndex = 0;
                 for (int iLoopSize = paramTypes.length - 1; iCurrentIndex < iLoopSize; iCurrentIndex++) {
                     finalParamValues[iCurrentIndex] = expressionFactory.coerceToType(params[iCurrentIndex], paramTypes[iCurrentIndex]);
