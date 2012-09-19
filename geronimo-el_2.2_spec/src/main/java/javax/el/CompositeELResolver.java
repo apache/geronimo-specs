@@ -196,21 +196,12 @@ public class CompositeELResolver extends ELResolver {
         if (method == null || base == null) {
             return null;
         }
-        ExpressionFactory expressionFactory = null;
-        if (ELUtils.isCachedExpressionFactoryEnabled()) {
-            expressionFactory = ELUtils.getCachedExpressionFactory();
-        }
-        if (expressionFactory == null) {
-            expressionFactory = ExpressionFactory.newInstance();
-        }
-        String targetMethod = (String) expressionFactory.coerceToType(method, String.class);
+        String targetMethod = ELUtils.coerceToString(method);
         if (targetMethod.length() == 0) {
             throw new ELException(new NoSuchMethodException());
         }
+
         context.setPropertyResolved(false);
-        if (context.getContext(ExpressionFactory.class) == null) {
-            context.putContext(ExpressionFactory.class, expressionFactory);
-        }
 
         ELResolver[] rslvrs = resolvers.get();
         int sz = rslvrs.length;
@@ -224,4 +215,5 @@ public class CompositeELResolver extends ELResolver {
         }
         return null;
     }
+
 }
