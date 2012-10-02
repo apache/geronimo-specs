@@ -126,7 +126,7 @@ public abstract class SOAPFactory {
             }
             return factory;
         } catch (Exception exception) {
-            throw new SOAPException("Unable to create SOAPFactory: " + exception.getMessage());
+            throw new SOAPException("Unable to create SOAPFactory: " + exception.getMessage(), exception);
         }
     }
 

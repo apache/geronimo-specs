@@ -28,7 +28,7 @@ public abstract class SAAJMetaFactory {
                 instance = (SAAJMetaFactory)FactoryFinder.find(SAAJMetaFactory.class,
                                                                "org.apache.axis2.saaj.SAAJMetaFactoryImpl");
             } catch (Exception exception) {
-                throw new SOAPException(exception.getMessage());
+                throw new SOAPException(exception.getMessage(), exception);
             }
         }
         return instance;

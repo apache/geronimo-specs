@@ -87,7 +87,7 @@ public abstract class MessageFactory {
             }
             return factory;
         } catch (Exception exception) {
-            throw new SOAPException("Unable to create MessageFactory: " + exception.getMessage());
+            throw new SOAPException("Unable to create MessageFactory: " + exception.getMessage(), exception);
         }
     }
 

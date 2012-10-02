@@ -99,7 +99,7 @@ public class SOAPElementFactory {
             return new SOAPElementFactory(SOAPFactory.newInstance());
         } catch (Exception exception) {
             throw new SOAPException("Unable to create SOAP Element Factory: "
-                    + exception.getMessage());
+                    + exception.getMessage(), exception);
         }
     }
 
