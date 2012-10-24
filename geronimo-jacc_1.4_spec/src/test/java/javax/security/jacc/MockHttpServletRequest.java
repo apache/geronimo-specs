@@ -42,8 +42,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
-import com.sun.org.apache.bcel.internal.generic.RETURN;
-
 /**
  * @version $Rev$ $Date$
  */
