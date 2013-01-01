@@ -27,31 +27,31 @@ import java.util.Set;
  */
 public interface AnnotatedType<X> extends Annotated
 {
-	/**
-	 * Returns class of bean.
-	 * 
-	 * @return class of bean
-	 */
-	public Class<X> getJavaClass();
-	
-	/**
-	 * Returns set of bean constructors.
-	 * 
-	 * @return set of constructors
-	 */
-	public Set<AnnotatedConstructor<X>> getConstructors();
-	
-	/**
-	 * Returns set of bean methods.
-	 * 
-	 * @return set of bean methods
-	 */
-	public Set<AnnotatedMethod<? super X>> getMethods();
-	
-	/**
-	 * Returns set of bean fields.
-	 * 
-	 * @return set of bean fields.
-	 */
-	public Set<AnnotatedField<? super X>> getFields();
+    /**
+     * Returns class of bean.
+     *
+     * @return class of bean
+     */
+    public Class<X> getJavaClass();
+
+    /**
+     * Returns set of bean constructors.
+     *
+     * @return set of constructors
+     */
+    public Set<AnnotatedConstructor<X>> getConstructors();
+
+    /**
+     * Returns set of bean methods.
+     *
+     * @return set of bean methods
+     */
+    public Set<AnnotatedMethod<? super X>> getMethods();
+
+    /**
+     * Returns set of bean fields.
+     *
+     * @return set of bean fields.
+     */
+    public Set<AnnotatedField<? super X>> getFields();
 }

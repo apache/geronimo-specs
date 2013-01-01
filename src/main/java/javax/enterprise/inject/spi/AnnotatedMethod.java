@@ -29,8 +29,8 @@ import java.lang.reflect.Method;
  */
 public interface AnnotatedMethod<X> extends AnnotatedCallable<X> 
 {
-	/**
-	 * {@inheritDoc}
-	 */
-	public Method getJavaMember();
+    /**
+     * {@inheritDoc}
+     */
+    public Method getJavaMember();
 }

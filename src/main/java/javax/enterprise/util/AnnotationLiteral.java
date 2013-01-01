@@ -221,7 +221,7 @@ public abstract class AnnotationLiteral<T extends Annotation> implements Annotat
         {
             if (!method.isAccessible())
             {
-            	AccessController.doPrivileged(new PrivilegedActionForAccessibleObject(method, true));
+                AccessController.doPrivileged(new PrivilegedActionForAccessibleObject(method, true));
             }
 
             return method.invoke(instance, EMPTY_OBJECT_ARRAY);

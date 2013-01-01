@@ -29,8 +29,8 @@ import java.lang.reflect.Constructor;
  */
 public interface AnnotatedConstructor<X> extends AnnotatedCallable<X> 
 {
-	/**
-	 * {@inheritDoc}
-	 */
-	public Constructor<X> getJavaMember();
+    /**
+     * {@inheritDoc}
+     */
+    public Constructor<X> getJavaMember();
 }

@@ -39,26 +39,26 @@ import java.lang.reflect.Member;
  */
 public interface AnnotatedMember<X> extends Annotated 
 {
-	/**
-	 * Returns base java member.
-	 * 
-	 * @return java member
-	 */
-	public Member getJavaMember();
-	
-	/**
-	 * Returns true if member modifiers contain static keyword
-	 * false otherwise.
-	 * 
-	 * @return true if member modifiers contain static keyword
-	 */
-	public boolean isStatic();
-	
-	/**
-	 * Returns member's declaring type.
-	 * 
-	 * @return member's declaring type
-	 */
-	public AnnotatedType<X> getDeclaringType();
+    /**
+     * Returns base java member.
+     *
+     * @return java member
+     */
+    public Member getJavaMember();
+
+    /**
+     * Returns true if member modifiers contain static keyword
+     * false otherwise.
+     *
+     * @return true if member modifiers contain static keyword
+     */
+    public boolean isStatic();
+
+    /**
+     * Returns member's declaring type.
+     *
+     * @return member's declaring type
+     */
+    public AnnotatedType<X> getDeclaringType();
 
 }
