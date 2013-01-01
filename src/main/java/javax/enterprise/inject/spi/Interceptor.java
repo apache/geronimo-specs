@@ -24,12 +24,39 @@ import java.util.Set;
 import javax.interceptor.InvocationContext;
 
 
+/**
+ * A Bean for creating and using an interceptor.
+ * A CDI interceptor is always a separate dependent instance
+ * for each intercepted class. It will get created when the
+ * intercepted bean gets created and destroyed when the
+ * intercepted bean gets destroyed.
+ *
+ * @param <T>
+ */
 public interface Interceptor<T> extends Bean<T>
 {
+    /**
+     * Usually a single Interceptor
+     * @return all {@link javax.interceptor.InterceptorBinding}s handled by this interceptor.
+     */
     public abstract Set<Annotation> getInterceptorBindings();
-    
+
+    /**
+     * @param type InterceptionType in question
+     * @return <code>true</code> if this interceptor handles the given InterceptionType, <code>false</code> otherwise
+     */
     public boolean intercepts(InterceptionType type);
 
+    /**
+     * Perform the interception. This will e.g. invoke the &#064;AroundInvoke annotated method
+     * on the given instance of T.
+     * @param type the InterceptionType. This is important if an interceptor has multiple interceptor methods
+     *             e.g. one &#064;AroundInvoke and one &#064;PostConstruct;
+     * @param instance the interceptor instance
+     * @param ctx the InvocationContext contains all the interceptor chain state for a single invocation.
+     * @return the object or wrapper type returned by the intercepted instance or the previous interceptor
+     *         (if this is not the last interceptor in the chain)
+     */
     public Object intercept(InterceptionType type, T instance, InvocationContext ctx);
 
 }
