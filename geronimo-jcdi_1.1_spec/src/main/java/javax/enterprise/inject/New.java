@@ -41,5 +41,5 @@ public @interface New
      * This defaults to the type which is defined at the injection point.
      * @return the class of the bean which should be injected 
      */
-	Class<?> value() default New.class;
+    Class<?> value() default New.class;
 }

@@ -34,7 +34,6 @@ import javax.enterprise.context.spi.Contextual;
  */
 public interface Bean<T> extends Contextual<T>
 {
-	
     /**
      * Returns api types of a bean.
      * 

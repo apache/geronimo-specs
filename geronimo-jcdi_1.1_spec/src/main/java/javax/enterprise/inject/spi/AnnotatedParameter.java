@@ -27,18 +27,18 @@ package javax.enterprise.inject.spi;
  */
 public interface AnnotatedParameter<X> extends Annotated 
 {
-	/**
-	 * Returns parameter position.
-	 * 
-	 * @return parameter position
-	 */
-	public int getPosition();
+    /**
+     * Returns parameter position.
+     *
+     * @return parameter position
+     */
+    public int getPosition();
 
-	/**
-	 * Returns declaring callable member.
-	 * 
-	 * @return declaring callable member
-	 */
-	public AnnotatedCallable<X> getDeclaringCallable();
+    /**
+     * Returns declaring callable member.
+     *
+     * @return declaring callable member
+     */
+    public AnnotatedCallable<X> getDeclaringCallable();
 
 }

@@ -29,8 +29,8 @@ import java.lang.reflect.Field;
  */
 public interface AnnotatedField<X> extends AnnotatedMember<X> 
 {
-	/**
-	 * {@inheritDoc}
-	 */
-	public Field getJavaMember();
+    /**
+     * {@inheritDoc}
+     */
+    public Field getJavaMember();
 }

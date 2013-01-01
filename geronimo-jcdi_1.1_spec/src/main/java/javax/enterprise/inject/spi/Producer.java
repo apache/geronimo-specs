@@ -31,62 +31,62 @@ import javax.enterprise.context.spi.CreationalContext;
  */
 public interface Producer<T> 
 {
-	/**
-	 * Its result depends on bean type.
-	 * 
-	 * <p>
-	 * 
-	 * <ul>
-	 * 
-	 * 	<li><b>Bean Class</b> : It calls the constructor annotated with {@link Initializer} if it 
-	 * exists, or the constructor with no parameters otherwise.</li>
-	 *  
-	 *  <li><b>Producer Method or Field</b> : Calls the producer method on, 
-	 *  or accesses the producer field of, a contextual instance of the most 
-	 *  specialized bean that specializes the bean that declares the producer method</li>
-	 * 
-	 * </ul>
-	 * 
-	 * </p>
+    /**
+     * Its result depends on bean type.
+     *
+     * <p>
+     *
+     * <ul>
+     *
+     *     <li><b>Bean Class</b> : It calls the constructor annotated with {@link Initializer} if it
+     * exists, or the constructor with no parameters otherwise.</li>
+     *
+     *  <li><b>Producer Method or Field</b> : Calls the producer method on,
+     *  or accesses the producer field of, a contextual instance of the most
+     *  specialized bean that specializes the bean that declares the producer method</li>
+     *
+     * </ul>
+     *
+     * </p>
 
-	 * @param creationalContext creational context
-	 * 
-	 * @return an instance of bean
-	 */
-	public T produce(CreationalContext<T> creationalContext);
-	
-	/**
-	 * Its result depends on bean type.
-	 * <p>
-	 * <ul>
-	 * 	<li><b>Bean Class</b> : Does nothing.</li>
-	 *  <li><b>Producer Method</b> : Calls disposer method or any other cleanup.
-	 * </ul>
-	 * </p>
-	 * 
-	 * @param instance dispose istance
-	 */
-	public void dispose(T instance);
-	
-	/**
-	 * Its result depends on bean type.
-	 * 
-	 * <p>
-	 * 
-	 * <ul>
-	 * 	<li><b>Bean Class</b> : Returns the set of InjectionPoint objects representing all injected fields, 
-	 * bean constructor parameters and initializer method parameters.</li>
-	 *
-	 *  <li><b>Producer Method</b> : Returns the set of InjectionPoint objects 
-	 *  representing all parameters of the producer method.</li>
-	 *  
-	 * </ul>
-	 * 
-	 * </p>
-	 * 
-	 * @return set of injection points
-	 */
-	public Set<InjectionPoint> getInjectionPoints();
-	
-	
+     * @param creationalContext creational context
+     *
+     * @return an instance of bean
+     */
+    public T produce(CreationalContext<T> creationalContext);
+
+    /**
+     * Its result depends on bean type.
+     * <p>
+     * <ul>
+     *     <li><b>Bean Class</b> : Does nothing.</li>
+     *  <li><b>Producer Method</b> : Calls disposer method or any other cleanup.
+     * </ul>
+     * </p>
+     *
+     * @param instance dispose istance
+     */
+    public void dispose(T instance);
+
+    /**
+     * Its result depends on bean type.
+     *
+     * <p>
+     *
+     * <ul>
+     *     <li><b>Bean Class</b> : Returns the set of InjectionPoint objects representing all injected fields,
+     * bean constructor parameters and initializer method parameters.</li>
+     *
+     *  <li><b>Producer Method</b> : Returns the set of InjectionPoint objects
+     *  representing all parameters of the producer method.</li>
+     *
+     * </ul>
+     *
+     * </p>
+     *
+     * @return set of injection points
+     */
+    public Set<InjectionPoint> getInjectionPoints();
+
+
 }
