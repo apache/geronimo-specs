@@ -35,27 +35,18 @@ import javax.enterprise.inject.UnsatisfiedResolutionException;
 
 
 /**
- * The interface <code>Manager</code> provides operations for
- * obtaining the contextual instance of the webbeans. There are operations
- * related with;
+ * <p>The interface <code>BeanManager</code> is the central point for dealing with CDI.
+ * The BeanManager provides operations for resolving CDI {@link Bean}s,
+ * obtaining the Contextual References of them, etc. There are operations
+ * related with;</p>
  * 
  * <ul>
- *  <li>Adding new webbeans</li>
- *  <li>Adding new contexts</li>
- *  <li>Adding new decorators</li>
- *  <li>Adding new interceptors</li>
- *  <li>Firing the observer events</li>
- *  <li>Creating the instance of the contextual beans</li>
+ *  <li>Firing observer events</li>
+ *  <li>Creating {@link CreationalContext}s</li>
  *  <li>Resolution of beans, interceptors, decorators and observers</li>
  *  <li>Other utility methods etc..</li>
  * </ul>
- * 
- * <p>
- * There is always one root manager in the system. You can set the
- * current activity via call to the {@link BeanManager#setCurrent(Class)} method.
- * </p>
- * 
- * @version $Rev$ $Date$ 
+ *
  */
 public interface BeanManager
 {
@@ -259,7 +250,7 @@ public interface BeanManager
     public Context getContext(Class<? extends Annotation> scope);
     
     /**
-     * Returns el resolver.
+     * Returns CDI container Expression Language resolver.
      * 
      * @return el resolver
      */
@@ -276,7 +267,7 @@ public interface BeanManager
     public <T> AnnotatedType<T> createAnnotatedType(Class<T> type);
     
     /**
-     * Creates a new instance of injection target.
+     * Creates a new instance of injection target Bean.
      * 
      * @param <T> bean type
      * @param type annotated type
@@ -285,7 +276,7 @@ public interface BeanManager
     public <T> InjectionTarget<T> createInjectionTarget(AnnotatedType<T> type);
     
     /**
-     * Wrapped around given expression factory.
+     * Wrapped around given expression factory and add CDI functionality.
      * @param expressionFactory expression factory
      * @return wrapped expression factory
      */

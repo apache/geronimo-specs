@@ -19,22 +19,29 @@
 package javax.enterprise.context.spi;
 
 /**
- * The CreationalContext holds incomplete Bean instances. This may be caused by
- * a situation like in the following example: <code>
- * &#x0040;ApplicationScoped class Foo 
- * { 
- *   &#x0040;Current Bar _bar; 
- * }
- * 
- * &#x0040;ApplicationScoped class Bar 
- * { 
- *   &#x0040;Current Foo _bar; 
- * } 
- * </code>
- * 
- * <p>
- * Generally it is used for prohibiting the circular references of the webbeans.
+ * <p>The <code>CreationalContext</code> holds incomplete Bean instances and
+ * references to all{@link javax.enterprise.context.Dependent} scoped
+ * contextual instances injected into a {@link javax.enterprise.context.NormalScope}d
+ * bean.</p>
+ *
+ * <p>E.g. consider we create a Contextual Instance of a
+ * {@link javax.enterprise.context.SessionScoped} <code>UserInformation</code>
+ * bean which has a dependent injection point
+ * (e.g. a field <code>private &#064;Inject Helper helper;</code> )
+ * In that case the CreationalContext of the <code>UserInformation</code> instance
+ * will contain the information about the <code>helper</code> instance.
+ * This is needed to properly destroy the <code>helper</code> once the
+ * <code>UserInformation</code> gets destroyed. In our example this will
+ * happen at the end of the Session.
  * </p>
+ *
+ * <p><b>Attention:</b> If you create a {@link javax.enterprise.context.Dependent} instance
+ * manually using
+ * {@link javax.enterprise.inject.spi.BeanManager#getReference(javax.enterprise.inject.spi.Bean, java.lang.reflect.Type, CreationalContext)}
+ * then you must store away the CreationalContext. You will need it for properly destroying the created instance
+ * via {@link javax.enterprise.inject.spi.Bean#destroy(Object, CreationalContext)}.
+ * This is <i>not</i> needed for {@link javax.enterprise.context.NormalScope}d beans as they
+ * maintain their lifecycle themself!</p>
  * 
  * @version $Rev$ $Date$
  */
