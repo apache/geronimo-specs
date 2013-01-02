@@ -37,9 +37,36 @@ import javax.inject.Qualifier;
 public @interface New
 {
     /**
-     * May be used to declare which type should be used for injection.
-     * This defaults to the type which is defined at the injection point.
-     * @return the class of the bean which should be injected 
+     * <p>May be used to declare a class which should be used for injection.
+     * This defaults to the type which is defined at the injection point.</p>
+     *
+     * <p>Technically this is a qualifier, but it has a very special handling
+     * defined by the specification. It will create a new Contextual Instance
+     * of the given class by calling the default constructor. The created
+     * Contextual Instance will be treated as being &#064;Dependent to the
+     * instance the injection point belongs to.</p>
+     *
+     * <p>&#064;New also works for creating Contextual Instances of classes which are
+     * <i>not</i> part of a bean archive (BDA, aka a jar with a META-INF/beans.xml).
+     * Note that from a practical point &#064;New is rarely useful. If you don't have
+     * a beans.xml then you will most probably also not have any CDI feature in that class.
+     * and if you otoh do have such a BDA, then you can inject the bean directly anyway.
+     * The only real usage is to inject a new 'dependent' instance of a CDI bean which
+     * has a different scope already defined.
+     *
+     * <p>
+     * Example:
+     * <pre>
+     * &#064;Inject &#064;New SomeClass instance;
+     * </pre>
+     * </p>
+     *
+     * <p><b>Attention:</b> &#064;New only works for InjectionPoints, it is not
+     * possible to resolve a new-bean programatically via
+     * {@link javax.enterprise.inject.spi.BeanManager#getBeans(java.lang.reflect.Type, java.lang.annotation.Annotation...)}
+     * if there was no &#064;New InjectionPoint of that type in the scanned classes.</p>
+     *
+     * @return the class of the bean which should be injected
      */
     Class<?> value() default New.class;
 }
