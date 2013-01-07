@@ -14,6 +14,7 @@ import javax.enterprise.inject.Instance;
  * </p>
  *
  *
+ * @since 1.1
  */
 public abstract class CDI<T> implements Instance<T>
 {

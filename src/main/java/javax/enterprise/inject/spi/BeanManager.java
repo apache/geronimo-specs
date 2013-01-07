@@ -97,7 +97,7 @@ public interface BeanManager
     public Set<Bean<?>> getBeans(Type beanType, Annotation... qualifiers);
         
     /**
-     * Returns set of beans with given name.
+     * Returns set of beans with given Expression Language name.
      * 
      * @param name name of the bean
      * @return set of beans with given name
