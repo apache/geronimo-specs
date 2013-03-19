@@ -182,7 +182,7 @@ class FactoryFinder {
                     }
 
                     try {
-                        String factoryClassName =  ProviderLocator.lookupByJREPropertyFile("lib" + File.separator + "jaxrpc.properties", iFactoryId);
+                        String factoryClassName =  ProviderLocator.lookupByJREPropertyFile("lib" + File.separator + "jaxws.properties", iFactoryId);
                         if (factoryClassName != null) {
                             debugPrintln("found java.home property " + factoryClassName);
                             return newInstance(factoryClassName, classLoader);
