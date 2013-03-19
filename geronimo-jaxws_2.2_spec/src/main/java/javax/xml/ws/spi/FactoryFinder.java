@@ -38,7 +38,7 @@ import org.apache.geronimo.osgi.locator.ProviderLocator;
  * when bundled as part of the JDK.
  * <p/>
  * This class is duplicated for each subpackage so keep it in sync.
- * It is package private and therefore is not exposed as part of the JAXRPC
+ * It is package private and therefore is not exposed as part of the JAXWS
  * API.
  */
 class FactoryFinder {

@@ -38,7 +38,7 @@ import org.apache.geronimo.osgi.locator.ProviderLocator;
  * when bundled as part of the JDK.
  * <p/>
  * This class is duplicated for each subpackage so keep it in sync.
- * It is package private and therefore is not exposed as part of the JAXRPC
+ * It is package private and therefore is not exposed as part of the JAXWS
  * API.
  */
 class FactoryFinder {
@@ -175,11 +175,11 @@ class FactoryFinder {
                     } catch (SecurityException se) {
                     }
 
-                    // try to read from $java.home/lib/xml.properties
+                    // try to read from $java.home/lib/jaxws.properties
                     try {
                         String javah = System.getProperty("java.home");
                         String configFile = javah + File.separator +
-                        "lib" + File.separator + "jaxrpc.properties";
+                        "lib" + File.separator + "jaxws.properties";
                         File f = new File(configFile);
                         if (f.exists()) {
                             Properties props = new Properties();
