@@ -26,16 +26,16 @@
 
     <parent>
         <groupId>org.apache.geronimo.genesis</groupId>
-        <artifactId>genesis-java5-flava</artifactId>
+        <artifactId>genesis-java6-flava</artifactId>
         <version>2.0</version>
     </parent>
 
     <groupId>org.apache.geronimo.specs</groupId>
-    <artifactId>geronimo-annotation_1.1_spec</artifactId>
+    <artifactId>geronimo-annotation_1.6_spec</artifactId>
     <packaging>bundle</packaging>
-    <name>Apache Geronimo Annotation Spec 1.1</name>
-    <version>1.0.2-SNAPSHOT</version>
-    <description>Annotation spec 1.1 API</description>
+    <name>Apache Geronimo Annotation Spec 1.2</name>
+    <version>1.0.MR2-SNAPSHOT</version>
+    <description>Annotation spec 1.2 API</description>
 
     <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
     <distributionManagement>
@@ -50,9 +50,9 @@
     </properties>
 
     <scm>
-        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-annotation_1.1_spec/</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-annotation_1.1_spec/</developerConnection>
-        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-annotation_1.1_spec/</url>
+        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-annotation_1.2_spec/</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-annotation_1.2_spec/</developerConnection>
+        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-annotation_1.2_spec/</url>
     </scm>
 
     <build>
@@ -63,10 +63,10 @@
                 <configuration>
                     <instructions>
                         <Bundle-SymbolicName>${groupId}.${artifactId};singleton=true</Bundle-SymbolicName>
-                        <Specification-Title>JSR-250 Common Annotations 1.1</Specification-Title>
-                        <Specification-Vendor>Sun Microsystems, Inc.</Specification-Vendor>
-                        <Specification-Version>1.1</Specification-Version>
-                        <Export-Package>javax.annotation*;version=1.1</Export-Package>
+                        <Specification-Title>JSR-250 Common Annotations 1.2</Specification-Title>
+                        <Specification-Vendor>Oracle, Inc.</Specification-Vendor>
+                        <Specification-Version>1.2</Specification-Version>
+                        <Export-Package>javax.annotation*;version=1.2</Export-Package>
                     </instructions>
                 </configuration>
             </plugin>
