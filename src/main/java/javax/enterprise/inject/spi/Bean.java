@@ -47,4 +47,19 @@ public interface Bean<T> extends Contextual<T>, BeanAttributes<T>
      */
     public abstract Class<?> getBeanClass();
 
+    /**
+     * If bean is nullable return true, false
+     * otherwise.
+     *
+     * <p>
+     * Nullable means that if producer
+     * bean api type is primitive, its nullable property
+     * will be false.
+     * </p>
+     *
+     * @return true if bean is nullable.
+     * @deprecated since CDI-1.1. This should be ignored by the container from now on.
+     */
+    public abstract boolean isNullable();
+
 }
