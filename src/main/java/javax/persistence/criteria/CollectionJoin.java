@@ -33,4 +33,8 @@ public interface CollectionJoin<Z, E>
 		extends PluralJoin<Z, Collection<E>, E> {
 
     CollectionAttribute<? super Z, E> getModel();
+    
+    CollectionJoin<Z, E> on(Expression<Boolean> restriction);
+    
+    CollectionJoin<Z, E> on(Predicate... restrictions);
 }

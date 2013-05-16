@@ -39,4 +39,8 @@ public interface MapJoin<Z, K, V>
     Path<V> value(); 
 
     Expression<Map.Entry<K, V>> entry();
+    
+    MapJoin<Z, K, V> on(Expression<Boolean> restriction);
+    
+    MapJoin<Z, K, V> on(Predicate... restrictions);
 }

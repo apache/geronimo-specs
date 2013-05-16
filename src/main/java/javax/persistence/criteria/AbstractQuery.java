@@ -31,7 +31,7 @@ import java.util.Set;
 import javax.persistence.metamodel.EntityType;
 
 
-public interface AbstractQuery<T> {
+public interface AbstractQuery<T> extends CommonAbstractCriteria {
 
     <X> Root<X> from(Class<X> entityClass);
 
@@ -50,13 +50,10 @@ public interface AbstractQuery<T> {
 
     AbstractQuery<T> distinct(boolean distinct);
 
-    <U> Subquery<U> subquery(Class<U> type);
-
     Set<Root<?>> getRoots();
 
     Selection<T> getSelection();
 
-    Predicate getRestriction();
     List<Expression<?>> getGroupList();
 
     Predicate getGroupRestriction();

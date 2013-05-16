@@ -36,5 +36,9 @@ public interface PersistenceProvider {
     public EntityManagerFactory createContainerEntityManagerFactory(PersistenceUnitInfo info, Map map);
 
     public ProviderUtil getProviderUtil();
+    
+    void generateSchema(PersistenceUnitInfo info, Map map);
+    
+    boolean generateSchema(String persistenceUnitName, Map map);
 }
 

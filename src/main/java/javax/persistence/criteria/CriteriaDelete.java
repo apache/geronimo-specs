@@ -25,20 +25,18 @@
 
 package javax.persistence.criteria;
 
-import javax.persistence.metamodel.Attribute;
+import javax.persistence.metamodel.EntityType;
 
+public interface CriteriaDelete<T> extends CommonAbstractCriteria {
 
-public interface Join<Z, X> extends From<Z, X> {
+    Root<T> from(Class<T> entityClass);
 
-    Attribute<? super Z, ?> getAttribute();
+    Root<T> from(EntityType<T> entity);
 
-    From<?, Z> getParent();
+    Root<T> getRoot();
 
-    JoinType getJoinType();
-    
-    Predicate getOn();
-    
-    Join<Z, X> on(Expression<Boolean> restriction);
-    
-    Join<Z, X> on(Predicate... restrictions);
+    CriteriaDelete<T> where(Expression<Boolean> restriction);
+
+    CriteriaDelete<T> where(Predicate... restrictions);
+
 }

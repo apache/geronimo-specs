@@ -64,5 +64,6 @@ public interface Subquery<T> extends AbstractQuery<T>, Expression<T> {
     Expression<T> getSelection();
 
     Set<Join<?, ?>> getCorrelatedJoins();
-}
 
+    CommonAbstractCriteria getContainingQuery();
+}
