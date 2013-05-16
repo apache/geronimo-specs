@@ -25,20 +25,28 @@
 
 package javax.persistence.criteria;
 
-import javax.persistence.metamodel.Attribute;
+import javax.persistence.metamodel.EntityType;
+import javax.persistence.metamodel.SingularAttribute;
 
+public interface CriteriaUpdate<T> extends CommonAbstractCriteria {
 
-public interface Join<Z, X> extends From<Z, X> {
+    Root<T> from(Class<T> entityClass);
 
-    Attribute<? super Z, ?> getAttribute();
+    Root<T> from(EntityType<T> entity);
 
-    From<?, Z> getParent();
+    Root<T> getRoot();
 
-    JoinType getJoinType();
-    
-    Predicate getOn();
-    
-    Join<Z, X> on(Expression<Boolean> restriction);
-    
-    Join<Z, X> on(Predicate... restrictions);
-}
+    <Y, X extends Y> CriteriaUpdate<T> set(SingularAttribute<? super T, Y> attribute, X value);
+
+    <Y> CriteriaUpdate<T> set(SingularAttribute<? super T, Y> attribute, Expression<? extends Y> value);
+
+    <Y, X extends Y> CriteriaUpdate<T> set(Path<Y> attribute, X value);
+
+    <Y> CriteriaUpdate<T> set(Path<Y> attribute, Expression<? extends Y> value);
+
+    CriteriaUpdate<T> set(String attributeName, Object value);
+
+    CriteriaUpdate<T> where(Expression<Boolean> restriction);
+
+    CriteriaUpdate<T> where(Predicate... restrictions);
+ }

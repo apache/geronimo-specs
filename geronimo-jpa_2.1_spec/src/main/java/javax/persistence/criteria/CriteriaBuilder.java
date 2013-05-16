@@ -354,6 +354,24 @@ public interface CriteriaBuilder {
     <R> Case<R> selectCase();
 
    <T> Expression<T> function(String name, Class<T> type, Expression<?>... args);
-
+   
+   <X, T, V extends T> Join<X, V> treat(Join<X, T> join, Class<V> type);
+   
+   <X, T, E extends T> CollectionJoin<X, E> treat(CollectionJoin<X, T> join, Class<E> type);
+   
+   <X, T, E extends T> SetJoin<X, E> treat(SetJoin<X, T> join, Class<E> type);
+   
+   <X, T, E extends T> ListJoin<X, E> treat(ListJoin<X, T> join, Class<E> type);
+   
+   <X, K, T, V extends T> MapJoin<X, K, V> treat(MapJoin<X, K, T> join, Class<V> type);
+   
+   <X, T extends X> Path<T> treat(Path<X> join, Class<T> type);
+   
+   <X, T extends X> Root<T> treat(Root<X> join, Class<T> type);
+   
+   <T> CriteriaDelete<T> createCriteriaDelete(Class<T> targetEntity);
+   
+   <T> CriteriaUpdate<T> createCriteriaUpdate(Class<T> targetEntity);
+   
 }
 

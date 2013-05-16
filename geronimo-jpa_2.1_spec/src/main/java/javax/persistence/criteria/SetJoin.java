@@ -32,4 +32,8 @@ import javax.persistence.metamodel.SetAttribute;
 public interface SetJoin<Z, E> extends PluralJoin<Z, Set<E>, E> {
 
     SetAttribute<? super Z, E> getModel();
+    
+    SetJoin<Z, E> on(Expression<Boolean> restriction);
+    
+    SetJoin<Z, E> on(Predicate... restrictions);
 }

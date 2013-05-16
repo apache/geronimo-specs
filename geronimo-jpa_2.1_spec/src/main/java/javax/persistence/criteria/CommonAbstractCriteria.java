@@ -25,20 +25,11 @@
 
 package javax.persistence.criteria;
 
-import javax.persistence.metamodel.Attribute;
+public interface CommonAbstractCriteria {
 
-
-public interface Join<Z, X> extends From<Z, X> {
-
-    Attribute<? super Z, ?> getAttribute();
-
-    From<?, Z> getParent();
-
-    JoinType getJoinType();
+    Predicate getRestriction();
     
-    Predicate getOn();
-    
-    Join<Z, X> on(Expression<Boolean> restriction);
-    
-    Join<Z, X> on(Predicate... restrictions);
+    <U> Subquery<U> subquery(Class<U> type);
+
 }
+

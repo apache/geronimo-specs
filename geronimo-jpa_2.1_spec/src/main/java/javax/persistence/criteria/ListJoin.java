@@ -35,4 +35,8 @@ public interface ListJoin<Z, E>
     ListAttribute<? super Z, E> getModel();
 
     Expression<Integer> index();
+    
+    ListJoin<Z, E> on(Expression<Boolean> restriction);
+    
+    ListJoin<Z, E> on(Predicate... restrictions);
 }
