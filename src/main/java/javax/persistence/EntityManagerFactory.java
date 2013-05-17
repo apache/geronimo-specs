@@ -22,25 +22,28 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-
-
 package javax.persistence;
 
-import java.util.Set;
 import java.util.Map;
 import javax.persistence.metamodel.Metamodel;
 import javax.persistence.criteria.CriteriaBuilder;
 
-
 public interface EntityManagerFactory {
 
     public EntityManager createEntityManager();
+    
     public EntityManager createEntityManager(Map map);
 
+    public EntityManager createEntityManager(SynchronizationType synchronizationType);
+
+    public EntityManager createEntityManager(SynchronizationType synchronizationType, Map map);
+
     public CriteriaBuilder getCriteriaBuilder();
+    
     public Metamodel getMetamodel();
 
     public boolean isOpen();
+    
     public void close();
 
     public Map<String, Object> getProperties();
@@ -48,4 +51,11 @@ public interface EntityManagerFactory {
     public Cache getCache();
 
     public PersistenceUnitUtil getPersistenceUnitUtil();
+
+    public void addNamedQuery(String name, Query query);
+
+    public <T> T unwrap(Class<T> cls);
+
+    public <T> void addNamedEntityGraph(String graphName, EntityGraph<T> entityGraph);
+
 }

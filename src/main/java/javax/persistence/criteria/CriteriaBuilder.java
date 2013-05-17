@@ -31,7 +31,6 @@ import java.util.Map;
 import java.util.Set;
 import javax.persistence.Tuple;
 
-
 public interface CriteriaBuilder {
 
     CriteriaQuery<Object> createQuery();
@@ -40,16 +39,31 @@ public interface CriteriaBuilder {
 
     CriteriaQuery<Tuple> createTupleQuery();
 
+    // methods to construct queries for bulk updates and deletes:
+
+    <T> CriteriaUpdate<T> createCriteriaUpdate(Class<T> targetEntity);
+
+    <T> CriteriaDelete<T> createCriteriaDelete(Class<T> targetEntity);
+
+
+    // selection construction methods:
+	
     <Y> CompoundSelection<Y> construct(Class<Y> resultClass, Selection<?>... selections);
 
     CompoundSelection<Tuple> tuple(Selection<?>... selections);
 
     CompoundSelection<Object[]> array(Selection<?>... selections);
 
+
+    //ordering:
+	
     Order asc(Expression<?> x);
 
     Order desc(Expression<?> x);
 
+	
+    //aggregate functions:
+	
     <N extends Number> Expression<Double> avg(Expression<N> x);
 
     <N extends Number> Expression<N> sum(Expression<N> x);
@@ -63,12 +77,17 @@ public interface CriteriaBuilder {
     <N extends Number> Expression<N> min(Expression<N> x);
 
     <X extends Comparable<? super X>> Expression<X> greatest(Expression<X> x);
+    
     <X extends Comparable<? super X>> Expression<X> least(Expression<X> x);
 
     Expression<Long> count(Expression<?> x);
 
     Expression<Long> countDistinct(Expression<?> x);
 
+
+
+    //subqueries:
+	
     Predicate exists(Subquery<?> subquery);
 
     <Y> Expression<Y> all(Subquery<Y> subquery);
@@ -77,6 +96,9 @@ public interface CriteriaBuilder {
 
     <Y> Expression<Y> any(Subquery<Y> subquery);
 
+
+    //boolean functions:
+	
     Predicate and(Expression<Boolean> x, Expression<Boolean> y);
 
     Predicate and(Predicate... restrictions);
@@ -91,14 +113,23 @@ public interface CriteriaBuilder {
 
     Predicate disjunction();
 
+	
+    //turn Expression<Boolean> into a Predicate
+    //useful for use with varargs methods
+
     Predicate isTrue(Expression<Boolean> x);
 
     Predicate isFalse(Expression<Boolean> x);
+
+	
+    //null tests:
 
     Predicate isNull(Expression<?> x);
 
     Predicate isNotNull(Expression<?> x);
 
+    //equality:
+	
     Predicate equal(Expression<?> x, Expression<?> y);
 
     Predicate equal(Expression<?> x, Object y);
@@ -106,6 +137,9 @@ public interface CriteriaBuilder {
     Predicate notEqual(Expression<?> x, Expression<?> y);
 
     Predicate notEqual(Expression<?> x, Object y);
+
+	
+    //comparisons for generic (non-numeric) operands:
 
     <Y extends Comparable<? super Y>> Predicate greaterThan(Expression<? extends Y> x, Expression<? extends Y> y);
 
@@ -127,6 +161,9 @@ public interface CriteriaBuilder {
 
     <Y extends Comparable<? super Y>> Predicate between(Expression<? extends Y> v, Y x, Y y);
 
+
+    //comparisons for numeric operands:
+	
     Predicate gt(Expression<? extends Number> x, Expression<? extends Number> y);
 
     Predicate gt(Expression<? extends Number> x, Number y);
@@ -143,6 +180,9 @@ public interface CriteriaBuilder {
 
     Predicate le(Expression<? extends Number> x, Number y);
 
+
+    //numerical operations:
+	
     <N extends Number> Expression<N> neg(Expression<N> x);
 
     <N extends Number> Expression<N> abs(Expression<N> x);
@@ -179,6 +219,9 @@ public interface CriteriaBuilder {
 
     Expression<Double> sqrt(Expression<? extends Number> x);
 
+	
+    //typecasts:
+    
     Expression<Long> toLong(Expression<? extends Number> number);
 
     Expression<Integer> toInteger(Expression<? extends Number> number);
@@ -193,14 +236,22 @@ public interface CriteriaBuilder {
 
     Expression<String> toString(Expression<Character> character);
 
+	
+    //literals:
+
     <T> Expression<T> literal(T value);
 
     <T> Expression<T> nullLiteral(Class<T> resultClass);
+
+    //parameters:
 
     <T> ParameterExpression<T> parameter(Class<T> paramClass);
 
     <T> ParameterExpression<T> parameter(Class<T> paramClass, String name);
 
+
+    //collection operations:
+	
     <C extends Collection<?>> Predicate isEmpty(Expression<C> collection);
 
     <C extends Collection<?>> Predicate isNotEmpty(Expression<C> collection);
@@ -217,10 +268,17 @@ public interface CriteriaBuilder {
 
     <E, C extends Collection<E>> Predicate isNotMember(E elem, Expression<C> collection);
 
+
+    //get the values and keys collections of the Map, which may then
+    //be passed to size(), isMember(), isEmpty(), etc
+
     <V, M extends Map<?, V>> Expression<Collection<V>> values(M map);
 
     <K, M extends Map<K, ?>> Expression<Set<K>> keys(M map);
 
+	
+    //string functions:
+	
     Predicate like(Expression<String> x, Expression<String> pattern);
 
     Predicate like(Expression<String> x, String pattern);
@@ -262,6 +320,7 @@ public interface CriteriaBuilder {
     public static enum Trimspec { 
 
         LEADING,
+ 
         TRAILING, 
 
         BOTH 
@@ -285,6 +344,7 @@ public interface CriteriaBuilder {
 
     Expression<Integer> length(Expression<String> x);
 
+	
     Expression<Integer> locate(Expression<String> x, Expression<String> pattern);
 
     Expression<Integer> locate(Expression<String> x, String pattern);
@@ -293,21 +353,31 @@ public interface CriteriaBuilder {
 
     Expression<Integer> locate(Expression<String> x, String pattern, int from);
 
+
+    // Date/time/timestamp functions:
+
     Expression<java.sql.Date> currentDate();
 
     Expression<java.sql.Timestamp> currentTimestamp();
 
     Expression<java.sql.Time> currentTime();
 
+
+    //in builders:
+	
     public static interface In<T> extends Predicate {
 
          Expression<T> getExpression();
+	
          In<T> value(T value);
 
          In<T> value(Expression<? extends T> value);
      }
 
     <T> In<T> in(Expression<? extends T> expression);
+
+
+    // coalesce, nullif:
 
     <Y> Expression<Y> coalesce(Expression<? extends Y> x, Expression<? extends Y> y);
 
@@ -317,13 +387,20 @@ public interface CriteriaBuilder {
 
     <Y> Expression<Y> nullif(Expression<Y> x, Y y);
 
+
+    // coalesce builder:
+
     public static interface Coalesce<T> extends Expression<T> {
 
          Coalesce<T> value(T value);
 
          Coalesce<T> value(Expression<? extends T> value);
     }
+	
     <T> Coalesce<T> coalesce();
+
+
+    //case builders:
 
     public static interface SimpleCase<C,R> extends Expression<R> {
 
@@ -340,6 +417,7 @@ public interface CriteriaBuilder {
 
     <C, R> SimpleCase<C,R> selectCase(Expression<? extends C> expression);
 
+
     public static interface Case<R> extends Expression<R> {
 
         Case<R> when(Expression<Boolean> condition, R result);
@@ -353,8 +431,12 @@ public interface CriteriaBuilder {
 
     <R> Case<R> selectCase();
 
-   <T> Expression<T> function(String name, Class<T> type, Expression<?>... args);
+   <T> Expression<T> function(String name, Class<T> type,
+Expression<?>... args);
    
+
+    // methods for downcasting:
+
    <X, T, V extends T> Join<X, V> treat(Join<X, T> join, Class<V> type);
    
    <X, T, E extends T> CollectionJoin<X, E> treat(CollectionJoin<X, T> join, Class<E> type);
@@ -365,13 +447,13 @@ public interface CriteriaBuilder {
    
    <X, K, T, V extends T> MapJoin<X, K, V> treat(MapJoin<X, K, T> join, Class<V> type);
    
-   <X, T extends X> Path<T> treat(Path<X> join, Class<T> type);
    
-   <X, T extends X> Root<T> treat(Root<X> join, Class<T> type);
+    <X, T extends X> Path<T> treat(Path<X> path, Class<T> type);
    
-   <T> CriteriaDelete<T> createCriteriaDelete(Class<T> targetEntity);
-   
-   <T> CriteriaUpdate<T> createCriteriaUpdate(Class<T> targetEntity);
+    <X, T extends X> Root<T> treat(Root<X> root, Class<T> type);
    
 }
+
+
+
 

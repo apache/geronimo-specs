@@ -22,12 +22,10 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-
 package javax.persistence.spi;
 
 import javax.persistence.EntityManagerFactory;
 import java.util.Map;
-
 
 public interface PersistenceProvider {
 
@@ -35,10 +33,11 @@ public interface PersistenceProvider {
 
     public EntityManagerFactory createContainerEntityManagerFactory(PersistenceUnitInfo info, Map map);
 
+    
+    public void generateSchema(PersistenceUnitInfo info, Map map);
+    
+    public boolean generateSchema(String persistenceUnitName, Map map); 
+
     public ProviderUtil getProviderUtil();
-    
-    void generateSchema(PersistenceUnitInfo info, Map map);
-    
-    boolean generateSchema(String persistenceUnitName, Map map);
 }
 

@@ -22,18 +22,16 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-
 package javax.persistence.criteria;
 
 import java.util.Set;
 import javax.persistence.metamodel.SetAttribute;
 
-
 public interface SetJoin<Z, E> extends PluralJoin<Z, Set<E>, E> {
 
-    SetAttribute<? super Z, E> getModel();
-    
     SetJoin<Z, E> on(Expression<Boolean> restriction);
     
     SetJoin<Z, E> on(Predicate... restrictions);
+
+    SetAttribute<? super Z, E> getModel();
 }

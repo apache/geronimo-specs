@@ -22,19 +22,17 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-
 package javax.persistence.criteria;
 
 import java.util.Collection;
 import javax.persistence.metamodel.CollectionAttribute;
 
-
 public interface CollectionJoin<Z, E> 
 		extends PluralJoin<Z, Collection<E>, E> {
 
-    CollectionAttribute<? super Z, E> getModel();
-    
     CollectionJoin<Z, E> on(Expression<Boolean> restriction);
     
     CollectionJoin<Z, E> on(Predicate... restrictions);
+
+    CollectionAttribute<? super Z, E> getModel();
 }

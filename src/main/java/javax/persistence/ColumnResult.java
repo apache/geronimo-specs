@@ -28,11 +28,12 @@ import java.lang.annotation.Target;
 import java.lang.annotation.Retention;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-
 @Target({}) 
 @Retention(RUNTIME)
 
 public @interface ColumnResult { 
 
     String name();
+
+    Class type() default void.class;
 }

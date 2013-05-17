@@ -30,7 +30,7 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
-
+import static javax.persistence.ConstraintMode.PROVIDER_DEFAULT;
 
 @Target({TYPE, METHOD, FIELD}) 
 @Retention(RUNTIME)
@@ -40,6 +40,8 @@ public @interface AssociationOverride {
     String name();
 
     JoinColumn[] joinColumns() default {};
+
+    ForeignKey foreignKey() default @ForeignKey(PROVIDER_DEFAULT);
 
     JoinTable joinTable() default @JoinTable;
 }

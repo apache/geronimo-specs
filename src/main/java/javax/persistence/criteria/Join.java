@@ -22,23 +22,21 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-
 package javax.persistence.criteria;
 
 import javax.persistence.metamodel.Attribute;
 
-
 public interface Join<Z, X> extends From<Z, X> {
 
-    Attribute<? super Z, ?> getAttribute();
+    Join<Z, X> on(Expression<Boolean> restriction);
 
+    Join<Z, X> on(Predicate... restrictions);
+
+    Predicate getOn();
+    
+    Attribute<? super Z, ?> getAttribute();
+    
     From<?, Z> getParent();
 
     JoinType getJoinType();
-    
-    Predicate getOn();
-    
-    Join<Z, X> on(Expression<Boolean> restriction);
-    
-    Join<Z, X> on(Predicate... restrictions);
 }

@@ -22,35 +22,16 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-package javax.persistence;
+package javax.persistence; 
 
 import java.lang.annotation.Target;
 import java.lang.annotation.Retention;
-import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
-import static javax.persistence.ConstraintMode.PROVIDER_DEFAULT;
 
-@Target({METHOD, FIELD}) 
+@Target({TYPE}) 
 @Retention(RUNTIME)
+public @interface NamedStoredProcedureQueries { 
 
-public @interface JoinTable {
-
-    String name() default "";
-
-    String catalog() default "";
-
-    String schema() default "";
-
-    JoinColumn[] joinColumns() default {};
-
-    JoinColumn[] inverseJoinColumns() default {};
-
-    ForeignKey foreignKey() default @ForeignKey(PROVIDER_DEFAULT);
-
-    ForeignKey inverseForeignKey() default @ForeignKey(PROVIDER_DEFAULT);
-
-    UniqueConstraint[] uniqueConstraints() default {};
-
-    Index[] indexes() default {};
+    NamedStoredProcedureQuery[] value ();
 }

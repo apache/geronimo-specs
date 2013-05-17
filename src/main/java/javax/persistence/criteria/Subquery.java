@@ -22,12 +22,10 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-
 package javax.persistence.criteria;
 
 import java.util.List;
 import java.util.Set;
-
 
 public interface Subquery<T> extends AbstractQuery<T>, Expression<T> {
 
@@ -61,9 +59,11 @@ public interface Subquery<T> extends AbstractQuery<T>, Expression<T> {
 
     AbstractQuery<?> getParent();
 
+    CommonAbstractCriteria getContainingQuery();
+	
     Expression<T> getSelection();
 
     Set<Join<?, ?>> getCorrelatedJoins();
 
-    CommonAbstractCriteria getContainingQuery();
 }
+

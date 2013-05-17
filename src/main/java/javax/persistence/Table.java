@@ -29,7 +29,6 @@ import java.lang.annotation.Retention;
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-
 @Target(TYPE) 
 @Retention(RUNTIME)
 public @interface Table {
@@ -41,4 +40,6 @@ public @interface Table {
     String schema() default "";
 
     UniqueConstraint[] uniqueConstraints() default {};
+
+    Index[] indexes() default {};
 }

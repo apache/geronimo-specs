@@ -30,7 +30,6 @@ import java.lang.annotation.Retention;
 import static java.lang.annotation.RetentionPolicy.*;
 
 
-
 @Target({TYPE, METHOD, FIELD})
 @Retention(RUNTIME)
 public @interface PersistenceContext {
@@ -40,6 +39,8 @@ public @interface PersistenceContext {
     String unitName() default "";
 
     PersistenceContextType type() default PersistenceContextType.TRANSACTION;
+
+    SynchronizationType synchronization() default SynchronizationType.SYNCHRONIZED;
 
     PersistenceProperty[] properties() default {};
 }

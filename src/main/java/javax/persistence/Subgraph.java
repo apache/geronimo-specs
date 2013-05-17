@@ -22,35 +22,35 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
+
 package javax.persistence;
 
-import java.lang.annotation.Target;
-import java.lang.annotation.Retention;
-import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
-import static javax.persistence.ConstraintMode.PROVIDER_DEFAULT;
+import javax.persistence.metamodel.Attribute;
+import java.util.List;
 
-@Target({METHOD, FIELD}) 
-@Retention(RUNTIME)
+public interface Subgraph<T> {
 
-public @interface JoinTable {
+    public void addAttributeNodes(String ... attributeName);
 
-    String name() default "";
+    public void addAttributeNodes(Attribute<T, ?> ... attribute);
 
-    String catalog() default "";
+    public <X> Subgraph<X> addSubgraph(Attribute<T, X> attribute);
 
-    String schema() default "";
+    public <X> Subgraph<? extends X> addSubgraph(Attribute<T, X> attribute, Class<? extends X> type);
 
-    JoinColumn[] joinColumns() default {};
+    public <X> Subgraph<X> addSubgraph(String attributeName);
 
-    JoinColumn[] inverseJoinColumns() default {};
+    public <X> Subgraph<X> addSubgraph(String attributeName, Class<X> type);
 
-    ForeignKey foreignKey() default @ForeignKey(PROVIDER_DEFAULT);
+    public <X> Subgraph<X> addKeySubgraph(Attribute<T, X> attribute);
 
-    ForeignKey inverseForeignKey() default @ForeignKey(PROVIDER_DEFAULT);
+    public <X> Subgraph<? extends X> addKeySubgraph(Attribute<T, X> attribute, Class<? extends X> type);
 
-    UniqueConstraint[] uniqueConstraints() default {};
+    public <X> Subgraph<X> addKeySubgraph(String attributeName);
 
-    Index[] indexes() default {};
+    public <X> Subgraph<X> addKeySubgraph(String attributeName, Class<X> type);
+
+    public List<AttributeNode<?>> getAttributeNodes();
+
+    public Class<T> getClassType();
 }

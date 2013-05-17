@@ -26,31 +26,14 @@ package javax.persistence;
 
 import java.lang.annotation.Target;
 import java.lang.annotation.Retention;
-import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
-import static javax.persistence.ConstraintMode.PROVIDER_DEFAULT;
 
-@Target({METHOD, FIELD}) 
+@Target({}) 
 @Retention(RUNTIME)
 
-public @interface JoinTable {
+public @interface ConstructorResult { 
 
-    String name() default "";
+    Class targetClass();
 
-    String catalog() default "";
-
-    String schema() default "";
-
-    JoinColumn[] joinColumns() default {};
-
-    JoinColumn[] inverseJoinColumns() default {};
-
-    ForeignKey foreignKey() default @ForeignKey(PROVIDER_DEFAULT);
-
-    ForeignKey inverseForeignKey() default @ForeignKey(PROVIDER_DEFAULT);
-
-    UniqueConstraint[] uniqueConstraints() default {};
-
-    Index[] indexes() default {};
+    ColumnResult[] columns();
 }
