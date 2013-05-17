@@ -22,24 +22,29 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-
 package javax.persistence;
 
-import java.util.Set;
 import java.util.Map;
+import java.util.List;
 import javax.persistence.metamodel.Metamodel;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-
+import javax.persistence.criteria.CriteriaUpdate;
+import javax.persistence.criteria.CriteriaDelete;
 
 public interface EntityManager {
 
     public void persist(Object entity);
+    
     public <T> T merge(T entity);
+
     public void remove(Object entity);
+    
     public <T> T find(Class<T> entityClass, Object primaryKey);
+    
     public <T> T find(Class<T> entityClass, Object primaryKey, 
                       Map<String, Object> properties); 
+    
     public <T> T find(Class<T> entityClass, Object primaryKey,
                       LockModeType lockMode);
 
@@ -70,6 +75,7 @@ public interface EntityManager {
 
     public void refresh(Object entity, LockModeType lockMode,
                         Map<String, Object> properties);
+    
     public void clear();
 
     public void detach(Object entity); 
@@ -86,6 +92,10 @@ public interface EntityManager {
 
     public <T> TypedQuery<T> createQuery(CriteriaQuery<T> criteriaQuery); 
 
+    public Query createQuery(CriteriaUpdate updateQuery);
+
+    public Query createQuery(CriteriaDelete deleteQuery);
+
     public <T> TypedQuery<T> createQuery(String qlString, Class<T> resultClass);
 
     public Query createNamedQuery(String name);
@@ -98,7 +108,19 @@ public interface EntityManager {
 
     public Query createNativeQuery(String sqlString, String resultSetMapping);
 
+    public StoredProcedureQuery createNamedStoredProcedureQuery(String name);
+
+    public StoredProcedureQuery createStoredProcedureQuery(String procedureName);
+
+    public StoredProcedureQuery createStoredProcedureQuery(
+	       String procedureName, Class... resultClasses);
+
+    public StoredProcedureQuery createStoredProcedureQuery(
+              String procedureName, String... resultSetMappings);
+
     public void joinTransaction();
+
+    public boolean isJoinedToTransaction();
 
     public <T> T unwrap(Class<T> cls); 
 
@@ -115,4 +137,13 @@ public interface EntityManager {
     public CriteriaBuilder getCriteriaBuilder();
 
     public Metamodel getMetamodel();
+
+    public <T> EntityGraph<T> createEntityGraph(Class<T> rootType);
+
+    public EntityGraph<?> createEntityGraph(String graphName);
+
+    public  EntityGraph<?> getEntityGraph(String graphName);
+
+    public <T> List<EntityGraph<? super T>> getEntityGraphs(Class<T> entityClass);
+
 }

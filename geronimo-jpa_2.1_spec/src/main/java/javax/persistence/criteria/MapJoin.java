@@ -22,15 +22,17 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-
 package javax.persistence.criteria;
 
 import java.util.Map;
 import javax.persistence.metamodel.MapAttribute;
 
-
 public interface MapJoin<Z, K, V> 
 		extends PluralJoin<Z, Map<K, V>, V> {
+
+    MapJoin<Z, K, V> on(Expression<Boolean> restriction);
+
+    MapJoin<Z, K, V> on(Predicate... restrictions);
 
     MapAttribute<? super Z, K, V> getModel();
 
@@ -39,8 +41,4 @@ public interface MapJoin<Z, K, V>
     Path<V> value(); 
 
     Expression<Map.Entry<K, V>> entry();
-    
-    MapJoin<Z, K, V> on(Expression<Boolean> restriction);
-    
-    MapJoin<Z, K, V> on(Predicate... restrictions);
 }

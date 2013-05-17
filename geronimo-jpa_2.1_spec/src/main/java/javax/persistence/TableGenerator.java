@@ -31,7 +31,6 @@ import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-
 @Target({TYPE, METHOD, FIELD}) 
 @Retention(RUNTIME)
 public @interface TableGenerator {
@@ -55,4 +54,6 @@ public @interface TableGenerator {
     int allocationSize() default 50;
 
     UniqueConstraint[] uniqueConstraints() default {};
+
+    Index[] indexes() default {};
 }

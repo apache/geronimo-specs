@@ -22,11 +22,10 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-
 package javax.persistence.criteria;
 
-import javax.persistence.metamodel.EntityType;
 import javax.persistence.metamodel.SingularAttribute;
+import javax.persistence.metamodel.EntityType;
 
 public interface CriteriaUpdate<T> extends CommonAbstractCriteria {
 

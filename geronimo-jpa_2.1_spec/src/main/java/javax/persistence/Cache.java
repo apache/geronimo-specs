@@ -22,10 +22,7 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-
-
 package javax.persistence;
-
 
 public interface Cache {
 
@@ -36,4 +33,6 @@ public interface Cache {
     public void evict(Class cls);
 
     public void evictAll();
+
+    public <T> T unwrap(Class<T> cls);
 }

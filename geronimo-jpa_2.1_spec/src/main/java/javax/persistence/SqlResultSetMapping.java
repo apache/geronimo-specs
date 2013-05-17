@@ -29,7 +29,6 @@ import java.lang.annotation.Retention;
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-
 @Target({TYPE}) 
 @Retention(RUNTIME)
 public @interface SqlResultSetMapping { 
@@ -37,6 +36,8 @@ public @interface SqlResultSetMapping {
     String name(); 
 
     EntityResult[] entities() default {};
+
+    ConstructorResult[] classes() default {};
 
     ColumnResult[] columns() default {};
 }

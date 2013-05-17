@@ -22,35 +22,22 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
+
 package javax.persistence;
 
 import java.lang.annotation.Target;
 import java.lang.annotation.Retention;
-import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
-import static javax.persistence.ConstraintMode.PROVIDER_DEFAULT;
 
-@Target({METHOD, FIELD}) 
+@Target({})
 @Retention(RUNTIME)
+public @interface NamedSubgraph {
 
-public @interface JoinTable {
+    String name();
 
-    String name() default "";
+    Class type() default void.class;
 
-    String catalog() default "";
-
-    String schema() default "";
-
-    JoinColumn[] joinColumns() default {};
-
-    JoinColumn[] inverseJoinColumns() default {};
-
-    ForeignKey foreignKey() default @ForeignKey(PROVIDER_DEFAULT);
-
-    ForeignKey inverseForeignKey() default @ForeignKey(PROVIDER_DEFAULT);
-
-    UniqueConstraint[] uniqueConstraints() default {};
-
-    Index[] indexes() default {};
+    NamedAttributeNode[] attributeNodes();
 }
+
+
