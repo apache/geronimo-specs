@@ -23,9 +23,9 @@ package javax.mail;
  * @version $Rev$ $Date$
  */
 public class MessagingException extends Exception {
-	
-	private static final long serialVersionUID = -7569192289819959253L;
-	
+
+    private static final long serialVersionUID = -7569192289819959253L;
+
     // Required because serialization expects it to be here
     private Exception next;
 
@@ -42,13 +42,12 @@ public class MessagingException extends Exception {
         next = cause;
     }
 
-    public Exception getNextException() {
+    public synchronized Exception getNextException() {
         return next;
     }
 
     public synchronized boolean setNextException(Exception cause) {
         if (next == null) {
-            initCause(cause);
             next = cause;
             return true;
         } else if (next instanceof MessagingException) {
@@ -70,5 +69,13 @@ public class MessagingException extends Exception {
                     + next.getMessage()
                     + ")";
         }
+    }
+    
+    /**
+     * MessagingException uses the nextException to provide a legacy chained throwable.
+     * override the getCause method to return the nextException.
+     */
+    public synchronized  Throwable getCause() {
+        return next;
     }
 }
