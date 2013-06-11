@@ -26,8 +26,8 @@
 
     <parent>
         <groupId>org.apache.geronimo.genesis</groupId>
-        <artifactId>genesis-java5-flava</artifactId>
-        <version>2.1</version>
+        <artifactId>genesis-java7-flava</artifactId>
+        <version>2.2-SNAPSHOT</version>
     </parent>
 
     <groupId>org.apache.geronimo.specs</groupId>
@@ -56,6 +56,24 @@
         <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-servlet_3.1_spec/</developerConnection>
         <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-servlet_3.1_spec/</url>
     </scm>
+
+    <!-- Added temporarily for genesis-java7-flava SNAPSHOT dependency -->
+    <repositories>
+        <repository>
+            <id>apache.snapshots</id>
+            <name>Apache Snapshots Repository</name>
+            <url>http://repository.apache.org/snapshots</url>
+            <layout>default</layout>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>daily</updatePolicy>
+                <checksumPolicy>ignore</checksumPolicy>
+            </snapshots>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>
+    </repositories>
 
     <build>
         <plugins>

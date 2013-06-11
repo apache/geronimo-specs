@@ -94,7 +94,7 @@ public interface ManagedTaskListener
     void taskSubmitted(Future<?> future, ManagedExecutorService executor);
 
     /**
-     * Called when a task’s Future has been cancelled anytime
+     * Called when a task's Future has been cancelled anytime
      * during the life of a task.  This method may be called after taskDone().
      *
      * The <code>Future.isCancelled()</code> method returns false if the task was aborted
