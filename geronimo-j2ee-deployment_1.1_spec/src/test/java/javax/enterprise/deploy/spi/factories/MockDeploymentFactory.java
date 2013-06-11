@@ -33,9 +33,15 @@ import javax.enterprise.deploy.spi.exceptions.DeploymentManagerCreationException
  * @version $Rev$ $Date$
  */
 public class MockDeploymentFactory implements DeploymentFactory {
+
+    private String scheme;
+
+    public MockDeploymentFactory(String scheme) {
+        this.scheme = scheme;
+    }
+
     public boolean handlesURI(String uri) {
-        // for the moment we accept all uri's
-        return true;
+        return uri != null && uri.startsWith(scheme);
     }
 
     public DeploymentManager getDeploymentManager(String uri, String username, String password) throws DeploymentManagerCreationException {
