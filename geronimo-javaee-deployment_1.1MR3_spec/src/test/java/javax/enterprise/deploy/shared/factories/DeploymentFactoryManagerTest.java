@@ -40,6 +40,7 @@ import javax.enterprise.deploy.spi.factories.MockDeploymentFactory;
  */
 public class DeploymentFactoryManagerTest extends TestCase {
     private DeploymentFactoryManager factoryManager;
+    private MockDeploymentFactory mockFactory = new MockDeploymentFactory("deployer");
 
     protected void setUp() throws Exception {
         super.setUp();
@@ -100,7 +101,7 @@ public class DeploymentFactoryManagerTest extends TestCase {
     public void testRegisterDeploymentFactory() {
         int initialNumberOfFactories = factoryManager.getDeploymentFactories().length;
 
-        DeploymentFactory factory = new MockDeploymentFactory();
+        DeploymentFactory factory = new MockDeploymentFactory("foo");
         factoryManager.registerDeploymentFactory(factory);
 
         int expectedNumberOfFactories = initialNumberOfFactories + 1;
@@ -145,10 +146,12 @@ public class DeploymentFactoryManagerTest extends TestCase {
     }
 
     private void ensureFactoryRegistered() {
-        int numberOfFactories = factoryManager.getDeploymentFactories().length;
-        if(numberOfFactories == 0) {
-            factoryManager.registerDeploymentFactory(new MockDeploymentFactory());
+        DeploymentFactory[] factories = factoryManager.getDeploymentFactories();
+        for (int i = 0; i < factories.length; i++) {
+            if (factories[i] == mockFactory) {
+                return;
+            }
         }
-        assertTrue("We should have a registered DeploymentFactory", numberOfFactories > 0);
+        factoryManager.registerDeploymentFactory(new MockDeploymentFactory("deployer"));
     }
 }
