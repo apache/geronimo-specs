@@ -207,7 +207,23 @@ public interface BeanManager
      * @return true if given type is a qualifier, false otherwise
      */    
     public boolean isQualifier(Class<? extends Annotation> annotationType);
-    
+
+    /**
+     * Check whether the 2 given qualifiers are the same.
+     * This takes {@link javax.enterprise.util.Nonbinding} into account by ignoring
+     * those properties.
+     * @param qualifier1
+     * @param qualifier2
+     * @return <code>true</code> if all non-nonbinding attributes are equals, <code>false</code> otherwise
+     */
+    public boolean areQualifiersEquivalent(Annotation qualifier1, Annotation qualifier2);
+
+    /**
+     * @param qualifier
+     * @return the hashCode of the Annotation. All {@link javax.enterprise.util.Nonbinding} fields get ignored
+     */
+    public int getQualifierHashCode(Annotation qualifier);
+
     /**
      * Returns true if given type is a interceptor binding, false otherwise.
      * 
@@ -215,8 +231,25 @@ public interface BeanManager
      * @return true if given type is a interceptor binding, false otherwise
      */        
     public boolean isInterceptorBinding(Class<? extends Annotation> annotationType);
-    
-        
+
+    /**
+     * Check whether the 2 given Interceptor Binding annotations are the same.
+     * This takes {@link javax.enterprise.util.Nonbinding} into account by ignoring
+     * those properties.
+     * @param interceptorBinding1
+     * @param interceptorBinding2
+     * @return <code>true</code> if all non-nonbinding attributes are equals, <code>false</code> otherwise
+     */
+    public boolean areInterceptorBindingsEquivalent(Annotation interceptorBinding1, Annotation interceptorBinding2);
+
+    /**
+     * @param interceptorBinding
+     * @return the hashCode of the Annotation. All {@link javax.enterprise.util.Nonbinding} fields get ignored
+     */
+    public int getInterceptorBindingHashCode(Annotation interceptorBinding);
+
+
+
     /**
      * Returns true if given type is a stereotype type, false otherwise.
      * 
@@ -274,7 +307,104 @@ public interface BeanManager
      * @return injection target
      */
     public <T> InjectionTarget<T> createInjectionTarget(AnnotatedType<T> type);
-    
+
+    /**
+     * Create an {@link InjectionPoint} for an annotated field.
+     * @param field
+     * @throws IllegalArgumentException if there is a definition error on the given field
+     * @return injection point
+     */
+    public InjectionPoint createInjectionPoint(AnnotatedField<?> field);
+
+    /**
+     * Create an {@link InjectionPoint} for an annotated parameter.
+     * @param parameter
+     * @throws IllegalArgumentException if there is a definition error on the given parameter
+     * @return injection point
+     */
+    public InjectionPoint createInjectionPoint(AnnotatedParameter<?> parameter);
+
+    /**
+     * @param type
+     * @param <T>
+     * @return the InjectionTargetFactory which is able to create {@link InjectionTarget}s for the given AnnotatedType.
+     */
+    public <T> InjectionTargetFactory<T> getInjectionTargetFactory(AnnotatedType<T> type);
+
+    /**
+     * @param field
+     * @param declaringBean
+     * @param <X>
+     * @return the ProducerFactory which is able to create {@link Producer}s for the given AnnotatedField.
+     */
+    public <X> ProducerFactory<X> getProducerFactory(AnnotatedField<? super X> field, Bean<X> declaringBean);
+
+    /**
+     * @param method
+     * @param declaringBean
+     * @param <X>
+     * @return the ProducerFactory which is able to create {@link Producer}s for the given AnnotatedMethod.
+     */
+    public <X> ProducerFactory<X> getProducerFactory(AnnotatedMethod<? super X> method, Bean<X> declaringBean);
+
+    /**
+     * This method creates bean meta information from a given {@link AnnotatedType}.
+     * The created BeanAttributes can later be used to create a {@link Bean}
+     * via {@link #createBean(BeanAttributes, Class, InjectionTargetFactory)} or
+     * {@link #createBean(BeanAttributes, Class, ProducerFactory)}
+     *
+     * @param type
+     * @param <T>
+     * @return the BeanAttributes created from parsing the given AnnotatedType
+     */
+    public <T> BeanAttributes<T> createBeanAttributes(AnnotatedType<T> type);
+
+    /**
+     * This method creates bean meta information from a given {@link AnnotatedMember}.
+     * The created BeanAttributes can later be used to create a {@link Bean}
+     * via {@link #createBean(BeanAttributes, Class, InjectionTargetFactory)} or
+     * {@link #createBean(BeanAttributes, Class, ProducerFactory)}.
+     *
+     * @param member
+     * @return the BeanAttributes created from parsing the given AnnotatedType
+     */
+    public BeanAttributes<?> createBeanAttributes(AnnotatedMember<?> member);
+
+    /**
+     * Create a {@link Bean} from the given bean attributes.
+     * This version of the method uses a given {@link InjectionTargetFactory}.
+     * @param attributes
+     * @param beanClass
+     * @param injectionTargetFactory
+     * @param <T>
+     * @return the container created Bean
+     */
+    public <T> Bean<T> createBean(BeanAttributes<T> attributes, Class<T> beanClass,
+                                  InjectionTargetFactory<T> injectionTargetFactory);
+
+    /**
+     * Create a {@link Bean} from the given bean attributes.
+     * This version of the method uses a given {@link ProducerFactory}.
+     * @param attributes
+     * @param beanClass
+     * @param producerFactory
+     * @param <T>
+     * @return the container created Bean
+     */
+    public <T, X> Bean<T> createBean(BeanAttributes<T> attributes, Class<X> beanClass,
+                                     ProducerFactory<X> producerFactory);
+
+    /**
+     * Resolves the Extension instance which gets used by this very BeanManager.
+     * The given <code>extensionClass</code> must be the effective class registered
+     * into META-INF/services and not some base class.
+     *
+     * @param extensionClass
+     * @param <T>
+     * @return the Extension instance of this very BeanManager
+     */
+    public <T extends Extension> T getExtension(Class<T> extensionClass);
+
     /**
      * Wrapped around given expression factory and add CDI functionality.
      * @param expressionFactory expression factory
