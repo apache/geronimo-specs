@@ -76,5 +76,12 @@ public interface Instance<T> extends Iterable<T>, Provider<T>
      */
     public boolean isAmbiguous();
 
+    /**
+     * Destroy the given Contextual Instance.
+     * This is especially intended for {@link javax.enterprise.context.Dependent} scoped beans
+     * which might otherwise create mem leaks.
+     * @param instance
+     */
+    public void destroy(T instance);
 
 }
