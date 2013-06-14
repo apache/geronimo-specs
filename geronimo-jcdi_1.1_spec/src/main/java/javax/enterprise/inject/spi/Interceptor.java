@@ -56,7 +56,8 @@ public interface Interceptor<T> extends Bean<T>
      * @param ctx the InvocationContext contains all the interceptor chain state for a single invocation.
      * @return the object or wrapper type returned by the intercepted instance or the previous interceptor
      *         (if this is not the last interceptor in the chain)
+     * @throws Exception wrapped from the intercepted instance. See CDI-115
      */
-    public Object intercept(InterceptionType type, T instance, InvocationContext ctx);
+    public Object intercept(InterceptionType type, T instance, InvocationContext ctx) throws Exception;
 
 }
