@@ -56,4 +56,23 @@ public interface AfterBeanDiscovery
      * @param context new context
      */
     public void addContext(Context context);
+
+    /**
+     * This will return the AnnotatedType including all changes applied by CDI Extensions.
+     *
+     * @param type
+     * @param id the id of the AnnotatedType registered by {@link BeforeBeanDiscovery#addAnnotatedType(AnnotatedType, String)}
+     *           or <code>null</code> for the one scanned
+     * @param <T>
+     * @return the AnnotatedType for the given type and id.
+     */
+    public <T> AnnotatedType<T> getAnnotatedType(Class<T> type, String id);
+
+    /**
+     * Get an Iterable of all AnnotatedTypes which implement the given
+     * @param type
+     * @param <T>
+     * @return
+     */
+    public <T> Iterable<AnnotatedType<T>> getAnnotatedTypes(Class<T> type);
 }
