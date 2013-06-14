@@ -35,6 +35,13 @@ public interface BeforeBeanDiscovery
      * @param qualifier qualifier
      */
     public void addQualifier(Class<? extends Annotation> qualifier);
+
+    /**
+     * Declare a new qualifier via the information from the given AnnotatedType.
+     * @param qualifier
+     */
+    public void addQualifier(AnnotatedType<? extends Annotation> qualifier);
+
     
     /**
      * Declares a new scope.
@@ -60,13 +67,28 @@ public interface BeforeBeanDiscovery
      * @param bindingDef meta annotations
      */
     public void addInterceptorBinding(Class<? extends Annotation> binding, Annotation... bindingDef);
+
+    /**
+     * Declare a new interceptor binding via the information from the given AnnotatedType.
+     * @param bindingType
+     */
+    public void addInterceptorBinding(AnnotatedType<? extends Annotation> bindingType);
     
     /**
      * Adds new annotated type.
+     * This version shall be used when adding AnnotatedTypes for classes which are
+     * not yet scanned by the CDI container.
      * 
      * @param type annotated type
      */
     public void addAnnotatedType(AnnotatedType<?> type);
 
-
+    /**
+     * Adds new annotated type for classes which are not picked up by the CDI container
+     * or if you like to add multiple AnnotatedType for the same class.
+     *
+     * @param type annotated type
+     * @param id to distinguish AnnotatedTypes for the same class.
+     */
+     public void addAnnotatedType(AnnotatedType<?> type, String id);
 }
