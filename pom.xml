@@ -52,6 +52,7 @@
       <module>geronimo-concurrent_1.0_spec</module>
       <module>geronimo-ejb_3.0_spec</module>
       <module>geronimo-ejb_3.1_spec</module>
+      <module>geronimo-ejb_3.2_spec</module>
       <module>geronimo-el_1.0_spec</module>
       <module>geronimo-el_2.2_spec</module>
       <module>geronimo-interceptor_1.1_spec</module>
