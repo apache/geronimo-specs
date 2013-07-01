@@ -444,7 +444,7 @@ public class BeanELResolver extends ELResolver {
                         Object targetArray = Array.newInstance(varArgsClassType.getComponentType(), params.length - iCurrentIndex);
                         Class<?> componentClassType = varArgsClassType.getComponentType();
                         for (int i = 0, iLoopSize = params.length - iCurrentIndex; i < iLoopSize; i++) {
-                            Array.set(targetArray, i, expressionFactory.coerceToType(iCurrentIndex + i, componentClassType));
+                            Array.set(targetArray, i, expressionFactory.coerceToType(params[iCurrentIndex + i], componentClassType));
                         }
                         finalParamValues[iCurrentIndex] = targetArray;
                     }
