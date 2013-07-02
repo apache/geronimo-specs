@@ -25,7 +25,7 @@ package javax.enterprise.inject.spi;
  *
  * @see DefinitionException
  */
-public class DeploymentException extends Exception
+public class DeploymentException extends RuntimeException
 {
     public DeploymentException() {
     }
