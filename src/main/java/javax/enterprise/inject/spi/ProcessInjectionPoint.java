@@ -19,35 +19,29 @@
 package javax.enterprise.inject.spi;
 
 /**
- * Fired for each observer.
- * 
- * @version $Rev$ $Date$
+ * Gets fired for each InjectionPoint.
  *
  * @param <T> observed event type
  * @param <X> bean class
  */
-public interface ProcessObserverMethod<T, X>
+public interface ProcessInjectionPoint<T, X>
 {
     /**
-     * Returns annotated method.
-     * 
-     * @return annotated method
+     * @return the InjectionPoint created from originally parsing the AnnotatedType.
      */
-    public AnnotatedMethod<X> getAnnotatedMethod();
-    
-    /**
-     * Returns observer method instance that
-     * is called by the container on event. 
-     * 
-     * @return observer method instance
-     */
-    public ObserverMethod<T> getObserverMethod();
+    public InjectionPoint getInjectionPoint();
 
     /**
-     * Add throwable.
-     * 
+     * Replace the original InjectionPoint point with the given one.
+     * @param injectionPoint
+     */
+    public void setInjectionPoint(InjectionPoint injectionPoint);
+
+    /**
+     * Adding definition error. Container aborts
+     * processing after calling all observers.
+     *
      * @param t throwable
      */
     public void addDefinitionError(Throwable t);
-    
 }
