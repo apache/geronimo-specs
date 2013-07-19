@@ -59,6 +59,9 @@ public class MimetypesFileTypeMap extends FileTypeMap {
         // defaults from resources called /META-INF/mime.types
         try {
             ClassLoader cl = MimetypesFileTypeMap.class.getClassLoader();
+            if (cl == null) {
+                cl = ClassLoader.getSystemClassLoader();
+            }
             Enumeration e = cl.getResources("/META-INF/mime.types");
             while (e.hasMoreElements()) {
                 URL url = (URL) e.nextElement();
