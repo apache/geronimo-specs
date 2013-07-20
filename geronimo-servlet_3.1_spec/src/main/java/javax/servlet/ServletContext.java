@@ -732,6 +732,21 @@ public interface ServletContext {
      */
     JspConfigDescriptor getJspConfigDescriptor ();
 
+    /**
+     * Returns the configuration name of the logical host on which the ServletContext is deployed. 
+     * Servlet containers may support multiple logical hosts. This method must return the same name
+     * for all the servlet contexts deployed on a logical host, and the name returned by this method 
+     * must be distinct, stable per logical host, and suitable for use in associating server 
+     * configuration information with the logical host. The returned value is NOT expected or 
+     * required to be equivalent to a network address or hostname of the logical host.
+     * 
+     * @return a String containing the configuration name of the logical host on which the servlet
+     *         context is deployed.
+     * @throws UnsupportedOperationException - if this ServletContext was passed to the 
+     *         ServletContextListener.contextInitialized(javax.servlet.ServletContextEvent)  method
+     *         of a ServletContextListener that was neither declared in web.xml or web-fragment.xml, 
+     *         nor annotated with WebListener
+     * @since Servlet 3.1
+     */
+    String getVirtualServerName();
 }
-
-
