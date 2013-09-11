@@ -93,6 +93,7 @@
       <module>geronimo-validation_1.0_spec</module>
       <module>geronimo-ws-metadata_2.0_spec</module>
       <module>geronimo-websockets_1.0_spec</module>
+      <module>geronimo-jbatch_1.0_spec</module>
     </modules>
 
 
