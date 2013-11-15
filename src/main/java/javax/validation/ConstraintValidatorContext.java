@@ -5,9 +5,9 @@
  * licenses this file to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
@@ -26,16 +26,30 @@ public interface ConstraintValidatorContext {
 
     ConstraintViolationBuilder buildConstraintViolationWithTemplate(String messageTemplate);
 
+    /** @since 1.1 */
+    <T> T unwrap(Class<T> type);
+
     interface ConstraintViolationBuilder {
         NodeBuilderDefinedContext addNode(String name);
 
         ConstraintValidatorContext addConstraintViolation();
+
+        // @since 1.1
+
+        NodeBuilderCustomizableContext addPropertyNode(String name);
+        LeafNodeBuilderCustomizableContext addBeanNode();
+        NodeBuilderDefinedContext addParameterNode(int index);
 
         interface NodeBuilderDefinedContext {
 
             NodeBuilderCustomizableContext addNode(String name);
 
             ConstraintValidatorContext addConstraintViolation();
+
+            // @since 1.1
+
+            NodeBuilderCustomizableContext addPropertyNode(String name);
+            LeafNodeBuilderCustomizableContext addBeanNode();
         }
 
         interface NodeBuilderCustomizableContext {
@@ -45,6 +59,11 @@ public interface ConstraintValidatorContext {
             NodeBuilderCustomizableContext addNode(String name);
 
             ConstraintValidatorContext addConstraintViolation();
+
+            // @since 1.1
+
+            NodeBuilderCustomizableContext addPropertyNode(String name);
+            LeafNodeBuilderCustomizableContext addBeanNode();
         }
 
         interface NodeContextBuilder {
@@ -55,6 +74,29 @@ public interface ConstraintValidatorContext {
 
             NodeBuilderCustomizableContext addNode(String name);
 
+            ConstraintValidatorContext addConstraintViolation();
+
+            // @since 1.1
+
+            NodeBuilderCustomizableContext addPropertyNode(String name);
+            LeafNodeBuilderCustomizableContext addBeanNode();
+        }
+
+        /** @since 1.1 */
+        interface LeafNodeBuilderDefinedContext {
+            ConstraintValidatorContext addConstraintViolation();
+        }
+
+        /** @since 1.1 */
+        interface LeafNodeBuilderCustomizableContext {
+            LeafNodeContextBuilder inIterable();
+            ConstraintValidatorContext addConstraintViolation();
+        }
+
+        /** @since 1.1 */
+        interface LeafNodeContextBuilder {
+            LeafNodeBuilderDefinedContext atKey(Object key);
+            LeafNodeBuilderDefinedContext atIndex(Integer index);
             ConstraintValidatorContext addConstraintViolation();
         }
     }

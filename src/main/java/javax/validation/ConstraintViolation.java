@@ -38,5 +38,11 @@ public interface ConstraintViolation<T> {
     Object getInvalidValue();
 
     ConstraintDescriptor<?> getConstraintDescriptor();
+
+    // @since 1.1
+
+    Object[] getExecutableParameters();
+    Object getExecutableReturnValue();
+    <U> U unwrap(Class<U> type);
 }
 

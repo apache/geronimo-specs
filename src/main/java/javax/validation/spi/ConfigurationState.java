@@ -16,12 +16,13 @@
  */
 package javax.validation.spi;
 
+import javax.validation.ConstraintValidatorFactory;
+import javax.validation.MessageInterpolator;
+import javax.validation.ParameterNameProvider;
+import javax.validation.TraversableResolver;
 import java.io.InputStream;
 import java.util.Map;
 import java.util.Set;
-import javax.validation.ConstraintValidatorFactory;
-import javax.validation.MessageInterpolator;
-import javax.validation.TraversableResolver;
 
 /**
  * @version $Rev$ $Date$
@@ -39,5 +40,8 @@ public interface ConfigurationState {
     TraversableResolver getTraversableResolver();
 
     Map<String, String> getProperties();
+
+    /** @since 1.1 */
+    ParameterNameProvider getParameterNameProvider();
 }
 

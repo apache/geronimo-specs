@@ -16,8 +16,8 @@
  */
 package javax.validation;
 
-import java.util.List;
 import javax.validation.spi.ValidationProvider;
+import java.util.List;
 
 /**
  * @version $Rev$ $Date$

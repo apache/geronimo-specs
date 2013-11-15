@@ -16,8 +16,9 @@
  */
 package javax.validation;
 
-import java.util.Set;
+import javax.validation.executable.ExecutableValidator;
 import javax.validation.metadata.BeanDescriptor;
+import java.util.Set;
 
 /**
  * @version $Rev$ $Date$
@@ -36,6 +37,9 @@ public interface Validator {
 
     BeanDescriptor getConstraintsForClass(Class<?> clazz);
 
-    public <T> T unwrap(Class<T> type);
+    <T> T unwrap(Class<T> type);
+
+    /** @since 1.1 */
+    ExecutableValidator forExecutables();
 }
 
