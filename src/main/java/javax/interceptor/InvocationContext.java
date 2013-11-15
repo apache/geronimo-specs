@@ -25,24 +25,28 @@
 
 package javax.interceptor;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
+import java.util.Map;
 
 /**
  * @version $Rev$ $Date$
  */
 public interface InvocationContext {
 
-    public Object getTarget();
+    Object getTarget();
 
-    public Method getMethod();
+    Method getMethod();
 
-    public Object[] getParameters();
+    Constructor<?> getConstructor();
 
-    public void setParameters(Object[] parameters);
+    Object[] getParameters();
 
-    public java.util.Map<String,Object> getContextData();
+    void setParameters(Object[] parameters);
 
-    public Object proceed() throws Exception;
+    Map<String,Object> getContextData();
 
-    public Object getTimer();
+    Object proceed() throws Exception;
+
+    Object getTimer();
 }

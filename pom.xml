@@ -31,28 +31,28 @@
     </parent>
 
     <groupId>org.apache.geronimo.specs</groupId>
-    <artifactId>geronimo-interceptor_1.1_spec</artifactId>
+    <artifactId>geronimo-interceptor_1.2_spec</artifactId>
     <packaging>bundle</packaging>
-    <name>Apache Geronimo Interceptor Spec 1.1</name>
-    <version>1.1-SNAPSHOT</version>
-    <description>Interceptor API 1.1</description>
+    <name>Apache Geronimo Interceptor Spec 1.2</name>
+    <version>1.0-SNAPSHOT</version>
+    <description>Interceptor API 1.2</description>
 
-    <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
+    <url>http://geronimo.apache.org/maven/${siteId}/${project.version}</url>
     <distributionManagement>
         <site>
             <id>apache-website</id>
-            <url>${site.deploy.url}/maven/${siteId}/${version}</url>
+            <url>${site.deploy.url}/maven/${siteId}/${project.version}</url>
         </site>
     </distributionManagement>
 
     <properties>
-        <siteId>specs/${artifactId}</siteId>
+        <siteId>specs/${project.artifactId}</siteId>
     </properties>
 
     <scm>
-        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-interceptor_1.1_spec/</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-interceptor_1.1_spec/</developerConnection>
-        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-interceptor_1.1_spec/</url>
+        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-interceptor_1.2_spec/</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-interceptor_1.2_spec/</developerConnection>
+        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-interceptor_1.2_spec/</url>
     </scm>
 
     <build>
@@ -62,7 +62,7 @@
                 <artifactId>maven-bundle-plugin</artifactId>
                 <configuration>
                     <instructions>
-                        <Export-Package>javax.interceptor*;version=1.1</Export-Package>
+                        <Export-Package>javax.interceptor*;version=1.2</Export-Package>
                     </instructions>
                 </configuration>
             </plugin>

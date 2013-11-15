@@ -35,5 +35,15 @@ import java.lang.annotation.Target;
 @Documented
 public @interface Interceptor
 {
+    public static class Priority {
+        int PLATFORM_BEFORE = 0;
+        int LIBRARY_BEFORE = 1000;
+        int APPLICATION = 2000;
+        int LIBRARY_AFTER = 3000;
+        int PLATFORM_AFTER = 4000;
 
+        private Priority() {
+            // no-op
+        }
+    }
 }

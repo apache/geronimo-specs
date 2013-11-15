@@ -32,7 +32,7 @@ import java.lang.annotation.RetentionPolicy;
 /**
  * @version $Rev$ $Date$
  */
-@Target({ElementType.TYPE, ElementType.METHOD})
+@Target({ElementType.TYPE, ElementType.METHOD, ElementType.CONSTRUCTOR})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Interceptors {
     Class[] value();
