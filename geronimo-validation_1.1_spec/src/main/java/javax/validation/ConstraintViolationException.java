@@ -31,8 +31,7 @@ public class ConstraintViolationException extends ValidationException {
     }
 
     public ConstraintViolationException(Set<ConstraintViolation<?>> constraintViolations) {
-        super();
-        this.constraintViolations = constraintViolations;
+        this(null, constraintViolations);
     }
 
     public Set<ConstraintViolation<?>> getConstraintViolations() {

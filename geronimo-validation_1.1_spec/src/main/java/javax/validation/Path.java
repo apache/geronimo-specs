@@ -16,6 +16,8 @@
  */
 package javax.validation;
 
+import java.util.List;
+
 /**
  * @version $Rev$ $Date$
  */
@@ -29,6 +31,38 @@ public interface Path extends Iterable<Path.Node> {
         Integer getIndex();
 
         Object getKey();
+
+        // @since 1.1
+
+        ElementKind getKind();
+
+        <T extends Node> T as(Class<T> nodeType);
+    }
+
+    // @since 1.1
+
+    interface MethodNode extends Node {
+        List<Class<?>> getParameterTypes();
+    }
+
+    interface ConstructorNode extends Node {
+        List<Class<?>> getParameterTypes();
+    }
+
+    interface ReturnValueNode extends Node {
+    }
+
+    interface ParameterNode extends Node {
+        int getParameterIndex();
+    }
+
+    interface CrossParameterNode extends Node {
+    }
+
+    interface BeanNode extends Node {
+    }
+
+    interface PropertyNode extends Node {
     }
 }
 

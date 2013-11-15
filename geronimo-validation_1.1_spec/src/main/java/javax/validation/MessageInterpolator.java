@@ -16,8 +16,8 @@
  */
 package javax.validation;
 
-import java.util.Locale;
 import javax.validation.metadata.ConstraintDescriptor;
+import java.util.Locale;
 
 /**
  * @version $Rev$ $Date$
@@ -31,6 +31,9 @@ public interface MessageInterpolator {
         ConstraintDescriptor<?> getConstraintDescriptor();
 
         Object getValidatedValue();
+
+        /** @since 1.1 */
+        <T> T unwrap(Class<T> type);
     }
 }
 

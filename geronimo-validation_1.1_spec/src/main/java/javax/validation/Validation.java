@@ -16,26 +16,17 @@
  */
 package javax.validation;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.security.AccessController;
-import java.security.PrivilegedAction;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Enumeration;
-import java.util.List;
-import java.util.Map;
-import java.util.WeakHashMap;
+import org.apache.geronimo.osgi.locator.ProviderLocator;
 
 import javax.validation.bootstrap.GenericBootstrap;
 import javax.validation.bootstrap.ProviderSpecificBootstrap;
 import javax.validation.spi.BootstrapState;
 import javax.validation.spi.ValidationProvider;
-
-import org.apache.geronimo.osgi.locator.ProviderLocator;
+import java.security.AccessController;
+import java.security.PrivilegedAction;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.WeakHashMap;
 
 /**
  * Note: From Section 4.4.5 Validation of the 1.0 PFD Spec - Validation

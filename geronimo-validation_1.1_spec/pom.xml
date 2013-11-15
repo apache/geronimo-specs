@@ -31,28 +31,28 @@
     </parent>
 
     <groupId>org.apache.geronimo.specs</groupId>
-    <artifactId>geronimo-validation_1.0_spec</artifactId>
-    <version>1.2-SNAPSHOT</version>
+    <artifactId>geronimo-validation_1.1_spec</artifactId>
+    <version>1.0-SNAPSHOT</version>
     <packaging>bundle</packaging>
-    <name>Apache Geronimo Bean Validation Spec 1.0</name>
-    <description>Apache Geronimo implementation of the JSR-303 Bean Validation Spec API</description>
+    <name>Apache Geronimo Bean Validation Spec 1.1</name>
+    <description>Apache Geronimo implementation of the JSR-349 Bean Validation Spec API</description>
 
-    <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
+    <url>http://geronimo.apache.org/maven/${siteId}/${project.version}</url>
     <distributionManagement>
         <site>
             <id>apache-website</id>
-            <url>${site.deploy.url}/maven/${siteId}/${version}</url>
+            <url>${site.deploy.url}/maven/${siteId}/${project.version}</url>
         </site>
     </distributionManagement>
 
     <properties>
-        <siteId>specs/${artifactId}</siteId>
+        <siteId>specs/${project.artifactId}</siteId>
     </properties>
 
     <scm>
-        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-validation_1.0_spec/</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-validation_1.0_spec/</developerConnection>
-        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-validation_1.0_spec/</url>
+        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-validation_1.1_spec/</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-validation_1.1_spec/</developerConnection>
+        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-validation_1.1_spec/</url>
     </scm>
 
     <dependencies>
@@ -82,11 +82,11 @@
                 <artifactId>maven-bundle-plugin</artifactId>
                 <configuration>
                     <instructions>
-                        <Bundle-SymbolicName>${groupId}.${artifactId};singleton=true</Bundle-SymbolicName>
-                        <Specification-Title>JSR-303 Bean Validation API</Specification-Title>
+                        <Bundle-SymbolicName>${project.groupId}.${project.artifactId};singleton=true</Bundle-SymbolicName>
+                        <Specification-Title>JSR-349 Bean Validation API</Specification-Title>
                         <Specification-Vendor>Sun Microsystems, Inc.</Specification-Vendor>
                         <Specification-Version>1.0</Specification-Version>
-                        <Export-Package>javax.validation*;version=1.0</Export-Package>
+                        <Export-Package>javax.validation*;version=1.1</Export-Package>
                         <Import-Package>org.apache.geronimo.osgi.registry.api;resolution:=optional,*</Import-Package>
                         <Private-Package>org.apache.geronimo.osgi.locator</Private-Package>
                         <Bundle-Activator>org.apache.geronimo.osgi.locator.Activator</Bundle-Activator>

@@ -16,12 +16,13 @@
  */
 package javax.validation.metadata;
 
+import javax.validation.ConstraintTarget;
+import javax.validation.ConstraintValidator;
+import javax.validation.Payload;
 import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import javax.validation.ConstraintValidator;
-import javax.validation.Payload;
 
 /**
  * @version $Rev$ $Date$
@@ -41,5 +42,10 @@ public interface ConstraintDescriptor<T extends Annotation> {
     Set<ConstraintDescriptor<?>> getComposingConstraints();
 
     boolean isReportAsSingleViolation();
+
+    // @since 1.1
+
+    String getMessageTemplate();
+    ConstraintTarget getValidationAppliesTo();
 }
 

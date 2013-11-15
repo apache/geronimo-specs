@@ -22,5 +22,8 @@ package javax.validation;
 public interface ConstraintValidatorFactory {
 
     <T extends ConstraintValidator<?, ?>> T getInstance(Class<T> key);
+
+    /** @since 1.1 */
+    void releaseInstance(ConstraintValidator<?, ?> instance);
 }
 

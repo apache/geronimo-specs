@@ -19,9 +19,7 @@ package javax.validation.metadata;
 /**
  * @version $Rev$ $Date$
  */
-public interface PropertyDescriptor extends ElementDescriptor {
-    boolean isCascaded();
-
+public interface PropertyDescriptor extends ElementDescriptor, CascadableDescriptor {
     String getPropertyName();
 }
 

@@ -27,5 +27,8 @@ public interface ValidatorContext {
     ValidatorContext constraintValidatorFactory(ConstraintValidatorFactory factory);
 
     Validator getValidator();
+
+    /** @since 1.1 */
+    ValidatorContext parameterNameProvider(ParameterNameProvider parameterNameProvider);
 }
 

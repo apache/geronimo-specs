@@ -42,5 +42,12 @@ public interface Configuration<T extends Configuration<T>> {
     ConstraintValidatorFactory getDefaultConstraintValidatorFactory();
 
     ValidatorFactory buildValidatorFactory();
+
+    // @since 1.1
+
+    T parameterNameProvider(ParameterNameProvider parameterNameProvider);
+    ParameterNameProvider getDefaultParameterNameProvider();
+
+    BootstrapConfiguration getBootstrapConfiguration();
 }
 

@@ -30,6 +30,11 @@ public interface ValidatorFactory {
 
     ConstraintValidatorFactory getConstraintValidatorFactory();
 
-    public <T> T unwrap(Class<T> type);
+    <T> T unwrap(Class<T> type);
+
+    /** @since 1.1 */
+    ParameterNameProvider getParameterNameProvider();
+
+    void close();
 }
 
