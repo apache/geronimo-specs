@@ -16,6 +16,7 @@
  */
 package javax.validation;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -25,12 +26,12 @@ public class ConstraintViolationException extends ValidationException {
     private final Set<ConstraintViolation<?>> constraintViolations;
 
     public ConstraintViolationException(String message,
-            Set<ConstraintViolation<?>> constraintViolations) {
+            Set<? extends ConstraintViolation<?>> constraintViolations) {
         super(message);
-        this.constraintViolations = constraintViolations;
+        this.constraintViolations = new HashSet<ConstraintViolation<?>>(constraintViolations);
     }
 
-    public ConstraintViolationException(Set<ConstraintViolation<?>> constraintViolations) {
+    public ConstraintViolationException(Set<? extends ConstraintViolation<?>> constraintViolations) {
         this(null, constraintViolations);
     }
 
