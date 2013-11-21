@@ -16,91 +16,91 @@
     limitations under the License.
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
 
-  <parent>
-    <groupId>org.apache.geronimo.genesis</groupId>
-    <artifactId>genesis-java6-flava</artifactId>
-    <version>2.0</version>
-  </parent>
+    <parent>
+        <groupId>org.apache.geronimo.genesis</groupId>
+        <artifactId>genesis-java6-flava</artifactId>
+        <version>2.1</version>
+    </parent>
 
-  <groupId>org.apache.geronimo.specs</groupId>
-  <artifactId>geronimo-jbatch_1.0_spec</artifactId>
-  <packaging>bundle</packaging>
-  <name>Apache Geronimo JBatch Spec 1.0</name>
-  <version>1.0-SNAPSHOT</version>
+    <groupId>org.apache.geronimo.specs</groupId>
+    <artifactId>geronimo-jbatch_1.0_spec</artifactId>
+    <packaging>bundle</packaging>
+    <name>Apache Geronimo JBatch Spec 1.0</name>
+    <version>1.0-SNAPSHOT</version>
 
-  <description>Apache Geronimo implementation of the JSR-352</description>
-  <url>http://geronimo.apache.org/maven/${siteId}/${project.version}</url>
+    <description>Apache Geronimo implementation of the JSR-352</description>
+    <url>http://geronimo.apache.org/maven/${siteId}/${project.version}</url>
 
-  <distributionManagement>
-    <site>
-      <id>apache-website</id>
-      <url>${site.deploy.url}/maven/${siteId}/${project.version}</url>
-    </site>
-  </distributionManagement>
+    <distributionManagement>
+        <site>
+            <id>apache-website</id>
+            <url>${site.deploy.url}/maven/${siteId}/${project.version}</url>
+        </site>
+    </distributionManagement>
 
-  <properties>
-    <siteId>specs/${project.artifactId}</siteId>
-  </properties>
+    <properties>
+        <siteId>specs/${project.artifactId}</siteId>
+    </properties>
 
-  <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jbatch_1.0_spec/</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jbatch_1.0_spec/</developerConnection>
-    <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-jbatch_1.0_spec/</url>
-  </scm>
+    <scm>
+        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jbatch_1.0_spec/</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jbatch_1.0_spec/</developerConnection>
+        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-jbatch_1.0_spec/</url>
+    </scm>
 
-  <dependencies>
-    <dependency>
-      <groupId>org.apache.geronimo.specs</groupId>
-      <artifactId>geronimo-jcdi_1.0_spec</artifactId>
-      <version>1.0</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.geronimo.specs</groupId>
-      <artifactId>geronimo-atinject_1.0_spec</artifactId>
-      <version>1.0</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.geronimo.specs</groupId>
-      <artifactId>geronimo-osgi-locator</artifactId>
-      <version>1.0</version>
-      <scope>provided</scope>
-    </dependency>
-  </dependencies>
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-jcdi_1.0_spec</artifactId>
+            <version>1.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-atinject_1.0_spec</artifactId>
+            <version>1.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-osgi-locator</artifactId>
+            <version>1.0</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
 
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.felix</groupId>
-        <artifactId>maven-bundle-plugin</artifactId>
-        <configuration>
-          <instructions>
-            <Specification-Version>1.0</Specification-Version>
-            <Specification-Title>JSR-352 JBatch 1.0</Specification-Title>
-            <Export-Package>javax.batch*;version=1.0</Export-Package>
-            <Private-Package>org.apache.geronimo.osgi.locator</Private-Package>
-            <Bundle-Activator>org.apache.geronimo.osgi.locator.Activator</Bundle-Activator>
-            <Import-Package>
-              org.apache.geronimo.osgi.registry.api;resolution:=optional,
-              javax.inject;resolution:=optional,
-              javax.enterprise.util;resolution:=optional,
-              *
-            </Import-Package>
-          </instructions>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.1</version>
-        <configuration>
-          <target>1.6</target>
-          <source>1.6</source>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <configuration>
+                    <instructions>
+                        <Specification-Version>1.0</Specification-Version>
+                        <Specification-Title>JSR-352 JBatch 1.0</Specification-Title>
+                        <Export-Package>javax.batch*;version=1.0</Export-Package>
+                        <Private-Package>org.apache.geronimo.osgi.locator</Private-Package>
+                        <Bundle-Activator>org.apache.geronimo.osgi.locator.Activator</Bundle-Activator>
+                        <Import-Package>
+                            org.apache.geronimo.osgi.registry.api;resolution:=optional,
+                            javax.inject;resolution:=optional,
+                            javax.enterprise.util;resolution:=optional,
+                            *
+                        </Import-Package>
+                    </instructions>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <target>1.6</target>
+                    <source>1.6</source>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
