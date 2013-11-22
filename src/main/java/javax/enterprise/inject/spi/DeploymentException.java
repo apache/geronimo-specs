@@ -27,22 +27,22 @@ package javax.enterprise.inject.spi;
  */
 public class DeploymentException extends RuntimeException
 {
-    public DeploymentException() {
+    public DeploymentException()
+    {
     }
 
-    public DeploymentException(Throwable cause) {
+    public DeploymentException(Throwable cause)
+    {
         super(cause);
     }
 
-    public DeploymentException(String message) {
+    public DeploymentException(String message)
+    {
         super(message);
     }
 
-    public DeploymentException(String message, Throwable cause) {
+    public DeploymentException(String message, Throwable cause)
+    {
         super(message, cause);
-    }
-
-    public DeploymentException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(message, cause, enableSuppression, writableStackTrace);
     }
 }
