@@ -30,6 +30,7 @@ public interface ConstraintValidatorContext {
     <T> T unwrap(Class<T> type);
 
     interface ConstraintViolationBuilder {
+        @Deprecated
         NodeBuilderDefinedContext addNode(String name);
 
         ConstraintValidatorContext addConstraintViolation();
@@ -41,7 +42,7 @@ public interface ConstraintValidatorContext {
         NodeBuilderDefinedContext addParameterNode(int index);
 
         interface NodeBuilderDefinedContext {
-
+            @Deprecated
             NodeBuilderCustomizableContext addNode(String name);
 
             ConstraintValidatorContext addConstraintViolation();
@@ -56,6 +57,7 @@ public interface ConstraintValidatorContext {
 
             NodeContextBuilder inIterable();
 
+            @Deprecated
             NodeBuilderCustomizableContext addNode(String name);
 
             ConstraintValidatorContext addConstraintViolation();
@@ -72,6 +74,7 @@ public interface ConstraintValidatorContext {
 
             NodeBuilderDefinedContext atIndex(Integer index);
 
+            @Deprecated
             NodeBuilderCustomizableContext addNode(String name);
 
             ConstraintValidatorContext addConstraintViolation();
