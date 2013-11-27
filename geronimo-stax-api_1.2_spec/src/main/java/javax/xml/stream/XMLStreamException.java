@@ -32,18 +32,19 @@ public class XMLStreamException extends Exception {
 	}
 
 	public XMLStreamException(java.lang.Throwable th) {
+		super(th);
 		this.nested = th;
 	}
 
 	public XMLStreamException(java.lang.String msg, java.lang.Throwable th) {
-		super(msg);
+		super(msg, th);
 		this.nested = th;
 	}
 
 	public XMLStreamException(java.lang.String msg, Location location,
 			java.lang.Throwable th) {
 		super("ParseError at [row,col]:[" + location.getLineNumber() + ","
-				+ location.getColumnNumber() + "]\n" + "Message: " + msg);
+				+ location.getColumnNumber() + "]\n" + "Message: " + msg, th);
 		this.location = location;
 		this.nested = th;
 	}
