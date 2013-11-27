@@ -28,11 +28,12 @@ public class FactoryConfigurationError extends Error implements Serializable {
 	}
 
 	public FactoryConfigurationError(Exception e) {
+		super(e);
 		nested = e;
 	}
 
 	public FactoryConfigurationError(Exception e, String msg) {
-		super(msg);
+		super(msg, e);
 		nested = e;
 	}
 
@@ -41,7 +42,7 @@ public class FactoryConfigurationError extends Error implements Serializable {
 	}
 
 	public FactoryConfigurationError(String msg, Exception e) {
-		super(msg);
+		super(msg, e);
 		nested = e;
 	}
 
