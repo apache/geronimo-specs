@@ -132,7 +132,7 @@
                             javax.persistence.criteria;version=1.2;jpa=2.1,
                             javax.persistence.metamodel;version=1.2;jpa=2.1,
                             javax.persistence.spi;version=1.2;jpa=2.1,
-                            javax.persistence;version=2.1
+                            javax.persistence;version=2.1,
                             javax.persistence.criteria;version=2.1,
                             javax.persistence.metamodel;version=2.1,
                             javax.persistence.spi;version=2.1
