@@ -45,7 +45,7 @@ public interface AfterTypeDiscovery
      *
      * The AnnotatedTypes added via this method will not get passed
      * to Extensions via {@link ProcessAnnotatedType} but only via
-     * {@link ProcessSynthethicAnnotatedType}
+     * {@link ProcessSyntheticAnnotatedType}
      *
      * @param type
      * @param id the unique id or <code>null</code>

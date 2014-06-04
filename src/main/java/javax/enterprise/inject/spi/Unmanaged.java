@@ -40,6 +40,7 @@ import javax.enterprise.context.spi.CreationalContext;
  * Please note that this classes are not thread safe!
  *
  * @param <T> the type of the CDI instance to create
+ * @since 1.1
  */
 public class Unmanaged<T>
 {
