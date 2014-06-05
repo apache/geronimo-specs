@@ -41,7 +41,7 @@ import java.util.Map;
 import java.util.ServiceLoader;
 
 public abstract class JsonProvider {
-    private static final String DEFAULT_PROVIDER = "org.apache.fleece.JsonProviderImpl";
+    private static final String DEFAULT_PROVIDER = "org.apache.fleece.core.JsonProviderImpl";
 
     protected JsonProvider() {
         // no-op
