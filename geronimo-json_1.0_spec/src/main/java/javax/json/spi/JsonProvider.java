@@ -28,13 +28,19 @@ import javax.json.stream.JsonGenerator;
 import javax.json.stream.JsonGeneratorFactory;
 import javax.json.stream.JsonParser;
 import javax.json.stream.JsonParserFactory;
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
 import java.lang.reflect.Method;
+import java.net.URL;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
+import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -71,13 +77,56 @@ public abstract class JsonProvider {
             // locator not available, try normal mode
         }
 
-        final Iterator<JsonProvider> serviceLoader = ServiceLoader.load(JsonProvider.class, tccl).iterator();
-        if (serviceLoader.hasNext()) {
-            return serviceLoader.next();
+        // don't use Class.forName() to avoid to bind class to tccl if thats a classloader facade
+        // so implementing a simple SPI when ProviderLocator is not here
+        final String name = "META-INF/services/" + JsonProvider.class.getName();
+        try {
+            Enumeration<URL> configs;
+            if (tccl == null) {
+                configs = ClassLoader.getSystemResources(name);
+            } else {
+                configs = tccl.getResources(name);
+            }
+
+            if (configs.hasMoreElements()) {
+                InputStream in = null;
+                BufferedReader r = null;
+                final List<String> names = new ArrayList<String>();
+                try {
+                    in = configs.nextElement().openStream();
+                    r = new BufferedReader(new InputStreamReader(in, "utf-8"));
+                    String l;
+                    while ((l = r.readLine()) != null) {
+                        if (l.startsWith("#")) {
+                            continue;
+                        }
+                        return JsonProvider.class.cast(tccl.loadClass(l).newInstance());
+                    }
+                } catch (final IOException x) {
+                    // no-op
+                } finally {
+                    try {
+                        if (r != null) {
+                            r.close();
+                        }
+                    } catch (final IOException y) {
+                        // no-op
+                    }
+                    try {
+                        if (in != null) {
+                            in.close();
+                        }
+                    } catch (final IOException y) {
+                        // no-op
+                    }
+                }
+            }
+        } catch (final Exception ex) {
+            // no-op
         }
 
         try {
-            final Class<?> clazz = Class.forName(DEFAULT_PROVIDER, true, tccl);
+            final Class<?> clazz = tccl.loadClass(DEFAULT_PROVIDER);
             return JsonProvider.class.cast(clazz.newInstance());
         } catch (final Throwable cnfe) {
             throw new JsonException(DEFAULT_PROVIDER + " not found", cnfe);
