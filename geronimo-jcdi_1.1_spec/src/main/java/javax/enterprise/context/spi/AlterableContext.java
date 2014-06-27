@@ -19,12 +19,12 @@
 package javax.enterprise.context.spi;
 
 /**
- * Allows to manually destroy the Contextual Cnstance
+ * A Context which allows to manually destroy the Contextual Instance
  * of the given Bean.
  * Contexts for NormalScoped beans should implement this
  * interface from CDI-1.1 on.
  */
-public interface AlterableContext
+public interface AlterableContext extends Context
 {
     public void destroy(Contextual<?> contextual);
 }
