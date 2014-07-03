@@ -42,7 +42,14 @@ public abstract class CDI<T> implements Instance<T>
     public static void setCDIProvider(CDIProvider provider)
     {
         //X TODO implement!
-        INSTANCE = provider.getCDI();
+        if (provider == null)
+        {
+            INSTANCE = null;
+        }
+        else
+        {
+            INSTANCE = provider.getCDI();
+        }
     }
 
     public abstract BeanManager getBeanManager();
