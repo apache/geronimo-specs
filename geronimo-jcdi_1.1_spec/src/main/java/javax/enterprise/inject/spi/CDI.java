@@ -1,6 +1,7 @@
 package javax.enterprise.inject.spi;
 
 import javax.enterprise.inject.Instance;
+import java.util.ServiceLoader;
 
 /**
  * <p>Static helper class to access the {@link BeanManager}</p>
@@ -18,10 +19,15 @@ import javax.enterprise.inject.Instance;
  */
 public abstract class CDI<T> implements Instance<T>
 {
+    private static volatile CDI INSTANCE; // temporary implementation
 
     public static CDI<Object> current()
     {
-        return null; //X TODO implement!
+        if (INSTANCE == null)
+        {
+            INSTANCE = ServiceLoader.load(CDIProvider.class).iterator().next().getCDI();
+        }
+        return INSTANCE; //X TODO implement!
     }
 
     /**
@@ -36,6 +42,7 @@ public abstract class CDI<T> implements Instance<T>
     public static void setCDIProvider(CDIProvider provider)
     {
         //X TODO implement!
+        INSTANCE = provider.getCDI();
     }
 
     public abstract BeanManager getBeanManager();
