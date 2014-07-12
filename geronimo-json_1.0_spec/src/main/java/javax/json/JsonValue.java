@@ -35,7 +35,7 @@ public interface JsonValue {
 
         @Override
         public String toString() {
-            return String.valueOf(null);
+            return "null";
         }
     };
     static final JsonValue TRUE = new JsonValue() {
