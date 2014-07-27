@@ -21,7 +21,7 @@
 
   <parent>
     <groupId>org.apache.geronimo.genesis</groupId>
-    <artifactId>genesis-java5-flava</artifactId>
+    <artifactId>genesis-java6-flava</artifactId>
     <version>2.0</version>
     <relativePath />
   </parent>
@@ -48,8 +48,7 @@
 
   <scm>
     <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jcache_1.0_spec/</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jcache_1.0_spec/
-    </developerConnection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jcache_1.0_spec/</developerConnection>
     <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-jcache_1.0_spec/</url>
   </scm>
 
@@ -85,6 +84,7 @@
       <plugin>
         <groupId>org.apache.felix</groupId>
         <artifactId>maven-bundle-plugin</artifactId>
+        <version>2.0.1</version>
         <configuration>
           <instructions>
             <Export-Package>
