@@ -43,6 +43,8 @@ public interface TimerService {
 
     Collection<Timer> getTimers() throws IllegalStateException, EJBException;
 
+    Collection<Timer> getAllTimers() throws IllegalStateException, EJBException;
+
     Timer createSingleActionTimer(long duration, TimerConfig timerConfig) throws IllegalArgumentException, IllegalStateException, EJBException;
 
     Timer createSingleActionTimer(java.util.Date expiration, TimerConfig timerConfig) throws IllegalArgumentException, IllegalStateException, EJBException;
