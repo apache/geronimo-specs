@@ -28,7 +28,7 @@ import javax.ejb.EJBException;
 import javax.ejb.spi.EJBContainerProvider;
 import org.apache.geronimo.osgi.locator.ProviderLocator;
 
-public abstract class EJBContainer {
+public abstract class EJBContainer implements AutoCloseable {
 
     public static final String PROVIDER = "javax.ejb.embeddable.provider";
     public static final String APP_NAME = "javax.ejb.embeddable.appName";
