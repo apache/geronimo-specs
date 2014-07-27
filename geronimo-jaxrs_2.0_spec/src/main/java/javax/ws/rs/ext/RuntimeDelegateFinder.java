@@ -33,7 +33,7 @@ import java.util.logging.Logger;
 // same as ClientFinder mainly but we want it to be hidden (package scoped)
 final class RuntimeDelegateFinder {
     private static final Logger LOGGER = Logger.getLogger(RuntimeDelegateFinder.class.getName());
-    private static final String FACTORY_ID = RuntimeDelegateFinder.class.getName();
+    private static final String FACTORY_ID = RuntimeDelegate.class.getName();
     private static final String SERVICE_ID = "META-INF/services/" + FACTORY_ID;
 
     static Object find(final String defaultClazz) throws ClassNotFoundException {
