@@ -1,0 +1,8 @@
+From: Nathaniel Borenstein <nsb@bellcore.com> 
+To:  Ned Freed <ned@innosoft.com> 
+Subject: Sample message 
+MIME-Version: 1.0 
+Content-type: multipart/mixed;
+              boundary="simple boundary"
+
+no body parts
