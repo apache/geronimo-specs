@@ -19,17 +19,18 @@
 
 package javax.mail.internet;
 
+import junit.framework.TestCase;
+
+import javax.activation.DataHandler;
+import javax.mail.EncodingAware;
+import javax.mail.MessagingException;
+import javax.mail.Part;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-
-import javax.mail.MessagingException;
-import javax.mail.Part;
-
-import junit.framework.TestCase;
 
 /**
  * @version $Rev$ $Date$
@@ -99,7 +100,7 @@ public class MimeBodyPartTest extends TestCase {
     public void testJavaMail15EncodingAware() throws MessagingException, IOException {
     	final File testInput = new File(basedir, "src/test/resources/test.dat");
     	final MimeBodyPart part = new MimeBodyPart();
-        part.attachFile(testInput);
+        part.attachFile(testInput, "application/octet-stream", "7bit"); // depending on the OS encoding can change
         part.updateHeaders();
         assertTrue(part.getDataHandler().getContentType().equals("application/octet-stream"));
         assertEquals("7bit", part.getEncoding());
