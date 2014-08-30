@@ -58,6 +58,7 @@ public interface BeanManager
      * @param ctx creational context is used to destroy any object with scope <code>@Dependent</code>
      * @return bean reference
      * @throws IllegalArgumentException if given bean type is not api type of the given bean object
+     * @throws java.lang.IllegalStateException if this method gets called before the AfterDeploymentValidation event is fired.
      */
     public Object getReference(Bean<?> bean, Type beanType, CreationalContext<?> ctx);
     
@@ -69,6 +70,7 @@ public interface BeanManager
      * @return bean reference
      * @throws UnsatisfiedResolutionException if no bean found for the given injection point
      * @throws AmbiguousResolutionException if more than one bean found
+     * @throws java.lang.IllegalStateException if this method gets called before the AfterDeploymentValidation event is fired.
      */
     public Object getInjectableReference(InjectionPoint injectionPoint, CreationalContext<?> ctx);
     
@@ -93,6 +95,7 @@ public interface BeanManager
      * @throws IllegalArgumentException given bean type is a {@link TypeVariable}
      * @throws IllegalArgumentException given qualifier annotation is not a qualifier
      * @throws IllegalArgumentException same qualifier is given
+     * @throws java.lang.IllegalStateException if this method gets called before the AfterBeanDiscovery event is fired.
      */
     public Set<Bean<?>> getBeans(Type beanType, Annotation... qualifiers);
         
@@ -101,6 +104,7 @@ public interface BeanManager
      * 
      * @param name name of the bean
      * @return set of beans with given name
+     * @throws java.lang.IllegalStateException if this method gets called before the AfterBeanDiscovery event is fired.
      */
     public Set<Bean<?>> getBeans(String name);    
         
@@ -109,6 +113,7 @@ public interface BeanManager
      * 
      * @param id bean id
      * @return passivation capable bean given id
+     * @throws java.lang.IllegalStateException if this method gets called before the AfterBeanDiscovery event is fired.
      */
     public Bean<?> getPassivationCapableBean(String id);
     
@@ -119,6 +124,7 @@ public interface BeanManager
      * @param beans set of beans
      * @return bean that is resolved according to the type safe resolution rules
      * @throws AmbiguousResolutionException if ambigious exists
+     * @throws java.lang.IllegalStateException if this method gets called before the AfterBeanDiscovery event is fired.
      */
     public <X> Bean<? extends X> resolve(Set<Bean<? extends X>> beans);
         
@@ -140,6 +146,7 @@ public interface BeanManager
      * @param event even object
      * @param qualifiers event qualifiers
      * @return set of observer methods
+     * @throws java.lang.IllegalStateException if this method gets called before the AfterBeanDiscovery event is fired.
      */
     public <T> Set<ObserverMethod<? super T>> resolveObserverMethods(T event, Annotation... qualifiers);
     
@@ -152,6 +159,7 @@ public interface BeanManager
      * @throws IllegalArgumentException given qualifier annotation is not a qualifier
      * @throws IllegalArgumentException same qualifier is given
      * @throws IllegalArgumentException if types is empty set
+     * @throws java.lang.IllegalStateException if this method gets called before the AfterBeanDiscovery event is fired.
      */
     List<Decorator<?>> resolveDecorators(Set<Type> types, Annotation... qualifiers);
     
@@ -164,6 +172,7 @@ public interface BeanManager
      * @throws IllegalArgumentException given binding annotation is not a binding
      * @throws IllegalArgumentException same binding is given
      * @throws IllegalArgumentException binding is not an interceptor binding
+     * @throws java.lang.IllegalStateException if this method gets called before the AfterBeanDiscovery event is fired.
      */
     List<Interceptor<?>> resolveInterceptors(InterceptionType type, Annotation... interceptorBindings);
     
@@ -172,6 +181,7 @@ public interface BeanManager
      * 
      * @param injectionPoint injection point
      * @throws InjectionException if problem exist
+     * @throws java.lang.IllegalStateException if this method gets called before the AfterBeanDiscovery event is fired.
      */
     public void validate(InjectionPoint injectionPoint);
     
