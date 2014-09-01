@@ -47,9 +47,9 @@
   </properties>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jcache_1.0_spec/</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jcache_1.0_spec/</developerConnection>
-    <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-jcache_1.0_spec/</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-json_1.0_spec/</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-json_1.0_spec/</developerConnection>
+    <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-json_1.0_spec/</url>
   </scm>
 
   <!-- added so the build can find staged depends -->
@@ -92,6 +92,32 @@
             </Export-Package>
           </instructions>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.rat</groupId>
+        <artifactId>apache-rat-plugin</artifactId>
+        <version>0.10</version>
+        <configuration>
+          <includes>
+            <include>src/**/*</include>
+            <include>pom.xml</include>
+          </includes>
+          <excludes>
+            <exclude>**/*/MANIFEST.MF</exclude>
+            <exclude>**/META-INF/services/*</exclude>
+
+            <!-- json can't get comments -->
+            <exclude>**/*.json</exclude>
+          </excludes>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>validate</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
