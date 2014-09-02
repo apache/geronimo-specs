@@ -21,8 +21,8 @@ package javax.enterprise.inject.spi;
 /**
  * Gets fired for each InjectionPoint.
  *
- * @param <T> observed event type
- * @param <X> bean class
+ * @param <T> managed bean class
+ * @param <X> declared type of the injection point
  */
 public interface ProcessInjectionPoint<T, X>
 {
