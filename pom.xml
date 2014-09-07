@@ -23,7 +23,6 @@
     <groupId>org.apache.geronimo.genesis</groupId>
     <artifactId>genesis-java6-flava</artifactId>
     <version>2.2-SNAPSHOT</version>
-    <relativePath />
   </parent>
 
   <groupId>org.apache.geronimo.specs</groupId>
