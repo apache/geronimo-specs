@@ -1,3 +1,21 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
 package javax.mail;
 
 import java.lang.annotation.ElementType;
@@ -7,14 +25,13 @@ import java.lang.annotation.Target;
 
 /**
  * Annotation used by Java EE applications to define a MailSession
- * to be registered with JNDI.  The MailSession may be configured
- * by setting the annotation elements for commonly used Session
- * properties.  Additional standard and vendor-specific properties may be
+ * to be registered within JNDI.
+ * The annotation is used to configure the commonly used Session
+ * properties.
+ * Additional standard and vendor-specific properties may be
  * specified using the properties element.
  * 
-
-
- * The session will be registered under the name specified in the
+ * The session will be registered under the JNDI name specified in the
  * name element.  It may be defined to be in any valid
  * Java EE namespace, and will determine the accessibility of
  * the session from other components.
