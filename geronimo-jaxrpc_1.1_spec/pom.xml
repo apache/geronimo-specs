@@ -27,14 +27,14 @@
     <parent>
         <groupId>org.apache.geronimo.genesis</groupId>
         <artifactId>genesis-java5-flava</artifactId>
-        <version>2.2-SNAPSHOT</version>
+        <version>2.2</version>
     </parent>
 
     <groupId>org.apache.geronimo.specs</groupId>
     <artifactId>geronimo-jaxrpc_1.1_spec</artifactId>
     <packaging>bundle</packaging>
     <name>Apache Geronimo JAXRPC Spec 1.1</name>
-    <version>2.2-SNAPSHOT</version>
+    <version>2.2</version>
     <description>Java API for XML Remote Procedure Call 1.1 API</description>
 
     <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
