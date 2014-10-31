@@ -26,6 +26,7 @@ import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
@@ -48,7 +49,7 @@ public class ParameterList {
 
     private static final int HEADER_SIZE_LIMIT = 76;
 
-    private Map _parameters = new HashMap();
+    private Map _parameters = new LinkedHashMap(); //predictable iteration order, see toString()
 
     private boolean encodeParameters = false;
     private boolean decodeParameters = false;
