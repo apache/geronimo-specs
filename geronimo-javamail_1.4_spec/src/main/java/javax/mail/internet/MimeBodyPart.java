@@ -37,7 +37,6 @@ import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.Part;
 import javax.mail.internet.HeaderTokenizer.Token;
-import javax.swing.text.AbstractDocument.Content;
 
 import org.apache.geronimo.mail.util.ASCIIUtil;
 import org.apache.geronimo.mail.util.SessionUtil;
@@ -46,8 +45,8 @@ import org.apache.geronimo.mail.util.SessionUtil;
  * @version $Rev$ $Date$
  */
 public class MimeBodyPart extends BodyPart implements MimePart {
-	 // constants for accessed properties
-    private static final String MIME_DECODEFILENAME = "mail.mime.decodefilename";
+    // constants for accessed properties
+    protected static final String MIME_DECODEFILENAME = "mail.mime.decodefilename";
     private static final String MIME_ENCODEFILENAME = "mail.mime.encodefilename";
     private static final String MIME_SETDEFAULTTEXTCHARSET = "mail.mime.setdefaulttextcharset";
     private static final String MIME_SETCONTENTTYPEFILENAME = "mail.mime.setcontenttypefilename";
@@ -355,9 +354,12 @@ public class MimeBodyPart extends BodyPart implements MimePart {
         // The Sun implementation appears to update the Content-type name parameter too, based on
         // another system property
         if (SessionUtil.getBooleanProperty(MIME_SETCONTENTTYPEFILENAME, true)) {
-            ContentType type = new ContentType(getContentType());
-            type.setParameter("name", name);
-            setHeader("Content-Type", type.toString());
+            String currentContentType = getSingleHeader("Content-Type");
+            if(currentContentType !=null) { //GERONIMO-6480
+                ContentType type = new ContentType(getContentType());
+                type.setParameter("name", name);
+                setHeader("Content-Type", type.toString());
+            }
         }
     }
 
