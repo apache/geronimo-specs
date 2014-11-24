@@ -19,6 +19,7 @@
 
 package javax.mail.internet;
 
+import junit.framework.Assert;
 import junit.framework.TestCase;
 
 import java.net.InetAddress;
@@ -31,7 +32,7 @@ import javax.mail.Session;
  * @version $Rev$ $Date$
  */
 public class InternetAddressTest extends TestCase {
-    private InternetAddress address;
+    //private InternetAddress address;
 
     public void testQuotedLiterals() throws Exception {
         parseHeaderTest("\"Foo\t\n\\\\\\\"\" <foo@apache.org>", true, "foo@apache.org", "Foo\t\n\\\"", "\"Foo\t\n\\\\\\\"\" <foo@apache.org>", false);
@@ -441,6 +442,17 @@ public class InternetAddressTest extends TestCase {
 
         assertEquals(InternetAddress.getLocalAddress(session), new InternetAddress("tester@incubator.apache.org"));
     }
+    
+    public void testGERONIMO5842() throws AddressException {
+        InternetAddress[] addresses = InternetAddress.parse("k..allen@apache.org");
+        Assert.assertNotNull(addresses);
+        Assert.assertEquals(1, addresses.length);
+        addresses[0].validate();
+        
+        InternetAddress.parse("k..@apache.org");
+        InternetAddress.parse("k....@apache.org");
+        InternetAddress.parse("k...allen...@apache.org");
+    }
 
     private InternetAddress[] getGroup(String address, boolean strict) throws AddressException
     {
@@ -449,9 +461,9 @@ public class InternetAddressTest extends TestCase {
     }
 
 
-    protected void setUp() throws Exception {
+    /*protected void setUp() throws Exception {
         address = new InternetAddress();
-    }
+    }*/
 
     private void parseHeaderTest(String address, boolean strict, String resultAddr, String personal, String toString, boolean group) throws Exception
     {
@@ -479,14 +491,14 @@ public class InternetAddressTest extends TestCase {
         validateAddress(new InternetAddress(address), resultAddr, personal, toString, group);
     }
 
-    private void constructorErrorTest(String address, boolean strict) throws Exception
+    /*private void constructorErrorTest(String address, boolean strict) throws Exception
     {
         try {
             InternetAddress foo = new InternetAddress(address, strict);
             fail("Expected AddressException");
         } catch (AddressException e) {
         }
-    }
+    }*/
 
     private void parseTest(String address, boolean strict, String resultAddr, String personal, String toString, boolean group) throws Exception
     {
@@ -495,14 +507,14 @@ public class InternetAddressTest extends TestCase {
         validateAddress(addresses[0], resultAddr, personal, toString, group);
     }
 
-    private void parseErrorTest(String address, boolean strict) throws Exception
+    /*private void parseErrorTest(String address, boolean strict) throws Exception
     {
         try {
             InternetAddress.parse(address, strict);
             fail("Expected AddressException");
         } catch (AddressException e) {
         }
-    }
+    }*/
 
     private void parseDefaultTest(String address, String resultAddr, String personal, String toString, boolean group) throws Exception
     {
@@ -511,14 +523,14 @@ public class InternetAddressTest extends TestCase {
         validateAddress(addresses[0], resultAddr, personal, toString, group);
     }
 
-    private void parseDefaultErrorTest(String address) throws Exception
+    /*private void parseDefaultErrorTest(String address) throws Exception
     {
         try {
             InternetAddress.parse(address);
             fail("Expected AddressException");
         } catch (AddressException e) {
         }
-    }
+    }*/
 
     private void validateTest(String address) throws Exception {
         InternetAddress test = new InternetAddress();
