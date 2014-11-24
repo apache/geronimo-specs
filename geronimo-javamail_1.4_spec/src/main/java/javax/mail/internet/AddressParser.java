@@ -20,7 +20,6 @@
 package javax.mail.internet;
 
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -782,7 +781,7 @@ class AddressParser {
         StringBuffer value = new StringBuffer();
 
         // save the start position for the token.
-        int startPosition = position;
+        //int startPosition = position;
         // step over the quote delimiter.
         nextChar();
 
@@ -981,7 +980,7 @@ class AddressParser {
         int phraseCount = 0;
 
         AddressToken token = tokens.nextRealToken();
-        // now scan to the semi color, ensuring we have only word or comment tokens.
+        // now scan to the colon, ensuring we have only word or comment tokens.
         while (token.type != COLON) {
             // only these tokens are allowed here.
             if (token.type != ATOM && token.type != QUOTED_LITERAL) {
@@ -1033,19 +1032,17 @@ class AddressParser {
      * @exception AddressException
      */
     private void validateGroupMailbox(TokenStream tokens) throws AddressException {
-        AddressToken first = tokens.nextRealToken();
+        AddressToken token = tokens.nextRealToken();
         // is this just a null address in the list?  then push the terminator back and return.
-        if (first.type == COMMA || first.type == SEMICOLON) {
-            tokens.pushToken(first);
+        if (token.type == COMMA || token.type == SEMICOLON) {
+            tokens.pushToken(token);
             return;
         }
 
-        // now we need to scan ahead to see if we can determine the type.
-        AddressToken token = first;
-
+        final AddressToken firstToken = token;
 
         // we need to scan forward to figure out what sort of address this is.
-        while (first != null) {
+        while (token != null) {
             switch (token.type) {
                 // until we know the context, these are all just ignored.
                 case QUOTED_LITERAL:
@@ -1055,8 +1052,7 @@ class AddressParser {
                 // a LEFT_ANGLE indicates we have a full RFC822 mailbox form.  The leading phrase
                 // is the personal info.  The address is inside the brackets.
                 case LEFT_ANGLE:
-                    tokens.pushToken(first);
-                    validatePhrase(tokens, false);
+                    validatePhrase(tokens.section(firstToken, token), false);
                     validateRouteAddr(tokens, true);
                     return;
 
@@ -1066,7 +1062,7 @@ class AddressParser {
                 // we've hit an "@" as the first non-word token.  This is probably a simple address in
                 // the form "user@domain".
                 case AT_SIGN:
-                    tokens.pushToken(first);
+                    tokens.pushToken(firstToken);
                     validateAddressSpec(tokens);
                     return;
 
@@ -1075,7 +1071,7 @@ class AddressParser {
                 case COMMA:
                 // this is the end of the group...handle it like a comma for now.
                 case SEMICOLON:
-                    tokens.pushToken(first);
+                    tokens.pushToken(firstToken);
                     validateAddressSpec(tokens);
                     return;
 
@@ -1278,22 +1274,25 @@ class AddressParser {
      * is a series of "words" separated by ".".
      */
     private void validateLocalPart(TokenStream tokens) throws AddressException {
+        
         while (true) {
             // get the token.
-            AddressToken token = tokens.nextRealToken();
+            final AddressToken token1 = tokens.nextRealToken();
 
-            // this must be either an atom or a literal.
-            if (token.type != ATOM && token.type != QUOTED_LITERAL) {
-                illegalAddress("Invalid local part", token);
+            // this must be either an atom or a literal or a period (GERONIMO-5842)
+            if (token1.type != ATOM && token1.type != QUOTED_LITERAL && token1.type != PERIOD) {
+                
+                illegalAddress("Invalid local part", token1);
             }
 
             // get the next token (white space and comments ignored)
-            token = tokens.nextRealToken();
-            // if this is a period, we continue parsing
-            if (token.type != PERIOD) {
-                tokens.pushToken(token);
-                // return the token
+            final AddressToken token2 = tokens.nextRealToken();
+            tokens.pushToken(token2); //do not consume this token
+            // if we encounter a @ sign or the end of the token return
+            if (token2.type == AT_SIGN || token2.type == COMMA || token2.type == SEMICOLON || token2.type == END_OF_TOKENS) {
                 return;
+            } else if(token2.type == ATOM && (token1.type != PERIOD)) {
+                illegalAddress("Invalid local part", token2);
             }
         }
     }
@@ -1521,15 +1520,15 @@ class AddressParser {
 
     private static final byte FLG_SPECIAL = 1;
     private static final byte FLG_CONTROL = 2;
-    private static final byte FLG_SPACE = 4;
+    //private static final byte FLG_SPACE = 4;
 
-    private static boolean isSpace(char ch) {
+    /*private static boolean isSpace(char ch) {
         if (ch > '\u007f') {
             return false;
         } else {
             return (CHARMAP[ch] & FLG_SPACE) != 0;
         }
-    }
+    }*/
 
     /**
      * Quick test to see if a character is an allowed atom character
