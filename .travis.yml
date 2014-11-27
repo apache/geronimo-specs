@@ -1,5 +1,5 @@
 language: java
-script: cd geronimo-javamail_1.4_spec && mvn clean package
+script: mvn clean package  -pl geronimo-javamail_1.4_spec -am
 jdk:
   - openjdk6  
   - openjdk7
