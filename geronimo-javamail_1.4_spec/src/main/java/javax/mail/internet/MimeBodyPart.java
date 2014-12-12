@@ -436,7 +436,7 @@ public class MimeBodyPart extends BodyPart implements MimePart {
                 charset = "us-ascii";
             }
         }
-        setContent(text, "text/plain; charset=" + MimeUtility.quote(charset, HeaderTokenizer.MIME));
+        setContent(text, "text/"+((subtype==null || subtype.isEmpty())?"plain":subtype)+"; charset=" + MimeUtility.quote(charset, HeaderTokenizer.MIME));
     }
 
     public void setContent(Multipart part) throws MessagingException {
