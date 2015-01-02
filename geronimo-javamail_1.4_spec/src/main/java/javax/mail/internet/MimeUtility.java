@@ -19,15 +19,14 @@
 
 package javax.mail.internet;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -42,13 +41,16 @@ import org.apache.geronimo.mail.util.Base64;
 import org.apache.geronimo.mail.util.Base64DecoderStream;
 import org.apache.geronimo.mail.util.Base64Encoder;
 import org.apache.geronimo.mail.util.Base64EncoderStream;
-import org.apache.geronimo.mail.util.QuotedPrintableDecoderStream;
-import org.apache.geronimo.mail.util.QuotedPrintableEncoderStream;
-import org.apache.geronimo.mail.util.QuotedPrintableEncoder;
-import org.apache.geronimo.mail.util.QuotedPrintable;
 import org.apache.geronimo.mail.util.SessionUtil;
 import org.apache.geronimo.mail.util.UUDecoderStream;
 import org.apache.geronimo.mail.util.UUEncoderStream;
+import org.apache.james.mime4j.codec.DecodeMonitor;
+import org.apache.james.mime4j.codec.DecoderUtil;
+import org.apache.james.mime4j.codec.EncoderUtil;
+import org.apache.james.mime4j.codec.EncoderUtil.Encoding;
+import org.apache.james.mime4j.codec.EncoderUtil.Usage;
+import org.apache.james.mime4j.codec.QuotedPrintableInputStream;
+import org.apache.james.mime4j.codec.QuotedPrintableOutputStream;
 
 // encodings include "base64", "quoted-printable", "7bit", "8bit" and "binary".
 // In addition, "uuencode" is also supported. The
@@ -68,12 +70,12 @@ public class MimeUtility {
 
     public static final int ALL = -1;
 
-    private static String defaultJavaCharset;
+    //private static String defaultJavaCharset;
     private static String escapedChars = "\"\\\r\n";
     private static String linearWhiteSpace = " \t\r\n";
 
-    private static String QP_WORD_SPECIALS = "=_?\"#$%&'(),.:;<>@[\\]^`{|}~";
-    private static String QP_TEXT_SPECIALS = "=_?";
+    //private static String QP_WORD_SPECIALS = "=_?\"#$%&'(),.:;<>@[\\]^`{|}~";
+    //private static String QP_TEXT_SPECIALS = "=_?";
 
     // the javamail spec includes the ability to map java encoding names to MIME-specified names.  Normally,
     // these values are loaded from a character mapping file.
@@ -100,7 +102,7 @@ public class MimeUtility {
             return new UUDecoderStream(in);
         }
         else if (encoding.equals("quoted-printable")) {
-            return new QuotedPrintableDecoderStream(in);
+            return new QuotedPrintableInputStream(in);
         }
         else {
             throw new MessagingException("Unknown encoding " + encoding);
@@ -436,8 +438,11 @@ public class MimeUtility {
             }
             // maybe quoted printable.
             else if (encoding.equals("Q")) {
-                QuotedPrintableEncoder dataEncoder = new QuotedPrintableEncoder();
-                dataEncoder.decodeWord(encodedData, out);
+                String retVal = DecoderUtil.decodeEncodedWords(word, DecodeMonitor.SILENT);
+                return retVal;
+                
+                //QuotedPrintableEncoder dataEncoder = new QuotedPrintableEncoder();
+                //dataEncoder.decodeWord(encodedData, out);
             }
             else {
                 throw new UnsupportedEncodingException("Unknown RFC 2047 encoding: " + encoding);
@@ -481,7 +486,7 @@ public class MimeUtility {
             return new UUEncoderStream(out);
         }
         else if (encoding.equals("quoted-printable")) {
-            return new QuotedPrintableEncoderStream(out);
+            return new QuotedPrintableOutputStream(out, false); //TODO binary false??
         }
         else {
             throw new MessagingException("Unknown encoding " + encoding);
@@ -514,7 +519,7 @@ public class MimeUtility {
             return new UUEncoderStream(out, filename);
         }
         else if (encoding.equals("quoted-printable")) {
-             return new QuotedPrintableEncoderStream(out);
+             return new QuotedPrintableOutputStream(out, false); //TODO binary false???
         }
         else {
             throw new MessagingException("Unknown encoding " + encoding);
@@ -583,9 +588,11 @@ public class MimeUtility {
                 encodeBase64(word, result, sizeLimit, charset, dataEncoder, true, SessionUtil.getBooleanProperty(MIME_FOLDENCODEDWORDS, false)); 
             }
             else {
-                QuotedPrintableEncoder dataEncoder = new QuotedPrintableEncoder();
-                encodeQuotedPrintable(word, result, sizeLimit, charset, dataEncoder, true, 
-                    SessionUtil.getBooleanProperty(MIME_FOLDENCODEDWORDS, false), encodingWord ? QP_WORD_SPECIALS : QP_TEXT_SPECIALS); 
+                //TODO MIME_FOLDENCODEDWORDS
+                return EncoderUtil.encodeEncodedWord(word, encodingWord ? Usage.WORD_ENTITY:Usage.TEXT_TOKEN, 0, Charset.forName(charset), Encoding.Q);
+                //QuotedPrintableEncoder dataEncoder = new QuotedPrintableEncoder();
+                //encodeQuotedPrintable(word, result, sizeLimit, charset, dataEncoder, true, 
+                //    SessionUtil.getBooleanProperty(MIME_FOLDENCODEDWORDS, false), encodingWord ? QP_WORD_SPECIALS : QP_TEXT_SPECIALS); 
             }
             return result.toString();    
         } catch (IOException e) {
@@ -663,7 +670,7 @@ public class MimeUtility {
      * @param foldSegments
      *                  Indicates the type of delimiter to use (blank or newline sequence).
      */
-    static private void encodeQuotedPrintable(String data, StringBuffer out, int sizeLimit, String charset, QuotedPrintableEncoder encoder, 
+    /*static private void encodeQuotedPrintable(String data, StringBuffer out, int sizeLimit, String charset, QuotedPrintableEncoder encoder, 
         boolean firstSegment, boolean foldSegments, String specials)  throws IOException 
     {
         // this needs to be converted into the appropriate transfer encoding. 
@@ -694,7 +701,7 @@ public class MimeUtility {
             // do the encoding of the segment.
             encoder.encodeWord(bytes, out, charset, specials);
         }
-    }
+    }*/
 
 
     /**
@@ -720,7 +727,7 @@ public class MimeUtility {
 
         try {
             // get a parser that allows us to make comparisons.
-            ContentType content = new ContentType(ds.getContentType());
+            ContentType content = new ContentType(handler.getContentType());
 
             // The only access to the content bytes at this point is by asking the handler to write
             // the information out to a stream.  We're going to pipe this through a special stream
@@ -801,7 +808,7 @@ public class MimeUtility {
      */
     public static String quote(String word, String specials) {
         int wordLength = word.length();
-        boolean requiresQuoting = false;
+        //boolean requiresQuoting = false;
         // scan the string looking for problem characters
         for (int i =0; i < wordLength; i++) {
             char ch = word.charAt(i);
@@ -1242,7 +1249,7 @@ public class MimeUtility {
             // we have an unescaped line break
             else if (ch == '\n' || ch == '\r') {
                 // remember the position in case we need to backtrack.
-                int lineBreak = i;
+                //int lineBreak = i;
                 boolean CRLF = false;
 
                 if (ch == '\r') {

@@ -102,6 +102,10 @@ public class MimeBodyPartTest extends TestCase {
         part.setDescription(complexSubject, "UTF-8");
         assertEquals(part.getDescription(), complexSubject);
         assertEquals(part.getHeader("Content-Description", null), MimeUtility.encodeText(complexSubject, "UTF-8", null));
+        
+        part.setDescription(mungedSubject, "UTF-8");
+        assertEquals(part.getDescription(), mungedSubject);
+        assertEquals(part.getHeader("Content-Description", null), MimeUtility.encodeText(mungedSubject, "UTF-8", null));
 
         part.setDescription(null);
         assertNull(part.getDescription());
@@ -109,6 +113,7 @@ public class MimeBodyPartTest extends TestCase {
 
     public void testSetFileName() throws Exception {
         MimeBodyPart part = new MimeBodyPart();
+        part.addHeader("Content-Type", "application/octet-stream"); //GERONIMO-6480
         part.setFileName("test.dat");
 
         assertEquals("test.dat", part.getFileName());

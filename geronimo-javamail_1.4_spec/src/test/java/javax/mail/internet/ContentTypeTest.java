@@ -99,6 +99,12 @@ public class ContentTypeTest extends TestCase {
         assertEquals("text/plain; foo=bar", type.toString());
         type.setParameter("bar", "me@apache.org");
         assertEquals("text/plain; foo=bar; bar=\"me@apache.org\"", type.toString());
+        type.setParameter("x", "y");
+        assertEquals("text/plain; foo=bar; bar=\"me@apache.org\"; x=y", type.toString());
+        type.setParameter("x", "z");
+        assertEquals("text/plain; foo=bar; bar=\"me@apache.org\"; x=z", type.toString());
+        type.setParameter("foo", "bar2");
+        assertEquals("text/plain; foo=bar2; bar=\"me@apache.org\"; x=z", type.toString());
     }
     public void testMatchContentType() throws ParseException {
         ContentType type = new ContentType("text/plain");

@@ -131,16 +131,18 @@ public class TextHandler implements DataContentHandler {
      */
     public void writeTo(Object object, String contentType, OutputStream outputstream)
             throws IOException {
-        OutputStreamWriter os;
-        try {
-            String charset = getCharSet(contentType);
-            os = new OutputStreamWriter(outputstream, charset);
-        } catch (Exception ex) {
-            throw new UnsupportedEncodingException(ex.toString());
+        if(object instanceof String) {
+            OutputStreamWriter os;
+            try {
+                String charset = getCharSet(contentType);
+                os = new OutputStreamWriter(outputstream, charset);
+            } catch (Exception ex) {
+                throw new UnsupportedEncodingException(ex.toString());
+            }
+            String content = (String) object;
+            os.write(content, 0, content.length());
+            os.flush();
         }
-        String content = (String) object;
-        os.write(content, 0, content.length());
-        os.flush();
     }
 
     /**

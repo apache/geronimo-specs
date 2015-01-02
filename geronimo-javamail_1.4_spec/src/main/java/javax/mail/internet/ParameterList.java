@@ -26,6 +26,7 @@ import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
@@ -48,7 +49,7 @@ public class ParameterList {
 
     private static final int HEADER_SIZE_LIMIT = 76;
 
-    private Map _parameters = new HashMap();
+    private final Map _parameters = new LinkedHashMap(); //predictable iteration order, see toString()
 
     private boolean encodeParameters = false;
     private boolean decodeParameters = false;
@@ -212,10 +213,11 @@ public class ParameterList {
     public String toString(int used) {
         StringBuffer stringValue = new StringBuffer();
 
-        Iterator values = _parameters.values().iterator();
+        Iterator entries = _parameters.entrySet().iterator();
 
-        while (values.hasNext()) {
-            ParameterValue parm = (ParameterValue)values.next();
+        while (entries.hasNext()) {
+            Map.Entry entry = (Map.Entry) entries.next();
+            ParameterValue parm = (ParameterValue) entry.getValue();
             // get the values we're going to encode in here.
             String name = parm.getEncodedName();
             String value = parm.toString();
