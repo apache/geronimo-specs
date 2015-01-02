@@ -60,11 +60,20 @@ public interface MessageProducer {
 
     void send(Destination destination, Message message) throws JMSException;
 
-    void send(
-        Destination destination,
-        Message message,
-        int deliveryMode,
-        int priority,
-        long timeToLive)
+    void send(Message message, CompletionListener completionListener) throws JMSException;
+
+    void send(Destination destination, Message message, int deliveryMode, int priority, long timeToLive)
         throws JMSException;
+
+    void send(Destination destination, Message message, CompletionListener completionListener) throws JMSException;
+
+    void send(Message message, int deliveryMode, int priority, long timeToLive, CompletionListener completionListener)
+            throws JMSException;
+
+    void send(Destination destination, Message message, int deliveryMode, int priority, long timeToLive,
+            CompletionListener completionListener) throws JMSException;
+
+    long getDeliveryDelay() throws JMSException;
+
+    void setDeliveryDelay(long deliveryDelay) throws JMSException;
 }
