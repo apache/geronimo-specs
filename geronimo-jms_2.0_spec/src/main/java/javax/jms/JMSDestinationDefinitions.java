@@ -26,7 +26,7 @@ import static java.lang.annotation.ElementType.*;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Retention(RUNTIME)
-@Target({METHOD, FIELD, PARAMETER, TYPE})
+@Target(TYPE)
 public @interface JMSDestinationDefinitions {
-    JMSConnectionFactoryDefinition[] value();
+    JMSDestinationDefinition[] value();
 }
