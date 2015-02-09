@@ -40,4 +40,6 @@ public @interface Stateful {
     String mappedName() default "";
 
     String description() default "";
+
+    boolean passivationCapable() default true;
 }
