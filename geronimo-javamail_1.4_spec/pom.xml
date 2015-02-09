@@ -34,7 +34,7 @@
     <artifactId>geronimo-javamail_1.4_spec</artifactId>
     <packaging>bundle</packaging>
     <name>Apache Geronimo JavaMail Spec 1.4</name>
-    <version>1.7.2-alpha-1</version>
+    <version>1.7.2-SNAPSHOT</version>
 
     <description>Javamail 1.4 API Specification</description>
 
@@ -53,9 +53,9 @@
     </properties>
 
     <scm>
-        <connection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-javamail_1.4_spec-1.7.2-alpha-1</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-javamail_1.4_spec-1.7.2-alpha-1</developerConnection>
-        <url>https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-javamail_1.4_spec-1.7.2-alpha-1</url>
+        <connection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-javamail_1.4_spec</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-javamail_1.4_spec</developerConnection>
+        <url>https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-javamail_1.4_spec</url>
     </scm>
 
     <dependencies>
