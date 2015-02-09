@@ -20,8 +20,7 @@
 
 <!-- $Rev: 987515 $ $Date: 2010-08-20 16:12:06 +0200 (ven 20 aoû 2010) $ -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
 
@@ -35,7 +34,7 @@
   <artifactId>geronimo-jta_1.2_spec</artifactId>
   <packaging>bundle</packaging>
   <name>Apache Geronimo JTA Spec 1.2</name>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0-alpha-1</version>
   <description>Java Transaction Architecture 1.2 API</description>
 
   <url>http://geronimo.apache.org/maven/${siteId}/${project.version}</url>
@@ -66,10 +65,10 @@
   </dependencies>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jta_1.2_spec/</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jta_1.2_spec/
+    <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-jta_1.2_spec-1.0-alpha-1</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-jta_1.2_spec-1.0-alpha-1
     </developerConnection>
-    <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-jta_1.2_spec/</url>
+    <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/tags/geronimo-jta_1.2_spec-1.0-alpha-1</url>
   </scm>
 
   <build>
