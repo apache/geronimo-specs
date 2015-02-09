@@ -28,7 +28,7 @@
 
     <parent>
         <groupId>org.apache.geronimo.genesis</groupId>
-        <artifactId>genesis-java1.4-flava</artifactId>
+        <artifactId>genesis-java6-flava</artifactId>
         <version>2.2</version>
     </parent>
 
@@ -36,7 +36,7 @@
     <artifactId>geronimo-jms_2.0_spec</artifactId>
     <packaging>bundle</packaging>
     <name>Apache Geronimo JMS Spec 2.0</name>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>
     <description>Java Message Service 2.0 API</description>
 
     <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
