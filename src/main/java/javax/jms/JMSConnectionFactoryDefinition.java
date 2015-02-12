@@ -26,7 +26,7 @@ import static java.lang.annotation.ElementType.*;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Retention(RUNTIME)
-@Target({METHOD, FIELD, PARAMETER, TYPE})
+@Target(TYPE)
 public @interface JMSConnectionFactoryDefinition {
     String name();
 
@@ -47,4 +47,8 @@ public @interface JMSConnectionFactoryDefinition {
     int maxPoolSize() default -1;
 
     int minPoolSize() default -1;
+
+    String description() default "";
+
+    String interfaceName() default "";
 }

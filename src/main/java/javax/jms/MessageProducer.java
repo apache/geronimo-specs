@@ -28,7 +28,7 @@ package javax.jms;
 /**
  * @version $Rev: 467553 $ $Date: 2006-10-25 00:01:51 -0400 (Wed, 25 Oct 2006) $
  */
-public interface MessageProducer {
+public interface MessageProducer extends AutoCloseable {
     void setDisableMessageID(boolean value) throws JMSException;
 
     boolean getDisableMessageID() throws JMSException;
