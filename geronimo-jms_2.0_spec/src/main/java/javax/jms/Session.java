@@ -30,7 +30,7 @@ import java.io.Serializable;
 /**
  * @version $Rev: 467553 $ $Date: 2006-10-25 00:01:51 -0400 (Wed, 25 Oct 2006) $
  */
-public interface Session extends Runnable {
+public interface Session extends Runnable, AutoCloseable {
     static final int AUTO_ACKNOWLEDGE = 1;
 
     static final int CLIENT_ACKNOWLEDGE = 2;
