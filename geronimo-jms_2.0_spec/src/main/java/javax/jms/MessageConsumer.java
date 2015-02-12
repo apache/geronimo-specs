@@ -28,7 +28,7 @@ package javax.jms;
 /**
  * @version $Rev: 467553 $ $Date: 2006-10-25 00:01:51 -0400 (Wed, 25 Oct 2006) $
  */
-public interface MessageConsumer {
+public interface MessageConsumer extends AutoCloseable {
     String getMessageSelector() throws JMSException;
 
     MessageListener getMessageListener() throws JMSException;
