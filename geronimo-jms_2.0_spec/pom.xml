@@ -36,7 +36,7 @@
     <artifactId>geronimo-jms_2.0_spec</artifactId>
     <packaging>bundle</packaging>
     <name>Apache Geronimo JMS Spec 2.0</name>
-    <version>1.0-alpha-2</version>
+    <version>1.0-SNAPSHOT</version>
     <description>Java Message Service 2.0 API</description>
 
     <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
@@ -75,9 +75,9 @@
     </dependencies>
 
     <scm>
-        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-jms_2.0_spec-1.0-alpha-2</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-jms_2.0_spec-1.0-alpha-2</developerConnection>
-        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/tags/geronimo-jms_2.0_spec-1.0-alpha-2</url>
+        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jms_2.0_spec/</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jms_2.0_spec/</developerConnection>
+        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-jms_2.0_spec/</url>
     </scm>
 
     <build>
