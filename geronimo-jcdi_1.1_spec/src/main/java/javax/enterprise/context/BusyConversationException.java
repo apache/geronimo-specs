@@ -25,7 +25,7 @@ import javax.enterprise.context.spi.CreationalContext;
 /**
  * A long running conversation must only be used by one request at the same time!
  * 
- * If a parallel long running conversation gets detected, this very Exception will
+ * If a parallel access to a long running conversation gets detected, this very Exception will
  * be thrown for the new request and the 2nd request will get a 
  * fresh Conversation assigned.
  * 

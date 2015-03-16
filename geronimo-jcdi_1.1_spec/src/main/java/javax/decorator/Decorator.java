@@ -28,7 +28,12 @@ import javax.enterprise.inject.Stereotype;
 
 /**
  * Defines decorator classes.
- * 
+ * Classes annotated with &#064;Decorator will get picked up by the CDI container and
+ * 'decorate' the implemented CDI ManagedBeans.
+ *
+ * A Decorator must implement at least one of the Interfaces of it's decorated type.
+ *
+ *
  * @version $Rev$ $Date$
  *
  */
