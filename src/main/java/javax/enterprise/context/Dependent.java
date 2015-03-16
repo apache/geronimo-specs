@@ -28,20 +28,24 @@ import java.lang.annotation.Target;
 import javax.inject.Scope;
 
 /**
- * Dependent scope type.
+ * <p>An @#064;Dependent scoped Contextual instance shares it's lifecycle with
+ * the Contextual Instance it got injected to.
+ * &#064;Dependent scoped Contextual Instances also do <strong>not</strong> get
+ * a normalscoping-proxy (Contextual Reference). They only get a proxy
+ * if they are either intercepted or decorated.</p>
+ *
+ * <p>As of CDI-1.0 this is the default scope for any class if no other
+ * scope is explicitly annotated. Since CDI-1.1 this is only the case if the
+ * beans.xml has a {@code bean-discovery-mode="all"}</p>
+ *
  * <p>
- * If webbeans or its stereotypes do not define its scope type,
- * default scope type is <code>Dependent</code> scope.
- * </p>
- * 
- * <p>
- * Every webbeans instance has an associated dependent context. Each dependent context
+ * Every CDI instance has an associated dependent context. Each dependent context
  * is destroyed with its parent webbeans component instance.
  * </p>
  * 
  * <p>
  * Please see <b>8.3 Dependent pseudo-scope</b> of the specification
- * for getting furhter information.
+ * for further information.
  * </p>
  * 
  */

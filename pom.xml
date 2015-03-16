@@ -30,7 +30,9 @@
     <name>Apache Geronimo JCDI Spec 1.1</name>
     <version>1.0-SNAPSHOT</version>
 
-    <description>Apache Geronimo implementation of the JSR-299 Context and Dependency Injection for the Java EE Platform</description>
+    <description>
+        Apache Geronimo implementation of the JSR-346 Context and Dependency Injection 1.1 & 1.2 Specification
+    </description>
     <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
 
     <distributionManagement>
