@@ -27,10 +27,12 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 /**
- * Annotates delegate bean.
- * 
- * @version $Rev$ $Date$
+ * Defines a delegation point in a {@see Decorator}.
+ * There must only be one delegation point in a Decorator.
  *
+ * @see javax.decorator.Decorator
+ *
+ * @version $Rev$ $Date$
  */
 @Target({FIELD,PARAMETER})
 @Retention(RUNTIME)

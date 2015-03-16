@@ -33,7 +33,7 @@ import java.lang.annotation.Target;
  * 
  * <p>
  * Please see <b>Request context lifecycle</b> of the specification
- * for getting furher information.
+ * for further information.
  * </p>
  * 
  * @version $Rev$ $Date$

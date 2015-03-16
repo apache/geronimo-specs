@@ -23,9 +23,16 @@ import javax.enterprise.context.spi.Contextual;
 import javax.enterprise.context.spi.CreationalContext;
 
 /**
- * It is used by the <code>Context</code> interface.
- *  
- * 
+ * This Exception is thrown if
+ * {@link Context#get(javax.enterprise.context.spi.Contextual)} or
+ * {@link Context#get(javax.enterprise.context.spi.Contextual, javax.enterprise.context.spi.CreationalContext)}
+ * is called on a Context which is not 'active' in respect to the current thread.
+ * This ultimately also happens if a CDI scoped Contextual Reference (the CDI proxy for a Contextual Instance)
+ * of a CDI bean gets accessed in situations where it's Context is not available.
+ *
+ * An example of such a case would be calling a method on a &#064;SessionScoped CDI bean in a situation where
+ * we do not have an active session like e.g. during an &#064;Asynchronous EJB method.
+ *
  * @see Context#get(Contextual, CreationalContext)
  * @see Context#get(Contextual)
  */

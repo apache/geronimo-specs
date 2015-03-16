@@ -26,8 +26,14 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 /**
- * Defines normal scoped meta-data.
- * 
+ * <p>Defines CDI scopes which have a well-defined lifecycle. Examples for such scopes
+ * are {@link javax.enterprise.context.RequestScoped}, {@link javax.enterprise.context.SessionScoped}
+ * and {@link javax.enterprise.context.ApplicationScoped}.</p>
+ * <p>Beans of such a scope will get a normalscoping proxy (Contextual Reference)
+ * for every injection.</p>
+ *
+ * <p>If a NormalScope is {@code passivating} then all it's Contextual Instances need
+ * to implement {@code java.io.Serializable}.</p>
  * @version $Rev$ $Date$
  *
  */
