@@ -28,7 +28,7 @@
     <artifactId>geronimo-jcdi_1.1_spec</artifactId>
     <packaging>bundle</packaging>
     <name>Apache Geronimo JCDI Spec 1.1</name>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.1-SNAPSHOT</version>
 
     <description>
         Apache Geronimo implementation of the JSR-346 Context and Dependency Injection 1.1 &amp; 1.2 Specification
