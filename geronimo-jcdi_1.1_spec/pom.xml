@@ -31,7 +31,7 @@
     <version>1.0-SNAPSHOT</version>
 
     <description>
-        Apache Geronimo implementation of the JSR-346 Context and Dependency Injection 1.1 & 1.2 Specification
+        Apache Geronimo implementation of the JSR-346 Context and Dependency Injection 1.1 &amp; 1.2 Specification
     </description>
     <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
 

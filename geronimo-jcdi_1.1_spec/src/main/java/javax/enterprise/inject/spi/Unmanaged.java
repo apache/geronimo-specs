@@ -83,7 +83,7 @@ public class Unmanaged<T>
         private boolean injected = false;
         private boolean disposed = false;
 
-        public UnmanagedInstance(BeanManager beanManager, InjectionTarget<T> injectionTarget)
+        private UnmanagedInstance(BeanManager beanManager, InjectionTarget<T> injectionTarget)
         {
             this.injectionTarget = injectionTarget;
             this.beanManager = beanManager;
