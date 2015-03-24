@@ -28,7 +28,7 @@
     <artifactId>geronimo-jcdi_1.1_spec</artifactId>
     <packaging>bundle</packaging>
     <name>Apache Geronimo JCDI Spec 1.1</name>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
 
     <description>
         Apache Geronimo implementation of the JSR-346 Context and Dependency Injection 1.1 &amp; 1.2 Specification
@@ -47,9 +47,9 @@
     </properties>
 
     <scm>
-        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jcdi_1.1_spec/</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jcdi_1.1_spec/</developerConnection>
-        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-jcdi_1.1_spec/</url>
+        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-jcdi_1.1_spec-1.0</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-jcdi_1.1_spec-1.0</developerConnection>
+        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/tags/geronimo-jcdi_1.1_spec-1.0</url>
     </scm>
 
     <!-- added so the build can find staged depends -->
