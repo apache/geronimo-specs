@@ -27,20 +27,24 @@ import java.lang.annotation.Target;
 
 /**
  * Annotation for used defining the interceptors.
- *
- * @version $Rev$ $Id: Interceptor.java 782259 2009-06-06 13:31:32Z gerdogdu $
  */
 @Retention(RUNTIME)
 @Target({TYPE})
 @Documented
 public @interface Interceptor
 {
+    /**
+     * A set of default priorities which can be used by
+     * Interceptors via {@code &#064;javax.annotation.Priority}.
+     * Interceptors with smaller priority values are called before
+     * Interceptors with bigger priority numbers.
+     */
     public static class Priority {
-        int PLATFORM_BEFORE = 0;
-        int LIBRARY_BEFORE = 1000;
-        int APPLICATION = 2000;
-        int LIBRARY_AFTER = 3000;
-        int PLATFORM_AFTER = 4000;
+        public static final int PLATFORM_BEFORE = 0;
+        public static final int LIBRARY_BEFORE = 1000;
+        public static final int APPLICATION = 2000;
+        public static final int LIBRARY_AFTER = 3000;
+        public static final int PLATFORM_AFTER = 4000;
 
         private Priority() {
             // no-op
