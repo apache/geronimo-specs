@@ -36,6 +36,8 @@ public @interface Interceptor
     /**
      * A set of default priorities which can be used by
      * Interceptors via {@code &#064;javax.annotation.Priority}.
+     * Interceptors with smaller priority values are called before
+     * Interceptors with bigger priority numbers.
      */
     public static class Priority {
         public static final int PLATFORM_BEFORE = 0;
