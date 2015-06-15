@@ -20,8 +20,7 @@
 
 <!-- $Rev$ $Date$ -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
 
@@ -36,7 +35,7 @@
   <artifactId>geronimo-jpa_2.1_spec</artifactId>
   <packaging>bundle</packaging>
   <name>Apache Geronimo JPA Spec 2.1</name>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0-alpha-1</version>
 
   <description>Implementation of JSR-338 JPA 2.1 Spec API</description>
 
@@ -53,10 +52,10 @@
   </properties>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jpa_2.1_spec/</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jpa_2.1_spec/
+    <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-jpa_2.1_spec-1.0-alpha-1</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-jpa_2.1_spec-1.0-alpha-1
     </developerConnection>
-    <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-jpa_2.1_spec/</url>
+    <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/tags/geronimo-jpa_2.1_spec-1.0-alpha-1</url>
   </scm>
 
   <dependencies>
