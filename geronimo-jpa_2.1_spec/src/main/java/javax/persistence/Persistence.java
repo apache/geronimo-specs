@@ -85,10 +85,7 @@ public class Persistence {
         }
 
         // get the discovered set of providers
-        PersistenceProviderResolver resolver =
-            PersistenceProviderResolverHolder.getPersistenceProviderResolver();
-        // following will throw PersistenceExceptions for invalid services
-        List<PersistenceProvider> providers = resolver.getPersistenceProviders();
+        List<PersistenceProvider> providers = getProviders();
 
         /*
          * Geronimo/OpenJPA 1.0 unique behavior - Start by loading a provider
@@ -260,6 +257,24 @@ public class Persistence {
         return new PersistenceUtilImpl();
     }
 
+    public static void generateSchema(String persistenceUnitName, Map properties) {
+        final List<PersistenceProvider> providers = getProviders();
+        for (final PersistenceProvider provider : providers) {
+            if (provider.generateSchema( persistenceUnitName, properties)) {
+                return;
+            }
+        }
+        throw new PersistenceException("No provider for schema generation of unit '" + persistenceUnitName + "'");
+    }
+
+    private static List<PersistenceProvider> getProviders() {
+        // get the discovered set of providers
+        PersistenceProviderResolver resolver =
+                PersistenceProviderResolverHolder.getPersistenceProviderResolver();
+        // following will throw PersistenceExceptions for invalid services
+        return resolver.getPersistenceProviders();
+    }
+
     /**
      * Geronimo implementation specific code
      */
@@ -273,9 +288,7 @@ public class Persistence {
                 boolean isLoaded = true;
 
                 // Get the list of persistence providers from the resolver
-                PersistenceProviderResolver ppr =
-                    PersistenceProviderResolverHolder.getPersistenceProviderResolver();
-                List<PersistenceProvider> pps = ppr.getPersistenceProviders();
+                List<PersistenceProvider> pps = getProviders();
 
                 // Iterate through the list using ProviderUtil.isLoadedWithoutReference()
                 for (PersistenceProvider pp : pps) {
@@ -314,9 +327,7 @@ public class Persistence {
 
             public boolean isLoaded(Object entity) {
                 // Get the list of persistence providers from the resolver
-                PersistenceProviderResolver ppr =
-                    PersistenceProviderResolverHolder.getPersistenceProviderResolver();
-                List<PersistenceProvider> pps = ppr.getPersistenceProviders();
+                List<PersistenceProvider> pps = getProviders();
 
                 // Iterate through the list of providers, using ProviderUtil to
                 // determine the load state
