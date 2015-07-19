@@ -14,21 +14,18 @@
  *   See the License for the specific language governing permissions and
  *   limitations under the License.
  */
+
 package javax.json;
 
-import java.io.Closeable;
+public class JsonMergePatch {
 
-public interface JsonReader extends Closeable {
-    JsonStructure read();
+    public static JsonValue mergePatch(JsonValue target, JsonValue patch) {
 
-    JsonObject readObject();
+        return null;
+    }
 
-    JsonArray readArray();
-
-    @Override
-    void close();
-    
-    default JsonValue readValue() {
-        throw new UnsupportedOperationException();
+    public static JsonValue diff(JsonValue source, JsonValue target) {
+        return null;
     }
 }
+

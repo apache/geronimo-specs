@@ -14,21 +14,43 @@
  *   See the License for the specific language governing permissions and
  *   limitations under the License.
  */
+
 package javax.json;
 
-import java.io.Closeable;
+public class JsonPatch {
 
-public interface JsonReader extends Closeable {
-    JsonStructure read();
-
-    JsonObject readObject();
-
-    JsonArray readArray();
+    public JsonPatch(JsonArray patch) {
+       
+    }
 
     @Override
-    void close();
-    
-    default JsonValue readValue() {
-        throw new UnsupportedOperationException();
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
+
+    public JsonStructure apply(JsonStructure target) {
+        return null;
+    }
+    public JsonObject apply(JsonObject target) {
+        return (JsonObject) apply((JsonStructure)target);
+    }
+
+    public JsonArray apply(JsonArray target) {
+        return (JsonArray) apply((JsonStructure)target);
+    }
+
+    public static JsonArray diff(JsonStructure source, JsonStructure target) {
+        return null;
     }
 }
+
