@@ -27,4 +27,6 @@ public interface JsonWriter extends Closeable {
 
     @Override
     void close();
+
+    void write(JsonValue value);
 }

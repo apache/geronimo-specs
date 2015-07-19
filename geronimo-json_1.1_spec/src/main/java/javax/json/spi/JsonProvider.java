@@ -16,18 +16,23 @@
  */
 package javax.json.spi;
 
+import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonBuilderFactory;
 import javax.json.JsonException;
+import javax.json.JsonNumber;
+import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import javax.json.JsonReader;
 import javax.json.JsonReaderFactory;
+import javax.json.JsonString;
 import javax.json.JsonWriter;
 import javax.json.JsonWriterFactory;
 import javax.json.stream.JsonGenerator;
 import javax.json.stream.JsonGeneratorFactory;
 import javax.json.stream.JsonParser;
 import javax.json.stream.JsonParserFactory;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,6 +41,8 @@ import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
 import java.lang.reflect.Method;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.net.URL;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
@@ -162,5 +169,37 @@ public abstract class JsonProvider {
     public abstract JsonArrayBuilder createArrayBuilder();
 
     public abstract JsonBuilderFactory createBuilderFactory(Map<String, ?> config);
+
+    public JsonObjectBuilder createObjectBuilder(JsonObject object) {
+        throw new UnsupportedOperationException();
+    }
+
+    public JsonArrayBuilder createArrayBuilder(JsonArray array) {
+        throw new UnsupportedOperationException();
+    }
+
+    public JsonString createValue(String value) {
+        throw new UnsupportedOperationException();
+    }
+
+    public JsonNumber createValue(int value) {
+        throw new UnsupportedOperationException();
+    }
+
+    public JsonNumber createValue(long value) {
+        throw new UnsupportedOperationException();
+    }
+
+    public JsonNumber createValue(double value) {
+        throw new UnsupportedOperationException();
+    }
+
+    public JsonNumber createValue(BigDecimal value) {
+        throw new UnsupportedOperationException();
+    }
+
+    public JsonNumber createValue(BigInteger value) {
+        throw new UnsupportedOperationException();
+    }
 }
 

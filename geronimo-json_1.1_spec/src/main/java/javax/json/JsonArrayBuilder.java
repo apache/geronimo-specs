@@ -43,4 +43,52 @@ public interface JsonArrayBuilder {
     JsonArrayBuilder add(JsonArrayBuilder builder);
 
     JsonArray build();
+
+    JsonArrayBuilder addAll(JsonArrayBuilder builder);
+
+    JsonArrayBuilder add(int index, JsonValue value);
+
+    JsonArrayBuilder add(int index, String value);
+
+    JsonArrayBuilder add(int index, BigDecimal value);
+
+    JsonArrayBuilder add(int index, BigInteger value);
+
+    JsonArrayBuilder add(int index, int value);
+
+    JsonArrayBuilder add(int index, long value);
+
+    JsonArrayBuilder add(int index, double value);
+
+    JsonArrayBuilder add(int index, boolean value);
+
+    JsonArrayBuilder addNull(int index);
+
+    JsonArrayBuilder add(int index, JsonObjectBuilder builder);
+
+    JsonArrayBuilder add(int index, JsonArrayBuilder builder);
+
+    JsonArrayBuilder set(int index, JsonValue value);
+
+    JsonArrayBuilder set(int index, String value);
+
+    JsonArrayBuilder set(int index, BigDecimal value);
+
+    JsonArrayBuilder set(int index, BigInteger value);
+
+    JsonArrayBuilder set(int index, int value);
+
+    JsonArrayBuilder set(int index, long value);
+
+    JsonArrayBuilder set(int index, double value);
+
+    JsonArrayBuilder set(int index, boolean value);
+
+    JsonArrayBuilder setNull(int index);
+
+    JsonArrayBuilder set(int index, JsonObjectBuilder builder);
+
+    JsonArrayBuilder set(int index, JsonArrayBuilder builder);
+
+    JsonArrayBuilder remove(int index);
 }

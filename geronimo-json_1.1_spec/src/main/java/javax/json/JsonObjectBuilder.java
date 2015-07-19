@@ -43,4 +43,8 @@ public interface JsonObjectBuilder {
     JsonObjectBuilder add(String name, JsonArrayBuilder builder);
 
     JsonObject build();
+
+    JsonObjectBuilder addAll(JsonObjectBuilder builder);
+
+    JsonObjectBuilder remove(String name);
 }
