@@ -14,21 +14,13 @@
  *   See the License for the specific language governing permissions and
  *   limitations under the License.
  */
+
 package javax.json;
 
-import java.io.Closeable;
+public class JsonUtil {
 
-public interface JsonReader extends Closeable {
-    JsonStructure read();
-
-    JsonObject readObject();
-
-    JsonArray readArray();
-
-    @Override
-    void close();
-    
-    default JsonValue readValue() {
-        throw new UnsupportedOperationException();
+    public static JsonValue toJson(String jsonString) {
+        return null;
     }
 }
+

@@ -17,4 +17,8 @@
 package javax.json;
 
 public interface JsonStructure extends JsonValue {
+
+    default public JsonValue getValue(String jsonPointer) {
+        return new JsonPointer(jsonPointer).getValue(this);
+    }
 }

@@ -21,10 +21,13 @@ import javax.json.stream.JsonGenerator;
 import javax.json.stream.JsonGeneratorFactory;
 import javax.json.stream.JsonParser;
 import javax.json.stream.JsonParserFactory;
+
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Map;
 
 public class Json {
@@ -90,5 +93,37 @@ public class Json {
 
     public static JsonBuilderFactory createBuilderFactory(Map<String, ?> config) {
         return JsonProvider.provider().createBuilderFactory(config);
+    }
+    
+    public static JsonArrayBuilder createArrayBuilder(JsonArray array) {
+        return JsonProvider.provider().createArrayBuilder(array);
+    }
+    
+    public static JsonObjectBuilder createObjectBuilder(JsonObject object) {
+        return JsonProvider.provider().createObjectBuilder(object);
+    }
+    
+    public static JsonString createValue(String value) {
+        return JsonProvider.provider().createValue(value);
+    }
+
+    public static JsonNumber createValue(int value) {
+        return JsonProvider.provider().createValue(value);
+    }
+
+    public static JsonNumber createValue(long value) {
+        return JsonProvider.provider().createValue(value);
+    }
+
+    public static JsonNumber createValue(double value) {
+        return JsonProvider.provider().createValue(value);
+    }
+
+    public static JsonNumber createValue(BigDecimal value) {
+        return JsonProvider.provider().createValue(value);
+    }
+
+    public static JsonNumber createValue(BigInteger value) {
+        return JsonProvider.provider().createValue(value);
     }
 }

@@ -17,6 +17,17 @@
 package javax.json;
 
 public interface JsonValue {
+
+    /**
+     * The empty JSON object.
+     */
+    static final JsonObject EMPTY_JSON_OBJECT = Json.createObjectBuilder().build();
+
+    /**
+     * The empty JSON array.
+     */
+    static final JsonArray EMPTY_JSON_ARRAY = Json.createArrayBuilder().build();
+
     static final JsonValue NULL = new JsonValue() {
         @Override
         public ValueType getValueType() {
@@ -91,5 +102,13 @@ public interface JsonValue {
         OBJECT, STRING, NUMBER,
         TRUE, FALSE,
         NULL
+    }
+    
+    default JsonObject asJsonObject() {
+        return JsonObject.class.cast(this);
+    }
+
+    default JsonArray asJsonArray() {
+        return JsonArray.class.cast(this);
     }
 }
