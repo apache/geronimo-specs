@@ -82,6 +82,7 @@
         <module>geronimo-jcache_1.0_spec</module>
         <module>geronimo-jcdi_1.0_spec</module>
         <module>geronimo-jcdi_1.1_spec</module>
+        <module>geronimo-jcdi_2.0_spec</module>
         <module>geronimo-jms_1.1_spec</module>
         <module>geronimo-jpa_1.0_spec</module>
         <module>geronimo-jpa_2.0_spec</module>

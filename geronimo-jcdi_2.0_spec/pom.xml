@@ -25,13 +25,13 @@
     </parent>
 
     <groupId>org.apache.geronimo.specs</groupId>
-    <artifactId>geronimo-jcdi_1.1_spec</artifactId>
+    <artifactId>geronimo-jcdi_2.0_spec</artifactId>
     <packaging>bundle</packaging>
-    <name>Apache Geronimo JCDI Spec 1.1</name>
-    <version>1.1-SNAPSHOT</version>
+    <name>Apache Geronimo JCDI Spec 2.0</name>
+    <version>1.0-alpha-1-SNAPSHOT</version>
 
     <description>
-        Apache Geronimo implementation of the JSR-346 Context and Dependency Injection 1.1 &amp; 1.2 Specification
+        Apache Geronimo implementation of the JSR-365 Context and Dependency Injection 2.0 Specification
     </description>
     <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
 
@@ -47,9 +47,9 @@
     </properties>
 
     <scm>
-        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jcdi_1.1_spec/</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jcdi_1.1_spec/</developerConnection>
-        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-jcdi_1.1_spec/</url>
+        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jcdi_2.0_spec/</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jcdi_2.0_spec/</developerConnection>
+        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-jcdi_2.0_spec/</url>
     </scm>
 
     <!-- added so the build can find staged depends -->
@@ -106,11 +106,11 @@
                 <configuration>
                     <instructions>
                         <Export-Package>
-                            javax.decorator*;version=1.0,
-                            javax.enterprise.context*;version=1.0,
-                            javax.enterprise.event*;version=1.0,
-                            javax.enterprise.inject*;version=1.0,
-                            javax.enterprise.util*;version=1.0
+                            javax.decorator*;version=2.0,
+                            javax.enterprise.context*;version=2.0,
+                            javax.enterprise.event*;version=2.0,
+                            javax.enterprise.inject*;version=2.0,
+                            javax.enterprise.util*;version=2.0
                         </Export-Package>
                     </instructions>
                 </configuration>
