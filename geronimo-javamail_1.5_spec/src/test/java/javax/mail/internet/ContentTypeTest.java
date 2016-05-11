@@ -19,6 +19,10 @@
 
 package javax.mail.internet;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 import junit.framework.TestCase;
 
 /**
@@ -98,7 +102,17 @@ public class ContentTypeTest extends TestCase {
         type.setParameter("foo", "bar");
         assertEquals("text/plain; foo=bar", type.toString());
         type.setParameter("bar", "me@apache.org");
-        assertEquals("text/plain; foo=bar; bar=\"me@apache.org\"", type.toString());
+
+        String[] tokens = type.toString().split(";");
+        assertEquals(3, tokens.length);
+
+        Set<String> parameters = new HashSet<String>();
+        for (String s : tokens) {
+            parameters.add(s.replaceAll("\\s+",""));
+        }
+        assertTrue(parameters.contains("text/plain"));
+        assertTrue(parameters.contains("foo=bar"));
+        assertTrue(parameters.contains("bar=\"me@apache.org\""));
     }
     public void testMatchContentType() throws ParseException {
         final ContentType type = new ContentType("text/plain");
