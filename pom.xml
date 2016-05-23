@@ -88,6 +88,7 @@
         <module>geronimo-jpa_2.0_spec</module>
         <module>geronimo-jpa_2.1_spec</module>
         <module>geronimo-json_1.0_spec</module>
+        <module>geronimo-json_1.1_spec</module>
         <module>geronimo-jsp_2.1_spec</module>
         <module>geronimo-jsp_2.2_spec</module>
         <module>geronimo-jta_1.1_spec</module>
