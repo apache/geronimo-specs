@@ -23,6 +23,7 @@ import javax.json.JsonException;
 import javax.json.JsonNumber;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
+import javax.json.JsonPointer;
 import javax.json.JsonReader;
 import javax.json.JsonReaderFactory;
 import javax.json.JsonString;
@@ -167,6 +168,8 @@ public abstract class JsonProvider {
     public abstract JsonObjectBuilder createObjectBuilder();
 
     public abstract JsonArrayBuilder createArrayBuilder();
+
+    public abstract JsonPointer createJsonPointer(String path);
 
     public abstract JsonBuilderFactory createBuilderFactory(Map<String, ?> config);
 
