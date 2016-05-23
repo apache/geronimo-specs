@@ -17,59 +17,25 @@
 
 package javax.json;
 
-public final class JsonPointer {
+public interface JsonPointer {
 
-    public JsonPointer(String jsonPointer) {
-        
-    }
+    public JsonValue getValue(JsonStructure target);
 
-    @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
-    }
+    public JsonStructure add(JsonStructure target, JsonValue value);
 
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
+    public JsonStructure replace(JsonStructure target, JsonValue value);
 
-    public JsonValue getValue(JsonStructure target) {
-        return null;
-    }
+    public JsonStructure remove(JsonStructure target);
 
-    public JsonStructure add(JsonStructure target, JsonValue value) {
-        return null;
-    }
+    public JsonObject add(JsonObject target, JsonValue value);
 
-    public JsonStructure replace(JsonStructure target, JsonValue value) {
-        return null;
-    }
+    public JsonArray add(JsonArray target, JsonValue value);
 
-    public JsonStructure remove(JsonStructure target) {
-        return null;
-    }
+    public JsonObject replace(JsonObject target, JsonValue value);
 
-    public JsonObject add(JsonObject target, JsonValue value) {
-        return (JsonObject) add((JsonStructure) target, value);
-    }
+    public JsonArray replace(JsonArray target, JsonValue value);
 
-    public JsonArray add(JsonArray target, JsonValue value) {
-        return (JsonArray) add((JsonStructure) target, value);
-    }
+    public JsonObject remove(JsonObject target);
 
-    public JsonObject replace(JsonObject target, JsonValue value) {
-        return (JsonObject) replace((JsonStructure) target, value);
-    }
-
-    public JsonArray replace(JsonArray target, JsonValue value) {
-        return (JsonArray) replace((JsonStructure) target, value);
-    }
-
-    public JsonObject remove(JsonObject target) {
-        return (JsonObject) remove((JsonStructure) target);
-    }
-
-    public JsonArray remove(JsonArray target) {
-        return (JsonArray) remove((JsonStructure) target);
-    }
+    public JsonArray remove(JsonArray target);
 }
