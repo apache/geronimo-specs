@@ -41,6 +41,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
+import java.lang.ref.SoftReference;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -57,27 +58,66 @@ import java.util.ServiceLoader;
 public abstract class JsonProvider {
     private static final String DEFAULT_PROVIDER = "org.apache.johnzon.core.JsonProviderImpl";
 
+    private static volatile SoftReference<JsonProvider> cachedReference = null;
+
     protected JsonProvider() {
         // no-op
     }
 
-    public static JsonProvider provider() {
-        if (System.getSecurityManager() != null) {
-            return AccessController.doPrivileged(new PrivilegedAction<JsonProvider>() {
-                public JsonProvider run() {
-                    return doLoadProvider();
-                }
-            });
+    private static final JsonProvider getCache() {
+        if (cachedReference == null) {
+            return null;
         }
-        return doLoadProvider();
+        else {
+            return cachedReference.get();
+        }
+    }
+
+
+    public static JsonProvider provider() {
+        final JsonProvider referencee = getCache();
+
+        if (referencee != null) {
+            return referencee;
+        }
+        else {
+            if (System.getSecurityManager() != null) {
+                return AccessController.doPrivileged(new PrivilegedAction<JsonProvider>() {
+                    public JsonProvider run() {
+                        JsonProvider value = doLoadProvider();
+                        cachedReference = new SoftReference<JsonProvider>(value);
+                        return value;
+                    }
+                });
+            }
+            JsonProvider value = doLoadProvider();
+            cachedReference = new SoftReference<JsonProvider>(value);
+            return value;
+        }
     }
 
     private static JsonProvider doLoadProvider() throws JsonException {
         final ClassLoader tccl = Thread.currentThread().getContextClassLoader();
         try {
+            return doLoad(tccl);
+        }
+        catch (Throwable cnfe) {
+            try {
+                // in certain environments it may not be possible the caller to set TCCL on every call
+                // so we try a second level using the same classLoader that loaded the Provider
+                return doLoad(JsonProvider.class.getClassLoader());
+            } catch (final Throwable cnfe2) {
+                throw new JsonException(DEFAULT_PROVIDER + " not found", cnfe2);
+            }
+
+        }
+    }
+
+    private static JsonProvider doLoad(ClassLoader classLoader) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
+        try {
             final Class<?> clazz = Class.forName("org.apache.geronimo.osgi.locator.ProviderLocator");
             final Method getServices = clazz.getDeclaredMethod("getServices", String.class, Class.class, ClassLoader.class);
-            final List<JsonProvider> osgiProviders = (List<JsonProvider>) getServices.invoke(null, JsonProvider.class.getName(), JsonProvider.class, tccl);
+            final List<JsonProvider> osgiProviders = (List<JsonProvider>) getServices.invoke(null, JsonProvider.class.getName(), JsonProvider.class, classLoader);
             if (osgiProviders != null && !osgiProviders.isEmpty()) {
                 return osgiProviders.iterator().next();
             }
@@ -90,10 +130,10 @@ public abstract class JsonProvider {
         final String name = "META-INF/services/" + JsonProvider.class.getName();
         try {
             Enumeration<URL> configs;
-            if (tccl == null) {
+            if (classLoader == null) {
                 configs = ClassLoader.getSystemResources(name);
             } else {
-                configs = tccl.getResources(name);
+                configs = classLoader.getResources(name);
             }
 
             if (configs.hasMoreElements()) {
@@ -108,7 +148,7 @@ public abstract class JsonProvider {
                         if (l.startsWith("#")) {
                             continue;
                         }
-                        return JsonProvider.class.cast(tccl.loadClass(l).newInstance());
+                        return JsonProvider.class.cast(classLoader.loadClass(l).newInstance());
                     }
                 } catch (final IOException x) {
                     // no-op
@@ -133,12 +173,8 @@ public abstract class JsonProvider {
             // no-op
         }
 
-        try {
-            final Class<?> clazz = tccl.loadClass(DEFAULT_PROVIDER);
-            return JsonProvider.class.cast(clazz.newInstance());
-        } catch (final Throwable cnfe) {
-            throw new JsonException(DEFAULT_PROVIDER + " not found", cnfe);
-        }
+        final Class<?> clazz = classLoader.loadClass(DEFAULT_PROVIDER);
+        return JsonProvider.class.cast(clazz.newInstance());
     }
 
     public abstract JsonParser createParser(Reader reader);
