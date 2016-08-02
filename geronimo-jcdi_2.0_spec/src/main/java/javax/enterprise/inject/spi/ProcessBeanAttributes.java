@@ -18,6 +18,8 @@
  */
 package javax.enterprise.inject.spi;
 
+import javax.enterprise.inject.spi.builder.BeanAttributesConfigurator;
+
 /**
  * Each {@link AnnotatedType} gets scanned by the CDI container and turned
  * into initial {@link BeanAttributes}. Those BeanAttributes can be modified
@@ -31,23 +33,23 @@ public interface ProcessBeanAttributes<T>
      * @return the {@link AnnotatedType} for bean classes, {@link AnnotatedMethod} for producer methods and
      *          {@link AnnotatedField} for producer fields.
      */
-    public Annotated getAnnotated();
+    Annotated getAnnotated();
 
     /**
      * @return the BeanAttributes parsed from the {@link Annotated}
      */
-    public BeanAttributes<T> getBeanAttributes();
+    BeanAttributes<T> getBeanAttributes();
 
     /**
      * Use the given BeanAttributes to later create the {@link Bean} from it.
      * @param beanAttributes
      */
-    public void setBeanAttributes(BeanAttributes<T> beanAttributes);
+    void setBeanAttributes(BeanAttributes<T> beanAttributes);
 
     /**
      * Tell the container it should ignore this Bean.
      */
-    public void veto();
+    void veto();
 
     /**
      * Adding definition error. Container aborts
@@ -55,5 +57,12 @@ public interface ProcessBeanAttributes<T>
      *
      * @param t throwable
      */
-    public void addDefinitionError(Throwable t);
+    void addDefinitionError(Throwable t);
+
+   /**
+    * Creates a bean attributes configurator to configure this bean's attributes.
+    *
+    * @return
+    */
+    BeanAttributesConfigurator<T> configureBeanAttributes();
 }

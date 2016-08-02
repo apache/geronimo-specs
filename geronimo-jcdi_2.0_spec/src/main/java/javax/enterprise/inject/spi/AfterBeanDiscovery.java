@@ -19,6 +19,8 @@
 package javax.enterprise.inject.spi;
 
 import javax.enterprise.context.spi.Context;
+import javax.enterprise.inject.spi.builder.BeanConfigurator;
+import javax.enterprise.inject.spi.builder.ObserverMethodConfigurator;
 
 /**
  * Events that are fired after discovery bean process.
@@ -34,28 +36,28 @@ public interface AfterBeanDiscovery
      * 
      * @param t throwable
      */
-    public void addDefinitionError(Throwable t);
+    void addDefinitionError(Throwable t);
 
     /**
      * Registering the bean with container.
      * 
      * @param bean new bean
      */
-    public void addBean(Bean<?> bean);
+    void addBean(Bean<?> bean);
     
     /**
      * Registers the given observer method with container.
      * 
      * @param observerMethod observer method
      */
-    public void addObserverMethod(ObserverMethod<?> observerMethod);
+    void addObserverMethod(ObserverMethod<?> observerMethod);
     
     /**
      * Adds given context to the container.
      * 
      * @param context new context
      */
-    public void addContext(Context context);
+    void addContext(Context context);
 
     /**
      * This will return the AnnotatedType including all changes applied by CDI Extensions.
@@ -66,7 +68,7 @@ public interface AfterBeanDiscovery
      * @param <T>
      * @return the AnnotatedType for the given type and id.
      */
-    public <T> AnnotatedType<T> getAnnotatedType(Class<T> type, String id);
+    <T> AnnotatedType<T> getAnnotatedType(Class<T> type, String id);
 
     /**
      * Get an Iterable of all AnnotatedTypes which implement the given
@@ -74,5 +76,31 @@ public interface AfterBeanDiscovery
      * @param <T>
      * @return
      */
-    public <T> Iterable<AnnotatedType<T>> getAnnotatedTypes(Class<T> type);
+    <T> Iterable<AnnotatedType<T>> getAnnotatedTypes(Class<T> type);
+
+   /**
+    * Creates a bean configurator to configure a new bean.
+    *
+    * A ProcessBean is fired once the bean has been built.
+    *
+    * The bean configurator created is meant as a one time use object.  Invoke this method to create new ones.
+    *
+    * @param <T>
+    * @throws IllegalStateException if used outside of the observer method's invocation
+    * @return
+    */
+    <T> BeanConfigurator<T> addBean();
+
+   /**
+    * Creates an observer method configurator to define an observer method.
+    *
+    * A ProcessObserverMethod is invoked once the observer method is built.
+    *
+    * The observer method configurator created is meant as a one time use object.  Invoke this method to create new ones.
+    *
+    * @param <T>
+    * @throws IllegalStateException if used outside of the observer method's invocation
+    * @return
+    */
+    <T> ObserverMethodConfigurator<T> addObserverMethod();
 }

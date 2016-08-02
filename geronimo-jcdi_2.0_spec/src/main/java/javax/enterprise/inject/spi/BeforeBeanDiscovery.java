@@ -18,6 +18,7 @@
  */
 package javax.enterprise.inject.spi;
 
+import javax.enterprise.inject.spi.builder.AnnotatedTypeConfigurator;
 import java.lang.annotation.Annotation;
 
 /**
@@ -34,13 +35,13 @@ public interface BeforeBeanDiscovery
      * 
      * @param qualifier qualifier
      */
-    public void addQualifier(Class<? extends Annotation> qualifier);
+    void addQualifier(Class<? extends Annotation> qualifier);
 
     /**
      * Declare a new qualifier via the information from the given AnnotatedType.
      * @param qualifier
      */
-    public void addQualifier(AnnotatedType<? extends Annotation> qualifier);
+    void addQualifier(AnnotatedType<? extends Annotation> qualifier);
 
     
     /**
@@ -50,7 +51,7 @@ public interface BeforeBeanDiscovery
      * @param normal is normal or not
      * @param passivating passivated or not
      */
-    public void addScope(Class<? extends Annotation> scope, boolean normal, boolean passivating);
+    void addScope(Class<? extends Annotation> scope, boolean normal, boolean passivating);
     
     /**
      * Declares a new stereotype.
@@ -58,7 +59,7 @@ public interface BeforeBeanDiscovery
      * @param stereotype stereotype class
      * @param stereotypeDef meta annotations
      */
-    public void addStereotype(Class<? extends Annotation> stereotype, Annotation... stereotypeDef);
+    void addStereotype(Class<? extends Annotation> stereotype, Annotation... stereotypeDef);
     
     /**
      * Declares a new interceptor binding.
@@ -66,13 +67,13 @@ public interface BeforeBeanDiscovery
      * @param binding binding class
      * @param bindingDef meta annotations
      */
-    public void addInterceptorBinding(Class<? extends Annotation> binding, Annotation... bindingDef);
+    void addInterceptorBinding(Class<? extends Annotation> binding, Annotation... bindingDef);
 
     /**
      * Declare a new interceptor binding via the information from the given AnnotatedType.
      * @param bindingType
      */
-    public void addInterceptorBinding(AnnotatedType<? extends Annotation> bindingType);
+    void addInterceptorBinding(AnnotatedType<? extends Annotation> bindingType);
     
     /**
      * Adds new annotated type.
@@ -81,7 +82,7 @@ public interface BeforeBeanDiscovery
      * 
      * @param type annotated type
      */
-    public void addAnnotatedType(AnnotatedType<?> type);
+    void addAnnotatedType(AnnotatedType<?> type);
 
     /**
      * Adds new annotated type for classes which are not picked up by the CDI container
@@ -90,5 +91,15 @@ public interface BeforeBeanDiscovery
      * @param type annotated type
      * @param id to distinguish AnnotatedTypes for the same class.
      */
-     public void addAnnotatedType(AnnotatedType<?> type, String id);
+    void addAnnotatedType(AnnotatedType<?> type, String id);
+
+    /**
+     * Returns a new annotated type configurator based on a new bean id and bean class.
+     *
+     * @param id of the annotated type
+     * @param clazz
+     * @param <T>
+     * @return
+     */
+    <T> AnnotatedTypeConfigurator<T> addAnnotatedType(String id, Class<T> clazz);
 }
