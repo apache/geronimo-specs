@@ -18,6 +18,7 @@
  */
 package javax.enterprise.inject.spi;
 
+import javax.enterprise.inject.spi.builder.AnnotatedTypeConfigurator;
 import java.util.Set;
 
 /**
@@ -32,26 +33,32 @@ public interface AnnotatedType<X> extends Annotated
      *
      * @return class of bean
      */
-    public Class<X> getJavaClass();
+    Class<X> getJavaClass();
 
     /**
      * Returns set of bean constructors.
      *
      * @return set of constructors
      */
-    public Set<AnnotatedConstructor<X>> getConstructors();
+    Set<AnnotatedConstructor<X>> getConstructors();
 
     /**
      * Returns set of bean methods.
      *
      * @return set of bean methods
      */
-    public Set<AnnotatedMethod<? super X>> getMethods();
+    Set<AnnotatedMethod<? super X>> getMethods();
 
     /**
      * Returns set of bean fields.
      *
      * @return set of bean fields.
      */
-    public Set<AnnotatedField<? super X>> getFields();
+    Set<AnnotatedField<? super X>> getFields();
+
+   /**
+    * Creates a configurator to configure this annotated type.
+    * @return
+    */
+    AnnotatedTypeConfigurator<X> configureAnnotatedType();
 }

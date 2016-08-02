@@ -18,6 +18,7 @@
  */
 package javax.enterprise.inject.spi;
 
+import javax.enterprise.inject.spi.builder.AnnotatedTypeConfigurator;
 import java.util.List;
 
 /**
@@ -34,7 +35,7 @@ public interface AfterTypeDiscovery
      * BeanArchive are not included in this list.
      * @return the ordered, mutable List of enabled {@link javax.enterprise.inject.Alternative}s
      */
-    public List<Class<?>> getAlternatives();
+    List<Class<?>> getAlternatives();
 
     /**
      * This method can be used to remove and add enabled CDI Interceptors,
@@ -43,7 +44,7 @@ public interface AfterTypeDiscovery
      * @return the ordered, mutable List of Classes which are annotated with {@link Interceptor}
      *      and globally enabled.
      */
-    public List<Class<?>> getInterceptors();
+    List<Class<?>> getInterceptors();
 
     /**
      * This method can be used to remove and add enabled Decorators,
@@ -52,7 +53,7 @@ public interface AfterTypeDiscovery
      * @return the ordered, mutable List of Classes which are annotated with {@link Decorator}
      *      and globally enabled.
      */
-    public List<Class<?>> getDecorators();
+    List<Class<?>> getDecorators();
 
     /**
      * Allows to a synthetic annotated type.
@@ -72,5 +73,15 @@ public interface AfterTypeDiscovery
      * @see AfterBeanDiscovery#getAnnotatedTypes(Class)
      *
      */
-    public void addAnnotatedType(AnnotatedType<?> type, String id);
+    void addAnnotatedType(AnnotatedType<?> type, String id);
+
+    /**
+     * Returns a new annotated type configurator based on a new bean id and bean class.
+     *
+     * @param id of the annotated type
+     * @param clazz
+     * @param <T>
+     * @return
+     */
+    <T> AnnotatedTypeConfigurator<T> addAnnotatedType(String id, Class<T> clazz);
 }

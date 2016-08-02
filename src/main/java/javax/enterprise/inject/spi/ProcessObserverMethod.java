@@ -18,6 +18,8 @@
  */
 package javax.enterprise.inject.spi;
 
+import javax.enterprise.inject.spi.builder.ObserverMethodConfigurator;
+
 /**
  * Fired for each observer.
  * 
@@ -33,7 +35,7 @@ public interface ProcessObserverMethod<T, X>
      * 
      * @return annotated method
      */
-    public AnnotatedMethod<X> getAnnotatedMethod();
+    AnnotatedMethod<X> getAnnotatedMethod();
     
     /**
      * Returns observer method instance that
@@ -41,13 +43,19 @@ public interface ProcessObserverMethod<T, X>
      * 
      * @return observer method instance
      */
-    public ObserverMethod<T> getObserverMethod();
+    ObserverMethod<T> getObserverMethod();
 
     /**
      * Add throwable.
      * 
      * @param t throwable
      */
-    public void addDefinitionError(Throwable t);
+    void addDefinitionError(Throwable t);
+
+   /**
+    * Creates a configurator for this observer method
+    * @return
+    */
+    ObserverMethodConfigurator<T> configureObserverMethod();
     
 }
