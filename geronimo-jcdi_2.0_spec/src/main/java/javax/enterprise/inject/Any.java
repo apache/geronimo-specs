@@ -28,6 +28,7 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+import javax.enterprise.util.AnnotationLiteral;
 import javax.inject.Qualifier;
 
 /**
@@ -41,5 +42,11 @@ import javax.inject.Qualifier;
 @Qualifier
 public @interface Any
 {
+   final class Literal extends AnnotationLiteral<Any> implements Any {
 
+      public static final Literal INSTANCE = new Literal();
+
+      private static final long serialVersionUID = 1L;
+
+   }
 }

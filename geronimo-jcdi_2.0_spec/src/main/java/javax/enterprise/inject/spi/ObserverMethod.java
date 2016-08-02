@@ -65,34 +65,41 @@ import javax.enterprise.event.TransactionPhase;
  */
 public interface ObserverMethod<T>
 {
-    public Class<?> getBeanClass();
+    Class<?> getBeanClass();
     
     /**
      * @return the type of the observed event
      */
-    public Type getObservedType();
+    Type getObservedType();
     
     /**
      * @return the defined Qualifiers plus {@code javax.enterprise.inject.Any}
      */
-    public Set<Annotation> getObservedQualifiers();
+    Set<Annotation> getObservedQualifiers();
     
     /**
      * @return either {@code Reception#IF_EXISTS} if the observed method must only be called if an instance
      * of the bean which defines the observer method aready exists in the specified context or {@code Reception#ALWAYS}. 
      */
-    public Reception getReception();
+    Reception getReception();
     
     /**
      * @return the appropriate {@code TransactionPhase} for a transactional observer method or
      * {@code TransactionPhase#IN_PROGRESS} otherwise. 
      */
-    public TransactionPhase getTransactionPhase();
+    TransactionPhase getTransactionPhase();
 
     /**
      * will actually cann the underlying observer method
      * @param event
      */
-    public void notify(T event);    
+    void notify(T event);
 
+   /**
+    * Whether or not this observer method is an async observer.  defaults to false for compatibility
+    * @return
+    */
+    default boolean isAsync() {
+        return false;
+    }
 }

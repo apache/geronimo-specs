@@ -18,6 +18,8 @@
  */
 package javax.enterprise.inject.spi;
 
+import javax.enterprise.inject.spi.builder.InjectionPointConfigurator;
+
 /**
  * Gets fired for each InjectionPoint.
  *
@@ -29,13 +31,13 @@ public interface ProcessInjectionPoint<T, X>
     /**
      * @return the InjectionPoint created from originally parsing the AnnotatedType.
      */
-    public InjectionPoint getInjectionPoint();
+    InjectionPoint getInjectionPoint();
 
     /**
      * Replace the original InjectionPoint point with the given one.
      * @param injectionPoint
      */
-    public void setInjectionPoint(InjectionPoint injectionPoint);
+    void setInjectionPoint(InjectionPoint injectionPoint);
 
     /**
      * Adding definition error. Container aborts
@@ -43,5 +45,12 @@ public interface ProcessInjectionPoint<T, X>
      *
      * @param t throwable
      */
-    public void addDefinitionError(Throwable t);
+    void addDefinitionError(Throwable t);
+
+   /**
+    *  Creates a new configurator for this injection point.
+    *
+    * @return
+    */
+    InjectionPointConfigurator configureInjectionPoint();
 }
