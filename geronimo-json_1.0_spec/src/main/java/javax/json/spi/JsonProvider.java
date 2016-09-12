@@ -35,102 +35,30 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
+import java.lang.ref.WeakReference;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
-import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.ServiceLoader;
+import java.util.WeakHashMap;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public abstract class JsonProvider {
     private static final String DEFAULT_PROVIDER = "org.apache.johnzon.core.JsonProviderImpl";
+
+    private static final Cache CACHE = new Cache();
 
     protected JsonProvider() {
         // no-op
     }
 
     public static JsonProvider provider() {
-        if (System.getSecurityManager() != null) {
-            return AccessController.doPrivileged(new PrivilegedAction<JsonProvider>() {
-                public JsonProvider run() {
-                    return doLoadProvider();
-                }
-            });
-        }
-        return doLoadProvider();
-    }
-
-    private static JsonProvider doLoadProvider() throws JsonException {
-        final ClassLoader tccl = Thread.currentThread().getContextClassLoader();
-        try {
-            final Class<?> clazz = Class.forName("org.apache.geronimo.osgi.locator.ProviderLocator");
-            final Method getServices = clazz.getDeclaredMethod("getServices", String.class, Class.class, ClassLoader.class);
-            final List<JsonProvider> osgiProviders = (List<JsonProvider>) getServices.invoke(null, JsonProvider.class.getName(), JsonProvider.class, tccl);
-            if (osgiProviders != null && !osgiProviders.isEmpty()) {
-                return osgiProviders.iterator().next();
-            }
-        } catch (final Throwable e) {
-            // locator not available, try normal mode
-        }
-
-        // don't use Class.forName() to avoid to bind class to tccl if thats a classloader facade
-        // so implementing a simple SPI when ProviderLocator is not here
-        final String name = "META-INF/services/" + JsonProvider.class.getName();
-        try {
-            Enumeration<URL> configs;
-            if (tccl == null) {
-                configs = ClassLoader.getSystemResources(name);
-            } else {
-                configs = tccl.getResources(name);
-            }
-
-            if (configs.hasMoreElements()) {
-                InputStream in = null;
-                BufferedReader r = null;
-                final List<String> names = new ArrayList<String>();
-                try {
-                    in = configs.nextElement().openStream();
-                    r = new BufferedReader(new InputStreamReader(in, "utf-8"));
-                    String l;
-                    while ((l = r.readLine()) != null) {
-                        if (l.startsWith("#")) {
-                            continue;
-                        }
-                        return JsonProvider.class.cast(tccl.loadClass(l).newInstance());
-                    }
-                } catch (final IOException x) {
-                    // no-op
-                } finally {
-                    try {
-                        if (r != null) {
-                            r.close();
-                        }
-                    } catch (final IOException y) {
-                        // no-op
-                    }
-                    try {
-                        if (in != null) {
-                            in.close();
-                        }
-                    } catch (final IOException y) {
-                        // no-op
-                    }
-                }
-            }
-        } catch (final Exception ex) {
-            // no-op
-        }
-
-        try {
-            final Class<?> clazz = tccl.loadClass(DEFAULT_PROVIDER);
-            return JsonProvider.class.cast(clazz.newInstance());
-        } catch (final Throwable cnfe) {
-            throw new JsonException(DEFAULT_PROVIDER + " not found", cnfe);
-        }
+        return CACHE.get();
     }
 
     public abstract JsonParser createParser(Reader reader);
@@ -162,5 +90,138 @@ public abstract class JsonProvider {
     public abstract JsonArrayBuilder createArrayBuilder();
 
     public abstract JsonBuilderFactory createBuilderFactory(Map<String, ?> config);
+
+    private static class Cache {
+        private final WeakHashMap<ClassLoader, WeakReference<JsonProvider>> cachingProviders = new WeakHashMap<ClassLoader, WeakReference<JsonProvider>>();
+        private final ReadWriteLock lock = new ReentrantReadWriteLock();
+
+        private JsonProvider get() { // in term of synchro we don't prevent to load multiple times the provider
+            ClassLoader key = Thread.currentThread().getContextClassLoader();
+            if (key == null) {
+                key = ClassLoader.getSystemClassLoader();
+            }
+
+            final WeakReference<JsonProvider> reference;
+            final Lock readLock = this.lock.readLock();
+            readLock.lock();
+            try {
+                reference = cachingProviders.get(key);
+            } finally {
+                readLock.unlock();
+            }
+
+            JsonProvider provider = null;
+            if (reference != null) {
+                provider = reference.get();
+            }
+            if (provider != null) {
+                return provider;
+            }
+
+            if (System.getSecurityManager() != null) {
+                provider = AccessController.doPrivileged(new PrivilegedAction<JsonProvider>() {
+                    public JsonProvider run() {
+                        return doLoadProvider();
+                    }
+                });
+            } else {
+                provider = doLoadProvider();
+            }
+
+            final Lock writeLock = this.lock.writeLock();
+            writeLock.lock();
+            try {
+                boolean put = true;
+                final WeakReference<JsonProvider> existing = cachingProviders.get(key);
+                if (existing != null) {
+                    final JsonProvider p = existing.get();
+                    if (p != null) {
+                        provider = p;
+                        put = false;
+                    }
+                }
+                if (put) {
+                    cachingProviders.put(key, new WeakReference<JsonProvider>(provider));
+                }
+            } finally {
+                writeLock.unlock();
+            }
+
+            return provider;
+        }
+
+        private static JsonProvider doLoadProvider() throws JsonException {
+            ClassLoader tccl = Thread.currentThread().getContextClassLoader();
+            if (tccl == null) {
+                tccl = ClassLoader.getSystemClassLoader();
+            }
+            try {
+                final Class<?> clazz = Class.forName("org.apache.geronimo.osgi.locator.ProviderLocator");
+                final Method getServices = clazz.getDeclaredMethod("getServices", String.class, Class.class, ClassLoader.class);
+                final List<JsonProvider> osgiProviders = (List<JsonProvider>) getServices.invoke(null, JsonProvider.class.getName(), JsonProvider.class, tccl);
+                if (osgiProviders != null && !osgiProviders.isEmpty()) {
+                    return osgiProviders.iterator().next();
+                }
+            } catch (final Throwable e) {
+                // locator not available, try normal mode
+            }
+
+            final String className = System.getProperty(JsonProvider.class.getName());
+            if (className != null) {
+                try {
+                    return JsonProvider.class.cast(tccl.loadClass(className.trim()).newInstance());
+                } catch (final Exception e) {
+                    throw new JsonException("Specified provider as system property can't be loaded: " + className, e);
+                }
+            }
+
+            // don't use Class.forName() to avoid to bind class to tccl if thats a classloader facade
+            // so implementing a simple SPI when ProviderLocator is not here
+            final String name = "META-INF/services/" + JsonProvider.class.getName();
+            try {
+                final Enumeration<URL> configs = tccl.getResources(name);
+                if (configs.hasMoreElements()) {
+                    InputStream in = null;
+                    BufferedReader r = null;
+                    try {
+                        in = configs.nextElement().openStream();
+                        r = new BufferedReader(new InputStreamReader(in, "utf-8"));
+                        String l;
+                        while ((l = r.readLine()) != null) {
+                            if (l.startsWith("#")) {
+                                continue;
+                            }
+                            return JsonProvider.class.cast(tccl.loadClass(l).newInstance());
+                        }
+                    } catch (final IOException x) {
+                        // no-op
+                    } finally {
+                        try {
+                            if (r != null) {
+                                r.close();
+                            }
+                        } catch (final IOException y) {
+                            // no-op
+                        }
+                        try {
+                            if (in != null) {
+                                in.close();
+                            }
+                        } catch (final IOException y) {
+                            // no-op
+                        }
+                    }
+                }
+            } catch (final Exception ex) {
+                // no-op
+            }
+
+            try {
+                return JsonProvider.class.cast(tccl.loadClass(DEFAULT_PROVIDER).newInstance());
+            } catch (final Throwable cnfe) {
+                throw new JsonException(DEFAULT_PROVIDER + " not found", cnfe);
+            }
+        }
+    }
 }
 
