@@ -30,6 +30,9 @@ import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
+ * Constraint to verify that the validated field, parameter, etc matches the given regexp pattern.
+ * The pattern format is as specified in {@link java.util.regex.Pattern}.
+ *
  * @version $Rev$ $Date$
  */
 @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER })
@@ -48,7 +51,7 @@ public @interface Pattern {
 
     Class<? extends Payload>[] payload() default {};
 
-    public static enum Flag {
+    enum Flag {
 
         UNIX_LINES(java.util.regex.Pattern.UNIX_LINES),
 
@@ -66,7 +69,7 @@ public @interface Pattern {
 
         private final int value;
 
-        private Flag(int value) {
+        Flag(int value) {
             this.value = value;
         }
 
