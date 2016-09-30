@@ -21,8 +21,8 @@ import javax.validation.ValidationProviderResolver;
 
 public interface ProviderSpecificBootstrap<T extends Configuration<T>> {
 
-    public ProviderSpecificBootstrap<T> providerResolver(ValidationProviderResolver resolver);
+    ProviderSpecificBootstrap<T> providerResolver(ValidationProviderResolver resolver);
 
-    public T configure();
+    T configure();
 }
 

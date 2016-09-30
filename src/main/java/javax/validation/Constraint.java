@@ -24,12 +24,30 @@ import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
+ * Meta annotation to declare a constraint annotation.
+ *
+ * Every custom constraint annotation meta-annotated with this very annotation must implement the following fields:
+ * <ul>
+ *     <li>{@code String message()} - the message to be used if this constraint is violated.</li>
+ *     <li>{@code Class<?>[] groups() default {};} - the validation group. See {@link GroupSequence}.
+ *         If a constraint gets applied without any specific group then {@link javax.validation.groups.Default} is assumed.
+ *     </li>
+ *     <li>{@code Class<? extends Payload>[] payload() default {};} - Custom {@link Payload} for the contstraint.</li>
+ * </ul>
+ *
+ * @see javax.validation.constraints Built in Constraints
+ *
  * @version $Rev$ $Date$
  */
 @Documented
 @Target({ ANNOTATION_TYPE })
 @Retention(RUNTIME)
 public @interface Constraint {
-    public Class<? extends ConstraintValidator<?,?>>[] validatedBy();
+
+    /**
+     * @return the {@link ConstraintValidator} which gets used when this constraint is applied
+     *          to fields, methods (getters), types or parameter.
+     */
+    Class<? extends ConstraintValidator<?,?>>[] validatedBy();
 }
 

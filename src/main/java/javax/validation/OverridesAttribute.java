@@ -39,7 +39,7 @@ public @interface OverridesAttribute {
     @Documented
     @Target({ METHOD })
     @Retention(RUNTIME)
-    public @interface List {
+    @interface List {
         OverridesAttribute[] value();
     }
 }
