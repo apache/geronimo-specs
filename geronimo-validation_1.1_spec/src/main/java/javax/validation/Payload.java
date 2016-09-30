@@ -18,6 +18,9 @@ package javax.validation;
 
 /**
  * Non-portable implementation specific way to provide metadata to constraints.
+ * This is just a marker interface to make it more typesafe.
+ *
+ * @see Constraint
  *
  * @version $Rev$ $Date$
  */

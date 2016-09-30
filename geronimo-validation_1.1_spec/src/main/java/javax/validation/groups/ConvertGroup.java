@@ -38,7 +38,7 @@ public @interface ConvertGroup {
     @Target({ TYPE, METHOD, FIELD, CONSTRUCTOR, PARAMETER })
     @Retention(RUNTIME)
     @Documented
-    public @interface List {
+    @interface List {
         ConvertGroup[] value();
     }
 }

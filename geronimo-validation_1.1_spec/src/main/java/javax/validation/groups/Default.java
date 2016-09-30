@@ -17,6 +17,8 @@
 package javax.validation.groups;
 
 /**
+ * The Validation group which is assumed if no other one is explicitly specified.
+ *
  * @version $Rev$ $Date$
  */
 public interface Default {
