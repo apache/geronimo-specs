@@ -30,6 +30,14 @@ import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
+ * Verify that the annotated element has a number which is
+ * higher or equal than the given value or is {@code null}.
+ *
+ * Note that float and double are not portably supported due to
+ * possible rounding error problems.
+ *
+ * {@link DecimalMax} accepts a String whereas {@Max} accepts a long.
+ *
  * @version $Rev$ $Date$
  */
 @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER })
