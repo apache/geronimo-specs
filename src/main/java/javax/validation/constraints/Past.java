@@ -30,6 +30,11 @@ import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
+ * Verify that the annotated value of the annotated element is in the past or {@code null}.
+ * Supported types are {@link java.util.Calendar} and {@link java.util.Date}
+ *
+ * Other types might be supported in a non-portable manner.
+ *
  * @version $Rev$ $Date$
  */
 @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER })

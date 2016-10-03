@@ -30,6 +30,10 @@ import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
+ * Verify that size of the annotated element is higher or equals the min value
+ * and lower or equals the max value or whether the annotated element is {@code null}.
+ * For Strings we will check the length, for Collections and arrays the size.
+ *
  * @version $Rev$ $Date$
  */
 @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER })

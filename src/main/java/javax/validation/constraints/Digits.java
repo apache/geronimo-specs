@@ -30,6 +30,20 @@ import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
+ * Specify the number of maximal allowed digits for the fraction part and the digit size.
+ * This annotation can be applied to
+ * <ul>
+ *     <li>BigDecimal</li>
+ *     <li>BigInteger</li>
+ *     <li>String</li>
+ *     <li><byte and Byte/li>
+ *     <li><short and Short/li>
+ *     <li><int and Integer /li>
+ *     <li><long and Long/li>
+ * </ul>
+ *
+ * Float and double are not portably supported due to rounding issues.
+ *
  * @version $Rev$ $Date$
  */
 @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER })
@@ -43,8 +57,14 @@ public @interface Digits {
 
     Class<? extends Payload>[] payload() default {};
 
+    /**
+     * @return the maximum allowed digit size
+     */
     int integer();
 
+    /**
+     * @return the maximum allowed number of fraction digits.
+     */
     int fraction();
 
     @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER })
