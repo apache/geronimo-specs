@@ -32,7 +32,7 @@
 
     <groupId>org.apache.geronimo.specs</groupId>
     <artifactId>geronimo-validation_1.1_spec</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <packaging>bundle</packaging>
     <name>Apache Geronimo Bean Validation Spec 1.1</name>
     <description>Apache Geronimo implementation of the JSR-349 Bean Validation Spec API</description>
@@ -50,9 +50,9 @@
     </properties>
 
     <scm>
-        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-validation_1.1_spec/</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-validation_1.1_spec/</developerConnection>
-        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-validation_1.1_spec/</url>
+        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-validation_1.1_spec-1.0</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-validation_1.1_spec-1.0</developerConnection>
+        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/tags/geronimo-validation_1.1_spec-1.0</url>
     </scm>
 
     <dependencies>
@@ -90,7 +90,7 @@
                         </goals>
                         <configuration>
                             <target>
-                                <delete dir="${project.build.directory}" includes="**/DEPENDENCIES"/>
+                                <delete dir="${project.build.directory}" includes="**/DEPENDENCIES" />
                             </target>
                         </configuration>
                     </execution>
