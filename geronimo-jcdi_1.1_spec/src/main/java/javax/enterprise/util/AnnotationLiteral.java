@@ -40,6 +40,11 @@ public abstract class AnnotationLiteral<T extends Annotation> implements Annotat
     private static final long serialVersionUID = -1885320698638161810L;
 
     private Class<T> annotationType;
+
+    // cached values
+    private transient Method[] _meths = null;
+    private transient String _toString = null;
+    private transient Integer _hashCode = null;
     
     private static final Object[] EMPTY_OBJECT_ARRAY = new Object[0];
 
@@ -100,13 +105,9 @@ public abstract class AnnotationLiteral<T extends Annotation> implements Annotat
     @Override
     public boolean equals(Object other)
     {
-        Method[] methods = (Method[])AccessController.doPrivileged(new PrivilegedAction() {
-            public Object run() 
-            {
-                return annotationType.getDeclaredMethods();
-            }
-        });
-        
+        // use a private reference to prevent instance swapping as we don't use synchronization nor volatile on meths.
+        Method[] methods = getMethods();
+
         if(other == this)
         {
             return true;
@@ -239,12 +240,10 @@ public abstract class AnnotationLiteral<T extends Annotation> implements Annotat
     @Override
     public int hashCode()
     {
-        Method[] methods = (Method[])AccessController.doPrivileged(new PrivilegedAction() {
-            public Object run() 
-            {
-                return annotationType.getDeclaredMethods();
-            }
-        });
+        if (_hashCode != null) {
+            return _hashCode.intValue();
+        }
+        Method[] methods = getMethods();
 
         int hashCode = 0;
         for (Method method : methods)
@@ -305,6 +304,7 @@ public abstract class AnnotationLiteral<T extends Annotation> implements Annotat
             
             hashCode += name ^ value;
         }
+        _hashCode = Integer.valueOf(hashCode);
         return hashCode;
     }
     
@@ -312,12 +312,11 @@ public abstract class AnnotationLiteral<T extends Annotation> implements Annotat
     @Override
     public String toString()
     {
-        Method[] methods = (Method[])AccessController.doPrivileged(new PrivilegedAction() {
-            public Object run() 
-            {
-                return annotationType.getDeclaredMethods();
-            }
-        });
+        if (_toString != null) {
+            return _toString;
+        }
+
+        Method[] methods = getMethods();
         StringBuilder sb = new StringBuilder("@" + annotationType().getName() + "(");
         int lenght = methods.length;
 
@@ -337,7 +336,21 @@ public abstract class AnnotationLiteral<T extends Annotation> implements Annotat
 
         sb.append(")");
 
-        return sb.toString();
+        _toString = sb.toString();
+        return _toString;
+    }
+
+    private Method[] getMethods() {
+        if (_meths == null) {
+            // no need to have meths volatile nor synchronized.
+            // if invoked in parallel we only might call getMethods() a bit too often.
+            _meths = (Method[]) AccessController.doPrivileged(new PrivilegedAction() {
+                public Object run() {
+                    return annotationType.getDeclaredMethods();
+                }
+            });
+        }
+        return _meths;
     }
 
     protected static class PrivilegedActionForAccessibleObject implements PrivilegedAction<Object> 
