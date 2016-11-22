@@ -28,9 +28,10 @@ import java.io.Reader;
 import java.io.Writer;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Collection;
 import java.util.Map;
 
-public class Json {
+public final class Json {
     private Json() {
         // no-op
     }
@@ -87,20 +88,56 @@ public class Json {
         return JsonProvider.provider().createArrayBuilder();
     }
 
+    /**
+     * Create an empty JsonObjectBuilder
+     * @since 1.0
+     */
     public static JsonObjectBuilder createObjectBuilder() {
         return JsonProvider.provider().createObjectBuilder();
+    }
+
+    /**
+     * Creates a JSON object builder, initialized with the specified JsonObject.
+     * @since 1.1
+     */
+    public static JsonObjectBuilder createObjectBuilder(JsonObject object) {
+        return JsonProvider.provider().createObjectBuilder(object);
+    }
+
+    /**
+     * Creates a JSON object builder, initialized with the specified Map.
+     * @since 1.1
+     */
+    public static JsonObjectBuilder createObjectBuilder(Map<String, Object> map) {
+        return JsonProvider.provider().createObjectBuilder(map);
     }
 
     public static JsonBuilderFactory createBuilderFactory(Map<String, ?> config) {
         return JsonProvider.provider().createBuilderFactory(config);
     }
-    
-    public static JsonArrayBuilder createArrayBuilder(JsonArray array) {
-        return JsonProvider.provider().createArrayBuilder(array);
+
+    /**
+     * Creates a JSON array builder, initialized with an initial content
+     * taken from a JsonArray
+     *
+     * @param initialData the initial array in the builder
+     * @return a JSON array builder
+     *
+     * @since 1.1
+     */
+    public static JsonArrayBuilder createArrayBuilder(JsonArray initialData) {
+        return JsonProvider.provider().createArrayBuilder(initialData);
     }
-    
-    public static JsonObjectBuilder createObjectBuilder(JsonObject object) {
-        return JsonProvider.provider().createObjectBuilder(object);
+    /**
+     * Creates a JSON array builder, initialized with an initial content
+     *
+     * @param initialData the initial array in the builder
+     * @return a JSON array builder
+     *
+     * @since 1.1
+     */
+    public static JsonArrayBuilder createArrayBuilder(Collection<Object> initialData) {
+        return JsonProvider.provider().createArrayBuilder(initialData);
     }
     
     public static JsonString createValue(String value) {
@@ -125,5 +162,53 @@ public class Json {
 
     public static JsonNumber createValue(BigInteger value) {
         return JsonProvider.provider().createValue(value);
+    }
+
+    /**
+     * Create a JsonPatch by comparing the source to the target.
+     * Applying this JsonPatch to the source you will give you the target.
+     *
+     * @see #createMergePatch(JsonValue, JsonValue)
+     *
+     * @since 1.1
+     */
+    public static JsonPatch createPatch(JsonStructure source, JsonStructure target) {
+        return JsonProvider.provider().createPatch(source, target);
+    }
+
+    /**
+     * Create a new JsonPatchBuilder
+     * @since 1.1
+     */
+    public static JsonPatchBuilder createPatchBuilder() {
+        return JsonProvider.provider().createPatchBuilder();
+    }
+
+    /**
+     * Create a new JsonPatchBuilder
+     * @since 1.1
+     */
+    public static JsonPatchBuilder createPatchBuilder(JsonArray initialData) {
+        return JsonProvider.provider().createPatchBuilder(initialData);
+    }
+
+    /**
+     * Create a merged patch by comparing the source to the target.
+     * Applying this JsonPatch to the source you will give you the target.
+     *
+     * @see #createPatch(JsonStructure, JsonStructure)
+     * @since 1.1
+     */
+    public static JsonValue createMergePatch(JsonValue source, JsonValue target) {
+        return JsonProvider.provider().createMergePatch(source, target);
+    }
+
+    /**
+     * Merge the given patch to the existing source
+     * @return the result of applying the patch to the source
+     * @since 1.1
+     */
+    public static JsonValue mergePatch(JsonValue source, JsonValue patch) {
+        return JsonProvider.provider().mergePatch(source, patch);
     }
 }
