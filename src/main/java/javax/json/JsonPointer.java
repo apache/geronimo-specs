@@ -17,25 +17,43 @@
 
 package javax.json;
 
+
+/**
+ * <p>This class is an immutable representation of a JSON Pointer as specified in
+ * <a href="http://tools.ietf.org/html/rfc6901">RFC 6901</a>.
+ * </p>
+ *
+ * <p>JSON Pointer is a string syntax for identifying a specific value
+ * within a JavaScript Object Notation (JSON) document [RFC4627].
+ * JSON Pointer is intended to be easily expressed in JSON string values
+ * as well as Uniform Resource Identifier (URI) [RFC3986] fragment identifiers.
+ * </p>
+ * <p> The method {@link #getValue getValue()} returns the referenced value.
+ * The methods {@link #add add()}, {@link #replace replace()},
+ * and {@link #remove remove()} executes the operations specified in
+ * <a href="http://tools.ietf.org/html/rfc6902">RFC 6902</a>. </p>
+ *
+ * @since 1.1
+ */
 public interface JsonPointer {
 
-    public JsonValue getValue(JsonStructure target);
+    JsonValue getValue(JsonStructure target);
 
-    public JsonStructure add(JsonStructure target, JsonValue value);
+    JsonStructure add(JsonStructure target, JsonValue value);
 
-    public JsonStructure replace(JsonStructure target, JsonValue value);
+    JsonStructure replace(JsonStructure target, JsonValue value);
 
-    public JsonStructure remove(JsonStructure target);
+    JsonStructure remove(JsonStructure target);
 
-    public JsonObject add(JsonObject target, JsonValue value);
+    JsonObject add(JsonObject target, JsonValue value);
 
-    public JsonArray add(JsonArray target, JsonValue value);
+    JsonArray add(JsonArray target, JsonValue value);
 
-    public JsonObject replace(JsonObject target, JsonValue value);
+    JsonObject replace(JsonObject target, JsonValue value);
 
-    public JsonArray replace(JsonArray target, JsonValue value);
+    JsonArray replace(JsonArray target, JsonValue value);
 
-    public JsonObject remove(JsonObject target);
+    JsonObject remove(JsonObject target);
 
-    public JsonArray remove(JsonArray target);
+    JsonArray remove(JsonArray target);
 }
