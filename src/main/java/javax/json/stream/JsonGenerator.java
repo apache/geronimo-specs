@@ -33,6 +33,14 @@ public interface JsonGenerator extends Flushable, Closeable {
 
     JsonGenerator writeStartArray(String name);
 
+    /**
+     * Write the key with a colon;
+     *
+     * @throws JsonGenerationException if this method is not called within an object context
+     * @since 1.1
+     */
+    JsonGenerator writeKey(String name);
+
     JsonGenerator write(String name, JsonValue value);
 
     JsonGenerator write(String name, String value);
