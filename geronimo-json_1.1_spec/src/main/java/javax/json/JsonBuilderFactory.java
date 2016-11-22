@@ -25,8 +25,8 @@ public interface JsonBuilderFactory {
 
     Map<String, ?> getConfigInUse();
 
-    JsonObjectBuilder createObjectBuilder(JsonObject object);
+    JsonObjectBuilder createObjectBuilder(JsonObject initialData);
 
-    JsonArrayBuilder createArrayBuilder(JsonArray array);
+    JsonArrayBuilder createArrayBuilder(JsonArray initialData);
 }
 
