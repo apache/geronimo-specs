@@ -16,9 +16,11 @@
  */
 package javax.json;
 
+import javax.json.spi.JsonProvider;
+
 public interface JsonStructure extends JsonValue {
 
-    default public JsonValue getValue(String jsonPointer) {
-        return new JsonPointer(jsonPointer).getValue(this);
+    default JsonValue getValue(String jsonPointer) {
+        return JsonProvider.provider().createJsonPointer(jsonPointer).getValue(this);
     }
 }
