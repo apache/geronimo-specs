@@ -27,7 +27,7 @@
   <groupId>org.apache.geronimo.specs</groupId>
   <artifactId>geronimo-json_1.1_spec</artifactId>
   <packaging>bundle</packaging>
-  <name>Apache Geronimo JSon Spec 1.1</name>
+  <name>Apache Geronimo JSON Spec 1.1</name>
   <version>1.0-SNAPSHOT</version>
 
   <description>Apache Geronimo implementation of the JSR-374</description>

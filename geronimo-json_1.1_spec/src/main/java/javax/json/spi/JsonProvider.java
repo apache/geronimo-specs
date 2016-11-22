@@ -23,10 +23,14 @@ import javax.json.JsonException;
 import javax.json.JsonNumber;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
+import javax.json.JsonPatch;
+import javax.json.JsonPatchBuilder;
 import javax.json.JsonPointer;
 import javax.json.JsonReader;
 import javax.json.JsonReaderFactory;
 import javax.json.JsonString;
+import javax.json.JsonStructure;
+import javax.json.JsonValue;
 import javax.json.JsonWriter;
 import javax.json.JsonWriterFactory;
 import javax.json.stream.JsonGenerator;
@@ -48,11 +52,10 @@ import java.net.URL;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Enumeration;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.ServiceLoader;
 
 public abstract class JsonProvider {
     private static final String DEFAULT_PROVIDER = "org.apache.johnzon.core.JsonProviderImpl";
@@ -165,21 +168,42 @@ public abstract class JsonProvider {
 
     public abstract JsonReaderFactory createReaderFactory(Map<String, ?> config);
 
+    /**
+     * Create an empty JsonObjectBuilder
+     * @since 1.0
+     */
     public abstract JsonObjectBuilder createObjectBuilder();
 
+    /**
+     * Creates a JSON object builder, initialized with the specified JsonObject.
+     * @since 1.1
+     */
+    public JsonObjectBuilder createObjectBuilder(JsonObject jsonObject) {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * Creates a JSON object builder, initialized with the specified Map.
+     * @since 1.1
+     */
+    public JsonObjectBuilder createObjectBuilder(Map<String, Object> map) {
+        throw new UnsupportedOperationException();
+    }
+
     public abstract JsonArrayBuilder createArrayBuilder();
+
+    public JsonArrayBuilder createArrayBuilder(JsonArray initialData) {
+        throw new UnsupportedOperationException();
+    }
+
+    public JsonArrayBuilder createArrayBuilder(Collection<Object> initialData) {
+        throw new UnsupportedOperationException();
+    }
 
     public abstract JsonPointer createJsonPointer(String path);
 
     public abstract JsonBuilderFactory createBuilderFactory(Map<String, ?> config);
 
-    public JsonObjectBuilder createObjectBuilder(JsonObject object) {
-        throw new UnsupportedOperationException();
-    }
-
-    public JsonArrayBuilder createArrayBuilder(JsonArray array) {
-        throw new UnsupportedOperationException();
-    }
 
     public JsonString createValue(String value) {
         throw new UnsupportedOperationException();
@@ -202,6 +226,51 @@ public abstract class JsonProvider {
     }
 
     public JsonNumber createValue(BigInteger value) {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * Create a JsonPatch by comparing the source to the target.
+     * Applying this JsonPatch to the source you will give you the target.
+     * @since 1.1
+     */
+    public JsonPatch createPatch(JsonStructure source, JsonStructure target) {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * Create a new JsonPatchBuilder
+     * @since 1.1
+     */
+    public JsonPatchBuilder createPatchBuilder() {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * Create a new JsonPatchBuilder from initial data.
+     * @since 1.1
+     */
+    public JsonPatchBuilder createPatchBuilder(JsonArray initialData) {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * Create a merged patch by comparing the source to the target.
+     * Applying this JsonPatch to the source you will give you the target.
+     *
+     * @see #createPatch(JsonStructure, JsonStructure)
+     * @since 1.1
+     */
+    public JsonValue createMergePatch(JsonValue source , JsonValue target) {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * Merge the given patch to the existing source
+     * @return the result of applying the patch to the source
+     * @since 1.1
+     */
+    public JsonValue mergePatch(JsonValue source, JsonValue patch) {
         throw new UnsupportedOperationException();
     }
 }
