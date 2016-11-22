@@ -17,7 +17,7 @@
 
 package javax.json;
 
-public class JsonUtil {
+public final class JsonUtil {
 
     public static JsonValue toJson(String jsonString) {
         return null;

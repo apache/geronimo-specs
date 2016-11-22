@@ -27,7 +27,7 @@ import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import javax.json.JsonValue;
 
-public class JsonCollectors {
+public final class JsonCollectors {
 
     private JsonCollectors() {
     }

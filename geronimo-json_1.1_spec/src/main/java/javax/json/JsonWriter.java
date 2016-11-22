@@ -18,15 +18,24 @@ package javax.json;
 
 import java.io.Closeable;
 
+/**
+ * Write a JsonObject, JsonArray JsonStructure or more generic
+ * a JsonValue to the output.
+ *
+ * @see JsonWriterFactory
+ */
 public interface JsonWriter extends Closeable {
+
     void writeArray(JsonArray array);
 
     void writeObject(JsonObject object);
 
     void write(JsonStructure value);
 
+    default void write(JsonValue value) {
+        throw new UnsupportedOperationException();
+    }
+
     @Override
     void close();
-
-    void write(JsonValue value);
 }

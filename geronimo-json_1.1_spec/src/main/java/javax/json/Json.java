@@ -211,4 +211,14 @@ public final class Json {
     public static JsonValue mergePatch(JsonValue source, JsonValue patch) {
         return JsonProvider.provider().mergePatch(source, patch);
     }
+
+    /**
+     * Create a JsonPointer for the given path
+     *
+     * @since 1.1
+     */
+    public static JsonPointer createJsonPointer(String path) {
+        return JsonProvider.provider().createJsonPointer(path);
+    }
+
 }
