@@ -17,11 +17,14 @@
 
 package javax.json;
 
-public class JsonPatchBuilder {
+import javax.json.spi.JsonProvider;
 
-    public JsonPatchBuilder(JsonArray patch) {
-
-    }
+/**
+ * TODO this is a final class in the spec, but that makes no sense.
+ * Use {@link JsonProvider#createPatchBuilder()}
+ * A JsonPatchBuilder contains state and should not get used concurrently.
+ */
+public abstract class JsonPatchBuilder {
 
     public JsonPatchBuilder() {
 
