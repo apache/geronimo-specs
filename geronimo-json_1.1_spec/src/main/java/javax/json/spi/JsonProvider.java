@@ -234,25 +234,19 @@ public abstract class JsonProvider {
      * Applying this JsonPatch to the source you will give you the target.
      * @since 1.1
      */
-    public JsonPatch createPatch(JsonStructure source, JsonStructure target) {
-        throw new UnsupportedOperationException();
-    }
+    public abstract JsonPatch createPatch(JsonStructure source, JsonStructure target);
 
     /**
      * Create a new JsonPatchBuilder
      * @since 1.1
      */
-    public JsonPatchBuilder createPatchBuilder() {
-        throw new UnsupportedOperationException();
-    }
+    public abstract JsonPatchBuilder createPatchBuilder();
 
     /**
      * Create a new JsonPatchBuilder from initial data.
      * @since 1.1
      */
-    public JsonPatchBuilder createPatchBuilder(JsonArray initialData) {
-        throw new UnsupportedOperationException();
-    }
+    public abstract JsonPatchBuilder createPatchBuilder(JsonArray initialData);
 
     /**
      * Create a merged patch by comparing the source to the target.
@@ -261,17 +255,14 @@ public abstract class JsonProvider {
      * @see #createPatch(JsonStructure, JsonStructure)
      * @since 1.1
      */
-    public JsonValue createMergePatch(JsonValue source , JsonValue target) {
-        throw new UnsupportedOperationException();
-    }
+    public abstract JsonValue createMergePatch(JsonValue source , JsonValue target);
 
     /**
      * Merge the given patch to the existing source
      * @return the result of applying the patch to the source
      * @since 1.1
      */
-    public JsonValue mergePatch(JsonValue source, JsonValue patch) {
-        throw new UnsupportedOperationException();
-    }
+    public abstract JsonValue mergePatch(JsonValue source, JsonValue patch);
+
 }
 

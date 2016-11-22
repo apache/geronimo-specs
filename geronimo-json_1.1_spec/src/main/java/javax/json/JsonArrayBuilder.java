@@ -44,51 +44,99 @@ public interface JsonArrayBuilder {
 
     JsonArray build();
 
-    JsonArrayBuilder addAll(JsonArrayBuilder builder);
+    default JsonArrayBuilder addAll(JsonArrayBuilder builder) {
+        throw new UnsupportedOperationException();
+    }
 
-    JsonArrayBuilder add(int index, JsonValue value);
+    default JsonArrayBuilder add(int index, JsonValue value) {
+        throw new UnsupportedOperationException();
+    }
 
-    JsonArrayBuilder add(int index, String value);
+    default JsonArrayBuilder add(int index, String value) {
+        throw new UnsupportedOperationException();
+    }
 
-    JsonArrayBuilder add(int index, BigDecimal value);
+    default JsonArrayBuilder add(int index, BigDecimal value) {
+        throw new UnsupportedOperationException();
+    }
 
-    JsonArrayBuilder add(int index, BigInteger value);
+    default JsonArrayBuilder add(int index, BigInteger value) {
+        throw new UnsupportedOperationException();
+    }
 
-    JsonArrayBuilder add(int index, int value);
+    default JsonArrayBuilder add(int index, int value) {
+        throw new UnsupportedOperationException();
+    }
 
-    JsonArrayBuilder add(int index, long value);
+    default JsonArrayBuilder add(int index, long value) {
+        throw new UnsupportedOperationException();
+    }
 
-    JsonArrayBuilder add(int index, double value);
+    default JsonArrayBuilder add(int index, double value) {
+        throw new UnsupportedOperationException();
+    }
 
-    JsonArrayBuilder add(int index, boolean value);
+    default JsonArrayBuilder add(int index, boolean value) {
+        throw new UnsupportedOperationException();
+    }
 
-    JsonArrayBuilder addNull(int index);
+    default JsonArrayBuilder addNull(int index) {
+        throw new UnsupportedOperationException();
+    }
 
-    JsonArrayBuilder add(int index, JsonObjectBuilder builder);
+    default JsonArrayBuilder add(int index, JsonObjectBuilder builder) {
+        throw new UnsupportedOperationException();
+    }
 
-    JsonArrayBuilder add(int index, JsonArrayBuilder builder);
+    default JsonArrayBuilder add(int index, JsonArrayBuilder builder) {
+        throw new UnsupportedOperationException();
+    }
 
-    JsonArrayBuilder set(int index, JsonValue value);
+    default JsonArrayBuilder set(int index, JsonValue value) {
+        throw new UnsupportedOperationException();
+    }
 
-    JsonArrayBuilder set(int index, String value);
+    default JsonArrayBuilder set(int index, String value) {
+        throw new UnsupportedOperationException();
+    }
 
-    JsonArrayBuilder set(int index, BigDecimal value);
+    default JsonArrayBuilder set(int index, BigDecimal value) {
+        throw new UnsupportedOperationException();
+    }
 
-    JsonArrayBuilder set(int index, BigInteger value);
+    default JsonArrayBuilder set(int index, BigInteger value) {
+        throw new UnsupportedOperationException();
+    }
 
-    JsonArrayBuilder set(int index, int value);
+    default JsonArrayBuilder set(int index, int value) {
+        throw new UnsupportedOperationException();
+    }
 
-    JsonArrayBuilder set(int index, long value);
+    default JsonArrayBuilder set(int index, long value) {
+        throw new UnsupportedOperationException();
+    }
 
-    JsonArrayBuilder set(int index, double value);
+    default JsonArrayBuilder set(int index, double value) {
+        throw new UnsupportedOperationException();
+    }
 
-    JsonArrayBuilder set(int index, boolean value);
+    default JsonArrayBuilder set(int index, boolean value) {
+        throw new UnsupportedOperationException();
+    }
 
-    JsonArrayBuilder setNull(int index);
+    default JsonArrayBuilder setNull(int index) {
+        throw new UnsupportedOperationException();
+    }
 
-    JsonArrayBuilder set(int index, JsonObjectBuilder builder);
+    default JsonArrayBuilder set(int index, JsonObjectBuilder builder) {
+        throw new UnsupportedOperationException();
+    }
 
-    JsonArrayBuilder set(int index, JsonArrayBuilder builder);
+    default JsonArrayBuilder set(int index, JsonArrayBuilder builder) {
+        throw new UnsupportedOperationException();
+    }
 
-    JsonArrayBuilder remove(int index);
+    default JsonArrayBuilder remove(int index) {
+        throw new UnsupportedOperationException();
+    }
 }
