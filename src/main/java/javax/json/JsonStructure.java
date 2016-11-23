@@ -18,6 +18,10 @@ package javax.json;
 
 import javax.json.spi.JsonProvider;
 
+/**
+ * A complex type as JsonValue.
+ * This could either be a {@link JsonArray} or a {@link JsonObject}.
+ */
 public interface JsonStructure extends JsonValue {
 
     default JsonValue getValue(String jsonPointer) {

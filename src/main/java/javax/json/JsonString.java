@@ -16,6 +16,9 @@
  */
 package javax.json;
 
+/**
+ * JsonValue which represents a string.
+ */
 public interface JsonString extends JsonValue {
     String getString();
 
