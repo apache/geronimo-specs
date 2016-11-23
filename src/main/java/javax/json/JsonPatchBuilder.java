@@ -65,6 +65,6 @@ public interface JsonPatchBuilder {
 
     JsonPatchBuilder test(String path, boolean value);
 
-    JsonArray build();
+    JsonPatch build();
 }
 
