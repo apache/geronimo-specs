@@ -18,29 +18,52 @@
 package javax.json;
 
 /**
- * JsonPatch (RFC6902 https://tools.ietf.org/html/rfc6902)
- * is a format for expressing a sequence of operations to apply to
- * a target JSON document; it is suitable for use with the HTTP PATCH
- * method.
- *
+ * <p>
+ * JsonPatch is a format for expressing a sequence of operations to apply on
+ * a target JSON document.
+ * </p>
+ * <p>
  * A JsonPatch is an array of 'operations' in the form e.g.
- *
+ * <p>
  * <pre>
  * [
- * { "op": "add", "path": "/foo/-", "value": ["abc", "def"] }
- * { "path": "/a/b/c", "op": "add", "value": "foo" }
+ *   { "op": "add", "path": "/foo/-", "value": ["abc", "def"] }
+ *   { "path": "/a/b/c", "op": "add", "value": "foo" }
  * ]
  * </pre>
+ * </p>
+ * <p>
+ * The 'operations' are performed in the order they are in the JsonPatch and applied
+ * to the 'result' JSON document from the previous operation.
+ * </p>
+ * <p>
+ * Supported operations are
+ * <ul>
+ * <li>ADD}</li>
+ * <li>REMOVE}</li>
+ * <li>REPLACE}</li>
+ * <li>MOVE}</li>
+ * <li>COPY}</li>
+ * <li>TEST}</li>
+ * </ul>
+ * </p>
+ * <p>
+ * for more infos see <a href="https://tools.ietf.org/html/rfc6902">RFC-6902</a>
+ * </p>
+ * <p>
+ * NOTICE: All JsonValues are immutable and therefore every {@code apply()} method will return
+ * new references when the {@link JsonPatch} is applied.
+ * </p>
  *
  * @since 1.1
- *
  */
-public interface JsonPatch extends JsonArray {
+public interface JsonPatch {
 
-    JsonStructure apply(JsonStructure target);
-
-    JsonObject apply(JsonObject target);
-
-    JsonArray apply(JsonArray target);
+    /**
+     * @param target - the target to apply the {@link JsonPatch}
+     * @return 'patched' {@link JsonStructure}
+     * @throws NullPointerException if {@code target} is {@code null}
+     */
+    <T extends JsonStructure> T apply(T target);
 }
 
