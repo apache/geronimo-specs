@@ -35,16 +35,12 @@ package javax.json;
  * @since 1.1
  *
  */
-public interface JsonPatch {
+public interface JsonPatch extends JsonArray {
 
     JsonStructure apply(JsonStructure target);
 
     JsonObject apply(JsonObject target);
 
     JsonArray apply(JsonArray target);
-
-    public static JsonArray diff(JsonStructure source, JsonStructure target) {
-        return null;
-    }
 }
 
