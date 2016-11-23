@@ -244,6 +244,7 @@ public abstract class JsonProvider {
 
     /**
      * Create a new JsonPatchBuilder from initial data.
+     * @param initialData the initial patch operations
      * @since 1.1
      */
     public abstract JsonPatchBuilder createPatchBuilder(JsonArray initialData);
