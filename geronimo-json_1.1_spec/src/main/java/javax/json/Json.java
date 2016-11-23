@@ -186,6 +186,7 @@ public final class Json {
 
     /**
      * Create a new JsonPatchBuilder
+     * @param initialData the initial patch operations
      * @since 1.1
      */
     public static JsonPatchBuilder createPatchBuilder(JsonArray initialData) {

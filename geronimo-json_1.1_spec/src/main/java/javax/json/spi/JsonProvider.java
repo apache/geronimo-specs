@@ -244,13 +244,15 @@ public abstract class JsonProvider {
 
     /**
      * Create a new JsonPatchBuilder from initial data.
+     * @param initialData the initial patch operations
      * @since 1.1
      */
     public abstract JsonPatchBuilder createPatchBuilder(JsonArray initialData);
 
     /**
      * Create a merged patch by comparing the source to the target.
-     * Applying this JsonPatch to the source you will give you the target.
+     * Applying this JsonPatch to the source will give you the target.
+     * A mergePatch is a JsonValue as defined in http://tools.ietf.org/html/rfc7396
      *
      * @see #createPatch(JsonStructure, JsonStructure)
      * @since 1.1
@@ -259,6 +261,8 @@ public abstract class JsonProvider {
 
     /**
      * Merge the given patch to the existing source
+     * A mergePatch is a JsonValue as defined in http://tools.ietf.org/html/rfc7396
+     *
      * @return the result of applying the patch to the source
      * @since 1.1
      */
