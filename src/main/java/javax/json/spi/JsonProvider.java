@@ -254,7 +254,30 @@ public abstract class JsonProvider {
      * Applying this JsonPatch to the source will give you the target.
      * A mergePatch is a JsonValue as defined in http://tools.ietf.org/html/rfc7396
      *
+     * If you have a JSON like
+     * <pre>
+     * {
+     *   "a": "b",
+     *   "c": {
+     *     "d": "e",
+     *     "f": "g"
+     *   }
+     * }
+     * </pre>
+     *
+     * Then you can change the value of "a" and removing "f" by sending:
+     * <pre>
+     * {
+     *   "a":"z",
+     *   "c": {
+     *     "f": null
+     *   }
+     * }
+     * </pre>
+     *
      * @see #createPatch(JsonStructure, JsonStructure)
+     * @see #mergePatch(JsonValue, JsonValue)
+     *
      * @since 1.1
      */
     public abstract JsonValue createMergePatch(JsonValue source , JsonValue target);
@@ -264,6 +287,8 @@ public abstract class JsonProvider {
      * A mergePatch is a JsonValue as defined in http://tools.ietf.org/html/rfc7396
      *
      * @return the result of applying the patch to the source
+     *
+     * @see #createMergePatch(JsonValue, JsonValue)
      * @since 1.1
      */
     public abstract JsonValue mergePatch(JsonValue source, JsonValue patch);
