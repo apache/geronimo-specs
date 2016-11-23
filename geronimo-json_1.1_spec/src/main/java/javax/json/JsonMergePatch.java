@@ -17,7 +17,11 @@
 
 package javax.json;
 
-public class JsonMergePatch {
+/**
+ * A JSON MergePatch as defined in http://tools.ietf.org/html/rfc7396
+ * TODO interface or what?
+ */
+public class JsonMergePatch  {
 
     public static JsonValue mergePatch(JsonValue target, JsonValue patch) {
 
