@@ -24,87 +24,47 @@ import javax.json.spi.JsonProvider;
  * Use {@link JsonProvider#createPatchBuilder()}
  * A JsonPatchBuilder contains state and should not get used concurrently.
  */
-public abstract class JsonPatchBuilder {
+public interface JsonPatchBuilder {
 
-    public JsonPatchBuilder() {
 
-    }
 
-    public JsonStructure apply(JsonStructure target) {
-        return new JsonPatch(build()).apply(target);
-    }
+    JsonStructure apply(JsonStructure target);
 
-    public JsonObject apply(JsonObject target) {
-        return new JsonPatch(build()).apply(target);
-    }
+    JsonObject apply(JsonObject target);
+    
+    JsonArray apply(JsonArray target);
+    
+    JsonPatchBuilder add(String path, JsonValue value);
 
-    public JsonArray apply(JsonArray target) {
-        return new JsonPatch(build()).apply(target);
-    }
+    JsonPatchBuilder add(String path, String value);
 
-    public JsonPatchBuilder add(String path, JsonValue value) {
-        return null;
-    }
+    JsonPatchBuilder add(String path, int value);
 
-    public JsonPatchBuilder add(String path, String value) {
-        return null;
-    }
+    JsonPatchBuilder add(String path, boolean value);
 
-    public JsonPatchBuilder add(String path, int value) {
-        return null;
-    }
+    JsonPatchBuilder remove(String path);
 
-    public JsonPatchBuilder add(String path, boolean value) {
-        return null;
-    }
+    JsonPatchBuilder replace(String path, JsonValue value);
 
-    public JsonPatchBuilder remove(String path) {
-        return null;
-    }
+    JsonPatchBuilder replace(String path, String value);
 
-    public JsonPatchBuilder replace(String path, JsonValue value) {
-        return null;
-    }
+    JsonPatchBuilder replace(String path, int value);
 
-    public JsonPatchBuilder replace(String path, String value) {
-        return null;
-    }
+    JsonPatchBuilder replace(String path, boolean value);
 
-    public JsonPatchBuilder replace(String path, int value) {
-        return null;
-    }
-
-    public JsonPatchBuilder replace(String path, boolean value) {
-        return null;
-    }
-
-    public JsonPatchBuilder move(String path, String from) {
-        return null;
-    }
+    JsonPatchBuilder move(String path, String from);
  
-    public JsonPatchBuilder copy(String path, String from) {
-        return null;
-    }
+    JsonPatchBuilder copy(String path, String from);
  
 
-    public JsonPatchBuilder test(String path, JsonValue value) {
-        return null;
-    }
+    JsonPatchBuilder test(String path, JsonValue value);
 
-    public JsonPatchBuilder test(String path, String value) {
-        return null;
-    }
+    JsonPatchBuilder test(String path, String value);
 
-    public JsonPatchBuilder test(String path, int value) {
-        return null;
-    }
+    JsonPatchBuilder test(String path, int value);
 
-    public JsonPatchBuilder test(String path, boolean value) {
-        return null;
-    }
+    JsonPatchBuilder test(String path, boolean value);
 
-    public JsonArray build() {
-        return null;
-    }
+    JsonArray build();
 }
 

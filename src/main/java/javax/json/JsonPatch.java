@@ -17,37 +17,31 @@
 
 package javax.json;
 
-public class JsonPatch {
+/**
+ * JsonPatch (RFC6902 https://tools.ietf.org/html/rfc6902)
+ * is a format for expressing a sequence of operations to apply to
+ * a target JSON document; it is suitable for use with the HTTP PATCH
+ * method.
+ *
+ * A JsonPatch is an array of 'operations' in the form e.g.
+ *
+ * <pre>
+ * [
+ * { "op": "add", "path": "/foo/-", "value": ["abc", "def"] }
+ * { "path": "/a/b/c", "op": "add", "value": "foo" }
+ * ]
+ * </pre>
+ *
+ * @since 1.1
+ *
+ */
+public interface JsonPatch {
 
-    public JsonPatch(JsonArray patch) {
-       
-    }
+    JsonStructure apply(JsonStructure target);
 
-    @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
-    }
+    JsonObject apply(JsonObject target);
 
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
-
-    @Override
-    public String toString() {
-        return super.toString();
-    }
-
-    public JsonStructure apply(JsonStructure target) {
-        return null;
-    }
-    public JsonObject apply(JsonObject target) {
-        return (JsonObject) apply((JsonStructure)target);
-    }
-
-    public JsonArray apply(JsonArray target) {
-        return (JsonArray) apply((JsonStructure)target);
-    }
+    JsonArray apply(JsonArray target);
 
     public static JsonArray diff(JsonStructure source, JsonStructure target) {
         return null;
