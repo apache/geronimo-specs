@@ -19,6 +19,10 @@ package javax.json;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
+/**
+ * A JsonObjectBuilder can be used to build {@link JsonObject JsonObjects}.
+ * Instances are not thread safe.
+ */
 public interface JsonObjectBuilder {
     JsonObjectBuilder add(String name, JsonValue value);
 
