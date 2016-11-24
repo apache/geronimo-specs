@@ -18,26 +18,86 @@ package javax.json;
 
 import java.util.Map;
 
+/**
+ * A JsonObject, e.g.
+ * <pre>
+ * {
+ *     "name":"karl",
+ *     "age":38,
+ *     "address": {
+ *         "street":"dummystreet"
+ *         "housenumber":12
+ *     }
+ * }
+ * </pre>
+ *
+ * A JsonObject is always also a Map which uses the attribute names as key mapping
+ * to their JsonValues.
+ */
 public interface JsonObject extends JsonStructure, Map<String, JsonValue> {
+
+    /**
+     * @return the JsonArray with the given name or {@code null} if there is no attribute with that name
+     * @throws ClassCastException if the JsonValue cannot be correctly cast
+     */
     JsonArray getJsonArray(String name);
 
+    /**
+     * @return the JsonObject with the given name or {@code null} if there is no attribute with that name
+     * @throws ClassCastException if the JsonValue cannot be correctly cast
+     */
     JsonObject getJsonObject(String name);
 
+    /**
+     * @return the JsonNumber with the given name or {@code null} if there is no attribute with that name
+     * @throws ClassCastException if the JsonValue cannot be correctly cast
+     */
     JsonNumber getJsonNumber(String name);
 
+    /**
+     * @return the JsonString with the given name or {@code null} if there is no attribute with that name
+     * @throws ClassCastException if the JsonValue cannot be correctly cast
+     */
     JsonString getJsonString(String name);
 
+    /**
+     * @return the native string with the given name or {@code null} if there is no attribute with that name
+     * @throws ClassCastException if the JsonValue cannot be correctly cast
+     */
     String getString(String name);
 
+    /**
+     * @return the native string with the given name or the default value if there is no attribute with that name
+     * @throws ClassCastException if the JsonValue cannot be correctly cast
+     */
     String getString(String name, String defaultValue);
 
+    /**
+     * @return the int with the given name or {@code null} if there is no attribute with that name
+     * @throws ClassCastException if the JsonValue cannot be correctly cast
+     */
     int getInt(String name);
 
+    /**
+     * @return the int with the given name or the default value if there is no attribute with that name
+     * @throws ClassCastException if the JsonValue cannot be correctly cast
+     */
     int getInt(String name, int defaultValue);
 
+    /**
+     * @return the boolean with the given name or {@code null} if there is no attribute with that name
+     * @throws ClassCastException if the JsonValue cannot be correctly cast
+     */
     boolean getBoolean(String name);
 
+    /**
+     * @return the boolean with the given name or the default value if there is no attribute with that name
+     * @throws ClassCastException if the JsonValue cannot be correctly cast
+     */
     boolean getBoolean(String name, boolean defaultValue);
 
+    /**
+     * @return whether the attribute with the given name is {@link JsonValue#NULL}
+     */
     boolean isNull(String name);
 }

@@ -16,19 +16,26 @@
  */
 package javax.json;
 
+/**
+ * A single value in a JSON expression.
+ */
 public interface JsonValue {
 
     /**
      * The empty JSON object.
      */
-    static final JsonObject EMPTY_JSON_OBJECT = Json.createObjectBuilder().build();
+    JsonObject EMPTY_JSON_OBJECT = Json.createObjectBuilder().build();
 
     /**
      * The empty JSON array.
      */
-    static final JsonArray EMPTY_JSON_ARRAY = Json.createArrayBuilder().build();
+    JsonArray EMPTY_JSON_ARRAY = Json.createArrayBuilder().build();
 
-    static final JsonValue NULL = new JsonValue() {
+
+    /**
+     * A constant JsonValue for null values
+     */
+    JsonValue NULL = new JsonValue() {
         @Override
         public ValueType getValueType() {
             return ValueType.NULL;
@@ -49,7 +56,11 @@ public interface JsonValue {
             return "null";
         }
     };
-    static final JsonValue TRUE = new JsonValue() {
+
+    /**
+     * A constant JsonValue for TRUE
+     */
+    JsonValue TRUE = new JsonValue() {
         @Override
         public ValueType getValueType() {
             return ValueType.TRUE;
@@ -70,7 +81,11 @@ public interface JsonValue {
             return Boolean.TRUE.toString();
         }
     };
-    static final JsonValue FALSE = new JsonValue() {
+
+    /**
+     * A constant JsonValue for FALSE
+     */
+    JsonValue FALSE = new JsonValue() {
         @Override
         public ValueType getValueType() {
             return ValueType.FALSE;
@@ -111,4 +126,5 @@ public interface JsonValue {
     default JsonArray asJsonArray() {
         return JsonArray.class.cast(this);
     }
+
 }
