@@ -57,6 +57,17 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * JsonProvider is the actual implementation of all the Json logic.
+ * A JsonProvider instance can be used concurrently.
+ *
+ * It can be accessed via
+ * <pre>
+ *     <code>
+ * JsonProvider provider = JsonProvider.provider();
+ *     </code>
+ * </pre>
+ */
 public abstract class JsonProvider {
     private static final String DEFAULT_PROVIDER = "org.apache.johnzon.core.JsonProviderImpl";
 
