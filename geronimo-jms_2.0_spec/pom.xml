@@ -39,11 +39,11 @@
     <version>1.0-SNAPSHOT</version>
     <description>Java Message Service 2.0 API</description>
 
-    <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
+    <url>http://geronimo.apache.org/maven/${siteId}/${project.version}</url>
     <distributionManagement>
         <site>
             <id>apache-website</id>
-            <url>${site.deploy.url}/maven/${siteId}/${version}</url>
+            <url>${site.deploy.url}/maven/${siteId}/${project.version}</url>
         </site>
     </distributionManagement>
 

@@ -37,9 +37,7 @@ public class QueueRequestor {
     public QueueRequestor(QueueSession session, Queue queue)
         throws JMSException
     {
-        super();
-
-        if(queue == null) {
+        if(!Queue.class.isInstance(queue)) {
             throw new InvalidDestinationException("Invalid queue");
         }
         
