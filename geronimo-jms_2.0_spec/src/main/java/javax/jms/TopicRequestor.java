@@ -35,9 +35,10 @@ public class TopicRequestor {
     private TopicPublisher publisher;
     private TopicSubscriber subscriber;
 
-    public TopicRequestor(TopicSession session, Topic topic)
-        throws JMSException {
-        super();
+    public TopicRequestor(TopicSession session, Topic topic) throws JMSException {
+        if(!Topic.class.isInstance(topic)) {
+            throw new InvalidDestinationException("Invalid topic");
+        }
         setSession(session);
         setTopic(topic);
         setTemporaryTopic(session.createTemporaryTopic());
