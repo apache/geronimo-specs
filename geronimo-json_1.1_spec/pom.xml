@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.apache.geronimo.genesis</groupId>
     <artifactId>genesis-java8-flava</artifactId>
-    <version>2.3-SNAPSHOT</version>
+    <version>2.3</version>
   </parent>
 
   <groupId>org.apache.geronimo.specs</groupId>
