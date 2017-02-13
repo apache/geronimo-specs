@@ -45,6 +45,13 @@ public interface JsonNumber extends JsonValue {
 
     BigDecimal bigDecimalValue();
 
+    /**
+     * @since 1.1
+     */
+    default Number numberValue() {
+        throw new UnsupportedOperationException();
+    }
+
     @Override
     String toString();
 

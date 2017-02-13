@@ -25,6 +25,6 @@ import javax.json.spi.JsonProvider;
 public interface JsonStructure extends JsonValue {
 
     default JsonValue getValue(String jsonPointer) {
-        return JsonProvider.provider().createJsonPointer(jsonPointer).getValue(this);
+        return JsonProvider.provider().createPointer(jsonPointer).getValue(this);
     }
 }
