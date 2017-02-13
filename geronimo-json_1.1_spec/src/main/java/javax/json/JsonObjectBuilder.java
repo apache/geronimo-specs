@@ -48,7 +48,17 @@ public interface JsonObjectBuilder {
 
     JsonObject build();
 
-    JsonObjectBuilder addAll(JsonObjectBuilder builder);
+    /**
+     * @since 1.1
+     */
+    default JsonObjectBuilder addAll(JsonObjectBuilder builder) {
+        throw new UnsupportedOperationException();
+    }
 
-    JsonObjectBuilder remove(String name);
+    /**
+     * @since 1.1
+     */
+    default JsonObjectBuilder remove(String name) {
+        throw new UnsupportedOperationException();
+    }
 }

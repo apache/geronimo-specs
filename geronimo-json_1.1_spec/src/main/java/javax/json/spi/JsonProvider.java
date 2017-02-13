@@ -212,7 +212,14 @@ public abstract class JsonProvider {
         throw new UnsupportedOperationException();
     }
 
-    public abstract JsonPointer createJsonPointer(String path);
+    /**
+     * Create a {@link JsonPointer} based on the given path string
+     *
+     * @since 1.1
+     */
+    public JsonPointer createPointer(String path) {
+        throw new UnsupportedOperationException();
+    }
 
     public abstract JsonBuilderFactory createBuilderFactory(Map<String, ?> config);
 
@@ -272,14 +279,18 @@ public abstract class JsonProvider {
      * Create a new JsonPatchBuilder
      * @since 1.1
      */
-    public abstract JsonPatchBuilder createPatchBuilder();
+    public JsonPatchBuilder createPatchBuilder() {
+        throw new UnsupportedOperationException();
+    }
 
     /**
      * Create a new JsonPatchBuilder from initial data.
      * @param initialData the initial patch operations
      * @since 1.1
      */
-    public abstract JsonPatchBuilder createPatchBuilder(JsonArray initialData);
+    public JsonPatchBuilder createPatchBuilder(JsonArray initialData) {
+        throw new UnsupportedOperationException();
+    }
 
     /**
      * Create a merge patch based on the given JsonValue.

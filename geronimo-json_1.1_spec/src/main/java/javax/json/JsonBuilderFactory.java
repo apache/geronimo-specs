@@ -25,8 +25,26 @@ public interface JsonBuilderFactory {
 
     Map<String, ?> getConfigInUse();
 
-    JsonObjectBuilder createObjectBuilder(JsonObject initialData);
+    /**
+     * Create a JsonObjectBuilder filled with the given initial data.
+     *
+     * @throws NullPointerException if initialData is {@code null}
+     *
+     * @since 1.1
+     */
+    default JsonObjectBuilder createObjectBuilder(JsonObject initialData) {
+        throw new UnsupportedOperationException();
+    }
 
-    JsonArrayBuilder createArrayBuilder(JsonArray initialData);
+    /**
+     * Create a JsonArrayBuilder filled with the given initial data.
+     *
+     * @throws NullPointerException if initialData is {@code null}
+     *
+     * @since 1.1
+     */
+    default JsonArrayBuilder createArrayBuilder(JsonArray initialData) {
+        throw new UnsupportedOperationException();
+    }
 }
 
