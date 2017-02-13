@@ -20,6 +20,7 @@ import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonBuilderFactory;
 import javax.json.JsonException;
+import javax.json.JsonMergePatch;
 import javax.json.JsonNumber;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
@@ -241,11 +242,31 @@ public abstract class JsonProvider {
     }
 
     /**
-     * Create a JsonPatch by comparing the source to the target.
-     * Applying this JsonPatch to the source you will give you the target.
+     * Create a {@link JsonPatch} as defined in
+     * <a href="https://tools.ietf.org/html/rfc6902">RFC-6902</a>.
+     *
+     * @param array with the patch operations
+     * @return the JsonPatch based on the given operations
+     *
      * @since 1.1
      */
-    public abstract JsonPatch createPatch(JsonStructure source, JsonStructure target);
+    public JsonPatch createPatch(JsonArray array) {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * Create a {@link JsonPatch} by comparing the source to the target as defined in
+     * <a href="https://tools.ietf.org/html/rfc6902">RFC-6902</a>.
+     *
+     * Applying this {@link JsonPatch} to the source you will give you the target.
+     *
+     * @see #createPatch(JsonArray)
+     *
+     * @since 1.1
+     */
+    public JsonPatch createDiff(JsonStructure source, JsonStructure target) {
+        throw new UnsupportedOperationException();
+    }
 
     /**
      * Create a new JsonPatchBuilder
@@ -261,9 +282,55 @@ public abstract class JsonProvider {
     public abstract JsonPatchBuilder createPatchBuilder(JsonArray initialData);
 
     /**
-     * Create a merged patch by comparing the source to the target.
-     * Applying this JsonPatch to the source will give you the target.
-     * A mergePatch is a JsonValue as defined in http://tools.ietf.org/html/rfc7396
+     * Create a merge patch based on the given JsonValue.
+     *
+     * If you have the following JsonMergePatch:
+     *
+     * <pre>
+     * {
+     *   "a":"z",
+     *   "c": {
+     *     "f": null
+     *   }
+     * }
+     * </pre>
+     *
+     * and apply it to the following JSON
+     *
+     * <pre>
+     * {
+     *   "a": "b",
+     *   "c": {
+     *     "d": "e",
+     *     "f": "g"
+     *   }
+     * }
+     * </pre>
+     *
+     * you will get the following result:
+     *
+     * <pre>
+     * {
+     *   "a": "z",
+     *   "c": {
+     *     "d": "e",
+     *   }
+     * }
+     * </pre>
+     *
+     * @see #createMergeDiff(JsonValue, JsonValue)
+     *
+     * @since 1.1
+     */
+    public JsonMergePatch createMergePatch(JsonValue patch) {
+        throw new UnsupportedOperationException();
+    }
+
+
+    /**
+     * Create a merge patch by comparing the source to the target.
+     * Applying this JsonMergePatch to the source will give you the target.
+     * A MergePatch is a JsonValue as defined in http://tools.ietf.org/html/rfc7396
      *
      * If you have a JSON like
      * <pre>
@@ -276,7 +343,19 @@ public abstract class JsonProvider {
      * }
      * </pre>
      *
-     * Then you can change the value of "a" and removing "f" by sending:
+     * and comparing it with
+     *
+     * <pre>
+     * {
+     *   "a": "z",
+     *   "c": {
+     *     "d": "e",
+     *   }
+     * }
+     * </pre>
+     *
+     * you will get the following JsonMergePatch:
+     *
      * <pre>
      * {
      *   "a":"z",
@@ -286,23 +365,12 @@ public abstract class JsonProvider {
      * }
      * </pre>
      *
-     * @see #createPatch(JsonStructure, JsonStructure)
-     * @see #mergePatch(JsonValue, JsonValue)
+     * @see #createMergePatch(JsonValue)
      *
      * @since 1.1
      */
-    public abstract JsonValue createMergePatch(JsonValue source , JsonValue target);
-
-    /**
-     * Merge the given patch to the existing source
-     * A mergePatch is a JsonValue as defined in http://tools.ietf.org/html/rfc7396
-     *
-     * @return the result of applying the patch to the source
-     *
-     * @see #createMergePatch(JsonValue, JsonValue)
-     * @since 1.1
-     */
-    public abstract JsonValue mergePatch(JsonValue source, JsonValue patch);
-
+    public JsonMergePatch createMergeDiff(JsonValue source, JsonValue target) {
+        throw new UnsupportedOperationException();
+    }
 }
 

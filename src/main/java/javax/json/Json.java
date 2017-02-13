@@ -165,15 +165,30 @@ public final class Json {
     }
 
     /**
-     * Create a JsonPatch by comparing the source to the target.
-     * Applying this JsonPatch to the source you will give you the target.
+     * Create a {@link JsonPatch} as defined in
+     * <a href="https://tools.ietf.org/html/rfc6902">RFC-6902</a>.
      *
-     * @see #createMergePatch(JsonValue, JsonValue)
+     * @param array with the patch operations
+     * @return the JsonPatch based on the given operations
      *
      * @since 1.1
      */
-    public static JsonPatch createPatch(JsonStructure source, JsonStructure target) {
-        return JsonProvider.provider().createPatch(source, target);
+    public JsonPatch createPatch(JsonArray array) {
+        return JsonProvider.provider().createPatch(array);
+    }
+
+    /**
+     * Create a {@link JsonPatch} by comparing the source to the target as defined in
+     * <a href="https://tools.ietf.org/html/rfc6902">RFC-6902</a>.
+     *
+     * Applying this {@link JsonPatch} to the source you will give you the target.
+     *
+     * @see #createPatch(JsonArray)
+     *
+     * @since 1.1
+     */
+    public JsonPatch createDiff(JsonStructure source, JsonStructure target) {
+        return JsonProvider.provider().createDiff(source, target);
     }
 
     /**
@@ -194,23 +209,31 @@ public final class Json {
     }
 
     /**
-     * Create a merged patch by comparing the source to the target.
-     * Applying this JsonPatch to the source you will give you the target.
+     * Creates JSON Merge Patch (<a href="http://tools.ietf.org/html/rfc7396">RFC 7396</a>)
+     * from specified {@code JsonValue}.
      *
-     * @see #createPatch(JsonStructure, JsonStructure)
+     * @param patch the patch
+     * @return a JSON Merge Patch
+     *
      * @since 1.1
      */
-    public static JsonValue createMergePatch(JsonValue source, JsonValue target) {
-        return JsonProvider.provider().createMergePatch(source, target);
+    public JsonMergePatch createMergePatch(JsonValue patch) {
+        return JsonProvider.provider().createMergePatch(patch);
     }
 
     /**
-     * Merge the given patch to the existing source
-     * @return the result of applying the patch to the source
+     * Generates a JSON Merge Patch (<a href="http://tools.ietf.org/html/rfc7396">RFC 7396</a>)
+     * from the source and target {@code JsonValue}s
+     * which when applied to the {@code source}, yields the {@code target}.
+     *
+     * @param source the source
+     * @param target the target
+     * @return a JSON Merge Patch
+     *
      * @since 1.1
      */
-    public static JsonValue mergePatch(JsonValue source, JsonValue patch) {
-        return JsonProvider.provider().mergePatch(source, patch);
+    public JsonMergePatch createMergeDiff(JsonValue source, JsonValue target) {
+        return JsonProvider.provider().createMergeDiff(source, target);
     }
 
     /**
