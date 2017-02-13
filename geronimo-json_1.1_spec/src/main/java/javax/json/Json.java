@@ -173,7 +173,7 @@ public final class Json {
      *
      * @since 1.1
      */
-    public JsonPatch createPatch(JsonArray array) {
+    public static JsonPatch createPatch(JsonArray array) {
         return JsonProvider.provider().createPatch(array);
     }
 
@@ -187,7 +187,7 @@ public final class Json {
      *
      * @since 1.1
      */
-    public JsonPatch createDiff(JsonStructure source, JsonStructure target) {
+    public static JsonPatch createDiff(JsonStructure source, JsonStructure target) {
         return JsonProvider.provider().createDiff(source, target);
     }
 
@@ -217,7 +217,7 @@ public final class Json {
      *
      * @since 1.1
      */
-    public JsonMergePatch createMergePatch(JsonValue patch) {
+    public static JsonMergePatch createMergePatch(JsonValue patch) {
         return JsonProvider.provider().createMergePatch(patch);
     }
 
@@ -232,17 +232,17 @@ public final class Json {
      *
      * @since 1.1
      */
-    public JsonMergePatch createMergeDiff(JsonValue source, JsonValue target) {
+    public static JsonMergePatch createMergeDiff(JsonValue source, JsonValue target) {
         return JsonProvider.provider().createMergeDiff(source, target);
     }
 
     /**
-     * Create a JsonPointer for the given path
+     * Create a {@link JsonPointer} for the given path
      *
      * @since 1.1
      */
-    public static JsonPointer createJsonPointer(String path) {
-        return JsonProvider.provider().createJsonPointer(path);
+    public static JsonPointer createPointer(String path) {
+        return JsonProvider.provider().createPointer(path);
     }
 
 }

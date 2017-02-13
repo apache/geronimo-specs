@@ -32,10 +32,6 @@ public final class JsonCollectors {
     private JsonCollectors() {
     }
 
-    public static Collector<JsonValue, JsonArrayBuilder, JsonArray> toJsonArray() {
-        return null;
-    }
-
     public static Collector<JsonValue, JsonObjectBuilder, JsonObject>
                 toJsonObject(Function<JsonValue, String> keyMapper,
                              Function<JsonValue, JsonValue> valueMapper) {

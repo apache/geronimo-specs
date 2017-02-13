@@ -199,5 +199,10 @@ public interface JsonPatch {
      * @throws NullPointerException if {@code target} is {@code null}
      */
     <T extends JsonStructure> T apply(T target);
+
+    /**
+     * @return the JsonPatch as {@link JsonArray}
+     */
+    JsonArray toJsonArray();
 }
 
