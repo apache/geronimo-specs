@@ -24,7 +24,6 @@ package javax.json;
  * The order of the operations corresponds to the order they are builded.
  * <p>
  * NOTICE: A JsonPatchBuilder contains state and therefore is NOT threadsafe and should not be used concurrently.
- * </p>
  * <p>
  * The following {@link JsonPatch}
  * <pre>
@@ -59,11 +58,9 @@ package javax.json;
  *                           .build();
  *
  * </pre>
- * </p>
  * <p>
  * An instance of a JsonPatchBuilder can be reused for another {@link JsonPatch} after
  * the {@link #build()}-Method was called.
- * </p>
  */
 public interface JsonPatchBuilder {
 
