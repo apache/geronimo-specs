@@ -31,11 +31,9 @@ package javax.json;
  *   { "path": "/a/b/c", "op": "add", "value": "foo" }
  * ]
  * </pre>
- * </p>
  * <p>
  * The 'operations' are performed in the order they are in the JsonPatch and applied
  * to the 'result' JSON document from the previous operation.
- * </p>
  * <p>
  * Supported operations are
  * <ul>
@@ -46,14 +44,11 @@ package javax.json;
  * <li>COPY}</li>
  * <li>TEST}</li>
  * </ul>
- * </p>
  * <p>
  * for more infos see <a href="https://tools.ietf.org/html/rfc6902">RFC-6902</a>
- * </p>
  * <p>
  * NOTICE: All JsonValues are immutable and therefore every {@code apply()} method will return
  * new references when the {@link JsonPatch} is applied.
- * </p>
  *
  * @since 1.1
  */
