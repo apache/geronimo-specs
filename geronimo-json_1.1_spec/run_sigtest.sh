@@ -31,7 +31,7 @@
 
 # generate the SIG for the RI
 # there is currently no official jar yet. If availablen, then: curl  http://repo1.maven.org/maven2/javax/json/... > ./target/javax.json-1.1.jar
-# java -jar ${SIGTEST_HOME}/lib/sigtestdev.jar Setup -classpath ${JAVA_HOME}/jre/lib/rt.jar:./target/javax.json-1.1.jar -Package javax.json  -FileName target/javax.json-1.1.sig -static
+java -jar ${SIGTEST_HOME}/lib/sigtestdev.jar Setup -classpath ${JAVA_HOME}/jre/lib/rt.jar:./target/javax.json-1.1.jar -Package javax.json  -FileName target/javax.json-1.1.sig -static
 
 # this generates the signature for our own jpa api
 java -jar ${SIGTEST_HOME}/lib/sigtestdev.jar Setup -classpath ${JAVA_HOME}/jre/lib/rt.jar:./target/geronimo-json_1.1_spec-1.0-SNAPSHOT.jar -Package javax.json  -FileName target/geronimo-json-api.sig -static

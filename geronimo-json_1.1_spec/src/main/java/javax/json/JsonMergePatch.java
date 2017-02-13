@@ -19,17 +19,22 @@ package javax.json;
 
 /**
  * A JSON MergePatch as defined in http://tools.ietf.org/html/rfc7396
- * TODO interface or what?
+ *
+ * @see javax.json.spi.JsonProvider#createMergePatch(JsonValue)
+ * @see javax.json.spi.JsonProvider#createMergeDiff(JsonValue, JsonValue)
  */
-public class JsonMergePatch  {
+public interface JsonMergePatch  {
 
-    public static JsonValue mergePatch(JsonValue target, JsonValue patch) {
+    /**
+     * Applies the current JsonMergePatch to the given value
+     * @param valueToApplyPatchOn the base value. Will not get changed itself.
+     * @return the patched new JsonValue
+     */
+    JsonValue apply(JsonValue valueToApplyPatchOn);
 
-        return null;
-    }
-
-    public static JsonValue diff(JsonValue source, JsonValue target) {
-        return null;
-    }
+    /**
+     * @return the Patch as JsonValue
+     */
+    JsonValue toJsonValue();
 }
 
