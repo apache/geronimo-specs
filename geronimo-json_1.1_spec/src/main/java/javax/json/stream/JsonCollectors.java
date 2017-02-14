@@ -32,9 +32,22 @@ public final class JsonCollectors {
     private JsonCollectors() {
     }
 
+    public static Collector<JsonValue, JsonArrayBuilder, JsonArray>
+                toJsonArray() {
+        //X TODO implement!
+        return null;
+    }
+
+    public static Collector<Map.Entry<String, JsonValue>, JsonObjectBuilder, JsonObject>
+                toJsonObject() {
+        //X TODO implement!
+        return null;
+    }
+
     public static Collector<JsonValue, JsonObjectBuilder, JsonObject>
                 toJsonObject(Function<JsonValue, String> keyMapper,
                              Function<JsonValue, JsonValue> valueMapper) {
+        //X TODO implement!
         return null;
     }
 
@@ -42,11 +55,13 @@ public final class JsonCollectors {
                 groupingBy(Function<JsonValue, String> classifier,
                            Collector<JsonValue, JsonArrayBuilder, JsonArray> downstream) {
 
+        //X TODO implement!
         return null;
     }
 
     public static Collector<JsonValue, Map<String, JsonArrayBuilder>, JsonObject>
                 groupingBy(Function<JsonValue, String> classifier) {
+        //X TODO implement!
         return null;
     }
 }

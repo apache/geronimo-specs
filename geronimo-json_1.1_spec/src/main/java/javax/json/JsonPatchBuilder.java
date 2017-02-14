@@ -64,30 +64,6 @@ package javax.json;
  */
 public interface JsonPatchBuilder {
 
-    //X TODO 'apply'-methods can be simplified to <T extends JsonStructure> T apply(T target)
-    /**
-     * Applies the builded {@link JsonPatch} to the given target.<br>
-     * simplified call for {@code build().apply()}.
-     *
-     * @param target {@link JsonStructure} to apply the patch operations
-     *
-     * @return the created {@link JsonStructure} with all patch operations applied
-     *
-     * @throws NullPointerException if the given {@code target} is {@code null}
-     */
-    JsonStructure apply(JsonStructure target);
-
-    /**
-     * @see #apply(JsonStructure)
-     */
-    JsonObject apply(JsonObject target);
-
-    /**
-     * @see #apply(JsonStructure)
-     */
-    JsonArray apply(JsonArray target);
-
-
     /**
      * Adds an 'add'-operation to the {@link JsonPatch}
      *
