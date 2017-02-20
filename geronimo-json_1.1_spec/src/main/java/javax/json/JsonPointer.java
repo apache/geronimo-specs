@@ -37,6 +37,13 @@ package javax.json;
  */
 public interface JsonPointer {
 
+    /**
+     * Get the JsonValue at the position referenced by this JsonPointer.
+     * @param target the JSON to apply this JsonPointer on
+     * @return the
+     * @throws JsonException if no value exists at the referenced location
+     * @throws NullPointerException if the target is {@code null}
+     */
     JsonValue getValue(JsonStructure target);
 
 
@@ -47,15 +54,41 @@ public interface JsonPointer {
      * @param newValue the new value to set
      * @param <T>
      * @return the new structure after modifying the original JsonStrucure
+     * @throws JsonException if no value exists at the referenced location
+     * @throws NullPointerException if the target is {@code null}
      */
     <T extends JsonStructure> T add(T target, JsonValue newValue);
 
 
-    <T extends JsonStructure> T  remove(T target);
+    /**
+     * Remove the value from the referenced position inside the target JSON.
+     * @param target to remove the value from
+     * @param <T> the type of the passed JsonStructure
+     * @return a new JsonStructure with the value removed from the target
+     * @throws JsonException if no value exists at the referenced location
+     * @throws NullPointerException if the target is {@code null}
+     */
+    <T extends JsonStructure> T remove(T target);
 
+    /**
+     * Replace the value at the position referenced by this JsonPointer with
+     * the newValue.
+     *
+     * @param target structure in which the newValue should be replaced
+     * @param newValue the new value to set
+     * @param <T>
+     * @return the new structure after modifying the original JsonStrucure
+     * @throws JsonException if no value exists at the referenced location
+     * @throws NullPointerException if the target is {@code null}
+     */
+    <T extends JsonStructure> T  replace(T target, JsonValue newValue);
+
+    /**
+     * Verify if the target JSON structure contains a value at the referenced location.
+     * @param target to check
+     * @return {@code true} if there is a value at the referenced location, {@code false} otherwise
+     * @throws NullPointerException if the target is {@code null}
+     */
     boolean containsValue(JsonStructure target);
-
-    <T extends JsonStructure> T  replace(T target, JsonValue value);
-
 
 }
