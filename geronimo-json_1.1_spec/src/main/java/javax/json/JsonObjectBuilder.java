@@ -24,7 +24,7 @@ import java.math.BigInteger;
  * Instances are not thread safe.
  *
  * Calling any of those methods with either the {@code name} or {@code value} param as {@code null}
- * will result in a {@cod NullPointerException}
+ * will result in a {@code NullPointerException}
  */
 public interface JsonObjectBuilder {
     /**
