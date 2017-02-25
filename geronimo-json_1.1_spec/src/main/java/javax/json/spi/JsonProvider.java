@@ -255,6 +255,8 @@ public abstract class JsonProvider {
      * @param array with the patch operations
      * @return the JsonPatch based on the given operations
      *
+     * @see #createDiff(JsonStructure, JsonStructure)
+     *
      * @since 1.1
      */
     public JsonPatch createPatch(JsonArray array) {
