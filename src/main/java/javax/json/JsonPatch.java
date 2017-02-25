@@ -152,7 +152,7 @@ public interface JsonPatch {
         private final String operationName;
 
 
-        private Operation(String operationName) {
+        Operation(String operationName) {
             this.operationName = operationName;
         }
 
