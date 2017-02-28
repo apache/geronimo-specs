@@ -210,7 +210,31 @@ public final class Json {
 
     /**
      * Creates JSON Merge Patch (<a href="http://tools.ietf.org/html/rfc7396">RFC 7396</a>)
-     * from specified {@code JsonValue}.
+     * from a specified {@link JsonValue}.
+     * Create a merged patch by comparing the source to the target.
+     *
+     * Applying this JsonPatch to the source will give you the target.
+     *
+     * If you have a JSON like
+     * <pre>
+     * {
+     *   "a": "b",
+     *   "c": {
+     *     "d": "e",
+     *     "f": "g"
+     *   }
+     * }
+     * </pre>
+     *
+     * Then you can change the value of "a" and removing "f" by sending:
+     * <pre>
+     * {
+     *   "a":"z",
+     *   "c": {
+     *     "f": null
+     *   }
+     * }
+     * </pre>
      *
      * @param patch the patch
      * @return a JSON Merge Patch
@@ -222,9 +246,32 @@ public final class Json {
     }
 
     /**
-     * Generates a JSON Merge Patch (<a href="http://tools.ietf.org/html/rfc7396">RFC 7396</a>)
-     * from the source and target {@code JsonValue}s
-     * which when applied to the {@code source}, yields the {@code target}.
+     * Create a JSON Merge Patch (<a href="http://tools.ietf.org/html/rfc7396">RFC 7396</a>)
+     * from the source and target {@link JsonValue JsonValues}.
+     * Create a merged patch by comparing the source to the target.
+     *
+     * Applying this JsonPatch to the source will give you the target.
+     *
+     * If you have a JSON like
+     * <pre>
+     * {
+     *   "a": "b",
+     *   "c": {
+     *     "d": "e",
+     *     "f": "g"
+     *   }
+     * }
+     * </pre>
+     *
+     * Then you can change the value of "a" and removing "f" by sending:
+     * <pre>
+     * {
+     *   "a":"z",
+     *   "c": {
+     *     "f": null
+     *   }
+     * }
+     * </pre>
      *
      * @param source the source
      * @param target the target
