@@ -208,7 +208,7 @@ public abstract class JsonProvider {
         throw new UnsupportedOperationException();
     }
 
-    public JsonArrayBuilder createArrayBuilder(Collection<Object> initialData) {
+    public JsonArrayBuilder createArrayBuilder(Collection<?> initialData) {
         throw new UnsupportedOperationException();
     }
 

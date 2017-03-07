@@ -136,7 +136,7 @@ public final class Json {
      *
      * @since 1.1
      */
-    public static JsonArrayBuilder createArrayBuilder(Collection<Object> initialData) {
+    public static JsonArrayBuilder createArrayBuilder(Collection<?> initialData) {
         return JsonProvider.provider().createArrayBuilder(initialData);
     }
     
