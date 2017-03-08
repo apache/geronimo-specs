@@ -19,16 +19,27 @@ package javax.json;
 import java.util.Map;
 
 public interface JsonBuilderFactory {
+    /**
+     * @return a new empty JsonObjectBuilder
+     */
     JsonObjectBuilder createObjectBuilder();
 
+    /**
+     * @return a new empty JsonArrayBuilder
+     */
     JsonArrayBuilder createArrayBuilder();
 
+    /**
+     * @return the config which got used when creating this builder factory.
+     */
     Map<String, ?> getConfigInUse();
 
     /**
      * Create a JsonObjectBuilder filled with the given initial data.
      *
      * @throws NullPointerException if initialData is {@code null}
+     *
+     * @return a new pre initialised JsonObjectBuilder
      *
      * @since 1.1
      */
@@ -37,13 +48,41 @@ public interface JsonBuilderFactory {
     }
 
     /**
+     * Create a JsonObjectBuilder filled with the given initial data.
+     *
+     * @throws NullPointerException if initialData is {@code null}
+     *
+     * @return a new pre initialised JsonObjectBuilder
+     *
+     * @since 1.1
+     */
+    default JsonObjectBuilder createObjectBuilder(Map<String, Object> initialData) {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
      * Create a JsonArrayBuilder filled with the given initial data.
      *
      * @throws NullPointerException if initialData is {@code null}
      *
+     * @return a new pre initialised JsonArrayBuilder
+     *
      * @since 1.1
      */
     default JsonArrayBuilder createArrayBuilder(JsonArray initialData) {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * Create a {@link JsonArrayBuilder} which is filled with the given initial content.
+     * @param initialData the content to immediately add to the JsonArrayBuilder
+     *
+     * @throws NullPointerException if initialData is {@code null}
+     *
+     * @return a new pre initialised JsonArrayBuilder
+     * @since 1.1
+     */
+    default JsonArrayBuilder createArrayBuilder(java.util.Collection<?> initialData) {
         throw new UnsupportedOperationException();
     }
 }
