@@ -67,6 +67,15 @@
       </releases>
     </repository>
   </repositories>
+  
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.geronimo.specs</groupId>
+      <artifactId>geronimo-osgi-locator</artifactId>
+      <version>1.1</version>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
 
   <build>
     <plugins>
@@ -83,6 +92,9 @@
             <Export-Package>
               javax.json*;version=1.0
             </Export-Package>
+            <Import-Package>org.apache.geronimo.osgi.registry.api;resolution:=optional,*</Import-Package>
+            <Private-Package>org.apache.geronimo.osgi.locator</Private-Package>
+            <Bundle-Activator>org.apache.geronimo.osgi.locator.Activator</Bundle-Activator>
           </instructions>
         </configuration>
       </plugin>

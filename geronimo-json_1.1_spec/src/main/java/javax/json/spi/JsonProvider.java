@@ -39,6 +39,8 @@ import javax.json.stream.JsonGeneratorFactory;
 import javax.json.stream.JsonParser;
 import javax.json.stream.JsonParserFactory;
 
+import org.apache.geronimo.osgi.locator.ProviderLocator;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -46,7 +48,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
-import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URL;
@@ -90,9 +91,8 @@ public abstract class JsonProvider {
     private static JsonProvider doLoadProvider() throws JsonException {
         final ClassLoader tccl = Thread.currentThread().getContextClassLoader();
         try {
-            final Class<?> clazz = Class.forName("org.apache.geronimo.osgi.locator.ProviderLocator");
-            final Method getServices = clazz.getDeclaredMethod("getServices", String.class, Class.class, ClassLoader.class);
-            final List<JsonProvider> osgiProviders = (List<JsonProvider>) getServices.invoke(null, JsonProvider.class.getName(), JsonProvider.class, tccl);
+            @SuppressWarnings("unchecked")
+            final List<JsonProvider> osgiProviders = (List)ProviderLocator.getServices(JsonProvider.class.getName(), JsonProvider.class, tccl);
             if (osgiProviders != null && !osgiProviders.isEmpty()) {
                 return osgiProviders.iterator().next();
             }
