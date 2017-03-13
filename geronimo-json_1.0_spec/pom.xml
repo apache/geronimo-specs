@@ -97,6 +97,10 @@
             <Export-Package>
               javax.json*;version=1.0
             </Export-Package>
+            <Require-Capability>
+              osgi.serviceloader;filter:="(osgi.serviceloader=javax.json.spi.JsonProvider)";cardinality:=multiple,
+              osgi.extender;filter:="(osgi.extender=osgi.serviceloader.processor)"
+            </Require-Capability>
           </instructions>
         </configuration>
       </plugin>
