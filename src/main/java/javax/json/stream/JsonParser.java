@@ -52,35 +52,35 @@ public interface JsonParser extends Closeable {
         END_OBJECT, END_ARRAY
     }
     
-    default public JsonObject getObject() {
+    default JsonObject getObject() {
         throw new UnsupportedOperationException();
     }
 
-    default public JsonValue getValue() {
+    default JsonValue getValue() {
         throw new UnsupportedOperationException();
     }
 
-    default public JsonArray getArray() {
+    default JsonArray getArray() {
         throw new UnsupportedOperationException();
     }
 
-    default public Stream<JsonValue> getArrayStream() {
+    default Stream<JsonValue> getArrayStream() {
         throw new UnsupportedOperationException();
     }
 
-    default public Stream<Map.Entry<String,JsonValue>> getObjectStream() {
+    default Stream<Map.Entry<String,JsonValue>> getObjectStream() {
         throw new UnsupportedOperationException();
     }
 
-    default public Stream<JsonValue> getValueStream() {
+    default Stream<JsonValue> getValueStream() {
         throw new UnsupportedOperationException();
     }
 
-    default public void skipArray() {
+    default void skipArray() {
         throw new UnsupportedOperationException();
     }
 
-    default public void skipObject() {
+    default void skipObject() {
         throw new UnsupportedOperationException();
     }
 }
