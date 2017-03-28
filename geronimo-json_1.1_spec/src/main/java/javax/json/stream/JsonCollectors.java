@@ -17,52 +17,88 @@
 
 package javax.json.stream;
 
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collector;
-
+import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import javax.json.JsonValue;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collector;
 
 public final class JsonCollectors {
 
     private JsonCollectors() {
+        // no instantiation for utility classes
     }
 
-    public static Collector<JsonValue, JsonArrayBuilder, JsonArray>
-                toJsonArray() {
-        //X TODO implement!
-        return null;
+
+    public static Collector<JsonValue, JsonArrayBuilder, JsonArray> toJsonArray() {
+
+        return Collector.of(Json::createArrayBuilder,
+                            JsonArrayBuilder::add,
+                            JsonArrayBuilder::addAll,
+                            JsonArrayBuilder::build);
     }
 
-    public static Collector<Map.Entry<String, JsonValue>, JsonObjectBuilder, JsonObject>
-                toJsonObject() {
-        //X TODO implement!
-        return null;
+    public static Collector<Map.Entry<String, JsonValue>, JsonObjectBuilder, JsonObject> toJsonObject() {
+
+        return Collector.of(Json::createObjectBuilder,
+                            JsonCollectors::addEntry,
+                            JsonObjectBuilder::addAll,
+                            JsonObjectBuilder::build);
     }
 
-    public static Collector<JsonValue, JsonObjectBuilder, JsonObject>
-                toJsonObject(Function<JsonValue, String> keyMapper,
-                             Function<JsonValue, JsonValue> valueMapper) {
-        //X TODO implement!
-        return null;
+    public static Collector<JsonValue, JsonObjectBuilder, JsonObject> toJsonObject(Function<JsonValue, String> keyMapper,
+                                                                                   Function<JsonValue, JsonValue> valueMapper) {
+
+        return Collector.of(Json::createObjectBuilder,
+                            (b, v) -> b.add(keyMapper.apply(v), valueMapper.apply(v)),
+                            JsonObjectBuilder::addAll,
+                            JsonObjectBuilder::build);
     }
 
-    public static Collector<JsonValue, Map<String, JsonArrayBuilder>, JsonObject>
-                groupingBy(Function<JsonValue, String> classifier,
-                           Collector<JsonValue, JsonArrayBuilder, JsonArray> downstream) {
-
-        //X TODO implement!
-        return null;
+    public static <T extends JsonArrayBuilder> Collector<JsonValue, Map<String, T>, JsonObject> groupingBy(Function<JsonValue, String> classifier,
+                                                                                                           Collector<JsonValue, T, JsonArray> downstream) {
+        return Collector.of(HashMap::new,
+                            (map, value) -> accumulator(map, value, classifier, downstream),
+                            JsonCollectors::combiner,
+                            m -> finisher(m, downstream.finisher()));
     }
 
-    public static Collector<JsonValue, Map<String, JsonArrayBuilder>, JsonObject>
-                groupingBy(Function<JsonValue, String> classifier) {
-        //X TODO implement!
-        return null;
+    public static Collector<JsonValue, Map<String, JsonArrayBuilder>, JsonObject> groupingBy(Function<JsonValue, String> classifier) {
+        return groupingBy(classifier, toJsonArray());
+    }
+
+
+    private static void addEntry(JsonObjectBuilder objectBuilder, Map.Entry<String, JsonValue> entry) {
+        objectBuilder.add(entry.getKey(), entry.getValue());
+    }
+
+    private static <T extends JsonArrayBuilder> void accumulator(Map<String, T> map,
+                                                                 JsonValue value,
+                                                                 Function<JsonValue, String> classifier,
+                                                                 Collector<JsonValue, T, JsonArray> downstream) {
+
+        String key = classifier.apply(value);
+        T arrayBuilder = map.computeIfAbsent(key, k -> downstream.supplier().get());
+        downstream.accumulator().accept(arrayBuilder, value);
+    }
+
+    private static <T extends JsonArrayBuilder> Map<String, T> combiner(Map<String, T> target, Map<String, T> source) {
+        target.putAll(source);
+        return target;
+    }
+
+    private static <T extends JsonArrayBuilder> JsonObject finisher(Map<String, T> arrayBuilders,
+                                                                    Function<T, JsonArray> downstream) {
+
+        JsonObjectBuilder builder = Json.createObjectBuilder();
+        arrayBuilders.forEach((key, value) -> builder.add(key, downstream.apply(value)));
+
+        return builder.build();
     }
 }
 
