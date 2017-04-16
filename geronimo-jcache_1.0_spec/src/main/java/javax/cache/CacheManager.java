@@ -25,6 +25,10 @@ import java.io.Closeable;
 import java.net.URI;
 import java.util.Properties;
 
+/**
+ * The CacheManager is the central part to manually access a JCache cache.
+ *
+ */
 public interface CacheManager extends Closeable {
     CachingProvider getCachingProvider();
 
