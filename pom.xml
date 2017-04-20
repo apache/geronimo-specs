@@ -92,8 +92,11 @@
                 <configuration>
                     <instructions>
                         <Export-Package>
-                            javax.json*;version=1.1
+                            javax.json.bind*;version=1.0
                         </Export-Package>
+                        <Import-Package>
+                            javax.json.*;version=1.1
+                        </Import-Package>
                     </instructions>
                 </configuration>
             </plugin>
