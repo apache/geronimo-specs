@@ -25,6 +25,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import javax.enterprise.util.AnnotationLiteral;
 import javax.inject.Scope;
 
 /**
@@ -56,5 +57,10 @@ import javax.inject.Scope;
 @Documented
 public @interface Dependent
 {
+    final class Literal extends AnnotationLiteral<Dependent> implements Dependent
+    {
+        public static final Literal INSTANCE = new Literal();
 
+        private static final long serialVersionUID = 1L;
+    }
 }

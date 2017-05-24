@@ -28,6 +28,7 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+import javax.enterprise.util.AnnotationLiteral;
 import javax.inject.Qualifier;
 
 @Target( { FIELD, PARAMETER, METHOD, TYPE})
@@ -69,4 +70,29 @@ public @interface New
      * @return the class of the bean which should be injected
      */
     Class<?> value() default New.class;
+
+    final class Literal extends AnnotationLiteral<New> implements New
+    {
+        private static final long serialVersionUID = 1L;
+
+        private final Class<?> value;
+
+
+        public static Literal of(Class<?> value)
+        {
+            return new Literal(value);
+        }
+
+        private Literal(Class<?> value)
+        {
+            this.value = value;
+        }
+
+        @Override
+        public Class<?> value()
+        {
+            return value;
+        }
+    }
+
 }

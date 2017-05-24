@@ -18,6 +18,8 @@
  */
 package javax.enterprise.inject;
 
+import javax.enterprise.util.AnnotationLiteral;
+
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.ElementType.METHOD;
@@ -32,5 +34,10 @@ import java.lang.annotation.Target;
 @Documented
 public @interface Alternative
 {
+    final class Literal extends AnnotationLiteral<Alternative> implements Alternative
+    {
+        public static final Literal INSTANCE = new Literal();
 
+        private static final long serialVersionUID = 1L;
+    }
 }

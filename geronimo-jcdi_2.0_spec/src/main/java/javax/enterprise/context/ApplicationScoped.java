@@ -18,6 +18,7 @@
  */
 package javax.enterprise.context;
 
+import javax.enterprise.util.AnnotationLiteral;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Inherited;
@@ -40,5 +41,10 @@ import java.lang.annotation.Target;
 @Documented
 public @interface ApplicationScoped
 {
+    final class Literal extends AnnotationLiteral<ApplicationScoped> implements ApplicationScoped
+    {
+        public static final Literal INSTANCE = new Literal();
 
+        private static final long serialVersionUID = 1L;
+    }
 }
