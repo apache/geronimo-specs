@@ -41,6 +41,7 @@ public @interface Typed
 
     final class Literal extends AnnotationLiteral<Typed> implements Typed
     {
+        public static final Literal INSTANCE = of(new Class[0]);
         private static final long serialVersionUID = 1L;
 
         private final Class<?>[] value;

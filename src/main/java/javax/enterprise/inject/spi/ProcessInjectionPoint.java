@@ -18,7 +18,7 @@
  */
 package javax.enterprise.inject.spi;
 
-import javax.enterprise.inject.spi.builder.InjectionPointConfigurator;
+import javax.enterprise.inject.spi.configurator.InjectionPointConfigurator;
 
 /**
  * Gets fired for each InjectionPoint.

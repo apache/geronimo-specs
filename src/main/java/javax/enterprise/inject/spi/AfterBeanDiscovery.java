@@ -19,8 +19,8 @@
 package javax.enterprise.inject.spi;
 
 import javax.enterprise.context.spi.Context;
-import javax.enterprise.inject.spi.builder.BeanConfigurator;
-import javax.enterprise.inject.spi.builder.ObserverMethodConfigurator;
+import javax.enterprise.inject.spi.configurator.BeanConfigurator;
+import javax.enterprise.inject.spi.configurator.ObserverMethodConfigurator;
 
 /**
  * Events that are fired after discovery bean process.

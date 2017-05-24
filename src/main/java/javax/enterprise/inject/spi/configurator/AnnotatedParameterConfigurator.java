@@ -17,7 +17,7 @@
  *  under the License.
  */
 
-package javax.enterprise.inject.spi.builder;
+package javax.enterprise.inject.spi.configurator;
 
 import java.lang.annotation.Annotation;
 

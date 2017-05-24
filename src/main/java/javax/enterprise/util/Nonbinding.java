@@ -47,4 +47,10 @@ import java.lang.annotation.Target;
 @Target(METHOD)
 public @interface Nonbinding
 {
+    final class Literal extends AnnotationLiteral<Nonbinding> implements Nonbinding
+    {
+        public static final Literal INSTANCE = new Literal();
+
+        private static final long serialVersionUID = 1L;
+    }
 }

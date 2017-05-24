@@ -17,23 +17,19 @@
  *  under the License.
  */
 
-package javax.enterprise.inject.spi.builder;
+package javax.enterprise.inject.spi.configurator;
 
-import javax.enterprise.inject.spi.AnnotatedMethod;
-import javax.enterprise.inject.spi.AnnotatedParameter;
+import javax.enterprise.inject.spi.AnnotatedField;
 import javax.enterprise.util.Nonbinding;
 import java.lang.annotation.Annotation;
-import java.util.List;
-import java.util.function.Predicate;
-import java.util.stream.Stream;
 
-public interface AnnotatedMethodConfigurator<T> {
+public interface AnnotatedFieldConfigurator<T> {
 
     /**
      *
-     * @return the original {@link AnnotatedMethod}
+     * @return the original {@link AnnotatedField}
      */
-    AnnotatedMethod<T> getAnnotated();
+    AnnotatedField<T> getAnnotated();
 
     /**
      * Add an annotation to the field.
@@ -41,7 +37,7 @@ public interface AnnotatedMethodConfigurator<T> {
      * @param annotation to add
      * @return self
      */
-    AnnotatedMethodConfigurator<T> add(Annotation annotation);
+    AnnotatedFieldConfigurator<T> add(Annotation annotation);
 
     /**
      * Remove annotations with (a) the same type and (b) the same annotation member value for each member which is not
@@ -51,7 +47,7 @@ public interface AnnotatedMethodConfigurator<T> {
      * @param annotation to remove
      * @return self
      */
-    AnnotatedMethodConfigurator<T> remove(Annotation annotation);
+    AnnotatedFieldConfigurator<T> remove(Annotation annotation);
 
     /**
      * Removes all annotations with the same type. Annotation members are ignored.
@@ -59,28 +55,13 @@ public interface AnnotatedMethodConfigurator<T> {
      * @param annotationType annotation class to remove
      * @return self
      */
-    AnnotatedMethodConfigurator<T> remove(Class<? extends Annotation> annotationType);
+    AnnotatedFieldConfigurator<T> remove(Class<? extends Annotation> annotationType);
 
     /**
-     * Remove all annotations from the method.
+     * Remove all annotations from the field.
      *
      * @return self
      */
-    AnnotatedMethodConfigurator<T> removeAll();
-
-    /**
-     *
-     * @return an immutable list of {@link AnnotatedParameterConfigurator}s reflecting the
-     *         {@link AnnotatedMethod#getParameters()}
-     */
-    List<AnnotatedParameterConfigurator<T>> params();
-
-    /**
-     *
-     * @param predicate Testing the original {@link AnnotatedParameter}
-     * @return a sequence of {@link AnnotatedParameterConfigurator}s matching the given predicate
-     * @see AnnotatedParameterConfigurator#getAnnotated()
-     */
-    Stream<AnnotatedParameterConfigurator<T>> filterParams(Predicate<AnnotatedParameter<T>> predicate);
+    AnnotatedFieldConfigurator<T> removeAll();
 
 }
