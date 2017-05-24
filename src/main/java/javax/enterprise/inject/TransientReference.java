@@ -18,6 +18,8 @@
  */
 package javax.enterprise.inject;
 
+import javax.enterprise.util.AnnotationLiteral;
+
 import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
@@ -46,4 +48,11 @@ import java.lang.annotation.Target;
 @Documented
 public @interface TransientReference
 {
+    final class Literal extends AnnotationLiteral<TransientReference> implements TransientReference
+    {
+        public static final Literal INSTANCE = new Literal();
+
+        private static final long serialVersionUID = 1L;
+    }
+
 }

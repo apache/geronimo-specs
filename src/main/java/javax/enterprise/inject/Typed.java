@@ -18,6 +18,7 @@
  */
 package javax.enterprise.inject;
 
+import javax.enterprise.util.AnnotationLiteral;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -36,6 +37,30 @@ import java.lang.annotation.Target;
 public @interface Typed
 {
 
-   Class<?>[] value() default {};
+    Class<?>[] value() default {};
+
+    final class Literal extends AnnotationLiteral<Typed> implements Typed
+    {
+        private static final long serialVersionUID = 1L;
+
+        private final Class<?>[] value;
+
+
+        public static Literal of(Class<?>[] value)
+        {
+            return new Literal(value);
+        }
+
+        private Literal(Class<?>[] value)
+        {
+            this.value = value;
+        }
+
+        @Override
+        public Class<?>[] value()
+        {
+            return value;
+        }
+    }
 
 }

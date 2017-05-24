@@ -18,6 +18,8 @@
  */
 package javax.enterprise.context;
 
+import javax.enterprise.util.AnnotationLiteral;
+
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.ElementType.FIELD;
@@ -45,5 +47,10 @@ import java.lang.annotation.Target;
 @Inherited
 public @interface RequestScoped
 {
+    final class Literal extends AnnotationLiteral<RequestScoped> implements RequestScoped
+    {
+        public static final Literal INSTANCE = new Literal();
 
+        private static final long serialVersionUID = 1L;
+    }
 }

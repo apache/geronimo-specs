@@ -18,6 +18,7 @@
  */
 package javax.enterprise.context;
 
+import javax.enterprise.util.AnnotationLiteral;
 import javax.inject.Qualifier;
 import java.lang.annotation.Annotation;
 import java.lang.annotation.Documented;
@@ -53,4 +54,32 @@ public @interface Initialized
      * @return the Scope annotation this is for.
      */
     Class<? extends Annotation> value();
+
+    final class Literal extends AnnotationLiteral<Initialized> implements Initialized
+    {
+        public static final Literal APPLICATION = of(ApplicationScoped.class);
+        public static final Literal SESSION = of(SessionScoped.class);
+        public static final Literal CONVERSATION = of(ConversationScoped.class);
+        public static final Literal REQUEST = of(RequestScoped.class);
+
+        private static final long serialVersionUID = 1L;
+
+        private final Class<? extends Annotation> value;
+
+        public static Literal of(Class<? extends Annotation> value)
+        {
+            return new Literal(value);
+        }
+
+        private Literal(Class<? extends Annotation> value)
+        {
+            this.value = value;
+        }
+
+        @Override
+        public Class<? extends Annotation> value()
+        {
+            return value;
+        }
+    }
 }
