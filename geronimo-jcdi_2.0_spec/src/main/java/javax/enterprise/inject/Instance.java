@@ -40,7 +40,7 @@ public interface Instance<T> extends Iterable<T>, Provider<T>
      * @param qualifiers
      * @return new child instance with given qualifiers.
      */
-    public Instance<T> select(Annotation... qualifiers);
+    Instance<T> select(Annotation... qualifiers);
     
     /**
      * Returns new child instance with given class and qualifiers.
@@ -50,7 +50,7 @@ public interface Instance<T> extends Iterable<T>, Provider<T>
      * @param qualifiers qualifiers
      * @return new child instance with given class and qualifiers
      */
-    public <U extends T> Instance<U> select(Class<U> subtype, Annotation... qualifiers);
+    <U extends T> Instance<U> select(Class<U> subtype, Annotation... qualifiers);
     
     /**
      * Return new child instance with given class info and qualifiers.
@@ -60,21 +60,21 @@ public interface Instance<T> extends Iterable<T>, Provider<T>
      * @param qualifiers qualifiers
      * @return new child instance with given class info and qualifiers
      */
-    public <U extends T> Instance<U> select(TypeLiteral<U> subtype, Annotation... qualifiers);
+    <U extends T> Instance<U> select(TypeLiteral<U> subtype, Annotation... qualifiers);
     
     /**
-     * Return true if resulotion is unsatisfied, false otherwise.
+     * Return true if resolution is unsatisfied, false otherwise.
      * 
-     * @return true if resulotion is unsatisfied, false otherwise
+     * @return true if resolution is unsatisfied, false otherwise
      */
-    public boolean isUnsatisfied();
+    boolean isUnsatisfied();
 
     /**
-     * Returns true if resolution is ambigious, false otherwise.
+     * Returns true if resolution is ambiguous, false otherwise.
      * 
-     * @return true if resolution is ambigious, false otherwise.
+     * @return true if resolution is ambiguous, false otherwise.
      */
-    public boolean isAmbiguous();
+    boolean isAmbiguous();
 
     /**
      * Destroy the given Contextual Instance.
@@ -82,6 +82,6 @@ public interface Instance<T> extends Iterable<T>, Provider<T>
      * which might otherwise create mem leaks.
      * @param instance
      */
-    public void destroy(T instance);
+    void destroy(T instance);
 
 }

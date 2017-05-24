@@ -32,20 +32,20 @@ public interface ProcessBean<X>
      * 
      * @return annotated
      */
-    public Annotated getAnnotated();
+    Annotated getAnnotated();
     
     /**
      * Returns bean instance.
      * 
      * @return bean
      */
-    public Bean<X> getBean();
+    Bean<X> getBean();
 
     /**
      * Aborts processing.
      * 
      * @param t throwable
      */
-    public void addDefinitionError(Throwable t);
+    void addDefinitionError(Throwable t);
 
 }

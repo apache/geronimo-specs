@@ -32,12 +32,12 @@ import javax.enterprise.util.TypeLiteral;
 public interface Event<T>
 {
 
-    public void fire(T event);
+    void fire(T event);
     
-    public Event<T> select(Annotation... qualifiers);
+    Event<T> select(Annotation... qualifiers);
     
-    public <U extends T> Event<U> select(Class<U> subtype, Annotation... qualifiers);
+    <U extends T> Event<U> select(Class<U> subtype, Annotation... qualifiers);
     
-    public <U extends T> Event<U> select(TypeLiteral<U> subtype, Annotation... qualifiers);
+    <U extends T> Event<U> select(TypeLiteral<U> subtype, Annotation... qualifiers);
 
 }

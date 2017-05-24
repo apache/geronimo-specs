@@ -38,20 +38,20 @@ public interface InjectionTarget<T> extends Producer<T>
      * @param instance bean instance
      * @param ctx creational context
      */
-    public void inject(T instance, CreationalContext<T> ctx);
+    void inject(T instance, CreationalContext<T> ctx);
     
     /**
      * Calls {@link PostConstruct} callback method if exists.
      * 
      * @param instance bean instance
      */
-    public void postConstruct(T instance);
+    void postConstruct(T instance);
 
     /**
      * Calls {@link PreDestroy} callback method if exists.
      * 
      * @param instance bean instance
-     */    
-    public void preDestroy(T instance);
+     */
+    void preDestroy(T instance);
     
 }

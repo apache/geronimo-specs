@@ -44,7 +44,7 @@ public interface AnnotatedMember<X> extends Annotated
      *
      * @return java member
      */
-    public Member getJavaMember();
+    Member getJavaMember();
 
     /**
      * Returns true if member modifiers contain static keyword
@@ -52,13 +52,13 @@ public interface AnnotatedMember<X> extends Annotated
      *
      * @return true if member modifiers contain static keyword
      */
-    public boolean isStatic();
+    boolean isStatic();
 
     /**
      * Returns member's declaring type.
      *
      * @return member's declaring type
      */
-    public AnnotatedType<X> getDeclaringType();
+    AnnotatedType<X> getDeclaringType();
 
 }

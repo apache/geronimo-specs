@@ -38,7 +38,7 @@ public interface Producer<T>
      *
      * <ul>
      *
-     *     <li><b>Bean Class</b> : It calls the constructor annotated with {@link Initializer} if it
+     *     <li><b>Bean Class</b> : It calls the constructor annotated with {@link javax.inject.Inject} if it
      * exists, or the constructor with no parameters otherwise.</li>
      *
      *  <li><b>Producer Method or Field</b> : Calls the producer method on,
@@ -53,7 +53,7 @@ public interface Producer<T>
      *
      * @return an instance of bean
      */
-    public T produce(CreationalContext<T> creationalContext);
+    T produce(CreationalContext<T> creationalContext);
 
     /**
      * Its result depends on bean type.
@@ -66,7 +66,7 @@ public interface Producer<T>
      *
      * @param instance dispose istance
      */
-    public void dispose(T instance);
+    void dispose(T instance);
 
     /**
      * Its result depends on bean type.
@@ -86,7 +86,7 @@ public interface Producer<T>
      *
      * @return set of injection points
      */
-    public Set<InjectionPoint> getInjectionPoints();
+    Set<InjectionPoint> getInjectionPoints();
 
 
 }

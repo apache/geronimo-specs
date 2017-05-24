@@ -34,6 +34,6 @@ public interface AnnotatedCallable<X> extends AnnotatedMember<X>
      *
      * @return list of parameters
      */
-    public List<AnnotatedParameter<X>> getParameters();
+    List<AnnotatedParameter<X>> getParameters();
 
 }

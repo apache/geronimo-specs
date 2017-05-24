@@ -47,14 +47,14 @@ public interface InjectionPoint
      * 
      * @return type of the injection point
      */
-    public Type getType();
+    Type getType();
 
     /**
      * Returns required qualifiers of the injection point.
      * 
      * @return qualifiers at the injection point
      */
-    public Set<Annotation> getQualifiers();
+    Set<Annotation> getQualifiers();
 
     /**
      * Returns the injection point owner bean.
@@ -65,7 +65,7 @@ public interface InjectionPoint
      * 
      * @return injection point owner bean
      */
-    public Bean<?> getBean();
+    Bean<?> getBean();
 
     /**
      * Returns appered point for injection point. One of
@@ -79,14 +79,14 @@ public interface InjectionPoint
      * 
      * @return where the injection point is appeared 
      */
-    public Member getMember();
+    Member getMember();
     
     /**
      * Returns annotated object representation of member.
      * 
      * @return annotated
      */
-    public Annotated getAnnotated();
+    Annotated getAnnotated();
     
     /**
      * Returns true if injection point is decorator delegate,
@@ -94,7 +94,7 @@ public interface InjectionPoint
      * 
      * @return true if injection point is decorator delegate
      */
-    public boolean isDelegate();
+    boolean isDelegate();
     
     /**
      * Returns true if injection point is transient,
@@ -102,5 +102,5 @@ public interface InjectionPoint
      * 
      * @return true if injection point is transient
      */
-    public boolean isTransient();
+    boolean isTransient();
 }

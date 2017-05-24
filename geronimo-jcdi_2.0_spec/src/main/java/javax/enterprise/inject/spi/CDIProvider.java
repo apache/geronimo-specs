@@ -27,5 +27,5 @@ package javax.enterprise.inject.spi;
  */
 public interface CDIProvider
 {
-    public CDI<Object> getCDI();
+    CDI<Object> getCDI();
 }

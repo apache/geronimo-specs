@@ -34,7 +34,7 @@ public interface Annotated
      *
      * @return type of the element
      */
-    public Type getBaseType();
+    Type getBaseType();
 
     /**
      * Returns set of type closures. Type closure means
@@ -42,7 +42,7 @@ public interface Annotated
      *
      * @return set of type closures.
      */
-    public Set<Type> getTypeClosure();
+    Set<Type> getTypeClosure();
 
     /**
      * Gets annotated element's annotation member if exist, null otherwise
@@ -51,14 +51,14 @@ public interface Annotated
      * @param annotationType class of the annotation
      * @return annotated element's annotation member if exist, null otherwise
      */
-    public <T extends Annotation> T getAnnotation(Class<T> annotationType);
+    <T extends Annotation> T getAnnotation(Class<T> annotationType);
 
     /**
      * Gets annotated member all annotations.
      *
      * @return annotated member annotations
      */
-    public Set<Annotation> getAnnotations();
+    Set<Annotation> getAnnotations();
 
     /**
      * Returns true if annotated member has annotation for given annotation type,
@@ -67,6 +67,6 @@ public interface Annotated
      * @param annotationType type of the annotation
      * @return true if annotated member has annotation for given annotation type
      */
-    public boolean isAnnotationPresent(Class<? extends Annotation> annotationType);
+    boolean isAnnotationPresent(Class<? extends Annotation> annotationType);
 
 }

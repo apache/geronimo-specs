@@ -63,7 +63,7 @@ public abstract class AnnotationLiteral<T extends Annotation> implements Annotat
     {
         Type superClazz = definedClazz.getGenericSuperclass();
         
-        Class<T> clazz = null;
+        Class<T> clazz;
         
         if (superClazz.equals(Object.class))
         {
@@ -344,11 +344,7 @@ public abstract class AnnotationLiteral<T extends Annotation> implements Annotat
         if (_meths == null) {
             // no need to have meths volatile nor synchronized.
             // if invoked in parallel we only might call getMethods() a bit too often.
-            _meths = (Method[]) AccessController.doPrivileged(new PrivilegedAction() {
-                public Object run() {
-                    return annotationType.getDeclaredMethods();
-                }
-            });
+            _meths = (Method[]) AccessController.doPrivileged((PrivilegedAction) () -> annotationType.getDeclaredMethods());
         }
         return _meths;
     }

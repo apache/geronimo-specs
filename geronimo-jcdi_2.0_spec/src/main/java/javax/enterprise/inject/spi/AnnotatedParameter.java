@@ -32,13 +32,13 @@ public interface AnnotatedParameter<X> extends Annotated
      *
      * @return parameter position
      */
-    public int getPosition();
+    int getPosition();
 
     /**
      * Returns declaring callable member.
      *
      * @return declaring callable member
      */
-    public AnnotatedCallable<X> getDeclaringCallable();
+    AnnotatedCallable<X> getDeclaringCallable();
 
 }

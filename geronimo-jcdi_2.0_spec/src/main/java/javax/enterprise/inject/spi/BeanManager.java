@@ -60,7 +60,7 @@ public interface BeanManager
      * @throws IllegalArgumentException if given bean type is not api type of the given bean object
      * @throws java.lang.IllegalStateException if this method gets called before the AfterDeploymentValidation event is fired.
      */
-    public Object getReference(Bean<?> bean, Type beanType, CreationalContext<?> ctx);
+    Object getReference(Bean<?> bean, Type beanType, CreationalContext<?> ctx);
     
     /**
      * Gets injection point bean reference.
@@ -72,14 +72,14 @@ public interface BeanManager
      * @throws AmbiguousResolutionException if more than one bean found
      * @throws java.lang.IllegalStateException if this method gets called before the AfterDeploymentValidation event is fired.
      */
-    public Object getInjectableReference(InjectionPoint injectionPoint, CreationalContext<?> ctx);
+    Object getInjectableReference(InjectionPoint injectionPoint, CreationalContext<?> ctx);
     
     /**
      * Returns a new creational context implementation.
      * 
      * @return new creational context
      */
-    public <T> CreationalContext<T> createCreationalContext(Contextual<T> contextual);
+    <T> CreationalContext<T> createCreationalContext(Contextual<T> contextual);
     
     /**
      * Returns set of beans that their api types contain
@@ -97,7 +97,7 @@ public interface BeanManager
      * @throws IllegalArgumentException same qualifier is given
      * @throws java.lang.IllegalStateException if this method gets called before the AfterBeanDiscovery event is fired.
      */
-    public Set<Bean<?>> getBeans(Type beanType, Annotation... qualifiers);
+    Set<Bean<?>> getBeans(Type beanType, Annotation... qualifiers);
         
     /**
      * Returns set of beans with given Expression Language name.
@@ -106,7 +106,7 @@ public interface BeanManager
      * @return set of beans with given name
      * @throws java.lang.IllegalStateException if this method gets called before the AfterBeanDiscovery event is fired.
      */
-    public Set<Bean<?>> getBeans(String name);    
+    Set<Bean<?>> getBeans(String name);
         
     /**
      * Returns passivation capable bean given id.
@@ -115,7 +115,7 @@ public interface BeanManager
      * @return passivation capable bean given id
      * @throws java.lang.IllegalStateException if this method gets called before the AfterBeanDiscovery event is fired.
      */
-    public Bean<?> getPassivationCapableBean(String id);
+    Bean<?> getPassivationCapableBean(String id);
     
     /**
      * Returns a bean object that is resolved according to the type safe resolution rules.
@@ -126,7 +126,7 @@ public interface BeanManager
      * @throws AmbiguousResolutionException if ambigious exists
      * @throws java.lang.IllegalStateException if this method gets called before the AfterBeanDiscovery event is fired.
      */
-    public <X> Bean<? extends X> resolve(Set<Bean<? extends X>> beans);
+    <X> Bean<? extends X> resolve(Set<Bean<? extends X>> beans);
         
     /**
      * Fires an event with given even object and qualifiers.
@@ -137,7 +137,7 @@ public interface BeanManager
      * @throws IllegalArgumentException given qualifier annotation is not a qualifier
      * @throws IllegalArgumentException same qualifier is given
      */
-    public void fireEvent(Object event, Annotation... qualifiers);
+    void fireEvent(Object event, Annotation... qualifiers);
         
     /**
      * Returns set of observer methods.
@@ -148,7 +148,7 @@ public interface BeanManager
      * @return set of observer methods
      * @throws java.lang.IllegalStateException if this method gets called before the AfterBeanDiscovery event is fired.
      */
-    public <T> Set<ObserverMethod<? super T>> resolveObserverMethods(T event, Annotation... qualifiers);
+    <T> Set<ObserverMethod<? super T>> resolveObserverMethods(T event, Annotation... qualifiers);
     
     /**
      * Returns a list of decorator.
@@ -183,7 +183,7 @@ public interface BeanManager
      * @throws InjectionException if problem exist
      * @throws java.lang.IllegalStateException if this method gets called before the AfterBeanDiscovery event is fired.
      */
-    public void validate(InjectionPoint injectionPoint);
+    void validate(InjectionPoint injectionPoint);
     
     /**
      * Returns true if given type is a scope type, false otherwise.
@@ -191,7 +191,7 @@ public interface BeanManager
      * @param annotationType annotation type
      * @return true if given type is a scope type, false otherwise
      */
-    public boolean isScope(Class<? extends Annotation> annotationType);
+    boolean isScope(Class<? extends Annotation> annotationType);
     
     /**
      * Returns true if given type is a normal scope type, false otherwise.
@@ -199,7 +199,7 @@ public interface BeanManager
      * @param annotationType annotation type
      * @return true if given type is a scope type, false otherwise
      */
-    public boolean isNormalScope(Class<? extends Annotation> annotationType);
+    boolean isNormalScope(Class<? extends Annotation> annotationType);
     
     /**
      * Returns true if given type is a passivating scope type, false otherwise.
@@ -207,7 +207,7 @@ public interface BeanManager
      * @param annotationType annotation type
      * @return true if given type is a scope type, false otherwise
      */
-    public boolean isPassivatingScope(Class<? extends Annotation> annotationType);    
+    boolean isPassivatingScope(Class<? extends Annotation> annotationType);
     
 
     /**
@@ -215,8 +215,8 @@ public interface BeanManager
      * 
      * @param annotationType annotation type
      * @return true if given type is a qualifier, false otherwise
-     */    
-    public boolean isQualifier(Class<? extends Annotation> annotationType);
+     */
+    boolean isQualifier(Class<? extends Annotation> annotationType);
 
     /**
      * Check whether the 2 given qualifiers are the same.
@@ -226,21 +226,21 @@ public interface BeanManager
      * @param qualifier2
      * @return <code>true</code> if all non-nonbinding attributes are equals, <code>false</code> otherwise
      */
-    public boolean areQualifiersEquivalent(Annotation qualifier1, Annotation qualifier2);
+    boolean areQualifiersEquivalent(Annotation qualifier1, Annotation qualifier2);
 
     /**
      * @param qualifier
      * @return the hashCode of the Annotation. All {@link javax.enterprise.util.Nonbinding} fields get ignored
      */
-    public int getQualifierHashCode(Annotation qualifier);
+    int getQualifierHashCode(Annotation qualifier);
 
     /**
      * Returns true if given type is a interceptor binding, false otherwise.
      * 
      * @param annotationType annotation type
      * @return true if given type is a interceptor binding, false otherwise
-     */        
-    public boolean isInterceptorBinding(Class<? extends Annotation> annotationType);
+     */
+    boolean isInterceptorBinding(Class<? extends Annotation> annotationType);
 
     /**
      * Check whether the 2 given Interceptor Binding annotations are the same.
@@ -250,13 +250,13 @@ public interface BeanManager
      * @param interceptorBinding2
      * @return <code>true</code> if all non-nonbinding attributes are equals, <code>false</code> otherwise
      */
-    public boolean areInterceptorBindingsEquivalent(Annotation interceptorBinding1, Annotation interceptorBinding2);
+    boolean areInterceptorBindingsEquivalent(Annotation interceptorBinding1, Annotation interceptorBinding2);
 
     /**
      * @param interceptorBinding
      * @return the hashCode of the Annotation. All {@link javax.enterprise.util.Nonbinding} fields get ignored
      */
-    public int getInterceptorBindingHashCode(Annotation interceptorBinding);
+    int getInterceptorBindingHashCode(Annotation interceptorBinding);
 
 
 
@@ -266,7 +266,7 @@ public interface BeanManager
      * @param annotationType annotation type
      * @return true if given type is a stereotype, false otherwise
      */
-    public boolean isStereotype(Class<? extends Annotation> annotationType);
+    boolean isStereotype(Class<? extends Annotation> annotationType);
         
     /**
      * Returns a set of meta-annotations that are defined on the binding
@@ -274,7 +274,7 @@ public interface BeanManager
      * @param qualifier binding class
      * @return a set of meta-annotations that are defined on the binding
      */
-    public Set<Annotation> getInterceptorBindingDefinition(Class<? extends Annotation> qualifier);
+    Set<Annotation> getInterceptorBindingDefinition(Class<? extends Annotation> qualifier);
     
     /**
      * Returns a set of meta-annotations that are defined on the stereotype type.
@@ -282,7 +282,7 @@ public interface BeanManager
      * @param stereotype stereotype type class
      * @return a set of meta-annotations that are defined on the stereotype type
      */
-    public Set<Annotation> getStereotypeDefinition(Class<? extends Annotation> stereotype);
+    Set<Annotation> getStereotypeDefinition(Class<? extends Annotation> stereotype);
 
     /**
      * Returns a context with given scope type.
@@ -290,14 +290,14 @@ public interface BeanManager
      * @param scope scope type class type
      * @return a context with given scope type
      */
-    public Context getContext(Class<? extends Annotation> scope);
+    Context getContext(Class<? extends Annotation> scope);
     
     /**
      * Returns CDI container Expression Language resolver.
      * 
      * @return el resolver
      */
-    public ELResolver getELResolver();
+    ELResolver getELResolver();
     
     /**
      * Returns a {@link AnnotatedType} instance for the given
@@ -307,7 +307,7 @@ public interface BeanManager
      * @param type class
      * @return a {@link AnnotatedType} instance
      */
-    public <T> AnnotatedType<T> createAnnotatedType(Class<T> type);
+    <T> AnnotatedType<T> createAnnotatedType(Class<T> type);
     
     /**
      * Creates a new instance of injection target Bean.
@@ -316,7 +316,7 @@ public interface BeanManager
      * @param type annotated type
      * @return injection target
      */
-    public <T> InjectionTarget<T> createInjectionTarget(AnnotatedType<T> type);
+    <T> InjectionTarget<T> createInjectionTarget(AnnotatedType<T> type);
 
     /**
      * Create an {@link InjectionPoint} for an annotated field.
@@ -324,7 +324,7 @@ public interface BeanManager
      * @throws IllegalArgumentException if there is a definition error on the given field
      * @return injection point
      */
-    public InjectionPoint createInjectionPoint(AnnotatedField<?> field);
+    InjectionPoint createInjectionPoint(AnnotatedField<?> field);
 
     /**
      * Create an {@link InjectionPoint} for an annotated parameter.
@@ -332,14 +332,14 @@ public interface BeanManager
      * @throws IllegalArgumentException if there is a definition error on the given parameter
      * @return injection point
      */
-    public InjectionPoint createInjectionPoint(AnnotatedParameter<?> parameter);
+    InjectionPoint createInjectionPoint(AnnotatedParameter<?> parameter);
 
     /**
      * @param type
      * @param <T>
      * @return the InjectionTargetFactory which is able to create {@link InjectionTarget}s for the given AnnotatedType.
      */
-    public <T> InjectionTargetFactory<T> getInjectionTargetFactory(AnnotatedType<T> type);
+    <T> InjectionTargetFactory<T> getInjectionTargetFactory(AnnotatedType<T> type);
 
     /**
      * @param field
@@ -347,7 +347,7 @@ public interface BeanManager
      * @param <X>
      * @return the ProducerFactory which is able to create {@link Producer}s for the given AnnotatedField.
      */
-    public <X> ProducerFactory<X> getProducerFactory(AnnotatedField<? super X> field, Bean<X> declaringBean);
+    <X> ProducerFactory<X> getProducerFactory(AnnotatedField<? super X> field, Bean<X> declaringBean);
 
     /**
      * @param method
@@ -355,7 +355,7 @@ public interface BeanManager
      * @param <X>
      * @return the ProducerFactory which is able to create {@link Producer}s for the given AnnotatedMethod.
      */
-    public <X> ProducerFactory<X> getProducerFactory(AnnotatedMethod<? super X> method, Bean<X> declaringBean);
+    <X> ProducerFactory<X> getProducerFactory(AnnotatedMethod<? super X> method, Bean<X> declaringBean);
 
     /**
      * This method creates bean meta information from a given {@link AnnotatedType}.
@@ -367,7 +367,7 @@ public interface BeanManager
      * @param <T>
      * @return the BeanAttributes created from parsing the given AnnotatedType
      */
-    public <T> BeanAttributes<T> createBeanAttributes(AnnotatedType<T> type);
+    <T> BeanAttributes<T> createBeanAttributes(AnnotatedType<T> type);
 
     /**
      * This method creates bean meta information from a given {@link AnnotatedMember}.
@@ -378,7 +378,7 @@ public interface BeanManager
      * @param member
      * @return the BeanAttributes created from parsing the given AnnotatedType
      */
-    public BeanAttributes<?> createBeanAttributes(AnnotatedMember<?> member);
+    BeanAttributes<?> createBeanAttributes(AnnotatedMember<?> member);
 
     /**
      * Create a {@link Bean} from the given bean attributes.
@@ -389,8 +389,8 @@ public interface BeanManager
      * @param <T>
      * @return the container created Bean
      */
-    public <T> Bean<T> createBean(BeanAttributes<T> attributes, Class<T> beanClass,
-                                  InjectionTargetFactory<T> injectionTargetFactory);
+    <T> Bean<T> createBean(BeanAttributes<T> attributes, Class<T> beanClass,
+                           InjectionTargetFactory<T> injectionTargetFactory);
 
     /**
      * Create a {@link Bean} from the given bean attributes.
@@ -401,8 +401,8 @@ public interface BeanManager
      * @param <T>
      * @return the container created Bean
      */
-    public <T, X> Bean<T> createBean(BeanAttributes<T> attributes, Class<X> beanClass,
-                                     ProducerFactory<X> producerFactory);
+    <T, X> Bean<T> createBean(BeanAttributes<T> attributes, Class<X> beanClass,
+                              ProducerFactory<X> producerFactory);
 
     /**
      * Resolves the Extension instance which gets used by this very BeanManager.
@@ -413,12 +413,12 @@ public interface BeanManager
      * @param <T>
      * @return the Extension instance of this very BeanManager
      */
-    public <T extends Extension> T getExtension(Class<T> extensionClass);
+    <T extends Extension> T getExtension(Class<T> extensionClass);
 
     /**
      * Wrapped around given expression factory and add CDI functionality.
      * @param expressionFactory expression factory
      * @return wrapped expression factory
      */
-    public ExpressionFactory wrapExpressionFactory(javax.el.ExpressionFactory expressionFactory);
+    ExpressionFactory wrapExpressionFactory(javax.el.ExpressionFactory expressionFactory);
 }

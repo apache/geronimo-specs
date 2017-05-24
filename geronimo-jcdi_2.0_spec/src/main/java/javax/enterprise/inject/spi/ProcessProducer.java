@@ -34,28 +34,28 @@ public interface ProcessProducer<X, T>
      * 
      * @return annotated member
      */
-    public AnnotatedMember<X> getAnnotatedMember();
+    AnnotatedMember<X> getAnnotatedMember();
     
     /**
      * Returns producer instance.
      * 
      * @return producer instance
      */
-    public Producer<T> getProducer();
+    Producer<T> getProducer();
     
     /**
      * Replaces producer instance.
      * 
      * @param producer new producer
      */
-    public void setProducer(Producer<T> producer);
+    void setProducer(Producer<T> producer);
 
     /**
      * Adding definition error. Container aborts processing.
      * 
      * @param t throwable
      */
-    public void addDefinitionError(Throwable t);
+    void addDefinitionError(Throwable t);
     
 
 }
