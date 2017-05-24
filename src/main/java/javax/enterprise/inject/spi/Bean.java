@@ -38,14 +38,14 @@ public interface Bean<T> extends Contextual<T>, BeanAttributes<T>
      * 
      * @return injection points
      */
-    public abstract Set<InjectionPoint> getInjectionPoints();
+    Set<InjectionPoint> getInjectionPoints();
     
     /**
      * Returns class of bean.
      * 
      * @return class of bean that it represents
      */
-    public abstract Class<?> getBeanClass();
+    Class<?> getBeanClass();
 
     /**
      * If bean is nullable return true, false
@@ -60,6 +60,6 @@ public interface Bean<T> extends Contextual<T>, BeanAttributes<T>
      * @return true if bean is nullable.
      * @deprecated since CDI-1.1. This should be ignored by the container from now on.
      */
-    public abstract boolean isNullable();
+    boolean isNullable();
 
 }

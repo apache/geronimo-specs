@@ -51,7 +51,7 @@ public interface Context
      * 
      * @return the scope type of the context
      */
-    public Class<? extends Annotation> getScope();
+    Class<? extends Annotation> getScope();
 
     /**
      * If the context is not active, throws {@link ContextNotActiveException}.
@@ -66,7 +66,7 @@ public interface Context
      * @param creationalContext {@link CreationalContext} instance
      * @return the contextual instance or null
      */
-    public <T> T get(Contextual<T> component, CreationalContext<T> creationalContext);
+    <T> T get(Contextual<T> component, CreationalContext<T> creationalContext);
 
     /**
      * Returns the instance of the webbeans in this context if exist otherwise return null.
@@ -75,7 +75,7 @@ public interface Context
      * @param component webbeans component
      * @return the instance of the webbeans in this context if exist otherwise return null
      */
-    public <T> T get(Contextual<T> component);
+    <T> T get(Contextual<T> component);
 
     /**
      * Returns true if context is active according to the current thread,

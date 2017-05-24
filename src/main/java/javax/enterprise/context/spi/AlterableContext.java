@@ -26,5 +26,5 @@ package javax.enterprise.context.spi;
  */
 public interface AlterableContext extends Context
 {
-    public void destroy(Contextual<?> contextual);
+    void destroy(Contextual<?> contextual);
 }

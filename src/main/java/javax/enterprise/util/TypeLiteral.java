@@ -48,7 +48,7 @@ public abstract class TypeLiteral<T> implements Serializable
 
     public final Class<T> getRawType()
     {
-        Class<T> rawType = null;
+        Class<T> rawType;
 
         if (this.definedType instanceof Class)
         {
@@ -74,7 +74,7 @@ public abstract class TypeLiteral<T> implements Serializable
 
     private Type getDefinedType(Class<?> clazz)
     {
-        Type type = null;
+        Type type;
 
         if (clazz == null)
         {

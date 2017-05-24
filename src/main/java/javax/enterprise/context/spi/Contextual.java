@@ -41,7 +41,7 @@ public interface Contextual<T>
      * @return the new instance of the webbeans component
      * @throws CreationException if any exception occurs
      */
-    public T create(CreationalContext<T> context);
+    T create(CreationalContext<T> context);
 
     /**
      * Destroys the instance. Any destroy logic is encapsulated
@@ -50,5 +50,5 @@ public interface Contextual<T>
      * @param instance already created webbeans instance
      * @param context creational context
      */
-    public void destroy(T instance, CreationalContext<T> context);
+    void destroy(T instance, CreationalContext<T> context);
 }

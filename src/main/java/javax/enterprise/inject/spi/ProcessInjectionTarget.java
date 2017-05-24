@@ -33,21 +33,21 @@ public interface ProcessInjectionTarget<X>
      * 
      * @return annotated type
      */
-    public AnnotatedType<X> getAnnotatedType();
+    AnnotatedType<X> getAnnotatedType();
 
     /**
      * Returns injection target.
      * 
      * @return injection target
      */
-    public InjectionTarget<X> getInjectionTarget();
+    InjectionTarget<X> getInjectionTarget();
     
     /**
      * Replaces injection target.
      * 
      * @param injectionTarget new injection target
      */
-    public void setInjectionTarget(InjectionTarget<X> injectionTarget);
+    void setInjectionTarget(InjectionTarget<X> injectionTarget);
 
     /**
      * Adding definition error. Container aborts
@@ -55,7 +55,7 @@ public interface ProcessInjectionTarget<X>
      * 
      * @param t throwable
      */
-    public void addDefinitionError(Throwable t);
+    void addDefinitionError(Throwable t);
 
 
 }

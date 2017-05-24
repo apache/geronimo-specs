@@ -32,18 +32,18 @@ public interface ProcessAnnotatedType<X>
      * 
      * @return annotated type
      */
-    public AnnotatedType<X> getAnnotatedType();
+    AnnotatedType<X> getAnnotatedType();
     
     /**
      * Replaces annotated type.
      * 
      * @param type annotated type
      */
-    public void setAnnotatedType(AnnotatedType<X> type);
+    void setAnnotatedType(AnnotatedType<X> type);
     
     /**
      * Veto registering process.
      */
-    public void veto();    
+    void veto();
 
 }

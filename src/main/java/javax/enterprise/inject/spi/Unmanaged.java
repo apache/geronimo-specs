@@ -63,7 +63,7 @@ public class Unmanaged<T>
 
     public UnmanagedInstance<T> newInstance()
     {
-        return new UnmanagedInstance<T>(beanManager, injectionTarget);
+        return new UnmanagedInstance<>(beanManager, injectionTarget);
     }
 
 

@@ -32,16 +32,16 @@ public interface EventMetadata {
     /**
      * @return the qualifiers which were used to fire the event
      */
-    public Set<Annotation> getQualifiers();
+    Set<Annotation> getQualifiers();
 
     /**
      * @return the {@link javax.enterprise.event.Event} InjectionPoitn or <code>null</code>
      *          if this event got fired via {@link BeanManager#fireEvent(Object, java.lang.annotation.Annotation...)}
      */
-    public InjectionPoint getInjectionPoint();
+    InjectionPoint getInjectionPoint();
 
     /**
      * @return the effective type of the fired event
      */
-    public Type getType();
+    Type getType();
 }

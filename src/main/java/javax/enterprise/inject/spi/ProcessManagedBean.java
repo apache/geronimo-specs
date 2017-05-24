@@ -32,5 +32,5 @@ public interface ProcessManagedBean<X> extends ProcessBean<X>
      * 
      * @return annotated type
      */
-    public AnnotatedType<X> getAnnotatedBeanClass();
+    AnnotatedType<X> getAnnotatedBeanClass();
 }

@@ -52,12 +52,12 @@ public interface CreationalContext<T>
      * 
      * @param incompleteInstance incomplete webbeans instance
      */
-    public void push(T incompleteInstance);
+    void push(T incompleteInstance);
     
     /**
      * Destorys all dependent objects of the instance
      * that is being destroyed.
      */
-    public void release();
+    void release();
 
 }

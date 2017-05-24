@@ -33,45 +33,45 @@ public interface Conversation
     /**
      * Starts new conversation.
      */
-    public void begin();
+    void begin();
 
     /**
      * Starts new conversation with the given id.
      * 
      * @param id conversation id.
      */
-    public void begin(String id);
+    void begin(String id);
 
     /**
      * Ends of the conversation.
      */
-    public void end();
+    void end();
 
     /**
      * @return <code>true</code> if conversation is transient, 
      *         <code>false</code> if it is a long running conversation.
      */
-    public boolean isTransient();
+    boolean isTransient();
 
     /**
      * Gets conversation id.
      * 
      * @return conversation id
      */
-    public String getId();
+    String getId();
 
     /**
      * Returns conversation time out.
      * 
      * @return conversation timeout
      */
-    public long getTimeout();
+    long getTimeout();
 
     /**
      * Sets conversation timeout in ms.
      * 
      * @param milliseconds timeout of the conversation
      */
-    public void setTimeout(long milliseconds);
+    void setTimeout(long milliseconds);
 
 }

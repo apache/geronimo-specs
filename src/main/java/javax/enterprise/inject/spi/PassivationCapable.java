@@ -20,5 +20,5 @@ package javax.enterprise.inject.spi;
 
 public interface PassivationCapable
 {
-    public String getId();
+    String getId();
 }

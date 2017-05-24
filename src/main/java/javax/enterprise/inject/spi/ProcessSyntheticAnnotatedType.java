@@ -27,5 +27,5 @@ public interface ProcessSyntheticAnnotatedType<X> extends ProcessAnnotatedType<X
     /**
      * @return the Extension which added this AnnotatedType
      */
-    public Extension getSource();
+    Extension getSource();
 }

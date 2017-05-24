@@ -32,13 +32,13 @@ public interface ProcessSessionBean<X> extends ProcessManagedBean<Object>
      * 
      * @return ejb name
      */
-    public String getEjbName();
+    String getEjbName();
     
     /**
      * Returns ejb type.
      * 
      * @return ejb type.
      */
-    public SessionBeanType getSessionBeanType();    
+    SessionBeanType getSessionBeanType();
 
 }

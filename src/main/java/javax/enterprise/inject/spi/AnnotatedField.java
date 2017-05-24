@@ -32,5 +32,5 @@ public interface AnnotatedField<X> extends AnnotatedMember<X>
     /**
      * {@inheritDoc}
      */
-    public Field getJavaMember();
+    Field getJavaMember();
 }

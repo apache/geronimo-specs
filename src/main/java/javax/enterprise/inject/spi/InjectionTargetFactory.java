@@ -28,5 +28,5 @@ public interface InjectionTargetFactory<T>
      * Creates an InjectionTarget for the given Bean
      * @param bean the Bean or <code>null</code> if the InjectionTarget should not get managed by the container.
      */
-    public InjectionTarget<T> createInjectionTarget(Bean<T> bean);
+    InjectionTarget<T> createInjectionTarget(Bean<T> bean);
 }

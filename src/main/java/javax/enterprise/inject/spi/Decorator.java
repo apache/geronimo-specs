@@ -33,16 +33,16 @@ public interface Decorator<T> extends Bean<T>
      * class annotated with &#064;{@link javax.decorator.Decorator}.
      * @return the decorated types of the decorator.
      */
-    public abstract Set<Type> getDecoratedTypes();
+    Set<Type> getDecoratedTypes();
 
     /**
      * @return the Type of the &#064;{@link javax.decorator.Delegate} injection point.
      */
-    public abstract Type getDelegateType();
+    Type getDelegateType();
 
     /**
      * @return the Qualifiers of the &#064;{@link javax.decorator.Delegate} injection point.
      */
-    public abstract Set<Annotation> getDelegateQualifiers();
+    Set<Annotation> getDelegateQualifiers();
 
 }

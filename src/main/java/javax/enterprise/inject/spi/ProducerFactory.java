@@ -28,6 +28,6 @@ public interface ProducerFactory<X>
      * Creates a Producer for the given Bean
      * @param bean the Bean or <code>null</code> if the Producer should not get managed by the container.
      */
-    public <T> Producer<T> createProducer(Bean<T> bean);
+    <T> Producer<T> createProducer(Bean<T> bean);
 
 }

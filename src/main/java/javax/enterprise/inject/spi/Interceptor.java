@@ -39,13 +39,13 @@ public interface Interceptor<T> extends Bean<T>
      * Usually a single Interceptor
      * @return all {@link javax.interceptor.InterceptorBinding}s handled by this interceptor.
      */
-    public abstract Set<Annotation> getInterceptorBindings();
+    Set<Annotation> getInterceptorBindings();
 
     /**
      * @param type InterceptionType in question
      * @return <code>true</code> if this interceptor handles the given InterceptionType, <code>false</code> otherwise
      */
-    public boolean intercepts(InterceptionType type);
+    boolean intercepts(InterceptionType type);
 
     /**
      * Perform the interception. This will e.g. invoke the &#064;AroundInvoke annotated method
@@ -58,6 +58,6 @@ public interface Interceptor<T> extends Bean<T>
      *         (if this is not the last interceptor in the chain)
      * @throws Exception wrapped from the intercepted instance. See CDI-115
      */
-    public Object intercept(InterceptionType type, T instance, InvocationContext ctx) throws Exception;
+    Object intercept(InterceptionType type, T instance, InvocationContext ctx) throws Exception;
 
 }

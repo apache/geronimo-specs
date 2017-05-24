@@ -34,40 +34,40 @@ public interface BeanAttributes<T> {
      *
      * @return api types of a bean
      */
-    public abstract Set<Type> getTypes();
+    Set<Type> getTypes();
 
     /**
      * Returns qualifiers of a bean.
      *
      * @return qualifiers of a bean
      */
-    public abstract Set<Annotation> getQualifiers();
+    Set<Annotation> getQualifiers();
 
     /**
      * Returns scope of a bean.
      *
      * @return scope
      */
-    public abstract Class<? extends Annotation> getScope();
+    Class<? extends Annotation> getScope();
 
     /**
      * Returns name of a bean.
      *
      * @return name of a bean
      */
-    public abstract String getName();
+    String getName();
 
     /**
      * Returns bean stereotypes.
      *
      * @return bean stereotypes
      */
-    public Set<Class<? extends Annotation>> getStereotypes();
+    Set<Class<? extends Annotation>> getStereotypes();
 
     /**
      * Returns true if declares as policy
      *
      * @return true if declares as policy
      */
-    public boolean isAlternative();
+    boolean isAlternative();
 }

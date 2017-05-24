@@ -33,13 +33,13 @@ public interface ProcessProducerMethod<X, T> extends ProcessBean<T>
      * 
      * @return annotated method
      */
-    public AnnotatedMethod<X> getAnnotatedProducerMethod();
+    AnnotatedMethod<X> getAnnotatedProducerMethod();
 
     /**
      * Returns annotated parameter.
      * @return the {@link javax.enterprise.inject.Disposes} annotated parameter of the disposal method
      *      which fits the producer field, or <code>null</code> if there is no disposal method.
      */
-    public AnnotatedParameter<X> getAnnotatedDisposedParameter();
+    AnnotatedParameter<X> getAnnotatedDisposedParameter();
 
 }

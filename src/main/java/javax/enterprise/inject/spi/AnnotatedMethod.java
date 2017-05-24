@@ -32,5 +32,5 @@ public interface AnnotatedMethod<X> extends AnnotatedCallable<X>
     /**
      * {@inheritDoc}
      */
-    public Method getJavaMember();
+    Method getJavaMember();
 }
