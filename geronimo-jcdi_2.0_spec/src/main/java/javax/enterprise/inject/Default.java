@@ -42,11 +42,10 @@ import javax.inject.Qualifier;
 @Qualifier
 public @interface Default
 {
-   final class Literal extends AnnotationLiteral<Default> implements Default {
+    final class Literal extends AnnotationLiteral<Default> implements Default
+    {
+        public static final Literal INSTANCE = new Literal();
 
-      public static final Literal INSTANCE = new Literal();
-
-      private static final long serialVersionUID = 1L;
-
-   }
+        private static final long serialVersionUID = 1L;
+    }
 }
