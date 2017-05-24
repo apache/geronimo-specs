@@ -16,35 +16,36 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package javax.enterprise.inject;
-
-import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.ElementType.PARAMETER;
-import static java.lang.annotation.ElementType.TYPE;
-import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
-
-import java.lang.annotation.Documented;
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
+package javax.enterprise.inject.literal;
 
 import javax.enterprise.util.AnnotationLiteral;
-import javax.inject.Qualifier;
+import javax.inject.Named;
 
 /**
- * Defines any qualifier in the injection point.
  *
- * @version $Rev$ $Date$
+ * @since 2.0
  */
-@Target( { TYPE, METHOD, FIELD, PARAMETER })
-@Retention(RUNTIME)
-@Documented
-@Qualifier
-public @interface Any
+public class NamedLiteral extends AnnotationLiteral<Named> implements Named
 {
-    final class Literal extends AnnotationLiteral<Any> implements Any {
-        public static final Literal INSTANCE = new Literal();
+    public static final NamedLiteral INSTANCE = of("");
 
-        private static final long serialVersionUID = 1L;
-   }
+    private static final long serialVersionUID = 1L;
+
+    private final String value;
+
+    public static NamedLiteral of(String s)
+    {
+        return null;
+    }
+
+    private NamedLiteral(String value)
+    {
+        this.value = value;
+    }
+
+    @Override
+    public String value()
+    {
+        return value;
+    }
 }

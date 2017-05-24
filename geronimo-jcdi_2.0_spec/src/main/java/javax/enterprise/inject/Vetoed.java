@@ -18,6 +18,7 @@
  */
 package javax.enterprise.inject;
 
+import javax.enterprise.util.AnnotationLiteral;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -37,4 +38,10 @@ import java.lang.annotation.Target;
 @Documented
 public @interface Vetoed
 {
+    final class Literal extends AnnotationLiteral<Vetoed> implements Vetoed
+    {
+        public static final Literal INSTANCE = new Literal();
+
+        private static final long serialVersionUID = 1L;
+    }
 }

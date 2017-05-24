@@ -18,7 +18,7 @@
  */
 package javax.enterprise.inject.spi;
 
-import javax.enterprise.inject.spi.builder.ObserverMethodConfigurator;
+import javax.enterprise.inject.spi.configurator.ObserverMethodConfigurator;
 
 /**
  * Fired for each observer.

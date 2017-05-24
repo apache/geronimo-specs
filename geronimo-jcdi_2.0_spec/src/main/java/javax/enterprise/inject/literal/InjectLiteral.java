@@ -16,35 +16,18 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package javax.enterprise.inject;
-
-import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.ElementType.PARAMETER;
-import static java.lang.annotation.ElementType.TYPE;
-import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
-
-import java.lang.annotation.Documented;
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
+package javax.enterprise.inject.literal;
 
 import javax.enterprise.util.AnnotationLiteral;
-import javax.inject.Qualifier;
+import javax.inject.Inject;
 
 /**
- * Defines any qualifier in the injection point.
  *
- * @version $Rev$ $Date$
+ * @since 2.0
  */
-@Target( { TYPE, METHOD, FIELD, PARAMETER })
-@Retention(RUNTIME)
-@Documented
-@Qualifier
-public @interface Any
+public class InjectLiteral extends AnnotationLiteral<Inject> implements Inject
 {
-    final class Literal extends AnnotationLiteral<Any> implements Any {
-        public static final Literal INSTANCE = new Literal();
+    public static final InjectLiteral INSTANCE = new InjectLiteral();
 
-        private static final long serialVersionUID = 1L;
-   }
+    private static final long serialVersionUID = 1L;
 }

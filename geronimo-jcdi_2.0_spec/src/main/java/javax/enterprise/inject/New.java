@@ -73,6 +73,8 @@ public @interface New
 
     final class Literal extends AnnotationLiteral<New> implements New
     {
+        public static final Literal INSTANCE = of(New.class);
+
         private static final long serialVersionUID = 1L;
 
         private final Class<?> value;
