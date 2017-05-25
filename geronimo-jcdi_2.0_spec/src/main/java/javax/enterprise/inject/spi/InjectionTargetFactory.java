@@ -18,6 +18,8 @@
  */
 package javax.enterprise.inject.spi;
 
+import javax.enterprise.inject.spi.configurator.AnnotatedTypeConfigurator;
+
 /**
  * A factory which is able to create container provided
  * {@link InjectionTarget}s.
@@ -29,4 +31,13 @@ public interface InjectionTargetFactory<T>
      * @param bean the Bean or <code>null</code> if the InjectionTarget should not get managed by the container.
      */
     InjectionTarget<T> createInjectionTarget(Bean<T> bean);
+
+    /**
+     * @return a new annotated type configurator which can be used to set up an {@link AnnotatedType}
+     *      to be used to create the {@link InjectionTarget}.
+     */
+    default AnnotatedTypeConfigurator<T> configure()
+    {
+        throw new UnsupportedOperationException("AnnotatedType Configuration not supported by default");
+    }
 }
