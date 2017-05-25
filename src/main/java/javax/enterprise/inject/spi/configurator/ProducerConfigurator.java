@@ -19,6 +19,7 @@
 
 package javax.enterprise.inject.spi.configurator;
 
+import javax.enterprise.context.spi.CreationalContext;
 import javax.enterprise.inject.Instance;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -32,7 +33,7 @@ public interface ProducerConfigurator<T> {
      * @param callback use as produced instance for the configured bean
      * @return self
      */
-    <U extends T> ProducerConfigurator<U> produceWith(Function<Instance<Object>, U> callback);
+    <U extends T> ProducerConfigurator<T> produceWith(Function<CreationalContext<U>, U> callback);
 
     /**
      *
