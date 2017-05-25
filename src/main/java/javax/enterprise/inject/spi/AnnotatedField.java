@@ -18,7 +18,11 @@
  */
 package javax.enterprise.inject.spi;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 /**
  * Defines field member contract.
@@ -33,4 +37,11 @@ public interface AnnotatedField<X> extends AnnotatedMember<X>
      * {@inheritDoc}
      */
     Field getJavaMember();
+
+    @Override
+    default <T extends Annotation> Set<T> getAnnotations(Class<T> annotationType)
+    {
+        return new LinkedHashSet<>(Arrays.asList(getJavaMember().getAnnotationsByType(annotationType)));
+    }
+
 }

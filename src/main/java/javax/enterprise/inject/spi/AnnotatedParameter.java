@@ -18,6 +18,14 @@
  */
 package javax.enterprise.inject.spi;
 
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Executable;
+import java.lang.reflect.Member;
+import java.lang.reflect.Parameter;
+import java.util.Arrays;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 /**
  * Defines member parameter contract.
  * 
@@ -40,5 +48,21 @@ public interface AnnotatedParameter<X> extends Annotated
      * @return declaring callable member
      */
     AnnotatedCallable<X> getDeclaringCallable();
+
+    default Parameter getJavaParameter()
+    {
+        final Member javaMember = getDeclaringCallable().getJavaMember();
+        if (!Executable.class.isInstance(javaMember))
+        {
+            throw new IllegalStateException("Parameter does not belong to a Constructor or Method: " + javaMember);
+        }
+        return ((Executable) javaMember).getParameters()[getPosition()];
+    }
+
+    @Override
+    default <T extends Annotation> Set<T> getAnnotations(Class<T> annotationType)
+    {
+        return new LinkedHashSet<>(Arrays.asList(getJavaParameter().getAnnotationsByType(annotationType)));
+    }
 
 }

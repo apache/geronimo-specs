@@ -54,6 +54,15 @@ public interface Annotated
     <T extends Annotation> T getAnnotation(Class<T> annotationType);
 
     /**
+     * Gets annotated element's annotation member if exist, null otherwise
+     *
+     * @param <T> generic annotatation class type
+     * @param annotationType class of the annotation
+     * @return annotations of the given type, if exist - empty collection otherwise
+     */
+    <T extends Annotation> Set<T> getAnnotations(Class<T> annotationType);
+
+    /**
      * Gets annotated member all annotations.
      *
      * @return annotated member annotations
