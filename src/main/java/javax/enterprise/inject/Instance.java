@@ -19,6 +19,8 @@
 package javax.enterprise.inject;
 
 import java.lang.annotation.Annotation;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import javax.enterprise.util.TypeLiteral;
 import javax.inject.Provider;
@@ -77,11 +79,33 @@ public interface Instance<T> extends Iterable<T>, Provider<T>
     boolean isAmbiguous();
 
     /**
+     * @return {@code true} if there is exactly one {@link javax.enterprise.inject.spi.Bean}
+     *      which resolves according to the currently selected type and qualifiers.
+     *      In other words: whether the Instance can serve an actual Contextual Reference.
+     *
+     * @since 2.0
+     */
+    default boolean isResolvable()
+    {
+        return !isAmbiguous() && !isUnsatisfied();
+    }
+
+    /**
+     * @return a Stream of all the beans available for the currently selected type and qualifiers,
+     *      or an empty Stream if {@link #isUnsatisfied()}
+     */
+    default Stream<T> stream()
+    {
+        return StreamSupport.stream(spliterator(), false);
+    }
+
+    /**
      * Destroy the given Contextual Instance.
      * This is especially intended for {@link javax.enterprise.context.Dependent} scoped beans
      * which might otherwise create mem leaks.
      * @param instance
      */
     void destroy(T instance);
+
 
 }
