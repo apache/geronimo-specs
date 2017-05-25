@@ -78,10 +78,10 @@ public interface AfterTypeDiscovery
     /**
      * Returns a new annotated type configurator based on a new bean id and bean class.
      *
+     * @param clazz to add
      * @param id of the annotated type
-     * @param clazz
      * @param <T>
      * @return
      */
-    <T> AnnotatedTypeConfigurator<T> addAnnotatedType(String id, Class<T> clazz);
+    <T> AnnotatedTypeConfigurator<T> addAnnotatedType(Class<T> clazz, String id);
 }
