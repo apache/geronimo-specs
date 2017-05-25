@@ -64,7 +64,7 @@ public interface Producer<T>
      * </ul>
      * </p>
      *
-     * @param instance dispose istance
+     * @param instance dispose instance
      */
     void dispose(T instance);
 

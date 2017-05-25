@@ -30,7 +30,10 @@ package javax.enterprise.event;
  */
 public enum TransactionPhase
 {
-    /**Means in trnasaction*/
+    /**
+     * Means in transaction.
+     * Used if an event should get sent immediately.
+     */
     IN_PROGRESS,
     
     /**Before completion phase*/

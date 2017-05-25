@@ -27,7 +27,7 @@ import java.lang.annotation.Target;
 
 
 /**
- * Steretypes are used for inheriting the meta annotations
+ * Stereotypes are used for inheriting the meta annotations
  * that are defined on the stereotyped annotation from another webbeans
  * component.
  * 
