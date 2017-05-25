@@ -106,12 +106,12 @@ public interface BeforeBeanDiscovery
      * @param <T>
      * @return a new annotated type configurator to create an InterceptorBinding
      */
-    <T> AnnotatedTypeConfigurator<T> configureInterceptorBinding(Class<T> interceptorBindingType);
+    <T extends Annotation> AnnotatedTypeConfigurator<T> configureInterceptorBinding(Class<T> interceptorBindingType);
 
     /**
      * @param qualifier
      * @param <T>
      * @return a new annotated type configurator to create a Qualifier
      */
-    <T> AnnotatedTypeConfigurator<T> configureQualifier(Class<T> qualifier);
+    <T extends Annotation> AnnotatedTypeConfigurator<T> configureQualifier(Class<T> qualifier);
 }
