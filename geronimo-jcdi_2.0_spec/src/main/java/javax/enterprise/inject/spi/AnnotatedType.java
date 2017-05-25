@@ -19,6 +19,9 @@
 package javax.enterprise.inject.spi;
 
 import javax.enterprise.inject.spi.configurator.AnnotatedTypeConfigurator;
+import java.lang.annotation.Annotation;
+import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
@@ -61,4 +64,11 @@ public interface AnnotatedType<X> extends Annotated
     * @return
     */
     AnnotatedTypeConfigurator<X> configureAnnotatedType();
+
+    @Override
+    default <T extends Annotation> Set<T> getAnnotations(Class<T> annotationType)
+    {
+        return new LinkedHashSet<>(Arrays.asList(getJavaClass().getAnnotationsByType(annotationType)));
+    }
+
 }

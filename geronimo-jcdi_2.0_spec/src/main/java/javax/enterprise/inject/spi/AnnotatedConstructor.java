@@ -18,7 +18,11 @@
  */
 package javax.enterprise.inject.spi;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
+import java.util.Arrays;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 /**
  * Defines member constructor contract.
@@ -33,4 +37,10 @@ public interface AnnotatedConstructor<X> extends AnnotatedCallable<X>
      * {@inheritDoc}
      */
     Constructor<X> getJavaMember();
+
+    @Override
+    default <T extends Annotation> Set<T> getAnnotations(Class<T> annotationType)
+    {
+        return new LinkedHashSet<>(Arrays.asList(getJavaMember().getAnnotationsByType(annotationType)));
+    }
 }
