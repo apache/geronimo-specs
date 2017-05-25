@@ -30,12 +30,13 @@
 mvn clean package dependency:copy-dependencies
 
 packages="-Package javax.decorator -Package javax.enterprise.context -Package javax.enterprise.util -Package javax.enterprise.inject -Package javax.enterprise.event"
+cp="${JAVA_HOME}/jre/lib/rt.jar:target/dependency/geronimo-interceptor_1.1_spec-1.0.jar:target/dependency/geronimo-el_2.2_spec-1.0.jar:target/dependency/geronimo-atinject_1.0_spec-1.0.jar"
 
 # generate the SIG for the RI
-java -jar ${SIGTEST_HOME}/lib/sigtestdev.jar Setup -classpath ${JAVA_HOME}/jre/lib/rt.jar:target/dependency/geronimo-interceptor_1.1_spec-1.0.jar:target/dependency/geronimo-el_2.2_spec-1.0.jar:target/dependency/geronimo-atinject_1.0_spec-1.0.jar:cdi-api-2.0.jar ${packages}  -FileName target/cdi-api.sig -static
+java -jar ${SIGTEST_HOME}/lib/sigtestdev.jar Setup -classpath ${cp}:cdi-api-2.0.jar ${packages} -FileName target/cdi-api.sig -static
 
 # this generates the signature for our own api
-java -jar ${SIGTEST_HOME}/lib/sigtestdev.jar Setup -classpath ${JAVA_HOME}/jre/lib/rt.jar:target/dependency/geronimo-interceptor_1.1_spec-1.0.jar:target/dependency/geronimo-el_2.2_spec-1.0.jar:target/dependency/geronimo-atinject_1.0_spec-1.0.jar:target/geronimo-jcdi_2.0_spec-1.0-alpha-1-SNAPSHOT.jar ${packages}  -FileName target/geronimo-jcdi-api.sig -static
+java -jar ${SIGTEST_HOME}/lib/sigtestdev.jar Setup -classpath ${cp}:target/geronimo-jcdi_2.0_spec-1.0-alpha-1-SNAPSHOT.jar ${packages} -FileName target/geronimo-jcdi-api.sig -static
 
 # then open the 2 generated sig files in a diff browser and the only difference should be some internal variables.
 
