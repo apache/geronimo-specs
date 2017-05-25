@@ -18,37 +18,39 @@
  */
 package javax.enterprise.inject.spi;
 
+import javax.enterprise.inject.spi.configurator.ProducerConfigurator;
+
 /**
  * Container fires this event for each
  * producer field/method including resources.
  * 
  * @version $Rev$ $Date$
  *
- * @param <X> bean class info
- * @param <T> producer return type
+ * @param <BEANCLASS> bean class info
+ * @param <RETURNTYPE> producer return type
  */
-public interface ProcessProducer<X, T>
+public interface ProcessProducer<BEANCLASS, RETURNTYPE>
 {
     /**
      * Returns annotated member.
      * 
      * @return annotated member
      */
-    AnnotatedMember<X> getAnnotatedMember();
+    AnnotatedMember<BEANCLASS> getAnnotatedMember();
     
     /**
      * Returns producer instance.
      * 
      * @return producer instance
      */
-    Producer<T> getProducer();
+    Producer<RETURNTYPE> getProducer();
     
     /**
      * Replaces producer instance.
      * 
      * @param producer new producer
      */
-    void setProducer(Producer<T> producer);
+    void setProducer(Producer<RETURNTYPE> producer);
 
     /**
      * Adding definition error. Container aborts processing.
@@ -56,6 +58,13 @@ public interface ProcessProducer<X, T>
      * @param t throwable
      */
     void addDefinitionError(Throwable t);
+
+    /**
+     * This method can be used to tweak the underlying Producer currently processed.
+     *
+     * @return a ProducerConfigurator, initialised with the Producer of this event.
+     */
+    ProducerConfigurator<RETURNTYPE> configureProducer();
     
 
 }

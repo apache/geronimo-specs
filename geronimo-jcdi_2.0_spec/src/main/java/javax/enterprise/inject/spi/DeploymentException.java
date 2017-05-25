@@ -29,10 +29,6 @@ public class DeploymentException extends RuntimeException
 {
     private static final long serialVersionUID = 1L;
 
-    public DeploymentException()
-    {
-    }
-
     public DeploymentException(Throwable cause)
     {
         super(cause);

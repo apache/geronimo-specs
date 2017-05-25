@@ -111,12 +111,12 @@ public interface BeanConfigurator<T> {
     <U extends T> BeanConfigurator<U> createWith(Function<CreationalContext<U>, U> callback);
 
     /**
-     * A shortcut for {@code produceWith(() -> existing} where {@code existing} represents an instance whose lifecycle is not managed by CDI.
      *
-     * @param instance use as produced instance for the configured bean
+     *
+     * @param callback use as produced instance for the configured bean
      * @return self
      */
-    <U extends T> BeanConfigurator<U> producing(U instance);
+    <U extends T> BeanConfigurator<U> produceWith(Function<Instance<Object>, U> callback);
 
     /**
      *
