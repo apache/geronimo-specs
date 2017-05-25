@@ -25,7 +25,7 @@ import javax.inject.Singleton;
  *
  * @since 2.0
  */
-public class SingletonLiteral extends AnnotationLiteral<Singleton> implements Singleton
+public final class SingletonLiteral extends AnnotationLiteral<Singleton> implements Singleton
 {
     public static final SingletonLiteral INSTANCE = new SingletonLiteral();
 

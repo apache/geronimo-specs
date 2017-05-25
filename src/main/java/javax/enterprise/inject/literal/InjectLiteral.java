@@ -25,7 +25,7 @@ import javax.inject.Inject;
  *
  * @since 2.0
  */
-public class InjectLiteral extends AnnotationLiteral<Inject> implements Inject
+public final class InjectLiteral extends AnnotationLiteral<Inject> implements Inject
 {
     public static final InjectLiteral INSTANCE = new InjectLiteral();
 

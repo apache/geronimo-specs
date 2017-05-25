@@ -25,7 +25,7 @@ import javax.inject.Qualifier;
  *
  * @since 2.0
  */
-public class QualifierLiteral extends AnnotationLiteral<Qualifier> implements Qualifier
+public final class QualifierLiteral extends AnnotationLiteral<Qualifier> implements Qualifier
 {
     public static final QualifierLiteral INSTANCE = new QualifierLiteral();
 

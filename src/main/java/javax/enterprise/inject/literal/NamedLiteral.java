@@ -25,7 +25,7 @@ import javax.inject.Named;
  *
  * @since 2.0
  */
-public class NamedLiteral extends AnnotationLiteral<Named> implements Named
+public final class NamedLiteral extends AnnotationLiteral<Named> implements Named
 {
     public static final NamedLiteral INSTANCE = of("");
 
