@@ -28,10 +28,9 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Qualifier for events which get fired after a Context ends.
- * The exact point is after the contextual instances of that Context
- * actually got destroyed.
- *
+ * Qualifier for events which get fired before a Context ends.
+ * The exact point is before the contextual instances of that Context
+ * actually get destroyed.
  *
  * Extensions should use a reasonable event object.
  * For built-in scopes the following event-classes will be used
@@ -42,21 +41,21 @@ import java.lang.annotation.Target;
  *     <li>&#064;ConversationScoped: ServletRequest if handled during a web request, or any other Object for </li>
  * </ul>
  *
- * @see javax.enterprise.context.Initialized
+ * @see Initialized
  * @since 1.1
  */
 @Target({ElementType.TYPE, ElementType.METHOD, ElementType.PARAMETER, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Qualifier
-public @interface Destroyed
+public @interface BeforeDestroyed
 {
     /**
      * @return the Scope annotation this is for.
      */
     Class<? extends Annotation> value();
 
-    final class Literal extends AnnotationLiteral<Destroyed> implements Destroyed
+    final class Literal extends AnnotationLiteral<BeforeDestroyed> implements BeforeDestroyed
     {
         public static final Literal APPLICATION = of(ApplicationScoped.class);
         public static final Literal SESSION = of(SessionScoped.class);
