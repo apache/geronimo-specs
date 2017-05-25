@@ -24,6 +24,7 @@ import java.util.Set;
 
 import javax.enterprise.event.Reception;
 import javax.enterprise.event.TransactionPhase;
+import javax.naming.event.*;
 
 /**
  * <p>ObserverMethod is the SPI to handle an observer method, which is 
@@ -63,8 +64,13 @@ import javax.enterprise.event.TransactionPhase;
  * @param <T> the event which should be observed
  * @see javax.enterprise.event.Observes
  */
-public interface ObserverMethod<T>
+public interface ObserverMethod<T> extends Prioritized
 {
+    /**
+     * The default Priority of any ObserverMethod without a &#064;Priority annotation.
+     */
+    int DEFAULT_PRIORITY = 2500;
+
     Class<?> getBeanClass();
     
     /**
@@ -90,16 +96,43 @@ public interface ObserverMethod<T>
     TransactionPhase getTransactionPhase();
 
     /**
-     * will actually cann the underlying observer method
+     * will actually call the underlying observer method
      * @param event
      */
-    void notify(T event);
+    default void notify(T event)
+    {
+        // empty by default
+    }
+
+    /**
+     * Call the observer method with the given eventContext.
+     * @param eventContext
+     */
+    default void notify(EventContext<T> eventContext)
+    {
+        if (eventContext != null)
+        {
+            notify(eventContext.getEvent());
+        }
+    }
 
    /**
-    * Whether or not this observer method is an async observer.  defaults to false for compatibility
-    * @return
+    * @return Whether or not this observer method is an async observer.  defaults to false for compatibility
     */
-    default boolean isAsync() {
+    default boolean isAsync()
+    {
         return false;
     }
+
+    /**
+     * Only synchronous ObserverMethods can be ordered!
+     *
+     * @return The &#064;Priority of this ObserverMethod
+     */
+    default int getPriority()
+    {
+        return DEFAULT_PRIORITY;
+    }
+
+
 }

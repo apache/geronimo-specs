@@ -45,6 +45,17 @@ public interface ProcessObserverMethod<T, X>
      */
     ObserverMethod<T> getObserverMethod();
 
+
+    /**
+     * @param observerMethod to replace the original one
+     */
+    void setObserverMethod(ObserverMethod<T> observerMethod);
+
+    /**
+     * Tell the container to ignore the current ObserverMethod.
+     */
+    void veto();
+
     /**
      * Add throwable.
      * 
@@ -57,5 +68,7 @@ public interface ProcessObserverMethod<T, X>
     * @return
     */
     ObserverMethodConfigurator<T> configureObserverMethod();
+
+
     
 }
