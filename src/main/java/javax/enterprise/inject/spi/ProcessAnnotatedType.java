@@ -18,6 +18,8 @@
  */
 package javax.enterprise.inject.spi;
 
+import javax.enterprise.inject.spi.configurator.AnnotatedTypeConfigurator;
+
 /**
  * Event is fired before reading any annotations on the class.
  * 
@@ -25,25 +27,27 @@ package javax.enterprise.inject.spi;
  *
  *  <X> class type
  */
-public interface ProcessAnnotatedType<X>
+public interface ProcessAnnotatedType<BEANCLASS>
 {
     /**
      * Gets annotated type.
      * 
      * @return annotated type
      */
-    AnnotatedType<X> getAnnotatedType();
+    AnnotatedType<BEANCLASS> getAnnotatedType();
     
     /**
      * Replaces annotated type.
      * 
      * @param type annotated type
      */
-    void setAnnotatedType(AnnotatedType<X> type);
+    void setAnnotatedType(AnnotatedType<BEANCLASS> type);
     
     /**
      * Veto registering process.
      */
     void veto();
 
+
+    AnnotatedTypeConfigurator<BEANCLASS> configureAnnotatedType();
 }

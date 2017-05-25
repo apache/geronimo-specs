@@ -28,10 +28,6 @@ public class DefinitionException extends RuntimeException
 {
     private static final long serialVersionUID = 1L;
 
-    public DefinitionException()
-    {
-    }
-
     public DefinitionException(Throwable cause)
     {
         super(cause);
