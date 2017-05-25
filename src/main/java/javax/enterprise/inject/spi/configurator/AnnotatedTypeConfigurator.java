@@ -23,7 +23,6 @@ import javax.enterprise.inject.spi.AnnotatedConstructor;
 import javax.enterprise.inject.spi.AnnotatedField;
 import javax.enterprise.inject.spi.AnnotatedMethod;
 import javax.enterprise.inject.spi.AnnotatedType;
-import javax.enterprise.util.Nonbinding;
 import java.lang.annotation.Annotation;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -46,29 +45,21 @@ public interface AnnotatedTypeConfigurator<T> {
     AnnotatedTypeConfigurator<T> add(Annotation annotation);
 
     /**
-     * Remove annotations with (a) the same type and (b) the same annotation member value for each member which is not
-     * annotated {@link Nonbinding}. The container calls the {@link Object#equals(Object)} method of the annotation member value
-     * to compare values.
-     *
-     * @param annotation to remove
+     * Remove all annotations which fit the given Predicate.
      * @return self
      */
-    AnnotatedTypeConfigurator<T> remove(Annotation annotation);
-
-    /**
-     * Removes all annotations with the same type. Annotation members are ignored.
-     *
-     * @param annotationType annotation class to remove
-     * @return self
-     */
-    AnnotatedTypeConfigurator<T> remove(Class<? extends Annotation> annotationType);
+    AnnotatedTypeConfigurator<T> remove(Predicate<Annotation> predicate);
 
     /**
      * Remove all annotations from the type.
      *
      * @return self
      */
-    AnnotatedTypeConfigurator<T> removeAll();
+    default AnnotatedTypeConfigurator<T> removeAll()
+    {
+        remove((e) -> true);
+        return this;
+    }
 
     /**
      *

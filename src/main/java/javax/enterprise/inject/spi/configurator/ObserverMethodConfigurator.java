@@ -22,14 +22,12 @@ package javax.enterprise.inject.spi.configurator;
 import javax.enterprise.event.Reception;
 import javax.enterprise.event.TransactionPhase;
 import javax.enterprise.inject.spi.AnnotatedMethod;
-import javax.enterprise.inject.spi.EventMetadata;
+import javax.enterprise.inject.spi.EventContext;
 import javax.enterprise.inject.spi.ObserverMethod;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.util.Set;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 
 public interface ObserverMethodConfigurator<T> {
 
@@ -144,15 +142,7 @@ public interface ObserverMethodConfigurator<T> {
      * @param callback to call for the event notification
      * @return self
      */
-    ObserverMethodConfigurator<T> notifyWith(Consumer<T> callback);
-
-    /**
-     * Defines a BiConsumer to call when event is notified
-     *
-     * @param callback a BiConsumer taking an event type and an EventMetadata as type parameters
-     * @return self
-     */
-    ObserverMethodConfigurator<T> notifyWith(BiConsumer<T, EventMetadata> callback);
+    ObserverMethodConfigurator<T> notifyWith(EventConsumer<T> callback);
 
     /**
      * Allows modification of the asynchronous status of the observer to build.
@@ -161,5 +151,15 @@ public interface ObserverMethodConfigurator<T> {
      * @return self
      */
     ObserverMethodConfigurator<T> async(boolean async);
+
+    /**
+     *
+     * @param <T> type of the event
+     */
+    @FunctionalInterface
+    interface EventConsumer<T>
+    {
+        void accept(EventContext<T> eventContext) throws Exception;
+    }
 }
 

@@ -20,6 +20,7 @@
 package javax.enterprise.inject.spi.configurator;
 
 import java.lang.annotation.Annotation;
+import java.util.function.Predicate;
 
 import javax.enterprise.inject.spi.AnnotatedParameter;
 
@@ -35,28 +36,25 @@ public interface AnnotatedParameterConfigurator<T> {
      * Adds an instance of the given annotation to the parameter.
      *
      * @param annotation
-     * @return
+     * @return self
      */
     AnnotatedParameterConfigurator<T> add(Annotation annotation);
 
     /**
-     * Removes
+     * Removes all Annotations which fit the given Predicate
      * @param annotation
-     * @return
+     * @return self
      */
-    AnnotatedParameterConfigurator<T> remove(Annotation annotation);
+    AnnotatedParameterConfigurator<T> remove(Predicate<Annotation> annotation);
 
     /**
-     *
-     * @param annotationType
-     * @return
+     * removes all Annotations
+     * @return self
      */
-    AnnotatedParameterConfigurator<T> remove(Class<? extends Annotation> annotationType);
-
-    /**
-     * Clears
-     * @return
-     */
-    AnnotatedParameterConfigurator<T> removeAll();
+    default AnnotatedParameterConfigurator<T> removeAll()
+    {
+        remove((e) -> true);
+        return this;
+    }
 
 }

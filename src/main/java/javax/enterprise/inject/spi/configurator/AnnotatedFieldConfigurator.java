@@ -20,8 +20,8 @@
 package javax.enterprise.inject.spi.configurator;
 
 import javax.enterprise.inject.spi.AnnotatedField;
-import javax.enterprise.util.Nonbinding;
 import java.lang.annotation.Annotation;
+import java.util.function.Predicate;
 
 public interface AnnotatedFieldConfigurator<T> {
 
@@ -40,28 +40,20 @@ public interface AnnotatedFieldConfigurator<T> {
     AnnotatedFieldConfigurator<T> add(Annotation annotation);
 
     /**
-     * Remove annotations with (a) the same type and (b) the same annotation member value for each member which is not
-     * annotated {@link Nonbinding}. The container calls the {@link Object#equals(Object)} method of the annotation member value
-     * to compare values.
-     *
-     * @param annotation to remove
+     * Removes all Annotations which fit the given Predicate
+     * @param annotation
      * @return self
      */
-    AnnotatedFieldConfigurator<T> remove(Annotation annotation);
+    AnnotatedFieldConfigurator<T> remove(Predicate<Annotation> annotation);
 
     /**
-     * Removes all annotations with the same type. Annotation members are ignored.
-     *
-     * @param annotationType annotation class to remove
+     * removes all Annotations
      * @return self
      */
-    AnnotatedFieldConfigurator<T> remove(Class<? extends Annotation> annotationType);
-
-    /**
-     * Remove all annotations from the field.
-     *
-     * @return self
-     */
-    AnnotatedFieldConfigurator<T> removeAll();
+    default AnnotatedFieldConfigurator<T> removeAll()
+    {
+        remove((e) -> true);
+        return this;
+    }
 
 }

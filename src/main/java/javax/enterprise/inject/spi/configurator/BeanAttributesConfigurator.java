@@ -19,39 +19,12 @@
 
 package javax.enterprise.inject.spi.configurator;
 
-import javax.enterprise.inject.spi.AnnotatedMember;
-import javax.enterprise.inject.spi.AnnotatedType;
-import javax.enterprise.inject.spi.BeanAttributes;
 import javax.enterprise.util.TypeLiteral;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 import java.util.Set;
 
 public interface BeanAttributesConfigurator<T> {
-    /**
-     * Read the information from the given {@link AnnotatedType}. All relevant information is overwritten.
-     *
-     * @param type AnnotatedType to read information from
-     * @return self
-     */
-    <U extends T> BeanAttributesConfigurator<U> read(AnnotatedType<U> type);
-
-    /**
-     * Read the information from the given {@link AnnotatedMember} (field or method).
-     * All relevant information is overwritten.
-     *
-     * @param member AnnotatedMember to read information from
-     * @return self
-     */
-    <U extends T> BeanAttributesConfigurator<U> read(AnnotatedMember<U> member);
-
-    /**
-     * Read the information from the given bean attributes. All relevant information is overwritten.
-     *
-     * @param beanAttributes beanAttributes to read information from
-     * @return self
-     */
-    BeanAttributesConfigurator<T> read(BeanAttributes<?> beanAttributes);
 
     /**
      *
