@@ -19,62 +19,11 @@
 
 package javax.enterprise.inject.spi.configurator;
 
-import javax.enterprise.inject.spi.AnnotatedField;
-import javax.enterprise.inject.spi.AnnotatedParameter;
-import javax.enterprise.inject.spi.Bean;
-import javax.enterprise.inject.spi.InjectionPoint;
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
-import java.lang.reflect.Parameter;
 import java.lang.reflect.Type;
 import java.util.Set;
 
 public interface InjectionPointConfigurator {
-
-    /**
-     * Read the InjectionPoint information from the given {@link Field}.
-     * All relevant information is overwritten.
-     *
-     * @param field defining the InjectionPoint.
-     * @return self
-     */
-    InjectionPointConfigurator read(Field field);
-
-    /**
-     * Read the InjectionPoint information from the given {@link Parameter}.
-     * All relevant information is overwritten.
-     *
-     * @param param  the parameter defining the InjectionPoint
-     * @return self
-     */
-    InjectionPointConfigurator read(Parameter param);
-
-    /**
-     * Read the InjectionPoint information from the given {@link AnnotatedField}.
-     * All relevant information is overwritten.
-     *
-     * @param field defining the InjectionPoint
-     * @return self
-     */
-    InjectionPointConfigurator read(AnnotatedField<?> field);
-
-    /**
-     * Read the InjectionPoint information from the given {@link AnnotatedParameter}.
-     * All relevant information is overwritten.
-     *
-     * @param param defining the InjectionPoint
-     * @return self
-     */
-    InjectionPointConfigurator read(AnnotatedParameter<?> param);
-
-    /**
-     * Read the InjectionPoint information from the given {@link InjectionPoint}.
-     * All relevant information is overwritten.
-     *
-     * @param injectionPoint the InjectionPoint to get information from
-     * @return self
-     */
-    InjectionPointConfigurator read(InjectionPoint injectionPoint);
 
     /**
      * Set the required {@link Type} (that will be used during typesafe resolution)
@@ -127,15 +76,6 @@ public interface InjectionPointConfigurator {
      * @return self
      */
     InjectionPointConfigurator qualifiers(Set<Annotation> qualifiers);
-
-    /**
-     * Set the {@link javax.enterprise.inject.spi.Bean} object representing the bean that defines the injection point. If the
-     * injection point does not belong to a bean, return a null value.
-     *
-     * @param bean the bean for this configured InjectionPoint
-     * @return self
-     */
-    InjectionPointConfigurator bean(Bean<?> bean);
 
     /**
      *

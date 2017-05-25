@@ -59,10 +59,19 @@ public interface ProcessBeanAttributes<T>
      */
     void addDefinitionError(Throwable t);
 
+    /**
+     * Usually having a non-static final field with any modifier other than private leads to a
+     * DeploymentException. This is to prevent user failures as those fields cannot be proxied.
+     *
+     * In certain situations one want's to provide a CDI bean for such a class nonetheless.
+     * By invoking this method on a Bean wich such a class we can effectively prevent the container
+     * from treating this situation as a Deployment error.
+     */
+    void ignoreFinalMethods();
+
    /**
-    * Creates a bean attributes configurator to configure this bean's attributes.
-    *
-    * @return
+    * @return a bean attributes configurator to configure this bean's attributes.
+    *       It is initialised with the BeanAttributes from the event which gets processed.
     */
     BeanAttributesConfigurator<T> configureBeanAttributes();
 }

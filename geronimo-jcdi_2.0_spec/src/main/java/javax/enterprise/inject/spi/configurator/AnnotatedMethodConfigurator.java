@@ -21,7 +21,6 @@ package javax.enterprise.inject.spi.configurator;
 
 import javax.enterprise.inject.spi.AnnotatedMethod;
 import javax.enterprise.inject.spi.AnnotatedParameter;
-import javax.enterprise.util.Nonbinding;
 import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.function.Predicate;
@@ -44,29 +43,21 @@ public interface AnnotatedMethodConfigurator<T> {
     AnnotatedMethodConfigurator<T> add(Annotation annotation);
 
     /**
-     * Remove annotations with (a) the same type and (b) the same annotation member value for each member which is not
-     * annotated {@link Nonbinding}. The container calls the {@link Object#equals(Object)} method of the annotation member value
-     * to compare values.
-     *
-     * @param annotation to remove
+     * Removes all Annotations which fit the given Predicate
+     * @param annotation
      * @return self
      */
-    AnnotatedMethodConfigurator<T> remove(Annotation annotation);
+    AnnotatedMethodConfigurator<T> remove(Predicate<Annotation> annotation);
 
     /**
-     * Removes all annotations with the same type. Annotation members are ignored.
-     *
-     * @param annotationType annotation class to remove
+     * removes all Annotations
      * @return self
      */
-    AnnotatedMethodConfigurator<T> remove(Class<? extends Annotation> annotationType);
-
-    /**
-     * Remove all annotations from the method.
-     *
-     * @return self
-     */
-    AnnotatedMethodConfigurator<T> removeAll();
+    default AnnotatedMethodConfigurator<T> removeAll()
+    {
+        remove((e) -> true);
+        return this;
+    }
 
     /**
      *
@@ -81,6 +72,11 @@ public interface AnnotatedMethodConfigurator<T> {
      * @return a sequence of {@link AnnotatedParameterConfigurator}s matching the given predicate
      * @see AnnotatedParameterConfigurator#getAnnotated()
      */
-    Stream<AnnotatedParameterConfigurator<T>> filterParams(Predicate<AnnotatedParameter<T>> predicate);
+    default Stream<AnnotatedParameterConfigurator<T>> filterParams(Predicate<AnnotatedParameter<T>> predicate)
+    {
+        return params()
+                .stream()
+                .filter(ap -> predicate.test(ap.getAnnotated()));
+    }
 
 }

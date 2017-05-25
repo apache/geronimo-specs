@@ -43,27 +43,21 @@ public interface AnnotatedConstructorConfigurator<T> {
     AnnotatedConstructorConfigurator<T> add(Annotation annotation);
 
     /**
-     * Clears an instance of the given annotation, checking members.  Ignores nonbinding annotation members.
-     *
+     * Removes all Annotations which fit the given Predicate
      * @param annotation
-     * @return this
+     * @return self
      */
-    AnnotatedConstructorConfigurator<T> remove(Annotation annotation);
+    AnnotatedConstructorConfigurator<T> remove(Predicate<Annotation> annotation);
 
     /**
-     * Clears all annotations of the given type, regardless of members.
-     *
-     * @param annotationType annotation class to remove
-     * @return this
+     * removes all Annotations
+     * @return self
      */
-    AnnotatedConstructorConfigurator<T> remove(Class<? extends Annotation> annotationType);
-
-    /**
-     * Clears all annotations
-     *
-     * @return this
-     */
-    AnnotatedConstructorConfigurator<T> removeAll();
+    default AnnotatedConstructorConfigurator<T> removeAll()
+    {
+        remove((e) -> true);
+        return this;
+    }
 
     /**
      *
@@ -76,6 +70,11 @@ public interface AnnotatedConstructorConfigurator<T> {
     * @param predicate the filter to apply
     * @return a stream representation of the underlying
     */
-    Stream<AnnotatedParameterConfigurator<T>> filterParams(Predicate<AnnotatedParameter<T>> predicate);
+    default Stream<AnnotatedParameterConfigurator<T>> filterParams(Predicate<AnnotatedParameter<T>> predicate)
+    {
+        return params()
+                .stream()
+                .filter(ap -> predicate.test(ap.getAnnotated()));
+    }
 
 }

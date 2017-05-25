@@ -30,9 +30,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 import java.util.Set;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 public interface BeanConfigurator<T> {
 
@@ -113,24 +111,6 @@ public interface BeanConfigurator<T> {
     <U extends T> BeanConfigurator<U> createWith(Function<CreationalContext<U>, U> callback);
 
     /**
-     *
-     * Set a {@link Supplier} to create a bean instance
-     *
-     *
-     * @param callback the Supplier to create the instance
-     * @return self
-     */
-    <U extends T> BeanConfigurator<U> produceWith(Supplier<U> callback);
-
-    /**
-     * Set a {@link Function} to create a bean instance from an {@link Instance}
-     *
-     * @param callback the function to create the instance
-     * @return self
-     */
-    <U extends T> BeanConfigurator<U> produceWith(Function<Instance<Object>, U> callback);
-
-    /**
      * A shortcut for {@code produceWith(() -> existing} where {@code existing} represents an instance whose lifecycle is not managed by CDI.
      *
      * @param instance use as produced instance for the configured bean
@@ -150,13 +130,13 @@ public interface BeanConfigurator<T> {
 
     /**
      *
-     * Set a {@link Consumer} to destroy a bean instance.
+     * Set a {@link BiConsumer} to destroy a bean instance.
      * If no dispose callback is specified, a NOOP dispose callback is automatically set.
      *
      * @param callback the Consumer to dispose the instance
      * @return self
      */
-    BeanConfigurator<T> disposeWith(Consumer<T> callback);
+    BeanConfigurator<T> disposeWith(BiConsumer<T, Instance<Object>> callback);
 
     /**
      * Read the information from the given annotated type. All relevant information is overwritten.
