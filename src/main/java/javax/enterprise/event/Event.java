@@ -19,6 +19,8 @@
 package javax.enterprise.event;
 
 import java.lang.annotation.Annotation;
+import java.util.concurrent.CompletionStage;
+import java.util.concurrent.Executor;
 
 import javax.enterprise.util.TypeLiteral;
 
@@ -33,11 +35,38 @@ public interface Event<T>
 {
 
     void fire(T event);
-    
+
+    /**
+     * Fires the given event asynchronous and notifies all {@link ObservesAsync} observers.
+     *
+     * @param asyncEvent event to fire async
+     * @param <U> the type of the result
+     *
+     * @return {@link CompletionStage} with type {@code U}
+     *
+     * @since 2.0
+     */
+    <U extends T> CompletionStage<U> fireAsync(U asyncEvent);
+
+    /**
+     * Fires the given event asynchronous and notifies all {@link ObservesAsync} observers.
+     *
+     * @param asyncEvent event to fire async
+     * @param notificationOptions
+     * @param <U> type of the result
+     *
+     * @return {@link CompletionStage} with type {@code U}
+     *
+     * @since 2.0
+     */
+    //X TODO add notificationOptions to javadoc
+    <U extends T> CompletionStage<U>  fireAsync(U asyncEvent, NotificationOptions notificationOptions);
+
     Event<T> select(Annotation... qualifiers);
     
     <U extends T> Event<U> select(Class<U> subtype, Annotation... qualifiers);
     
-    <U extends T> Event<U> select(TypeLiteral<U> subtype, Annotation... qualifiers);
+    <U extends T> Event<U> select(TypeLiteral<U> subtype,
+                                  Annotation... qualifiers);
 
 }
