@@ -43,7 +43,26 @@ public abstract class CDI<T> implements Instance<T>
     {
         if (INSTANCE == null)
         {
-            INSTANCE = ServiceLoader.load(CDIProvider.class).iterator().next().getCDI();
+            synchronized (CDI.class)
+            {
+                if (INSTANCE == null)
+                {
+
+                    CDI<Object> highestCdi = null;
+                    int ordinal = -1;
+
+                    ServiceLoader<CDIProvider> cdiProviders = ServiceLoader.load(CDIProvider.class);
+                    for (CDIProvider cdiProvider : cdiProviders)
+                    {
+                        if (highestCdi == null || cdiProvider.getPriority() > ordinal)
+                        {
+                            highestCdi = cdiProvider.getCDI();
+                        }
+                    }
+
+                    INSTANCE = highestCdi;
+                }
+            }
         }
         return INSTANCE; //X TODO implement!
     }
