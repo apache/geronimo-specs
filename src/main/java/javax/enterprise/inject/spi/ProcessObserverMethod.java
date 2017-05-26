@@ -25,17 +25,17 @@ import javax.enterprise.inject.spi.configurator.ObserverMethodConfigurator;
  * 
  * @version $Rev$ $Date$
  *
- * @param <T> observed event type
- * @param <X> bean class
+ * @param <EVENTTYPE> observed event type
+ * @param <BEANCLASS> bean class
  */
-public interface ProcessObserverMethod<T, X>
+public interface ProcessObserverMethod<EVENTTYPE, BEANCLASS>
 {
     /**
      * Returns annotated method.
      * 
      * @return annotated method
      */
-    AnnotatedMethod<X> getAnnotatedMethod();
+    AnnotatedMethod<BEANCLASS> getAnnotatedMethod();
     
     /**
      * Returns observer method instance that
@@ -43,13 +43,13 @@ public interface ProcessObserverMethod<T, X>
      * 
      * @return observer method instance
      */
-    ObserverMethod<T> getObserverMethod();
+    ObserverMethod<EVENTTYPE> getObserverMethod();
 
 
     /**
      * @param observerMethod to replace the original one
      */
-    void setObserverMethod(ObserverMethod<T> observerMethod);
+    void setObserverMethod(ObserverMethod<EVENTTYPE> observerMethod);
 
     /**
      * Tell the container to ignore the current ObserverMethod.
@@ -67,7 +67,7 @@ public interface ProcessObserverMethod<T, X>
     * Creates a configurator for this observer method
     * @return
     */
-    ObserverMethodConfigurator<T> configureObserverMethod();
+    ObserverMethodConfigurator<EVENTTYPE> configureObserverMethod();
 
 
     
