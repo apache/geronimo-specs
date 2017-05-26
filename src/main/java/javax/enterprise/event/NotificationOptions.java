@@ -39,6 +39,10 @@ public interface NotificationOptions
         return builder().setExecutor(executor).build();
     }
 
+    static NotificationOptions of(String optionKey, Object value)
+    {
+        return builder().set(optionKey, value).build();
+    }
 
     static Builder builder()
     {
