@@ -29,8 +29,10 @@ import javax.el.ExpressionFactory;
 import javax.enterprise.context.spi.Context;
 import javax.enterprise.context.spi.Contextual;
 import javax.enterprise.context.spi.CreationalContext;
+import javax.enterprise.event.Event;
 import javax.enterprise.inject.AmbiguousResolutionException;
 import javax.enterprise.inject.InjectionException;
+import javax.enterprise.inject.Instance;
 import javax.enterprise.inject.UnsatisfiedResolutionException;
 
 
@@ -61,7 +63,7 @@ public interface BeanManager
      * @throws java.lang.IllegalStateException if this method gets called before the AfterDeploymentValidation event is fired.
      */
     Object getReference(Bean<?> bean, Type beanType, CreationalContext<?> ctx);
-    
+
     /**
      * Gets injection point bean reference.
      * 
@@ -127,7 +129,18 @@ public interface BeanManager
      * @throws java.lang.IllegalStateException if this method gets called before the AfterBeanDiscovery event is fired.
      */
     <X> Bean<? extends X> resolve(Set<Bean<? extends X>> beans);
-        
+
+    /**
+     * Can be used to wrap a CDI proxy around a contextual instance
+     * inside of producer methods or Custom Beans.
+     *
+     * @param creationalContext used to store Interceptor and Decorator instances which are by definition Dependent
+     * @param clazz the BeanClass
+     * @param <T> the type of the BeanClass
+     * @return an InterceptionFactory which will use the given CreationalContext to store created instances.
+     */
+    <T> InterceptionFactory<T> createInterceptionFactory(CreationalContext<T> creationalContext, Class<T> clazz);
+
     /**
      * Fires an event with given even object and qualifiers.
      * 
@@ -138,7 +151,12 @@ public interface BeanManager
      * @throws IllegalArgumentException same qualifier is given
      */
     void fireEvent(Object event, Annotation... qualifiers);
-        
+
+    /**
+     * @return an Event instance with Object/Default
+     */
+    Event<Object> getEvent();
+
     /**
      * Returns set of observer methods.
      * 
@@ -291,7 +309,15 @@ public interface BeanManager
      * @return a context with given scope type
      */
     Context getContext(Class<? extends Annotation> scope);
-    
+
+    /**
+     *
+     * @return an Instance. Basically the same like CDI.current()...
+     *
+     * @since 2.0
+     */
+    Instance<Object> createInstance();
+
     /**
      * Returns CDI container Expression Language resolver.
      * 
@@ -403,6 +429,7 @@ public interface BeanManager
      */
     <T, X> Bean<T> createBean(BeanAttributes<T> attributes, Class<X> beanClass,
                               ProducerFactory<X> producerFactory);
+
 
     /**
      * Resolves the Extension instance which gets used by this very BeanManager.
