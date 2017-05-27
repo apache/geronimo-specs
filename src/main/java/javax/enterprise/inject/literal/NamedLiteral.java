@@ -33,9 +33,9 @@ public final class NamedLiteral extends AnnotationLiteral<Named> implements Name
 
     private final String value;
 
-    public static NamedLiteral of(String s)
+    public static NamedLiteral of(String name)
     {
-        return null;
+        return new NamedLiteral(name);
     }
 
     private NamedLiteral(String value)
