@@ -24,7 +24,6 @@ import java.util.Set;
 
 import javax.enterprise.event.Reception;
 import javax.enterprise.event.TransactionPhase;
-import javax.naming.event.*;
 
 /**
  * <p>ObserverMethod is the SPI to handle an observer method, which is 

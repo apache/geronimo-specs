@@ -20,7 +20,6 @@
 package javax.enterprise.inject.spi.configurator;
 
 import javax.enterprise.context.spi.CreationalContext;
-import javax.enterprise.inject.Instance;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
