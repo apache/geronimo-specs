@@ -191,6 +191,7 @@ public class Unmanaged<T>
             injectionTarget.dispose(instance);
             creationalContext.release();
 
+            disposed = true;
             return this;
         }
 
