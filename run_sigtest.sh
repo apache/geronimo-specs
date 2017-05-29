@@ -36,7 +36,7 @@ cp="${JAVA_HOME}/jre/lib/rt.jar:target/dependency/geronimo-interceptor_1.1_spec-
 java -jar ${SIGTEST_HOME}/lib/sigtestdev.jar Setup -classpath ${cp}:cdi-api-2.0.jar ${packages} -FileName target/cdi-api.sig -static
 
 # this generates the signature for our own api
-java -jar ${SIGTEST_HOME}/lib/sigtestdev.jar Setup -classpath ${cp}:target/geronimo-jcdi_2.0_spec-1.0-alpha-1-SNAPSHOT.jar ${packages} -FileName target/geronimo-jcdi-api.sig -static
+java -jar ${SIGTEST_HOME}/lib/sigtestdev.jar Setup -classpath ${cp}:target/geronimo-jcdi_2.0_spec-1.0-SNAPSHOT.jar ${packages} -FileName target/geronimo-jcdi-api.sig -static
 
 # then open the 2 generated sig files in a diff browser and the only difference should be some internal variables.
 
