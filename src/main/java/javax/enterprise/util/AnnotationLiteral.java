@@ -133,7 +133,7 @@ public abstract class AnnotationLiteral<T extends Annotation> implements Annotat
                         return false;
                     }
                     
-                    if(value == null && annotValue == null)
+                    if(value == null)
                     {
                         continue;
                     }
@@ -197,7 +197,7 @@ public abstract class AnnotationLiteral<T extends Annotation> implements Annotat
                         }
                     }
                     
-                    else if (value != null && annotValue != null)
+                    else if (annotValue != null)
                     {
                         if (!value.equals(annotValue))
                         {

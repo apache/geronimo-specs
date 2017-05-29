@@ -20,8 +20,6 @@ package javax.enterprise.event;
 
 import java.lang.annotation.Annotation;
 import java.util.concurrent.CompletionStage;
-import java.util.concurrent.Executor;
-
 import javax.enterprise.util.TypeLiteral;
 
 /**
