@@ -98,6 +98,8 @@ public interface BeforeBeanDiscovery
      * @param id of the annotated type
      * @param <T>
      * @return a new annotated type configurator based on a new bean id and bean class.
+     *
+     * @since 2.0
      */
     <T> AnnotatedTypeConfigurator<T> addAnnotatedType(Class<T> clazz, String id);
 
@@ -105,6 +107,8 @@ public interface BeforeBeanDiscovery
      * @param interceptorBindingType
      * @param <T>
      * @return a new annotated type configurator to create an InterceptorBinding
+     *
+     * @since 2.0
      */
     <T extends Annotation> AnnotatedTypeConfigurator<T> configureInterceptorBinding(Class<T> interceptorBindingType);
 
@@ -112,6 +116,8 @@ public interface BeforeBeanDiscovery
      * @param qualifier
      * @param <T>
      * @return a new annotated type configurator to create a Qualifier
+     *
+     * @since 2.0
      */
     <T extends Annotation> AnnotatedTypeConfigurator<T> configureQualifier(Class<T> qualifier);
 }

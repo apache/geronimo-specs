@@ -30,6 +30,7 @@ import javax.enterprise.context.spi.Context;
 import javax.enterprise.context.spi.Contextual;
 import javax.enterprise.context.spi.CreationalContext;
 import javax.enterprise.event.Event;
+import javax.enterprise.event.NotificationOptions;
 import javax.enterprise.inject.AmbiguousResolutionException;
 import javax.enterprise.inject.InjectionException;
 import javax.enterprise.inject.Instance;
@@ -142,13 +143,19 @@ public interface BeanManager
     <T> InterceptionFactory<T> createInterceptionFactory(CreationalContext<T> creationalContext, Class<T> clazz);
 
     /**
-     * Fires an event with given even object and qualifiers.
+     * Fires a synchronous event with given even object and qualifiers.
+     *
+     * For firing asynchronous events you first have to get an {@link Event} via
+     * {@link #getEvent()} and then use the {@link Event#fireAsync(Object)}
+     * or {@link Event#fireAsync(Object, NotificationOptions)} methods.
      * 
      * @param event observer event object
      * @param qualifiers event qualifiers
      * @throws IllegalArgumentException event object contains a {@link TypeVariable}
      * @throws IllegalArgumentException given qualifier annotation is not a qualifier
      * @throws IllegalArgumentException same qualifier is given
+     *
+     * @see #getEvent()
      */
     void fireEvent(Object event, Annotation... qualifiers);
 
