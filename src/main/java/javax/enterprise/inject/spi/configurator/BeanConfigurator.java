@@ -314,5 +314,4 @@ public interface BeanConfigurator<T> {
      * @return self
      */
     BeanConfigurator<T> alternative(boolean value);
-
 }

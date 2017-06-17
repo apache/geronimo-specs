@@ -31,7 +31,6 @@ import java.util.stream.Stream;
 public interface AnnotatedTypeConfigurator<T> {
 
     /**
-     *
      * @return the original {@link AnnotatedType}
      */
     AnnotatedType<T> getAnnotated();
