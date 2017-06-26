@@ -112,7 +112,7 @@ public abstract class TypeLiteral<T> implements Serializable
     @Override
     public int hashCode()
     {
-        final int prime = 31;
+        int prime = 31;
         int result = 1;
         
         result = prime * result + ((definedType == null) ? 0 : definedType.hashCode());

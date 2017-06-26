@@ -37,8 +37,8 @@ import javax.enterprise.inject.Stereotype;
  * @version $Rev$ $Date$
  *
  */
-@Target(value = ElementType.TYPE)
-@Retention(value = RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Stereotype
 public @interface Decorator

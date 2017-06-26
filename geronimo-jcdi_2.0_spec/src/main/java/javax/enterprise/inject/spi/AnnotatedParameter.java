@@ -51,7 +51,7 @@ public interface AnnotatedParameter<X> extends Annotated
 
     default Parameter getJavaParameter()
     {
-        final Member javaMember = getDeclaringCallable().getJavaMember();
+        Member javaMember = getDeclaringCallable().getJavaMember();
         if (!Executable.class.isInstance(javaMember))
         {
             throw new IllegalStateException("Parameter does not belong to a Constructor or Method: " + javaMember);
