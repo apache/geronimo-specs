@@ -47,7 +47,7 @@ public interface Annotated
     /**
      * Gets annotated element's annotation member if exist, null otherwise
      *
-     * @param <T> generic annotatation class type
+     * @param <T> generic annotation class type
      * @param annotationType class of the annotation
      * @return annotated element's annotation member if exist, null otherwise
      */

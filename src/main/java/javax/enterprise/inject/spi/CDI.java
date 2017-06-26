@@ -64,7 +64,7 @@ public abstract class CDI<T> implements Instance<T>
                 }
             }
         }
-        return INSTANCE; //X TODO implement!
+        return INSTANCE;
     }
 
     /**

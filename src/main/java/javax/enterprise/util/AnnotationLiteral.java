@@ -42,9 +42,9 @@ public abstract class AnnotationLiteral<T extends Annotation> implements Annotat
     private Class<T> annotationType;
 
     // cached values
-    private transient Method[] _meths = null;
-    private transient String _toString = null;
-    private transient Integer _hashCode = null;
+    private transient Method[] _meths;
+    private transient String _toString;
+    private transient Integer _hashCode;
     
     private static final Object[] EMPTY_OBJECT_ARRAY = new Object[0];
 
@@ -241,7 +241,7 @@ public abstract class AnnotationLiteral<T extends Annotation> implements Annotat
     public int hashCode()
     {
         if (_hashCode != null) {
-            return _hashCode.intValue();
+            return _hashCode;
         }
         Method[] methods = getMethods();
 
@@ -304,7 +304,7 @@ public abstract class AnnotationLiteral<T extends Annotation> implements Annotat
             
             hashCode += name ^ value;
         }
-        _hashCode = Integer.valueOf(hashCode);
+        _hashCode = hashCode;
         return hashCode;
     }
     

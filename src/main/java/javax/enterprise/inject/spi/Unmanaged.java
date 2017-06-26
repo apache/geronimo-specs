@@ -80,8 +80,8 @@ public class Unmanaged<T>
         private CreationalContext<T> creationalContext;
         private T instance;
 
-        private boolean injected = false;
-        private boolean disposed = false;
+        private boolean injected;
+        private boolean disposed;
 
         private UnmanagedInstance(BeanManager beanManager, InjectionTarget<T> injectionTarget)
         {
