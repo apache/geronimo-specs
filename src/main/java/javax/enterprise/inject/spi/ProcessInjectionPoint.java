@@ -35,6 +35,9 @@ public interface ProcessInjectionPoint<T, X>
 
     /**
      * Replace the original InjectionPoint point with the given one.
+     *
+     * You can only either use {@link #setInjectionPoint(InjectionPoint)} or
+     * {@link #configureInjectionPoint()}
      * @param injectionPoint
      */
     void setInjectionPoint(InjectionPoint injectionPoint);
@@ -48,9 +51,12 @@ public interface ProcessInjectionPoint<T, X>
     void addDefinitionError(Throwable t);
 
    /**
-    *  Creates a new configurator for this injection point.
+    *  Creates a new configurator for this injection point
+    *  initialised with the information from the processed injectionPoint
+    *  You can only either use {@link #setInjectionPoint(InjectionPoint)} or
+    *  {@link #configureInjectionPoint()}
     *
-    * @return
+    * @return an {@code InjectionPointConfigurator} to tweak the current InjectionPoint
     */
     InjectionPointConfigurator configureInjectionPoint();
 }

@@ -141,7 +141,7 @@ public abstract class SeContainerInitializer
      * Adds the given alternative stereotypes to the list of available alternative stereotypes in the bean archive
      *
      * @param alternativeStereotypeClasses
-     * @return
+     * @return this
      */
     public abstract SeContainerInitializer selectAlternativeStereotypes(Class<? extends Annotation>... alternativeStereotypeClasses);
 

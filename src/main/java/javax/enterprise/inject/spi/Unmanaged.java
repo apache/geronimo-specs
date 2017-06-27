@@ -28,7 +28,7 @@ import javax.enterprise.context.spi.CreationalContext;
  * managed by the CDI container and thus need to be
  * cleaned up manually to not create memory leaks!.
  *
- * Normal code shall use {@link javax.enterprise.inject.Instance<T>} if possible.
+ * Normal code shall use {@link javax.enterprise.inject.Instance} if possible.
  *
  * The reason for using UnmanagedInstance is for
  * &#064;Dependent scoped instances which should not pollute the

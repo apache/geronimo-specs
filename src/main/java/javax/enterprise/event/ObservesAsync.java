@@ -32,8 +32,8 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 public @interface ObservesAsync {
 
    /**
-    * Specifies when this observer is invoked, either if the bean already exists or always, potentially creating the bean
-    * @return
+    * Specifies when this Observer is invoked, either if the bean already exists or always, potentially creating the bean
+    * @return whether this Observer should always be notified or only if a Contextual Instance exists already.
     */
    Reception notifyObserver() default Reception.ALWAYS;
 
