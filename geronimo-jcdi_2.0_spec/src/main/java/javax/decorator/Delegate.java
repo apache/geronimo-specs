@@ -27,7 +27,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 /**
- * Defines a delegation point in a {@see Decorator}.
+ * Defines a delegation point in a {@link Decorator}.
  * There must only be one delegation point in a Decorator.
  *
  * @see javax.decorator.Decorator

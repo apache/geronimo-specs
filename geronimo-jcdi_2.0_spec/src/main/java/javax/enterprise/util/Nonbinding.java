@@ -32,9 +32,9 @@ import java.lang.annotation.Target;
  * Example:
  * 
  * <pre>
- * @Qualifier
+ * &#064;Qualifier
  * public @interface Mock {
- *   @NonBinding String name;
+ *   &#064;NonBinding String name;
  * }
  * </pre>
  * 

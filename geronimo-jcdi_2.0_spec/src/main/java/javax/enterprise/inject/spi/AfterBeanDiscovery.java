@@ -71,10 +71,7 @@ public interface AfterBeanDiscovery
     <T> AnnotatedType<T> getAnnotatedType(Class<T> type, String id);
 
     /**
-     * Get an Iterable of all AnnotatedTypes which implement the given
-     * @param type
-     * @param <T>
-     * @return
+     * @return an Iterable of all AnnotatedTypes which implement the given type
      */
     <T> Iterable<AnnotatedType<T>> getAnnotatedTypes(Class<T> type);
 
@@ -83,11 +80,11 @@ public interface AfterBeanDiscovery
     *
     * A ProcessBean is fired once the bean has been built.
     *
-    * The bean configurator created is meant as a one time use object.  Invoke this method to create new ones.
+    * The bean configurator created is meant as a one time use object.
+    * Invoke this method to create new Beans.
     *
-    * @param <T>
     * @throws IllegalStateException if used outside of the observer method's invocation
-    * @return
+    * @return a fresh {@code BeanConfigurator} to configure a new bean.
     */
     <T> BeanConfigurator<T> addBean();
 
@@ -100,7 +97,7 @@ public interface AfterBeanDiscovery
     *
     * @param <T>
     * @throws IllegalStateException if used outside of the observer method's invocation
-    * @return
+    * @return an observer method configurator to define an observer method.
     */
     <T> ObserverMethodConfigurator<T> addObserverMethod();
 }

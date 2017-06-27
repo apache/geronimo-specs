@@ -64,8 +64,11 @@ public interface ProcessObserverMethod<EVENTTYPE, BEANCLASS>
     void addDefinitionError(Throwable t);
 
    /**
-    * Creates a configurator for this observer method
-    * @return
+    * Creates a configurator for this observer method.
+    * It is initialised with the information from the currently
+    * processed ObserverMethod
+    *
+    * @return an {@code ObserverMethodConfigurator} to tweak the processed Observermethod
     */
     ObserverMethodConfigurator<EVENTTYPE> configureObserverMethod();
 
