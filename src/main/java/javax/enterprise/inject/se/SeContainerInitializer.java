@@ -21,6 +21,7 @@ package javax.enterprise.inject.se;
 
 
 import java.lang.annotation.Annotation;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.ServiceLoader;
 
@@ -43,18 +44,23 @@ public abstract class SeContainerInitializer
      */
     public static SeContainerInitializer newInstance()
     {
-        ServiceLoader<SeContainerInitializer> serviceLoader =
-                ServiceLoader.load(SeContainerInitializer.class, SeContainerInitializer.class.getClassLoader());
-        long exactSize = serviceLoader.spliterator().getExactSizeIfKnown();
-        if(exactSize == 0)
+        // TODO: OSGi support -> ProviderLocator or is there something better these days?
+        final Iterator<SeContainerInitializer> serviceLoader =
+                ServiceLoader.load(SeContainerInitializer.class, SeContainerInitializer.class.getClassLoader())
+                .iterator();
+
+        if (!serviceLoader.hasNext())
         {
             throw new IllegalStateException("No valid implementation of SeContainerInitializer found via ServiceLoader");
         }
-        else if(exactSize > 1)
+
+        final SeContainerInitializer initializer = serviceLoader.next();
+        if (serviceLoader.hasNext())
         {
-            throw new IllegalStateException("Multiple implementations ("+exactSize+") of SeContainerInitializer found via ServiceLoader");
+            throw new IllegalStateException("Multiple implementations of SeContainerInitializer found via ServiceLoader");
         }
-        return serviceLoader.iterator().next();
+
+        return initializer;
     }
 
     /**
