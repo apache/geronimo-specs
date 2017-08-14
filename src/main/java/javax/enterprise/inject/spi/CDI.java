@@ -24,8 +24,6 @@ import java.util.ServiceLoader;
 /**
  * <p>Static helper class to access the {@link BeanManager}</p>
  *
- * TODO not yet implemented!
- *
  * <p>Usage:
  * <pre>
  * BeanManager bm = CDI.current().getBeanManager();
@@ -37,34 +35,34 @@ import java.util.ServiceLoader;
  */
 public abstract class CDI<T> implements Instance<T>
 {
-    private static volatile CDI INSTANCE; // temporary implementation
+    private static volatile CDIProvider PROVIDER;
 
     public static CDI<Object> current()
     {
-        if (INSTANCE == null)
+        if (PROVIDER == null)
         {
             synchronized (CDI.class)
             {
-                if (INSTANCE == null)
+                if (PROVIDER == null)
                 {
 
-                    CDI<Object> highestCdi = null;
+                    CDIProvider highestProvider = null;
                     int ordinal = -1;
 
                     ServiceLoader<CDIProvider> cdiProviders = ServiceLoader.load(CDIProvider.class);
                     for (CDIProvider cdiProvider : cdiProviders)
                     {
-                        if (highestCdi == null || cdiProvider.getPriority() > ordinal)
+                        if (highestProvider == null || cdiProvider.getPriority() > ordinal)
                         {
-                            highestCdi = cdiProvider.getCDI();
+                            highestProvider = cdiProvider;
                         }
                     }
 
-                    INSTANCE = highestCdi;
+                    PROVIDER = highestProvider;
                 }
             }
         }
-        return INSTANCE;
+        return PROVIDER.getCDI();
     }
 
     /**
@@ -78,14 +76,13 @@ public abstract class CDI<T> implements Instance<T>
      */
     public static void setCDIProvider(CDIProvider provider)
     {
-        //X TODO implement!
         if (provider == null)
         {
-            INSTANCE = null;
+            PROVIDER = null;
         }
         else
         {
-            INSTANCE = provider.getCDI();
+            PROVIDER = provider;
         }
     }
 
