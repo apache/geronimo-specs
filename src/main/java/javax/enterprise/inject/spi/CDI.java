@@ -28,7 +28,6 @@ import java.util.ServiceLoader;
  * <pre>
  * BeanManager bm = CDI.current().getBeanManager();
  * </pre>
- * </p>
  *
  *
  * @since 1.1
