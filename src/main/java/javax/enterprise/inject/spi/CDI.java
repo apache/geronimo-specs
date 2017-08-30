@@ -61,6 +61,10 @@ public abstract class CDI<T> implements Instance<T>
                 }
             }
         }
+        if (PROVIDER == null)
+        {
+            throw new IllegalStateException("Unable to locate a CDIProvider implementation");
+        }
         return PROVIDER.getCDI();
     }
 
@@ -77,7 +81,7 @@ public abstract class CDI<T> implements Instance<T>
     {
         if (provider == null)
         {
-            PROVIDER = null;
+            throw new IllegalStateException("CDIProvider must not be null");
         }
         else
         {
