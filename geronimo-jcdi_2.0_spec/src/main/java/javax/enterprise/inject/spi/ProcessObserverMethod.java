@@ -48,6 +48,7 @@ public interface ProcessObserverMethod<EVENTTYPE, BEANCLASS>
 
     /**
      * @param observerMethod to replace the original one
+     * @since 2.0
      */
     void setObserverMethod(ObserverMethod<EVENTTYPE> observerMethod);
 
