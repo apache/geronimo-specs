@@ -36,4 +36,3 @@ public interface MessageInterpolator {
         <T> T unwrap(Class<T> type);
     }
 }
-

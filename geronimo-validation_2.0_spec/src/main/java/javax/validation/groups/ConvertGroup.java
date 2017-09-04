@@ -17,6 +17,7 @@
 package javax.validation.groups;
 
 import java.lang.annotation.Documented;
+import java.lang.annotation.Repeatable;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
@@ -24,18 +25,19 @@ import static java.lang.annotation.ElementType.CONSTRUCTOR;
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.ElementType.PARAMETER;
-import static java.lang.annotation.ElementType.TYPE;
+import static java.lang.annotation.ElementType.TYPE_USE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /** @since 1.1 */
-@Target({ TYPE, METHOD, FIELD, CONSTRUCTOR, PARAMETER })
+@Target({ METHOD, FIELD, CONSTRUCTOR, PARAMETER, TYPE_USE })
 @Retention(RUNTIME)
 @Documented
+@Repeatable(ConvertGroup.List.class)
 public @interface ConvertGroup {
-    Class<?> from();
+    Class<?> from() default Default.class;
     Class<?> to();
 
-    @Target({ TYPE, METHOD, FIELD, CONSTRUCTOR, PARAMETER })
+    @Target({ METHOD, FIELD, CONSTRUCTOR, PARAMETER, TYPE_USE })
     @Retention(RUNTIME)
     @Documented
     @interface List {

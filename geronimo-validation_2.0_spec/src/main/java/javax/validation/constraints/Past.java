@@ -19,6 +19,7 @@ package javax.validation.constraints;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 import java.lang.annotation.Documented;
+import java.lang.annotation.Repeatable;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
@@ -27,20 +28,44 @@ import static java.lang.annotation.ElementType.CONSTRUCTOR;
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.ElementType.PARAMETER;
+import static java.lang.annotation.ElementType.TYPE_USE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
+ * <p>
  * Verify that the annotated value of the annotated element is in the past or {@code null}.
- * Supported types are {@link java.util.Calendar} and {@link java.util.Date}
+ * </p>
+ * <p>
+ * Supports:
+ * <ul>
+ * <li>{@code java.util.Date}</li>
+ * <li>{@code java.util.Calendar}</li>
+ * <li>{@code java.time.Instant}</li>
+ * <li>{@code java.time.LocalDate}</li>
+ * <li>{@code java.time.LocalDateTime}</li>
+ * <li>{@code java.time.LocalTime}</li>
+ * <li>{@code java.time.MonthDay}</li>
+ * <li>{@code java.time.OffsetDateTime}</li>
+ * <li>{@code java.time.OffsetTime}</li>
+ * <li>{@code java.time.Year}</li>
+ * <li>{@code java.time.YearMonth}</li>
+ * <li>{@code java.time.ZonedDateTime}</li>
+ * <li>{@code java.time.chrono.HijrahDate}</li>
+ * <li>{@code java.time.chrono.JapaneseDate}</li>
+ * <li>{@code java.time.chrono.MinguoDate}</li>
+ * <li>{@code java.time.chrono.ThaiBuddhistDate}</li>
+ * </ul>
+ * </p>
  *
  * Other types might be supported in a non-portable manner.
  *
  * @version $Rev$ $Date$
  */
-@Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER })
+@Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
 @Retention(RUNTIME)
 @Documented
 @Constraint(validatedBy = {})
+@Repeatable(Past.List.class)
 public @interface Past {
     String message() default "{javax.validation.constraints.Past.message}";
 
@@ -48,11 +73,10 @@ public @interface Past {
 
     Class<? extends Payload>[] payload() default {};
 
-    @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER })
+    @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
     @Retention(RUNTIME)
     @Documented
     @interface List {
         Past[] value();
     }
 }
-

@@ -26,29 +26,57 @@ public interface ConstraintValidatorContext {
 
     ConstraintViolationBuilder buildConstraintViolationWithTemplate(String messageTemplate);
 
+    /** @since 2.0 */
+    ClockProvider getClockProvider();
+
     /** @since 1.1 */
     <T> T unwrap(Class<T> type);
 
     interface ConstraintViolationBuilder {
+        /**
+         * @deprecated since 1.1
+         * @see #addBeanNode()
+         * @see #addPropertyNode(String)
+         * @see #addParameterNode(int)
+         */
+        @Deprecated
         NodeBuilderDefinedContext addNode(String name);
 
         ConstraintValidatorContext addConstraintViolation();
 
-        // @since 1.1
-
+        /** @since 1.1 */
         NodeBuilderCustomizableContext addPropertyNode(String name);
+
+        /** @since 1.1 */
         LeafNodeBuilderCustomizableContext addBeanNode();
+
+        /** @since 1.1 */
         NodeBuilderDefinedContext addParameterNode(int index);
 
+        /** @since 2.0 */
+        ContainerElementNodeBuilderCustomizableContext addContainerElementNode(String name, Class<?> containerType,
+            Integer typeArgumentIndex);
+
         interface NodeBuilderDefinedContext {
+            /**
+             * @deprecated since 1.1
+             * @see #addPropertyNode(String)
+             * @see #addBeanNode()
+             */
+            @Deprecated
             NodeBuilderCustomizableContext addNode(String name);
 
             ConstraintValidatorContext addConstraintViolation();
 
-            // @since 1.1
-
+            /** @since 1.1 */
             NodeBuilderCustomizableContext addPropertyNode(String name);
+
+            /** @since 1.1 */
             LeafNodeBuilderCustomizableContext addBeanNode();
+
+            /** @since 2.0 */
+            ContainerElementNodeBuilderCustomizableContext addContainerElementNode(String name, Class<?> containerType,
+                Integer typeArgumentIndex);
         }
 
         interface NodeBuilderCustomizableContext {
@@ -59,10 +87,18 @@ public interface ConstraintValidatorContext {
 
             ConstraintValidatorContext addConstraintViolation();
 
-            // @since 1.1
-
+            /** @since 1.1 */
             NodeBuilderCustomizableContext addPropertyNode(String name);
+
+            /** @since 1.1 */
             LeafNodeBuilderCustomizableContext addBeanNode();
+
+            /** @since 2.0 */
+            NodeBuilderCustomizableContext inContainer(Class<?> containerClass, Integer typeArgumentIndex);
+
+            /** @since 2.0 */
+            ContainerElementNodeBuilderCustomizableContext addContainerElementNode(String name, Class<?> containerType,
+                Integer typeArgumentIndex);
         }
 
         interface NodeContextBuilder {
@@ -75,10 +111,15 @@ public interface ConstraintValidatorContext {
 
             ConstraintValidatorContext addConstraintViolation();
 
-            // @since 1.1
-
+            /** @since 1.1 */
             NodeBuilderCustomizableContext addPropertyNode(String name);
+
+            /** @since 1.1 */
             LeafNodeBuilderCustomizableContext addBeanNode();
+
+            /** @since 2.0 */
+            ContainerElementNodeBuilderCustomizableContext addContainerElementNode(String name, Class<?> containerType,
+                Integer typeArgumentIndex);
         }
 
         /** @since 1.1 */
@@ -90,6 +131,9 @@ public interface ConstraintValidatorContext {
         interface LeafNodeBuilderCustomizableContext {
             LeafNodeContextBuilder inIterable();
             ConstraintValidatorContext addConstraintViolation();
+
+            /** @since 2.0 */
+            LeafNodeBuilderCustomizableContext inContainer(Class<?> containerClass, Integer typeArgumentIndex);
         }
 
         /** @since 1.1 */
@@ -98,6 +142,35 @@ public interface ConstraintValidatorContext {
             LeafNodeBuilderDefinedContext atIndex(Integer index);
             ConstraintValidatorContext addConstraintViolation();
         }
+
+        /** @since 2.0 */
+        interface ContainerElementNodeBuilderDefinedContext {
+            NodeBuilderCustomizableContext addPropertyNode(String name);
+            LeafNodeBuilderCustomizableContext addBeanNode();
+            ContainerElementNodeBuilderCustomizableContext addContainerElementNode(String name, Class<?> containerType,
+                Integer typeArgumentIndex);
+            ConstraintValidatorContext addConstraintViolation();
+        }
+
+        /** @since 2.0 */
+        interface ContainerElementNodeBuilderCustomizableContext {
+            ContainerElementNodeContextBuilder inIterable();
+            NodeBuilderCustomizableContext addPropertyNode(String name);
+            LeafNodeBuilderCustomizableContext addBeanNode();
+            ContainerElementNodeBuilderCustomizableContext addContainerElementNode(String name, Class<?> containerType,
+                Integer typeArgumentIndex);
+            ConstraintValidatorContext addConstraintViolation();
+        }
+
+        /** @since 2.0 */
+        interface ContainerElementNodeContextBuilder {
+            ContainerElementNodeBuilderDefinedContext atKey(Object key);
+            ContainerElementNodeBuilderDefinedContext atIndex(Integer index);
+            NodeBuilderCustomizableContext addPropertyNode(String name);
+            LeafNodeBuilderCustomizableContext addBeanNode();
+            ContainerElementNodeBuilderCustomizableContext addContainerElementNode(String name, Class<?> containerType,
+                Integer typeArgumentIndex);
+            ConstraintValidatorContext addConstraintViolation();
+        }
     }
 }
-

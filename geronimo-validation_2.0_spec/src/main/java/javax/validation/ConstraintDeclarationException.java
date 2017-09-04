@@ -19,7 +19,9 @@ package javax.validation;
 /**
  * @version $Rev$ $Date$
  */
+@SuppressWarnings("serial")
 public class ConstraintDeclarationException extends ValidationException {
+
     public ConstraintDeclarationException(String message) {
         super(message);
     }
@@ -36,4 +38,3 @@ public class ConstraintDeclarationException extends ValidationException {
         super(cause);
     }
 }
-

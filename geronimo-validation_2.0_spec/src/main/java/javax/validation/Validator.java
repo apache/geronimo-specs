@@ -42,4 +42,3 @@ public interface Validator {
     /** @since 1.1 */
     ExecutableValidator forExecutables();
 }
-

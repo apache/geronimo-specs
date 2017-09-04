@@ -25,10 +25,12 @@ import static java.lang.annotation.ElementType.PACKAGE;
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
+import java.lang.annotation.Documented;
+
 /** @since 1.1 */
 @Target({ CONSTRUCTOR, METHOD, TYPE, PACKAGE })
 @Retention(RUNTIME)
+@Documented
 public @interface ValidateOnExecution {
     ExecutableType[] type() default { ExecutableType.IMPLICIT };
 }
-

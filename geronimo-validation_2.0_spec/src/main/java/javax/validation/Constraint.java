@@ -50,4 +50,3 @@ public @interface Constraint {
      */
     Class<? extends ConstraintValidator<?,?>>[] validatedBy();
 }
-

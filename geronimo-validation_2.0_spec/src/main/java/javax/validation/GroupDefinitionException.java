@@ -19,7 +19,9 @@ package javax.validation;
 /**
  * @version $Rev$ $Date$
  */
+@SuppressWarnings("serial")
 public class GroupDefinitionException extends ValidationException {
+
     public GroupDefinitionException(String message) {
         super(message);
     }
@@ -36,4 +38,3 @@ public class GroupDefinitionException extends ValidationException {
         super(cause);
     }
 }
-

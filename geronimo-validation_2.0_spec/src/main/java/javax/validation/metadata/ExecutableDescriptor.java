@@ -27,4 +27,3 @@ public interface ExecutableDescriptor extends ElementDescriptor {
     boolean hasConstrainedParameters();
     boolean hasConstrainedReturnValue();
 }
-

@@ -18,6 +18,8 @@ package javax.validation;
 
 import java.io.InputStream;
 
+import javax.validation.valueextraction.ValueExtractor;
+
 /**
  * @version $Rev$ $Date$
  */
@@ -43,11 +45,21 @@ public interface Configuration<T extends Configuration<T>> {
 
     ValidatorFactory buildValidatorFactory();
 
-    // @since 1.1
-
+    /** @since 1.1 */
     T parameterNameProvider(ParameterNameProvider parameterNameProvider);
+
+    /** @since 1.1 */
     ParameterNameProvider getDefaultParameterNameProvider();
 
+    /** @since 1.1 */
     BootstrapConfiguration getBootstrapConfiguration();
-}
 
+    /** @since 2.0 */
+    T clockProvider(ClockProvider clockProvider);
+
+    /** @since 2.0 */
+    T addValueExtractor(ValueExtractor<?> extractor);
+
+    /** @since 2.0 */
+    ClockProvider getDefaultClockProvider();
+}

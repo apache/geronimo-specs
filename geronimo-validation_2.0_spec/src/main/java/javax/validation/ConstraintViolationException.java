@@ -22,7 +22,9 @@ import java.util.Set;
 /**
  * @version $Rev$ $Date$
  */
+@SuppressWarnings("serial")
 public class ConstraintViolationException extends ValidationException {
+
     private final Set<ConstraintViolation<?>> constraintViolations;
 
     public ConstraintViolationException(String message,
@@ -39,4 +41,3 @@ public class ConstraintViolationException extends ValidationException {
         return constraintViolations;
     }
 }
-

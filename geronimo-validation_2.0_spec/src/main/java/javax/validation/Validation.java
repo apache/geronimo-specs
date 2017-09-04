@@ -47,7 +47,7 @@ public class Validation {
 
     public static <T extends Configuration<T>, U extends ValidationProvider<T>>
             ProviderSpecificBootstrap<T> byProvider(Class<U> providerType) {
-        return new ProviderSpecificBootstrapImpl<T, U>(providerType);
+        return new ProviderSpecificBootstrapImpl<>(providerType);
     }
 
     /*
@@ -87,15 +87,17 @@ public class Validation {
          * @see javax.validation.bootstrap.ProviderSpecificBootstrap#configure()
          */
         public T configure() {
-            if (providerClass == null)
+            if (providerClass == null) {
                 throw new ValidationException("No resolver provided");
+            }
 
             // create a default resolver if not supplied by providerResolver()
             GenericBootstrapImpl impl = new GenericBootstrapImpl();
-            if ( vpResolver == null )
+            if ( vpResolver == null ) {
                 vpResolver = impl.getDefaultValidationProviderResolver();
-            else
+            } else {
                 impl.providerResolver(vpResolver);
+            }
 
             // check each provider discovered by the resolver
             for (ValidationProvider<?> vProvider : vpResolver.getValidationProviders()) {
@@ -146,8 +148,9 @@ public class Validation {
          * @see javax.validation.spi.BootstrapState#getDefaultValidationProviderResolver()
          */
         public ValidationProviderResolver getDefaultValidationProviderResolver() {
-            if (vpDefaultResolver == null)
+            if (vpDefaultResolver == null) {
                 vpDefaultResolver = new DefaultValidationProviderResolver();
+            }
             return vpDefaultResolver;
         }
 
@@ -159,8 +162,9 @@ public class Validation {
         public Configuration<?> configure() {
             ValidationProviderResolver resolv = vpResolver;
             try {
-                if (resolv == null)
+                if (resolv == null) {
                     resolv = getDefaultValidationProviderResolver();
+                }
                 return resolv.getValidationProviders().get(0).createGenericConfiguration(this);
             } catch (Exception e) {
                 throw new ValidationException("Could not create Configuration.", e);
@@ -175,8 +179,7 @@ public class Validation {
      */
     private static class DefaultValidationProviderResolver implements ValidationProviderResolver {
         // cache of providers per class loader
-        private volatile WeakHashMap<ClassLoader, List<ValidationProvider<?>>> providerCache =
-            new WeakHashMap<ClassLoader, List<ValidationProvider<?>>>();
+        private volatile WeakHashMap<ClassLoader, List<ValidationProvider<?>>> providerCache = new WeakHashMap<>();
 
         /*
          * (non-Javadoc)
@@ -188,14 +191,15 @@ public class Validation {
 
             // get our class loader
             ClassLoader cl = PrivClassLoader.get(null);
-            if (cl == null)
+            if (cl == null) {
                 cl = PrivClassLoader.get(DefaultValidationProviderResolver.class);
+            }
 
             // use any previously cached providers
             providers = providerCache.get(cl);
             if (providers == null) {
                 // need to discover and load them for this class loader
-                providers = new ArrayList<ValidationProvider<?>>();
+                providers = new ArrayList<>();
                 try {
                     List<Object> serviceProviders = ProviderLocator.getServices(ValidationProvider.class.getName(), this.getClass(), cl);
                     for (Object provider : serviceProviders) {
@@ -227,10 +231,10 @@ public class Validation {
 
             public static ClassLoader get(Class<?> c) {
                 final PrivClassLoader action = new PrivClassLoader(c);
-                if (System.getSecurityManager() != null)
-                    return AccessController.doPrivileged(action);
-                else
+                if (System.getSecurityManager() == null) {
                     return action.run();
+                }
+                return AccessController.doPrivileged(action);
             }
 
             private PrivClassLoader(Class<?> c) {
@@ -238,12 +242,11 @@ public class Validation {
             }
 
             public ClassLoader run() {
-                if (c != null)
-                    return c.getClassLoader();
-                else
+                if (c == null) {
                     return Thread.currentThread().getContextClassLoader();
+                }
+                return c.getClassLoader();
             }
         }
     }
 }
-

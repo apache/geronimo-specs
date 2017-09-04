@@ -26,4 +26,3 @@ public interface ConstraintValidatorFactory {
     /** @since 1.1 */
     void releaseInstance(ConstraintValidator<?, ?> instance);
 }
-
