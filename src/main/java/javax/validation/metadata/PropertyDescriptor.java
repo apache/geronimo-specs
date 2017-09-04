@@ -19,7 +19,6 @@ package javax.validation.metadata;
 /**
  * @version $Rev$ $Date$
  */
-public interface PropertyDescriptor extends ElementDescriptor, CascadableDescriptor {
+public interface PropertyDescriptor extends ElementDescriptor, CascadableDescriptor, ContainerDescriptor {
     String getPropertyName();
 }
-

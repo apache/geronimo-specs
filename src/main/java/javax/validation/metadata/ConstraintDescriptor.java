@@ -43,9 +43,15 @@ public interface ConstraintDescriptor<T extends Annotation> {
 
     boolean isReportAsSingleViolation();
 
-    // @since 1.1
-
+    /** @since 1.1 */
     String getMessageTemplate();
-    ConstraintTarget getValidationAppliesTo();
-}
 
+    /** @since 1.1 */
+    ConstraintTarget getValidationAppliesTo();
+
+    /** @since 2.0 */
+    ValidateUnwrappedValue getValueUnwrapping();
+
+    /** @since 2.0 */
+    <U> U unwrap(Class<U> type);
+}

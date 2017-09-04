@@ -17,5 +17,5 @@
 package javax.validation.metadata;
 
 /** @since 1.1 */
-public interface ReturnValueDescriptor extends ElementDescriptor, CascadableDescriptor {
+public interface ReturnValueDescriptor extends ElementDescriptor, CascadableDescriptor, ContainerDescriptor {
 }

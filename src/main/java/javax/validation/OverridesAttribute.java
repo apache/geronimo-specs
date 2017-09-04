@@ -18,6 +18,7 @@ package javax.validation;
 
 import java.lang.annotation.Annotation;
 import java.lang.annotation.Documented;
+import java.lang.annotation.Repeatable;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
@@ -29,10 +30,12 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  */
 @Retention(RUNTIME)
 @Target({ METHOD })
+@Documented
+@Repeatable(OverridesAttribute.List.class)
 public @interface OverridesAttribute {
     Class<? extends Annotation> constraint();
 
-    String name();
+    String name() default "";
 
     int constraintIndex() default -1;
 
@@ -43,4 +46,3 @@ public @interface OverridesAttribute {
         OverridesAttribute[] value();
     }
 }
-

@@ -19,7 +19,7 @@ package javax.validation;
 /**
  * @version $Rev$ $Date$
  */
-public interface ValidatorFactory {
+public interface ValidatorFactory extends AutoCloseable {
     Validator getValidator();
 
     ValidatorContext usingContext();
@@ -35,6 +35,10 @@ public interface ValidatorFactory {
     /** @since 1.1 */
     ParameterNameProvider getParameterNameProvider();
 
+    /** @since 1.1 */
+    @Override
     void close();
-}
 
+    /** @since 2.0 */
+    ClockProvider getClockProvider();
+}

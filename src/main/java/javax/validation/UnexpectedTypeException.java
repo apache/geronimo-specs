@@ -21,7 +21,9 @@ package javax.validation;
  * 
  * @version $Rev$ $Date$
  */
+@SuppressWarnings("serial")
 public class UnexpectedTypeException extends ConstraintDeclarationException {
+
     public UnexpectedTypeException(String message) {
         super(message);
     }
@@ -38,4 +40,3 @@ public class UnexpectedTypeException extends ConstraintDeclarationException {
         super(cause);
     }
 }
-

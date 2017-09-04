@@ -16,6 +16,8 @@
  */
 package javax.validation;
 
+import javax.validation.valueextraction.ValueExtractor;
+
 /**
  * @version $Rev$ $Date$
  */
@@ -30,5 +32,10 @@ public interface ValidatorContext {
 
     /** @since 1.1 */
     ValidatorContext parameterNameProvider(ParameterNameProvider parameterNameProvider);
-}
 
+    /** @since 2.0 */
+    ValidatorContext clockProvider(ClockProvider clockProvider);
+
+    /** @since 2.0 */
+    ValidatorContext addValueExtractor(ValueExtractor<?> extractor);
+}

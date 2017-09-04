@@ -17,7 +17,7 @@
 package javax.validation.metadata;
 
 /** @since 1.1 */
-public interface ParameterDescriptor extends ElementDescriptor, CascadableDescriptor {
+public interface ParameterDescriptor extends ElementDescriptor, CascadableDescriptor, ContainerDescriptor {
     int getIndex();
     String getName();
 }

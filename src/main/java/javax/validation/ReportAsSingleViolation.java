@@ -22,11 +22,13 @@ import java.lang.annotation.Target;
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
+import java.lang.annotation.Documented;
+
 /**
  * @version $Rev$ $Date$
  */
 @Target({ ANNOTATION_TYPE })
 @Retention(RUNTIME)
+@Documented
 public @interface ReportAsSingleViolation {
 }
-

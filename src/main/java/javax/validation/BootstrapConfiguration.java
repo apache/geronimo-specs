@@ -31,4 +31,10 @@ public interface BootstrapConfiguration {
 	boolean isExecutableValidationEnabled();
 	Set<ExecutableType> getDefaultValidatedExecutableTypes();
 	Map<String, String> getProperties();
+
+	/** @since 2.0 */
+	String getClockProviderClassName();
+
+	/** @since 2.0 */
+	Set<String> getValueExtractorClassNames();
 }

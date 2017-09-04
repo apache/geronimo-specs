@@ -34,4 +34,3 @@ public interface TraversableResolver {
         Path pathToTraversableObject,
         ElementType elementType);
 }
-

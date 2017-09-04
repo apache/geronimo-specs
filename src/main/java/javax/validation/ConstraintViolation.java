@@ -45,4 +45,3 @@ public interface ConstraintViolation<T> {
     Object getExecutableReturnValue();
     <U> U unwrap(Class<U> type);
 }
-

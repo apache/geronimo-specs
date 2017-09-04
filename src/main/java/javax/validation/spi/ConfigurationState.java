@@ -16,10 +16,13 @@
  */
 package javax.validation.spi;
 
+import javax.validation.ClockProvider;
 import javax.validation.ConstraintValidatorFactory;
 import javax.validation.MessageInterpolator;
 import javax.validation.ParameterNameProvider;
 import javax.validation.TraversableResolver;
+import javax.validation.valueextraction.ValueExtractor;
+
 import java.io.InputStream;
 import java.util.Map;
 import java.util.Set;
@@ -43,5 +46,10 @@ public interface ConfigurationState {
 
     /** @since 1.1 */
     ParameterNameProvider getParameterNameProvider();
-}
 
+    /** @since 2.0 */
+    Set<ValueExtractor<?>> getValueExtractors();
+
+    /** @since 2.0 */
+    ClockProvider getClockProvider();
+}

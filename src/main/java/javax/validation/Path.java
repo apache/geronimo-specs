@@ -23,6 +23,10 @@ import java.util.List;
  */
 public interface Path extends Iterable<Path.Node> {
 
+    /** @since 2.0 */
+    @Override
+    String toString();
+
     interface Node {
         String getName();
 
@@ -32,37 +36,65 @@ public interface Path extends Iterable<Path.Node> {
 
         Object getKey();
 
-        // @since 1.1
-
+        /** @since 1.1 */
         ElementKind getKind();
 
+        /** @since 1.1 */
         <T extends Node> T as(Class<T> nodeType);
+
+        /** @since 2.0 */
+        @Override
+        String toString();
     }
 
-    // @since 1.1
-
+    /** @since 1.1 */
     interface MethodNode extends Node {
         List<Class<?>> getParameterTypes();
     }
 
+    /** @since 1.1 */
     interface ConstructorNode extends Node {
         List<Class<?>> getParameterTypes();
     }
 
+    /** @since 1.1 */
     interface ReturnValueNode extends Node {
     }
 
+    /** @since 1.1 */
     interface ParameterNode extends Node {
         int getParameterIndex();
     }
 
+    /** @since 1.1 */
     interface CrossParameterNode extends Node {
     }
 
+    /** @since 1.1 */
     interface BeanNode extends Node {
+
+        /** @since 2.0 */
+        Class<?> getContainerClass();
+
+        /** @since 2.0 */
+        Integer getTypeArgumentIndex();
     }
 
+    /** @since 1.1 */
     interface PropertyNode extends Node {
+
+        /** @since 2.0 */
+        Class<?> getContainerClass();
+
+        /** @since 2.0 */
+        Integer getTypeArgumentIndex();
+    }
+    
+    /** @since 2.0 */
+    interface ContainerElementNode extends Node {
+
+        Class<?> getContainerClass();
+
+        Integer getTypeArgumentIndex();
     }
 }
-

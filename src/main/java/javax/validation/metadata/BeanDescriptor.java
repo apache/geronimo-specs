@@ -33,4 +33,3 @@ public interface BeanDescriptor extends ElementDescriptor {
     ConstructorDescriptor getConstraintsForConstructor(Class<?>... parameterTypes);
     Set<ConstructorDescriptor> getConstrainedConstructors();
 }
-
