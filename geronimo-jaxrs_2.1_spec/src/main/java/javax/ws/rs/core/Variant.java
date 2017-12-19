@@ -8,7 +8,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -20,18 +20,19 @@
 
 package javax.ws.rs.core;
 
-import javax.ws.rs.ext.RuntimeDelegate;
 import java.io.StringWriter;
 import java.util.List;
 import java.util.Locale;
 
+import javax.ws.rs.ext.RuntimeDelegate;
 
 public class Variant {
 
     private Locale language;
-    private MediaType mediaType;
-    private String encoding;
 
+    private MediaType mediaType;
+
+    private String encoding;
 
     public Variant(MediaType mediaType, String language, String encoding) {
         if (mediaType == null && language == null && encoding == null) {
@@ -42,7 +43,6 @@ public class Variant {
         this.mediaType = mediaType;
     }
 
-
     public Variant(MediaType mediaType, String language, String country, String encoding) {
         if (mediaType == null && language == null && encoding == null) {
             throw new IllegalArgumentException("mediaType, language, encoding all null");
@@ -51,7 +51,6 @@ public class Variant {
         this.language = (language == null) ? null : new Locale(language, country);
         this.mediaType = mediaType;
     }
-
 
     public Variant(MediaType mediaType, String language, String country, String languageVariant, String encoding) {
         if (mediaType == null && language == null && encoding == null) {
@@ -62,7 +61,6 @@ public class Variant {
         this.mediaType = mediaType;
     }
 
-
     public Variant(MediaType mediaType, Locale language, String encoding) {
         if (mediaType == null && language == null && encoding == null) {
             throw new IllegalArgumentException("mediaType, language, encoding all null");
@@ -72,26 +70,21 @@ public class Variant {
         this.mediaType = mediaType;
     }
 
-
     public Locale getLanguage() {
         return language;
     }
-
 
     public String getLanguageString() {
         return (language == null) ? null : language.toString();
     }
 
-
     public MediaType getMediaType() {
         return mediaType;
     }
 
-
     public String getEncoding() {
         return encoding;
     }
-
 
     public static VariantListBuilder mediaTypes(MediaType... mediaTypes) {
         VariantListBuilder b = VariantListBuilder.newInstance();
@@ -99,20 +92,17 @@ public class Variant {
         return b;
     }
 
-
     public static VariantListBuilder languages(Locale... languages) {
         VariantListBuilder b = VariantListBuilder.newInstance();
         b.languages(languages);
         return b;
     }
 
-
     public static VariantListBuilder encodings(String... encodings) {
         VariantListBuilder b = VariantListBuilder.newInstance();
         b.encodings(encodings);
         return b;
     }
-
 
     @Override
     public int hashCode() {
@@ -122,7 +112,6 @@ public class Variant {
         hash = 29 * hash + (this.encoding != null ? this.encoding.hashCode() : 0);
         return hash;
     }
-
 
     @Override
     public boolean equals(Object obj) {
@@ -139,7 +128,7 @@ public class Variant {
         if (this.mediaType != other.mediaType && (this.mediaType == null || !this.mediaType.equals(other.mediaType))) {
             return false;
         }
-
+        // noinspection StringEquality
         return this.encoding == other.encoding || (this.encoding != null && this.encoding.equals(other.encoding));
     }
 
@@ -156,30 +145,22 @@ public class Variant {
         return w.toString();
     }
 
-
     public static abstract class VariantListBuilder {
-
 
         protected VariantListBuilder() {
         }
-
 
         public static VariantListBuilder newInstance() {
             return RuntimeDelegate.getInstance().createVariantListBuilder();
         }
 
-
         public abstract List<Variant> build();
-
 
         public abstract VariantListBuilder add();
 
-
         public abstract VariantListBuilder languages(Locale... languages);
 
-
         public abstract VariantListBuilder encodings(String... encodings);
-
 
         public abstract VariantListBuilder mediaTypes(MediaType... mediaTypes);
     }

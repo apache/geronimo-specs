@@ -8,7 +8,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -20,47 +20,35 @@
 
 package javax.ws.rs.ext;
 
-import javax.ws.rs.core.MediaType;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 import java.util.Collection;
 
+import javax.ws.rs.core.MediaType;
 
 public interface InterceptorContext {
 
+    public Object getProperty(String name);
 
-    Object getProperty(String name);
+    public Collection<String> getPropertyNames();
 
+    public void setProperty(String name, Object object);
 
-    Collection<String> getPropertyNames();
+    public void removeProperty(String name);
 
+    public Annotation[] getAnnotations();
 
-    void setProperty(String name, Object object);
-
-
-    void removeProperty(String name);
-
-
-    Annotation[] getAnnotations();
-
-
-    void setAnnotations(Annotation[] annotations);
-
+    public void setAnnotations(Annotation[] annotations);
 
     Class<?> getType();
 
-
-    void setType(Class<?> type);
-
+    public void setType(Class<?> type);
 
     Type getGenericType();
 
+    public void setGenericType(Type genericType);
 
-    void setGenericType(Type genericType);
+    public MediaType getMediaType();
 
-
-    MediaType getMediaType();
-
-
-    void setMediaType(MediaType mediaType);
+    public void setMediaType(MediaType mediaType);
 }

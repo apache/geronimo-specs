@@ -8,7 +8,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -20,46 +20,47 @@
 
 package javax.ws.rs.core;
 
-import javax.ws.rs.ext.RuntimeDelegate;
-import javax.ws.rs.ext.RuntimeDelegate.HeaderDelegate;
 import java.util.Date;
 
+import javax.ws.rs.ext.RuntimeDelegate;
+import javax.ws.rs.ext.RuntimeDelegate.HeaderDelegate;
 
 public class NewCookie extends Cookie {
-
 
     public static final int DEFAULT_MAX_AGE = -1;
 
     private static final HeaderDelegate<NewCookie> delegate = RuntimeDelegate.getInstance().createHeaderDelegate(NewCookie.class);
 
     private final String comment;
-    private final int maxAge;
-    private final Date expiry;
-    private final boolean secure;
-    private final boolean httpOnly;
 
+    private final int maxAge;
+
+    private final Date expiry;
+
+    private final boolean secure;
+
+    private final boolean httpOnly;
 
     public NewCookie(String name, String value) {
         this(name, value, null, null, DEFAULT_VERSION, null, DEFAULT_MAX_AGE, null, false, false);
     }
 
-
     public NewCookie(String name, String value, String path, String domain, String comment, int maxAge, boolean secure) {
         this(name, value, path, domain, DEFAULT_VERSION, comment, maxAge, null, secure, false);
     }
 
-
-    public NewCookie(String name, String value, String path, String domain, String comment, int maxAge, boolean secure, boolean httpOnly) {
+    public NewCookie(String name, String value, String path, String domain, String comment, int maxAge, boolean secure,
+            boolean httpOnly) {
         this(name, value, path, domain, DEFAULT_VERSION, comment, maxAge, null, secure, httpOnly);
     }
 
-
-    public NewCookie(String name, String value, String path, String domain, int version, String comment, int maxAge, boolean secure) {
+    public NewCookie(String name, String value, String path, String domain, int version, String comment, int maxAge,
+            boolean secure) {
         this(name, value, path, domain, version, comment, maxAge, null, secure, false);
     }
 
-
-    public NewCookie(String name, String value, String path, String domain, int version, String comment, int maxAge, Date expiry, boolean secure, boolean httpOnly) {
+    public NewCookie(String name, String value, String path, String domain, int version, String comment, int maxAge, Date expiry,
+            boolean secure, boolean httpOnly) {
         super(name, value, path, domain, version);
         this.comment = comment;
         this.maxAge = maxAge;
@@ -68,19 +69,18 @@ public class NewCookie extends Cookie {
         this.httpOnly = httpOnly;
     }
 
-
     public NewCookie(Cookie cookie) {
         this(cookie, null, DEFAULT_MAX_AGE, null, false, false);
     }
-
 
     public NewCookie(Cookie cookie, String comment, int maxAge, boolean secure) {
         this(cookie, comment, maxAge, null, secure, false);
     }
 
-
     public NewCookie(Cookie cookie, String comment, int maxAge, Date expiry, boolean secure, boolean httpOnly) {
-        super(cookie == null ? null : cookie.getName(), cookie == null ? null : cookie.getValue(), cookie == null ? null : cookie.getPath(), cookie == null ? null : cookie.getDomain(), cookie == null ? Cookie.DEFAULT_VERSION : cookie.getVersion());
+        super(cookie == null ? null : cookie.getName(), cookie == null ? null : cookie.getValue(),
+                cookie == null ? null : cookie.getPath(), cookie == null ? null : cookie.getDomain(),
+                cookie == null ? Cookie.DEFAULT_VERSION : cookie.getVersion());
         this.comment = comment;
         this.maxAge = maxAge;
         this.expiry = expiry;
@@ -88,47 +88,38 @@ public class NewCookie extends Cookie {
         this.httpOnly = httpOnly;
     }
 
-
     public static NewCookie valueOf(String value) {
         return delegate.fromString(value);
     }
-
 
     public String getComment() {
         return comment;
     }
 
-
     public int getMaxAge() {
         return maxAge;
     }
-
 
     public Date getExpiry() {
         return expiry;
     }
 
-
     public boolean isSecure() {
         return secure;
     }
-
 
     public boolean isHttpOnly() {
         return httpOnly;
     }
 
-
     public Cookie toCookie() {
         return new Cookie(this.getName(), this.getValue(), this.getPath(), this.getDomain(), this.getVersion());
     }
-
 
     @Override
     public String toString() {
         return delegate.toString(this);
     }
-
 
     @Override
     public int hashCode() {
@@ -141,8 +132,7 @@ public class NewCookie extends Cookie {
         return hash;
     }
 
-
-    @SuppressWarnings({"StringEquality", "RedundantIfStatement"})
+    @SuppressWarnings({ "StringEquality", "RedundantIfStatement" })
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {

@@ -8,7 +8,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -23,18 +23,18 @@ package javax.ws.rs.core;
 import javax.ws.rs.ext.RuntimeDelegate;
 import javax.ws.rs.ext.RuntimeDelegate.HeaderDelegate;
 
-
 public class EntityTag {
 
-    private static final HeaderDelegate<EntityTag> HEADER_DELEGATE = RuntimeDelegate.getInstance().createHeaderDelegate(EntityTag.class);
-    private String value;
-    private boolean weak;
+    private static final HeaderDelegate<EntityTag> HEADER_DELEGATE = RuntimeDelegate.getInstance()
+            .createHeaderDelegate(EntityTag.class);
 
+    private String value;
+
+    private boolean weak;
 
     public EntityTag(final String value) {
         this(value, false);
     }
-
 
     public EntityTag(final String value, final boolean weak) {
         if (value == null) {
@@ -44,21 +44,17 @@ public class EntityTag {
         this.weak = weak;
     }
 
-
     public static EntityTag valueOf(final String value) {
         return HEADER_DELEGATE.fromString(value);
     }
-
 
     public boolean isWeak() {
         return weak;
     }
 
-
     public String getValue() {
         return value;
     }
-
 
     @Override
     public boolean equals(final Object obj) {
@@ -75,7 +71,6 @@ public class EntityTag {
         return false;
     }
 
-
     @Override
     public int hashCode() {
         int hash = 3;
@@ -83,7 +78,6 @@ public class EntityTag {
         hash = 17 * hash + (this.weak ? 1 : 0);
         return hash;
     }
-
 
     @Override
     public String toString() {

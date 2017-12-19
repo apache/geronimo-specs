@@ -22,9 +22,8 @@ package javax.ws.rs.client;
 
 import java.io.IOException;
 
-
 public interface ClientResponseFilter {
 
-
-    void filter(ClientRequestContext requestContext, ClientResponseContext responseContext) throws IOException;
+    public void filter(ClientRequestContext requestContext, ClientResponseContext responseContext)
+            throws IOException;
 }

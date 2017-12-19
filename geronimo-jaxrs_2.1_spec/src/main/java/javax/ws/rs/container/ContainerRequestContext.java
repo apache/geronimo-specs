@@ -8,7 +8,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -20,13 +20,6 @@
 
 package javax.ws.rs.container;
 
-import javax.ws.rs.core.Cookie;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.Request;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.SecurityContext;
-import javax.ws.rs.core.UriInfo;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Collection;
@@ -35,81 +28,63 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.ws.rs.core.Cookie;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.core.Request;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.SecurityContext;
+import javax.ws.rs.core.UriInfo;
 
 public interface ContainerRequestContext {
 
+    public Object getProperty(String name);
 
-    Object getProperty(String name);
+    public Collection<String> getPropertyNames();
 
+    public void setProperty(String name, Object object);
 
-    Collection<String> getPropertyNames();
+    public void removeProperty(String name);
 
+    public UriInfo getUriInfo();
 
-    void setProperty(String name, Object object);
+    public void setRequestUri(URI requestUri);
 
+    public void setRequestUri(URI baseUri, URI requestUri);
 
-    void removeProperty(String name);
+    public Request getRequest();
 
+    public String getMethod();
 
-    UriInfo getUriInfo();
+    public void setMethod(String method);
 
+    public MultivaluedMap<String, String> getHeaders();
 
-    void setRequestUri(URI requestUri);
+    public String getHeaderString(String name);
 
+    public Date getDate();
 
-    void setRequestUri(URI baseUri, URI requestUri);
+    public Locale getLanguage();
 
+    public int getLength();
 
-    Request getRequest();
+    public MediaType getMediaType();
 
+    public List<MediaType> getAcceptableMediaTypes();
 
-    String getMethod();
+    public List<Locale> getAcceptableLanguages();
 
+    public Map<String, Cookie> getCookies();
 
-    void setMethod(String method);
+    public boolean hasEntity();
 
+    public InputStream getEntityStream();
 
-    MultivaluedMap<String, String> getHeaders();
+    public void setEntityStream(InputStream input);
 
+    public SecurityContext getSecurityContext();
 
-    String getHeaderString(String name);
+    public void setSecurityContext(SecurityContext context);
 
-
-    Date getDate();
-
-
-    Locale getLanguage();
-
-
-    int getLength();
-
-
-    MediaType getMediaType();
-
-
-    List<MediaType> getAcceptableMediaTypes();
-
-
-    List<Locale> getAcceptableLanguages();
-
-
-    Map<String, Cookie> getCookies();
-
-
-    boolean hasEntity();
-
-
-    InputStream getEntityStream();
-
-
-    void setEntityStream(InputStream input);
-
-
-    SecurityContext getSecurityContext();
-
-
-    void setSecurityContext(SecurityContext context);
-
-
-    void abortWith(Response response);
+    public void abortWith(Response response);
 }

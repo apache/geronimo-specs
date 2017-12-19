@@ -8,7 +8,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -20,26 +20,27 @@
 
 package javax.ws.rs.core;
 
-import javax.ws.rs.ext.RuntimeDelegate;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Map;
 import java.util.TreeMap;
 
+import javax.ws.rs.ext.RuntimeDelegate;
 
 @SuppressWarnings("JavaDoc")
 public class MediaType {
 
     private String type;
-    private String subtype;
-    private Map<String, String> parameters;
 
+    private String subtype;
+
+    private Map<String, String> parameters;
 
     public static final String CHARSET_PARAMETER = "charset";
 
     public static final String MEDIA_TYPE_WILDCARD = "*";
 
-
+    // Common media type constants
     public final static String WILDCARD = "*/*";
 
     public final static MediaType WILDCARD_TYPE = new MediaType();
@@ -88,6 +89,13 @@ public class MediaType {
 
     public final static MediaType TEXT_HTML_TYPE = new MediaType("text", "html");
 
+    public static final String SERVER_SENT_EVENTS = "text/event-stream";
+
+    public static final MediaType SERVER_SENT_EVENTS_TYPE = new MediaType("text", "event-stream");
+
+    public static final String APPLICATION_JSON_PATCH_JSON = "application/json-patch+json";
+
+    public static final MediaType APPLICATION_JSON_PATCH_JSON_TYPE = new MediaType("application", "json-patch+json");
 
     public static MediaType valueOf(String type) {
         return RuntimeDelegate.getInstance().createHeaderDelegate(MediaType.class).fromString(type);
@@ -109,21 +117,17 @@ public class MediaType {
         return map;
     }
 
-
     public MediaType(String type, String subtype, Map<String, String> parameters) {
         this(type, subtype, null, createParametersMap(parameters));
     }
-
 
     public MediaType(String type, String subtype) {
         this(type, subtype, null, null);
     }
 
-
     public MediaType(String type, String subtype, String charset) {
         this(type, subtype, charset, null);
     }
-
 
     public MediaType() {
         this(MEDIA_TYPE_WILDCARD, MEDIA_TYPE_WILDCARD, null, null);
@@ -150,43 +154,39 @@ public class MediaType {
         this.parameters = Collections.unmodifiableMap(parameterMap);
     }
 
-
     public String getType() {
         return this.type;
     }
-
 
     public boolean isWildcardType() {
         return this.getType().equals(MEDIA_TYPE_WILDCARD);
     }
 
-
     public String getSubtype() {
         return this.subtype;
     }
-
 
     public boolean isWildcardSubtype() {
         return this.getSubtype().equals(MEDIA_TYPE_WILDCARD);
     }
 
-
     public Map<String, String> getParameters() {
         return parameters;
     }
-
 
     public MediaType withCharset(String charset) {
         return new MediaType(this.type, this.subtype, charset, createParametersMap(this.parameters));
     }
 
-
     public boolean isCompatible(MediaType other) {
-        return other != null && (type.equals(MEDIA_TYPE_WILDCARD) || other.type.equals(MEDIA_TYPE_WILDCARD) ||
-            (type.equalsIgnoreCase(other.type) && (subtype.equals(MEDIA_TYPE_WILDCARD) || other.subtype.equals(MEDIA_TYPE_WILDCARD))) ||
-            (type.equalsIgnoreCase(other.type) && this.subtype.equalsIgnoreCase(other.subtype)));
+        return other != null && // return false if other is null, else
+                (type.equals(MEDIA_TYPE_WILDCARD) || other.type.equals(MEDIA_TYPE_WILDCARD) || // both are wildcard types, or
+                        (type.equalsIgnoreCase(other.type)
+                                && (subtype.equals(MEDIA_TYPE_WILDCARD) || other.subtype.equals(MEDIA_TYPE_WILDCARD)))
+                        || // same types, wildcard sub-types, or
+                        (type.equalsIgnoreCase(other.type) && this.subtype.equalsIgnoreCase(other.subtype))); // same types &
+                                                                                                              // sub-types
     }
-
 
     @SuppressWarnings("UnnecessaryJavaDocLink")
     @Override
@@ -196,16 +196,15 @@ public class MediaType {
         }
 
         MediaType other = (MediaType) obj;
-        return (this.type.equalsIgnoreCase(other.type) && this.subtype.equalsIgnoreCase(other.subtype) && this.parameters.equals(other.parameters));
+        return (this.type.equalsIgnoreCase(other.type) && this.subtype.equalsIgnoreCase(other.subtype)
+                && this.parameters.equals(other.parameters));
     }
-
 
     @SuppressWarnings("UnnecessaryJavaDocLink")
     @Override
     public int hashCode() {
         return (this.type.toLowerCase() + this.subtype.toLowerCase()).hashCode() + this.parameters.hashCode();
     }
-
 
     @Override
     public String toString() {

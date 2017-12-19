@@ -8,7 +8,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -20,12 +20,6 @@
 
 package javax.ws.rs.container;
 
-import javax.ws.rs.core.EntityTag;
-import javax.ws.rs.core.Link;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.NewCookie;
-import javax.ws.rs.core.Response;
 import java.io.OutputStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
@@ -35,93 +29,70 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
+import javax.ws.rs.core.EntityTag;
+import javax.ws.rs.core.Link;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.core.NewCookie;
+import javax.ws.rs.core.Response;
 
 public interface ContainerResponseContext {
 
+    public int getStatus();
 
-    int getStatus();
+    public void setStatus(int code);
 
+    public Response.StatusType getStatusInfo();
 
-    void setStatus(int code);
+    public void setStatusInfo(Response.StatusType statusInfo);
 
+    public MultivaluedMap<String, Object> getHeaders();
 
-    Response.StatusType getStatusInfo();
+    public abstract MultivaluedMap<String, String> getStringHeaders();
 
+    public String getHeaderString(String name);
 
-    void setStatusInfo(Response.StatusType statusInfo);
+    public Set<String> getAllowedMethods();
 
+    public Date getDate();
 
-    MultivaluedMap<String, Object> getHeaders();
+    public Locale getLanguage();
 
+    public int getLength();
 
-    abstract MultivaluedMap<String, String> getStringHeaders();
+    public MediaType getMediaType();
 
+    public Map<String, NewCookie> getCookies();
 
-    String getHeaderString(String name);
+    public EntityTag getEntityTag();
 
+    public Date getLastModified();
 
-    Set<String> getAllowedMethods();
+    public URI getLocation();
 
-
-    Date getDate();
-
-
-    Locale getLanguage();
-
-
-    int getLength();
-
-
-    MediaType getMediaType();
-
-
-    Map<String, NewCookie> getCookies();
-
-
-    EntityTag getEntityTag();
-
-
-    Date getLastModified();
-
-
-    URI getLocation();
-
-
-    Set<Link> getLinks();
-
+    public Set<Link> getLinks();
 
     boolean hasLink(String relation);
 
+    public Link getLink(String relation);
 
-    Link getLink(String relation);
+    public Link.Builder getLinkBuilder(String relation);
 
+    public boolean hasEntity();
 
-    Link.Builder getLinkBuilder(String relation);
+    public Object getEntity();
 
+    public Class<?> getEntityClass();
 
-    boolean hasEntity();
+    public Type getEntityType();
 
+    public void setEntity(final Object entity);
 
-    Object getEntity();
+    public void setEntity(final Object entity, final Annotation[] annotations, final MediaType mediaType);
 
+    public Annotation[] getEntityAnnotations();
 
-    Class<?> getEntityClass();
+    public OutputStream getEntityStream();
 
-
-    Type getEntityType();
-
-
-    void setEntity(final Object entity);
-
-
-    void setEntity(final Object entity, final Annotation[] annotations, final MediaType mediaType);
-
-
-    Annotation[] getEntityAnnotations();
-
-
-    OutputStream getEntityStream();
-
-
-    void setEntityStream(OutputStream outputStream);
+    public void setEntityStream(OutputStream outputStream);
 }

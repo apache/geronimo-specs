@@ -8,7 +8,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -23,20 +23,25 @@ package javax.ws.rs.core;
 import javax.ws.rs.ext.RuntimeDelegate;
 import javax.ws.rs.ext.RuntimeDelegate.HeaderDelegate;
 
-
 public class Cookie {
 
-
     public static final int DEFAULT_VERSION = 1;
-    private static final HeaderDelegate<Cookie> HEADER_DELEGATE = RuntimeDelegate.getInstance().createHeaderDelegate(Cookie.class);
+
+    private static final HeaderDelegate<Cookie> HEADER_DELEGATE = RuntimeDelegate.getInstance()
+            .createHeaderDelegate(Cookie.class);
+
     private final String name;
+
     private final String value;
+
     private final int version;
+
     private final String path;
+
     private final String domain;
 
-
-    public Cookie(final String name, final String value, final String path, final String domain, final int version) throws IllegalArgumentException {
+    public Cookie(final String name, final String value, final String path, final String domain, final int version)
+            throws IllegalArgumentException {
         if (name == null) {
             throw new IllegalArgumentException("name==null");
         }
@@ -47,52 +52,42 @@ public class Cookie {
         this.path = path;
     }
 
-
     public Cookie(final String name, final String value, final String path, final String domain) throws IllegalArgumentException {
         this(name, value, path, domain, DEFAULT_VERSION);
     }
-
 
     public Cookie(final String name, final String value) throws IllegalArgumentException {
         this(name, value, null, null);
     }
 
-
     public static Cookie valueOf(final String value) {
         return HEADER_DELEGATE.fromString(value);
     }
-
 
     public String getName() {
         return name;
     }
 
-
     public String getValue() {
         return value;
     }
-
 
     public int getVersion() {
         return version;
     }
 
-
     public String getDomain() {
         return domain;
     }
-
 
     public String getPath() {
         return path;
     }
 
-
     @Override
     public String toString() {
         return HEADER_DELEGATE.toString(this);
     }
-
 
     @Override
     public int hashCode() {
@@ -105,8 +100,7 @@ public class Cookie {
         return hash;
     }
 
-
-    @SuppressWarnings({"StringEquality", "RedundantIfStatement"})
+    @SuppressWarnings({ "StringEquality", "RedundantIfStatement" })
     @Override
     public boolean equals(final Object obj) {
         if (obj == null) {

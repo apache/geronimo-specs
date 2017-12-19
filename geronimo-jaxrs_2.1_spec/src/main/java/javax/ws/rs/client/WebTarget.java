@@ -8,7 +8,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -20,53 +20,40 @@
 
 package javax.ws.rs.client;
 
-import javax.ws.rs.core.Configurable;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.UriBuilder;
 import java.net.URI;
 import java.util.Map;
 
+import javax.ws.rs.core.Configurable;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.UriBuilder;
 
 public interface WebTarget extends Configurable<WebTarget> {
 
+    public URI getUri();
 
-    URI getUri();
+    public UriBuilder getUriBuilder();
 
+    public WebTarget path(String path);
 
-    UriBuilder getUriBuilder();
+    public WebTarget resolveTemplate(String name, Object value);
 
+    public WebTarget resolveTemplate(String name, Object value, boolean encodeSlashInPath);
 
-    WebTarget path(String path);
+    public WebTarget resolveTemplateFromEncoded(String name, Object value);
 
+    public WebTarget resolveTemplates(Map<String, Object> templateValues);
 
-    WebTarget resolveTemplate(String name, Object value);
+    public WebTarget resolveTemplates(Map<String, Object> templateValues, boolean encodeSlashInPath);
 
+    public WebTarget resolveTemplatesFromEncoded(Map<String, Object> templateValues);
 
-    WebTarget resolveTemplate(String name, Object value, boolean encodeSlashInPath);
+    public WebTarget matrixParam(String name, Object... values);
 
+    public WebTarget queryParam(String name, Object... values);
 
-    WebTarget resolveTemplateFromEncoded(String name, Object value);
+    public Invocation.Builder request();
 
+    public Invocation.Builder request(String... acceptedResponseTypes);
 
-    WebTarget resolveTemplates(Map<String, Object> templateValues);
-
-    WebTarget resolveTemplates(Map<String, Object> templateValues, boolean encodeSlashInPath);
-
-
-    WebTarget resolveTemplatesFromEncoded(Map<String, Object> templateValues);
-
-
-    WebTarget matrixParam(String name, Object... values);
-
-
-    WebTarget queryParam(String name, Object... values);
-
-
-    Invocation.Builder request();
-
-
-    Invocation.Builder request(String... acceptedResponseTypes);
-
-
-    Invocation.Builder request(MediaType... acceptedResponseTypes);
+    public Invocation.Builder request(MediaType... acceptedResponseTypes);
 }

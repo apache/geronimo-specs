@@ -17,10 +17,20 @@
  * limitations under the License.
  * #L%
  */
+package javax.ws.rs.sse;
 
-package javax.ws.rs.ext;
+public interface SseEvent {
 
-public interface ContextResolver<T> {
+    long RECONNECT_NOT_SET = -1;
 
-    T getContext(Class<?> type);
+    String getId();
+
+    String getName();
+
+    String getComment();
+
+    long getReconnectDelay();
+
+    boolean isReconnectDelaySet();
+
 }

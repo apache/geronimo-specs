@@ -8,7 +8,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -20,28 +20,23 @@
 
 package javax.ws.rs.core;
 
-import javax.ws.rs.core.Response.ResponseBuilder;
 import java.util.Date;
 import java.util.List;
 
+import javax.ws.rs.core.Response.ResponseBuilder;
 
 public interface Request {
 
+    public String getMethod();
 
-    String getMethod();
+    public Variant selectVariant(List<Variant> variants);
 
+    public ResponseBuilder evaluatePreconditions(EntityTag eTag);
 
-    Variant selectVariant(List<Variant> variants);
+    public ResponseBuilder evaluatePreconditions(Date lastModified);
 
+    public ResponseBuilder evaluatePreconditions(Date lastModified, EntityTag eTag);
 
-    ResponseBuilder evaluatePreconditions(EntityTag eTag);
+    public ResponseBuilder evaluatePreconditions();
 
-
-    ResponseBuilder evaluatePreconditions(Date lastModified);
-
-
-    ResponseBuilder evaluatePreconditions(Date lastModified, EntityTag eTag);
-
-
-    ResponseBuilder evaluatePreconditions();
 }

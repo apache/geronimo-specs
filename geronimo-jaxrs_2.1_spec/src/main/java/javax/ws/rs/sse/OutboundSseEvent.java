@@ -17,21 +17,41 @@
  * limitations under the License.
  * #L%
  */
+package javax.ws.rs.sse;
 
-package javax.ws.rs.ext;
-
-import java.io.InputStream;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 
+import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.MultivaluedMap;
 
-public interface MessageBodyReader<T> {
+public interface OutboundSseEvent extends SseEvent {
 
-    public boolean isReadable(Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType);
+    interface Builder {
 
-    public T readFrom(Class<T> type, Type genericType, Annotation[] annotations, MediaType mediaType,
-            MultivaluedMap<String, String> httpHeaders, InputStream entityStream)
-            throws java.io.IOException, javax.ws.rs.WebApplicationException;
+        Builder id(String id);
+
+        public Builder name(String name);
+
+        Builder reconnectDelay(long milliseconds);
+
+        Builder mediaType(final MediaType mediaType);
+
+        Builder comment(String comment);
+
+        Builder data(Class type, Object data);
+
+        Builder data(GenericType type, Object data);
+
+        Builder data(Object data);
+
+        OutboundSseEvent build();
+    }
+
+    Class<?> getType();
+
+    Type getGenericType();
+
+    MediaType getMediaType();
+
+    Object getData();
 }

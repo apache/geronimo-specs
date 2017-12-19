@@ -8,7 +8,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -22,36 +22,25 @@ package javax.ws.rs.core;
 
 import java.util.Map;
 
-
 public interface Configurable<C extends Configurable> {
 
+    public Configuration getConfiguration();
 
-    Configuration getConfiguration();
+    public C property(String name, Object value);
 
+    public C register(Class<?> componentClass);
 
-    C property(String name, Object value);
+    public C register(Class<?> componentClass, int priority);
 
+    public C register(Class<?> componentClass, Class<?>... contracts);
 
-    C register(Class<?> componentClass);
+    public C register(Class<?> componentClass, Map<Class<?>, Integer> contracts);
 
+    public C register(Object component);
 
-    C register(Class<?> componentClass, int priority);
+    public C register(Object component, int priority);
 
+    public C register(Object component, Class<?>... contracts);
 
-    C register(Class<?> componentClass, Class<?>... contracts);
-
-
-    C register(Class<?> componentClass, Map<Class<?>, Integer> contracts);
-
-
-    C register(Object component);
-
-
-    C register(Object component, int priority);
-
-
-    C register(Object component, Class<?>... contracts);
-
-
-    C register(Object component, Map<Class<?>, Integer> contracts);
+    public C register(Object component, Map<Class<?>, Integer> contracts);
 }

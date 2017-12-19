@@ -8,7 +8,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -20,8 +20,6 @@
 
 package javax.ws.rs.ext;
 
-import org.apache.geronimo.osgi.locator.ProviderLocator;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -30,10 +28,15 @@ import java.io.InputStreamReader;
 import java.util.Properties;
 import java.util.logging.Logger;
 
+import org.apache.geronimo.osgi.locator.ProviderLocator;
+
 // same as ClientFinder mainly but we want it to be hidden (package scoped)
 final class RuntimeDelegateFinder {
+
     private static final Logger LOGGER = Logger.getLogger(RuntimeDelegateFinder.class.getName());
+
     private static final String FACTORY_ID = RuntimeDelegate.class.getName();
+
     private static final String SERVICE_ID = "META-INF/services/" + FACTORY_ID;
 
     static Object find(final String defaultClazz) throws ClassNotFoundException {
@@ -65,7 +68,8 @@ final class RuntimeDelegateFinder {
         }
 
         try {
-            final File f = new File(System.getProperty("java.home") + File.separator + "lib" + File.separator + "jaxrs.properties");
+            final File f = new File(
+                    System.getProperty("java.home") + File.separator + "lib" + File.separator + "jaxrs.properties");
             if (f.exists()) {
                 final Properties props = new Properties();
                 props.load(new FileInputStream(f));

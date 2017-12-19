@@ -8,7 +8,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -20,37 +20,29 @@
 
 package javax.ws.rs.client;
 
+import java.net.URI;
+
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
 import javax.ws.rs.core.Configurable;
 import javax.ws.rs.core.Link;
 import javax.ws.rs.core.UriBuilder;
-import java.net.URI;
-
 
 public interface Client extends Configurable<Client> {
 
+    public void close();
 
-    void close();
+    public WebTarget target(String uri);
 
+    public WebTarget target(URI uri);
 
-    WebTarget target(String uri);
+    public WebTarget target(UriBuilder uriBuilder);
 
+    public WebTarget target(Link link);
 
-    WebTarget target(URI uri);
+    public Invocation.Builder invocation(Link link);
 
+    public SSLContext getSslContext();
 
-    WebTarget target(UriBuilder uriBuilder);
-
-
-    WebTarget target(Link link);
-
-
-    Invocation.Builder invocation(Link link);
-
-
-    SSLContext getSslContext();
-
-
-    HostnameVerifier getHostnameVerifier();
+    public HostnameVerifier getHostnameVerifier();
 }
