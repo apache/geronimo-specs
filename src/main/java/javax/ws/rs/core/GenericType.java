@@ -8,7 +8,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -28,21 +28,27 @@ import java.lang.reflect.TypeVariable;
 import java.util.Arrays;
 import java.util.Stack;
 
-
 public class GenericType<T> {
-
 
     private final Type type;
 
     private final Class<?> rawType;
 
+    public static GenericType forInstance(final Object instance) {
+        final GenericType genericType;
+        if (instance instanceof GenericEntity) {
+            genericType = new GenericType(((GenericEntity) instance).getType());
+        } else {
+            genericType = (instance == null) ? null : new GenericType(instance.getClass());
+        }
+        return genericType;
+    }
 
     protected GenericType() {
-
+        // Get the type parameter of GenericType<T> (aka the T value)
         type = getTypeArgument(getClass(), GenericType.class);
         rawType = getClass(type);
     }
-
 
     public GenericType(Type genericType) {
         if (genericType == null) {
@@ -53,16 +59,13 @@ public class GenericType<T> {
         rawType = getClass(type);
     }
 
-
     public final Type getType() {
         return type;
     }
 
-
     public final Class<?> getRawType() {
         return rawType;
     }
-
 
     private static Class getClass(Type type) {
         if (type instanceof Class) {
@@ -77,10 +80,9 @@ public class GenericType<T> {
             final Class<?> componentRawType = getClass(array.getGenericComponentType());
             return getArrayClass(componentRawType);
         }
-        throw new IllegalArgumentException("Type parameter " + type.toString() + " not a class or " +
-            "parameterized type whose raw type is a class");
+        throw new IllegalArgumentException(
+                "Type parameter " + type.toString() + " not a class or " + "parameterized type whose raw type is a class");
     }
-
 
     private static Class getArrayClass(Class c) {
         try {
@@ -91,9 +93,8 @@ public class GenericType<T> {
         }
     }
 
-
     static Type getTypeArgument(Class<?> clazz, Class<?> baseClass) {
-
+        // collect superclasses
         Stack<Type> superclasses = new Stack<Type>();
         Type currentType;
         Class<?> currentClass = clazz;
@@ -107,7 +108,7 @@ public class GenericType<T> {
             }
         } while (!currentClass.equals(baseClass));
 
-
+        // find which one supplies type argument and return it
         TypeVariable tv = baseClass.getTypeParameters()[0];
         while (!superclasses.isEmpty()) {
             currentType = superclasses.pop();
@@ -119,18 +120,18 @@ public class GenericType<T> {
                 if (argIndex > -1) {
                     Type typeArg = pt.getActualTypeArguments()[argIndex];
                     if (typeArg instanceof TypeVariable) {
-
-
+                        // type argument is another type variable - look for the value of that
+                        // variable in subclasses
                         tv = (TypeVariable) typeArg;
                         continue;
                     } else {
-
+                        // found the value - return it
                         return typeArg;
                     }
                 }
             }
 
-
+            // needed type argument not supplied - break and throw exception
             break;
         }
         throw new IllegalArgumentException(currentType + " does not specify the type parameter T of GenericType<T>");
@@ -140,7 +141,7 @@ public class GenericType<T> {
     public boolean equals(Object obj) {
         boolean result = this == obj;
         if (!result && obj instanceof GenericType) {
-
+            // Compare inner type for equality
             GenericType<?> that = (GenericType<?>) obj;
             return this.type.equals(that.type);
         }

@@ -20,11 +20,6 @@
 
 package javax.ws.rs.client;
 
-import javax.ws.rs.core.Configuration;
-import javax.ws.rs.core.Cookie;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.Response;
 import java.io.OutputStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
@@ -35,93 +30,75 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.ws.rs.core.Configuration;
+import javax.ws.rs.core.Cookie;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.core.Response;
 
 public interface ClientRequestContext {
 
-
-    Object getProperty(String name);
-
-
-    Collection<String> getPropertyNames();
+    public Object getProperty(String name);
 
 
-    void setProperty(String name, Object object);
+    public Collection<String> getPropertyNames();
 
 
-    void removeProperty(String name);
+    public void setProperty(String name, Object object);
+
+    public void removeProperty(String name);
+
+    public URI getUri();
+
+    public void setUri(URI uri);
+
+    public String getMethod();
+
+    public void setMethod(String method);
+
+    public MultivaluedMap<String, Object> getHeaders();
+
+    public abstract MultivaluedMap<String, String> getStringHeaders();
+
+    public String getHeaderString(String name);
+
+    public Date getDate();
+
+    public Locale getLanguage();
+
+    public MediaType getMediaType();
+
+    public List<MediaType> getAcceptableMediaTypes();
+
+    public List<Locale> getAcceptableLanguages();
+
+    public Map<String, Cookie> getCookies();
+
+    public boolean hasEntity();
+
+    public Object getEntity();
+
+    public Class<?> getEntityClass();
+
+    public Type getEntityType();
+
+    public void setEntity(final Object entity);
+
+    public void setEntity(
+            final Object entity,
+            final Annotation[] annotations,
+            final MediaType mediaType);
+
+    public Annotation[] getEntityAnnotations();
 
 
-    URI getUri();
+    public OutputStream getEntityStream();
 
+    public void setEntityStream(OutputStream outputStream);
 
-    void setUri(URI uri);
+    public Client getClient();
 
+    public Configuration getConfiguration();
 
-    String getMethod();
-
-
-    void setMethod(String method);
-
-
-    MultivaluedMap<String, Object> getHeaders();
-
-
-    abstract MultivaluedMap<String, String> getStringHeaders();
-
-
-    String getHeaderString(String name);
-
-
-    Date getDate();
-
-
-    Locale getLanguage();
-
-
-    MediaType getMediaType();
-
-
-    List<MediaType> getAcceptableMediaTypes();
-
-
-    List<Locale> getAcceptableLanguages();
-
-
-    Map<String, Cookie> getCookies();
-
-
-    boolean hasEntity();
-
-
-    Object getEntity();
-
-
-    Class<?> getEntityClass();
-
-
-    Type getEntityType();
-
-
-    void setEntity(final Object entity);
-
-
-    void setEntity(final Object entity, final Annotation[] annotations, final MediaType mediaType);
-
-
-    Annotation[] getEntityAnnotations();
-
-
-    OutputStream getEntityStream();
-
-
-    void setEntityStream(OutputStream outputStream);
-
-
-    Client getClient();
-
-
-    Configuration getConfiguration();
-
-
-    void abortWith(Response response);
+    public void abortWith(Response response);
 }

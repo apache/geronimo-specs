@@ -8,7 +8,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -20,15 +20,15 @@
 
 package javax.ws.rs;
 
-import javax.ws.rs.core.Response;
+import static javax.ws.rs.core.HttpHeaders.WWW_AUTHENTICATE;
+import static javax.ws.rs.core.Response.Status.UNAUTHORIZED;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static javax.ws.rs.core.HttpHeaders.WWW_AUTHENTICATE;
-import static javax.ws.rs.core.Response.Status.UNAUTHORIZED;
-
+import javax.ws.rs.core.Response;
 
 public class NotAuthorizedException extends ClientErrorException {
 
@@ -36,50 +36,41 @@ public class NotAuthorizedException extends ClientErrorException {
 
     private transient List<Object> challenges;
 
-
     public NotAuthorizedException(Object challenge, Object... moreChallenges) {
         super(createUnauthorizedResponse(challenge, moreChallenges));
         this.challenges = cacheChallenges(challenge, moreChallenges);
     }
-
 
     public NotAuthorizedException(String message, Object challenge, Object... moreChallenges) {
         super(message, createUnauthorizedResponse(challenge, moreChallenges));
         this.challenges = cacheChallenges(challenge, moreChallenges);
     }
 
-
     public NotAuthorizedException(Response response) {
         super(validate(response, UNAUTHORIZED));
     }
 
-
     public NotAuthorizedException(String message, Response response) {
         super(message, validate(response, UNAUTHORIZED));
     }
-
 
     public NotAuthorizedException(Throwable cause, Object challenge, Object... moreChallenges) {
         super(createUnauthorizedResponse(challenge, moreChallenges), cause);
         this.challenges = cacheChallenges(challenge, moreChallenges);
     }
 
-
     public NotAuthorizedException(String message, Throwable cause, Object challenge, Object... moreChallenges) {
         super(message, createUnauthorizedResponse(challenge, moreChallenges), cause);
         this.challenges = cacheChallenges(challenge, moreChallenges);
     }
 
-
     public NotAuthorizedException(Response response, Throwable cause) {
         super(validate(response, UNAUTHORIZED), cause);
     }
 
-
     public NotAuthorizedException(String message, Response response, Throwable cause) {
         super(message, validate(response, UNAUTHORIZED), cause);
     }
-
 
     public List<Object> getChallenges() {
         if (challenges == null) {

@@ -18,7 +18,7 @@
  * #L%
  */
 
-package javax.ws.rs.client;
+package javax.ws.rs.sse;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -28,14 +28,15 @@ import java.io.InputStreamReader;
 import java.util.Properties;
 import java.util.logging.Logger;
 
+import javax.ws.rs.client.ClientBuilder;
+
 import org.apache.geronimo.osgi.locator.ProviderLocator;
 
-// pretty much the RI logic to go in java home too
-final class ClientFinder {
+final class SseFinder {
 
-    private static final Logger LOGGER = Logger.getLogger(ClientFinder.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(SseFinder.class.getName());
 
-    private static final String FACTORY_ID = ClientBuilder.class.getName();
+    private static final String FACTORY_ID = SseEventSource.Builder.class.getName().replace('$', '.');
 
     private static final String SERVICE_ID = "META-INF/services/" + FACTORY_ID;
 
@@ -113,7 +114,7 @@ final class ClientFinder {
                     spiClass = Class.forName(className);
                 }
             }
-            return spiClass.newInstance();
+            return spiClass.getConstructor().newInstance();
         } catch (final ClassNotFoundException x) {
             throw x;
         } catch (final Exception x) {
@@ -121,7 +122,7 @@ final class ClientFinder {
         }
     }
 
-    private ClientFinder() {
+    private SseFinder() {
         // no-op
     }
 }

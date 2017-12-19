@@ -20,12 +20,6 @@
 
 package javax.ws.rs.client;
 
-import javax.ws.rs.core.EntityTag;
-import javax.ws.rs.core.Link;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.NewCookie;
-import javax.ws.rs.core.Response;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Date;
@@ -33,72 +27,56 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
+import javax.ws.rs.core.EntityTag;
+import javax.ws.rs.core.Link;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.core.NewCookie;
+import javax.ws.rs.core.Response;
 
 public interface ClientResponseContext {
 
-
     public int getStatus();
-
 
     public void setStatus(int code);
 
-
     public Response.StatusType getStatusInfo();
-
 
     public void setStatusInfo(Response.StatusType statusInfo);
 
-
     public MultivaluedMap<String, String> getHeaders();
-
 
     public String getHeaderString(String name);
 
-
     public Set<String> getAllowedMethods();
-
 
     public Date getDate();
 
-
     public Locale getLanguage();
-
 
     public int getLength();
 
-
     public MediaType getMediaType();
-
 
     public Map<String, NewCookie> getCookies();
 
-
     public EntityTag getEntityTag();
-
 
     public Date getLastModified();
 
-
     public URI getLocation();
-
 
     public Set<Link> getLinks();
 
-
     boolean hasLink(String relation);
-
 
     public Link getLink(String relation);
 
-
     public Link.Builder getLinkBuilder(String relation);
-
 
     public boolean hasEntity();
 
-
     public InputStream getEntityStream();
-
 
     public void setEntityStream(InputStream input);
 }

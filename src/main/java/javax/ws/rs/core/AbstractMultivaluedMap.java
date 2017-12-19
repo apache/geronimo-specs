@@ -8,7 +8,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -26,12 +26,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-
 public abstract class AbstractMultivaluedMap<K, V> implements MultivaluedMap<K, V> {
 
-
     protected final Map<K, List<V>> store;
-
 
     public AbstractMultivaluedMap(Map<K, List<V>> store) {
         if (store == null) {
@@ -39,7 +36,6 @@ public abstract class AbstractMultivaluedMap<K, V> implements MultivaluedMap<K, 
         }
         this.store = store;
     }
-
 
     @Override
     public final void putSingle(K key, V value) {
@@ -53,18 +49,15 @@ public abstract class AbstractMultivaluedMap<K, V> implements MultivaluedMap<K, 
         }
     }
 
-
     @SuppressWarnings("UnusedParameters")
     protected void addNull(List<V> values) {
 
     }
 
-
     @SuppressWarnings("UnusedParameters")
     protected void addFirstNull(List<V> values) {
 
     }
-
 
     @Override
     public final void add(K key, V value) {
@@ -76,7 +69,6 @@ public abstract class AbstractMultivaluedMap<K, V> implements MultivaluedMap<K, 
             addNull(values);
         }
     }
-
 
     @Override
     public final void addAll(K key, V... newValues) {
@@ -97,7 +89,6 @@ public abstract class AbstractMultivaluedMap<K, V> implements MultivaluedMap<K, 
             }
         }
     }
-
 
     @Override
     public final void addAll(K key, List<V> valueList) {
@@ -129,7 +120,6 @@ public abstract class AbstractMultivaluedMap<K, V> implements MultivaluedMap<K, 
         }
     }
 
-
     @Override
     public final void addFirst(K key, V value) {
         List<V> values = getValues(key);
@@ -140,7 +130,6 @@ public abstract class AbstractMultivaluedMap<K, V> implements MultivaluedMap<K, 
             addFirstNull(values);
         }
     }
-
 
     protected final List<V> getValues(K key) {
         List<V> l = store.get(key);
@@ -156,12 +145,10 @@ public abstract class AbstractMultivaluedMap<K, V> implements MultivaluedMap<K, 
         return store.toString();
     }
 
-
     @Override
     public int hashCode() {
         return store.hashCode();
     }
-
 
     @Override
     @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")

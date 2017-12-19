@@ -8,7 +8,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -22,27 +22,21 @@ package javax.ws.rs.core;
 
 import java.security.Principal;
 
-
 public interface SecurityContext {
 
+    public static final String BASIC_AUTH = "BASIC";
 
-    String BASIC_AUTH = "BASIC";
+    public static final String CLIENT_CERT_AUTH = "CLIENT_CERT";
 
-    String CLIENT_CERT_AUTH = "CLIENT_CERT";
+    public static final String DIGEST_AUTH = "DIGEST";
 
-    String DIGEST_AUTH = "DIGEST";
+    public static final String FORM_AUTH = "FORM";
 
-    String FORM_AUTH = "FORM";
+    public Principal getUserPrincipal();
 
+    public boolean isUserInRole(String role);
 
-    Principal getUserPrincipal();
+    public boolean isSecure();
 
-
-    boolean isUserInRole(String role);
-
-
-    boolean isSecure();
-
-
-    String getAuthenticationScheme();
+    public String getAuthenticationScheme();
 }

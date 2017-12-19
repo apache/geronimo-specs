@@ -8,7 +8,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -20,97 +20,77 @@
 
 package javax.ws.rs.client;
 
+import java.util.Locale;
+import java.util.concurrent.Future;
+
 import javax.ws.rs.core.CacheControl;
 import javax.ws.rs.core.Cookie;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
-import java.util.Locale;
-import java.util.concurrent.Future;
-
 
 public interface Invocation {
 
+    public static interface Builder extends SyncInvoker {
 
-    static interface Builder extends SyncInvoker {
+        // Invocation builder methods
 
+        public Invocation build(String method);
 
-        Invocation build(String method);
+        public Invocation build(String method, Entity<?> entity);
 
+        public Invocation buildGet();
 
-        Invocation build(String method, Entity<?> entity);
+        public Invocation buildDelete();
 
+        public Invocation buildPost(Entity<?> entity);
 
-        Invocation buildGet();
+        public Invocation buildPut(Entity<?> entity);
 
+        public AsyncInvoker async();
 
-        Invocation buildDelete();
+        public Builder accept(String... mediaTypes);
 
+        public Builder accept(MediaType... mediaTypes);
 
-        Invocation buildPost(Entity<?> entity);
+        public Builder acceptLanguage(Locale... locales);
 
+        public Builder acceptLanguage(String... locales);
 
-        Invocation buildPut(Entity<?> entity);
+        public Builder acceptEncoding(String... encodings);
 
+        public Builder cookie(Cookie cookie);
 
-        AsyncInvoker async();
+        public Builder cookie(String name, String value);
 
+        public Builder cacheControl(CacheControl cacheControl);
 
-        Builder accept(String... mediaTypes);
+        public Builder header(String name, Object value);
 
+        public Builder headers(MultivaluedMap<String, Object> headers);
 
-        Builder accept(MediaType... mediaTypes);
+        public Builder property(String name, Object value);
 
+        public CompletionStageRxInvoker rx();
 
-        Builder acceptLanguage(Locale... locales);
+        public <T extends RxInvoker> T rx(Class<T> clazz);
 
-
-        Builder acceptLanguage(String... locales);
-
-
-        Builder acceptEncoding(String... encodings);
-
-
-        Builder cookie(Cookie cookie);
-
-
-        Builder cookie(String name, String value);
-
-
-        Builder cacheControl(CacheControl cacheControl);
-
-
-        Builder header(String name, Object value);
-
-
-        Builder headers(MultivaluedMap<String, Object> headers);
-
-
-        Builder property(String name, Object value);
     }
 
+    public Invocation property(String name, Object value);
 
-    Invocation property(String name, Object value);
+    public Response invoke();
 
+    public <T> T invoke(Class<T> responseType);
 
-    Response invoke();
+    public <T> T invoke(GenericType<T> responseType);
 
+    public Future<Response> submit();
 
-    <T> T invoke(Class<T> responseType);
+    public <T> Future<T> submit(Class<T> responseType);
 
+    public <T> Future<T> submit(GenericType<T> responseType);
 
-    <T> T invoke(GenericType<T> responseType);
-
-
-    Future<Response> submit();
-
-
-    <T> Future<T> submit(Class<T> responseType);
-
-
-    <T> Future<T> submit(GenericType<T> responseType);
-
-
-    <T> Future<T> submit(InvocationCallback<T> callback);
+    public <T> Future<T> submit(InvocationCallback<T> callback);
 }

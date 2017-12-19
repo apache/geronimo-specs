@@ -8,7 +8,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -22,20 +22,17 @@ package javax.ws.rs.core;
 
 import java.io.IOException;
 
-
 public class NoContentException extends IOException {
-    private static final long serialVersionUID = -3082577759787473245L;
 
+    private static final long serialVersionUID = -3082577759787473245L;
 
     public NoContentException(String message) {
         super(message);
     }
 
-
     public NoContentException(String message, Throwable cause) {
         super(message, cause);
     }
-
 
     public NoContentException(Throwable cause) {
         super(cause);

@@ -18,5 +18,14 @@
  * #L%
  */
 
+package javax.ws.rs.client;
 
-package javax.ws.rs.container;
+import java.util.concurrent.ExecutorService;
+
+public interface RxInvokerProvider<T extends RxInvoker> {
+
+    public boolean isProviderFor(Class<?> clazz);
+
+    public T getRxInvoker(SyncInvoker syncInvoker, ExecutorService executorService);
+
+}

@@ -8,7 +8,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -26,12 +26,10 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-
-@Target({ElementType.ANNOTATION_TYPE})
+@Target({ ElementType.ANNOTATION_TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface HttpMethod {
-
 
     public static final String GET = "GET";
 
@@ -41,10 +39,11 @@ public @interface HttpMethod {
 
     public static final String DELETE = "DELETE";
 
+    public static final String PATCH = "PATCH";
+
     public static final String HEAD = "HEAD";
 
     public static final String OPTIONS = "OPTIONS";
-
 
     String value();
 }

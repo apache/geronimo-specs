@@ -20,14 +20,18 @@
 
 package javax.ws.rs.client;
 
+import java.security.KeyStore;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
 import javax.ws.rs.core.Configurable;
 import javax.ws.rs.core.Configuration;
-import java.security.KeyStore;
-
 
 public abstract class ClientBuilder implements Configurable<ClientBuilder> {
+
     public static final String JAXRS_DEFAULT_CLIENT_BUILDER_PROPERTY = "javax.ws.rs.client.ClientBuilder";
 
     protected ClientBuilder() {
@@ -47,36 +51,35 @@ public abstract class ClientBuilder implements Configurable<ClientBuilder> {
         }
     }
 
-
     public static Client newClient() {
         return newBuilder().build();
     }
-
 
     public static Client newClient(final Configuration configuration) {
         return newBuilder().withConfig(configuration).build();
     }
 
-
     public abstract ClientBuilder withConfig(Configuration config);
-
 
     public abstract ClientBuilder sslContext(final SSLContext sslContext);
 
-
     public abstract ClientBuilder keyStore(final KeyStore keyStore, final char[] password);
-
 
     public ClientBuilder keyStore(final KeyStore keyStore, final String password) {
         return keyStore(keyStore, password.toCharArray());
     }
 
-
     public abstract ClientBuilder trustStore(final KeyStore trustStore);
-
 
     public abstract ClientBuilder hostnameVerifier(final HostnameVerifier verifier);
 
+    public abstract ClientBuilder executorService(final ExecutorService executorService);
+
+    public abstract ClientBuilder scheduledExecutorService(final ScheduledExecutorService scheduledExecutorService);
+
+    public abstract ClientBuilder connectTimeout(long timeout, TimeUnit unit);
+
+    public abstract ClientBuilder readTimeout(long timeout, TimeUnit unit);
 
     public abstract Client build();
 }

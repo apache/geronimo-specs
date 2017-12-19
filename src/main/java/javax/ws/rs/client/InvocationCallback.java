@@ -20,12 +20,9 @@
 
 package javax.ws.rs.client;
 
-
 public interface InvocationCallback<RESPONSE> {
 
-
     public void completed(RESPONSE response);
-
 
     public void failed(Throwable throwable);
 }
