@@ -29,11 +29,11 @@
   </parent>
 
   <groupId>org.apache.geronimo.specs</groupId>
-  <artifactId>geronimo-jaxrs_2.0_spec</artifactId>
+  <artifactId>geronimo-jaxrs_2.1_spec</artifactId>
   <packaging>bundle</packaging>
   <name>Apache Geronimo JAX-RS Spec 2.0</name>
-  <version>1.1-SNAPSHOT</version>
-  <description>Java API for RESTful Web Services 2.0</description>
+  <version>1.0-SNAPSHOT</version>
+  <description>Java API for RESTful Web Services 2.1</description>
 
   <url>http://geronimo.apache.org/maven/${siteId}/${project.version}</url>
   <distributionManagement>
@@ -48,9 +48,9 @@
   </properties>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jaxrs_2.0_spec/</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jaxrs_2.0_spec/</developerConnection>
-    <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-jaxrs_2.0_spec/</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jaxrs_2.1_spec/</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jaxrs_2.1_spec/</developerConnection>
+    <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-jaxrs_2.1_spec/</url>
   </scm>
 
   <dependencies>
@@ -71,10 +71,10 @@
         <configuration>
           <instructions>
             <Bundle-SymbolicName>${project.groupId}.${project.artifactId};singleton=true</Bundle-SymbolicName>
-            <Specification-Title>JSR-339 Java RESTful Web Services 1.1</Specification-Title>
+            <Specification-Title>JSR-370 Java RESTful Web Services 2.1</Specification-Title>
             <Specification-Vendor>Sun Microsystems, Inc.</Specification-Vendor>
             <Specification-Version>1.1</Specification-Version>
-            <Export-Package>javax.ws.rs*;version=1.1</Export-Package>
+            <Export-Package>javax.ws.rs*;version=2.1</Export-Package>
             <Import-Package>org.apache.geronimo.osgi.registry.api;resolution:=optional,*</Import-Package>
             <Private-Package>org.apache.geronimo.osgi.locator</Private-Package>
             <Bundle-Activator>org.apache.geronimo.osgi.locator.Activator</Bundle-Activator>
