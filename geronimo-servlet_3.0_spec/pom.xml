@@ -49,6 +49,7 @@
 
     <properties>
         <siteId>specs/${artifactId}</siteId>
+        <automatic.module.name>javax.servlet</automatic.module.name>
     </properties>
 
     <scm>
@@ -126,6 +127,28 @@
                                 <!--RAT doesn't seem to recognize MIT style licenses-->
                                 <exclude>manual/src/styles/print.css</exclude>
                             </excludes>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-jar-plugin</artifactId>
+                        <configuration>
+                            <archive>
+                                <manifestEntries>
+                                    <automatic.module.name>javax.servlet</automatic.module.name>
+                                </manifestEntries>
+                            </archive>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-jar-plugin</artifactId>
+                        <configuration>
+                            <archive>
+                                <manifestEntries>
+                                    <Automatic-Module-Name>${automatic.module.name}</Automatic-Module-Name>
+                                </manifestEntries>
+                            </archive>
                         </configuration>
                     </plugin>
                 </plugins>

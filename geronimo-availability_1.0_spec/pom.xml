@@ -48,6 +48,7 @@
 
     <properties>
         <siteId>specs/${artifactId}</siteId>
+        <automatic.module.name>javax.availability.management</automatic.module.name>
     </properties>
 
     <scm>
@@ -65,6 +66,17 @@
                 <instructions>
                   <Export-Package>javax.availability.management*;version=1.0</Export-Package>
                 </instructions>
+            </configuration>
+        </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <configuration>
+                <archive>
+                    <manifestEntries>
+                        <Automatic-Module-Name>${automatic.module.name}</Automatic-Module-Name>
+                    </manifestEntries>
+                </archive>
             </configuration>
         </plugin>
       </plugins>

@@ -47,6 +47,7 @@
 
     <properties>
         <siteId>specs/${artifactId}</siteId>
+        <automatic.module.name>javax.jms</automatic.module.name>
     </properties>
 
     <dependencies>
@@ -87,6 +88,17 @@
                     <instructions>
                         <Export-Package>javax.jms*;version=1.1</Export-Package>
                     </instructions>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <Automatic-Module-Name>${automatic.module.name}</Automatic-Module-Name>
+                        </manifestEntries>
+                    </archive>
                 </configuration>
             </plugin>
         </plugins>

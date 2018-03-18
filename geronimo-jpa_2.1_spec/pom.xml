@@ -49,6 +49,7 @@
 
   <properties>
     <siteId>specs/${project.artifactId}</siteId>
+    <automatic.module.name>javax.persistence</automatic.module.name>
   </properties>
 
   <scm>
@@ -152,6 +153,17 @@
             </Import-Package>
           </instructions>
           <unpackBundle>true</unpackBundle>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifestEntries>
+              <Automatic-Module-Name>${automatic.module.name}</Automatic-Module-Name>
+            </manifestEntries>
+          </archive>
         </configuration>
       </plugin>
     </plugins>

@@ -48,6 +48,7 @@
 
     <properties>
         <siteId>specs/${artifactId}</siteId>
+        <automatic.module.name>commonj</automatic.module.name>
     </properties>
 
     <scm>
@@ -66,6 +67,17 @@
                         <!-- TODO import and export of java packages cannot be specified.  Is this really a java spec rather than javax?? -->
                         <Export-Package>java.commonj*;version=1.1</Export-Package>
                     </instructions>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <Automatic-Module-Name>${automatic.module.name}</Automatic-Module-Name>
+                        </manifestEntries>
+                    </archive>
                 </configuration>
             </plugin>
         </plugins>

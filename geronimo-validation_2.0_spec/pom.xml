@@ -48,6 +48,7 @@
 
     <properties>
         <siteId>specs/${project.artifactId}</siteId>
+        <automatic.module.name>javax.validation</automatic.module.name>
     </properties>
 
     <scm>
@@ -113,8 +114,18 @@
                         <Import-Package>org.apache.geronimo.osgi.registry.api;resolution:=optional,*</Import-Package>
                         <Private-Package>org.apache.geronimo.osgi.locator</Private-Package>
                         <Bundle-Activator>org.apache.geronimo.osgi.locator.Activator</Bundle-Activator>
-                        <Automatic-Module-Name>java.validation</Automatic-Module-Name>
                     </instructions>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <Automatic-Module-Name>${automatic.module.name}</Automatic-Module-Name>
+                        </manifestEntries>
+                    </archive>
                 </configuration>
             </plugin>
         </plugins>

@@ -51,6 +51,7 @@
 
     <geronimo.osgi.export.pkg>javax.enterprise.concurrent*</geronimo.osgi.export.pkg>
     <geronimo.osgi.export.version>1.0</geronimo.osgi.export.version>
+    <automatic.module.name>javax.enterprise.concurrent</automatic.module.name>
   </properties>
 
   <scm>
@@ -69,6 +70,17 @@
           <instructions>
             <Export-Package>javax.enterprise.concurrent*;version=1.0</Export-Package>
           </instructions>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifestEntries>
+              <Automatic-Module-Name>${automatic.module.name}</Automatic-Module-Name>
+            </manifestEntries>
+          </archive>
         </configuration>
       </plugin>
     </plugins>

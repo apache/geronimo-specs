@@ -42,6 +42,7 @@
 
     <properties>
         <siteId>specs/${project.artifactId}</siteId>
+        <automatic.module.name>javax.batch</automatic.module.name>
     </properties>
 
     <scm>
@@ -99,6 +100,17 @@
                 <configuration>
                     <target>1.6</target>
                     <source>1.6</source>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <Automatic-Module-Name>${automatic.module.name}</Automatic-Module-Name>
+                        </manifestEntries>
+                    </archive>
                 </configuration>
             </plugin>
         </plugins>

@@ -47,6 +47,7 @@
 
     <properties>
         <siteId>specs/${artifactId}</siteId>
+        <automatic.module.name>javax.annotation</automatic.module.name>
     </properties>
 
     <scm>
@@ -69,6 +70,17 @@
                         <Specification-Version>1.2</Specification-Version>
                         <Export-Package>javax.annotation*;version=1.2</Export-Package>
                     </instructions>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <Automatic-Module-Name>${automatic.module.name}</Automatic-Module-Name>
+                        </manifestEntries>
+                    </archive>
                 </configuration>
             </plugin>
         </plugins>
