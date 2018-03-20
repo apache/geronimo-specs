@@ -36,7 +36,7 @@ final class SseFinder {
 
     private static final Logger LOGGER = Logger.getLogger(SseFinder.class.getName());
 
-    private static final String FACTORY_ID = SseEventSource.Builder.class.getName().replace('$', '.');
+    private static final String FACTORY_ID = SseEventSource.Builder.class.getName();
 
     private static final String SERVICE_ID = "META-INF/services/" + FACTORY_ID;
 
@@ -49,11 +49,19 @@ final class SseFinder {
                 return delegate;
             }
 
-            InputStream is;
+            InputStream is = null;
             if (classLoader == null) {
                 is = ClassLoader.getSystemResourceAsStream(SERVICE_ID);
             } else {
                 is = classLoader.getResourceAsStream(SERVICE_ID);
+            }
+            if (is == null) {
+                final String dottedId = SERVICE_ID.replace('$', '.');
+                if (classLoader == null) {
+                    is = ClassLoader.getSystemResourceAsStream(dottedId);
+                } else {
+                    is = classLoader.getResourceAsStream(dottedId);
+                }
             }
 
             if (is != null) {
