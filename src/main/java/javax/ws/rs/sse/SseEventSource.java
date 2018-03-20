@@ -29,7 +29,7 @@ public interface SseEventSource extends AutoCloseable {
 
     abstract class Builder {
 
-        public static final String JAXRS_DEFAULT_SSE_BUILDER_PROPERTY = "javax.ws.rs.sse.SseEventSource.Builder";
+        public static final String JAXRS_DEFAULT_SSE_BUILDER_PROPERTY = "org.apache.cxf.jaxrs.sse.client.SseEventSourceBuilderImpl";
 
         protected Builder() {
         }
