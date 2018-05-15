@@ -77,9 +77,13 @@
             <plugin>
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-bundle-plugin</artifactId>
+                <version>3.5.0</version>
                 <configuration>
                     <instructions>
                         <Export-Package>javax.ccpp*;version=1.0</Export-Package>
+                        <Provide-Capability><![CDATA[
+                            osgi.contract;osgi.contract=JavaCCPP;uses:="${packages;NAMED;javax.*}";version:List<Version>='1.0'
+                        ]]></Provide-Capability>
                     </instructions>
                 </configuration>
             </plugin>

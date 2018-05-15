@@ -65,6 +65,7 @@ other bundles.
             <plugin>
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-bundle-plugin</artifactId>
+                <version>3.5.0</version>
                 <configuration>
                     <instructions>
                         <Export-Package>org.apache.geronimo.osgi.registry.api;version=1.0</Export-Package>

@@ -190,7 +190,7 @@ OSGi-specific lookup in the Geronimo spec projects.
         <module>geronimo-osgi-locator</module>
         <module>geronimo-osgi-itesta</module>
         <module>geronimo-osgi-itestb</module>
-        <module>geronimo-osgi-registry-itests</module>
+        <!-- <module>geronimo-osgi-registry-itests</module> -->
         <module>geronimo-osgi-locator-itests</module>
     </modules>
 

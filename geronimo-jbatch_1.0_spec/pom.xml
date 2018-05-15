@@ -76,6 +76,7 @@
             <plugin>
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-bundle-plugin</artifactId>
+                <version>3.5.0</version>
                 <configuration>
                     <instructions>
                         <Specification-Version>1.0</Specification-Version>
@@ -89,6 +90,9 @@
                             javax.enterprise.util;resolution:=optional,
                             *
                         </Import-Package>
+                        <Provide-Capability><![CDATA[
+                           osgi.contract;osgi.contract=JavaBatch;uses:="${packages;NAMED;javax.*}";version:List<Version>='1.0'
+                        ]]></Provide-Capability>
                     </instructions>
                 </configuration>
             </plugin>

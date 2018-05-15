@@ -27,7 +27,7 @@
     <groupId>org.apache.geronimo.specs</groupId>
     <artifactId>geronimo-jcdi_1.0_spec</artifactId>
     <packaging>bundle</packaging>
-    <name>Apache Geronimo JSCI Spec 1.0</name>
+    <name>Apache Geronimo JCDI Spec 1.0</name>
     <version>1.1-SNAPSHOT</version>
 
     <description>Apache Geronimo implementation of the JSR-299 Context and Dependency Injection for the Java EE Platform</description>
@@ -100,6 +100,7 @@
             <plugin>
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-bundle-plugin</artifactId>
+                <version>3.5.0</version>
                 <configuration>
                     <instructions>
                         <Export-Package>
@@ -109,6 +110,11 @@
                             javax.enterprise.inject*;version=1.0,
                             javax.enterprise.util*;version=1.0
                         </Export-Package>
+                        <Specification-Version>1.0</Specification-Version>
+                        <Specification-Title>JSR-299 CDI 1.0</Specification-Title>
+                        <Provide-Capability><![CDATA[
+                           osgi.contract;osgi.contract=JavaCDI;uses:="${packages;NAMED;javax.*}";version:List<Version>='1.0'
+                        ]]></Provide-Capability>
                     </instructions>
                 </configuration>
             </plugin>

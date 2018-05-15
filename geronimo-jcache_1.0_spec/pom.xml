@@ -92,12 +92,17 @@
       <plugin>
         <groupId>org.apache.felix</groupId>
         <artifactId>maven-bundle-plugin</artifactId>
-        <version>2.0.1</version>
+        <version>3.5.0</version>
         <configuration>
           <instructions>
+            <Specification-Version>1.0</Specification-Version>
+            <Specification-Title>JSR-107 JCache 1.0</Specification-Title>
             <Export-Package>
               javax.cache*;version=1.0
             </Export-Package>
+            <Provide-Capability><![CDATA[
+               osgi.contract;osgi.contract=JavaCache;uses:="${packages;NAMED;javax.*}";version:List<Version>='1.0'
+            ]]></Provide-Capability>
           </instructions>
         </configuration>
       </plugin>
