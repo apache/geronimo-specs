@@ -75,9 +75,13 @@
             <plugin>
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-bundle-plugin</artifactId>
+                <version>3.5.0</version>
                 <configuration>
                     <instructions>
                         <Export-Package>javax.resource*;version=1.6</Export-Package>
+                        <Provide-Capability><![CDATA[
+                            osgi.contract;osgi.contract=JavaEEConnector;uses:="${packages;NAMED;javax.*}";version:List<Version>='1.6'
+                        ]]></Provide-Capability>
                     </instructions>
                 </configuration>
             </plugin>

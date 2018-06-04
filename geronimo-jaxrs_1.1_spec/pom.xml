@@ -67,6 +67,7 @@
             <plugin>
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-bundle-plugin</artifactId>
+                <version>3.5.0</version>
                 <configuration>
                     <instructions>
                         <Bundle-SymbolicName>${groupId}.${artifactId};singleton=true</Bundle-SymbolicName>
@@ -77,6 +78,9 @@
                         <Import-Package>org.apache.geronimo.osgi.registry.api;resolution:=optional,*</Import-Package>
                         <Private-Package>org.apache.geronimo.osgi.locator</Private-Package>
                         <Bundle-Activator>org.apache.geronimo.osgi.locator.Activator</Bundle-Activator>
+                        <Provide-Capability><![CDATA[
+                           osgi.contract;osgi.contract=JavaJAXRS;uses:="${packages;NAMED;javax.*}";version:List<Version>='1.1'
+                        ]]></Provide-Capability>
                     </instructions>
                 </configuration>
             </plugin>

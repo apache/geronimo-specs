@@ -125,6 +125,7 @@
             <plugin>
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-bundle-plugin</artifactId>
+                <version>3.5.0</version>
                 <configuration>
                     <instructions>
                         <Bundle-SymbolicName>${groupId}.${artifactId};singleton=true</Bundle-SymbolicName>
@@ -158,6 +159,9 @@
                             org.osgi.util.tracker;resolution:=optional,
                             org.apache.geronimo.osgi.registry.api;resolution:=optional
                         </Import-Package>
+                        <Provide-Capability><![CDATA[
+                           osgi.contract;osgi.contract=JavaJPA;uses:="${packages;NAMED;javax.*}";version:List<Version>='2.0,1.0'
+                        ]]></Provide-Capability>
                     </instructions>
                     <unpackBundle>true</unpackBundle>
                 </configuration>
