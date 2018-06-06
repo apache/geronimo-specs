@@ -107,6 +107,7 @@
                         <Provide-Capability><![CDATA[
                            osgi.contract;osgi.contract=JavaJAXWS;uses:="${packages;NAMED;javax.*}";version:List<Version>='2.1.1,2.1'
                         ]]></Provide-Capability>
+                        <_contract>JavaSAAJ, JavaJAXB, JavaSTAX, JavaActivation</_contract>
                     </instructions>
                 </configuration>
             </plugin>

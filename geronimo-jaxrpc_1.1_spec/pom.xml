@@ -97,6 +97,7 @@
                         <Provide-Capability><![CDATA[
                            osgi.contract;osgi.contract=JavaJAXRPC;uses:="${packages;NAMED;javax.*}";version:List<Version>='1.1'
                         ]]></Provide-Capability>
+                        <_contract>JavaSAAJ, JavaServlet</_contract>
                     </instructions>
                 </configuration>
             </plugin>

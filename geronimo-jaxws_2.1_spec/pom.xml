@@ -95,6 +95,7 @@
                            osgi.contract;osgi.contract=JavaJAXWS;uses:="${packages;NAMED;javax.*}";version:List<Version>='2.1'
                         ]]></Provide-Capability>
                     </instructions>
+                    <_contract>JavaSAAJ, JavaJAXB, JavaSTAX, JavaActivation</_contract>
                 </configuration>
             </plugin>
         </plugins>

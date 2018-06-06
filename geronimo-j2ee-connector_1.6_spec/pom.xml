@@ -82,6 +82,7 @@
                         <Provide-Capability><![CDATA[
                             osgi.contract;osgi.contract=JavaEEConnector;uses:="${packages;NAMED;javax.*}";version:List<Version>='1.6'
                         ]]></Provide-Capability>
+                        <_contract>JavaJTA</_contract>
                     </instructions>
                 </configuration>
             </plugin>

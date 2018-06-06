@@ -92,6 +92,7 @@
                         <Provide-Capability><![CDATA[
                            osgi.contract;osgi.contract=JavaJAXB;uses:="${packages;NAMED;javax.*}";version:List<Version>='2.2,2.1,2.0'
                         ]]></Provide-Capability>
+                        <_contract>JavaActivation, JavaSTAX</_contract>
                     </instructions>
                 </configuration>
             </plugin>

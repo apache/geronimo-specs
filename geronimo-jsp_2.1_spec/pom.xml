@@ -82,6 +82,7 @@
                         <Provide-Capability><![CDATA[
                            osgi.contract;osgi.contract=JavaJSP;uses:="${packages;NAMED;javax.*}";version:List<Version>='2.1,2.0'
                         ]]></Provide-Capability>
+                        <_contract>JavaServlet, JavaEL</_contract>
                     </instructions>
                 </configuration>
             </plugin>
