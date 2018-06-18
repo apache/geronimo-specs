@@ -89,6 +89,7 @@
                         <Provide-Capability><![CDATA[
                            osgi.contract;osgi.contract=JavaSAAJ;uses:="${packages;NAMED;javax.*}";version:List<Version>='1.3'
                         ]]></Provide-Capability>
+                        <_contract>JavaActivation</_contract>
                     </instructions>
                 </configuration>
             </plugin>

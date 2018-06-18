@@ -83,6 +83,7 @@
             <Provide-Capability><![CDATA[
                osgi.contract;osgi.contract=JavaJTA;uses:="${packages;NAMED;javax.*}";version:List<Version>='1.2,1.1'
             ]]></Provide-Capability>
+            <_contract>JavaInterceptor, JavaCDI</_contract>
           </instructions>
         </configuration>
       </plugin>

@@ -115,6 +115,7 @@
                         <Provide-Capability><![CDATA[
                            osgi.contract;osgi.contract=JavaCDI;uses:="${packages;NAMED;javax.*}";version:List<Version>='1.0'
                         ]]></Provide-Capability>
+                        <_contract>JavaInterceptor, JavaEL, JavaInject, JavaAnnotation</_contract>
                     </instructions>
                 </configuration>
             </plugin>

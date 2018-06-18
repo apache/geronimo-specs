@@ -91,6 +91,7 @@
                         <Provide-Capability><![CDATA[
                             osgi.contract;osgi.contract=JavaEJB;uses:="${packages;NAMED;javax.*}";version:List<Version>='3.0,2.1'
                         ]]></Provide-Capability>
+                        <_contract>JavaJTA, JavaInterceptor, JavaAnnotation</_contract>
                     </instructions>
                 </configuration>
             </plugin>

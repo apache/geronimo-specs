@@ -84,6 +84,7 @@
                         <Provide-Capability><![CDATA[
                            osgi.contract;osgi.contract=JavaEEManagement;uses:="${packages;NAMED;javax.*}";version:List<Version>='1.1'
                         ]]></Provide-Capability>
+                        <_contract>JavaEJB</_contract>
                     </instructions>
                 </configuration>
             </plugin>

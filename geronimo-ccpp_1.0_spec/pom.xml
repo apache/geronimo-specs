@@ -84,6 +84,7 @@
                         <Provide-Capability><![CDATA[
                             osgi.contract;osgi.contract=JavaCCPP;uses:="${packages;NAMED;javax.*}";version:List<Version>='1.0'
                         ]]></Provide-Capability>
+                        <_contract>JavaServlet</_contract>
                     </instructions>
                 </configuration>
             </plugin>

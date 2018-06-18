@@ -140,6 +140,7 @@
                         <Provide-Capability><![CDATA[
                            osgi.contract;osgi.contract=JavaMail;uses:="${packages;NAMED;javax.*}";version:List<Version>='1.5,1.4'
                         ]]></Provide-Capability>
+                        <_contract>JavaActivation</_contract>
                     </instructions>
                 </configuration>
             </plugin>

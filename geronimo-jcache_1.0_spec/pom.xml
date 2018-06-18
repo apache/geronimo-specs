@@ -103,6 +103,7 @@
             <Provide-Capability><![CDATA[
                osgi.contract;osgi.contract=JavaCache;uses:="${packages;NAMED;javax.*}";version:List<Version>='1.0'
             ]]></Provide-Capability>
+            <_contract>JavaCDI</_contract>
           </instructions>
         </configuration>
       </plugin>

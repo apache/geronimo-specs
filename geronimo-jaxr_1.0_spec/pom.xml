@@ -104,6 +104,7 @@
                         <Provide-Capability><![CDATA[
                            osgi.contract;osgi.contract=JavaJAXR;uses:="${packages;NAMED;javax.*}";version:List<Version>='1.0'
                         ]]></Provide-Capability>
+                        <_contract>JavaActivation</_contract>
                     </instructions>
                 </configuration>
             </plugin>

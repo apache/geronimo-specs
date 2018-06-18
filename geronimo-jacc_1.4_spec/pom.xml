@@ -96,6 +96,7 @@
                         <Provide-Capability><![CDATA[
                            osgi.contract;osgi.contract=JavaJACC;uses:="${packages;NAMED;javax.*}";version:List<Version>='1.4,1.1'
                         ]]></Provide-Capability>
+                        <_contract>JavaServlet</_contract>
                     </instructions>
                 </configuration>
             </plugin>
