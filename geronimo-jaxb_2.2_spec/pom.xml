@@ -31,7 +31,7 @@
     <artifactId>geronimo-jaxb_2.2_spec</artifactId>
     <packaging>bundle</packaging>
     <version>1.0.2-SNAPSHOT</version>
-    <name>Apache Geronimo JAXB Spec 2.2 Spec</name>
+    <name>Apache Geronimo JAXB Spec 2.2</name>
     <description>Java API for XML binding 2.2 API</description>
 
     <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
