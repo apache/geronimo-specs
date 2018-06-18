@@ -38,78 +38,292 @@
       This file exists only to make the CI setup easier
     </description>
 
-    <modules>
-        <module>geronimo-activation_1.1_spec</module>
-        <module>geronimo-annotation_1.0-MR1_spec</module>
-        <module>geronimo-annotation_1.0_spec</module>
-        <module>geronimo-annotation_1.1_spec</module>
-        <module>geronimo-annotation_1.2_spec</module>
-        <module>geronimo-annotation_1.3_spec</module>
-        <module>geronimo-atinject_1.0_spec</module>
-        <module>geronimo-availability_0.4_spec</module>
-        <module>geronimo-availability_1.0_spec</module>
-        <module>geronimo-ccpp_1.0_spec</module>
-        <module>geronimo-commonj_1.1_spec</module>
-        <module>geronimo-concurrent_1.0_spec</module>
-        <module>geronimo-ejb_3.0_spec</module>
-        <module>geronimo-ejb_3.1_spec-alt</module>
-        <module>geronimo-ejb_3.1_spec</module>
-        <module>geronimo-ejb_3.2_spec</module>
-        <module>geronimo-el_1.0_spec</module>
-        <module>geronimo-el_2.2_spec</module>
-        <module>geronimo-interceptor_1.1_spec</module>
-        <module>geronimo-interceptor_1.2_spec</module>
-        <module>geronimo-interceptor_3.0_spec</module>
-        <module>geronimo-j2ee-connector_1.6_spec</module>
-        <module>geronimo-j2ee-deployment_1.1_spec</module>
-        <module>geronimo-j2ee-management_1.1_spec</module>
-        <module>geronimo-jacc_1.1_spec</module>
-        <module>geronimo-jacc_1.4_spec</module>
-        <module>geronimo-jaspic_1.0_spec</module>
-        <module>geronimo-javaee-deployment_1.1MR3_spec</module>
-        <module>geronimo-javamail_1.4_spec</module>
-        <module>geronimo-javamail_1.5_spec</module>
-        <module>geronimo-jaxb_2.0_spec</module>
-        <module>geronimo-jaxb_2.1_spec</module>
-        <module>geronimo-jaxb_2.2_spec</module>
-        <module>geronimo-jaxr_1.0_spec</module>
-        <module>geronimo-jaxrpc_1.1_spec</module>
-        <module>geronimo-jaxrs_1.1_spec</module>
-        <module>geronimo-jaxrs_2.0_spec</module>
-        <module>geronimo-jaxrs_2.1_spec</module>
-        <module>geronimo-jaxws_2.1.1_spec</module>
-        <module>geronimo-jaxws_2.1_spec</module>
-        <module>geronimo-jaxws_2.2_spec</module>
-        <module>geronimo-jbatch_1.0_spec</module>
-        <module>geronimo-jcache_1.0_spec</module>
-        <module>geronimo-jcdi_1.0_spec</module>
-        <module>geronimo-jcdi_1.1_spec</module>
-        <module>geronimo-jcdi_2.0_spec</module>
-        <module>geronimo-jms_1.1_spec</module>
-        <module>geronimo-jms_2.0_spec</module>
-        <module>geronimo-jpa_1.0_spec</module>
-        <module>geronimo-jpa_2.0_spec</module>
-        <module>geronimo-jpa_2.1_spec</module>
-        <module>geronimo-json_1.0_spec</module>
-        <module>geronimo-json_1.1_spec</module>
-        <module>geronimo-jsonb_1.0_spec</module>
-        <module>geronimo-jsp_2.1_spec</module>
-        <module>geronimo-jsp_2.2_spec</module>
-        <module>geronimo-jta_1.1_spec</module>
-        <module>geronimo-jta_1.2_spec</module>
-        <module>geronimo-osgi-support</module>
-        <module>geronimo-saaj_1.3_spec</module>
-        <module>geronimo-servlet_2.5_spec</module>
-        <module>geronimo-servlet_3.0_spec</module>
-        <module>geronimo-servlet_3.1_spec</module>
-        <module>geronimo-stax-api_1.0_spec</module>
-        <module>geronimo-stax-api_1.2_spec</module>
-        <module>geronimo-validation_1.0_spec</module>
-        <module>geronimo-validation_1.1_spec</module>
-        <module>geronimo-validation_2.0_spec</module>
-        <module>geronimo-websockets_1.0_spec</module>
-        <module>geronimo-ws-metadata_2.0_spec</module>
-    </modules>
+    <profiles>
+        <profile>
+            <id>JavaEE5AndOlder</id>
+            <activation>
+                <!-- <jdk>[1.4,1.6)</jdk> -->
+            </activation>
+            <modules>
+                <module>geronimo-osgi-support</module>
+
+                <module>geronimo-annotation_1.0-MR1_spec</module>
+                <module>geronimo-annotation_1.0_spec</module>
+                <module>geronimo-availability_0.4_spec</module>
+                <module>geronimo-availability_1.0_spec</module>
+                <module>geronimo-ccpp_1.0_spec</module>
+                <module>geronimo-commonj_1.1_spec</module>
+                <module>geronimo-ejb_3.0_spec</module>
+                <module>geronimo-el_1.0_spec</module>
+                <module>geronimo-el_2.2_spec</module>
+                <module>geronimo-interceptor_1.1_spec</module>
+                <module>geronimo-interceptor_3.0_spec</module>
+                <module>geronimo-j2ee-deployment_1.1_spec</module>
+                <module>geronimo-jacc_1.1_spec</module>
+                <module>geronimo-jacc_1.4_spec</module>
+                <module>geronimo-javaee-deployment_1.1MR3_spec</module>
+                <module>geronimo-jaxb_2.0_spec</module>
+                <module>geronimo-jaxb_2.1_spec</module>
+                <module>geronimo-jaxws_2.1.1_spec</module>
+                <module>geronimo-jaxws_2.1_spec</module>
+                <module>geronimo-jpa_1.0_spec</module>
+                <module>geronimo-jsp_2.1_spec</module>
+                <module>geronimo-servlet_2.5_spec</module>
+                <module>geronimo-stax-api_1.2_spec</module>
+                <module>geronimo-ws-metadata_2.0_spec</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>JavaEE6</id>
+            <activation>
+                <!-- <jdk>1.6</jdk> -->
+            </activation>
+            <modules>
+                <module>geronimo-osgi-support</module>
+
+                <module>geronimo-servlet_3.0_spec</module>
+                <!-- JSF 2.0                   NONE -->
+                <module>geronimo-jsp_2.2_spec</module>
+                <!-- EL 2.2                    NONE -->
+                <!-- JSTL 1.2                  NONE -->
+                <!-- DEBUG 1.0                 NONE -->
+                <module>geronimo-jaxrs_1.1_spec</module>
+                <!-- JSR 109 IEWS 1.3          NONE -->
+                <module>geronimo-jaxws_2.2_spec</module>
+                <module>geronimo-jaxb_2.2_spec</module>
+                <!-- JSR 181 WS Metadata       NONE -->
+                <module>geronimo-jaxrpc_1.1_spec</module>
+                <!-- JAXM 1.3                  NONE -->
+                <module>geronimo-jaxr_1.0_spec</module>
+                <module>geronimo-jcdi_1.0_spec</module>
+                <module>geronimo-atinject_1.0_spec</module>
+                <module>geronimo-validation_1.0_spec</module>
+                <module>geronimo-ejb_3.1_spec</module>
+                <module>geronimo-ejb_3.1_spec-alt</module>
+                <module>geronimo-j2ee-connector_1.6_spec</module>
+                <module>geronimo-jpa_2.0_spec</module>
+                <module>geronimo-annotation_1.1_spec</module>
+                <module>geronimo-jms_1.1_spec</module>
+                <module>geronimo-jta_1.1_spec</module>
+                <module>geronimo-javamail_1.4_spec</module>
+                <module>geronimo-jaspic_1.0_spec</module>
+                <!-- JACC 1.3                  NONE -->
+                <!-- Deployment 1.2            NONE -->
+                <module>geronimo-j2ee-management_1.1_spec</module>
+                <!-- JAXP 1.3                  NONE -->
+                <!-- JDBC 4.0                  NONE -->
+                <!-- JMX 2.0                   NONE -->
+                <module>geronimo-activation_1.1_spec</module>
+                <module>geronimo-stax-api_1.0_spec</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>JavaEE7</id>
+            <activation>
+                <!-- <jdk>1.7</jdk> -->
+            </activation>
+            <modules>
+                <module>geronimo-osgi-support</module>
+
+                <module>geronimo-websockets_1.0_spec</module>
+                <module>geronimo-json_1.0_spec</module>
+                <module>geronimo-servlet_3.1_spec</module>
+                <!-- JSF 2.2                   NONE -->
+                <!-- EL 3.0                    NONE -->
+                <!-- JSP 2.3                   NONE -->
+                <!-- JSTL 1.2                  JavaEE6 -->
+                <module>geronimo-jbatch_1.0_spec</module>
+                <module>geronimo-concurrent_1.0_spec</module>
+                <module>geronimo-jcdi_1.1_spec</module>
+                <!-- Inject 1.0                JavaEE6 -->
+                <module>geronimo-validation_1.1_spec</module>
+                <module>geronimo-ejb_3.2_spec</module>
+                <module>geronimo-interceptor_1.2_spec</module>
+                <!-- Connector 1.7             NO -->
+                <module>geronimo-jpa_2.1_spec</module>
+                <module>geronimo-annotation_1.2_spec</module>
+                <module>geronimo-jms_2.0_spec</module>
+                <module>geronimo-jta_1.2_spec</module>
+                <module>geronimo-javamail_1.5_spec</module>
+                <!-- JAXR 1.0                  JavaEE6 -->
+                <!-- JSR 109 IEWS 1.3          JavaEE6 -->
+                <!-- JAX-WS 2.2                JavaEE6 -->
+                <!-- JSR 181 WS Metadata       JavaEE6 -->
+                <!-- JAX-RPC 1.1               JavaEE6 -->
+                <!-- JAXM 1.3                  JavaEE6 -->
+                <!-- JAXR 1.0                  JavaEE6 -->
+                <!-- JASPIC 1.1                NONE -->
+                <!-- JACC 1.5                  NONE -->
+                <!-- Deployment 1.2            JavaEE6 -->
+                <!-- Management 1.1            JavaEE6 -->
+                <!-- DEBUG 1.0                 JavaEE6 -->
+                <!-- JAXB 2.2                  JavaEE6 -->
+                <!-- JAXP 1.3                  JavaEE6 -->
+                <!-- JDBC 4.0                  JavaEE6 -->
+                <!-- JMX 2.0                   JavaEE6 -->
+                <!-- Activation 1.1            JavaEE6 -->
+                <!-- STAX 1.0                  JavaEE6 -->
+            </modules>
+        </profile>
+        <profile>
+            <id>JavaEE8</id>
+            <activation>
+                <!-- <jdk>1.8</jdk> -->
+            </activation>
+            <modules>
+                <!-- Websocket 1.1             NONE -->
+                <module>geronimo-jsonb_1.0_spec</module>
+                <module>geronimo-json_1.1_spec</module>
+                <!-- JSF 2.3                   NONE -->
+                <!-- EL 3.0                    JavaEE6 -->
+                <!-- JSP 2.3                   JavaEE7 -->
+                <!-- JSTL 1.2                  JavaEE6 -->
+                <!-- Batch 1.0                 JavaEE7 -->
+                <!-- Concurrent Utilities 1.0  JavaEE7 -->
+                <module>geronimo-jcdi_2.0_spec</module>
+                <!-- Inject 1.0                JavaEE6 -->
+                <module>geronimo-validation_2.0_spec</module>
+                <!-- EJB 3.2                   JavaEE7 -->
+                <!-- Interceptors 1.2          JavaEE7 -->
+                <!-- Connectors 1.7            NONE -->
+                <!-- JPA 2.2                   NONE -->
+                <module>geronimo-annotation_1.3_spec</module>
+                <!-- JMS 2.0                   JavaEE7 -->
+                <!-- JTA 1.2                   JavaEE7 -->
+                <!-- JavaMail 1.6              NONE -->
+                <module>geronimo-jaxrs_2.1_spec</module>
+                <!-- JSR 109 IEWS 1.3          JavaEE6 -->
+                <!-- JSR 181 WS Metadata 2.1   JavaEE6 -->
+                <!-- JAX-RPC 1.1               JavaEE6 -->
+                <!-- JAXR 1.0                  JavaEE6 -->
+                <!-- Java EE Security API 1.0  NONE -->
+                <!-- JASPIC 1.1                JavaEE6 -->
+                <!-- JACC 1.5                  JavaEE6 -->
+                <!-- Deployment 1.2            JavaEE6 -->
+                <!-- Management 1.1            JavaEE6 -->
+                <!-- DEBUG 1.0                 JavaEE6 -->
+                <!-- JMX 2.0                   JavaEE6 -->
+                <module>geronimo-saaj_1.3_spec</module>
+                <!-- STAX 1.0                  JavaEE6 -->
+                <!-- JAXP 1.6                  JavaEE6 -->
+                <!-- JDBC 4.0                  JavaEE6 -->
+                <!-- JAXB 2.2                  JavaEE6 -->
+                <!-- JAX-WS 2.2                JavaEE6 -->
+                <!-- Activation 1.1            JavaEE6 -->
+            </modules>
+        </profile>
+        <profile>
+            <id>MicroProfile11</id>
+            <activation>
+                <jdk>1.8</jdk>
+            </activation>
+            <modules>
+                <!-- CDI 1.2 -->
+                <module>geronimo-atinject_1.0_spec</module>
+                <!-- EL 3.0 -->
+                <module>geronimo-interceptor_1.2_spec</module>
+                <!-- JAX-RS 2.0.1 -->
+                <module>geronimo-json_1.0_spec</module>
+                <!-- MP-Config 1.0 -->
+            </modules>
+        </profile>
+        <profile>
+            <id>MicroProfile12</id>
+            <activation>
+                <jdk>1.8</jdk>
+            </activation>
+            <modules>
+                <!-- CDI 1.2 -->
+                <module>geronimo-atinject_1.0_spec</module>
+                <!-- EL 3.0 -->
+                <module>geronimo-interceptor_1.2_spec</module>
+                <!-- JAX-RS 2.0.1 -->
+                <module>geronimo-json_1.0_spec</module>
+                <module>geronimo-annotation_1.2_spec</module>
+                <!-- MP-Config 1.1 -->
+                <!-- MP-FaultTolerance 1.0 -->
+                <!-- MP-Health 1.0 -->
+                <!-- MP-Metrics 1.0 -->
+                <!-- MP-JWT Auth 1.0 -->
+            </modules>
+        </profile>
+        <profile>
+            <id>MicroProfile13</id>
+            <activation>
+                <jdk>1.8</jdk>
+            </activation>
+            <modules>
+                <!-- CDI 1.2 -->
+                <module>geronimo-atinject_1.0_spec</module>
+                <!-- EL 3.0 -->
+                <module>geronimo-interceptor_1.2_spec</module>
+                <!-- JAX-RS 2.0.1 -->
+                <module>geronimo-json_1.0_spec</module>
+                <module>geronimo-annotation_1.2_spec</module>
+                <!-- MP-Config 1.2 -->
+                <!-- MP-FaultTolerance 1.0 -->
+                <!-- MP-Health 1.0 -->
+                <!-- MP-Metrics 1.1 -->
+                <!-- MP-JWT Auth 1.0 -->
+                <!-- MP-Open API 1.0 -->
+                <!-- MP-Rest Client 1.0 -->
+                <!-- MP-Open Tracing 1.0 -->
+            </modules>
+        </profile>
+        <profile>
+            <id>MicroProfile14</id>
+            <activation>
+                <jdk>1.8</jdk>
+            </activation>
+            <modules>
+                <!-- CDI 1.2 -->
+                <module>geronimo-atinject_1.0_spec</module>
+                <!-- EL 3.0 -->
+                <module>geronimo-interceptor_1.2_spec</module>
+                <!-- JAX-RS 2.0.1 -->
+                <module>geronimo-json_1.0_spec</module>
+                <module>geronimo-annotation_1.2_spec</module>
+                <!-- MP-Config 1.3 -->
+                <!-- MP-FaultTolerance 1.1 -->
+                <!-- MP-Health 1.0 -->
+                <!-- MP-Metrics 1.1 -->
+                <!-- MP-JWT Auth 1.1 -->
+                <!-- MP-Open API 1.0 -->
+                <!-- MP-Rest Client 1.1 -->
+                <!-- MP-Open Tracing 1.1 -->
+            </modules>
+        </profile>
+        <profile>
+            <id>MicroProfile20</id>
+            <activation>
+                <jdk>1.8</jdk>
+            </activation>
+            <modules>
+                <module>geronimo-jcdi_2.0_spec</module>
+                <module>geronimo-atinject_1.0_spec</module>
+                <!-- EL 3.0 -->
+                <module>geronimo-interceptor_1.2_spec</module>
+                <module>geronimo-jaxrs_2.1_spec</module>
+                <module>geronimo-jsonb_1.0_spec</module>
+                <module>geronimo-json_1.1_spec</module>
+                <module>geronimo-annotation_1.3_spec</module>
+                <!-- MP-Config 1.3 -->
+                <!-- MP-FaultTolerance 1.1 -->
+                <!-- MP-Health 1.0 -->
+                <!-- MP-Metrics 1.1 -->
+                <!-- MP-JWT Auth 1.1 -->
+                <!-- MP-Open API 1.0 -->
+                <!-- MP-Rest Client 1.1 -->
+                <!-- MP-Open Tracing 1.1 -->
+            </modules>
+        </profile>
+        <profile>
+            <id>others</id>
+            <modules>
+                <module>geronimo-jcache_1.0_spec</module>
+            </modules>
+        </profile>
+    </profiles>
 
 
   <!--
