@@ -41,9 +41,6 @@
     <profiles>
         <profile>
             <id>JavaEE5AndOlder</id>
-            <activation>
-                <!-- <jdk>[1.4,1.6)</jdk> -->
-            </activation>
             <modules>
                 <module>geronimo-osgi-support</module>
 
@@ -75,9 +72,6 @@
         </profile>
         <profile>
             <id>JavaEE6</id>
-            <activation>
-                <!-- <jdk>1.6</jdk> -->
-            </activation>
             <modules>
                 <module>geronimo-osgi-support</module>
 
@@ -119,9 +113,6 @@
         </profile>
         <profile>
             <id>JavaEE7</id>
-            <activation>
-                <!-- <jdk>1.7</jdk> -->
-            </activation>
             <modules>
                 <module>geronimo-osgi-support</module>
 
@@ -167,9 +158,6 @@
         </profile>
         <profile>
             <id>JavaEE8</id>
-            <activation>
-                <!-- <jdk>1.8</jdk> -->
-            </activation>
             <modules>
                 <!-- Websocket 1.1             NONE -->
                 <module>geronimo-jsonb_1.0_spec</module>
@@ -213,33 +201,40 @@
             </modules>
         </profile>
         <profile>
-            <id>MicroProfile11</id>
-            <activation>
-                <jdk>1.8</jdk>
-            </activation>
+            <id>MicroProfile10</id>
             <modules>
                 <!-- CDI 1.2 -->
                 <module>geronimo-atinject_1.0_spec</module>
+                <module>geronimo-annotation_1.2_spec</module>
                 <!-- EL 3.0 -->
                 <module>geronimo-interceptor_1.2_spec</module>
-                <!-- JAX-RS 2.0.1 -->
+                <!-- JAX-RS 2.0 -->
                 <module>geronimo-json_1.0_spec</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>MicroProfile11</id>
+            <modules>
+                <!-- CDI 1.2                MP 1.0 -->
+                <!-- Inject 1.0             MP 1.0 -->
+                <!-- Common Annotations 1.2 MP 1.0 -->
+                <!-- EL 3.0                 MP 1.0 -->
+                <!-- Interceptor 1.2        MP 1.0 -->
+                <!-- JAX-RS 2.0.1           MP 1.0 -->
+                <!-- JSONP 1.0              MP 1.0 -->
                 <!-- MP-Config 1.0 -->
             </modules>
         </profile>
         <profile>
             <id>MicroProfile12</id>
-            <activation>
-                <jdk>1.8</jdk>
-            </activation>
             <modules>
-                <!-- CDI 1.2 -->
-                <module>geronimo-atinject_1.0_spec</module>
-                <!-- EL 3.0 -->
-                <module>geronimo-interceptor_1.2_spec</module>
-                <!-- JAX-RS 2.0.1 -->
-                <module>geronimo-json_1.0_spec</module>
-                <module>geronimo-annotation_1.2_spec</module>
+                <!-- CDI 1.2                MP 1.0 -->
+                <!-- Inject 1.0             MP 1.0 -->
+                <!-- Common Annotations 1.2 MP 1.0 -->
+                <!-- EL 3.0                 MP 1.0 -->
+                <!-- Interceptor 1.2        MP 1.0 -->
+                <!-- JAX-RS 2.0.1           MP 1.0 -->
+                <!-- JSONP 1.0              MP 1.0 -->
                 <!-- MP-Config 1.1 -->
                 <!-- MP-FaultTolerance 1.0 -->
                 <!-- MP-Health 1.0 -->
@@ -249,17 +244,14 @@
         </profile>
         <profile>
             <id>MicroProfile13</id>
-            <activation>
-                <jdk>1.8</jdk>
-            </activation>
             <modules>
-                <!-- CDI 1.2 -->
-                <module>geronimo-atinject_1.0_spec</module>
-                <!-- EL 3.0 -->
-                <module>geronimo-interceptor_1.2_spec</module>
-                <!-- JAX-RS 2.0.1 -->
-                <module>geronimo-json_1.0_spec</module>
-                <module>geronimo-annotation_1.2_spec</module>
+                <!-- CDI 1.2                MP 1.0 -->
+                <!-- Inject 1.0             MP 1.0 -->
+                <!-- Common Annotations 1.2 MP 1.0 -->
+                <!-- EL 3.0                 MP 1.0 -->
+                <!-- Interceptor 1.2        MP 1.0 -->
+                <!-- JAX-RS 2.0.1           MP 1.0 -->
+                <!-- JSONP 1.0              MP 1.0 -->
                 <!-- MP-Config 1.2 -->
                 <!-- MP-FaultTolerance 1.0 -->
                 <!-- MP-Health 1.0 -->
@@ -272,17 +264,14 @@
         </profile>
         <profile>
             <id>MicroProfile14</id>
-            <activation>
-                <jdk>1.8</jdk>
-            </activation>
             <modules>
-                <!-- CDI 1.2 -->
-                <module>geronimo-atinject_1.0_spec</module>
-                <!-- EL 3.0 -->
-                <module>geronimo-interceptor_1.2_spec</module>
-                <!-- JAX-RS 2.0.1 -->
-                <module>geronimo-json_1.0_spec</module>
-                <module>geronimo-annotation_1.2_spec</module>
+                <!-- CDI 1.2                MP 1.0 -->
+                <!-- Inject 1.0             MP 1.0 -->
+                <!-- Common Annotations 1.2 MP 1.0 -->
+                <!-- EL 3.0                 MP 1.0 -->
+                <!-- Interceptor 1.2        MP 1.0 -->
+                <!-- JAX-RS 2.0.1           MP 1.0 -->
+                <!-- JSONP 1.0              MP 1.0 -->
                 <!-- MP-Config 1.3 -->
                 <!-- MP-FaultTolerance 1.1 -->
                 <!-- MP-Health 1.0 -->
@@ -295,14 +284,11 @@
         </profile>
         <profile>
             <id>MicroProfile20</id>
-            <activation>
-                <jdk>1.8</jdk>
-            </activation>
             <modules>
                 <module>geronimo-jcdi_2.0_spec</module>
-                <module>geronimo-atinject_1.0_spec</module>
-                <!-- EL 3.0 -->
-                <module>geronimo-interceptor_1.2_spec</module>
+                <!-- Inject 1.0             MP 1.0 -->
+                <!-- EL 3.0                 MP 1.0 -->
+                <!-- Interceptor 1.2        MP 1.0 -->
                 <module>geronimo-jaxrs_2.1_spec</module>
                 <module>geronimo-jsonb_1.0_spec</module>
                 <module>geronimo-json_1.1_spec</module>
