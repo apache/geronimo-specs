@@ -117,42 +117,34 @@ public interface ServerEndpointConfig extends EndpointConfig {
 
             return new ServerEndpointConfig() {
 
-                @Override
                 public List<Class<? extends Encoder>> getEncoders() {
                     return encoders;
                 }
 
-                @Override
                 public List<Class<? extends Decoder>> getDecoders() {
                     return decoders;
                 }
 
-                @Override
                 public Map<String, Object> getUserProperties() {
                     return userProperties;
                 }
 
-                @Override
                 public Class<?> getEndpointClass() {
                     return endpointClass;
                 }
 
-                @Override
                 public String getPath() {
                     return path;
                 }
 
-                @Override
                 public List<String> getSubprotocols() {
                     return subprotocols;
                 }
 
-                @Override
                 public List<Extension> getExtensions() {
                     return extensions;
                 }
 
-                @Override
                 public Configurator getConfigurator() {
                     return configurator;
                 }

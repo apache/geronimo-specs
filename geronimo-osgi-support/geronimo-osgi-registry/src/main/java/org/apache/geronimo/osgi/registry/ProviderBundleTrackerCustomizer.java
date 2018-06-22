@@ -45,7 +45,6 @@ public class ProviderBundleTrackerCustomizer implements BundleTrackerCustomizer 
      *
      * @return A return object.
      */
-    @Override
     public Object addingBundle(Bundle bundle, BundleEvent event) {
         log(LogService.LOG_DEBUG, "Bundle Considered for class providers: " + bundle.getSymbolicName());
         if (bundle.equals(registryBundle)) {
@@ -55,12 +54,10 @@ public class ProviderBundleTrackerCustomizer implements BundleTrackerCustomizer 
         return registry.addBundle(bundle);
     }
 
-    @Override
     public void modifiedBundle(Bundle bundle, BundleEvent event, Object object) {
         // nothing to do here
     }
 
-    @Override
     public void removedBundle(Bundle bundle, BundleEvent event, Object object) {
         // have the registry process this
         registry.removeBundle(bundle, object);

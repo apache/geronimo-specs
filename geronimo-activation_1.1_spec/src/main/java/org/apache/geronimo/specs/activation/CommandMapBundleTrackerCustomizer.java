@@ -55,7 +55,6 @@ public class CommandMapBundleTrackerCustomizer implements BundleTrackerCustomize
      *
      * @return A return object.
      */
-    @Override
     public Object addingBundle(Bundle bundle, BundleEvent event) {
         if (bundle.equals(activationBundle)) {
             return null;
@@ -99,14 +98,12 @@ public class CommandMapBundleTrackerCustomizer implements BundleTrackerCustomize
     }
 
 
-    @Override
     public void modifiedBundle(Bundle bundle, BundleEvent event, Object object) {
         log(LogService.LOG_DEBUG, "Bundle Considered for mailcap providers: " + bundle.getSymbolicName());
         // this will update for the new bundle
         registerBundle(bundle);
     }
 
-    @Override
     public void removedBundle(Bundle bundle, BundleEvent event, Object object) {
         unregisterBundle(bundle);
     }

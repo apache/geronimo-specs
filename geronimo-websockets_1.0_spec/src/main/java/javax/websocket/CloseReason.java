@@ -131,7 +131,6 @@ public class CloseReason {
          * 
          * @return the code.
          */
-        @Override
         public int getCode() {
             return this.code;
         }

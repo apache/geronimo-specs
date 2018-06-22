@@ -52,7 +52,6 @@ public class Activator implements BundleActivator {
     List<LogService> logServices = new ArrayList<LogService>();
 
 
-    @Override
     public synchronized void start(final BundleContext context) throws Exception {
         this.context = context;
         lst = new LogServiceTracker(context, LogService.class.getName(), null);
@@ -66,7 +65,6 @@ public class Activator implements BundleActivator {
 	    bt.open();
 	}
 
-    @Override
 	public synchronized void stop(BundleContext context) throws Exception {
 	    bt.close();
 	    lst.close();

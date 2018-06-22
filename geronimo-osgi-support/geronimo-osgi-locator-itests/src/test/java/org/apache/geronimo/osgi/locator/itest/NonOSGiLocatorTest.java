@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.geronimo.osgi.loader.itest;
+package org.apache.geronimo.osgi.locator.itest;
 
 import java.io.InputStream;
 import java.io.IOException;

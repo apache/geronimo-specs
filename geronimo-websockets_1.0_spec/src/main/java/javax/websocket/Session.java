@@ -204,7 +204,6 @@ public interface Session extends Closeable {
      * @throws IOException
      *             - if there was a connection error closing the connection.
      */
-    @Override
     void close() throws IOException;
 
     /**
