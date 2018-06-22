@@ -48,19 +48,6 @@ public abstract class JsonbProvider {
     }
 
     private static JsonbProvider doLoadProvider(final String providerFqn) {
-
-        final ClassLoader tccl = Thread.currentThread().getContextClassLoader();
-        try {
-            final Class<?> clazz = Class.forName("org.apache.geronimo.osgi.locator.ProviderLocator");
-            final Method getServices = clazz.getDeclaredMethod("getServices", String.class, Class.class, ClassLoader.class);
-            final List<JsonbProvider> osgiProviders = (List<JsonbProvider>) getServices.invoke(null, JsonbProvider.class.getName(), JsonbProvider.class, tccl);
-            if (osgiProviders != null && !osgiProviders.isEmpty()) {
-                return osgiProviders.iterator().next();
-            }
-        } catch (final Throwable e) {
-            // locator not available, try normal mode
-        }
-
         for (final JsonbProvider provider : ServiceLoader.load(JsonbProvider.class)) {
             if (providerFqn == null) {
                 return provider;

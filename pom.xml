@@ -99,6 +99,10 @@
                         <Provide-Capability><![CDATA[
                            osgi.contract;osgi.contract=JavaJSONB;uses:="${packages;NAMED;javax.*}";version:List<Version>='1.0'
                         ]]></Provide-Capability>
+                        <Require-Capability><![CDATA[
+                          osgi.serviceloader;filter:="(osgi.serviceloader=javax.json.bind.spi.JsonbProvider)";cardinality:=multiple,
+                          osgi.extender;filter:="(osgi.extender=osgi.serviceloader.processor)"
+                        ]]></Require-Capability>
                         <_contract>JavaJSONP</_contract>
                     </instructions>
                 </configuration>
