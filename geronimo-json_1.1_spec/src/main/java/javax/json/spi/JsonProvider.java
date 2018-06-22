@@ -55,8 +55,10 @@ import java.security.PrivilegedAction;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.ServiceLoader;
 
 /**
  * JsonProvider is the actual implementation of all the Json logic.
@@ -88,69 +90,30 @@ public abstract class JsonProvider {
     }
 
     private static JsonProvider doLoadProvider() throws JsonException {
-        final ClassLoader tccl = Thread.currentThread().getContextClassLoader();
-        try {
-            final Class<?> clazz = Class.forName("org.apache.geronimo.osgi.locator.ProviderLocator");
-            final Method getServices = clazz.getDeclaredMethod("getServices", String.class, Class.class, ClassLoader.class);
-            final List<JsonProvider> osgiProviders = (List<JsonProvider>) getServices.invoke(null, JsonProvider.class.getName(), JsonProvider.class, tccl);
-            if (osgiProviders != null && !osgiProviders.isEmpty()) {
-                return osgiProviders.iterator().next();
-            }
-        } catch (final Throwable e) {
-            // locator not available, try normal mode
+        ClassLoader tccl = Thread.currentThread().getContextClassLoader();
+        if (tccl == null) {
+            tccl = ClassLoader.getSystemClassLoader();
         }
 
-        // don't use Class.forName() to avoid to bind class to tccl if thats a classloader facade
-        // so implementing a simple SPI when ProviderLocator is not here
-        final String name = "META-INF/services/" + JsonProvider.class.getName();
-        try {
-            Enumeration<URL> configs;
-            if (tccl == null) {
-                configs = ClassLoader.getSystemResources(name);
-            } else {
-                configs = tccl.getResources(name);
+        // try to load provider specified via system property
+        final String className = System.getProperty(JsonProvider.class.getName());
+        if (className != null) {
+            try {
+                return JsonProvider.class.cast(tccl.loadClass(className.trim()).newInstance());
+            } catch (final Exception e) {
+                throw new JsonException("Specified provider as system property can't be loaded: " + className, e);
             }
-
-            if (configs.hasMoreElements()) {
-                InputStream in = null;
-                BufferedReader r = null;
-                final List<String> names = new ArrayList<String>();
-                try {
-                    in = configs.nextElement().openStream();
-                    r = new BufferedReader(new InputStreamReader(in, "utf-8"));
-                    String l;
-                    while ((l = r.readLine()) != null) {
-                        if (l.startsWith("#")) {
-                            continue;
-                        }
-                        return JsonProvider.class.cast(tccl.loadClass(l).newInstance());
-                    }
-                } catch (final IOException x) {
-                    // no-op
-                } finally {
-                    try {
-                        if (r != null) {
-                            r.close();
-                        }
-                    } catch (final IOException y) {
-                        // no-op
-                    }
-                    try {
-                        if (in != null) {
-                            in.close();
-                        }
-                    } catch (final IOException y) {
-                        // no-op
-                    }
-                }
-            }
-        } catch (final Exception ex) {
-            // no-op
         }
 
+        // try to load via ServiceLoader (as registered in META-INF/services)
+        Iterator<JsonProvider> providers = ServiceLoader.load(JsonProvider.class).iterator();
+        if (providers.hasNext()) {
+            return providers.next();
+        }
+
+        // try to load to default provider
         try {
-            final Class<?> clazz = tccl.loadClass(DEFAULT_PROVIDER);
-            return JsonProvider.class.cast(clazz.newInstance());
+            return JsonProvider.class.cast(tccl.loadClass(DEFAULT_PROVIDER).newInstance());
         } catch (final Throwable cnfe) {
             throw new JsonException(DEFAULT_PROVIDER + " not found", cnfe);
         }
