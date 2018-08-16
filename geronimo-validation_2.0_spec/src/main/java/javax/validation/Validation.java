@@ -16,8 +16,6 @@
  */
 package javax.validation;
 
-import org.apache.geronimo.osgi.locator.ProviderLocator;
-
 import javax.validation.bootstrap.GenericBootstrap;
 import javax.validation.bootstrap.ProviderSpecificBootstrap;
 import javax.validation.spi.BootstrapState;
@@ -26,6 +24,7 @@ import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ServiceLoader;
 import java.util.WeakHashMap;
 
 /**
@@ -200,22 +199,19 @@ public class Validation {
             if (providers == null) {
                 // need to discover and load them for this class loader
                 providers = new ArrayList<>();
+                ClassLoader original = Thread.currentThread().getContextClassLoader();
                 try {
-                    List<Object> serviceProviders = ProviderLocator.getServices(ValidationProvider.class.getName(), this.getClass(), cl);
-                    for (Object provider : serviceProviders) {
-                        // create an instance to return
-                        providers.add((ValidationProvider<?>) provider);
+                    Thread.currentThread().setContextClassLoader(cl);
+                    for (ValidationProvider<?> validationProvider : ServiceLoader.load(ValidationProvider.class)) {
+                        providers.add(validationProvider);
                     }
-                } catch (ClassNotFoundException e) {
-                    throw new ValidationException("Failed to load provider", e);
-                } catch (InstantiationException e) {
-                    throw new ValidationException("Failed to instantiate provider", e);
-                } catch (IllegalAccessException e) {
-                    throw new ValidationException("Failed to access provider", e);
                 } catch (ClassCastException e) {
                     throw new ValidationException("Invalid provider definition", e);
                 } catch (Exception e) {
                     throw new ValidationException("Failed to instantiate provider", e);
+                }
+                finally {
+                    Thread.currentThread().setContextClassLoader(original);
                 }
 
                 // cache the discovered providers

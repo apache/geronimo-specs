@@ -59,15 +59,6 @@
         <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-validation_1.1_spec/</url>
     </scm>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-osgi-locator</artifactId>
-            <version>1.0</version>
-            <scope>provided</scope>
-        </dependency>
-    </dependencies>
-
     <build>
         <pluginManagement>
             <plugins>
@@ -111,13 +102,14 @@
                         <Specification-Vendor>Sun Microsystems, Inc.</Specification-Vendor>
                         <Specification-Version>2.0</Specification-Version>
                         <Export-Package>javax.validation*;version=2.0</Export-Package>
-                        <Import-Package>org.apache.geronimo.osgi.registry.api;resolution:=optional,*</Import-Package>
-                        <Private-Package>org.apache.geronimo.osgi.locator</Private-Package>
-                        <Bundle-Activator>org.apache.geronimo.osgi.locator.Activator</Bundle-Activator>
                         <Automatic-Module-Name>java.validation</Automatic-Module-Name>
                         <Provide-Capability><![CDATA[
                            osgi.contract;osgi.contract=JavaBeanValidation;uses:="${packages;NAMED;javax.*}";version:List<Version>='2.0,1.1,1.0'
                         ]]></Provide-Capability>
+                        <Require-Capability><![CDATA[
+                          osgi.serviceloader;filter:="(osgi.serviceloader=javax.validation.spi.ValidationProvider)";cardinality:=multiple,
+                          osgi.extender;filter:="(osgi.extender=osgi.serviceloader.processor)"
+                        ]]></Require-Capability>
                     </instructions>
                 </configuration>
             </plugin>
