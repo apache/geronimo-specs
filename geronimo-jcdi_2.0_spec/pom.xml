@@ -117,6 +117,11 @@
                         <Provide-Capability><![CDATA[
                            osgi.contract;osgi.contract=JavaCDI;uses:="${packages;NAMED;javax.*}";version:List<Version>='2.0,1.2,1.1,1.0'
                         ]]></Provide-Capability>
+                        <Require-Capability><![CDATA[
+                          osgi.serviceloader;filter:="(osgi.serviceloader=javax.enterprise.inject.se.SeContainerInitializer)";cardinality:=multiple,
+                          osgi.serviceloader;filter:="(osgi.serviceloader=javax.enterprise.inject.spi.CDIProvider)";cardinality:=multiple,
+                          osgi.extender;filter:="(osgi.extender=osgi.serviceloader.processor)"
+                        ]]></Require-Capability>
                         <_contract>JavaInterceptor, JavaEL, JavaInject, JavaAnnotation</_contract>
                     </instructions>
                 </configuration>
