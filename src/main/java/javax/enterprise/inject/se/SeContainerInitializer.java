@@ -44,9 +44,8 @@ public abstract class SeContainerInitializer
      */
     public static SeContainerInitializer newInstance()
     {
-        // TODO: OSGi support -> ProviderLocator or is there something better these days?
         final Iterator<SeContainerInitializer> serviceLoader =
-                ServiceLoader.load(SeContainerInitializer.class, SeContainerInitializer.class.getClassLoader())
+                ServiceLoader.load(SeContainerInitializer.class)
                 .iterator();
 
         if (!serviceLoader.hasNext())
