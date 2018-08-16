@@ -63,12 +63,6 @@
             <version>1.0</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-osgi-locator</artifactId>
-            <version>1.0</version>
-            <scope>provided</scope>
-        </dependency>
     </dependencies>
 
     <build>
@@ -82,10 +76,7 @@
                         <Specification-Version>1.0</Specification-Version>
                         <Specification-Title>JSR-352 JBatch 1.0</Specification-Title>
                         <Export-Package>javax.batch*;version=1.0</Export-Package>
-                        <Private-Package>org.apache.geronimo.osgi.locator</Private-Package>
-                        <Bundle-Activator>org.apache.geronimo.osgi.locator.Activator</Bundle-Activator>
                         <Import-Package>
-                            org.apache.geronimo.osgi.registry.api;resolution:=optional,
                             javax.inject;resolution:=optional,
                             javax.enterprise.util;resolution:=optional,
                             *
@@ -93,6 +84,10 @@
                         <Provide-Capability><![CDATA[
                            osgi.contract;osgi.contract=JavaBatch;uses:="${packages;NAMED;javax.*}";version:List<Version>='1.0'
                         ]]></Provide-Capability>
+                        <Require-Capability><![CDATA[
+                          osgi.serviceloader;filter:="(osgi.serviceloader=javax.batch.operations.JobOperator)";cardinality:=multiple,
+                          osgi.extender;filter:="(osgi.extender=osgi.serviceloader.processor)"
+                        ]]></Require-Capability>
                         <_contract>JavaCDI, JavaInject</_contract>
                     </instructions>
                 </configuration>
