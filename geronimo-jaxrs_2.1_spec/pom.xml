@@ -53,15 +53,6 @@
     <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-jaxrs_2.1_spec/</url>
   </scm>
 
-  <dependencies>
-    <dependency>
-      <groupId>org.apache.geronimo.specs</groupId>
-      <artifactId>geronimo-osgi-locator</artifactId>
-      <version>1.0</version>
-      <scope>provided</scope>
-    </dependency>
-  </dependencies>
-
   <build>
     <plugins>
       <plugin>
@@ -75,12 +66,15 @@
             <Specification-Vendor>Sun Microsystems, Inc.</Specification-Vendor>
             <Specification-Version>1.1</Specification-Version>
             <Export-Package>javax.ws.rs*;version=2.1</Export-Package>
-            <Import-Package>org.apache.geronimo.osgi.registry.api;resolution:=optional,*</Import-Package>
-            <Private-Package>org.apache.geronimo.osgi.locator</Private-Package>
-            <Bundle-Activator>org.apache.geronimo.osgi.locator.Activator</Bundle-Activator>
             <Provide-Capability><![CDATA[
                osgi.contract;osgi.contract=JavaJAXRS;uses:="${packages;NAMED;javax.*}";version:List<Version>='2.1,2.0,1.1'
             ]]></Provide-Capability>
+            <Require-Capability><![CDATA[
+              osgi.serviceloader;filter:="(osgi.serviceloader=javax.ws.rs.client.ClientBuilder)";cardinality:=multiple,
+              osgi.serviceloader;filter:="(osgi.serviceloader=javax.ws.rs.ext.RuntimeDelegate)";cardinality:=multiple,
+              osgi.serviceloader;filter:="(osgi.serviceloader=javax.ws.rs.sse.SseEventSource.Builder)";cardinality:=multiple,
+              osgi.extender;filter:="(osgi.extender=osgi.serviceloader.processor)"
+            ]]></Require-Capability>
           </instructions>
         </configuration>
       </plugin>
