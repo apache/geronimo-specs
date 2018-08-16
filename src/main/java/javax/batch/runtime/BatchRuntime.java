@@ -18,13 +18,9 @@
  */
 package javax.batch.runtime;
 
-import org.apache.geronimo.osgi.locator.ProviderLocator;
-
 import javax.batch.operations.JobOperator;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
-import java.util.Iterator;
-import java.util.List;
 import java.util.ServiceLoader;
 
 public class BatchRuntime {
@@ -40,21 +36,9 @@ public class BatchRuntime {
     }
 
     private static JobOperator findJobOperator() {
-        final Iterator<JobOperator> iterator = operators();
-        while (iterator.hasNext()) {
-            final JobOperator provider = iterator.next();
-            if (provider != null) {
-                return provider;
-            }
+        for (JobOperator operator : ServiceLoader.load(JobOperator.class)) {
+            return operator;
         }
         return null;
-    }
-
-    private static Iterator<JobOperator> operators() {
-        try {
-            return ((List<JobOperator>) ProviderLocator.getService(JobOperator.class.getName(), JobOperator.class, Thread.currentThread().getContextClassLoader())).iterator();
-        } catch (final Throwable th) { // rarely case where potentially missing OSGi stuff
-            return ServiceLoader.load(JobOperator.class).iterator();
-        }
     }
 }
