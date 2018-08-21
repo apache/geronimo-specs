@@ -42,7 +42,7 @@ public @interface Resource {
 
     String name() default "";
 
-    Class type() default Object.class;
+    Class<?> type() default Object.class;
 
     AuthenticationType authenticationType()
             default AuthenticationType.CONTAINER;
