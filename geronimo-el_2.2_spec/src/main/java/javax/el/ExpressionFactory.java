@@ -18,12 +18,13 @@
 package javax.el;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Properties;
-
-import org.apache.geronimo.osgi.locator.ProviderLocator;
+import java.util.ServiceLoader;
 
 /**
  *
@@ -57,12 +58,12 @@ public abstract class ExpressionFactory {
     }
 
     public static ExpressionFactory newInstance(Properties properties) {
-        Class<?> implClass = loadExpressionFactoryImplClass();
+        ExpressionFactory factory = loadExpressionFactoryImpl();
         if (properties == null) {
-            return newInstance0(implClass);
+            return factory;
         }
         try {
-            Constructor<?> constructor = implClass.getConstructor(Properties.class);
+            Constructor<?> constructor = factory.getClass().getConstructor(Properties.class);
             try {
                 return (ExpressionFactory) constructor.newInstance(properties);
             } catch (IllegalArgumentException e) {
@@ -77,7 +78,7 @@ public abstract class ExpressionFactory {
         } catch (SecurityException e) {
             throw new ELException("Fail to get constuctor from ExpressionFactory implementation class", e);
         } catch (NoSuchMethodException e) {
-            return newInstance0(implClass);
+            return factory;
         }
     }
 
@@ -91,7 +92,7 @@ public abstract class ExpressionFactory {
         }
     }
 
-    private static String lookupExpressionFactoryImplClass() {
+    private static ExpressionFactory lookupExpressionFactoryImpl(ClassLoader cl) throws ClassNotFoundException {
 
         String implClassName = lookupByJREPropertyFile();
         if (implClassName == null) {
@@ -100,48 +101,69 @@ public abstract class ExpressionFactory {
                 implClassName = PLATFORM_DEFAULT_FACTORY_CLASS;
             }
         }
-        return implClassName;
+        return newInstance0(cl.loadClass(implClassName));
     }
 
-    private static Class<?> lookupByServiceEntryURL(ClassLoader cl) throws ClassNotFoundException {
-        // use the common lookup/parsing logic for the service files.
-        return ProviderLocator.getServiceClass(ExpressionFactory.class.getName(), ExpressionFactory.class, cl);
+    private static ExpressionFactory lookupByServiceEntryURL(ClassLoader cl) throws ClassNotFoundException {
+        Thread thread = Thread.currentThread();
+        ClassLoader original = thread.getContextClassLoader();
+        try {
+            thread.setContextClassLoader(cl);
+            for (ExpressionFactory factory : ServiceLoader.load(ExpressionFactory.class)) {
+                return factory;
+            }
+        }
+        finally {
+            thread.setContextClassLoader(original);
+        }
+        return null;
     }
 
     private static String lookupByJREPropertyFile() {
         try {
-            return ProviderLocator.lookupByJREPropertyFile(JAVA_RUNTIME_PROPERTY_FILE_LOCATION, SYSTEM_PROPERTY_NAME);
+            String jreDirectory = System.getProperty("java.home");
+            File configurationFile = new File(jreDirectory + File.separator + JAVA_RUNTIME_PROPERTY_FILE_LOCATION);
+            if (configurationFile.exists() && configurationFile.canRead()) {
+                Properties properties = new Properties();
+                InputStream in = null;
+                try {
+                    in = new FileInputStream(configurationFile);
+                    properties.load(in);
+                    return properties.getProperty(SYSTEM_PROPERTY_NAME);
+                } finally {
+                    if (in != null) {
+                        try {
+                            in.close();
+                        } catch (Exception e) {
+                        }
+                    }
+                }
+            }
+            return null;
         } catch (IOException e) {
             throw new ELException("Fail to read configuration file", e);
         }
     }
 
-    private static Class<?> loadExpressionFactoryImplClass() {
+    private static ExpressionFactory loadExpressionFactoryImpl() {
 
-        String implClassName = null;
         try {
             ClassLoader cl = Thread.currentThread().getContextClassLoader();
             if (cl == null) {
                 cl = ClassLoader.getSystemClassLoader();
             }
             // check the META-INF/services defintions first
-            Class<?> cls = lookupByServiceEntryURL(cl);
-            if (cls != null) {
-                return cls;
+            ExpressionFactory factory = lookupByServiceEntryURL(cl);
+            if (factory != null) {
+                return factory;
             }
             // try resolving using the alternate property lookups (always returns
             // something, since there is a default
-            implClassName = lookupExpressionFactoryImplClass();
-            return ProviderLocator.loadClass(implClassName, ExpressionFactory.class, cl);
+            return lookupExpressionFactoryImpl(cl);
         } catch (ClassNotFoundException e) {
             // can be thrown either as a result of a classloading failure in the service
             // lookup or a failure to directly load the class
-            if (implClassName != null) {
-                throw new ELException("Fail to load implementation class " + implClassName, e);
-            }
-            else {
-                throw new ELException("Fail to load implementation class", e);
-            }
+            throw new ELException("Fail to load implementation class", e);
         }
     }
 }
