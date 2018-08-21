@@ -53,14 +53,14 @@
     <dependencies>
         <dependency>
             <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-jcdi_1.0_spec</artifactId>
-            <version>1.0</version>
+            <artifactId>geronimo-jcdi_2.0_spec</artifactId>
+            <version>1.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.geronimo.specs</groupId>
             <artifactId>geronimo-atinject_1.0_spec</artifactId>
-            <version>1.0</version>
+            <version>1.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
@@ -88,7 +88,7 @@
                           osgi.serviceloader;filter:="(osgi.serviceloader=javax.batch.operations.JobOperator)";cardinality:=multiple,
                           osgi.extender;filter:="(osgi.extender=osgi.serviceloader.processor)"
                         ]]></Require-Capability>
-                        <_contract>JavaCDI, JavaInject</_contract>
+                        <_contract>JavaCDI;resolution:=optional, JavaInject;resolution:=optional</_contract>
                     </instructions>
                 </configuration>
             </plugin>
