@@ -31,7 +31,7 @@
     <artifactId>geronimo-atinject_1.0_spec</artifactId>
     <packaging>bundle</packaging>
     <name>Apache Geronimo JSR-330 Spec 1.0</name>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.1</version>
 
     <description>Apache Geronimo implementation of the JSR-330 Dependency Injection Spec API</description>
     <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
@@ -44,9 +44,9 @@
     </distributionManagement>
 
     <scm>
-        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-atinject_1.0_spec/</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-atinject_1.0_spec/</developerConnection>
-        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-atinject_1.0_spec/</url>
+        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-atinject_1.0_spec-1.1</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-atinject_1.0_spec-1.1</developerConnection>
+        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/tags/geronimo-atinject_1.0_spec-1.1</url>
     </scm>
 
     <build>
