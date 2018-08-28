@@ -28,7 +28,7 @@
     <artifactId>geronimo-jbatch_1.0_spec</artifactId>
     <packaging>bundle</packaging>
     <name>Apache Geronimo JBatch Spec 1.0</name>
-    <version>1.1</version>
+    <version>1.2-SNAPSHOT</version>
 
     <description>Apache Geronimo implementation of the JSR-352</description>
     <url>http://geronimo.apache.org/maven/${siteId}/${project.version}</url>
@@ -45,22 +45,22 @@
     </properties>
 
     <scm>
-        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-jbatch_1.0_spec-1.1</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-jbatch_1.0_spec-1.1</developerConnection>
-        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/tags/geronimo-jbatch_1.0_spec-1.1</url>
+        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jbatch_1.0_spec/</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jbatch_1.0_spec/</developerConnection>
+        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-jbatch_1.0_spec/</url>
     </scm>
 
     <dependencies>
         <dependency>
             <groupId>org.apache.geronimo.specs</groupId>
             <artifactId>geronimo-jcdi_2.0_spec</artifactId>
-            <version>1.1</version>
+            <version>1.2-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.geronimo.specs</groupId>
             <artifactId>geronimo-atinject_1.0_spec</artifactId>
-            <version>1.1</version>
+            <version>1.2-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
