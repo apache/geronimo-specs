@@ -28,7 +28,7 @@
     <artifactId>geronimo-jsonb_1.0_spec</artifactId>
     <packaging>bundle</packaging>
     <name>Apache Geronimo JSON Binding Spec 1.0</name>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.1</version>
 
     <description>Apache Geronimo implementation of the JSR-367</description>
     <url>http://geronimo.apache.org/maven/${siteId}/${project.version}</url>
@@ -45,10 +45,10 @@
     </properties>
 
     <scm>
-        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jsonb_1.0_spec/</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jsonb_1.0_spec/
+        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-jsonb_1.0_spec-1.1</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-jsonb_1.0_spec-1.1
         </developerConnection>
-        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-jsonb_1.0_spec/</url>
+        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/tags/geronimo-jsonb_1.0_spec-1.1</url>
     </scm>
 
     <!-- added so the build can find staged depends -->
@@ -73,7 +73,7 @@
         <dependency>
             <groupId>org.apache.geronimo.specs</groupId>
             <artifactId>geronimo-json_1.1_spec</artifactId>
-            <version>1.1-SNAPSHOT</version>
+            <version>1.1</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
