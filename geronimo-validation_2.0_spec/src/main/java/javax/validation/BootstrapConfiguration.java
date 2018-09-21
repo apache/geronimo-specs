@@ -22,19 +22,19 @@ import java.util.Set;
 
 /** @since 1.1 */
 public interface BootstrapConfiguration {
-	String getDefaultProviderClassName();
-	String getConstraintValidatorFactoryClassName();
-	String getMessageInterpolatorClassName();
-	String getTraversableResolverClassName();
-	String getParameterNameProviderClassName();
-	Set<String> getConstraintMappingResourcePaths();
-	boolean isExecutableValidationEnabled();
-	Set<ExecutableType> getDefaultValidatedExecutableTypes();
-	Map<String, String> getProperties();
+    String getDefaultProviderClassName();
+    String getConstraintValidatorFactoryClassName();
+    String getMessageInterpolatorClassName();
+    String getTraversableResolverClassName();
+    String getParameterNameProviderClassName();
+    Set<String> getConstraintMappingResourcePaths();
+    boolean isExecutableValidationEnabled();
+    Set<ExecutableType> getDefaultValidatedExecutableTypes();
+    Map<String, String> getProperties();
 
-	/** @since 2.0 */
-	String getClockProviderClassName();
+    /** @since 2.0 */
+    String getClockProviderClassName();
 
-	/** @since 2.0 */
-	Set<String> getValueExtractorClassNames();
+    /** @since 2.0 */
+    Set<String> getValueExtractorClassNames();
 }

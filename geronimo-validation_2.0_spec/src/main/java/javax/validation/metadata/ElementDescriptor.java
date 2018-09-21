@@ -32,7 +32,7 @@ public interface ElementDescriptor {
 
     ConstraintFinder findConstraints();
 
-	interface ConstraintFinder {
+    interface ConstraintFinder {
         ConstraintFinder unorderedAndMatchingGroups(Class<?>... groups);
 
         ConstraintFinder lookingAt(Scope scope);

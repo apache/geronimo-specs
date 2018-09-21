@@ -22,6 +22,6 @@ import java.util.List;
 
 /** @since 1.1 */
 public interface ParameterNameProvider {
-	List<String> getParameterNames(Constructor<?> constructor);
-	List<String> getParameterNames(Method method);
+    List<String> getParameterNames(Constructor<?> constructor);
+    List<String> getParameterNames(Method method);
 }

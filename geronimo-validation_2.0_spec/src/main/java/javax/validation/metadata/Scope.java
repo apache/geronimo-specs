@@ -20,6 +20,6 @@ package javax.validation.metadata;
  * @version $Rev$ $Date$
  */
 public enum Scope {
-	LOCAL_ELEMENT,
-	HIERARCHY
+    LOCAL_ELEMENT,
+    HIERARCHY
 }

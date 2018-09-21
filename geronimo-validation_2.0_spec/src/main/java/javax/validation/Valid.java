@@ -18,6 +18,7 @@ package javax.validation;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
+import java.lang.annotation.Documented;
 
 import static java.lang.annotation.ElementType.CONSTRUCTOR;
 import static java.lang.annotation.ElementType.FIELD;

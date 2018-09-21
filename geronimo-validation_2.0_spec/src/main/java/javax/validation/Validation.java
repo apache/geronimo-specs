@@ -54,11 +54,11 @@ public class Validation {
      *
      * Geronimo implementation specific code.
      */
-	private static class ProviderSpecificBootstrapImpl<T extends Configuration<T>, U extends ValidationProvider<T>>
+    private static class ProviderSpecificBootstrapImpl<T extends Configuration<T>, U extends ValidationProvider<T>>
         implements ProviderSpecificBootstrap<T> {
 
-		private final Class<U> providerClass;
-		private ValidationProviderResolver vpResolver;
+        private final Class<U> providerClass;
+        private ValidationProviderResolver vpResolver;
 
         /*
          * (non-Javadoc)
@@ -66,8 +66,8 @@ public class Validation {
          * @see javax.validation.bootstrap.ProviderSpecificBootstrap#ProviderSpecificBootstrap(Class<T>)
          */
 
-		public ProviderSpecificBootstrapImpl(Class<U> validationProviderClass) {
-			providerClass = validationProviderClass;
+        public ProviderSpecificBootstrapImpl(Class<U> validationProviderClass) {
+            providerClass = validationProviderClass;
         }
 
         /*
