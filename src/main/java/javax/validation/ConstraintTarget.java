@@ -18,5 +18,5 @@ package javax.validation;
 
 /** @since 1.1 */
 public enum ConstraintTarget {
-	IMPLICIT, RETURN_VALUE, PARAMETERS
+    IMPLICIT, RETURN_VALUE, PARAMETERS
 }
