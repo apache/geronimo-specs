@@ -50,26 +50,15 @@
     </properties>
 
     <scm>
-        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-validation_1.1_spec/
+        <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-validation_2.0_spec/
         </connection>
         <developerConnection>
-            scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-validation_1.1_spec/
+            scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-validation_2.0_spec/
         </developerConnection>
-        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-validation_1.1_spec/</url>
+        <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-validation_2.0_spec/</url>
     </scm>
 
     <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-eclipse-plugin</artifactId>
-                    <configuration>
-                        <addVersionToProjectName>true</addVersionToProjectName>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
