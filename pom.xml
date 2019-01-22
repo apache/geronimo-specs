@@ -172,7 +172,7 @@
                 <!-- Deployment 1.2            NONE -->
                 <!-- JACC 1.5                  NONE -->
                 <!-- JASPIC 1.1                NONE -->
-                <!-- Java EE Security API 1.0  NONE -->
+                <module>geronimo-security_1.0_spec</module>
                 <!-- DEBUG 1.0                 NONE -->
                 <!-- JSTL 1.2                  NONE -->
                 <!-- WS Metadata 2.1           NONE -->
