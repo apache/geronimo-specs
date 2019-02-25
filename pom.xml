@@ -8,7 +8,7 @@
     "License"); you may not use this file except in compliance
     with the License.  You may obtain a copy of the License at
 
-     http://www.apache.org/licenses/LICENSE-2.0
+     http://www.apache.org/licenses/LICENSE-2.0 
 
     Unless required by applicable law or agreed to in writing,
     software distributed under the License is distributed on an
@@ -26,18 +26,18 @@
 
   <parent>
     <groupId>org.apache.geronimo.genesis</groupId>
-    <artifactId>genesis-java6-flava</artifactId>
-    <version>2.2</version>
+    <artifactId>genesis-java8-flava</artifactId>
+    <version>2.3</version>
     <relativePath />
   </parent>
 
   <groupId>org.apache.geronimo.specs</groupId>
-  <artifactId>geronimo-jpa_2.1_spec</artifactId>
+  <artifactId>geronimo-jpa_2.2_spec</artifactId>
   <packaging>bundle</packaging>
-  <name>Apache Geronimo JPA Spec 2.1</name>
+  <name>Apache Geronimo JPA Spec 2.2</name>
   <version>1.0-SNAPSHOT</version>
 
-  <description>Implementation of JSR-338 JPA 2.1 Spec API</description>
+  <description>Implementation of JSR-338 JPA 2.2 Spec API</description>
 
   <url>http://geronimo.apache.org/maven/${siteId}/${project.version}</url>
   <distributionManagement>
@@ -52,10 +52,10 @@
   </properties>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jpa_2.1_spec/</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jpa_2.1_spec/
+    <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jpa_2.2_spec/</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jpa_2.2_spec/
     </developerConnection>
-    <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-jpa_2.1_spec/</url>
+    <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-jpa_2.2_spec/</url>
   </scm>
 
   <dependencies>

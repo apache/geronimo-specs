@@ -30,10 +30,10 @@
 # mvn clean dependency:copy-dependencies
 
 # generate the SIG for the RI
-curl  http://repo1.maven.org/maven2/org/eclipse/persistence/javax.persistence/2.1.0/javax.persistence-2.1.0.jar > ./target/javax.persistence-2.1.0.jar
-java -jar ${SIGTEST_HOME}/lib/sigtestdev.jar Setup -classpath ${JAVA_HOME}/jre/lib/rt.jar:./target/javax.persistence-2.1.0.jar -Package javax.persistence  -FileName target/javax.persistence-2.1.0.sig -static
+curl  http://repo1.maven.org/maven2/org/eclipse/persistence/javax.persistence/2.2.1/javax.persistence-2.2.1.jar > ./target/javax.persistence-2.2.1.jar
+java -jar ${SIGTEST_HOME}/lib/sigtestdev.jar Setup -classpath ${JAVA_HOME}/jre/lib/rt.jar:./target/javax.persistence-2.2.1.jar -Package javax.persistence  -FileName target/javax.persistence-2.2.1.sig -static
 
 # this generates the signature for our own jpa api
-java -jar ${SIGTEST_HOME}/lib/sigtestdev.jar Setup -classpath ${JAVA_HOME}/jre/lib/rt.jar:./target/geronimo-jpa_2.1_spec-1.0-SNAPSHOT.jar -Package javax.persistence  -FileName target/geronimo-jpa-api.sig -static
+java -jar ${SIGTEST_HOME}/lib/sigtestdev.jar Setup -classpath ${JAVA_HOME}/jre/lib/rt.jar:./target/geronimo-jpa_2.2_spec-1.0-SNAPSHOT.jar -Package javax.persistence  -FileName target/geronimo-jpa-api.sig -static
 
 # then open the 2 generated sig files in a diff browser and the only difference should be some internal variables.
