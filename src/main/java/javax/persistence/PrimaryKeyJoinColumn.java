@@ -24,6 +24,7 @@
 //
 package javax.persistence;
 
+import java.lang.annotation.Repeatable;
 import java.lang.annotation.Target;
 import java.lang.annotation.Retention;
 import static java.lang.annotation.ElementType.METHOD;
@@ -34,7 +35,7 @@ import static javax.persistence.ConstraintMode.PROVIDER_DEFAULT;
 
 @Target({TYPE, METHOD, FIELD})
 @Retention(RUNTIME)
-
+@Repeatable(PrimaryKeyJoinColumns.class)
 public @interface PrimaryKeyJoinColumn {
 
     String name() default "";

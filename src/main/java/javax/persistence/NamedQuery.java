@@ -24,6 +24,7 @@
 //
 package javax.persistence;
 
+import java.lang.annotation.Repeatable;
 import java.lang.annotation.Target;
 import java.lang.annotation.Retention;
 import static javax.persistence.LockModeType.NONE;
@@ -33,6 +34,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Target({TYPE}) 
 @Retention(RUNTIME)
+@Repeatable(NamedQueries.class)
 public @interface NamedQuery {
 
     String name();
