@@ -24,6 +24,7 @@
 //
 package javax.persistence;
 
+import java.lang.annotation.Repeatable;
 import java.lang.annotation.Target;
 import static java.lang.annotation.ElementType.*;
 import java.lang.annotation.Retention;
@@ -32,6 +33,7 @@ import static java.lang.annotation.RetentionPolicy.*;
 
 @Target({TYPE, METHOD, FIELD})
 @Retention(RUNTIME)
+@Repeatable(PersistenceContexts.class)
 public @interface PersistenceContext {
 
     String name() default "";

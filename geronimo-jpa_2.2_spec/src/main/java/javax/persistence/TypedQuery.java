@@ -28,6 +28,7 @@ package javax.persistence;
 import java.util.List;
 import java.util.Date;
 import java.util.Calendar;
+import java.util.stream.Stream;
 
 
 public interface TypedQuery<X> extends Query {
@@ -70,4 +71,7 @@ public interface TypedQuery<X> extends Query {
 
      TypedQuery<X> setLockMode(LockModeType lockMode);
 
+     default Stream<X> getResultStream() {
+         return getResultList().stream();
+     }
 }

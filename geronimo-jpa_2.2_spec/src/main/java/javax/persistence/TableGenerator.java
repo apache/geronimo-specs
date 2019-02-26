@@ -24,6 +24,7 @@
 //
 package javax.persistence;
 
+import java.lang.annotation.Repeatable;
 import java.lang.annotation.Target;
 import java.lang.annotation.Retention;
 import static java.lang.annotation.ElementType.FIELD;
@@ -33,6 +34,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Target({TYPE, METHOD, FIELD}) 
 @Retention(RUNTIME)
+@Repeatable(TableGenerators.class)
 public @interface TableGenerator {
 
     String name();

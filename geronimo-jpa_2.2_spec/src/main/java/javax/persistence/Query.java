@@ -31,6 +31,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.Map;
+import java.util.stream.Stream;
 
 
 public interface Query {
@@ -104,4 +105,8 @@ public interface Query {
     LockModeType getLockMode();
 
     <T> T unwrap(Class<T> cls);
+
+    default Stream getResultStream() {
+        return getResultList().stream();
+    }
 }

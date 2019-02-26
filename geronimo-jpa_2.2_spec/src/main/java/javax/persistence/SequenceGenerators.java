@@ -24,34 +24,14 @@
 //
 package javax.persistence;
 
-import java.lang.annotation.Repeatable;
-import java.lang.annotation.Target;
 import java.lang.annotation.Retention;
-import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.ElementType.METHOD;
+import java.lang.annotation.Target;
+
+import static java.lang.annotation.ElementType.*;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
-import static javax.persistence.ConstraintMode.PROVIDER_DEFAULT;
 
-@Target({METHOD, FIELD})
+@Target({TYPE, METHOD, FIELD})
 @Retention(RUNTIME)
-@Repeatable(JoinColumns.class)
-public @interface JoinColumn {
-
-    String name() default "";
-
-    String referencedColumnName() default "";
-
-    boolean unique() default false;
-
-    boolean nullable() default true;
-
-    boolean insertable() default true;
-
-    boolean updatable() default true;
-
-    String columnDefinition() default "";
-
-    String table() default "";
-
-    ForeignKey foreignKey() default @ForeignKey(PROVIDER_DEFAULT);
+public @interface SequenceGenerators {
+    SequenceGenerator[] value();
 }
