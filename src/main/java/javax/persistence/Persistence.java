@@ -26,8 +26,6 @@ package javax.persistence;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.security.AccessController;
-import java.security.PrivilegedAction;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -40,8 +38,6 @@ import javax.persistence.spi.PersistenceProvider;
 import javax.persistence.spi.PersistenceProviderResolver;
 import javax.persistence.spi.PersistenceProviderResolverHolder;
 import javax.persistence.spi.ProviderUtil;
-
-import org.apache.geronimo.osgi.locator.ProviderLocator;
 
 /**
  * Bootstrap class to obtain {@link javax.persistence.EntityManagerFactory}
@@ -86,45 +82,6 @@ public class Persistence {
 
         // get the discovered set of providers
         List<PersistenceProvider> providers = getProviders();
-
-        /*
-         * Geronimo/OpenJPA 1.0 unique behavior - Start by loading a provider
-         * explicitly specified in the properties and return any exceptions.
-         * The spec doesn't forbid providers that aren't a service - it only
-         * states that they "should" be implemented as services in Sect. 9.2.
-         *
-         * For 2.0 - We only perform the above behavior if the specified
-         * provider is not in the discovered list.
-         *
-         * Note: This special non-spec defined case will rethrow any encountered
-         * Exceptions as a PersistenceException.
-         */
-        Object propVal = props.get(PERSISTENCE_PROVIDER_PROPERTY);
-        if ((propVal != null) && (propVal instanceof String)) {
-            boolean isLoaded = false;
-            String providerName = propVal.toString();
-            // search the discovered providers for this explicit provider
-            for (PersistenceProvider provider : providers) {
-                if (provider.getClass().getName().compareTo(providerName) == 0) {
-                    isLoaded = true;
-                    break;
-                }
-            }
-            /*
-             * Only try to explicitly create this provider if we didn't
-             * find it as a service, while rethrowing any exceptions to
-             * match the old 1.0 behavior
-             */
-            if (!isLoaded) {
-                factory = createFactory(
-                    providerName.toString(),
-                    persistenceUnitName,
-                    props);
-                if (factory != null) {
-                    return factory;
-                }
-            }
-        }
 
         /*
          * Now, the default JPA2 behavior of loading a provider from our resolver
@@ -186,38 +143,6 @@ public class Persistence {
                 exceptions);
         }
     }
-
-    /*
-     * Geronimo/OpenJPA private helper code for PERSISTENCE_PROVIDER_PROPERTY
-     * @return EntityManagerFactory or null
-     * @throws PersistenceException
-     */
-    private static EntityManagerFactory createFactory(String providerName,
-            String persistenceUnitName, Map properties)
-            throws PersistenceException {
-
-        Class<?> providerClass;
-
-        // get our class loader
-        ClassLoader cl = PrivClassLoader.get(null);
-        if (cl == null)
-            cl = PrivClassLoader.get(Persistence.class);
-
-        try {
-            providerClass = ProviderLocator.loadClass(providerName, Persistence.class, cl);
-        } catch (Exception e) {
-            throw new PersistenceException("Invalid or inaccessible explicit provider class: " +
-                providerName, e);
-        }
-        try {
-            PersistenceProvider provider = (PersistenceProvider) providerClass.newInstance();
-            return provider.createEntityManagerFactory(persistenceUnitName, properties);
-        } catch (Exception e) {
-            throw new PersistenceException("Explicit error returned from provider: " +
-                providerName + " for PU: " + persistenceUnitName, e);
-        }
-    }
-
 
     /**
      * Geronimo/OpenJPA private helper code for creating a PersistenceException
@@ -285,8 +210,6 @@ public class Persistence {
          * @see javax.persistence.PersistenceUtil#isLoaded(java.lang.Object, java.lang.String)
          */
             public boolean isLoaded(Object entity, String attributeName) {
-                boolean isLoaded = true;
-
                 // Get the list of persistence providers from the resolver
                 List<PersistenceProvider> pps = getProviders();
 
@@ -352,30 +275,5 @@ public class Persistence {
             }
     }
 
-    /**
-     * Geronimo/OpenJPA private helper code for handling class loaders
-     */
-    private static class PrivClassLoader implements PrivilegedAction<ClassLoader> {
-        private final Class<?> c;
-
-        public static ClassLoader get(Class<?> c) {
-            final PrivClassLoader action = new PrivClassLoader(c);
-            if (System.getSecurityManager() != null)
-                return AccessController.doPrivileged(action);
-            else
-                return action.run();
-        }
-
-        private PrivClassLoader(Class<?> c) {
-            this.c = c;
-        }
-
-        public ClassLoader run() {
-            if (c != null)
-                return c.getClassLoader();
-            else
-                return Thread.currentThread().getContextClassLoader();
-        }
-    }
 }
 
