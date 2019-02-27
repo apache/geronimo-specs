@@ -35,7 +35,7 @@
   <artifactId>geronimo-jpa_2.2_spec</artifactId>
   <packaging>bundle</packaging>
   <name>Apache Geronimo JPA Spec 2.2</name>
-  <version>1.1-SNAPSHOT</version>
+  <version>1.0-SNAPSHOT</version>
 
   <description>Implementation of JSR-338 JPA 2.2 Spec API</description>
 
