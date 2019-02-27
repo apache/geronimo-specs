@@ -178,7 +178,6 @@
                 <!-- WS Metadata 2.1           NONE -->
                 <!-- JSF 2.3                   NONE -->
                 <module>geronimo-annotation_1.3_spec</module>
-                <!-- JPA 2.2                   NONE -->
                 <module>geronimo-jpa_2.2_spec</module>
                 <module>geronimo-validation_2.0_spec</module>
                 <!-- Managed Beans 1.0         NONE -->
