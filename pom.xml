@@ -78,7 +78,6 @@
         <configuration>
           <instructions>
             <Bundle-SymbolicName>${project.groupId}.${project.artifactId};singleton=true</Bundle-SymbolicName>
-            <Bundle-Activator>org.apache.geronimo.specs.jpa.PersistenceActivator</Bundle-Activator>
             <Specification-Title>JSR-338 Java Persistence API 2.2</Specification-Title>
             <Specification-Vendor>Sun Microsystems, Inc.</Specification-Vendor>
             <Specification-Version>2.2</Specification-Version>
