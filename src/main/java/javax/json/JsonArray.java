@@ -122,6 +122,7 @@ public interface JsonArray extends JsonStructure, List<JsonValue> {
      * @throws IndexOutOfBoundsException if the index is out of range
      * @throws ClassCastException if the value at the specified position is not
      *                            assignable to an int
+     * @throws NullPointerException if an object with the given name doesn't exist
      */
     int getInt(int index);
 
@@ -138,6 +139,7 @@ public interface JsonArray extends JsonStructure, List<JsonValue> {
      * @throws IndexOutOfBoundsException if the index is out of range
      * @throws ClassCastException if the value at the specified position is not
      *                            assignable to a boolean
+     * @throws NullPointerException if an object with the given name doesn't exist
      */
     boolean getBoolean(int index);
 

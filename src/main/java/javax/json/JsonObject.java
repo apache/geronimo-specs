@@ -75,6 +75,7 @@ public interface JsonObject extends JsonStructure, Map<String, JsonValue> {
     /**
      * @return the int with the given name or {@code null} if there is no attribute with that name
      * @throws ClassCastException if the JsonValue cannot be correctly cast
+     * @throws NullPointerException if an object with the given name doesn't exist
      */
     int getInt(String name);
 
@@ -87,6 +88,7 @@ public interface JsonObject extends JsonStructure, Map<String, JsonValue> {
     /**
      * @return the boolean with the given name or {@code null} if there is no attribute with that name
      * @throws ClassCastException if the JsonValue cannot be correctly cast
+     * @throws NullPointerException if an object with the given name doesn't exist
      */
     boolean getBoolean(String name);
 

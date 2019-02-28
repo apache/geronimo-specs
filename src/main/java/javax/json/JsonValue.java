@@ -24,12 +24,12 @@ public interface JsonValue {
     /**
      * The empty JSON object.
      */
-    JsonObject EMPTY_JSON_OBJECT = Json.createObjectBuilder().build();
+    JsonObject EMPTY_JSON_OBJECT = new EmptyJsonObject();
 
     /**
      * The empty JSON array.
      */
-    JsonArray EMPTY_JSON_ARRAY = Json.createArrayBuilder().build();
+    JsonArray EMPTY_JSON_ARRAY = new EmptyJsonArray();
 
 
     /**
