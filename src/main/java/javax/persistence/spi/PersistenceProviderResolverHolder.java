@@ -25,21 +25,14 @@
 
 package javax.persistence.spi;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
+import java.util.ServiceLoader;
 import java.util.WeakHashMap;
 
 import javax.persistence.PersistenceException;
-
-import org.apache.geronimo.osgi.locator.ProviderLocator;
 
 /**
  * Contains Geronimo implemented code as required by the JPA spec.
@@ -80,9 +73,6 @@ public class PersistenceProviderResolverHolder {
      */
     private static class DefaultPersistenceProviderResolver implements PersistenceProviderResolver {
 
-        private static final String SERVICES_FILENAME = "META-INF/services/" +
-            PersistenceProvider.class.getName();
-
         // cache of providers per class loader
         private volatile WeakHashMap<ClassLoader, List<PersistenceProvider>> providerCache =
             new WeakHashMap<ClassLoader, List<PersistenceProvider>>();
@@ -105,18 +95,11 @@ public class PersistenceProviderResolverHolder {
                 providers = new ArrayList<PersistenceProvider>();
                 try {
                     // add each one to our list
-                    List<Object> serviceProviders = ProviderLocator.getServices(PersistenceProvider.class.getName(), this.getClass(), cl);
-                    for (Object o : serviceProviders) {
-                        providers.add((PersistenceProvider)o);
+                    for (PersistenceProvider provider : ServiceLoader.load(PersistenceProvider.class, cl)) {
+                        providers.add(provider);
                     }
                     // cache the discovered providers
                     providerCache.put(cl, providers);
-                } catch (ClassNotFoundException e) {
-                    throw new PersistenceException("Failed to load provider from META-INF/services", e);
-                } catch (InstantiationException e) {
-                    throw new PersistenceException("Failed to load provider from META-INF/services", e);
-                } catch (IllegalAccessException e) {
-                    throw new PersistenceException("Failed to load provider from META-INF/services", e);
                 } catch (Exception e) {
                     throw new PersistenceException("Failed to load provider from META-INF/services", e);
                 }
