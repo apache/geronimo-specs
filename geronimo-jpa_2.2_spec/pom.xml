@@ -35,7 +35,7 @@
   <artifactId>geronimo-jpa_2.2_spec</artifactId>
   <packaging>bundle</packaging>
   <name>Apache Geronimo JPA Spec 2.2</name>
-  <version>1.0</version>
+  <version>1.1-SNAPSHOT</version>
 
   <description>Implementation of JSR-338 JPA 2.2 Spec API</description>
 
@@ -52,10 +52,10 @@
   </properties>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-jpa_2.2_spec-1.0</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-jpa_2.2_spec-1.0
+    <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jpa_2.2_spec/</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-jpa_2.2_spec/
     </developerConnection>
-    <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/tags/geronimo-jpa_2.2_spec-1.0</url>
+    <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-jpa_2.2_spec/</url>
   </scm>
 
   <build>
