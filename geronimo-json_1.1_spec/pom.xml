@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.apache.geronimo.genesis</groupId>
+    <artifactId>genesis-java8-flava</artifactId>
+    <version>2.3</version>
+  </parent>
+
+  <groupId>org.apache.geronimo.specs</groupId>
+  <artifactId>geronimo-json_1.1_spec</artifactId>
+  <packaging>bundle</packaging>
+  <name>Apache Geronimo JSON Spec 1.1</name>
+  <version>1.3-SNAPSHOT</version>
+
+  <description>Apache Geronimo implementation of the JSR-374</description>
+  <url>http://geronimo.apache.org/maven/${siteId}/${project.version}</url>
+
+  <distributionManagement>
+    <site>
+      <id>apache-website</id>
+      <url>${site.deploy.url}/maven/${siteId}/${project.version}</url>
+    </site>
+  </distributionManagement>
+
+  <properties>
+    <siteId>specs/${project.artifactId}</siteId>
+  </properties>
+
+  <scm>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-json_1.1_spec/</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/trunk/geronimo-json_1.1_spec/</developerConnection>
+    <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-json_1.1_spec/</url>
+  </scm>
+
+  <!-- added so the build can find staged depends -->
+  <repositories>
+    <repository>
+      <id>apache.nexus.staging</id>
+      <name>Apache Staging Repository</name>
+      <layout>default</layout>
+      <url>https://repository.apache.org/content/repositories/staging/</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <releases>
+        <enabled>true</enabled>
+        <updatePolicy>always</updatePolicy>
+        <checksumPolicy>warn</checksumPolicy>
+      </releases>
+    </repository>
+  </repositories>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+        <version>3.5.0</version>
+        <configuration>
+          <instructions>
+            <Export-Package>
+              javax.json*;version=1.1
+            </Export-Package>
+            <Provide-Capability><![CDATA[
+               osgi.contract;osgi.contract=JavaJSONP;uses:="${packages;NAMED;javax.*}";version:List<Version>='1.1,1.0'
+            ]]></Provide-Capability>
+            <Require-Capability><![CDATA[
+              osgi.serviceloader;filter:="(osgi.serviceloader=javax.json.spi.JsonProvider)";cardinality:=multiple,
+              osgi.extender;filter:="(osgi.extender=osgi.serviceloader.processor)"
+            ]]></Require-Capability>
+          </instructions>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.rat</groupId>
+        <artifactId>apache-rat-plugin</artifactId>
+        <version>0.10</version>
+        <configuration>
+          <includes>
+            <include>src/**/*</include>
+            <include>pom.xml</include>
+          </includes>
+          <excludes>
+            <exclude>**/*/MANIFEST.MF</exclude>
+            <exclude>**/META-INF/services/*</exclude>
+
+            <!-- json can't get comments -->
+            <exclude>**/*.json</exclude>
+          </excludes>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>validate</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>
