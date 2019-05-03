@@ -30,12 +30,12 @@
         <version>2.2</version>
     </parent>
 
-    <groupId>org.apache.geronimo.specs</groupId>
-    <artifactId>geronimo-el_2.2_spec</artifactId>
+    <groupId>org.apache.geronimo.jakarta-specs</groupId>
+    <artifactId>geronimo-jakarta-el_spec</artifactId>
     <packaging>bundle</packaging>
-    <name>Apache Geronimo Expression Language Spec 2.2</name>
-    <version>1.2-SNAPSHOT</version>
-    <description>Expression Languague API 2.2</description>
+    <name>Apache Geronimo Jakarta Expression Language Spec 2.2</name>
+    <version>2.2_1-SNAPSHOT</version>
+    <description>Jakarta Expression Languague API 2.2</description>
 
     <url>http://geronimo.apache.org/maven/${siteId}/${project.version}</url>
     <distributionManagement>
@@ -65,7 +65,7 @@
                     <instructions>
                         <Bundle-SymbolicName>${project.groupId}.${project.artifactId};singleton=true</Bundle-SymbolicName>
                         <Specification-Title>JSR-245 Java Expression Language API 2.2</Specification-Title>
-                        <Specification-Vendor>Sun Microsystems, Inc.</Specification-Vendor>
+                        <Specification-Vendor>Eclispe Foundation</Specification-Vendor>
                         <Specification-Version>2.2</Specification-Version>
                         <Export-Package>javax.el*;version=2.2</Export-Package>
                         <Provide-Capability><![CDATA[

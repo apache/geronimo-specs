@@ -27,13 +27,13 @@
         <version>2.2</version>
     </parent>
 
-    <groupId>org.apache.geronimo.specs</groupId>
-    <artifactId>geronimo-atinject_1.0_spec</artifactId>
+    <groupId>org.apache.geronimo.jakarta-specs</groupId>
+    <artifactId>geronimo-jakarta-atinject_spec</artifactId>
     <packaging>bundle</packaging>
-    <name>Apache Geronimo JSR-330 Spec 1.0</name>
-    <version>1.2-SNAPSHOT</version>
+    <name>Apache Geronimo Jakarta atinject Spec 1.0</name>
+    <version>1.0_1-SNAPSHOT</version>
 
-    <description>Apache Geronimo implementation of the JSR-330 Dependency Injection Spec API</description>
+    <description>Apache Geronimo implementation of the Jakarta Dependency Injection Spec API</description>
     <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
 
     <distributionManagement>

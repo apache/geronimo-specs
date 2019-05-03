@@ -30,11 +30,11 @@
         <version>2.2</version>
     </parent>
 
-    <groupId>org.apache.geronimo.specs</groupId>
-    <artifactId>geronimo-annotation_1.3_spec</artifactId>
+    <groupId>org.apache.geronimo.jakarta-specs</groupId>
+    <artifactId>geronimo-jakarta-annotation_spec</artifactId>
     <packaging>bundle</packaging>
-    <name>Apache Geronimo Annotation Spec 1.3</name>
-    <version>1.2-SNAPSHOT</version>
+    <name>Apache Geronimo Jakarta Annotation Spec 1.3</name>
+    <version>1.3_1-SNAPSHOT</version>
     <description>Common Annotations spec 1.3 API</description>
 
     <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
@@ -64,12 +64,12 @@
                 <configuration>
                     <instructions>
                         <Bundle-SymbolicName>${groupId}.${artifactId};singleton=true</Bundle-SymbolicName>
-                        <Specification-Title>JSR-250 Common Annotations 1.3</Specification-Title>
-                        <Specification-Vendor>Oracle, Inc.</Specification-Vendor>
+                        <Specification-Title>Jakarta Common Annotations 1.3</Specification-Title>
+                        <Specification-Vendor>Eclipse Foundation</Specification-Vendor>
                         <Specification-Version>1.3</Specification-Version>
                         <Export-Package>javax.annotation*;version=1.3</Export-Package>
                         <Provide-Capability><![CDATA[
-                            osgi.contract;osgi.contract=JavaAnnotation;uses:="${packages;NAMED;javax.*}";version:List<Version>='1.3,1.2,1.1,1.0'
+                            osgi.contract;osgi.contract=JavaAnnotation;uses:="${packages;NAMED;jakarta.*}";version:List<Version>='1.3,1.2,1.1,1.0'
                         ]]></Provide-Capability>
                     </instructions>
                 </configuration>

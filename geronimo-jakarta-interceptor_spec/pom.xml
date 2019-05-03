@@ -30,12 +30,12 @@
         <version>2.2</version>
     </parent>
 
-    <groupId>org.apache.geronimo.specs</groupId>
-    <artifactId>geronimo-interceptor_1.2_spec</artifactId>
+    <groupId>org.apache.geronimo.jakarta-specs</groupId>
+    <artifactId>geronimo-jakarta-interceptor_spec</artifactId>
     <packaging>bundle</packaging>
-    <name>Apache Geronimo Interceptor Spec 1.2</name>
-    <version>1.2-SNAPSHOT</version>
-    <description>Interceptor API 1.2</description>
+    <name>Apache Geronimo Jakarta Interceptor Spec 1.2</name>
+    <version>1.2_1-SNAPSHOT</version>
+    <description>Jakarta Interceptor API 1.2</description>
 
     <url>http://geronimo.apache.org/maven/${siteId}/${project.version}</url>
     <distributionManagement>
