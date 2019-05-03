@@ -49,6 +49,7 @@
                 <module>geronimo-jakarta-atinject_spec</module>
                 <module>geronimo-jakarta-interceptor_spec</module>
                 <module>geronimo-jakarta-el_spec</module>
+                <module>geronimo-jakarta-jcdi_spec</module>
                 <module>geronimo-jakarta-json_spec</module>
             </modules>
         </profile>

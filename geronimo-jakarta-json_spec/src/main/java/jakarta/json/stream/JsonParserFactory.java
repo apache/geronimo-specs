@@ -14,10 +14,10 @@
  *   See the License for the specific language governing permissions and
  *   limitations under the License.
  */
-package javax.json.stream;
+package jakarta.json.stream;
 
-import javax.json.JsonArray;
-import javax.json.JsonObject;
+import jakarta.json.JsonArray;
+import jakarta.json.JsonObject;
 import java.io.InputStream;
 import java.io.Reader;
 import java.nio.charset.Charset;

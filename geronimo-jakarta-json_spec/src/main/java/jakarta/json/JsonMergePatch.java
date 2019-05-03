@@ -15,13 +15,13 @@
  *   limitations under the License.
  */
 
-package javax.json;
+package jakarta.json;
 
 /**
  * A JSON MergePatch as defined in http://tools.ietf.org/html/rfc7396
  *
- * @see javax.json.spi.JsonProvider#createMergePatch(JsonValue)
- * @see javax.json.spi.JsonProvider#createMergeDiff(JsonValue, JsonValue)
+ * @see jakarta.json.spi.JsonProvider#createMergePatch(JsonValue)
+ * @see jakarta.json.spi.JsonProvider#createMergeDiff(JsonValue, JsonValue)
  */
 public interface JsonMergePatch  {
 

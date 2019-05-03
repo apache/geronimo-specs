@@ -22,7 +22,7 @@
  * Community Process. In order to remain compliant with the specification
  * DO NOT add / change / or delete method signatures!
  */
-package javax.inject;
+package jakarta.inject;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;

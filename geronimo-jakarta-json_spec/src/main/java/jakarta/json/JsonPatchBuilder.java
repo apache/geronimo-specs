@@ -15,7 +15,7 @@
  *   limitations under the License.
  */
 
-package javax.json;
+package jakarta.json;
 
 /**
  * TODO this is a final class in the spec, but that makes no sense.

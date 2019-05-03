@@ -22,7 +22,7 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-package javax.interceptor;
+package jakarta.interceptor;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

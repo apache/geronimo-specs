@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package javax.el;
+package jakarta.el;
 
 import java.beans.FeatureDescriptor;
 import java.lang.reflect.Array;

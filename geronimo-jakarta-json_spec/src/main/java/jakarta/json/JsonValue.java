@@ -14,7 +14,7 @@
  *   See the License for the specific language governing permissions and
  *   limitations under the License.
  */
-package javax.json;
+package jakarta.json;
 
 /**
  * A single value in a JSON expression.

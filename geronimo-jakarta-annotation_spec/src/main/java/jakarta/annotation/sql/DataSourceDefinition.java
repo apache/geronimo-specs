@@ -19,7 +19,7 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-package javax.annotation.sql;
+package jakarta.annotation.sql;
 
 import static java.lang.annotation.ElementType.TYPE;
 import java.lang.annotation.Retention;

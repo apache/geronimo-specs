@@ -21,7 +21,7 @@
  * This source code implements specifications defined by the Java
  * Community Process. In order to remain compliant with the specification
  * DO NOT add / change / or delete method signatures!
- */package javax.inject;
+ */package jakarta.inject;
 
 public interface Provider<T> 
 {

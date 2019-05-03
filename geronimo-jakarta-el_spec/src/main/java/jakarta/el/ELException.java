@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package javax.el;
+package jakarta.el;
 
 /**
  * Represents any of the exception conditions that can arise during expression

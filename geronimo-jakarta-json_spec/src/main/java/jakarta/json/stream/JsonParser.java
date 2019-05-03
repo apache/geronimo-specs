@@ -14,16 +14,16 @@
  *   See the License for the specific language governing permissions and
  *   limitations under the License.
  */
-package javax.json.stream;
+package jakarta.json.stream;
 
 import java.io.Closeable;
 import java.math.BigDecimal;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import javax.json.JsonArray;
-import javax.json.JsonObject;
-import javax.json.JsonValue;
+import jakarta.json.JsonArray;
+import jakarta.json.JsonObject;
+import jakarta.json.JsonValue;
 
 public interface JsonParser extends Closeable {
     boolean hasNext();

@@ -23,7 +23,7 @@
 // DO NOT add / change / or delete method signatures!
 //
 
-package javax.interceptor;
+package jakarta.interceptor;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;

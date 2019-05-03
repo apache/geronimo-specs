@@ -14,16 +14,16 @@
  *   See the License for the specific language governing permissions and
  *   limitations under the License.
  */
-package javax.json.stream;
+package jakarta.json.stream;
 
-import javax.json.JsonValue;
+import jakarta.json.JsonValue;
 import java.io.Closeable;
 import java.io.Flushable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
 public interface JsonGenerator extends Flushable, Closeable {
-    String PRETTY_PRINTING = "javax.json.stream.JsonGenerator.prettyPrinting"; // TODO: ensure it exists before releasing
+    String PRETTY_PRINTING = "jakarta.json.stream.JsonGenerator.prettyPrinting"; // TODO: ensure it exists before releasing
 
     JsonGenerator writeStartObject();
 

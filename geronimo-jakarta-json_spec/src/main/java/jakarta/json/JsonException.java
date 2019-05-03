@@ -14,7 +14,7 @@
  *   See the License for the specific language governing permissions and
  *   limitations under the License.
  */
-package javax.json;
+package jakarta.json;
 
 public class JsonException extends RuntimeException {
     public JsonException(final String message) {

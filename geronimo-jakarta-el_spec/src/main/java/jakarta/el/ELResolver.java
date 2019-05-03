@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package javax.el;
+package jakarta.el;
 
 import java.text.MessageFormat;
 import java.util.Iterator;
@@ -38,7 +38,7 @@ public abstract class ELResolver {
             }
         }
         ResourceBundle bundle = ResourceBundle.getBundle(
-                "javax.el.LocalStrings", locale);
+                "jakarta.el.LocalStrings", locale);
         try {
             String template = bundle.getString(name);
             if (props != null) {

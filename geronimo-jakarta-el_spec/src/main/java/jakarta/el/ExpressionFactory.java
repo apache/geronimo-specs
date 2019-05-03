@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package javax.el;
+package jakarta.el;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -34,7 +34,7 @@ public abstract class ExpressionFactory {
 
     private static final String PLATFORM_DEFAULT_FACTORY_CLASS = "org.apache.el.ExpressionFactoryImpl";
 
-    private static final String SYSTEM_PROPERTY_NAME = "javax.el.ExpressionFactory";
+    private static final String SYSTEM_PROPERTY_NAME = "jakarta.el.ExpressionFactory";
 
     private static final String JAVA_RUNTIME_PROPERTY_FILE_LOCATION = "lib" + File.separator + "el.properties";
 

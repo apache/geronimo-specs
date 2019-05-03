@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package javax.interceptor;
+package jakarta.interceptor;
 
 import java.lang.annotation.Documented;
 import static java.lang.annotation.ElementType.TYPE;
@@ -35,7 +35,7 @@ public @interface Interceptor
 {
     /**
      * A set of default priorities which can be used by
-     * Interceptors via {@code &#064;javax.annotation.Priority}.
+     * Interceptors via {@code &#064;jakarta.annotation.Priority}.
      * Interceptors with smaller priority values are called before
      * Interceptors with bigger priority numbers.
      */
