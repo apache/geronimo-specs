@@ -29,7 +29,7 @@
     </parent>
 
     <groupId>org.apache.geronimo.jakarta.specs</groupId>
-    <artifactId>specs-parent/artifactId>
+    <artifactId>specs-parent</artifactId>
     <packaging>pom</packaging>
     <name>Geronimo Jakarta Specifications -- CI Setup</name>
     <version>0-SNAPSHOT</version>

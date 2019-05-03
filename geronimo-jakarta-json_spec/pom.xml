@@ -81,13 +81,13 @@
         <configuration>
           <instructions>
             <Export-Package>
-              javax.json*;version=1.1
+              jakarta.json*;version=1.1
             </Export-Package>
             <Provide-Capability><![CDATA[
-               osgi.contract;osgi.contract=JavaJSONP;uses:="${packages;NAMED;javax.*}";version:List<Version>='1.1,1.0'
+               osgi.contract;osgi.contract=JavaJSONP;uses:="${packages;NAMED;jakarta.*}";version:List<Version>='1.1,1.0'
             ]]></Provide-Capability>
             <Require-Capability><![CDATA[
-              osgi.serviceloader;filter:="(osgi.serviceloader=javax.json.spi.JsonProvider)";cardinality:=multiple,
+              osgi.serviceloader;filter:="(osgi.serviceloader=jakarta.json.spi.JsonProvider)";cardinality:=multiple,
               osgi.extender;filter:="(osgi.extender=osgi.serviceloader.processor)"
             ]]></Require-Capability>
           </instructions>

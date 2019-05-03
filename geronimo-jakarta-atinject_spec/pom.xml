@@ -23,8 +23,8 @@
 
     <parent>
         <groupId>org.apache.geronimo.genesis</groupId>
-        <artifactId>genesis-java5-flava</artifactId>
-        <version>2.2</version>
+        <artifactId>genesis-java8-flava</artifactId>
+        <version>2.3</version>
     </parent>
 
     <groupId>org.apache.geronimo.jakarta-specs</groupId>
@@ -57,9 +57,9 @@
                 <version>3.5.0</version>
                 <configuration>
                     <instructions>
-                        <Export-Package>javax.inject*;version=1.0</Export-Package>
+                        <Export-Package>jakarta.inject*;version=1.0</Export-Package>
                         <Provide-Capability><![CDATA[
-                            osgi.contract;osgi.contract=JavaInject;uses:="${packages;NAMED;javax.*}";version:List<Version>='1.0'
+                            osgi.contract;osgi.contract=JavaInject;uses:="${packages;NAMED;jakarta.*}";version:List<Version>='1.0'
                         ]]></Provide-Capability>
                     </instructions>
                 </configuration>

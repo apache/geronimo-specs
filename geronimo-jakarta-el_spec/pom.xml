@@ -26,8 +26,8 @@
 
     <parent>
         <groupId>org.apache.geronimo.genesis</groupId>
-        <artifactId>genesis-java5-flava</artifactId>
-        <version>2.2</version>
+        <artifactId>genesis-java8-flava</artifactId>
+        <version>2.3</version>
     </parent>
 
     <groupId>org.apache.geronimo.jakarta-specs</groupId>
@@ -67,12 +67,12 @@
                         <Specification-Title>JSR-245 Java Expression Language API 2.2</Specification-Title>
                         <Specification-Vendor>Eclispe Foundation</Specification-Vendor>
                         <Specification-Version>2.2</Specification-Version>
-                        <Export-Package>javax.el*;version=2.2</Export-Package>
+                        <Export-Package>jakarta.el*;version=2.2</Export-Package>
                         <Provide-Capability><![CDATA[
-                            osgi.contract;osgi.contract=JavaEL;uses:="${packages;NAMED;javax.*}";version:List<Version>='2.2,2.1,2.0,1.0'
+                            osgi.contract;osgi.contract=JavaEL;uses:="${packages;NAMED;jakarta.*}";version:List<Version>='2.2,2.1,2.0,1.0'
                         ]]></Provide-Capability>
                         <Require-Capability><![CDATA[
-                          osgi.serviceloader;filter:="(osgi.serviceloader=javax.el.ExpressionFactory)";cardinality:=multiple;resolution:=optional,
+                          osgi.serviceloader;filter:="(osgi.serviceloader=jakarta.el.ExpressionFactory)";cardinality:=multiple;resolution:=optional,
                           osgi.extender;filter:="(osgi.extender=osgi.serviceloader.processor)"
                         ]]></Require-Capability>
                     </instructions>
