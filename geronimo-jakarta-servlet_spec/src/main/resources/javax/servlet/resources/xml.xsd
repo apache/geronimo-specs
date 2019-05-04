@@ -1,4 +1,20 @@
 <?xml version='1.0'?>
+<!--
+ Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
 <!DOCTYPE xs:schema PUBLIC "-//W3C//DTD XMLSCHEMA 200102//EN" "XMLSchema.dtd" >
 <xs:schema targetNamespace="http://www.w3.org/XML/1998/namespace" xmlns:xs="http://www.w3.org/2001/XMLSchema" xml:lang="en">
 
@@ -6,42 +22,6 @@
   <xs:documentation>
    See http://www.w3.org/XML/1998/namespace.html and
    http://www.w3.org/TR/REC-xml for information about this namespace.
-
-    This schema document describes the XML namespace, in a form
-    suitable for import by other schema documents.
-
-    Note that local names in this namespace are intended to be defined
-    only by the World Wide Web Consortium or its subgroups.  The
-    following names are currently defined in this namespace and should
-    not be used with conflicting semantics by any Working Group,
-    specification, or document instance:
-
-    base (as an attribute name): denotes an attribute whose value
-         provides a URI to be used as the base for interpreting any
-         relative URIs in the scope of the element on which it
-         appears; its value is inherited.  This name is reserved
-         by virtue of its definition in the XML Base specification.
-
-    lang (as an attribute name): denotes an attribute whose value
-         is a language code for the natural language of the content of
-         any element; its value is inherited.  This name is reserved
-         by virtue of its definition in the XML specification.
-
-    space (as an attribute name): denotes an attribute whose
-         value is a keyword indicating what whitespace processing
-         discipline is intended for the content of the element; its
-         value is inherited.  This name is reserved by virtue of its
-         definition in the XML specification.
-
-    Father (in any context at all): denotes Jon Bosak, the chair of
-         the original XML Working Group.  This name is reserved by
-         the following decision of the W3C XML Plenary and
-         XML Coordination groups:
-
-             In appreciation for his vision, leadership and dedication
-             the W3C XML Plenary on this 10th day of February, 2000
-             reserves for Jon Bosak in perpetuity the XML name
-             xml:Father
   </xs:documentation>
  </xs:annotation>
 

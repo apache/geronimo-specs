@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-package javax.servlet.jsp.tagext;
+package jakarta.servlet.jsp.tagext;
 
 import java.util.Hashtable;
 
@@ -23,8 +23,8 @@ import java.util.Hashtable;
  * The (translation-time only) attribute/value information for a tag instance.
  *
  * <p>
- * TagData is only used as an argument to the isValid, validate, and 
- * getVariableInfo methods of TagExtraInfo, which are invoked at 
+ * TagData is only used as an argument to the isValid, validate, and
+ * getVariableInfo methods of TagExtraInfo, which are invoked at
  * translation time.
  */
 
@@ -55,24 +55,24 @@ public class TagData implements Cloneable {
      * @param atts the static attribute and values.  May be null.
      */
     public TagData(Object[] atts[]) {
-	if (atts == null) {
-	    attributes = new Hashtable<String, Object>();
-	} else {
-	    attributes = new Hashtable<String, Object>(atts.length);
-	}
+        if (atts == null) {
+            attributes = new Hashtable<>();
+        } else {
+            attributes = new Hashtable<>(atts.length);
+        }
 
-	if (atts != null) {
-	    for (int i = 0; i < atts.length; i++) {
-		attributes.put((String) atts[i][0], atts[i][1]);
-	    }
-	}
+        if (atts != null) {
+            for (int i = 0; i < atts.length; i++) {
+                attributes.put((String) atts[i][0], atts[i][1]);
+            }
+        }
     }
 
     /**
      * Constructor for a TagData.
      *
      * If you already have the attributes in a hashtable, use this
-     * constructor. 
+     * constructor.
      *
      * @param attrs A hashtable to get the values from.
      */
@@ -88,27 +88,27 @@ public class TagData implements Cloneable {
      */
 
     public String getId() {
-	return getAttributeString(TagAttributeInfo.ID);
+        return getAttributeString(TagAttributeInfo.ID);
     }
 
     /**
      * The value of the attribute.
      * If a static value is specified for an attribute that accepts a
      * request-time attribute expression then that static value is returned,
-     * even if the value is provided in the body of a <jsp:attribute> action.
-     * The distinguished object REQUEST_TIME_VALUE is only returned if
+     * even if the value is provided in the body of a &lt;jsp:attribute&gt;
+     * action. The distinguished object REQUEST_TIME_VALUE is only returned if
      * the value is specified as a request-time attribute expression
      * or via the &lt;jsp:attribute&gt; action with a body that contains
-     * dynamic content (scriptlets, scripting expressions, EL expressions, 
-     * standard actions, or custom actions).  Returns null if the attribute 
-     * is not set. 
+     * dynamic content (scriptlets, scripting expressions, EL expressions,
+     * standard actions, or custom actions).  Returns null if the attribute
+     * is not set.
      *
      * @param attName the name of the attribute
      * @return the attribute's value
      */
 
     public Object getAttribute(String attName) {
-	return attributes.get(attName);
+        return attributes.get(attName);
     }
 
     /**
@@ -118,8 +118,8 @@ public class TagData implements Cloneable {
      * @param value the value.
      */
     public void setAttribute(String attName,
-			     Object value) {
-	attributes.put(attName, value);
+                             Object value) {
+        attributes.put(attName, value);
     }
 
     /**
@@ -131,12 +131,11 @@ public class TagData implements Cloneable {
      */
 
     public String getAttributeString(String attName) {
-	Object o = attributes.get(attName);
-	if (o == null) {
-	    return null;
-	} else {
-	    return (String) o;
-	}	
+        Object o = attributes.get(attName);
+        if (o == null) {
+            return null;
+        }
+        return (String) o;
     }
 
     /**
@@ -146,9 +145,9 @@ public class TagData implements Cloneable {
      */
     public java.util.Enumeration<String> getAttributes() {
         return attributes.keys();
-    };
+    }
 
     // private data
 
-    private Hashtable<String, Object> attributes;	// the tagname/value map
+    private final Hashtable<String, Object> attributes;        // the tagname/value map
 }

@@ -14,88 +14,88 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package javax.servlet.jsp;
+package jakarta.servlet.jsp;
 
 /**
  * A generic exception known to the JSP engine; uncaught
  * JspExceptions will result in an invocation of the errorpage
  * machinery.
  */
-
 public class JspException extends Exception {
+
+    private static final long serialVersionUID = 1L;
+
 
     /**
      * Construct a JspException.
      */
     public JspException() {
+        // NOOP
     }
 
 
     /**
      * Constructs a new JSP exception with the
-     * specified message. The message can be written 
-     * to the server log and/or displayed for the user. 
+     * specified message. The message can be written
+     * to the server log and/or displayed for the user.
      *
-     * @param msg 		a <code>String</code> 
-     *				specifying the text of 
-     *				the exception message
-     *
+     * @param msg   a <code>String</code> specifying the text of the exception
+     *              message
      */
     public JspException(String msg) {
-	super(msg);
+        super(msg);
     }
 
 
     /**
-     * Constructs a new JSP exception when the JSP 
-     * needs to throw an exception and include a message 
-     * about the "root cause" exception that interfered with its 
-     * normal operation, including a description message.
+     * Constructs a new <code>JSPException</code> with the specified detail
+     * message and cause. The cause is saved for later retrieval by the
+     * <code>java.lang.Throwable.getCause()</code> and {@link #getRootCause()}
+     * methods.
      *
+     * @see java.lang.Exception#Exception(String, Throwable)
      *
-     * @param message 		a <code>String</code> containing 
-     *				the text of the exception message
+     * @param message       a <code>String</code> containing the text of the
+     *                      exception message
      *
-     * @param rootCause		the <code>Throwable</code> exception 
-     *				that interfered with the servlet's
-     *				normal operation, making this servlet
-     *				exception necessary
-     *
+     * @param cause         the <code>Throwable</code> exception that
+     *                      interfered with the JSP's normal operation,
+     *                      making this JSP exception necessary
      */
-    
-    public JspException(String message, Throwable rootCause) {
-	super(message, rootCause);
+
+    public JspException(String message, Throwable cause) {
+        super(message, cause);
     }
 
 
     /**
-     * Constructs a new JSP exception when the JSP 
-     * needs to throw an exception and include a message
-     * about the "root cause" exception that interfered with its
-     * normal operation. 
+     * Constructs a new <code>JSPException</code> with the specified cause.
+     * The cause is saved for later retrieval by the
+     * <code>java.lang.Throwable.getCause()</code> and {@link #getRootCause()}
+     * methods.
      *
+     * @see java.lang.Exception#Exception(Throwable)
      *
-     * @param rootCause 	the <code>Throwable</code> exception
-     * 				that interfered with the JSP's
-     *				normal operation, making the JSP exception
-     *				necessary
-     *
+     * @param cause         the <code>Throwable</code> exception that
+     *                      interfered with the JSP's normal operation, making
+     *                      the JSP exception necessary
      */
 
-    public JspException(Throwable rootCause) {
-	super(rootCause);
+    public JspException(Throwable cause) {
+        super(cause);
     }
 
-    
+
     /**
      * Returns the exception that caused this JSP exception.
      *
+     * @return  the <code>Throwable</code> that caused this JSP exception
      *
-     * @return			the <code>Throwable</code> 
-     *				that caused this JSP exception
-     *
+     * @deprecated As of JSP 2.1, replaced by
+     * <code>java.lang.Throwable.getCause()</code>
      */
+    @SuppressWarnings("dep-ann") // TCK signature test fails with annotation
     public Throwable getRootCause() {
-	return getCause();
+        return getCause();
     }
 }

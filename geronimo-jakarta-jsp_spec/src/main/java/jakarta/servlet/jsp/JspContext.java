@@ -13,34 +13,32 @@
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
 * limitations under the License.
-*/ 
-package javax.servlet.jsp;
+*/
+package jakarta.servlet.jsp;
 
 import java.util.Enumeration;
 
 import javax.el.ELContext;
-import javax.servlet.jsp.el.ExpressionEvaluator;
-import javax.servlet.jsp.el.VariableResolver;
 
 /**
  * <p>
- * <code>JspContext</code> serves as the base class for the 
+ * <code>JspContext</code> serves as the base class for the
  * PageContext class and abstracts all information that is not specific
  * to servlets.  This allows for Simple Tag Extensions to be used
  * outside of the context of a request/response Servlet.
  * <p>
- * The JspContext provides a number of facilities to the 
+ * The JspContext provides a number of facilities to the
  * page/component author and page implementor, including:
  * <ul>
  * <li>a single API to manage the various scoped namespaces
  * <li>a mechanism to obtain the JspWriter for output
- * <li>a mechanism to expose page directive attributes to the 
+ * <li>a mechanism to expose page directive attributes to the
  *     scripting environment
  * </ul>
  *
  * <p><B>Methods Intended for Container Generated Code</B>
  * <p>
- * The following methods enable the <B>management of nested</B> JspWriter 
+ * The following methods enable the <B>management of nested</B> JspWriter
  * streams to implement Tag Extensions: <code>pushBody()</code> and
  * <code>popBody()</code>
  *
@@ -54,15 +52,15 @@ import javax.servlet.jsp.el.VariableResolver;
  * The methods are:
  * <code>setAttribute()</code>,  <code>getAttribute()</code>,
  * <code>findAttribute()</code>,  <code>removeAttribute()</code>,
- * <code>getAttributesScope()</code> and 
+ * <code>getAttributesScope()</code> and
  * <code>getAttributeNamesInScope()</code>.
- * 
+ *
  * <p>
  * The following methods provide <B>convenient access</B> to implicit objects:
  * <code>getOut()</code>
  *
  * <p>
- * The following methods provide <B>programmatic access</b> to the 
+ * The following methods provide <B>programmatic access</b> to the
  * Expression Language evaluator:
  * <code>getExpressionEvaluator()</code>, <code>getVariableResolver()</code>
  *
@@ -72,16 +70,17 @@ import javax.servlet.jsp.el.VariableResolver;
 public abstract class JspContext {
 
     /**
-     * Sole constructor. (For invocation by subclass constructors, 
+     * Sole constructor. (For invocation by subclass constructors,
      * typically implicit.)
      */
     public JspContext() {
+        // NOOP by default
     }
-    
-    /** 
+
+    /**
      * Register the name and value specified with page scope semantics.
-     * If the value passed in is <code>null</code>, this has the same 
-     * effect as calling 
+     * If the value passed in is <code>null</code>, this has the same
+     * effect as calling
      * <code>removeAttribute( name, PageContext.PAGE_SCOPE )</code>.
      *
      * @param name the name of the attribute to set
@@ -90,41 +89,41 @@ public abstract class JspContext {
      * @throws NullPointerException if the name is null
      */
 
-    abstract public void setAttribute(String name, Object value);
+    public abstract void setAttribute(String name, Object value);
 
     /**
-     * Register the name and value specified with appropriate 
-     * scope semantics.  If the value passed in is <code>null</code>, 
+     * Register the name and value specified with appropriate
+     * scope semantics.  If the value passed in is <code>null</code>,
      * this has the same effect as calling
      * <code>removeAttribute( name, scope )</code>.
-     * 
+     *
      * @param name the name of the attribute to set
      * @param value the object to associate with the name, or null if
      *     the attribute is to be removed from the specified scope.
      * @param scope the scope with which to associate the name/object
-     * 
+     *
      * @throws NullPointerException if the name is null
      * @throws IllegalArgumentException if the scope is invalid
-     * @throws IllegalStateException if the scope is 
+     * @throws IllegalStateException if the scope is
      *     PageContext.SESSION_SCOPE but the page that was requested
      *     does not participate in a session or the session has been
      *     invalidated.
      */
 
-    abstract public void setAttribute(String name, Object value, int scope);
+    public abstract void setAttribute(String name, Object value, int scope);
 
     /**
      * Returns the object associated with the name in the page scope or null
      * if not found.
      *
      * @param name the name of the attribute to get
-     * @return the object associated with the name in the page scope 
+     * @return the object associated with the name in the page scope
      *     or null if not found.
-     * 
+     *
      * @throws NullPointerException if the name is null
      */
 
-    abstract public Object getAttribute(String name);
+    public abstract Object getAttribute(String name);
 
     /**
      * Return the object associated with the name in the specified
@@ -134,16 +133,16 @@ public abstract class JspContext {
      * @param scope the scope with which to associate the name/object
      * @return the object associated with the name in the specified
      *     scope or null if not found.
-     * 
+     *
      * @throws NullPointerException if the name is null
-     * @throws IllegalArgumentException if the scope is invalid 
-     * @throws IllegalStateException if the scope is 
+     * @throws IllegalArgumentException if the scope is invalid
+     * @throws IllegalStateException if the scope is
      *     PageContext.SESSION_SCOPE but the page that was requested
      *     does not participate in a session or the session has been
      *     invalidated.
      */
 
-    abstract public Object getAttribute(String name, int scope);
+    public abstract Object getAttribute(String name, int scope);
 
     /**
      * Searches for the named attribute in page, request, session (if valid),
@@ -155,7 +154,7 @@ public abstract class JspContext {
      * @throws NullPointerException if the name is null
      */
 
-    abstract public Object findAttribute(String name);
+    public abstract Object findAttribute(String name);
 
     /**
      * Remove the object reference associated with the given name
@@ -165,7 +164,7 @@ public abstract class JspContext {
      * @throws NullPointerException if the name is null
      */
 
-    abstract public void removeAttribute(String name);
+    public abstract void removeAttribute(String name);
 
     /**
      * Remove the object reference associated with the specified name
@@ -174,14 +173,14 @@ public abstract class JspContext {
      * @param name The name of the object to remove.
      * @param scope The scope where to look.
      * @throws IllegalArgumentException if the scope is invalid
-     * @throws IllegalStateException if the scope is 
+     * @throws IllegalStateException if the scope is
      *     PageContext.SESSION_SCOPE but the page that was requested
      *     does not participate in a session or the session has been
      *     invalidated.
      * @throws NullPointerException if the name is null
      */
 
-    abstract public void removeAttribute(String name, int scope);
+    public abstract void removeAttribute(String name, int scope);
 
     /**
      * Get the scope where a given attribute is defined.
@@ -191,43 +190,46 @@ public abstract class JspContext {
      * @throws NullPointerException if the name is null
      */
 
-    abstract public int getAttributesScope(String name);
+    public abstract int getAttributesScope(String name);
 
     /**
      * Enumerate all the attributes in a given scope.
      *
      * @param scope the scope to enumerate all the attributes for
-     * @return an enumeration of names (java.lang.String) of all the 
+     * @return an enumeration of names (java.lang.String) of all the
      *     attributes the specified scope
      * @throws IllegalArgumentException if the scope is invalid
-     * @throws IllegalStateException if the scope is 
+     * @throws IllegalStateException if the scope is
      *     PageContext.SESSION_SCOPE but the page that was requested
      *     does not participate in a session or the session has been
      *     invalidated.
      */
 
-    abstract public Enumeration<String> getAttributeNamesInScope(int scope);
+    public abstract Enumeration<String> getAttributeNamesInScope(int scope);
 
     /**
      * The current value of the out object (a JspWriter).
      *
      * @return the current JspWriter stream being used for client response
      */
-    abstract public JspWriter getOut();
-    
+    public abstract JspWriter getOut();
+
     /**
      * Provides programmatic access to the ExpressionEvaluator.
-     * The JSP Container must return a valid instance of an 
+     * The JSP Container must return a valid instance of an
      * ExpressionEvaluator that can parse EL expressions.
      *
      * @return A valid instance of an ExpressionEvaluator.
      * @since 2.0
+     * @deprecated As of JSP 2.1, replaced by
+     *             JspApplicationContext.getExpressionFactory()
      */
-    public abstract ExpressionEvaluator getExpressionEvaluator();
-    
-    
+    @SuppressWarnings("dep-ann") // TCK signature test fails with annotation
+    public abstract javax.servlet.jsp.el.ExpressionEvaluator getExpressionEvaluator();
+
+
     public abstract ELContext getELContext();
-    
+
     /**
      * Returns an instance of a VariableResolver that provides access to the
      * implicit objects specified in the JSP specification using this JspContext
@@ -235,9 +237,14 @@ public abstract class JspContext {
      *
      * @return A valid instance of a VariableResolver.
      * @since 2.0
+     * @deprecated As of JSP 2.1,
+     *             replaced by javax.el.ELContext.getELResolver()
+     *             which can be obtained by
+     *             jspContext.getELContext().getELResolver()
      */
-    public abstract VariableResolver getVariableResolver();
-    
+    @SuppressWarnings("dep-ann") // TCK signature test fails with annotation
+    public abstract javax.servlet.jsp.el.VariableResolver getVariableResolver();
+
     /**
      * Return a new JspWriter object that sends output to the
      * provided Writer.  Saves the current "out" JspWriter,
@@ -245,13 +252,13 @@ public abstract class JspContext {
      * page scope attribute namespace of the JspContext.
      * <p>The returned JspWriter must implement all methods and
      * behave as though it were unbuffered.  More specifically:
+     * </p>
      * <ul>
      *   <li>clear() must throw an IOException</li>
      *   <li>clearBuffer() does nothing</li>
      *   <li>getBufferSize() always returns 0</li>
      *   <li>getRemaining() always returns 0</li>
      * </ul>
-     * </p>
      *
      * @param writer The Writer for the returned JspWriter to send
      *     output to.
@@ -261,7 +268,7 @@ public abstract class JspContext {
     public JspWriter pushBody( java.io.Writer writer ) {
         return null; // XXX to implement
     }
-    
+
     /**
      * Return the previous JspWriter "out" saved by the matching
      * pushBody(), and update the value of the "out" attribute in

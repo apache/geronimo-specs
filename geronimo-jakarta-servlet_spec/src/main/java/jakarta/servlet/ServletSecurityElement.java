@@ -1,93 +1,135 @@
 /*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
- *  http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
-
-
-package javax.servlet;
+package jakarta.servlet;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.LinkedHashSet;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 
-import javax.servlet.annotation.HttpMethodConstraint;
-import javax.servlet.annotation.ServletSecurity;
+import jakarta.servlet.annotation.HttpMethodConstraint;
+import jakarta.servlet.annotation.ServletSecurity;
 
 /**
- * @version $Rev$ $Date$
- * @since 3.0
+ *
+ * @since Servlet 3.0
+ * TODO SERVLET3 - Add comments
  */
 public class ServletSecurityElement extends HttpConstraintElement {
 
-    private final Collection<HttpMethodConstraintElement> httpMethodConstraints;
+    private final Map<String,HttpMethodConstraintElement> methodConstraints =
+        new HashMap<>();
 
-    private final Collection<String> methodNames;
-
+    /**
+     * Use default HttpConstraint.
+     */
     public ServletSecurityElement() {
-        httpMethodConstraints = Collections.emptySet();
-        methodNames = Collections.emptySet();
+        super();
     }
 
-    public ServletSecurityElement(HttpConstraintElement defaultHttpConstraintElement) {
-        super(defaultHttpConstraintElement.getEmptyRoleSemantic(), defaultHttpConstraintElement.getTransportGuarantee(), defaultHttpConstraintElement.getRolesAllowed());
-        httpMethodConstraints = Collections.emptySet();
-        methodNames = Collections.emptySet();
+    /**
+     * Use specified HttpConstraintElement.
+     * @param httpConstraintElement The constraint
+     */
+    public ServletSecurityElement(HttpConstraintElement httpConstraintElement) {
+        this (httpConstraintElement, null);
     }
 
-    public ServletSecurityElement(Collection<HttpMethodConstraintElement> httpMethodConstraints) throws IllegalArgumentException {
-        this.httpMethodConstraints = httpMethodConstraints;
-        this.methodNames = toMethodNames(httpMethodConstraints);
+    /**
+     * Use specific constraints for specified methods and default
+     * HttpConstraintElement for all other methods.
+     * @param httpMethodConstraints Method constraints
+     * @throws IllegalArgumentException if a method name is specified more than
+     * once
+     */
+    public ServletSecurityElement(
+            Collection<HttpMethodConstraintElement> httpMethodConstraints) {
+        super();
+        addHttpMethodConstraints(httpMethodConstraints);
     }
 
-    public ServletSecurityElement(HttpConstraintElement httpConstraintElement, Collection<HttpMethodConstraintElement> httpMethodConstraints) throws IllegalArgumentException {
-        super(httpConstraintElement.getEmptyRoleSemantic(), httpConstraintElement.getTransportGuarantee(), httpConstraintElement.getRolesAllowed());
-        this.httpMethodConstraints = Collections.unmodifiableCollection(httpMethodConstraints);
-        this.methodNames = toMethodNames(httpMethodConstraints);
+
+    /**
+     * Use specified HttpConstraintElement as default and specific constraints
+     * for specified methods.
+     * @param httpConstraintElement Default constraint
+     * @param httpMethodConstraints Method constraints
+     * @throws IllegalArgumentException if a method name is specified more than
+     */
+    public ServletSecurityElement(HttpConstraintElement httpConstraintElement,
+            Collection<HttpMethodConstraintElement> httpMethodConstraints) {
+        super(httpConstraintElement.getEmptyRoleSemantic(),
+                httpConstraintElement.getTransportGuarantee(),
+                httpConstraintElement.getRolesAllowed());
+        addHttpMethodConstraints(httpMethodConstraints);
     }
 
-    public ServletSecurityElement(ServletSecurity servletSecurity) throws IllegalArgumentException {
-        super(servletSecurity.value().value(), servletSecurity.value().transportGuarantee(), servletSecurity.value().rolesAllowed());
-        Collection<HttpMethodConstraintElement> httpMethodConstraints = new ArrayList<HttpMethodConstraintElement>();
-        for (HttpMethodConstraint constraint: servletSecurity.httpMethodConstraints()) {
-            httpMethodConstraints.add(new HttpMethodConstraintElement(constraint.value(),
-                    new HttpConstraintElement(constraint.emptyRoleSemantic(),
-                            constraint.transportGuarantee(),
-                            constraint.rolesAllowed())));
+    /**
+     * Create from an annotation.
+     * @param annotation Annotation to use as the basis for the new instance
+     * @throws IllegalArgumentException if a method name is specified more than
+     */
+    public ServletSecurityElement(ServletSecurity annotation) {
+        this(new HttpConstraintElement(annotation.value().value(),
+                annotation.value().transportGuarantee(),
+                annotation.value().rolesAllowed()));
+
+        List<HttpMethodConstraintElement> l = new ArrayList<>();
+        HttpMethodConstraint[] constraints = annotation.httpMethodConstraints();
+        if (constraints != null) {
+            for (int i = 0; i < constraints.length; i++) {
+                HttpMethodConstraintElement e =
+                    new HttpMethodConstraintElement(constraints[i].value(),
+                            new HttpConstraintElement(
+                                    constraints[i].emptyRoleSemantic(),
+                                    constraints[i].transportGuarantee(),
+                                    constraints[i].rolesAllowed()));
+                l.add(e);
+            }
         }
-        this.httpMethodConstraints = Collections.unmodifiableCollection(httpMethodConstraints);
-        methodNames = toMethodNames(httpMethodConstraints);
+        addHttpMethodConstraints(l);
     }
 
     public Collection<HttpMethodConstraintElement> getHttpMethodConstraints() {
-        return httpMethodConstraints;
+        Collection<HttpMethodConstraintElement> result = new HashSet<>();
+        result.addAll(methodConstraints.values());
+        return result;
     }
 
     public Collection<String> getMethodNames() {
-        return methodNames;
+        Collection<String> result = new HashSet<>();
+        result.addAll(methodConstraints.keySet());
+        return result;
     }
 
-    private static Collection<String> toMethodNames(Collection<HttpMethodConstraintElement> constraints) throws IllegalArgumentException {
-        Collection<String> methodNames = new LinkedHashSet<String>(constraints.size());
-        for (HttpMethodConstraintElement constraint: constraints) {
-            if (!methodNames.add(constraint.getMethodName())) {
-                throw new IllegalArgumentException("duplicate method name: " + constraint.getMethodName());
-            }
+    private void addHttpMethodConstraints(
+            Collection<HttpMethodConstraintElement> httpMethodConstraints) {
+        if (httpMethodConstraints == null) {
+            return;
         }
-        return Collections.unmodifiableCollection(methodNames);
+        for (HttpMethodConstraintElement constraint : httpMethodConstraints) {
+            String method = constraint.getMethodName();
+            if (methodConstraints.containsKey(method)) {
+                throw new IllegalArgumentException(
+                        "Duplicate method name: " + method);
+            }
+            methodConstraints.put(method, constraint);
+        }
     }
 }

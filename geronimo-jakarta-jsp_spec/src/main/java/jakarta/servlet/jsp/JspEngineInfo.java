@@ -13,8 +13,8 @@
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
 * limitations under the License.
-*/ 
-package javax.servlet.jsp;
+*/
+package jakarta.servlet.jsp;
 
 /**
  * The JspEngineInfo is an abstract class that provides information on the
@@ -24,12 +24,13 @@ package javax.servlet.jsp;
 public abstract class JspEngineInfo {
 
     /**
-     * Sole constructor. (For invocation by subclass constructors, 
+     * Sole constructor. (For invocation by subclass constructors,
      * typically implicit.)
      */
     public JspEngineInfo() {
+        // NOOP by default
     }
-    
+
     /**
      * Return the version number of the JSP specification that is supported by
      * this JSP engine.

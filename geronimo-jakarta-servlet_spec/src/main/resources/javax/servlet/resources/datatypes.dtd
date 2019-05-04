@@ -1,5 +1,5 @@
 <!--
-  Licensed to the Apache Software Foundation (ASF) under one or more
+ Licensed to the Apache Software Foundation (ASF) under one or more
   contributor license agreements.  See the NOTICE file distributed with
   this work for additional information regarding copyright ownership.
   The ASF licenses this file to You under the Apache License, Version 2.0
@@ -16,7 +16,7 @@
 -->
 <!--
         DTD for XML Schemas: Part 2: Datatypes
-        $Id$
+
         Note this DTD is NOT normative, or even definitive. - - the
         prose copy in the datatypes REC is the definitive version
         (which shouldn't differ from this one except for this comment
@@ -102,7 +102,7 @@
    "%pattern; | %enumeration; | %whiteSpace; | %length; |
    %maxLength; | %minLength;">
 <!ENTITY % facet "%ordered; | %unordered;">
-<!ENTITY % facetAttr 
+<!ENTITY % facetAttr
         "value CDATA #REQUIRED
         id ID #IMPLIED">
 <!ENTITY % fixedAttr "fixed %boolean; #IMPLIED">

@@ -1,7 +1,23 @@
+<!--
+ Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
 <!-- DTD for XML Schemas: Part 1: Structures
      Public Identifier: "-//W3C//DTD XMLSCHEMA 200102//EN"
      Official Location: http://www.w3.org/2001/XMLSchema.dtd -->
-<!-- $Rev$ $Date$ -->
+
 <!-- Note this DTD is NOT normative, or even definitive. -->           <!--d-->
 <!-- prose copy in the structures REC is the definitive version -->    <!--d-->
 <!-- (which shouldn't differ from this one except for this -->         <!--d-->
@@ -17,7 +33,7 @@
      are defined in XML Schema: Part 2: Datatypes -->
 <!ENTITY % xs-datatypes PUBLIC 'datatypes' 'datatypes.dtd' >
 
-<!ENTITY % p 'xs:'> <!-- can be overriden in the internal subset of a
+<!ENTITY % p 'xs:'> <!-- can be overridden in the internal subset of a
                          schema document to establish a different
                          namespace prefix -->
 <!ENTITY % s ':xs'> <!-- if %p is defined (e.g. as foo:) then you must
@@ -130,7 +146,7 @@
      because at the Infoset level where schemas operate,
      xmlns(:prefix) is NOT an attribute! -->
 <!-- The declaration of xmlns is a convenience for schema authors -->
- 
+
 <!-- The id attribute here and below is for use in external references
      from non-schemas using simple fragment identifiers.
      It is NOT used for schema-to-schema reference, internal or
@@ -154,7 +170,7 @@
           %complexTypeAttrs;>
 
 <!-- particleAndAttrs is shorthand for a root type -->
-<!-- mixed is disallowed if simpleContent, overriden if complexContent
+<!-- mixed is disallowed if simpleContent, overridden if complexContent
      has one too. -->
 
 <!-- If anyAttribute appears in one or more referenced attributeGroups
@@ -174,7 +190,7 @@
           id    ID           #IMPLIED
           %simpleContentAttrs;>
 
-<!-- restriction should use the simple branch from part2, not the 
+<!-- restriction should use the simple branch from part2, not the
      one defined above; extension should have no particle  -->
 
 <!ELEMENT %extension; ((%annotation;)?, (%particleAndAttrs;))>
@@ -214,7 +230,7 @@
 <!-- default and fixed are mutually exclusive -->
 
 <!ELEMENT %group; ((%annotation;)?,(%mgs;)?)>
-<!ATTLIST %group; 
+<!ATTLIST %group;
           name        %NCName;               #IMPLIED
           ref         %QName;                #IMPLIED
           minOccurs   %nonNegativeInteger;   #IMPLIED
@@ -319,21 +335,21 @@
 <!ELEMENT %unique; ((%annotation;)?, %selector;, (%field;)+)>
 <!ATTLIST %unique;
           name     %NCName;       #REQUIRED
-	  id       ID             #IMPLIED
-	  %uniqueAttrs;>
+          id       ID             #IMPLIED
+          %uniqueAttrs;>
 
 <!ELEMENT %key;    ((%annotation;)?, %selector;, (%field;)+)>
 <!ATTLIST %key;
           name     %NCName;       #REQUIRED
-	  id       ID             #IMPLIED
-	  %keyAttrs;>
+          id       ID             #IMPLIED
+          %keyAttrs;>
 
 <!ELEMENT %keyref; ((%annotation;)?, %selector;, (%field;)+)>
 <!ATTLIST %keyref;
           name     %NCName;       #REQUIRED
-	  refer    %QName;        #REQUIRED
-	  id       ID             #IMPLIED
-	  %keyrefAttrs;>
+          refer    %QName;        #REQUIRED
+          id       ID             #IMPLIED
+          %keyrefAttrs;>
 
 <!ELEMENT %selector; ((%annotation;)?)>
 <!ATTLIST %selector;
@@ -369,11 +385,11 @@
 
 <!ELEMENT %notation; (%annotation;)?>
 <!ATTLIST %notation;
-	  name        %NCName;    #REQUIRED
-	  id          ID          #IMPLIED
-	  public      CDATA       #REQUIRED
-	  system      %URIref;    #IMPLIED
-	  %notationAttrs;>
+          name        %NCName;    #REQUIRED
+          id          ID          #IMPLIED
+          public      CDATA       #REQUIRED
+          system      %URIref;    #IMPLIED
+          %notationAttrs;>
 
 <!-- Annotation is either application information or documentation -->
 <!-- By having these here they are available for datatypes as well

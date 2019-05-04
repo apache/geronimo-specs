@@ -15,12 +15,12 @@
 * limitations under the License.
 */
 
-package javax.servlet.jsp.tagext;
+package jakarta.servlet.jsp.tagext;
 
 import java.util.Map;
 
 /**
- * Translation-time validator class for a JSP page. 
+ * Translation-time validator class for a JSP page.
  * A validator operates on the XML view associated with the JSP page.
  *
  * <p>
@@ -28,7 +28,7 @@ import java.util.Map;
  * arguments with a tag library.
  *
  * <p>
- * The JSP container is reponsible for locating an appropriate
+ * The JSP container is responsible for locating an appropriate
  * instance of the appropriate subclass by
  *
  * <ul>
@@ -40,13 +40,13 @@ import java.util.Map;
  * be invoked, where the first two arguments are the prefix
  * and uri for this tag library in the XML View.  The prefix is intended
  * to make it easier to produce an error message.  However, it is not
- * always accurate.  In the case where a single URI is mapped to more 
+ * always accurate.  In the case where a single URI is mapped to more
  * than one prefix in the XML view, the prefix of the first URI is provided.
- * Therefore, to provide high quality error messages in cases where the 
- * tag elements themselves are checked, the prefix parameter should be 
- * ignored and the actual prefix of the element should be used instead.  
- * TagLibraryValidators should always use the uri to identify elements 
- * as beloning to the tag library, not the prefix.
+ * Therefore, to provide high quality error messages in cases where the
+ * tag elements themselves are checked, the prefix parameter should be
+ * ignored and the actual prefix of the element should be used instead.
+ * TagLibraryValidators should always use the uri to identify elements
+ * as belonging to the tag library, not the prefix.
  *
  * <p>
  * A TagLibraryValidator instance
@@ -73,22 +73,23 @@ import java.util.Map;
  * of an error.
  *
  * <p>
- * The actual prefix of the <code>id</code> attribute may or may not be 
+ * The actual prefix of the <code>id</code> attribute may or may not be
  * <code>jsp</code> but it will always map to the namespace
  * <code>http://java.sun.com/JSP/Page</code>.  A TagLibraryValidator
  * implementation must rely on the uri, not the prefix, of the <code>id</code>
  * attribute.
  */
 
-abstract public class TagLibraryValidator {
+public abstract class TagLibraryValidator {
 
     /**
-     * Sole constructor. (For invocation by subclass constructors, 
+     * Sole constructor. (For invocation by subclass constructors,
      * typically implicit.)
      */
     public TagLibraryValidator() {
+        // NOOP by default
     }
-    
+
     /**
      * Set the init data in the TLD for this validator.
      * Parameter names are keys, and parameter values are the values.
@@ -96,7 +97,7 @@ abstract public class TagLibraryValidator {
      * @param map A Map describing the init parameters
      */
     public void setInitParameters(Map<String, Object> map) {
-	initParameters = map;
+        initParameters = map;
     }
 
 
@@ -107,7 +108,7 @@ abstract public class TagLibraryValidator {
      * @return The init parameters as an immutable map.
      */
     public Map<String, Object> getInitParameters() {
-	return initParameters;
+        return initParameters;
     }
 
     /**
@@ -117,25 +118,24 @@ abstract public class TagLibraryValidator {
      * the method should return an array of ValidationMessage objects.
      * An array of length zero is also interpreted as no errors.
      *
-     * @param prefix the first prefix with which the tag library is 
-     *     associated, in the XML view.  Note that some tags may use 
+     * @param prefix the first prefix with which the tag library is
+     *     associated, in the XML view.  Note that some tags may use
      *     a different prefix if the namespace is redefined.
      * @param uri the tag library's unique identifier
      * @param page the JspData page object
      * @return A null object, or zero length array if no errors, an array
      * of ValidationMessages otherwise.
      */
-    public ValidationMessage[] validate(String prefix, String uri, 
-        PageData page) 
-    {
-	return null;
+    public ValidationMessage[] validate(String prefix, String uri,
+        PageData page) {
+        return null;
     }
 
     /**
      * Release any data kept by this instance for validation purposes.
      */
     public void release() {
-	initParameters = null;
+        initParameters = null;
     }
 
     // Private data

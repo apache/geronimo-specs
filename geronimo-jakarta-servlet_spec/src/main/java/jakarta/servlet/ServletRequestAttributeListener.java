@@ -1,23 +1,20 @@
 /*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- *  http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
-
-package javax.servlet;
+* Licensed to the Apache Software Foundation (ASF) under one or more
+* contributor license agreements.  See the NOTICE file distributed with
+* this work for additional information regarding copyright ownership.
+* The ASF licenses this file to You under the Apache License, Version 2.0
+* (the "License"); you may not use this file except in compliance with
+* the License.  You may obtain a copy of the License at
+*
+*     http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
+package jakarta.servlet;
 
 import java.util.EventListener;
 
@@ -32,29 +29,33 @@ import java.util.EventListener;
  * or the first filter in the chain.
  *
  * @since Servlet 2.4
- * @version $Rev$ $Date$
  */
-
 public interface ServletRequestAttributeListener extends EventListener {
     /**
      * Notification that a new attribute was added to the
-     * * servlet request. Called after the attribute is added.
-     * @param srae event for attribute added
+     * servlet request. Called after the attribute is added.
+     * The default implementation is a NO-OP.
+     * @param srae Information about the new request attribute
      */
-    void attributeAdded(ServletRequestAttributeEvent srae);
+    public default void attributeAdded(ServletRequestAttributeEvent srae) {
+    }
 
     /**
      * Notification that an existing attribute has been removed from the
-     * * servlet request. Called after the attribute is removed.
-     * @param srae event for attribute removed
+     * servlet request. Called after the attribute is removed.
+     * The default implementation is a NO-OP.
+     * @param srae Information about the removed request attribute
      */
-    void attributeRemoved(ServletRequestAttributeEvent srae);
+    public default void attributeRemoved(ServletRequestAttributeEvent srae) {
+    }
 
     /**
      * Notification that an attribute was replaced on the
-     * * servlet request. Called after the attribute is replaced.
-     * @param srae event for attribute replaced
+     * servlet request. Called after the attribute is replaced.
+     * The default implementation is a NO-OP.
+     * @param srae Information about the replaced request attribute
      */
-    void attributeReplaced(ServletRequestAttributeEvent srae);
+    public default void attributeReplaced(ServletRequestAttributeEvent srae) {
+    }
 }
 

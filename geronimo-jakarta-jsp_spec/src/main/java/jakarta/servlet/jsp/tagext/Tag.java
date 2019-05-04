@@ -14,16 +14,17 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
- 
-package javax.servlet.jsp.tagext;
 
-import javax.servlet.jsp.*;
+package jakarta.servlet.jsp.tagext;
+
+import jakarta.servlet.jsp.JspException;
+import jakarta.servlet.jsp.PageContext;
 
 
 /**
- * The interface of a classic tag handler that does not want to manipulate 
- * its body.  The Tag interface defines the basic protocol between a Tag 
- * handler and JSP page implementation class.  It defines the life cycle 
+ * The interface of a classic tag handler that does not want to manipulate
+ * its body.  The Tag interface defines the basic protocol between a Tag
+ * handler and JSP page implementation class.  It defines the life cycle
  * and the methods to be invoked at start and end tag.
  *
  * <p><B>Properties</B></p>
@@ -47,26 +48,26 @@ import javax.servlet.jsp.*;
  * <p><B>Lifecycle</B></p>
  *
  * <p>Lifecycle details are described by the transition diagram below,
- * with the following comments:
+ * with the following comments:</p>
  * <ul>
  * <li> [1] This transition is intended to be for releasing long-term data.
  * no guarantees are assumed on whether any properties have been retained
  * or not.
  * <li> [2] This transition happens if and only if the tag ends normally
  * without raising an exception
- * <li> [3] Some setters may be called again before a tag handler is 
- * reused.  For instance, <code>setParent()</code> is called if it's 
- * reused within the same page but at a different level, 
- * <code>setPageContext()</code> is called if it's used in another page, 
- * and attribute setters are called if the values differ or are expressed 
+ * <li> [3] Some setters may be called again before a tag handler is
+ * reused.  For instance, <code>setParent()</code> is called if it's
+ * reused within the same page but at a different level,
+ * <code>setPageContext()</code> is called if it's used in another page,
+ * and attribute setters are called if the values differ or are expressed
  * as request-time attribute values.
  * <li> Check the TryCatchFinally interface for additional details related
  * to exception handling and resource management.
- * </ul></p>
+ * </ul>
  *
  * <IMG src="doc-files/TagProtocol.gif"
- *      alt="Lifecycle Details Transition Diagram for Tag"/>
- * 
+ *      alt="Lifecycle Details Transition Diagram for Tag">
+ *
  * <p>Once all invocations on the tag handler
  * are completed, the release method is invoked on it.  Once a release
  * method is invoked <em>all</em> properties, including parent and
@@ -83,7 +84,7 @@ import javax.servlet.jsp.*;
  * EVAL_BODY_INCLUDE.</p>
  *
  * <p>If SKIP_BODY is returned the body, if present, is not evaluated.</p>
- * 
+ *
  * <p>If EVAL_BODY_INCLUDE is returned, the body is evaluated and
  * "passed through" to the current out.</p>
 */
@@ -94,29 +95,29 @@ public interface Tag extends JspTag {
      * Skip body evaluation.
      * Valid return value for doStartTag and doAfterBody.
      */
- 
-    public final static int SKIP_BODY = 0;
- 
+
+    public static final int SKIP_BODY = 0;
+
     /**
      * Evaluate body into existing out stream.
      * Valid return value for doStartTag.
      */
- 
-    public final static int EVAL_BODY_INCLUDE = 1;
+
+    public static final int EVAL_BODY_INCLUDE = 1;
 
     /**
      * Skip the rest of the page.
      * Valid return value for doEndTag.
      */
 
-    public final static int SKIP_PAGE = 5;
+    public static final int SKIP_PAGE = 5;
 
     /**
      * Continue evaluating the page.
      * Valid return value for doEndTag().
      */
 
-    public final static int EVAL_PAGE = 6;
+    public static final int EVAL_PAGE = 6;
 
     // Setters for Tag handler data
 
@@ -162,12 +163,12 @@ public interface Tag extends JspTag {
      * The current version of the specification only provides one formal
      * way of indicating the observable type of a tag handler: its
      * tag handler implementation class, described in the tag-class
-     * subelement of the tag element.  This is extended in an
+     * sub-element of the tag element.  This is extended in an
      * informal manner by allowing the tag library author to
-     * indicate in the description subelement an observable type.
-     * The type should be a subtype of the tag handler implementation
+     * indicate in the description sub-element an observable type.
+     * The type should be a sub-type of the tag handler implementation
      * class or void.
-     * This addititional constraint can be exploited by a
+     * This additional constraint can be exploited by a
      * specialized container that knows about that specific tag library,
      * as in the case of the JSP standard tag library.
      *
@@ -213,14 +214,14 @@ public interface Tag extends JspTag {
      * implementing BodyTag whose doStartTag() method returns
      * BodyTag.EVAL_BODY_BUFFERED.
      *
-     * @return EVAL_BODY_INCLUDE if the tag wants to process body, SKIP_BODY 
+     * @return EVAL_BODY_INCLUDE if the tag wants to process body, SKIP_BODY
      *     if it does not want to process it.
      * @throws JspException if an error occurred while processing this tag
      * @see BodyTag
      */
- 
+
     int doStartTag() throws JspException;
- 
+
 
     /**
      * Process the end tag for this instance.
@@ -235,7 +236,7 @@ public interface Tag extends JspTag {
      * <p>
      * If this method returns EVAL_PAGE, the rest of the page continues
      * to be evaluated.  If this method returns SKIP_PAGE, the rest of
-     * the page is not evaluated, the request is completed, and 
+     * the page is not evaluated, the request is completed, and
      * the doEndTag() methods of enclosing tags are not invoked.  If this
      * request was forwarded or included from another page (or Servlet),
      * only the current page evaluation is stopped.

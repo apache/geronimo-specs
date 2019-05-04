@@ -15,19 +15,21 @@
 * limitations under the License.
 */
 
-package javax.servlet.jsp.el;
+package jakarta.servlet.jsp.el;
 
 
 /**
  * Represents a parsing error encountered while parsing an EL expression.
  *
  * @since 2.0
- * @deprecated
+ * @deprecated As of JSP 2.1, replaced by javax.el.ELException
  */
-
+@SuppressWarnings("dep-ann") // TCK signature test fails with annotation
 public class ELParseException extends ELException {
 
- //-------------------------------------
+ private static final long serialVersionUID = 1L;
+
+//-------------------------------------
   /**
    * Creates an ELParseException with no detail message.
    */

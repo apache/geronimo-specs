@@ -33,9 +33,9 @@
     <groupId>org.apache.geronimo.jakarta-specs</groupId>
     <artifactId>geronimo-jakarta-jsp_spec</artifactId>
     <packaging>bundle</packaging>
-    <name>Apache Geronimo Jakarta JSP Spec 2.2</name>
-    <version>2.2_1-SNAPSHOT</version>
-    <description>Jakarta Server Pages 2.2 API</description>
+    <name>Apache Geronimo Jakarta JSP Spec 2.3</name>
+    <version>2.3_1-SNAPSHOT</version>
+    <description>Jakarta Server Pages 2.3 API</description>
 
     <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
     <distributionManagement>
@@ -51,15 +51,15 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-servlet_3.0_spec</artifactId>
-            <version>1.0</version>
+            <groupId>org.apache.geronimo.jakarta-specs</groupId>
+            <artifactId>geronimo-jakarta-servlet_spec</artifactId>
+            <version>4.0_1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-el_2.2_spec</artifactId>
-            <version>1.0</version>
+            <groupId>org.apache.geronimo.jakarta-specs</groupId>
+            <artifactId>geronimo-jakarta-el_spec</artifactId>
+            <version>2.2_1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

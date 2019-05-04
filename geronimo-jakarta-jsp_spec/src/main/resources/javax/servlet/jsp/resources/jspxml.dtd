@@ -18,7 +18,7 @@
      thanks to Bob Foster, WebGain
 -->
 
-<!-- 
+<!--
      This DTD is not conditional on any parameter entities in the internal
      subset and does not export any general entities.
 -->
@@ -96,7 +96,7 @@
 <!ATTLIST jsp:directive.page
     language        CDATA           "java"
     extends         %ClassName;     #IMPLIED
-    contentType     %Content;       "text/html; ISO-8859-1"
+    contentType     %Content;       "text/html; charset=ISO-8859-1"
     import          CDATA           #IMPLIED
     session         %Bool;          "true"
     buffer          CDATA           "8kb"
@@ -186,5 +186,6 @@
     value           CDATA           #REQUIRED
 >
 
-<!ELEMENT jsp:text #PCDATA>
+<!ELEMENT jsp:text (#PCDATA)>
 
+<!ELEMENT jsp:fallback %Body;>
