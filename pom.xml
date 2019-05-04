@@ -51,6 +51,10 @@
                 <module>geronimo-jakarta-el_spec</module>
                 <module>geronimo-jakarta-jcdi_spec</module>
                 <module>geronimo-jakarta-json_spec</module>
+                <module>geronimo-jakarta-ejb_spec</module>
+                <module>geronimo-jakarta-jsp_spec</module>
+                <module>geronimo-jakarta-websockets_spec</module>
+                <module>geronimo-jakarta-servlet_spec</module>
             </modules>
         </profile>
     </profiles>
