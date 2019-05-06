@@ -17,15 +17,15 @@
  * under the License.
  */
 
-package javax.websocket.server;
+package jakarta.websocket.server;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import javax.websocket.Decoder;
-import javax.websocket.Encoder;
+import jakarta.websocket.Decoder;
+import jakarta.websocket.Encoder;
 
 /**
  * This class level annotation declares that the class it decorates is a web socket endpoint that will be deployed and

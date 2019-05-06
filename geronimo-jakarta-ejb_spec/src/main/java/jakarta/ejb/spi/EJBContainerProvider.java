@@ -19,9 +19,9 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-package javax.ejb.spi;
+package jakarta.ejb.spi;
 
-import javax.ejb.embeddable.EJBContainer;
+import jakarta.ejb.embeddable.EJBContainer;
 
 public interface EJBContainerProvider {
     public EJBContainer createEJBContainer(java.util.Map<?,?> properties);

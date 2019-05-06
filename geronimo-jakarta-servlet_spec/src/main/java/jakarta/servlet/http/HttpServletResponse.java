@@ -31,7 +31,7 @@ import jakarta.servlet.ServletResponse;
  * The servlet container creates an <code>HttpServletResponse</code> object and
  * passes it as an argument to the servlet's service methods (<code>doGet</code>, <code>doPost</code>, etc).
  *
- * @see javax.servlet.ServletResponse
+ * @see jakarta.servlet.ServletResponse
  */
 public interface HttpServletResponse extends ServletResponse {
 

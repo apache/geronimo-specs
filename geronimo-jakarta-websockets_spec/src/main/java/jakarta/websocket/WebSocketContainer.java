@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package javax.websocket;
+package jakarta.websocket;
 
 import java.io.IOException;
 import java.net.URI;
@@ -103,7 +103,7 @@ public interface WebSocketContainer {
      * method blocks until the connection is established, or throws an error if the connection could not be made. If the
      * developer uses this method to deploy the client endpoint, services like dependency injection that are supported,
      * for example, when the implementation is part of the Java EE platform may not be available. If the client endpoint
-     * uses dependency injection, use connectToServer(java.lang.Class, javax.websocket.ClientEndpointConfig,
+     * uses dependency injection, use connectToServer(java.lang.Class, jakarta.websocket.ClientEndpointConfig,
      * java.net.URI) instead.
      * 
      * @param endpointInstance

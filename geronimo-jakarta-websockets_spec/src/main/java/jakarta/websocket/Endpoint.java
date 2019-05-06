@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package javax.websocket;
+package jakarta.websocket;
 
 /**
  * The Web Socket Endpoint represents an object that can handle websocket conversations. Developers may extend this

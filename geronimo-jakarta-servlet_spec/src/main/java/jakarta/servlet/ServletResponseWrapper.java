@@ -28,10 +28,10 @@ import java.util.ResourceBundle;
  * calling through to the wrapped response object.
  *
  * @since v 2.3
- * @see javax.servlet.ServletResponse
+ * @see jakarta.servlet.ServletResponse
  */
 public class ServletResponseWrapper implements ServletResponse {
-    private static final String LSTRING_FILE = "javax.servlet.LocalStrings";
+    private static final String LSTRING_FILE = "jakarta.servlet.LocalStrings";
     private static final ResourceBundle lStrings =
         ResourceBundle.getBundle(LSTRING_FILE);
 

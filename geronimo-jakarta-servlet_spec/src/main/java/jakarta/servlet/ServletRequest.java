@@ -31,9 +31,9 @@ import java.util.Map;
  * and values, attributes, and an input stream. Interfaces that extend
  * <code>ServletRequest</code> can provide additional protocol-specific data
  * (for example, HTTP data is provided by
- * {@link javax.servlet.http.HttpServletRequest}.
+ * {@link jakarta.servlet.http.HttpServletRequest}.
  *
- * @see javax.servlet.http.HttpServletRequest
+ * @see jakarta.servlet.http.HttpServletRequest
  */
 public interface ServletRequest {
 
@@ -44,14 +44,14 @@ public interface ServletRequest {
      * Attributes can be set two ways. The servlet container may set attributes
      * to make available custom information about a request. For example, for
      * requests made using HTTPS, the attribute
-     * <code>javax.servlet.request.X509Certificate</code> can be used to
+     * <code>jakarta.servlet.request.X509Certificate</code> can be used to
      * retrieve information on the certificate of the client. Attributes can
      * also be set programmatically using {@link ServletRequest#setAttribute}.
      * This allows information to be embedded into a request before a
      * {@link RequestDispatcher} call.
      * <p>
      * Attribute names should follow the same conventions as package names.
-     * Names beginning with <code>java.*</code> and <code>javax.*</code> are
+     * Names beginning with <code>java.*</code> and <code>jakarta.*</code> are
      * reserved for use by the Servlet specification. Names beginning with
      * <code>sun.*</code>, <code>com.sun.*</code>, <code>oracle.*</code> and
      * <code>com.oracle.*</code>) are reserved for use by Oracle Corporation.
@@ -307,7 +307,7 @@ public interface ServletRequest {
      * {@link RequestDispatcher}.
      * <p>
      * Attribute names should follow the same conventions as package names.
-     * Names beginning with <code>java.*</code> and <code>javax.*</code> are
+     * Names beginning with <code>java.*</code> and <code>jakarta.*</code> are
      * reserved for use by the Servlet specification. Names beginning with
      * <code>sun.*</code>, <code>com.sun.*</code>, <code>oracle.*</code> and
      * <code>com.oracle.*</code>) are reserved for use by Oracle Corporation.
@@ -332,7 +332,7 @@ public interface ServletRequest {
      * handled.
      * <p>
      * Attribute names should follow the same conventions as package names.
-     * Names beginning with <code>java.*</code> and <code>javax.*</code> are
+     * Names beginning with <code>java.*</code> and <code>jakarta.*</code> are
      * reserved for use by the Servlet specification. Names beginning with
      * <code>sun.*</code>, <code>com.sun.*</code>, <code>oracle.*</code> and
      * <code>com.oracle.*</code>) are reserved for use by Oracle Corporation.

@@ -30,7 +30,7 @@ import jakarta.servlet.ServletResponseWrapper;
  * default to calling through to the wrapped response object.
  *
  * @since v 2.3
- * @see javax.servlet.http.HttpServletResponse
+ * @see jakarta.servlet.http.HttpServletResponse
  */
 public class HttpServletResponseWrapper extends ServletResponseWrapper
         implements HttpServletResponse {

@@ -22,7 +22,7 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-package javax.ejb;
+package jakarta.ejb;
 
 import java.lang.annotation.Target;
 import java.lang.annotation.Retention;

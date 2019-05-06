@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package javax.websocket;
+package jakarta.websocket;
 
 import java.util.List;
 

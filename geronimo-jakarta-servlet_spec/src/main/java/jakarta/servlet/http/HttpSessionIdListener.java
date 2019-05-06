@@ -22,8 +22,8 @@ import java.util.EventListener;
  * Implementations of this interface are notified when an {@link HttpSession}'s
  * ID changes. To receive notification events, the implementation class must be
  * configured in the deployment descriptor for the web application, annotated
- * with {@link javax.servlet.annotation.WebListener} or registered by calling an
- * addListener method on the {@link javax.servlet.ServletContext}.
+ * with {@link jakarta.servlet.annotation.WebListener} or registered by calling an
+ * addListener method on the {@link jakarta.servlet.ServletContext}.
  *
  * @see HttpSessionEvent
  * @see HttpServletRequest#changeSessionId()

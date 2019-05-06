@@ -23,19 +23,19 @@
 // DO NOT add / change / or delete method signatures!
 //
 
-package javax.transaction;
+package jakarta.transaction;
 
 import java.rmi.RemoteException;
 
 /**
  * @version $Rev: 467742 $ $Date: 2006-10-25 21:30:38 +0200 (mer 25 oct 2006) $
  */
-public class InvalidTransactionException extends RemoteException {
-    public InvalidTransactionException() {
+public class TransactionRequiredException extends RemoteException {
+    public TransactionRequiredException() {
         super();
     }
 
-    public InvalidTransactionException(String message) {
+    public TransactionRequiredException(String message) {
         super(message);
     }
 }

@@ -22,10 +22,32 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-package javax.transaction;
+package jakarta.transaction;
 
-public class TransactionalException extends RuntimeException {
-    public TransactionalException(final String message, final Throwable cause) {
-        super(message, cause);
+import javax.enterprise.util.Nonbinding;
+import javax.interceptor.InterceptorBinding;
+import java.lang.annotation.Inherited;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.ElementType.TYPE;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+
+@Inherited
+@InterceptorBinding
+@Target({TYPE, METHOD})
+@Retention(RUNTIME)
+public @interface Transactional {
+    public enum TxType {
+        REQUIRED, REQUIRES_NEW, MANDATORY, SUPPORTS, NOT_SUPPORTED, NEVER
     }
+
+    TxType value() default TxType.REQUIRED;
+
+    @Nonbinding
+    public Class[] rollbackOn() default {};
+
+    @Nonbinding
+    public Class[] dontRollbackOn() default {};
 }

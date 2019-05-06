@@ -17,10 +17,10 @@
  * under the License.
  */
 
-package javax.websocket.server;
+package jakarta.websocket.server;
 
-import javax.websocket.DeploymentException;
-import javax.websocket.WebSocketContainer;
+import jakarta.websocket.DeploymentException;
+import jakarta.websocket.WebSocketContainer;
 
 /**
  * The ServerContainer is the specialized view of the WebSocketContainer available in server-side deployments. There is
@@ -28,7 +28,7 @@ import javax.websocket.WebSocketContainer;
  * server endpoints during the initialization phase of the application.
  * <p/>
  * For websocket enabled web containers, developers may obtain a reference to the ServerContainer instance by retrieving
- * it as an attribute named javax.websocket.server.ServerContainer on the ServletContext. This way, the registration
+ * it as an attribute named jakarta.websocket.server.ServerContainer on the ServletContext. This way, the registration
  * methods held on this interface may be called to register server endpoints from a ServletContextListener during the
  * deployment of the WAR file containing the endpoint.
  * <p/>

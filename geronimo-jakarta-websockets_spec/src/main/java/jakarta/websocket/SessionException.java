@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package javax.websocket;
+package jakarta.websocket;
 
 /**
  * A SessionException represents a general exception type reporting problems occurring on a websocket session.

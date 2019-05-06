@@ -40,7 +40,7 @@ public interface HttpServletMapping {
     /**
      * @return The name of the servlet (as specified in web.xml,
      *         {@link WebServlet#name()},
-     *         {@link javax.servlet.ServletContext#addServlet(String, Class)} or
+     *         {@link jakarta.servlet.ServletContext#addServlet(String, Class)} or
      *         one of the other <code>addServlet()</code> methods) that the
      *         request was mapped to.
      */

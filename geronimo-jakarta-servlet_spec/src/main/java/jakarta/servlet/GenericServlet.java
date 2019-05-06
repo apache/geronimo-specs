@@ -21,7 +21,7 @@ import java.util.Enumeration;
 
 /**
  * Defines a generic, protocol-independent servlet. To write an HTTP servlet for
- * use on the Web, extend {@link javax.servlet.http.HttpServlet} instead.
+ * use on the Web, extend {@link jakarta.servlet.http.HttpServlet} instead.
  * <p>
  * <code>GenericServlet</code> implements the <code>Servlet</code> and
  * <code>ServletConfig</code> interfaces. <code>GenericServlet</code> may be

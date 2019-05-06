@@ -96,7 +96,7 @@ public abstract class TagLibraryInfo {
      * A string describing the required version of the JSP container.
      *
      * @return the (minimal) required version of the JSP container.
-     * @see javax.servlet.jsp.JspEngineInfo
+     * @see jakarta.servlet.jsp.JspEngineInfo
      */
     public String getRequiredVersion() {
         return jspversion;
@@ -223,7 +223,7 @@ public abstract class TagLibraryInfo {
      *         TagLibraryInfo.
      * @since 2.1
      */
-    public abstract javax.servlet.jsp.tagext.TagLibraryInfo[] getTagLibraryInfos();
+    public abstract jakarta.servlet.jsp.tagext.TagLibraryInfo[] getTagLibraryInfos();
 
     // Protected fields
 

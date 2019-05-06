@@ -30,9 +30,9 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.Vector;
 
-import javax.el.ELContext;
-import javax.el.ELResolver;
-import javax.el.PropertyNotWritableException;
+import jakarta.el.ELContext;
+import jakarta.el.ELResolver;
+import jakarta.el.PropertyNotWritableException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;

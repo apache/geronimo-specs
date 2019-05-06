@@ -23,21 +23,25 @@
 // DO NOT add / change / or delete method signatures!
 //
 
-package javax.transaction;
+package jakarta.transaction;
+
+import javax.transaction.xa.XAResource;
 
 /**
- * @version $Rev: 467742 $ $Date: 2006-10-25 21:30:38 +0200 (mer 25 oct 2006) $
+ * @version $Rev: 818591 $ $Date: 2009-09-24 21:03:32 +0200 (jeu 24 sep 2009) $
  */
-public interface UserTransaction {
-    void begin() throws NotSupportedException, SystemException;
+public interface Transaction {
+    void commit() throws HeuristicMixedException, HeuristicRollbackException, RollbackException, SecurityException, IllegalStateException, SystemException;
 
-    void commit() throws HeuristicMixedException, HeuristicRollbackException, IllegalStateException, RollbackException, SecurityException, SystemException;
+    boolean delistResource(XAResource xaRes, int flag) throws IllegalStateException, SystemException;
+
+    boolean enlistResource(XAResource xaRes) throws IllegalStateException, RollbackException, SystemException;
 
     int getStatus() throws SystemException;
 
-    void rollback() throws IllegalStateException, SecurityException, SystemException;
+    void registerSynchronization(Synchronization synch) throws IllegalStateException, RollbackException, SystemException;
+
+    void rollback() throws IllegalStateException, SystemException;
 
     void setRollbackOnly() throws IllegalStateException, SystemException;
-
-    void setTransactionTimeout(int seconds) throws SystemException;
 }

@@ -23,13 +23,13 @@
 // DO NOT add / change / or delete method signatures!
 //
 
-package javax.ejb.spi;
+package jakarta.ejb.spi;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import javax.ejb.EJBHome;
-import javax.ejb.EJBObject;
+import jakarta.ejb.EJBHome;
+import jakarta.ejb.EJBObject;
 
 /**
  * @version $Rev$ $Date$

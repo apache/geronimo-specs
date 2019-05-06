@@ -24,7 +24,7 @@ import java.lang.annotation.Target;
 
 /**
  * This annotation is used to declare the configuration of an
- * {@link javax.servlet.Servlet}. <br>
+ * {@link jakarta.servlet.Servlet}. <br>
  *
  * If the name attribute is not defined, the fully qualified name of the class
  * is used.<br>
@@ -40,7 +40,7 @@ import java.lang.annotation.Target;
  * <br>
  *
  * The class on which this annotation is declared MUST extend
- * {@link javax.servlet.http.HttpServlet}. <br>
+ * {@link jakarta.servlet.http.HttpServlet}. <br>
  * <br>
  *
  * E.g. <code>@WebServlet("/path")}<br>

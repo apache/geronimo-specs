@@ -19,17 +19,17 @@ package jakarta.el;
 
 import java.beans.FeatureDescriptor;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 public class ListELResolver extends ELResolver {
 
     private final boolean readOnly;
 
-    private final static Class UNMODIFIABLE = Collections.unmodifiableList(
-            new ArrayList()).getClass();
+    private static final Class<?> UNMODIFIABLE =
+        Collections.unmodifiableList(new ArrayList<>()).getClass();
 
     public ListELResolver() {
         this.readOnly = false;
@@ -39,15 +39,31 @@ public class ListELResolver extends ELResolver {
         this.readOnly = readOnly;
     }
 
-    public Object getValue(ELContext context, Object base, Object property)
-            throws NullPointerException, PropertyNotFoundException, ELException {
-        if (context == null) {
-            throw new NullPointerException();
+    @Override
+    public Class<?> getType(ELContext context, Object base, Object property) {
+        Objects.requireNonNull(context);
+
+        if (base instanceof List<?>) {
+            context.setPropertyResolved(base, property);
+            List<?> list = (List<?>) base;
+            int idx = coerce(property);
+            if (idx < 0 || idx >= list.size()) {
+                throw new PropertyNotFoundException(
+                        new ArrayIndexOutOfBoundsException(idx).getMessage());
+            }
+            return Object.class;
         }
 
-        if (base instanceof List) {
-            context.setPropertyResolved(true);
-            List list = (List) base;
+        return null;
+    }
+
+    @Override
+    public Object getValue(ELContext context, Object base, Object property) {
+        Objects.requireNonNull(context);
+
+        if (base instanceof List<?>) {
+            context.setPropertyResolved(base, property);
+            List<?> list = (List<?>) base;
             int idx = coerce(property);
             if (idx < 0 || idx >= list.size()) {
                 return null;
@@ -58,44 +74,22 @@ public class ListELResolver extends ELResolver {
         return null;
     }
 
-    public Class<?> getType(ELContext context, Object base, Object property)
-            throws NullPointerException, PropertyNotFoundException, ELException {
-        if (context == null) {
-            throw new NullPointerException();
-        }
-
-        if (base instanceof List) {
-            context.setPropertyResolved(true);
-            List list = (List) base;
-            int idx = coerce(property);
-            checkBounds(list, idx);
-            Object obj = list.get(idx);
-            return (obj != null) ? obj.getClass() : null;
-        }
-
-        return null;
-    }
-
+    @Override
     public void setValue(ELContext context, Object base, Object property,
-            Object value) throws NullPointerException,
-            PropertyNotFoundException, PropertyNotWritableException,
-            ELException {
-        if (context == null) {
-            throw new NullPointerException();
-        }
+            Object value) {
+        Objects.requireNonNull(context);
 
-        if (base instanceof List) {
-            context.setPropertyResolved(true);
-            List list = (List) base;
+        if (base instanceof List<?>) {
+            context.setPropertyResolved(base, property);
+            @SuppressWarnings("unchecked") // Must be OK to cast to Object
+            List<Object> list = (List<Object>) base;
 
             if (this.readOnly) {
-                throw new PropertyNotWritableException(message(context,
-                        "resolverNotWriteable", new Object[] { base.getClass()
-                                .getName() }));
+                throw new PropertyNotWritableException(Util.message(context,
+                        "resolverNotWriteable", base.getClass().getName()));
             }
 
             int idx = coerce(property);
-            checkBounds(list, idx);
             try {
                 list.set(idx, value);
             } catch (UnsupportedOperationException e) {
@@ -106,56 +100,43 @@ public class ListELResolver extends ELResolver {
         }
     }
 
-    public boolean isReadOnly(ELContext context, Object base, Object property)
-            throws NullPointerException, PropertyNotFoundException, ELException {
-        if (context == null) {
-            throw new NullPointerException();
-        }
+    @Override
+    public boolean isReadOnly(ELContext context, Object base, Object property) {
+        Objects.requireNonNull(context);
 
-        if (base instanceof List) {
-            context.setPropertyResolved(true);
-            List list = (List) base;
-            int idx = coerce(property);
-            checkBounds(list, idx);
+        if (base instanceof List<?>) {
+            context.setPropertyResolved(base, property);
+            List<?> list = (List<?>) base;
+            try {
+                int idx = coerce(property);
+                if (idx < 0 || idx >= list.size()) {
+                    throw new PropertyNotFoundException(
+                            new ArrayIndexOutOfBoundsException(idx)
+                                    .getMessage());
+                }
+            } catch (IllegalArgumentException e) {
+                // ignore
+            }
             return this.readOnly || UNMODIFIABLE.equals(list.getClass());
         }
 
         return this.readOnly;
     }
 
+    @Override
     public Iterator<FeatureDescriptor> getFeatureDescriptors(ELContext context, Object base) {
-        if (base instanceof List) {
-            FeatureDescriptor[] descs = new FeatureDescriptor[((List) base).size()];
-            for (int i = 0; i < descs.length; i++) {
-                descs[i] = new FeatureDescriptor();
-                descs[i].setDisplayName("["+i+"]");
-                descs[i].setExpert(false);
-                descs[i].setHidden(false);
-                descs[i].setName(""+i);
-                descs[i].setPreferred(true);
-                descs[i].setValue(RESOLVABLE_AT_DESIGN_TIME, Boolean.FALSE);
-                descs[i].setValue(TYPE, Integer.class);
-            }
-            return Arrays.asList(descs).iterator();
-        }
         return null;
     }
 
+    @Override
     public Class<?> getCommonPropertyType(ELContext context, Object base) {
-        if (base != null && base instanceof List) {
+        if (base instanceof List<?>) { // implies base != null
             return Integer.class;
         }
         return null;
     }
 
-    private final static void checkBounds(List base, int idx) {
-        if (idx < 0 || idx >= base.size()) {
-            throw new PropertyNotFoundException(
-                    new ArrayIndexOutOfBoundsException(idx).getMessage());
-        }
-    }
-       
-    private final static int coerce(Object property) {
+    private static final int coerce(Object property) {
         if (property instanceof Number) {
             return ((Number) property).intValue();
         }
@@ -163,13 +144,12 @@ public class ListELResolver extends ELResolver {
             return ((Character) property).charValue();
         }
         if (property instanceof Boolean) {
-            return (((Boolean) property).booleanValue() ? 1 : 0);
+            return ((Boolean) property).booleanValue() ? 1 : 0;
         }
         if (property instanceof String) {
             return Integer.parseInt((String) property);
         }
-        throw new IllegalArgumentException(property != null ? property
-                .toString() : "null");
+        throw new IllegalArgumentException(property != null ?
+                property.toString() : "null");
     }
-
 }

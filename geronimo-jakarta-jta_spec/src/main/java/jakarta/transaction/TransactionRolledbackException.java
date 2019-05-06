@@ -17,24 +17,25 @@
  * under the License.
  */
 
-package javax.transaction;
+//
+// This source code implements specifications defined by the Java
+// Community Process. In order to remain compliant with the specification
+// DO NOT add / change / or delete method signatures!
+//
+
+package jakarta.transaction;
+
+import java.rmi.RemoteException;
 
 /**
  * @version $Rev: 467742 $ $Date: 2006-10-25 21:30:38 +0200 (mer 25 oct 2006) $
  */
-public interface TransactionSynchronizationRegistry {
+public class TransactionRolledbackException extends RemoteException {
+    public TransactionRolledbackException() {
+        super();
+    }
 
-    Object getResource(Object key);
-
-    boolean getRollbackOnly();
-
-    Object getTransactionKey();
-
-    int getTransactionStatus();
-
-    void putResource(Object key, Object value);
-
-    void registerInterposedSynchronization(Synchronization sync);
-
-    void setRollbackOnly();
+    public TransactionRolledbackException(String message) {
+        super(message);
+    }
 }

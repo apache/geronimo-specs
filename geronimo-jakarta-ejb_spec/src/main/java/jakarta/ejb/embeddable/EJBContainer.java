@@ -19,20 +19,20 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-package javax.ejb.embeddable;
+package jakarta.ejb.embeddable;
 
 import java.util.Collections;
 import java.util.List;
 
-import javax.ejb.EJBException;
-import javax.ejb.spi.EJBContainerProvider;
+import jakarta.ejb.EJBException;
+import jakarta.ejb.spi.EJBContainerProvider;
 import org.apache.geronimo.osgi.locator.ProviderLocator;
 
 public abstract class EJBContainer implements AutoCloseable {
 
-    public static final String PROVIDER = "javax.ejb.embeddable.provider";
-    public static final String APP_NAME = "javax.ejb.embeddable.appName";
-    public static final String MODULES = "javax.ejb.embeddable.modules";
+    public static final String PROVIDER = "jakarta.ejb.embeddable.provider";
+    public static final String APP_NAME = "jakarta.ejb.embeddable.appName";
+    public static final String MODULES = "jakarta.ejb.embeddable.modules";
 
     public EJBContainer() {
     }

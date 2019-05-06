@@ -24,7 +24,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Declare this annotation on a {@link javax.servlet.Servlet} implementation
+ * Declare this annotation on a {@link jakarta.servlet.Servlet} implementation
  * class to enforce security constraints on HTTP protocol requests.<br>
  * The container applies constraints to the URL patterns mapped to each Servlet
  * which declares this annotation.<br>

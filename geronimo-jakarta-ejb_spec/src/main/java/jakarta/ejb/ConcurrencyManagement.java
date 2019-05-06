@@ -19,14 +19,14 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-package javax.ejb;
+package jakarta.ejb;
 
-import static javax.ejb.ConcurrencyManagementType.CONTAINER;
+import static jakarta.ejb.ConcurrencyManagementType.CONTAINER;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import static java.lang.annotation.ElementType.TYPE;
 
 @java.lang.annotation.Target(value = {TYPE})
 @java.lang.annotation.Retention(value = RUNTIME)
 public @interface ConcurrencyManagement {
-    javax.ejb.ConcurrencyManagementType value() default CONTAINER;
+    jakarta.ejb.ConcurrencyManagementType value() default CONTAINER;
 }

@@ -29,8 +29,8 @@ import java.io.IOException;
  *
  * <p>
  * To implement this interface, you can write a generic servlet that extends
- * <code>javax.servlet.GenericServlet</code> or an HTTP servlet that extends
- * <code>javax.servlet.http.HttpServlet</code>.
+ * <code>jakarta.servlet.GenericServlet</code> or an HTTP servlet that extends
+ * <code>jakarta.servlet.http.HttpServlet</code>.
  *
  * <p>
  * This interface defines methods to initialize a servlet, to service requests,
@@ -52,7 +52,7 @@ import java.io.IOException;
  * version, and copyright.
  *
  * @see GenericServlet
- * @see javax.servlet.http.HttpServlet
+ * @see jakarta.servlet.http.HttpServlet
  */
 public interface Servlet {
 

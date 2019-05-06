@@ -431,7 +431,7 @@ public class Cookie implements Cloneable, Serializable {
 
 
 class CookieNameValidator {
-    private static final String LSTRING_FILE = "javax.servlet.http.LocalStrings";
+    private static final String LSTRING_FILE = "jakarta.servlet.http.LocalStrings";
     protected static final ResourceBundle lStrings = ResourceBundle.getBundle(LSTRING_FILE);
 
     protected final BitSet allowed;

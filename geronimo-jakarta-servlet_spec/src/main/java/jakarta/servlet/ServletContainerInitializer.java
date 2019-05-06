@@ -20,7 +20,7 @@ import java.util.Set;
 
 /**
  * ServletContainerInitializers (SCIs) are registered via an entry in the
- * file META-INF/services/javax.servlet.ServletContainerInitializer that must be
+ * file META-INF/services/jakarta.servlet.ServletContainerInitializer that must be
  * included in the JAR file that contains the SCI implementation.
  * <p>
  * SCI processing is performed regardless of the setting of metadata-complete.
@@ -30,7 +30,7 @@ import java.util.Set;
  * absolute ordering may be defined.
  * <p>
  * SCIs register an interest in annotations (class, method or field) and/or
- * types via the {@link javax.servlet.annotation.HandlesTypes} annotation which
+ * types via the {@link jakarta.servlet.annotation.HandlesTypes} annotation which
  * is added to the class.
  *
  * @since Servlet 3.0
@@ -40,7 +40,7 @@ public interface ServletContainerInitializer {
     /**
      * Receives notification during startup of a web application of the classes
      * within the web application that matched the criteria defined via the
-     * {@link javax.servlet.annotation.HandlesTypes} annotation.
+     * {@link jakarta.servlet.annotation.HandlesTypes} annotation.
      *
      * @param c     The (possibly null) set of classes that met the specified
      *              criteria

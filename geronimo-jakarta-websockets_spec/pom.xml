@@ -67,7 +67,7 @@
                     <instructions>
                         <Export-Package>
                             javax.websocket;version=1.0,
-                            javax.websocket.server;version=1.0
+                            jakarta.websocket.server;version=1.0
                         </Export-Package>
                         <Provide-Capability><![CDATA[
                            osgi.contract;osgi.contract=JavaWebSockets;uses:="${packages;NAMED;javax.*}";version:List<Version>='1.0'

@@ -35,7 +35,7 @@ import jakarta.servlet.ServletInputStream;
 public class HttpUtils {
 
     private static final String LSTRING_FILE =
-        "javax.servlet.http.LocalStrings";
+        "jakarta.servlet.http.LocalStrings";
     private static final ResourceBundle lStrings =
         ResourceBundle.getBundle(LSTRING_FILE);
 

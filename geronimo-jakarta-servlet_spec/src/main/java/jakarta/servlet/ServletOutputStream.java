@@ -35,7 +35,7 @@ import java.util.ResourceBundle;
  */
 public abstract class ServletOutputStream extends OutputStream {
 
-    private static final String LSTRING_FILE = "javax.servlet.LocalStrings";
+    private static final String LSTRING_FILE = "jakarta.servlet.LocalStrings";
     private static final ResourceBundle lStrings = ResourceBundle.getBundle(LSTRING_FILE);
 
     /**
@@ -305,5 +305,5 @@ public abstract class ServletOutputStream extends OutputStream {
      *
      * @since Servlet 3.1
      */
-    public abstract void setWriteListener(javax.servlet.WriteListener listener);
+    public abstract void setWriteListener(jakarta.servlet.WriteListener listener);
 }

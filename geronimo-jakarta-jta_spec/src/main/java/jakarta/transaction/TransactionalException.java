@@ -22,19 +22,10 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-package javax.transaction;
+package jakarta.transaction;
 
-import javax.enterprise.context.NormalScope;
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
-
-import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.ElementType.TYPE;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
-
-@NormalScope(passivating = true)
-@Target({TYPE, METHOD, FIELD})
-@Retention(RUNTIME)
-public @interface TransactionScoped {
+public class TransactionalException extends RuntimeException {
+    public TransactionalException(final String message, final Throwable cause) {
+        super(message, cause);
+    }
 }

@@ -18,7 +18,7 @@ package jakarta.servlet.jsp;
 
 import java.util.Enumeration;
 
-import javax.el.ELContext;
+import jakarta.el.ELContext;
 
 /**
  * <p>
@@ -225,7 +225,7 @@ public abstract class JspContext {
      *             JspApplicationContext.getExpressionFactory()
      */
     @SuppressWarnings("dep-ann") // TCK signature test fails with annotation
-    public abstract javax.servlet.jsp.el.ExpressionEvaluator getExpressionEvaluator();
+    public abstract jakarta.servlet.jsp.el.ExpressionEvaluator getExpressionEvaluator();
 
 
     public abstract ELContext getELContext();
@@ -238,12 +238,12 @@ public abstract class JspContext {
      * @return A valid instance of a VariableResolver.
      * @since 2.0
      * @deprecated As of JSP 2.1,
-     *             replaced by javax.el.ELContext.getELResolver()
+     *             replaced by jakarta.el.ELContext.getELResolver()
      *             which can be obtained by
      *             jspContext.getELContext().getELResolver()
      */
     @SuppressWarnings("dep-ann") // TCK signature test fails with annotation
-    public abstract javax.servlet.jsp.el.VariableResolver getVariableResolver();
+    public abstract jakarta.servlet.jsp.el.VariableResolver getVariableResolver();
 
     /**
      * Return a new JspWriter object that sends output to the

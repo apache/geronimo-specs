@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package javax.websocket;
+package jakarta.websocket;
 
 /**
  * A general exception that occurs when trying to encode a custom object to a string or binary message.

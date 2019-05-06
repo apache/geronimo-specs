@@ -78,7 +78,7 @@ public abstract class JspFactory {
     /**
      * <p>
      * obtains an instance of an implementation dependent
-     * javax.servlet.jsp.PageContext abstract class for the calling Servlet
+     * jakarta.servlet.jsp.PageContext abstract class for the calling Servlet
      * and currently pending request and response.
      * </p>
      *
@@ -110,7 +110,7 @@ public abstract class JspFactory {
      *
      * @return the page context
      *
-     * @see javax.servlet.jsp.PageContext
+     * @see jakarta.servlet.jsp.PageContext
      */
 
     public abstract PageContext getPageContext(Servlet servlet,

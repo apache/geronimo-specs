@@ -30,7 +30,7 @@ import jakarta.servlet.ServletRequestWrapper;
  * This class implements the Wrapper or Decorator pattern. Methods default to
  * calling through to the wrapped request object.
  *
- * @see javax.servlet.http.HttpServletRequest
+ * @see jakarta.servlet.http.HttpServletRequest
  * @since v 2.3
  */
 public class HttpServletRequestWrapper extends ServletRequestWrapper implements

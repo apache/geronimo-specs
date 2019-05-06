@@ -17,23 +17,24 @@
  * under the License.
  */
 
-//
-// This source code implements specifications defined by the Java
-// Community Process. In order to remain compliant with the specification
-// DO NOT add / change / or delete method signatures!
-//
-
-package javax.transaction;
+package jakarta.transaction;
 
 /**
  * @version $Rev: 467742 $ $Date: 2006-10-25 21:30:38 +0200 (mer 25 oct 2006) $
  */
-public class HeuristicCommitException extends Exception {
-    public HeuristicCommitException() {
-        super();
-    }
+public interface TransactionSynchronizationRegistry {
 
-    public HeuristicCommitException(String message) {
-        super(message);
-    }
+    Object getResource(Object key);
+
+    boolean getRollbackOnly();
+
+    Object getTransactionKey();
+
+    int getTransactionStatus();
+
+    void putResource(Object key, Object value);
+
+    void registerInterposedSynchronization(Synchronization sync);
+
+    void setRollbackOnly();
 }

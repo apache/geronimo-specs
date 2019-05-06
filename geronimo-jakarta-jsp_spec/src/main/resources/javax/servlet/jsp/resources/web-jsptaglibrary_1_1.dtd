@@ -94,8 +94,8 @@ Defines an arbitrary text string descirbing the tag library
 The tag defines a unique tag in this tag library, defining:
 
 - the unique tag/element name
-- the subclass of javax.servlet.jsp.tagext.Tag implementation class
-- an optional subclass of javax.servlet.jsp.tagext.TagExtraInfo
+- the subclass of jakarta.servlet.jsp.tagext.Tag implementation class
+- an optional subclass of jakarta.servlet.jsp.tagext.TagExtraInfo
 - the body content type (hint)
 - optional tag-specific information
 - any attributes
@@ -104,7 +104,7 @@ The tag defines a unique tag in this tag library, defining:
 <!ELEMENT tag (name, tagclass, teiclass?, bodycontent?, info?, attribute*) >
 
 <!--
-Defines the subclass of javax.serlvet.jsp.tagext.Tag that implements
+Defines the subclass of jakarta.serlvet.jsp.tagext.Tag that implements
 the request time semantics for this tag. (required)
 
 #PCDATA ::= fully qualified Java class name
@@ -113,7 +113,7 @@ the request time semantics for this tag. (required)
 <!ELEMENT tagclass (#PCDATA) >
 
 <!--
-Defines the subclass of javax.servlet.jsp.tagext.TagExtraInfo for
+Defines the subclass of jakarta.servlet.jsp.tagext.TagExtraInfo for
 this tag. (optional)
 
 If this is not given, the class is not consulted at translation time.

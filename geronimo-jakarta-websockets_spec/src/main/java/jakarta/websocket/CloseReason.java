@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package javax.websocket;
+package jakarta.websocket;
 
 public class CloseReason {
 
@@ -227,6 +227,6 @@ public class CloseReason {
      */
     @Override
     public String toString() {
-        return "javax.websocket.CloseReason: " + this.closeCode + " " + this.reasonPhrase;
+        return "jakarta.websocket.CloseReason: " + this.closeCode + " " + this.reasonPhrase;
     }
 }

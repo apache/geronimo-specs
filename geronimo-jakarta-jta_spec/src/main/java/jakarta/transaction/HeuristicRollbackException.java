@@ -23,17 +23,17 @@
 // DO NOT add / change / or delete method signatures!
 //
 
-package javax.transaction;
+package jakarta.transaction;
 
 /**
  * @version $Rev: 467742 $ $Date: 2006-10-25 21:30:38 +0200 (mer 25 oct 2006) $
  */
-public class NotSupportedException extends Exception {
-    public NotSupportedException() {
+public class HeuristicRollbackException extends Exception {
+    public HeuristicRollbackException() {
         super();
     }
 
-    public NotSupportedException(String message) {
+    public HeuristicRollbackException(String message) {
         super(message);
     }
 }

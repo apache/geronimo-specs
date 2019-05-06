@@ -23,17 +23,24 @@
 // DO NOT add / change / or delete method signatures!
 //
 
-package javax.transaction;
+package jakarta.transaction;
 
 /**
  * @version $Rev: 467742 $ $Date: 2006-10-25 21:30:38 +0200 (mer 25 oct 2006) $
  */
-public class RollbackException extends Exception {
-    public RollbackException() {
+public class SystemException extends Exception {
+    public int errorCode;
+
+    public SystemException() {
         super();
     }
 
-    public RollbackException(String message) {
+    public SystemException(String message) {
         super(message);
+    }
+
+    public SystemException(int errorCode) {
+        super();
+        this.errorCode = errorCode;
     }
 }

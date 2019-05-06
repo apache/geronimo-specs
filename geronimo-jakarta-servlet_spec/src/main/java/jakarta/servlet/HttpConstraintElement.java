@@ -22,14 +22,14 @@ import jakarta.servlet.annotation.ServletSecurity.EmptyRoleSemantic;
 import jakarta.servlet.annotation.ServletSecurity.TransportGuarantee;
 
 /**
- * Equivalent of {@link javax.servlet.annotation.HttpConstraint} for
+ * Equivalent of {@link jakarta.servlet.annotation.HttpConstraint} for
  * programmatic configuration of security constraints.
  *
  * @since Servlet 3.0
  */
 public class HttpConstraintElement {
 
-    private static final String LSTRING_FILE = "javax.servlet.LocalStrings";
+    private static final String LSTRING_FILE = "jakarta.servlet.LocalStrings";
     private static final ResourceBundle lStrings =
         ResourceBundle.getBundle(LSTRING_FILE);
 

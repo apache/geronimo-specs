@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package javax.websocket;
+package jakarta.websocket;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -37,7 +37,7 @@ import java.util.Set;
  * Once the session is closed, it is no longer valid for use by applications. Calling any of its methods (with the
  * exception of the close() methods) once the session has been closed will result in an IllegalStateException being
  * thrown. Developers should retrieve any information from the session during the
- * Endpoint.onClose(javax.websocket.Session, javax.websocket.CloseReason) method. Following the convention of Closeable
+ * Endpoint.onClose(jakarta.websocket.Session, jakarta.websocket.CloseReason) method. Following the convention of Closeable
  * calling the Session close() methods after the Session has been closed has no effect.
  * <p/>
  * Session objects may be called by multiple threads. Implementations must ensure the integrity of the mutable

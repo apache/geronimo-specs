@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package javax.websocket;
+package jakarta.websocket;
 
 /**
  * Checked exception indicating some kind of failure either to publish an endpoint on its server, or a failure to

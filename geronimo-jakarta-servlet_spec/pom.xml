@@ -78,6 +78,16 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.apache.rat</groupId>
+                <artifactId>apache-rat-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>DEPENDENCIES</exclude>
+                        <exclude>src/main/resources/jakarta/servlet/resources/*.xsd</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-bundle-plugin</artifactId>
                 <version>3.5.0</version>
@@ -88,23 +98,23 @@
                              be exported as 2.7 -->
                         <Export-Package>
                             javax.servlet;version=2.7,
-                            javax.servlet.annotation;version=2.7,
-                            javax.servlet.descriptor;version=2.7,
-                            javax.servlet.http;version=2.7,
-                            javax.servlet.resources;version=2.7,
+                            jakarta.servlet.annotation;version=2.7,
+                            jakarta.servlet.descriptor;version=2.7,
+                            jakarta.servlet.http;version=2.7,
+                            jakarta.servlet.resources;version=2.7,
                             javax.servlet;version=3.1,
-                            javax.servlet.annotation;version=3.1,
-                            javax.servlet.descriptor;version=3.1,
-                            javax.servlet.http;version=3.1,
-                            javax.servlet.resources;version=3.1,
+                            jakarta.servlet.annotation;version=3.1,
+                            jakarta.servlet.descriptor;version=3.1,
+                            jakarta.servlet.http;version=3.1,
+                            jakarta.servlet.resources;version=3.1,
                         </Export-Package>
                         <!-- Because of the duplicate exports, explicit imports are required -->
                         <Import-Package>
                             javax.servlet;version=2.7,
-                            javax.servlet.annotation;version=2.7,
-                            javax.servlet.descriptor;version=2.7,
-                            javax.servlet.http;version=2.7,
-                            javax.servlet.resources;version=2.7,
+                            jakarta.servlet.annotation;version=2.7,
+                            jakarta.servlet.descriptor;version=2.7,
+                            jakarta.servlet.http;version=2.7,
+                            jakarta.servlet.resources;version=2.7,
                         </Import-Package>
                         <Provide-Capability><![CDATA[
                            osgi.contract;osgi.contract=JavaServlet;uses:="${packages;NAMED;javax.*}";version:List<Version>='3.1,3.0,2.5'
@@ -115,44 +125,5 @@
         </plugins>
     </build>
 
-    <profiles>
-        <profile>
-            <id>rat</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <!-- Override of default rat checks.  To use, type "mvn -Prat verify". -->
-                        <groupId>org.apache.rat</groupId>
-                        <artifactId>apache-rat-plugin</artifactId>
-                        <version>0.6</version>
-                        <executions>
-                            <execution>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>check</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <reportFile>${project.build.directory}/${project.build.finalName}.rat</reportFile>
-                            <excludeSubProjects>false</excludeSubProjects>
-                            <excludes>
-                                <exclude>**/target/**/*</exclude>
-                                <exclude>**/appended-resources/**/*</exclude>
-                                <exclude>**/velocity.log</exclude>
-                                <!-- manifest files don't support comments so don't contain the ASL2.0 header -->
-                                <exclude>**/*.MF</exclude>
-                                <!-- These are covered by information in the LICENSE file -->
-                                <exclude>**/xml.xsd</exclude>
-                                <exclude>**/XMLSchema.dtd</exclude>
-                                <!--RAT doesn't seem to recognize MIT style licenses-->
-                                <exclude>manual/src/styles/print.css</exclude>
-                            </excludes>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 
 </project>

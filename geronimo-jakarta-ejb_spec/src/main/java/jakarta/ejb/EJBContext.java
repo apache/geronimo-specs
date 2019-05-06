@@ -23,7 +23,7 @@
 // DO NOT add / change / or delete method signatures!
 //
 
-package javax.ejb;
+package jakarta.ejb;
 
 import java.security.Identity;
 import java.security.Principal;

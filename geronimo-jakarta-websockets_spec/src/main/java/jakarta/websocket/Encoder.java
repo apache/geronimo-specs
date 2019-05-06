@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package javax.websocket;
+package jakarta.websocket;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -30,7 +30,7 @@ import java.nio.ByteBuffer;
  * text, binary data, character stream and write to an output stream. The websocket implementation creates a new
  * instance of the encoder per endpoint instance per connection. This means that each encoder instance has at most one
  * calling thread at a time. The lifecycle of the Encoder instance is governed by the container calls to the
- * init(javax.websocket.EndpointConfig) and destroy() methods.
+ * init(jakarta.websocket.EndpointConfig) and destroy() methods.
  */
 public interface Encoder {
 

@@ -27,7 +27,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 
 /**
- * Extends the {@link javax.servlet.ServletRequest} interface to provide request
+ * Extends the {@link jakarta.servlet.ServletRequest} interface to provide request
  * information for HTTP servlets.
  * <p>
  * The servlet container creates an <code>HttpServletRequest</code> object and

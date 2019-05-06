@@ -17,11 +17,11 @@
  * under the License.
  */
 
-package javax.websocket.server;
+package jakarta.websocket.server;
 
 import java.util.Set;
 
-import javax.websocket.Endpoint;
+import jakarta.websocket.Endpoint;
 
 /**
  * Developers include implementations of ServerApplicationConfig in an archive containing websocket endpoints (WAR file, or JAR file within the WAR file) in order to specify the websocket endpoints within the archive the implementation must deploy. There is a separate method for programmatic endpoints and for annotated endpoints.

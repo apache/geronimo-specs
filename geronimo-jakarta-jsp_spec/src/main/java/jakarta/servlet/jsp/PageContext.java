@@ -137,55 +137,55 @@ public abstract class PageContext
      * Name used to store the Servlet in this PageContext's nametables.
      */
 
-    public static final String PAGE = "javax.servlet.jsp.jspPage";
+    public static final String PAGE = "jakarta.servlet.jsp.jspPage";
 
     /**
      * Name used to store this PageContext in it's own name table.
      */
 
-    public static final String PAGECONTEXT = "javax.servlet.jsp.jspPageContext";
+    public static final String PAGECONTEXT = "jakarta.servlet.jsp.jspPageContext";
 
     /**
      * Name used to store ServletRequest in PageContext name table.
      */
 
-    public static final String REQUEST = "javax.servlet.jsp.jspRequest";
+    public static final String REQUEST = "jakarta.servlet.jsp.jspRequest";
 
     /**
      * Name used to store ServletResponse in PageContext name table.
      */
 
-    public static final String RESPONSE = "javax.servlet.jsp.jspResponse";
+    public static final String RESPONSE = "jakarta.servlet.jsp.jspResponse";
 
     /**
      * Name used to store ServletConfig in PageContext name table.
      */
 
-    public static final String CONFIG = "javax.servlet.jsp.jspConfig";
+    public static final String CONFIG = "jakarta.servlet.jsp.jspConfig";
 
     /**
      * Name used to store HttpSession in PageContext name table.
      */
 
-    public static final String SESSION = "javax.servlet.jsp.jspSession";
+    public static final String SESSION = "jakarta.servlet.jsp.jspSession";
     /**
      * Name used to store current JspWriter in PageContext name table.
      */
 
-    public static final String OUT = "javax.servlet.jsp.jspOut";
+    public static final String OUT = "jakarta.servlet.jsp.jspOut";
 
     /**
      * Name used to store ServletContext in PageContext name table.
      */
 
-    public static final String APPLICATION = "javax.servlet.jsp.jspApplication";
+    public static final String APPLICATION = "jakarta.servlet.jsp.jspApplication";
 
     /**
      * Name used to store uncaught exception in ServletRequest attribute
      * list and PageContext name table.
      */
 
-    public static final String EXCEPTION = "javax.servlet.jsp.jspException";
+    public static final String EXCEPTION = "jakarta.servlet.jsp.jspException";
 
     /**
      * <p>
@@ -254,7 +254,7 @@ public abstract class PageContext
 
     /**
      * The current value of the page object (In a Servlet environment,
-     * this is an instance of javax.servlet.Servlet).
+     * this is an instance of jakarta.servlet.Servlet).
      *
      * @return the Page implementation class instance associated
      *     with this PageContext

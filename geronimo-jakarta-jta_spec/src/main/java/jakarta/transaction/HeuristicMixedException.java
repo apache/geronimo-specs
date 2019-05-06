@@ -23,18 +23,17 @@
 // DO NOT add / change / or delete method signatures!
 //
 
-package javax.transaction.xa;
+package jakarta.transaction;
 
 /**
  * @version $Rev: 467742 $ $Date: 2006-10-25 21:30:38 +0200 (mer 25 oct 2006) $
  */
-public interface Xid {
-    int MAXGTRIDSIZE = 64;
-    int MAXBQUALSIZE = 64;
+public class HeuristicMixedException extends Exception {
+    public HeuristicMixedException() {
+        super();
+    }
 
-    byte[] getBranchQualifier();
-
-    int getFormatId();
-
-    byte[] getGlobalTransactionId();
+    public HeuristicMixedException(String message) {
+        super(message);
+    }
 }

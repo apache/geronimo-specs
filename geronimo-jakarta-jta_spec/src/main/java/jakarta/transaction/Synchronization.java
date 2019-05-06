@@ -22,32 +22,14 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-package javax.transaction;
 
-import javax.enterprise.util.Nonbinding;
-import javax.interceptor.InterceptorBinding;
-import java.lang.annotation.Inherited;
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
+package jakarta.transaction;
 
-import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.ElementType.TYPE;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
+/**
+ * @version $Rev: 467742 $ $Date: 2006-10-25 21:30:38 +0200 (mer 25 oct 2006) $
+ */
+public interface Synchronization {
+    void beforeCompletion();
 
-@Inherited
-@InterceptorBinding
-@Target({TYPE, METHOD})
-@Retention(RUNTIME)
-public @interface Transactional {
-    public enum TxType {
-        REQUIRED, REQUIRES_NEW, MANDATORY, SUPPORTS, NOT_SUPPORTED, NEVER
-    }
-
-    TxType value() default TxType.REQUIRED;
-
-    @Nonbinding
-    public Class[] rollbackOn() default {};
-
-    @Nonbinding
-    public Class[] dontRollbackOn() default {};
+    void afterCompletion(int status);
 }

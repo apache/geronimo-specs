@@ -23,10 +23,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
-import javax.el.ELClass;
-import javax.el.ELContext;
-import javax.el.ELResolver;
-import javax.el.ImportHandler;
+import jakarta.el.ELClass;
+import jakarta.el.ELContext;
+import jakarta.el.ELResolver;
+import jakarta.el.ImportHandler;
 import jakarta.servlet.jsp.JspContext;
 import jakarta.servlet.jsp.PageContext;
 

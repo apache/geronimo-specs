@@ -17,18 +17,18 @@
  * under the License.
  */
 
-package javax.websocket.server;
+package jakarta.websocket.server;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.websocket.Decoder;
-import javax.websocket.Encoder;
-import javax.websocket.EndpointConfig;
-import javax.websocket.Extension;
-import javax.websocket.HandshakeResponse;
+import jakarta.websocket.Decoder;
+import jakarta.websocket.Encoder;
+import jakarta.websocket.EndpointConfig;
+import jakarta.websocket.Extension;
+import jakarta.websocket.HandshakeResponse;
 
 /**
  * The ServerEndpointConfig is a special kind of endpoint configuration object that contains web socket configuration
@@ -353,7 +353,7 @@ public interface ServerEndpointConfig extends EndpointConfig {
 
     /**
      * Return the ServerEndpointConfig.Configurator this configuration is using. If none was set by calling
-     * ServerEndpointConfig.Builder.configurator(javax.websocket.server.ServerEndpointConfig.Configurator) this methods
+     * ServerEndpointConfig.Builder.configurator(jakarta.websocket.server.ServerEndpointConfig.Configurator) this methods
      * returns the platform default configurator.
      * 
      * @return the configurator in use.

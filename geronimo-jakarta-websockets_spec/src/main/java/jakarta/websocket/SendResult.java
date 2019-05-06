@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package javax.websocket;
+package jakarta.websocket;
 
 /**
  * The result of asynchronously sending a web socket message. A SendResult is either ok indicating there was no problem,

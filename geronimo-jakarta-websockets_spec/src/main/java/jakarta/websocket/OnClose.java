@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package javax.websocket;
+package jakarta.websocket;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -35,7 +35,7 @@ import java.lang.annotation.Target;
  * <li>Zero to n String parameters annotated with the PathParam annotation.</li>
  * </ul>
  * <p/>
- * The parameters may appear in any order. See Endpoint.onClose(javax.websocket.Session, javax.websocket.CloseReason)
+ * The parameters may appear in any order. See Endpoint.onClose(jakarta.websocket.Session, jakarta.websocket.CloseReason)
  * for more details on how the session parameter may be used during method calls annotated with this annotation.
  */
 @Retention(value = RetentionPolicy.RUNTIME)

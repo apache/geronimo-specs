@@ -28,13 +28,13 @@ import java.lang.annotation.Target;
  * <br>
  *
  * The class annotated MUST implement one, (or more), of the following
- * interfaces: {@link javax.servlet.http.HttpSessionAttributeListener},
- * {@link javax.servlet.http.HttpSessionListener},
- * {@link javax.servlet.ServletContextAttributeListener},
- * {@link javax.servlet.ServletContextListener},
- * {@link javax.servlet.ServletRequestAttributeListener},
- * {@link javax.servlet.ServletRequestListener} or
- * {@link javax.servlet.http.HttpSessionIdListener}
+ * interfaces: {@link jakarta.servlet.http.HttpSessionAttributeListener},
+ * {@link jakarta.servlet.http.HttpSessionListener},
+ * {@link jakarta.servlet.ServletContextAttributeListener},
+ * {@link jakarta.servlet.ServletContextListener},
+ * {@link jakarta.servlet.ServletRequestAttributeListener},
+ * {@link jakarta.servlet.ServletRequestListener} or
+ * {@link jakarta.servlet.http.HttpSessionIdListener}
  * <br>
  *
  * E.g. <code>@WebListener</code><br>

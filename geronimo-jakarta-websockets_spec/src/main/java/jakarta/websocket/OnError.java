@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package javax.websocket;
+package jakarta.websocket;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -26,7 +26,7 @@ import java.lang.annotation.Target;
 
 /**
  * This method level annotation can be used to decorate a Java method that wishes to be called in order to handle
- * errors. See Endpoint.onError(javax.websocket.Session, java.lang.Throwable) for a description of the different
+ * errors. See Endpoint.onError(jakarta.websocket.Session, java.lang.Throwable) for a description of the different
  * categories of error.
  * <p/>
  * The method may only take the following parameters:-

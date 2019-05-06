@@ -55,7 +55,7 @@ public class SimpleTagSupport implements SimpleTag {
      *
      * @throws JspException Subclasses can throw JspException to indicate
      *     an error occurred while processing this tag.
-     * @throws javax.servlet.jsp.SkipPageException If the page that
+     * @throws jakarta.servlet.jsp.SkipPageException If the page that
      *     (either directly or indirectly) invoked this tag is to
      *     cease evaluation.  A Simple Tag Handler generated from a
      *     tag file must throw this exception if an invoked Classic

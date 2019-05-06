@@ -23,19 +23,10 @@
 // DO NOT add / change / or delete method signatures!
 //
 
-package javax.transaction;
-
-import java.rmi.RemoteException;
+package jakarta.transaction.xa;
 
 /**
  * @version $Rev: 467742 $ $Date: 2006-10-25 21:30:38 +0200 (mer 25 oct 2006) $
  */
-public class TransactionRequiredException extends RemoteException {
-    public TransactionRequiredException() {
-        super();
-    }
-
-    public TransactionRequiredException(String message) {
-        super(message);
-    }
+public interface Xid extends javax.transaction.xa.Xid {
 }

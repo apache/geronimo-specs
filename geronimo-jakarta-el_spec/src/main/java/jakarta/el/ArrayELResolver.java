@@ -19,8 +19,8 @@ package jakarta.el;
 
 import java.beans.FeatureDescriptor;
 import java.lang.reflect.Array;
-import java.util.Arrays;
 import java.util.Iterator;
+import java.util.Objects;
 
 public class ArrayELResolver extends ELResolver {
 
@@ -34,103 +34,88 @@ public class ArrayELResolver extends ELResolver {
         this.readOnly = readOnly;
     }
 
-    public Object getValue(ELContext context, Object base, Object property)
-            throws NullPointerException, PropertyNotFoundException, ELException {
-        if (context == null) {
-            throw new NullPointerException();
-        }
+    @Override
+    public Class<?> getType(ELContext context, Object base, Object property) {
+        Objects.requireNonNull(context);
 
         if (base != null && base.getClass().isArray()) {
-            context.setPropertyResolved(true);
-            int idx = coerce(property);
-            if (idx < 0 || idx >= Array.getLength(base)) {
-                return null;
-            } else {
-                return Array.get(base, idx);
+            context.setPropertyResolved(base, property);
+            try {
+                int idx = coerce(property);
+                checkBounds(base, idx);
+            } catch (IllegalArgumentException e) {
+                // ignore
             }
-        }
-
-        return null;
-    }
-
-    public Class<?> getType(ELContext context, Object base, Object property)
-            throws NullPointerException, PropertyNotFoundException, ELException {
-        if (context == null) {
-            throw new NullPointerException();
-        }
-
-        if (base != null && base.getClass().isArray()) {
-            context.setPropertyResolved(true);
-            int idx = coerce(property);
-            checkBounds(base, idx);
             return base.getClass().getComponentType();
         }
 
         return null;
     }
 
-    public void setValue(ELContext context, Object base, Object property,
-            Object value) throws NullPointerException,
-            PropertyNotFoundException, PropertyNotWritableException,
-            ELException {
-        if (context == null) {
-            throw new NullPointerException();
-        }
+    @Override
+    public Object getValue(ELContext context, Object base, Object property) {
+        Objects.requireNonNull(context);
 
         if (base != null && base.getClass().isArray()) {
-            context.setPropertyResolved(true);
+            context.setPropertyResolved(base, property);
+            int idx = coerce(property);
+            if (idx < 0 || idx >= Array.getLength(base)) {
+                return null;
+            }
+            return Array.get(base, idx);
+        }
+
+        return null;
+    }
+
+    @Override
+    public void setValue(ELContext context, Object base, Object property,
+            Object value) {
+        Objects.requireNonNull(context);
+
+        if (base != null && base.getClass().isArray()) {
+            context.setPropertyResolved(base, property);
 
             if (this.readOnly) {
-                throw new PropertyNotWritableException(message(context,
-                        "resolverNotWriteable", new Object[] { base.getClass()
-                                .getName() }));
+                throw new PropertyNotWritableException(Util.message(context,
+                        "resolverNotWriteable", base.getClass().getName()));
             }
 
             int idx = coerce(property);
             checkBounds(base, idx);
-            try {
-                Array.set(base, idx, value);
-            } catch (IllegalArgumentException e) {
-                ClassCastException ex = new ClassCastException(e.getMessage());
-                ex.initCause(e);
-                throw ex;
+            if (value != null && !Util.isAssignableFrom(value.getClass(),
+                    base.getClass().getComponentType())) {
+                throw new ClassCastException(Util.message(context,
+                        "objectNotAssignable", value.getClass().getName(),
+                        base.getClass().getComponentType().getName()));
             }
+            Array.set(base, idx, value);
         }
     }
 
-    public boolean isReadOnly(ELContext context, Object base, Object property)
-            throws NullPointerException, PropertyNotFoundException, ELException {
-        if (context == null) {
-            throw new NullPointerException();
-        }
+    @Override
+    public boolean isReadOnly(ELContext context, Object base, Object property) {
+        Objects.requireNonNull(context);
 
         if (base != null && base.getClass().isArray()) {
-            context.setPropertyResolved(true);
-            int idx = coerce(property);
-            checkBounds(base, idx);
+            context.setPropertyResolved(base, property);
+            try {
+                int idx = coerce(property);
+                checkBounds(base, idx);
+            } catch (IllegalArgumentException e) {
+                // ignore
+            }
         }
 
         return this.readOnly;
     }
 
+    @Override
     public Iterator<FeatureDescriptor> getFeatureDescriptors(ELContext context, Object base) {
-        if (base != null && base.getClass().isArray()) {
-            FeatureDescriptor[] descs = new FeatureDescriptor[Array.getLength(base)];
-            for (int i = 0; i < descs.length; i++) {
-                descs[i] = new FeatureDescriptor();
-                descs[i].setDisplayName("["+i+"]");
-                descs[i].setExpert(false);
-                descs[i].setHidden(false);
-                descs[i].setName(""+i);
-                descs[i].setPreferred(true);
-                descs[i].setValue(RESOLVABLE_AT_DESIGN_TIME, Boolean.FALSE);
-                descs[i].setValue(TYPE, Integer.class);
-            }
-            return Arrays.asList(descs).iterator();
-        }
         return null;
     }
 
+    @Override
     public Class<?> getCommonPropertyType(ELContext context, Object base) {
         if (base != null && base.getClass().isArray()) {
             return Integer.class;
@@ -138,14 +123,14 @@ public class ArrayELResolver extends ELResolver {
         return null;
     }
 
-    private final static void checkBounds(Object base, int idx) {
+    private static final void checkBounds(Object base, int idx) {
         if (idx < 0 || idx >= Array.getLength(base)) {
             throw new PropertyNotFoundException(
                     new ArrayIndexOutOfBoundsException(idx).getMessage());
         }
     }
 
-    private final static int coerce(Object property) {
+    private static final int coerce(Object property) {
         if (property instanceof Number) {
             return ((Number) property).intValue();
         }
@@ -153,12 +138,13 @@ public class ArrayELResolver extends ELResolver {
             return ((Character) property).charValue();
         }
         if (property instanceof Boolean) {
-            return (((Boolean) property).booleanValue() ? 1 : 0);
+            return ((Boolean) property).booleanValue() ? 1 : 0;
         }
         if (property instanceof String) {
             return Integer.parseInt((String) property);
         }
-        throw new IllegalArgumentException(property != null ? property
-                .toString() : "null");
+        throw new IllegalArgumentException(property != null ?
+                property.toString() : "null");
     }
+
 }

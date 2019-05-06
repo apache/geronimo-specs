@@ -87,7 +87,7 @@ public interface Part {
      *
      * @param fileName  The location into which the uploaded part should be
      *                  stored. Relative locations are relative to {@link
-     *                  javax.servlet.MultipartConfigElement#getLocation()}
+     *                  jakarta.servlet.MultipartConfigElement#getLocation()}
      *
      * @throws IOException if an I/O occurs while attempting to write the part
      */

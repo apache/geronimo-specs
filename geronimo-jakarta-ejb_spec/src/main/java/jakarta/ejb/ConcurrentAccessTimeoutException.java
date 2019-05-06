@@ -19,12 +19,12 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-package javax.ejb;
+package jakarta.ejb;
 
 /**
  * @version $Revision$ $Date$
  */
-public class ConcurrentAccessTimeoutException extends javax.ejb.ConcurrentAccessException {
+public class ConcurrentAccessTimeoutException extends jakarta.ejb.ConcurrentAccessException {
 
     public ConcurrentAccessTimeoutException() {
     }

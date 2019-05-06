@@ -27,9 +27,9 @@ package jakarta.servlet.jsp;
  * undefined. The exception is intended to be thrown inside SimpleTag handlers
  * and in JSP fragments.
  *
- * @see javax.servlet.jsp.tagext.SimpleTag#doTag
- * @see javax.servlet.jsp.tagext.JspFragment#invoke
- * @see javax.servlet.jsp.tagext.Tag#doEndTag
+ * @see jakarta.servlet.jsp.tagext.SimpleTag#doTag
+ * @see jakarta.servlet.jsp.tagext.JspFragment#invoke
+ * @see jakarta.servlet.jsp.tagext.Tag#doEndTag
  * @since 2.0
  */
 public class SkipPageException extends JspException {

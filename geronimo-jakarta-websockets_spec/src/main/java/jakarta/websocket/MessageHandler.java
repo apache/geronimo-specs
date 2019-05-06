@@ -1,4 +1,4 @@
-package javax.websocket;
+package jakarta.websocket;
 
 /**
  * Developers implement MessageHandlers in order to receive incoming messages during a web socket conversation. Each web

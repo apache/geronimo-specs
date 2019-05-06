@@ -62,9 +62,9 @@ public abstract class JspFragment {
      *
      * @param out The Writer to output the fragment to, or null if
      *     output should be sent to JspContext.getOut().
-     * @throws javax.servlet.jsp.JspException Thrown if an error occurred
+     * @throws jakarta.servlet.jsp.JspException Thrown if an error occurred
      *     while invoking this fragment.
-     * @throws javax.servlet.jsp.SkipPageException Thrown if the page
+     * @throws jakarta.servlet.jsp.SkipPageException Thrown if the page
      *     that (either directly or indirectly) invoked the tag handler that
      *     invoked this fragment is to cease evaluation.  The container
      *     must throw this exception if a Classic Tag Handler returned

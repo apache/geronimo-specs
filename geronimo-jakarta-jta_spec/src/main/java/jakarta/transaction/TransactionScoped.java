@@ -22,20 +22,19 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
+package jakarta.transaction;
 
-package javax.transaction;
+import javax.enterprise.context.NormalScope;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
 
-import java.rmi.RemoteException;
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.ElementType.TYPE;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-/**
- * @version $Rev: 467742 $ $Date: 2006-10-25 21:30:38 +0200 (mer 25 oct 2006) $
- */
-public class TransactionRolledbackException extends RemoteException {
-    public TransactionRolledbackException() {
-        super();
-    }
-
-    public TransactionRolledbackException(String message) {
-        super(message);
-    }
+@NormalScope(passivating = true)
+@Target({TYPE, METHOD, FIELD})
+@Retention(RUNTIME)
+public @interface TransactionScoped {
 }

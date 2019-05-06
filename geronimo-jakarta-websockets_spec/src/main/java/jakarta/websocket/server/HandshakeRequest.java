@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package javax.websocket.server;
+package jakarta.websocket.server;
 
 import java.net.URI;
 import java.security.Principal;

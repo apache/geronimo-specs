@@ -19,9 +19,9 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-package javax.ejb;
+package jakarta.ejb;
 
-import static javax.ejb.LockType.WRITE;
+import static jakarta.ejb.LockType.WRITE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.ElementType.METHOD;
@@ -29,5 +29,5 @@ import static java.lang.annotation.ElementType.METHOD;
 @java.lang.annotation.Target(value = {TYPE, METHOD})
 @java.lang.annotation.Retention(value = RUNTIME)
 public @interface Lock {
-    javax.ejb.LockType value() default WRITE;
+    jakarta.ejb.LockType value() default WRITE;
 }

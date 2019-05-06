@@ -22,17 +22,17 @@ package jakarta.servlet;
  */
 public interface AsyncContext {
     public static final String ASYNC_REQUEST_URI =
-        "javax.servlet.async.request_uri";
+        "jakarta.servlet.async.request_uri";
     public static final String ASYNC_CONTEXT_PATH  =
-        "javax.servlet.async.context_path";
+        "jakarta.servlet.async.context_path";
     public static final String ASYNC_MAPPING =
-            "javax.servlet.async.mapping";
+            "jakarta.servlet.async.mapping";
     public static final String ASYNC_PATH_INFO =
-        "javax.servlet.async.path_info";
+        "jakarta.servlet.async.path_info";
     public static final String ASYNC_SERVLET_PATH =
-        "javax.servlet.async.servlet_path";
+        "jakarta.servlet.async.servlet_path";
     public static final String ASYNC_QUERY_STRING =
-        "javax.servlet.async.query_string";
+        "jakarta.servlet.async.query_string";
 
     ServletRequest getRequest();
 
@@ -43,8 +43,8 @@ public interface AsyncContext {
     /**
      * @throws IllegalStateException if this method is called when the request
      * is not in asynchronous mode. The request is in asynchronous mode after
-     * {@link javax.servlet.http.HttpServletRequest#startAsync()} or
-     * {@link javax.servlet.http.HttpServletRequest#startAsync(ServletRequest,
+     * {@link jakarta.servlet.http.HttpServletRequest#startAsync()} or
+     * {@link jakarta.servlet.http.HttpServletRequest#startAsync(ServletRequest,
      * ServletResponse)} has been called and before {@link #complete()} or any
      * other dispatch() method has been called.
      */
@@ -57,8 +57,8 @@ public interface AsyncContext {
      *
      * @throws IllegalStateException if this method is called when the request
      * is not in asynchronous mode. The request is in asynchronous mode after
-     * {@link javax.servlet.http.HttpServletRequest#startAsync()} or
-     * {@link javax.servlet.http.HttpServletRequest#startAsync(ServletRequest,
+     * {@link jakarta.servlet.http.HttpServletRequest#startAsync()} or
+     * {@link jakarta.servlet.http.HttpServletRequest#startAsync(ServletRequest,
      * ServletResponse)} has been called and before {@link #complete()} or any
      * other dispatch() method has been called.
      */
@@ -72,8 +72,8 @@ public interface AsyncContext {
      *
      * @throws IllegalStateException if this method is called when the request
      * is not in asynchronous mode. The request is in asynchronous mode after
-     * {@link javax.servlet.http.HttpServletRequest#startAsync()} or
-     * {@link javax.servlet.http.HttpServletRequest#startAsync(ServletRequest,
+     * {@link jakarta.servlet.http.HttpServletRequest#startAsync()} or
+     * {@link jakarta.servlet.http.HttpServletRequest#startAsync(ServletRequest,
      * ServletResponse)} has been called and before {@link #complete()} or any
      * other dispatch() method has been called.
      */

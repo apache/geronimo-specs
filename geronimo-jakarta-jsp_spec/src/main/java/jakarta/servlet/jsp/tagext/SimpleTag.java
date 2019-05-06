@@ -82,9 +82,9 @@ public interface SimpleTag extends JspTag {
      * variables (defined by the associated tag file, TagExtraInfo, or TLD)
      * after the invocation of doTag().
      *
-     * @throws javax.servlet.jsp.JspException If an error occurred
+     * @throws jakarta.servlet.jsp.JspException If an error occurred
      *     while processing this tag.
-     * @throws javax.servlet.jsp.SkipPageException If the page that
+     * @throws jakarta.servlet.jsp.SkipPageException If the page that
      *     (either directly or indirectly) invoked this tag is to
      *     cease evaluation.  A Simple Tag Handler generated from a
      *     tag file must throw this exception if an invoked Classic
@@ -95,7 +95,7 @@ public interface SimpleTag extends JspTag {
      *     output stream.
      */
     public void doTag()
-        throws javax.servlet.jsp.JspException, java.io.IOException;
+        throws jakarta.servlet.jsp.JspException, java.io.IOException;
 
     /**
      * Sets the parent of this tag, for collaboration purposes.

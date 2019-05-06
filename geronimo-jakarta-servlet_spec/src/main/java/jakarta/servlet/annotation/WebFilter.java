@@ -25,13 +25,13 @@ import java.lang.annotation.Target;
 import jakarta.servlet.DispatcherType;
 
 /**
- * The annotation used to declare a Servlet {@link javax.servlet.Filter}. <br>
+ * The annotation used to declare a Servlet {@link jakarta.servlet.Filter}. <br>
  * <br>
  *
  * This annotation will be processed by the container during deployment, the
  * Filter class in which it is found will be created as per the configuration
- * and applied to the URL patterns, {@link javax.servlet.Servlet}s and
- * {@link javax.servlet.DispatcherType}s.<br>
+ * and applied to the URL patterns, {@link jakarta.servlet.Servlet}s and
+ * {@link jakarta.servlet.DispatcherType}s.<br>
  * <br>
  *
  * If the name attribute is not defined, the fully qualified name of the class
@@ -47,7 +47,7 @@ import jakarta.servlet.DispatcherType;
  * should be used.<br>
  * <br>
  *
- * The annotated class MUST implement {@link javax.servlet.Filter}.
+ * The annotated class MUST implement {@link jakarta.servlet.Filter}.
  *
  * E.g.
  *

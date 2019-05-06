@@ -23,24 +23,27 @@
 // DO NOT add / change / or delete method signatures!
 //
 
-package javax.transaction;
+package jakarta.transaction;
 
 /**
  * @version $Rev: 467742 $ $Date: 2006-10-25 21:30:38 +0200 (mer 25 oct 2006) $
  */
-public class SystemException extends Exception {
-    public int errorCode;
+public interface TransactionManager {
+    void begin() throws NotSupportedException, SystemException;
 
-    public SystemException() {
-        super();
-    }
+    void commit() throws HeuristicMixedException, HeuristicRollbackException, IllegalStateException, RollbackException, SecurityException, SystemException;
 
-    public SystemException(String message) {
-        super(message);
-    }
+    int getStatus() throws SystemException;
 
-    public SystemException(int errorCode) {
-        super();
-        this.errorCode = errorCode;
-    }
+    Transaction getTransaction() throws SystemException;
+
+    void resume(Transaction tobj) throws IllegalStateException, InvalidTransactionException, SystemException;
+
+    void rollback() throws IllegalStateException, SecurityException, SystemException;
+
+    void setRollbackOnly() throws IllegalStateException, SystemException;
+
+    void setTransactionTimeout(int seconds) throws SystemException;
+
+    Transaction suspend() throws SystemException;
 }

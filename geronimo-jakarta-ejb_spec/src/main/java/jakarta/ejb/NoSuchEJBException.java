@@ -20,7 +20,7 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-package javax.ejb;
+package jakarta.ejb;
 
 /**
  * @version $Rev: 467742 $ $Date: 2006-10-25 12:30:38 -0700 (Wed, 25 Oct 2006) $

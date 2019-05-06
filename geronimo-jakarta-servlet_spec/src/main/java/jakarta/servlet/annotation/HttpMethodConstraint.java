@@ -26,7 +26,7 @@ import jakarta.servlet.annotation.ServletSecurity.TransportGuarantee;
 /**
  * Specific security constraints can be applied to different types of request,
  * differentiated by the HTTP protocol method type by using this annotation
- * inside the {@link javax.servlet.annotation.ServletSecurity} annotation.
+ * inside the {@link jakarta.servlet.annotation.ServletSecurity} annotation.
  *
  * @since Servlet 3.0
  *

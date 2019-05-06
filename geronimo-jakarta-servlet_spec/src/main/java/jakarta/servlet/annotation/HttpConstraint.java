@@ -26,8 +26,8 @@ import jakarta.servlet.annotation.ServletSecurity.TransportGuarantee;
 /**
  * This annotation represents the security constraints that are applied to all
  * requests with HTTP protocol method types that are not otherwise represented
- * by a corresponding {@link javax.servlet.annotation.HttpMethodConstraint} in a
- * {@link javax.servlet.annotation.ServletSecurity} annotation.
+ * by a corresponding {@link jakarta.servlet.annotation.HttpMethodConstraint} in a
+ * {@link jakarta.servlet.annotation.ServletSecurity} annotation.
  *
  * @since Servlet 3.0
  */

@@ -78,7 +78,7 @@
                 <version>3.5.0</version>
                 <configuration>
                     <instructions>
-                        <Export-Package>javax.servlet.jsp*;version=2.2</Export-Package>
+                        <Export-Package>jakarta.servlet.jsp*;version=2.2</Export-Package>
                         <Provide-Capability><![CDATA[
                            osgi.contract;osgi.contract=JavaJSP;uses:="${packages;NAMED;javax.*}";version:List<Version>='2.2,2.1,2.0'
                         ]]></Provide-Capability>

@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package javax.websocket;
+package jakarta.websocket;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,7 +28,7 @@ import java.nio.ByteBuffer;
  * The Decoder interface holds member interfaces that define how a developer can provide the web socket container a way
  * web socket messages into developer defined custom objects. The websocket implementation creates a new instance of the
  * decoder per endpoint instance per connection. The lifecycle of the Decoder instance is governed by the container
- * calls to the init(javax.websocket.EndpointConfig) and destroy() methods.
+ * calls to the init(jakarta.websocket.EndpointConfig) and destroy() methods.
  * 
  */
 public interface Decoder {

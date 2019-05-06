@@ -23,20 +23,17 @@
 // DO NOT add / change / or delete method signatures!
 //
 
-package javax.transaction;
+package jakarta.transaction;
 
 /**
  * @version $Rev: 467742 $ $Date: 2006-10-25 21:30:38 +0200 (mer 25 oct 2006) $
  */
-public interface Status {
-    int STATUS_ACTIVE = 0;
-    int STATUS_MARKED_ROLLBACK = 1;
-    int STATUS_PREPARED = 2;
-    int STATUS_COMMITTED = 3;
-    int STATUS_ROLLEDBACK = 4;
-    int STATUS_UNKNOWN = 5;
-    int STATUS_NO_TRANSACTION = 6;
-    int STATUS_PREPARING = 7;
-    int STATUS_COMMITTING = 8;
-    int STATUS_ROLLING_BACK = 9;
+public class RollbackException extends Exception {
+    public RollbackException() {
+        super();
+    }
+
+    public RollbackException(String message) {
+        super(message);
+    }
 }

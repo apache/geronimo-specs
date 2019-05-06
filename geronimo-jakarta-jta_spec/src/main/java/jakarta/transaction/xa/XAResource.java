@@ -23,17 +23,10 @@
 // DO NOT add / change / or delete method signatures!
 //
 
-package javax.transaction;
+package jakarta.transaction.xa;
 
 /**
  * @version $Rev: 467742 $ $Date: 2006-10-25 21:30:38 +0200 (mer 25 oct 2006) $
  */
-public class HeuristicRollbackException extends Exception {
-    public HeuristicRollbackException() {
-        super();
-    }
-
-    public HeuristicRollbackException(String message) {
-        super(message);
-    }
+public interface XAResource extends javax.transaction.xa.XAResource {
 }
