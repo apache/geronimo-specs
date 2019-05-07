@@ -56,6 +56,7 @@
                 <module>geronimo-jakarta-websockets_spec</module>
                 <module>geronimo-jakarta-servlet_spec</module>
                 <module>geronimo-jakarta-jta_spec</module>
+                <module>geronimo-jakarta-jaxrpc_spec</module>
             </modules>
         </profile>
     </profiles>
