@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package javax.activation;
+package jakarta.activation;
 
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
@@ -301,7 +301,7 @@ public class DataHandler implements Transferable {
      */
     public static synchronized void setDataContentHandlerFactory(DataContentHandlerFactory newFactory) {
         if (factory != null) {
-            throw new Error("javax.activation.DataHandler.setDataContentHandlerFactory has already been defined");
+            throw new Error("jakarta.activation.DataHandler.setDataContentHandlerFactory has already been defined");
         }
         SecurityManager sm = System.getSecurityManager();
         if (sm != null) {

@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package javax.xml.soap;
+package jakarta.xml.soap;
 
 /**
  * A representation of a node whose value is text. A <CODE> Text</CODE> object may represent text

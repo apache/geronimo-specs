@@ -17,7 +17,7 @@
  ** specific language governing permissions and limitations
  ** under the License.
 */
-package javax.xml.stream;
+package jakarta.xml.stream;
 
 public interface XMLStreamConstants {
     public static final int	ATTRIBUTE = 10;

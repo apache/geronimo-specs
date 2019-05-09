@@ -17,7 +17,7 @@
  ** specific language governing permissions and limitations
  ** under the License.
  */
-package javax.xml.stream;
+package jakarta.xml.stream;
 
 import java.io.Serializable;
 

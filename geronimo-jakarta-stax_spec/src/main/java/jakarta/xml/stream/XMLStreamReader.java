@@ -17,10 +17,10 @@
  ** specific language governing permissions and limitations
  ** under the License.
  */
-package javax.xml.stream;
+package jakarta.xml.stream;
 
-import javax.xml.namespace.NamespaceContext;
-import javax.xml.namespace.QName;
+import jakarta.xml.namespace.NamespaceContext;
+import jakarta.xml.namespace.QName;
 
 public interface XMLStreamReader extends XMLStreamConstants {
 	public void close() throws XMLStreamException;

@@ -17,7 +17,7 @@
  ** specific language governing permissions and limitations
  ** under the License.
  */
-package javax.xml.stream.events;
+package jakarta.xml.stream.events;
 
 public interface Namespace extends Attribute {
 	public String getNamespaceURI();

@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package javax.xml.soap;
+package jakarta.xml.soap;
 
 
 /**
@@ -27,7 +27,7 @@ package javax.xml.soap;
  * SOAP part. These fragments can be inserted as children of the <code>SOAPHeaderElement</code> or
  * <code>SOAPBodyElement</code> or <code>SOAPEnvelope</code>.
  * <p/>
- * <code>SOAPFactory</code> also has methods to create <code>javax.xml.soap.Detail</code> objects as
+ * <code>SOAPFactory</code> also has methods to create <code>jakarta.xml.soap.Detail</code> objects as
  * well as <code>java.xml.soap.Name</code> objects.
  */
 public abstract class SOAPFactory {
@@ -140,7 +140,7 @@ public abstract class SOAPFactory {
      *                 implementation. May be either DYNAMIC_SOAP_PROTOCOL, DEFAULT_SOAP_PROTOCOL
      *                 (which is the same as) SOAP_1_1_PROTOCOL, or SOAP_1_2_PROTOCOL. Returns: a
      *                 new instance of a SOAPFactory
-     * @return javax.xml.soap.SOAPFactory
+     * @return jakarta.xml.soap.SOAPFactory
      * @throws SOAPException - if there is an error creating the specified SOAPFactory
      * @see <CODE>SAAJMetaFactory</CODE>
      */

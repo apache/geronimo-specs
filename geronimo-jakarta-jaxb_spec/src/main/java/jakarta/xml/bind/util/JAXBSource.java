@@ -14,13 +14,13 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package javax.xml.bind.util;
+package jakarta.xml.bind.util;
 
 import javax.xml.transform.Source;
 import javax.xml.transform.sax.SAXSource;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
 
 import org.xml.sax.XMLReader;
 import org.xml.sax.SAXNotRecognizedException;

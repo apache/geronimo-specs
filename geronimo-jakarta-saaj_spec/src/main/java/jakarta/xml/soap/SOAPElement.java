@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package javax.xml.soap;
+package jakarta.xml.soap;
 
 import javax.xml.namespace.QName;
 import java.util.Iterator;
@@ -28,7 +28,7 @@ import java.util.Iterator;
  * <code>SOAPFault</code> object. It is the base class for all of the classes that represent the
  * SOAP objects as defined in the SOAP specification.
  */
-public interface SOAPElement extends javax.xml.soap.Node, org.w3c.dom.Element {
+public interface SOAPElement extends jakarta.xml.soap.Node, org.w3c.dom.Element {
 
     /**
      * Creates a new <code>SOAPElement</code> object initialized with the given <code>Name</code>

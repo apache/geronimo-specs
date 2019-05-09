@@ -14,7 +14,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package javax.xml.bind;
+package jakarta.xml.bind;
 
 import java.io.IOException;
 
@@ -25,7 +25,7 @@ import org.w3c.dom.Node;
 
 public abstract class JAXBContext {
 
-    public static final String JAXB_CONTEXT_FACTORY = "javax.xml.bind.context.factory";
+    public static final String JAXB_CONTEXT_FACTORY = "jakarta.xml.bind.context.factory";
 
     protected JAXBContext() {
     }

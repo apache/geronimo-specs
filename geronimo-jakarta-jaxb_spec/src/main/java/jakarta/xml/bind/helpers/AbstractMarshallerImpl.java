@@ -14,7 +14,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package javax.xml.bind.helpers;
+package jakarta.xml.bind.helpers;
 
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
@@ -24,12 +24,12 @@ import java.io.FileOutputStream;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
 
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.PropertyException;
-import javax.xml.bind.ValidationEventHandler;
-import javax.xml.bind.annotation.adapters.XmlAdapter;
-import javax.xml.bind.attachment.AttachmentMarshaller;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.PropertyException;
+import jakarta.xml.bind.ValidationEventHandler;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
+import jakarta.xml.bind.attachment.AttachmentMarshaller;
 import javax.xml.stream.XMLEventWriter;
 import javax.xml.stream.XMLStreamWriter;
 import javax.xml.transform.dom.DOMResult;
@@ -292,11 +292,11 @@ public abstract class AbstractMarshallerImpl implements Marshaller {
         throw new UnsupportedOperationException();
     }
 
-    public void setListener(javax.xml.bind.Marshaller.Listener listener) {
+    public void setListener(jakarta.xml.bind.Marshaller.Listener listener) {
         throw new UnsupportedOperationException();
     }
 
-    public javax.xml.bind.Marshaller.Listener getListener() {
+    public jakarta.xml.bind.Marshaller.Listener getListener() {
         throw new UnsupportedOperationException();
     }
 }

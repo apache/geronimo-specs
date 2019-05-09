@@ -17,11 +17,11 @@
  ** specific language governing permissions and limitations
  ** under the License.
 */
-package javax.xml.stream.events;
+package jakarta.xml.stream.events;
 
 import java.util.Iterator;
 
-import javax.xml.namespace.QName;
+import jakarta.xml.namespace.QName;
 
 public interface EndElement extends XMLEvent {
     public QName getName();

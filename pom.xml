@@ -57,7 +57,10 @@
                 <module>geronimo-jakarta-jsp_spec</module>
                 <module>geronimo-jakarta-websockets_spec</module>
                 <module>geronimo-jakarta-servlet_spec</module>
+                <module>geronimo-jakarta-saaj_spec</module>
+                <module>geronimo-jakarta-stax_spec</module>
                 <module>geronimo-jakarta-jta_spec</module>
+                <module>geronimo-jakarta-jaxb_spec</module>
                 <module>geronimo-jakarta-jaxrpc_spec</module>
                 <module>geronimo-jakarta-jaxrs_spec</module>
                 <module>geronimo-jakarta-jaxws_spec</module>

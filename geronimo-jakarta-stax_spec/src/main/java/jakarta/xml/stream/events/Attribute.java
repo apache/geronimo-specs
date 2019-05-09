@@ -17,9 +17,9 @@
  ** specific language governing permissions and limitations
  ** under the License.
  */
-package javax.xml.stream.events;
+package jakarta.xml.stream.events;
 
-import javax.xml.namespace.QName;
+import jakarta.xml.namespace.QName;
 
 public interface Attribute extends XMLEvent {
 	public String getDTDType();

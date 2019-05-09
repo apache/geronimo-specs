@@ -17,7 +17,7 @@
  ** specific language governing permissions and limitations
  ** under the License.
  */
-package javax.xml.namespace;
+package jakarta.xml.namespace;
 
 import java.io.Serializable;
 import javax.xml.XMLConstants;

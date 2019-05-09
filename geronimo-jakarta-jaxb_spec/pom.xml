@@ -85,7 +85,7 @@
                         <Specification-Title>JSR-222 Java Architecture for XML Binding 2.2</Specification-Title>
                         <Specification-Vendor>Sun Microsystems, Inc.</Specification-Vendor>
                         <Specification-Version>2.2</Specification-Version>
-                        <Export-Package>javax.xml.bind*;version=2.2</Export-Package>
+                        <Export-Package>jakarta.xml.bind*;version=2.2</Export-Package>
                         <Import-Package>org.apache.geronimo.osgi.registry.api;resolution:=optional,*</Import-Package>
                         <Private-Package>org.apache.geronimo.osgi.locator</Private-Package>
                         <Bundle-Activator>org.apache.geronimo.osgi.locator.Activator</Bundle-Activator>

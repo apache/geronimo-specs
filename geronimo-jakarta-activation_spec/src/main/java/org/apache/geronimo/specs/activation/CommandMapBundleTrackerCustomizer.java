@@ -26,8 +26,8 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ConcurrentHashMap;
 
-import javax.activation.MailcapCommandMap;
-import javax.activation.CommandMap;
+import jakarta.activation.MailcapCommandMap;
+import jakarta.activation.CommandMap;
 
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleEvent;

@@ -17,20 +17,20 @@
  ** specific language governing permissions and limitations
  ** under the License.
  */
-package javax.xml.stream;
+package jakarta.xml.stream;
 
-import javax.xml.stream.util.XMLEventAllocator;
+import jakarta.xml.stream.util.XMLEventAllocator;
 
 public abstract class XMLInputFactory {
-	public static final java.lang.String ALLOCATOR = "javax.xml.stream.allocator";
-	public static final java.lang.String IS_COALESCING = "javax.xml.stream.isCoalescing";
-	public static final java.lang.String IS_NAMESPACE_AWARE = "javax.xml.stream.isNamespaceAware";
-	public static final java.lang.String IS_REPLACING_ENTITY_REFERENCES = "javax.xml.stream.isReplacingEntityReferences";
-	public static final java.lang.String IS_SUPPORTING_EXTERNAL_ENTITIES = "javax.xml.stream.isSupportingExternalEntities";
-	public static final java.lang.String IS_VALIDATING = "javax.xml.stream.isValidating";
-	public static final java.lang.String REPORTER = "javax.xml.stream.reporter";
-	public static final java.lang.String RESOLVER = "javax.xml.stream.resolver";
-	public static final java.lang.String SUPPORT_DTD = "javax.xml.stream.supportDTD";
+	public static final java.lang.String ALLOCATOR = "jakarta.xml.stream.allocator";
+	public static final java.lang.String IS_COALESCING = "jakarta.xml.stream.isCoalescing";
+	public static final java.lang.String IS_NAMESPACE_AWARE = "jakarta.xml.stream.isNamespaceAware";
+	public static final java.lang.String IS_REPLACING_ENTITY_REFERENCES = "jakarta.xml.stream.isReplacingEntityReferences";
+	public static final java.lang.String IS_SUPPORTING_EXTERNAL_ENTITIES = "jakarta.xml.stream.isSupportingExternalEntities";
+	public static final java.lang.String IS_VALIDATING = "jakarta.xml.stream.isValidating";
+	public static final java.lang.String REPORTER = "jakarta.xml.stream.reporter";
+	public static final java.lang.String RESOLVER = "jakarta.xml.stream.resolver";
+	public static final java.lang.String SUPPORT_DTD = "jakarta.xml.stream.supportDTD";
 
 	protected XMLInputFactory() {
 	}
@@ -38,13 +38,13 @@ public abstract class XMLInputFactory {
 	public static XMLInputFactory newInstance()
 			throws FactoryConfigurationError {
 		// We'll assume the XMLInputFactory from the RI as a backup.
-		return (XMLInputFactory)FactoryLocator.locate("javax.xml.stream.XMLInputFactory", "com.ctc.wstx.stax.WstxInputFactory");
+		return (XMLInputFactory)FactoryLocator.locate("jakarta.xml.stream.XMLInputFactory", "com.ctc.wstx.stax.WstxInputFactory");
 	}
 
 	public static XMLInputFactory newFactory()
 			throws FactoryConfigurationError {
 		// We'll assume the XMLInputFactory from the RI as a backup.
-		return (XMLInputFactory)FactoryLocator.locate("javax.xml.stream.XMLInputFactory", "com.ctc.wstx.stax.WstxInputFactory");
+		return (XMLInputFactory)FactoryLocator.locate("jakarta.xml.stream.XMLInputFactory", "com.ctc.wstx.stax.WstxInputFactory");
 	}
 
 

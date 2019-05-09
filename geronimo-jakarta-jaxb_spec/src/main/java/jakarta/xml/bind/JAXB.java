@@ -14,7 +14,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package javax.xml.bind;
+package jakarta.xml.bind;
 
 import java.io.File;
 import java.io.OutputStream;
@@ -33,7 +33,7 @@ import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 import javax.xml.namespace.QName;
 
 final public class JAXB {

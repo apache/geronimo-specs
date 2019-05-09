@@ -14,13 +14,13 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package javax.xml.bind.annotation;
+package jakarta.xml.bind.annotation;
 
 import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.Source;
 import javax.xml.parsers.DocumentBuilder;
-import javax.xml.bind.ValidationEventHandler;
+import jakarta.xml.bind.ValidationEventHandler;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.Document;

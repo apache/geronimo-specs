@@ -17,13 +17,13 @@
  ** specific language governing permissions and limitations
  ** under the License.
  */
-package javax.xml.stream.util;
+package jakarta.xml.stream.util;
 
-import javax.xml.namespace.NamespaceContext;
-import javax.xml.namespace.QName;
-import javax.xml.stream.Location;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
+import jakarta.xml.namespace.NamespaceContext;
+import jakarta.xml.namespace.QName;
+import jakarta.xml.stream.Location;
+import jakarta.xml.stream.XMLStreamException;
+import jakarta.xml.stream.XMLStreamReader;
 
 public class StreamReaderDelegate implements XMLStreamReader {
 	XMLStreamReader reader;

@@ -14,13 +14,13 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package javax.xml.bind.helpers;
+package jakarta.xml.bind.helpers;
 
 import java.net.URL;
 
-import javax.xml.bind.ValidationEventHandler;
-import javax.xml.bind.ValidationEvent;
-import javax.xml.bind.ValidationEventLocator;
+import jakarta.xml.bind.ValidationEventHandler;
+import jakarta.xml.bind.ValidationEvent;
+import jakarta.xml.bind.ValidationEventLocator;
 
 import org.w3c.dom.Node;
 

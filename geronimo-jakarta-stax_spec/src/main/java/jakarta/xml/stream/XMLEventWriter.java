@@ -17,11 +17,11 @@
  ** specific language governing permissions and limitations
  ** under the License.
  */
-package javax.xml.stream;
+package jakarta.xml.stream;
 
-import javax.xml.namespace.NamespaceContext;
-import javax.xml.stream.events.XMLEvent;
-import javax.xml.stream.util.XMLEventConsumer;
+import jakarta.xml.namespace.NamespaceContext;
+import jakarta.xml.stream.events.XMLEvent;
+import jakarta.xml.stream.util.XMLEventConsumer;
 
 public interface XMLEventWriter extends XMLEventConsumer {
 	public void add(XMLEvent event) throws XMLStreamException;

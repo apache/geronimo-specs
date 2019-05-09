@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package javax.xml.soap;
+package jakarta.xml.soap;
 
 import org.w3c.dom.NodeList;
 
@@ -52,7 +52,7 @@ public class SAAJResult extends DOMResult {
         super(soapelement);
     }
 
-    public javax.xml.soap.Node getResult() {
+    public jakarta.xml.soap.Node getResult() {
         org.w3c.dom.Node node = super.getNode();
         //When using SAAJResult saajResult = new SAAJResult();
         if (node == null) {
@@ -65,6 +65,6 @@ public class SAAJResult extends DOMResult {
                 throw new RuntimeException(e);
             }
         }
-        return (javax.xml.soap.Node)node.getFirstChild();
+        return (jakarta.xml.soap.Node)node.getFirstChild();
     }
 }

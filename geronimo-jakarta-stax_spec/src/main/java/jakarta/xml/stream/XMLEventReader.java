@@ -17,11 +17,11 @@
  ** specific language governing permissions and limitations
  ** under the License.
  */
-package javax.xml.stream;
+package jakarta.xml.stream;
 
 import java.util.Iterator;
 
-import javax.xml.stream.events.XMLEvent;
+import jakarta.xml.stream.events.XMLEvent;
 
 public interface XMLEventReader extends Iterator {
 	public void close() throws XMLStreamException;

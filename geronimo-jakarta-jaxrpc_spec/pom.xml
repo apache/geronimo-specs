@@ -52,9 +52,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-saaj_1.3_spec</artifactId>
-            <version>1.1</version>
+            <groupId>org.apache.geronimo.jakarta-specs</groupId>
+            <artifactId>geronimo-jakarta-saaj_spec</artifactId>
+            <version>1.3_1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
 

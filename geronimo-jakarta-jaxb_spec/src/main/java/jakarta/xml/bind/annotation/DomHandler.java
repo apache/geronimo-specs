@@ -14,11 +14,11 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package javax.xml.bind.annotation;
+package jakarta.xml.bind.annotation;
 
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
-import javax.xml.bind.ValidationEventHandler;
+import jakarta.xml.bind.ValidationEventHandler;
 
 public interface DomHandler<ElementT, ResultT extends Result> {
 

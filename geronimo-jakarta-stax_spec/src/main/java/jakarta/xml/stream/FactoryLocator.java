@@ -17,7 +17,7 @@
  ** specific language governing permissions and limitations
  ** under the License.
  */
-package javax.xml.stream;
+package jakarta.xml.stream;
 
 import java.io.InputStream;
 import java.io.File;
@@ -32,14 +32,14 @@ import org.apache.geronimo.osgi.locator.ProviderLocator;
 /*
  * Here is the beef on the finding the Factory Class
  *
- * 1. Use the javax.xml.stream.XMLInputFactory system property. 2. Use the
+ * 1. Use the jakarta.xml.stream.XMLInputFactory system property. 2. Use the
  * properties file "lib/stax.properties" in the JRE directory. This
  * configuration file is in standard java.util.Properties format and contains
  * the fully qualified name of the implementation class with the key being the
  * system property defined above. 3. Use the Services API (as detailed in the
  * JAR specification), if available, to determine the classname. The Services
  * API will look for a classname in the file
- * META-INF/services/javax.xml.stream.XMLInputFactory in jars available to the
+ * META-INF/services/jakarta.xml.stream.XMLInputFactory in jars available to the
  * runtime. Platform default XMLInputFactory instance.
  *
  * If the user provided a classloader we'll use that...if not, we'll assume the
@@ -61,13 +61,13 @@ class FactoryLocator {
 			ClassLoader classLoader) throws FactoryConfigurationError {
         // NOTE:  The stax spec uses the following lookup order, which is the reverse from what is specified
         // most of the APIs:
-        // 1. Use the javax.xml.stream.XMLInputFactory system property.
+        // 1. Use the jakarta.xml.stream.XMLInputFactory system property.
         // 2. Use the properties file lib/xml.stream.properties in the JRE directory. This configuration
         // file is in standard java.util.Properties format and contains the fully qualified name of the
         // implementation class with the key being the system property defined in step 1.
         // 3. Use the Services API (as detailed in the JAR specification), if available, to determine the
         // classname. The Services API looks for a classname in the file META-INF/services/
-        // javax.xml.stream.XMLInputFactory in jars available to the runtime.
+        // jakarta.xml.stream.XMLInputFactory in jars available to the runtime.
         // 4. Platform default XMLInputFactory instance.
 
 

@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package javax.xml.soap;
+package jakarta.xml.soap;
 
 /**
  * An exception that signals that a SOAP exception has occurred. A <CODE>SOAPException</CODE> object

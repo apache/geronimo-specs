@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package javax.xml.soap;
+package jakarta.xml.soap;
 
 import javax.xml.namespace.QName;
 import java.util.Iterator;

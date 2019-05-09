@@ -17,14 +17,14 @@
  ** specific language governing permissions and limitations
  ** under the License.
  */
-package javax.xml.stream.events;
+package jakarta.xml.stream.events;
 
 import java.io.Writer;
 
-import javax.xml.namespace.QName;
-import javax.xml.stream.Location;
-import javax.xml.stream.XMLStreamConstants;
-import javax.xml.stream.XMLStreamException;
+import jakarta.xml.namespace.QName;
+import jakarta.xml.stream.Location;
+import jakarta.xml.stream.XMLStreamConstants;
+import jakarta.xml.stream.XMLStreamException;
 
 public interface XMLEvent extends XMLStreamConstants {
 	public Characters asCharacters();

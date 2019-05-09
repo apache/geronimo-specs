@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package javax.activation;
+package jakarta.activation;
 
 import java.util.Collections;
 import java.util.Enumeration;

@@ -17,11 +17,11 @@
  ** specific language governing permissions and limitations
  ** under the License.
  */
-package javax.xml.stream.util;
+package jakarta.xml.stream.util;
 
-import javax.xml.stream.XMLEventReader;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.events.XMLEvent;
+import jakarta.xml.stream.XMLEventReader;
+import jakarta.xml.stream.XMLStreamException;
+import jakarta.xml.stream.events.XMLEvent;
 
 public class EventReaderDelegate implements XMLEventReader {
 	private XMLEventReader reader;

@@ -14,14 +14,14 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package javax.xml.bind.util;
+package jakarta.xml.bind.util;
 
 import javax.xml.transform.Result;
 import javax.xml.transform.sax.SAXResult;
-import javax.xml.bind.UnmarshallerHandler;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
+import jakarta.xml.bind.UnmarshallerHandler;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Unmarshaller;
 
 public class JAXBResult extends SAXResult {
 

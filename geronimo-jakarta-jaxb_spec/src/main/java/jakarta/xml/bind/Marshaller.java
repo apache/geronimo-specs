@@ -14,14 +14,14 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package javax.xml.bind;
+package jakarta.xml.bind;
 
 import java.io.OutputStream;
 import java.io.Writer;
 import java.io.File;
 
-import javax.xml.bind.annotation.adapters.XmlAdapter;
-import javax.xml.bind.attachment.AttachmentMarshaller;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
+import jakarta.xml.bind.attachment.AttachmentMarshaller;
 import javax.xml.validation.Schema;
 import javax.xml.transform.Result;
 import javax.xml.stream.XMLEventWriter;

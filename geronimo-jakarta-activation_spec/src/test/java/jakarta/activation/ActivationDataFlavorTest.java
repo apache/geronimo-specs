@@ -21,7 +21,7 @@
 // Community Process. In order to remain compliant with the specification
 // DO NOT add / change / or delete method signatures!
 //
-package javax.activation;
+package jakarta.activation;
 
 import java.io.InputStream;
 import java.awt.datatransfer.DataFlavor;

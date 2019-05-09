@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package javax.xml.soap;
+package jakarta.xml.soap;
 
 /**
  * A factory for creating <code>SOAPConnection</code> objects. Implementation of this class is

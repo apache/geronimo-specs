@@ -14,7 +14,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package javax.xml.bind.annotation;
+package jakarta.xml.bind.annotation;
 
 public enum XmlAccessOrder {
 

@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package javax.xml.soap;
+package jakarta.xml.soap;
 
 /**
  * A representation of a node (element) in a DOM representation of an XML document that provides
@@ -55,7 +55,7 @@ public interface Node extends org.w3c.dom.Node {
      *         object or <code>null</code> if this <code>Node</code> object is root
      * @throws UnsupportedOperationException
      *          if the whole tree is not kept in memory
-     * @see #setParentElement(SOAPElement) setParentElement(javax.xml.soap.SOAPElement)
+     * @see #setParentElement(SOAPElement) setParentElement(jakarta.xml.soap.SOAPElement)
      */
     public abstract SOAPElement getParentElement();
 

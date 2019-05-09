@@ -14,7 +14,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package javax.xml.bind.helpers;
+package jakarta.xml.bind.helpers;
 
 import java.io.File;
 import java.io.InputStream;
@@ -22,15 +22,15 @@ import java.io.Reader;
 import java.net.URL;
 import java.net.MalformedURLException;
 
-import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.ValidationEventHandler;
-import javax.xml.bind.UnmarshallerHandler;
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.UnmarshalException;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.PropertyException;
-import javax.xml.bind.attachment.AttachmentUnmarshaller;
-import javax.xml.bind.annotation.adapters.XmlAdapter;
+import jakarta.xml.bind.Unmarshaller;
+import jakarta.xml.bind.ValidationEventHandler;
+import jakarta.xml.bind.UnmarshallerHandler;
+import jakarta.xml.bind.JAXBElement;
+import jakarta.xml.bind.UnmarshalException;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.PropertyException;
+import jakarta.xml.bind.attachment.AttachmentUnmarshaller;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 import javax.xml.validation.Schema;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;

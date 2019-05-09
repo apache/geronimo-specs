@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package javax.xml.soap;
+package jakarta.xml.soap;
 
 /**
  * An object that stores a MIME header name and its value. One or more <CODE>MimeHeader</CODE>

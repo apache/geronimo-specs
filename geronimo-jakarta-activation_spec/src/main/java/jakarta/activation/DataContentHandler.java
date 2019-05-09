@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package javax.activation;
+package jakarta.activation;
 
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.UnsupportedFlavorException;

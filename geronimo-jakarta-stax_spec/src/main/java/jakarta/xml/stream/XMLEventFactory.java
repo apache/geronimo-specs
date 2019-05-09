@@ -17,24 +17,24 @@
  ** specific language governing permissions and limitations
  ** under the License.
  */
-package javax.xml.stream;
+package jakarta.xml.stream;
 
 import java.util.Iterator;
 
-import javax.xml.namespace.NamespaceContext;
-import javax.xml.stream.events.ProcessingInstruction;
-import javax.xml.namespace.QName;
-import javax.xml.stream.events.Characters;
-import javax.xml.stream.events.Comment;
-import javax.xml.stream.events.DTD;
-import javax.xml.stream.events.EndElement;
-import javax.xml.stream.events.EntityDeclaration;
-import javax.xml.stream.events.Namespace;
-import javax.xml.stream.events.Attribute;
-import javax.xml.stream.events.EndDocument;
-import javax.xml.stream.events.EntityReference;
-import javax.xml.stream.events.StartDocument;
-import javax.xml.stream.events.StartElement;
+import jakarta.xml.namespace.NamespaceContext;
+import jakarta.xml.stream.events.ProcessingInstruction;
+import jakarta.xml.namespace.QName;
+import jakarta.xml.stream.events.Characters;
+import jakarta.xml.stream.events.Comment;
+import jakarta.xml.stream.events.DTD;
+import jakarta.xml.stream.events.EndElement;
+import jakarta.xml.stream.events.EntityDeclaration;
+import jakarta.xml.stream.events.Namespace;
+import jakarta.xml.stream.events.Attribute;
+import jakarta.xml.stream.events.EndDocument;
+import jakarta.xml.stream.events.EntityReference;
+import jakarta.xml.stream.events.StartDocument;
+import jakarta.xml.stream.events.StartElement;
 
 public abstract class XMLEventFactory {
 
@@ -42,11 +42,11 @@ public abstract class XMLEventFactory {
 	}
 
 	public static XMLEventFactory newInstance() throws FactoryConfigurationError {
-            return (XMLEventFactory)FactoryLocator.locate("javax.xml.stream.XMLEventFactory", "com.ctc.wstx.stax.WstxEventFactory");
+            return (XMLEventFactory)FactoryLocator.locate("jakarta.xml.stream.XMLEventFactory", "com.ctc.wstx.stax.WstxEventFactory");
 	}
 
 	public static XMLEventFactory newFactory() throws FactoryConfigurationError {
-            return (XMLEventFactory)FactoryLocator.locate("javax.xml.stream.XMLEventFactory", "com.ctc.wstx.stax.WstxEventFactory");
+            return (XMLEventFactory)FactoryLocator.locate("jakarta.xml.stream.XMLEventFactory", "com.ctc.wstx.stax.WstxEventFactory");
 	}
 
 	/**

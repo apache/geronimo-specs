@@ -14,12 +14,12 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package javax.xml.bind.util;
+package jakarta.xml.bind.util;
 
 import java.util.ArrayList;
 
-import javax.xml.bind.ValidationEventHandler;
-import javax.xml.bind.ValidationEvent;
+import jakarta.xml.bind.ValidationEventHandler;
+import jakarta.xml.bind.ValidationEvent;
 
 public class ValidationEventCollector implements ValidationEventHandler {
 

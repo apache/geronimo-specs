@@ -14,9 +14,9 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package javax.xml.bind.annotation.adapters;
+package jakarta.xml.bind.annotation.adapters;
 
-import javax.xml.bind.DatatypeConverter;
+import jakarta.xml.bind.DatatypeConverter;
 
 public final class HexBinaryAdapter extends XmlAdapter<String, byte[]> {
 

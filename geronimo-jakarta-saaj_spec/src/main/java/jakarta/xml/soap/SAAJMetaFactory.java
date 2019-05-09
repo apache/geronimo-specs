@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package javax.xml.soap;
+package jakarta.xml.soap;
 
 public abstract class SAAJMetaFactory {
 

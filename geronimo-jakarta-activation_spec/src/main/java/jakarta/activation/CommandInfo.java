@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package javax.activation;
+package jakarta.activation;
 
 import java.beans.Beans;
 import java.io.Externalizable;

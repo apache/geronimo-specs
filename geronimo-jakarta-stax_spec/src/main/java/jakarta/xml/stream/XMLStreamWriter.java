@@ -17,9 +17,9 @@
  ** specific language governing permissions and limitations
  ** under the License.
  */
-package javax.xml.stream;
+package jakarta.xml.stream;
 
-import javax.xml.namespace.NamespaceContext;
+import jakarta.xml.namespace.NamespaceContext;
 
 public interface XMLStreamWriter {
 	public void close() throws XMLStreamException;

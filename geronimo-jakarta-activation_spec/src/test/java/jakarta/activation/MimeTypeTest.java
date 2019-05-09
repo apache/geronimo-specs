@@ -15,7 +15,7 @@
  *  limitations under the License.
  */
 
-package javax.activation;
+package jakarta.activation;
 
 import java.io.IOException;
 import java.io.ObjectInput;

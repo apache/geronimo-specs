@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package javax.xml.soap;
+package jakarta.xml.soap;
 
 import javax.xml.transform.Source;
 import java.util.Iterator;
@@ -47,7 +47,7 @@ import java.util.Iterator;
  * <CODE>SOAPPart</CODE> method <CODE>getEnvelope</CODE> can be used to retrieve the
  * <CODE>SOAPEnvelope</CODE> object.</P>
  */
-public abstract class SOAPPart implements javax.xml.soap.Node, org.w3c.dom.Document {
+public abstract class SOAPPart implements jakarta.xml.soap.Node, org.w3c.dom.Document {
 
     public SOAPPart() {
     }

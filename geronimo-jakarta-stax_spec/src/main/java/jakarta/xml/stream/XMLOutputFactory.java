@@ -17,15 +17,15 @@
  ** specific language governing permissions and limitations
  ** under the License.
  */
-package javax.xml.stream;
+package jakarta.xml.stream;
 
 public abstract class XMLOutputFactory {
-	public static final String IS_REPAIRING_NAMESPACES = "javax.xml.stream.isRepairingNamespaces";
+	public static final String IS_REPAIRING_NAMESPACES = "jakarta.xml.stream.isRepairingNamespaces";
 
 	protected XMLOutputFactory() { }
 
 	public static XMLOutputFactory newInstance() throws FactoryConfigurationError {
-		return (XMLOutputFactory) FactoryLocator.locate("javax.xml.stream.XMLOutputFactory", "com.ctc.wstx.stax.WstxOutputFactory");
+		return (XMLOutputFactory) FactoryLocator.locate("jakarta.xml.stream.XMLOutputFactory", "com.ctc.wstx.stax.WstxOutputFactory");
 	}
 
 	/**
@@ -50,7 +50,7 @@ public abstract class XMLOutputFactory {
 	 * This is the replacement for the deprecated newInstance() method
 	 */
 	public static XMLOutputFactory newFactory()	throws FactoryConfigurationError {
-		return (XMLOutputFactory) FactoryLocator.locate("javax.xml.stream.XMLOutputFactory", "com.ctc.wstx.stax.WstxOutputFactory");
+		return (XMLOutputFactory) FactoryLocator.locate("jakarta.xml.stream.XMLOutputFactory", "com.ctc.wstx.stax.WstxOutputFactory");
 	}
 
 	/**

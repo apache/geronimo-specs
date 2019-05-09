@@ -14,10 +14,10 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package javax.xml.bind.helpers;
+package jakarta.xml.bind.helpers;
 
-import javax.xml.bind.ParseConversionEvent;
-import javax.xml.bind.ValidationEventLocator;
+import jakarta.xml.bind.ParseConversionEvent;
+import jakarta.xml.bind.ValidationEventLocator;
 
 public class ParseConversionEventImpl extends ValidationEventImpl implements ParseConversionEvent {
 
