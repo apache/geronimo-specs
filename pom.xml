@@ -58,6 +58,8 @@
                 <module>geronimo-jakarta-servlet_spec</module>
                 <module>geronimo-jakarta-jta_spec</module>
                 <module>geronimo-jakarta-jaxrpc_spec</module>
+                <module>geronimo-jakarta-jaxrs_spec</module>
+                <module>geronimo-jakarta-jaxws_spec</module>
             </modules>
         </profile>
     </profiles>
