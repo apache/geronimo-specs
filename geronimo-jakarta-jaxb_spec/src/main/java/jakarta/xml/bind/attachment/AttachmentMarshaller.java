@@ -16,7 +16,7 @@
  */
 package jakarta.xml.bind.attachment;
 
-import javax.activation.DataHandler;
+import jakarta.activation.DataHandler;
 
 public abstract class AttachmentMarshaller {
 

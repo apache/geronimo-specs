@@ -19,8 +19,8 @@
 
 package jakarta.xml.ws.soap;
 
-import javax.xml.soap.MessageFactory;
-import javax.xml.soap.SOAPFactory;
+import jakarta.xml.soap.MessageFactory;
+import jakarta.xml.soap.SOAPFactory;
 import jakarta.xml.ws.Binding;
 import java.util.Set;
 

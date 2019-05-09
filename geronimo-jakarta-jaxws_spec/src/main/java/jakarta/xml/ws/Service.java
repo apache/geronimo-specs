@@ -19,7 +19,7 @@
 
 package jakarta.xml.ws;
 
-import javax.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBContext;
 import javax.xml.namespace.QName;
 import jakarta.xml.ws.handler.HandlerResolver;
 import jakarta.xml.ws.spi.Provider;

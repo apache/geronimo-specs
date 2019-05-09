@@ -53,6 +53,14 @@
     <url>http://svn.apache.org/viewcvs.cgi/geronimo/specs/trunk/geronimo-jaxrs_2.1_spec/</url>
   </scm>
 
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.geronimo.jakarta-specs</groupId>
+      <artifactId>geronimo-jakarta-jaxb_spec</artifactId>
+      <version>2.2_1-SNAPSHOT</version>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
   <build>
     <plugins>
       <plugin>

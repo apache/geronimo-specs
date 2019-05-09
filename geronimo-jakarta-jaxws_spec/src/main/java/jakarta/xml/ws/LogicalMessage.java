@@ -19,7 +19,7 @@
 
 package jakarta.xml.ws;
 
-import javax.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBContext;
 import javax.xml.transform.Source;
 
 public interface LogicalMessage {

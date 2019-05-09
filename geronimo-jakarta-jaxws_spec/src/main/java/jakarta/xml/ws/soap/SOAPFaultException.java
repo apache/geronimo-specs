@@ -19,7 +19,7 @@
 
 package jakarta.xml.ws.soap;
 
-import javax.xml.soap.SOAPFault;
+import jakarta.xml.soap.SOAPFault;
 import jakarta.xml.ws.ProtocolException;
 
 public class SOAPFaultException extends ProtocolException {

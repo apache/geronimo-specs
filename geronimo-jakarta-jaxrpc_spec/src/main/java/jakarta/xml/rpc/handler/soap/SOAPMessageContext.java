@@ -20,17 +20,17 @@
 package jakarta.xml.rpc.handler.soap;
 
 import jakarta.xml.rpc.handler.MessageContext;
-import javax.xml.soap.SOAPMessage;
+import jakarta.xml.soap.SOAPMessage;
 
 /**
  * The interface <code>jakarta.xml.rpc.soap.SOAPMessageContext</code>
  * provides access to the SOAP message for either RPC request or
- * response. The <code>javax.xml.soap.SOAPMessage</code> specifies
+ * response. The <code>jakarta.xml.soap.SOAPMessage</code> specifies
  * the standard Java API for the representation of a SOAP 1.1 message
  * with attachments.
  *
  * @version $Rev$ $Date$
- * @see javax.xml.soap.SOAPMessage
+ * @see jakarta.xml.soap.SOAPMessage
  */
 public interface SOAPMessageContext extends MessageContext {
 

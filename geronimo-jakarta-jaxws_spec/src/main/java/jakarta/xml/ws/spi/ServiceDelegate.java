@@ -19,7 +19,7 @@
 
 package jakarta.xml.ws.spi;
 
-import javax.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBContext;
 import javax.xml.namespace.QName;
 import jakarta.xml.ws.Dispatch;
 import jakarta.xml.ws.EndpointReference;
