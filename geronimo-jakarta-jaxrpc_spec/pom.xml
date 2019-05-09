@@ -31,10 +31,11 @@
     </parent>
 
     <groupId>org.apache.geronimo.jakarta-specs</groupId>
-    <artifactId>geronimo-jaxrpc_spec</artifactId>
+    <artifactId>geronimo-jakarta-jaxrpc_spec</artifactId>
+
     <packaging>bundle</packaging>
     <name>Apache Geronimo Jakarta JAXRPC Spec 1.1</name>
-    <version>1.1_1</version>
+    <version>1.1_1-SNAPSHOT</version>
     <description>Java API for XML Remote Procedure Call 1.1 API</description>
 
     <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
@@ -90,7 +91,7 @@
                         <Specification-Title>JSR-101 Java API for XML-Based RPC</Specification-Title>
                         <Specification-Vendor>Sun Microsystems, Inc.</Specification-Vendor>
                         <Specification-Version>1.1</Specification-Version>
-                        <Export-Package>javax.xml.rpc*;version=1.1</Export-Package>
+                        <Export-Package>jakarta.xml.rpc*;version=1.1</Export-Package>
                         <Import-Package>org.apache.geronimo.osgi.registry.api;resolution:=optional,*</Import-Package>
                         <Private-Package>org.apache.geronimo.osgi.locator</Private-Package>
                         <Bundle-Activator>org.apache.geronimo.osgi.locator.Activator</Bundle-Activator>

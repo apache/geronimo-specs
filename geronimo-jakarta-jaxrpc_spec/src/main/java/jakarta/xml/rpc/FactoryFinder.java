@@ -19,14 +19,9 @@
 
 package jakarta.xml.rpc;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Properties;
 
 import org.apache.geronimo.osgi.locator.ProviderLocator;
 
@@ -120,7 +115,7 @@ class FactoryFinder {
      * entry point.
      * @return Class object of factory, never null
      *
-     * @param factoryId             Name of the factory to find, same as
+     * @param factoryType           Name of the factory to find, same as
      *                              a property name
      * @param fallbackClassName     Implementation class name, if nothing else
      *                              is found.  Use null to mean no fallback.
