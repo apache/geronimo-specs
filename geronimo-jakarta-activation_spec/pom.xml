@@ -26,17 +26,17 @@
 
     <parent>
         <groupId>org.apache.geronimo.genesis</groupId>
-        <artifactId>genesis-java5-flava</artifactId>
-        <version>2.2</version>
+        <artifactId>genesis-java8-flava</artifactId>
+        <version>2.3</version>
     </parent>
 
-    <groupId>org.apache.geronimo.specs</groupId>
-    <artifactId>geronimo-activation_1.1_spec</artifactId>
+    <groupId>org.apache.geronimo.jakarta-specs</groupId>
+    <artifactId>geronimo-jakarta-activation_spec</artifactId>
+    <version>1.1_1-SNAPSHOT</version>
     <packaging>bundle</packaging>
-    <name>Apache Geronimo Activation Spec 1.1</name>
-    <version>1.2-SNAPSHOT</version>
+    <name>Apache Geronimo Jakarta Activation Spec 1.1</name>
 
-    <description>Java Activation Spec API 1.1</description>
+    <description>Jakarta Activation Spec API 1.1</description>
     <!-- n.b. the tets will not pass on java 6 because the jdk contains an incompatible implementation -->
 
     <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>

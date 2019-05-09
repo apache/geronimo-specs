@@ -46,6 +46,7 @@
             </activation>
             <modules>
                 <module>geronimo-jakarta-annotation_spec</module>
+                <module>geronimo-jakarta-activation_spec</module>
                 <module>geronimo-jakarta-atinject_spec</module>
                 <module>geronimo-jakarta-interceptor_spec</module>
                 <module>geronimo-jakarta-el_spec</module>

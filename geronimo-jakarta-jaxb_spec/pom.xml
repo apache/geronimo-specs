@@ -23,16 +23,16 @@
 
     <parent>
         <groupId>org.apache.geronimo.genesis</groupId>
-        <artifactId>genesis-java5-flava</artifactId>
-        <version>2.2</version>
+        <artifactId>genesis-java8-flava</artifactId>
+        <version>2.3</version>
     </parent>
 
-    <groupId>org.apache.geronimo.specs</groupId>
-    <artifactId>geronimo-jaxb_2.2_spec</artifactId>
+    <groupId>org.apache.geronimo.jakarta-specs</groupId>
+    <artifactId>geronimo-jakarta-jaxb_spec</artifactId>
     <packaging>bundle</packaging>
-    <version>1.0.2-SNAPSHOT</version>
-    <name>Apache Geronimo JAXB Spec 2.2</name>
-    <description>Java API for XML binding 2.2 API</description>
+    <version>2.2_1-SNAPSHOT</version>
+    <name>Apache Geronimo Jakarta JAXB Spec 2.2</name>
+    <description>Jakarta API for XML binding 2.2 API</description>
 
     <url>http://geronimo.apache.org/maven/${siteId}/${version}</url>
     <distributionManagement>
@@ -48,15 +48,15 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-stax-api_1.2_spec</artifactId>
-            <version>1.1</version>
+            <groupId>org.apache.geronimo.jakarta-specs</groupId>
+            <artifactId>geronimo-jakarta-stax_spec</artifactId>
+            <version>1.2_1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-activation_1.1_spec</artifactId>
-            <version>1.1</version>
+            <groupId>org.apache.geronimo.jakarta-specs</groupId>
+            <artifactId>geronimo-jakarta-activation_spec</artifactId>
+            <version>1.1_1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
