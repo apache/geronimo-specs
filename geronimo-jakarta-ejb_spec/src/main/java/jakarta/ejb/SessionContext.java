@@ -25,7 +25,7 @@
 
 package jakarta.ejb;
 
-import javax.xml.rpc.handler.MessageContext;
+import jakarta.xml.rpc.handler.MessageContext;
 import java.util.Map;
 
 /**

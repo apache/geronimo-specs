@@ -29,7 +29,7 @@ import java.security.Identity;
 import java.security.Principal;
 import java.util.Properties;
 import java.util.Map;
-import javax.transaction.UserTransaction;
+import jakarta.transaction.UserTransaction;
 
 /**
  * @version $Rev$ $Date$

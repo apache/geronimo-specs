@@ -51,30 +51,30 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-jta_1.1_spec</artifactId>
-            <version>1.1.1</version>
+            <groupId>org.apache.geronimo.jakarta-specs</groupId>
+            <artifactId>geronimo-jakarta-jta_spec</artifactId>
+            <version> 1.2_1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
-            <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-interceptor_1.1_spec</artifactId>
-            <version>1.0</version>
+            <groupId>org.apache.geronimo.jakarta-specs</groupId>
+            <artifactId>geronimo-jakarta-interceptor_spec</artifactId>
+            <version>1.2_1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
-            <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-annotation_1.1_spec</artifactId>
-            <version>1.0</version>
+            <groupId>org.apache.geronimo.jakarta-specs</groupId>
+            <artifactId>geronimo-jakarta-annotation_spec</artifactId>
+            <version>1.3_1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
-            <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-jaxrpc_1.1_spec</artifactId>
-            <version>2.1</version>
+            <groupId>org.apache.geronimo.jakarta-specs</groupId>
+            <artifactId>geronimo-jakarta-jaxrpc_spec</artifactId>
+            <version> 1.1_1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
 
