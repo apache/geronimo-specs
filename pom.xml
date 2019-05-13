@@ -64,6 +64,8 @@
                 <module>geronimo-jakarta-jaxrpc_spec</module>
                 <module>geronimo-jakarta-jaxrs_spec</module>
                 <module>geronimo-jakarta-jaxws_spec</module>
+                <module>geronimo-jakarta-validation_spec</module>
+                <module>geronimo-jakarta-jpa_spec</module>
             </modules>
         </profile>
     </profiles>
