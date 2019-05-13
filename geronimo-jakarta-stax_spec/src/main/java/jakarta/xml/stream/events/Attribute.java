@@ -22,11 +22,11 @@ package jakarta.xml.stream.events;
 import jakarta.xml.namespace.QName;
 
 public interface Attribute extends XMLEvent {
-	public String getDTDType();
+    public String getDTDType();
 
-	public QName getName();
+    public QName getName();
 
-	public String getValue();
+    public String getValue();
 
-	public boolean isSpecified();
+    public boolean isSpecified();
 }

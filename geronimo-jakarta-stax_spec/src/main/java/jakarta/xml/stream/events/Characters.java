@@ -20,11 +20,11 @@
 package jakarta.xml.stream.events;
 
 public interface Characters extends XMLEvent {
-	public String getData();
+    public String getData();
 
-	public boolean isCData();
+    public boolean isCData();
 
-	public boolean isIgnorableWhiteSpace();
+    public boolean isIgnorableWhiteSpace();
 
-	public boolean isWhiteSpace();
+    public boolean isWhiteSpace();
 }

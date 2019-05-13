@@ -60,5 +60,5 @@ public interface AbstractQuery<T> extends CommonAbstractCriteria {
 
     boolean isDistinct();
 
-    Class<T> getResultType();  	
+    Class<T> getResultType();
 }

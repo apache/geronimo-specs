@@ -28,7 +28,7 @@ import java.util.Map;
 import jakarta.persistence.metamodel.MapAttribute;
 
 public interface MapJoin<Z, K, V> 
-		extends PluralJoin<Z, Map<K, V>, V> {
+        extends PluralJoin<Z, Map<K, V>, V> {
 
     MapJoin<Z, K, V> on(Expression<Boolean> restriction);
 

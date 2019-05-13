@@ -36,21 +36,21 @@ import static jakarta.persistence.ConstraintMode.PROVIDER_DEFAULT;
 @Retention(RUNTIME)
 @Repeatable(MapKeyJoinColumns.class)
 public @interface MapKeyJoinColumn {
-	String name() default "";
+    String name() default "";
 
-	String referencedColumnName() default "";
+    String referencedColumnName() default "";
 
-	boolean unique() default false;
+    boolean unique() default false;
 
-	boolean nullable() default false;
+    boolean nullable() default false;
 
-	boolean insertable() default true;
+    boolean insertable() default true;
 
-	boolean updatable() default true;
+    boolean updatable() default true;
 
-	String columnDefinition() default "";
+    String columnDefinition() default "";
 
-	String table() default "";
+    String table() default "";
 
         ForeignKey foreignKey() default @ForeignKey(PROVIDER_DEFAULT);
 }

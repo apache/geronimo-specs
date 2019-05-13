@@ -27,7 +27,7 @@ package jakarta.persistence.metamodel;
 
 
 public interface MapAttribute<X, K, V> 
-	extends PluralAttribute<X, java.util.Map<K, V>, V> {
+    extends PluralAttribute<X, java.util.Map<K, V>, V> {
 
     Class<K> getKeyJavaType();
 

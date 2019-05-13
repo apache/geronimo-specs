@@ -22,9 +22,9 @@ package jakarta.xml.namespace;
 import java.util.Iterator;
 
 public interface NamespaceContext {
-	public String getNamespaceURI(String prefix);
+    public String getNamespaceURI(String prefix);
 
-	public String getPrefix(String namespaceURI);
+    public String getPrefix(String namespaceURI);
 
-	public Iterator getPrefixes(String namespaceURI);
+    public Iterator getPrefixes(String namespaceURI);
 }

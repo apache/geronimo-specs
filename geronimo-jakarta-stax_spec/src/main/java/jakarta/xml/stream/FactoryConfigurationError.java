@@ -22,44 +22,44 @@ package jakarta.xml.stream;
 import java.io.Serializable;
 
 public class FactoryConfigurationError extends Error implements Serializable {
-	Exception nested;
+    Exception nested;
 
-	public FactoryConfigurationError() {
-	}
+    public FactoryConfigurationError() {
+    }
 
-	public FactoryConfigurationError(Exception e) {
-		super(e);
-		nested = e;
-	}
+    public FactoryConfigurationError(Exception e) {
+        super(e);
+        nested = e;
+    }
 
-	public FactoryConfigurationError(Exception e, String msg) {
-		super(msg, e);
-		nested = e;
-	}
+    public FactoryConfigurationError(Exception e, String msg) {
+        super(msg, e);
+        nested = e;
+    }
 
-	public FactoryConfigurationError(java.lang.String msg) {
-		super(msg);
-	}
+    public FactoryConfigurationError(java.lang.String msg) {
+        super(msg);
+    }
 
-	public FactoryConfigurationError(String msg, Exception e) {
-		super(msg, e);
-		nested = e;
-	}
+    public FactoryConfigurationError(String msg, Exception e) {
+        super(msg, e);
+        nested = e;
+    }
 
-	public Exception getException() {
-		return nested;
-	}
+    public Exception getException() {
+        return nested;
+    }
 
-	public String getMessage() {
-		String msg = super.getMessage();
-		if (msg != null)
-			return msg;
+    public String getMessage() {
+        String msg = super.getMessage();
+        if (msg != null)
+            return msg;
 
-		if (nested != null) {
-			msg = nested.getMessage();
-			if (msg == null)
-				msg = nested.getClass().toString();
-		}
-		return msg;
-	}
+        if (nested != null) {
+            msg = nested.getMessage();
+            if (msg == null)
+                msg = nested.getClass().toString();
+        }
+        return msg;
+    }
 }

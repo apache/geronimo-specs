@@ -83,7 +83,7 @@ public abstract class MessageFactory {
         try {
             MessageFactory factory = (MessageFactory)FactoryFinder.find(MessageFactory.class, null);
             if (factory == null) {
-            	factory = newInstance(SOAPConstants.SOAP_1_1_PROTOCOL);
+                factory = newInstance(SOAPConstants.SOAP_1_1_PROTOCOL);
             }
             return factory;
         } catch (Exception exception) {

@@ -20,5 +20,5 @@
 package jakarta.xml.stream;
 
 public interface StreamFilter {
-	public boolean accept(XMLStreamReader reader);
+    public boolean accept(XMLStreamReader reader);
 }

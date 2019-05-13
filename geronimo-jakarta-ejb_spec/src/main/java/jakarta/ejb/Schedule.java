@@ -30,23 +30,23 @@ import java.lang.annotation.Target;
 @Target(value = METHOD)
 @Retention(value = RUNTIME)
 public @interface Schedule {
-	String dayOfMonth() default "*";
-	
-	String dayOfWeek() default "*";
+    String dayOfMonth() default "*";
 
-	String hour() default "0";
+    String dayOfWeek() default "*";
 
-	String info() default "";
+    String hour() default "0";
 
-	String minute() default "0";
+    String info() default "";
 
-	String month() default "*";
+    String minute() default "0";
 
-	boolean persistent() default true;
+    String month() default "*";
 
-	String second() default "0";
+    boolean persistent() default true;
 
-	java.lang.String timezone() default "";
+    String second() default "0";
+
+    java.lang.String timezone() default "";
 
     java.lang.String year() default "*";
 

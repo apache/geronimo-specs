@@ -20,7 +20,7 @@
 package jakarta.xml.stream.events;
 
 public interface ProcessingInstruction extends XMLEvent {
-	public String getData();
+    public String getData();
 
-	public String getTarget();
+    public String getTarget();
 }

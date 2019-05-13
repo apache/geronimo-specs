@@ -31,36 +31,36 @@ import junit.framework.TestCase;
 public class MimeTypeTest extends TestCase {
     private MimeType mimeType;
 
-	public MimeTypeTest(String name) {
-		super(name);
-	}
+    public MimeTypeTest(String name) {
+        super(name);
+    }
 
-	public void setUp() throws Exception {
-		super.setUp();
+    public void setUp() throws Exception {
+        super.setUp();
         mimeType = new MimeType();
-	}
+    }
 
-	public void testDefaultConstructor() throws MimeTypeParseException {
+    public void testDefaultConstructor() throws MimeTypeParseException {
         assertEquals("application/*", mimeType.getBaseType());
-		assertEquals("application", mimeType.getPrimaryType());
+        assertEquals("application", mimeType.getPrimaryType());
         // not sure as RFC2045 does not allow "*" but this is what the RI does
-		assertEquals("*", mimeType.getSubType());
+        assertEquals("*", mimeType.getSubType());
 
-		assertTrue(mimeType.match(new MimeType()));
-		assertTrue(mimeType.match(new MimeType("application/*")));
+        assertTrue(mimeType.match(new MimeType()));
+        assertTrue(mimeType.match(new MimeType("application/*")));
 
         assertNull(mimeType.getParameter("foo"));
         assertEquals(0, mimeType.getParameters().size());
         assertTrue(mimeType.getParameters().isEmpty());
-	}
+    }
 
-	public void testMimeTypeConstructor() throws MimeTypeParseException {
-		mimeType = new MimeType("text/plain");
+    public void testMimeTypeConstructor() throws MimeTypeParseException {
+        mimeType = new MimeType("text/plain");
         assertEquals("text/plain", mimeType.getBaseType());
         assertEquals("text", mimeType.getPrimaryType());
         assertEquals("plain", mimeType.getSubType());
         assertEquals("text/plain", mimeType.toString());
-	}
+    }
 
     public void testTypeConstructor() throws MimeTypeParseException {
         mimeType = new MimeType("text", "plain");

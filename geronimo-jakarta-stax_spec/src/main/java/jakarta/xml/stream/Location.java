@@ -20,13 +20,13 @@
 package jakarta.xml.stream;
 
 public interface Location {
-	public int getCharacterOffset();
+    public int getCharacterOffset();
 
-	public int getColumnNumber();
+    public int getColumnNumber();
 
-	public int getLineNumber();
+    public int getLineNumber();
 
-	public String getPublicId();
+    public String getPublicId();
 
-	public String getSystemId();
+    public String getSystemId();
 }

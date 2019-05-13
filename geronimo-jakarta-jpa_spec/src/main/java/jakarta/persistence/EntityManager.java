@@ -113,7 +113,7 @@ public interface EntityManager {
     public StoredProcedureQuery createStoredProcedureQuery(String procedureName);
 
     public StoredProcedureQuery createStoredProcedureQuery(
-	       String procedureName, Class... resultClasses);
+           String procedureName, Class... resultClasses);
 
     public StoredProcedureQuery createStoredProcedureQuery(
               String procedureName, String... resultSetMappings);

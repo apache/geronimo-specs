@@ -47,18 +47,18 @@ import org.apache.geronimo.osgi.locator.ProviderLocator;
  */
 
 class FactoryLocator {
-	static Object locate(String factoryId) throws FactoryConfigurationError {
-		return locate(factoryId, null);
-	}
+    static Object locate(String factoryId) throws FactoryConfigurationError {
+        return locate(factoryId, null);
+    }
 
-	static Object locate(String factoryId, String altClassName)
-			throws FactoryConfigurationError {
-		return locate(factoryId, altClassName,
+    static Object locate(String factoryId, String altClassName)
+            throws FactoryConfigurationError {
+        return locate(factoryId, altClassName,
                               Thread.currentThread().getContextClassLoader());
-	}
+    }
 
-	static Object locate(String factoryId, String altClassName,
-			ClassLoader classLoader) throws FactoryConfigurationError {
+    static Object locate(String factoryId, String altClassName,
+            ClassLoader classLoader) throws FactoryConfigurationError {
         // NOTE:  The stax spec uses the following lookup order, which is the reverse from what is specified
         // most of the APIs:
         // 1. Use the jakarta.xml.stream.XMLInputFactory system property.
@@ -100,24 +100,24 @@ class FactoryLocator {
         } catch (Exception ex) {
         }
 
-		if (altClassName == null) {
-			throw new FactoryConfigurationError("Unable to locate factory for "
-					+ factoryId + ".", null);
-		}
-		return newInstance(altClassName, classLoader);
-	}
+        if (altClassName == null) {
+            throw new FactoryConfigurationError("Unable to locate factory for "
+                    + factoryId + ".", null);
+        }
+        return newInstance(altClassName, classLoader);
+    }
 
-	private static Object newInstance(String className, ClassLoader classLoader)
-			throws FactoryConfigurationError {
-		try {
-			return ProviderLocator.loadClass(className, FactoryLocator.class, classLoader).newInstance();
-		} catch (ClassNotFoundException x) {
-  			throw new FactoryConfigurationError("Requested factory "
-  					+ className + " cannot be located.  Classloader ="
-  					+ classLoader.toString(), x);
-		} catch (Exception x) {
-			throw new FactoryConfigurationError("Requested factory "
-					+ className + " could not be instantiated: " + x, x);
-		}
-	}
+    private static Object newInstance(String className, ClassLoader classLoader)
+            throws FactoryConfigurationError {
+        try {
+            return ProviderLocator.loadClass(className, FactoryLocator.class, classLoader).newInstance();
+        } catch (ClassNotFoundException x) {
+              throw new FactoryConfigurationError("Requested factory "
+                      + className + " cannot be located.  Classloader ="
+                      + classLoader.toString(), x);
+        } catch (Exception x) {
+            throw new FactoryConfigurationError("Requested factory "
+                    + className + " could not be instantiated: " + x, x);
+        }
+    }
 }

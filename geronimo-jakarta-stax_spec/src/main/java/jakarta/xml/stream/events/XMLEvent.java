@@ -27,35 +27,35 @@ import jakarta.xml.stream.XMLStreamConstants;
 import jakarta.xml.stream.XMLStreamException;
 
 public interface XMLEvent extends XMLStreamConstants {
-	public Characters asCharacters();
+    public Characters asCharacters();
 
-	public EndElement asEndElement();
+    public EndElement asEndElement();
 
-	public StartElement asStartElement();
+    public StartElement asStartElement();
 
-	public int getEventType();
+    public int getEventType();
 
-	public Location getLocation();
+    public Location getLocation();
 
-	public QName getSchemaType();
+    public QName getSchemaType();
 
-	public boolean isAttribute();
+    public boolean isAttribute();
 
-	public boolean isCharacters();
+    public boolean isCharacters();
 
-	public boolean isEndDocument();
+    public boolean isEndDocument();
 
-	public boolean isEndElement();
+    public boolean isEndElement();
 
-	public boolean isEntityReference();
+    public boolean isEntityReference();
 
-	public boolean isNamespace();
+    public boolean isNamespace();
 
-	public boolean isProcessingInstruction();
+    public boolean isProcessingInstruction();
 
-	public boolean isStartDocument();
+    public boolean isStartDocument();
 
-	public boolean isStartElement();
+    public boolean isStartElement();
 
-	public void writeAsEncodedUnicode(Writer writer) throws XMLStreamException;
+    public void writeAsEncodedUnicode(Writer writer) throws XMLStreamException;
 }

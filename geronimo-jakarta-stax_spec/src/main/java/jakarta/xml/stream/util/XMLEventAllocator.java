@@ -24,10 +24,10 @@ import jakarta.xml.stream.XMLStreamReader;
 import jakarta.xml.stream.events.XMLEvent;
 
 public interface XMLEventAllocator {
-	public XMLEvent allocate(XMLStreamReader reader) throws XMLStreamException;
+    public XMLEvent allocate(XMLStreamReader reader) throws XMLStreamException;
 
-	public void allocate(XMLStreamReader reader, XMLEventConsumer consumer)
-			throws XMLStreamException;
+    public void allocate(XMLStreamReader reader, XMLEventConsumer consumer)
+            throws XMLStreamException;
 
-	public XMLEventAllocator newInstance();
+    public XMLEventAllocator newInstance();
 }

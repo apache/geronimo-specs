@@ -28,7 +28,7 @@ import java.util.Collection;
 import jakarta.persistence.metamodel.CollectionAttribute;
 
 public interface CollectionJoin<Z, E> 
-		extends PluralJoin<Z, Collection<E>, E> {
+        extends PluralJoin<Z, Collection<E>, E> {
 
     CollectionJoin<Z, E> on(Expression<Boolean> restriction);
     

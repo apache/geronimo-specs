@@ -20,5 +20,5 @@
 package jakarta.xml.stream.events;
 
 public interface Comment extends XMLEvent {
-	public String getText();
+    public String getText();
 }

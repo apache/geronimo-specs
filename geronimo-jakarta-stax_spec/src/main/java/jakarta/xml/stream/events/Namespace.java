@@ -20,9 +20,9 @@
 package jakarta.xml.stream.events;
 
 public interface Namespace extends Attribute {
-	public String getNamespaceURI();
+    public String getNamespaceURI();
 
-	public String getPrefix();
+    public String getPrefix();
 
-	public boolean isDefaultNamespaceDeclaration();
+    public boolean isDefaultNamespaceDeclaration();
 }

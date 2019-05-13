@@ -34,7 +34,7 @@ import static jakarta.persistence.ConstraintMode.PROVIDER_DEFAULT;
 @Target( { METHOD, FIELD })
 @Retention(RUNTIME)
 public @interface MapKeyJoinColumns {
-	MapKeyJoinColumn[] value();
+    MapKeyJoinColumn[] value();
 
         ForeignKey foreignKey() default @ForeignKey(PROVIDER_DEFAULT);
 }

@@ -120,11 +120,11 @@ public class CloseReason {
          */
         TLS_HANDSHAKE_FAILURE (1015);
 
-	private int code;
+    private int code;
 
-	CloseCodes (int code) {
-		this.code = code;
-	}
+    CloseCodes (int code) {
+        this.code = code;
+    }
 
         /**
          * Return the code number of this status code.

@@ -20,7 +20,7 @@
 package jakarta.xml.stream.events;
 
 public interface EntityReference extends XMLEvent {
-	public EntityDeclaration getDeclaration();
+    public EntityDeclaration getDeclaration();
 
-	public String getName();
+    public String getName();
 }

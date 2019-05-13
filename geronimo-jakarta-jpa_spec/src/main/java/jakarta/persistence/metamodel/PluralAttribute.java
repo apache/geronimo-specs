@@ -27,7 +27,7 @@ package jakarta.persistence.metamodel;
 
 
 public interface PluralAttribute<X, C, E> 
-		extends Attribute<X, C>, Bindable<E> {
+        extends Attribute<X, C>, Bindable<E> {
     public static enum CollectionType {
 
         COLLECTION, 

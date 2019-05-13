@@ -24,11 +24,11 @@ package jakarta.ejb;
 import java.io.Serializable;
 
 public class TimerConfig {
-	private Serializable info;
-	private boolean persistent;
+    private Serializable info;
+    private boolean persistent;
 
     public TimerConfig() {
-		persistent = true; 
+        persistent = true;
     }
 
     public TimerConfig(Serializable info, boolean persistent) {
@@ -37,18 +37,18 @@ public class TimerConfig {
     }
 
     public Serializable getInfo() {
-		return info;
-	}
-	
-	public boolean isPersistent() {
-		return persistent;
-	}
+        return info;
+    }
 
-	public void setInfo(Serializable i) {
-		info = i;
-	}
+    public boolean isPersistent() {
+        return persistent;
+    }
 
-	public void setPersistent(boolean persistent) {
-		this.persistent = persistent;
-	}
+    public void setInfo(Serializable i) {
+        info = i;
+    }
+
+    public void setPersistent(boolean persistent) {
+        this.persistent = persistent;
+    }
 }

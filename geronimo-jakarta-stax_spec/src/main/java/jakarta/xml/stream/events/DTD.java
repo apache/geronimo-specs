@@ -22,11 +22,11 @@ package jakarta.xml.stream.events;
 import java.util.List;
 
 public interface DTD extends XMLEvent {
-	public String getDocumentTypeDeclaration();
+    public String getDocumentTypeDeclaration();
 
-	public List getEntities();
+    public List getEntities();
 
-	public List getNotations();
+    public List getNotations();
 
-	public Object getProcessedDTD();
+    public Object getProcessedDTD();
 }

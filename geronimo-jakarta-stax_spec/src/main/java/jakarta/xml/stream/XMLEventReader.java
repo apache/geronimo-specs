@@ -24,18 +24,18 @@ import java.util.Iterator;
 import jakarta.xml.stream.events.XMLEvent;
 
 public interface XMLEventReader extends Iterator {
-	public void close() throws XMLStreamException;
+    public void close() throws XMLStreamException;
 
-	public String getElementText() throws XMLStreamException;
+    public String getElementText() throws XMLStreamException;
 
-	public Object getProperty(java.lang.String name)
-			throws IllegalArgumentException;
+    public Object getProperty(java.lang.String name)
+            throws IllegalArgumentException;
 
-	public boolean hasNext();
+    public boolean hasNext();
 
-	public XMLEvent nextEvent() throws XMLStreamException;
+    public XMLEvent nextEvent() throws XMLStreamException;
 
-	public XMLEvent nextTag() throws XMLStreamException;
+    public XMLEvent nextTag() throws XMLStreamException;
 
-	public XMLEvent peek() throws XMLStreamException;
+    public XMLEvent peek() throws XMLStreamException;
 }

@@ -20,15 +20,15 @@
 package jakarta.xml.stream.events;
 
 public interface EntityDeclaration extends XMLEvent {
-	public String getBaseURI();
+    public String getBaseURI();
 
-	public String getName();
+    public String getName();
 
-	public String getNotationName();
+    public String getNotationName();
 
-	public String getPublicId();
+    public String getPublicId();
 
-	public String getReplacementText();
+    public String getReplacementText();
 
-	public String getSystemId();
+    public String getSystemId();
 }

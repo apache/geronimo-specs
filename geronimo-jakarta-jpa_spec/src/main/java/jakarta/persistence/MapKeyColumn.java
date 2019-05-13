@@ -35,23 +35,23 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 public @interface MapKeyColumn {
 
-	String name() default "";
+    String name() default "";
 
-	boolean unique() default false;
+    boolean unique() default false;
 
-	boolean nullable() default false;
+    boolean nullable() default false;
 
-	boolean insertable() default true;
+    boolean insertable() default true;
 
-	boolean updatable() default true;
+    boolean updatable() default true;
 
-	String columnDefinition() default "";
+    String columnDefinition() default "";
 
-	String table() default "";
+    String table() default "";
 
-	int length() default 255;
+    int length() default 255;
 
-	int precision() default 0; 
+    int precision() default 0;
 
-	int scale() default 0; 
+    int scale() default 0;
 }

@@ -49,26 +49,26 @@ public class Activator extends org.apache.geronimo.osgi.locator.Activator {
         super.start(context);
         lst = new LogServiceTracker(context, LogService.class.getName(), null);
         lst.open();
-	    bt = new BundleTracker(context, Bundle.ACTIVE, new CommandMapBundleTrackerCustomizer(this, context.getBundle()));
-	    bt.open();
-	}
+        bt = new BundleTracker(context, Bundle.ACTIVE, new CommandMapBundleTrackerCustomizer(this, context.getBundle()));
+        bt.open();
+    }
 
     @Override
-	public synchronized void stop(BundleContext context) throws Exception {
-	    bt.close();
-	    lst.close();
+    public synchronized void stop(BundleContext context) throws Exception {
+        bt.close();
+        lst.close();
         super.stop(context);
-	}
+    }
 
-	void log(int level, String message) {
-	    synchronized (logServices) {
-	        for (LogService log : logServices) {
-	            log.log(level, message);
-	        }
+    void log(int level, String message) {
+        synchronized (logServices) {
+            for (LogService log : logServices) {
+                log.log(level, message);
+            }
         }
-	}
+    }
 
-	void log(int level, String message, Throwable th) {
+    void log(int level, String message, Throwable th) {
         synchronized (logServices) {
             for (LogService log : logServices) {
                 log.log(level, message, th);
@@ -76,7 +76,7 @@ public class Activator extends org.apache.geronimo.osgi.locator.Activator {
         }
     }
 
-	private final class LogServiceTracker extends ServiceTracker {
+    private final class LogServiceTracker extends ServiceTracker {
         private LogServiceTracker(BundleContext context, String clazz,
                 ServiceTrackerCustomizer customizer) {
             super(context, clazz, customizer);

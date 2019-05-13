@@ -47,7 +47,7 @@ public interface CriteriaBuilder {
 
 
     // selection construction methods:
-	
+
     <Y> CompoundSelection<Y> construct(Class<Y> resultClass, Selection<?>... selections);
 
     CompoundSelection<Tuple> tuple(Selection<?>... selections);
@@ -56,14 +56,14 @@ public interface CriteriaBuilder {
 
 
     //ordering:
-	
+
     Order asc(Expression<?> x);
 
     Order desc(Expression<?> x);
 
-	
+
     //aggregate functions:
-	
+
     <N extends Number> Expression<Double> avg(Expression<N> x);
 
     <N extends Number> Expression<N> sum(Expression<N> x);
@@ -87,7 +87,7 @@ public interface CriteriaBuilder {
 
 
     //subqueries:
-	
+
     Predicate exists(Subquery<?> subquery);
 
     <Y> Expression<Y> all(Subquery<Y> subquery);
@@ -98,7 +98,7 @@ public interface CriteriaBuilder {
 
 
     //boolean functions:
-	
+
     Predicate and(Expression<Boolean> x, Expression<Boolean> y);
 
     Predicate and(Predicate... restrictions);
@@ -113,7 +113,7 @@ public interface CriteriaBuilder {
 
     Predicate disjunction();
 
-	
+
     //turn Expression<Boolean> into a Predicate
     //useful for use with varargs methods
 
@@ -121,7 +121,7 @@ public interface CriteriaBuilder {
 
     Predicate isFalse(Expression<Boolean> x);
 
-	
+
     //null tests:
 
     Predicate isNull(Expression<?> x);
@@ -129,7 +129,7 @@ public interface CriteriaBuilder {
     Predicate isNotNull(Expression<?> x);
 
     //equality:
-	
+
     Predicate equal(Expression<?> x, Expression<?> y);
 
     Predicate equal(Expression<?> x, Object y);
@@ -138,7 +138,7 @@ public interface CriteriaBuilder {
 
     Predicate notEqual(Expression<?> x, Object y);
 
-	
+
     //comparisons for generic (non-numeric) operands:
 
     <Y extends Comparable<? super Y>> Predicate greaterThan(Expression<? extends Y> x, Expression<? extends Y> y);
@@ -163,7 +163,7 @@ public interface CriteriaBuilder {
 
 
     //comparisons for numeric operands:
-	
+
     Predicate gt(Expression<? extends Number> x, Expression<? extends Number> y);
 
     Predicate gt(Expression<? extends Number> x, Number y);
@@ -182,7 +182,7 @@ public interface CriteriaBuilder {
 
 
     //numerical operations:
-	
+
     <N extends Number> Expression<N> neg(Expression<N> x);
 
     <N extends Number> Expression<N> abs(Expression<N> x);
@@ -219,7 +219,7 @@ public interface CriteriaBuilder {
 
     Expression<Double> sqrt(Expression<? extends Number> x);
 
-	
+
     //typecasts:
     
     Expression<Long> toLong(Expression<? extends Number> number);
@@ -236,7 +236,7 @@ public interface CriteriaBuilder {
 
     Expression<String> toString(Expression<Character> character);
 
-	
+
     //literals:
 
     <T> Expression<T> literal(T value);
@@ -251,7 +251,7 @@ public interface CriteriaBuilder {
 
 
     //collection operations:
-	
+
     <C extends Collection<?>> Predicate isEmpty(Expression<C> collection);
 
     <C extends Collection<?>> Predicate isNotEmpty(Expression<C> collection);
@@ -276,9 +276,9 @@ public interface CriteriaBuilder {
 
     <K, M extends Map<K, ?>> Expression<Set<K>> keys(M map);
 
-	
+
     //string functions:
-	
+
     Predicate like(Expression<String> x, Expression<String> pattern);
 
     Predicate like(Expression<String> x, String pattern);
@@ -344,7 +344,7 @@ public interface CriteriaBuilder {
 
     Expression<Integer> length(Expression<String> x);
 
-	
+
     Expression<Integer> locate(Expression<String> x, Expression<String> pattern);
 
     Expression<Integer> locate(Expression<String> x, String pattern);
@@ -364,11 +364,11 @@ public interface CriteriaBuilder {
 
 
     //in builders:
-	
+
     public static interface In<T> extends Predicate {
 
          Expression<T> getExpression();
-	
+
          In<T> value(T value);
 
          In<T> value(Expression<? extends T> value);
@@ -396,7 +396,7 @@ public interface CriteriaBuilder {
 
          Coalesce<T> value(Expression<? extends T> value);
     }
-	
+
     <T> Coalesce<T> coalesce();
 
 

@@ -28,7 +28,7 @@ import java.util.List;
 import jakarta.persistence.metamodel.ListAttribute;
 
 public interface ListJoin<Z, E> 
-		extends PluralJoin<Z, List<E>, E> {
+        extends PluralJoin<Z, List<E>, E> {
 
     ListJoin<Z, E> on(Expression<Boolean> restriction);
     

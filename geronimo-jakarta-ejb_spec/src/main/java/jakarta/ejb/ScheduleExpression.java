@@ -28,144 +28,144 @@ public class ScheduleExpression implements Serializable {
 
     private static final long serialVersionUID = -3813254457230997879L;
     
-	private String dayOfMonth = "*";
-	private String dayOfWeek = "*";
-	private String hour = "0";
-	private String minute = "0";
-	private String month = "*";
-	private String second = "0";
-	private String year = "*";
-	private String timezone;
-	private Date start;
-	private Date end;
-	
-	public ScheduleExpression dayOfMonth(int d) {
-		dayOfMonth = Integer.toString(d);
-		return this;
-	}
+    private String dayOfMonth = "*";
+    private String dayOfWeek = "*";
+    private String hour = "0";
+    private String minute = "0";
+    private String month = "*";
+    private String second = "0";
+    private String year = "*";
+    private String timezone;
+    private Date start;
+    private Date end;
 
-	public ScheduleExpression dayOfMonth(String d) {
-		dayOfMonth = d;
-		return this;
-	}
+    public ScheduleExpression dayOfMonth(int d) {
+        dayOfMonth = Integer.toString(d);
+        return this;
+    }
 
-	public ScheduleExpression dayOfWeek(int d) {
-		dayOfWeek = Integer.toString(d);
-		return this;
-	}
+    public ScheduleExpression dayOfMonth(String d) {
+        dayOfMonth = d;
+        return this;
+    }
 
-	public ScheduleExpression dayOfWeek(String d) {
-		dayOfWeek = d;
-		return this;
-	}
+    public ScheduleExpression dayOfWeek(int d) {
+        dayOfWeek = Integer.toString(d);
+        return this;
+    }
 
-	public ScheduleExpression end(Date e) {
-		end = e;
-		return this;
-	}
+    public ScheduleExpression dayOfWeek(String d) {
+        dayOfWeek = d;
+        return this;
+    }
 
-	public String getDayOfMonth() {
-		return dayOfMonth;
-	}
+    public ScheduleExpression end(Date e) {
+        end = e;
+        return this;
+    }
 
-	public String getDayOfWeek() {
-		return dayOfWeek;
-	}
+    public String getDayOfMonth() {
+        return dayOfMonth;
+    }
 
-	public Date getEnd() {
-		return end;
-	}
+    public String getDayOfWeek() {
+        return dayOfWeek;
+    }
 
-	public String getHour() {
-		return hour;
-	}
+    public Date getEnd() {
+        return end;
+    }
 
-	public String getMinute() {
-		return minute;
-	}
+    public String getHour() {
+        return hour;
+    }
 
-	public String getMonth() {
-		return month;
-	}
+    public String getMinute() {
+        return minute;
+    }
 
-	public String getSecond() {
-		return second;
-	}
+    public String getMonth() {
+        return month;
+    }
 
-	public Date getStart() {
-		return start;
-	}
+    public String getSecond() {
+        return second;
+    }
 
-	public String getYear() {
-		return year;
-	}
-	
-	public String getTimezone() {
-		return timezone;
-	}
+    public Date getStart() {
+        return start;
+    }
 
-	public ScheduleExpression hour(int h) {
-		hour = Integer.toString(h);
-		return this;
-	}
+    public String getYear() {
+        return year;
+    }
 
-	public ScheduleExpression hour(String h) {
-		hour = h;
-		return this;
-	}
+    public String getTimezone() {
+        return timezone;
+    }
 
-	public ScheduleExpression minute(int m) {
-		minute = Integer.toString(m);
-		return this;
-	}
+    public ScheduleExpression hour(int h) {
+        hour = Integer.toString(h);
+        return this;
+    }
 
-	public ScheduleExpression minute(String m) {
-		minute = m;
-		return this;
-	}
+    public ScheduleExpression hour(String h) {
+        hour = h;
+        return this;
+    }
 
-	public ScheduleExpression month(int m) {
-		month = Integer.toString(m);
-		return this;
-	}
+    public ScheduleExpression minute(int m) {
+        minute = Integer.toString(m);
+        return this;
+    }
 
-	public ScheduleExpression month(String m) {
-		month = m;
-		return this;
-	}
+    public ScheduleExpression minute(String m) {
+        minute = m;
+        return this;
+    }
 
-	public ScheduleExpression second(int s) {
-		second = Integer.toString(s);
-		return this;
-	}
+    public ScheduleExpression month(int m) {
+        month = Integer.toString(m);
+        return this;
+    }
 
-	public ScheduleExpression second(String s) {
-		second = s;
-		return this;
-	}
+    public ScheduleExpression month(String m) {
+        month = m;
+        return this;
+    }
 
-	public ScheduleExpression start(Date s) {
-		start = s;
-		return this;
-	}
+    public ScheduleExpression second(int s) {
+        second = Integer.toString(s);
+        return this;
+    }
 
-	public ScheduleExpression year(int y) {
-		year = Integer.toString(y);
-		return this;
-	}
+    public ScheduleExpression second(String s) {
+        second = s;
+        return this;
+    }
 
-	public ScheduleExpression year(String y) {
-		year = y;
-		return this;
-	}
+    public ScheduleExpression start(Date s) {
+        start = s;
+        return this;
+    }
+
+    public ScheduleExpression year(int y) {
+        year = Integer.toString(y);
+        return this;
+    }
+
+    public ScheduleExpression year(String y) {
+        year = y;
+        return this;
+    }
 
     /**
      * See http://en.wikipedia.org/wiki/List_of_zoneinfo_timezones for valid timezones 
      * @param t
      * @return
      */
-	public ScheduleExpression timezone(String t) {
-		timezone = t;
-		return this;
-	}
+    public ScheduleExpression timezone(String t) {
+        timezone = t;
+        return this;
+    }
 }

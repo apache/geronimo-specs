@@ -24,15 +24,15 @@ import jakarta.xml.namespace.NamespaceContext;
 import jakarta.xml.namespace.QName;
 
 public interface StartElement extends XMLEvent {
-	public Attribute getAttributeByName(QName name);
+    public Attribute getAttributeByName(QName name);
 
-	public Iterator getAttributes();
+    public Iterator getAttributes();
 
-	public QName getName();
+    public QName getName();
 
-	public NamespaceContext getNamespaceContext();
+    public NamespaceContext getNamespaceContext();
 
-	public Iterator getNamespaces();
+    public Iterator getNamespaces();
 
-	public String getNamespaceURI(String prefix);
+    public String getNamespaceURI(String prefix);
 }

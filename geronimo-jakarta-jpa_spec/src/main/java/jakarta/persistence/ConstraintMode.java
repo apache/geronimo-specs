@@ -26,9 +26,9 @@ package jakarta.persistence;
 
 public enum ConstraintMode {
 
-	CONSTRAINT,
+    CONSTRAINT,
 
-	NO_CONSTRAINT,
+    NO_CONSTRAINT,
 
         PROVIDER_DEFAULT
 }

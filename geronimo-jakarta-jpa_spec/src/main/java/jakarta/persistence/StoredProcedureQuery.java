@@ -66,14 +66,14 @@ public interface StoredProcedureQuery extends Query {
     StoredProcedureQuery setFlushMode(FlushModeType flushMode);
 
     StoredProcedureQuery registerStoredProcedureParameter(
-	  int position,
-	  Class type,
-	  ParameterMode mode);
+      int position,
+      Class type,
+      ParameterMode mode);
 
     StoredProcedureQuery registerStoredProcedureParameter(
-	  String parameterName,
-	  Class type,
-	  ParameterMode mode);
+      String parameterName,
+      Class type,
+      ParameterMode mode);
 
     Object getOutputParameterValue(int position);
 

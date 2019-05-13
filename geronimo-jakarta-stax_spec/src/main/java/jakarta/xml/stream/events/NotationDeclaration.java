@@ -20,9 +20,9 @@
 package jakarta.xml.stream.events;
 
 public interface NotationDeclaration extends XMLEvent {
-	public String getName();
+    public String getName();
 
-	public String getPublicId();
+    public String getPublicId();
 
-	public String getSystemId();
+    public String getSystemId();
 }

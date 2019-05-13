@@ -20,15 +20,15 @@
 package jakarta.xml.stream.events;
 
 public interface StartDocument extends XMLEvent {
-	public boolean encodingSet();
+    public boolean encodingSet();
 
-	public String getCharacterEncodingScheme();
+    public String getCharacterEncodingScheme();
 
-	public String getSystemId();
+    public String getSystemId();
 
-	public String getVersion();
+    public String getVersion();
 
-	public boolean isStandalone();
+    public boolean isStandalone();
 
-	public boolean standaloneSet();
+    public boolean standaloneSet();
 }
