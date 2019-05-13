@@ -90,7 +90,7 @@
                         <Private-Package>org.apache.geronimo.osgi.locator</Private-Package>
                         <Bundle-Activator>org.apache.geronimo.osgi.locator.Activator</Bundle-Activator>
                         <Provide-Capability><![CDATA[
-                           osgi.contract;osgi.contract=JavaJAXB;uses:="${packages;NAMED;javax.*}";version:List<Version>='2.2,2.1,2.0'
+                           osgi.contract;osgi.contract=JavaJAXB;uses:="${packages;NAMED;jakarta.*}";version:List<Version>='2.2,2.1,2.0'
                         ]]></Provide-Capability>
                         <_contract>JavaActivation, JavaSTAX</_contract>
                     </instructions>

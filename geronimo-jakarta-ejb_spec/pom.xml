@@ -104,12 +104,12 @@
                         <Specification-Title>JSR-318 Enterprise Java Beans 3.2</Specification-Title>
                         <Specification-Vendor>Sun Microsystems, Inc.</Specification-Vendor>
                         <Specification-Version>3.2</Specification-Version>
-                        <Export-Package>javax.ejb*;version=3.2</Export-Package>
+                        <Export-Package>jakarta.ejb*;version=3.2</Export-Package>
                         <Import-Package>org.apache.geronimo.osgi.registry.api;resolution:=optional,*</Import-Package>
                         <Private-Package>org.apache.geronimo.osgi.locator</Private-Package>
                         <Bundle-Activator>org.apache.geronimo.osgi.locator.Activator</Bundle-Activator>
                         <Provide-Capability><![CDATA[
-                            osgi.contract;osgi.contract=JavaEJB;uses:="${packages;NAMED;javax.*}";version:List<Version>='3.2,3.1,3.0,2.1'
+                            osgi.contract;osgi.contract=JavaEJB;uses:="${packages;NAMED;jakarta.*}";version:List<Version>='3.2,3.1,3.0,2.1'
                         ]]></Provide-Capability>
                         <_contract>JavaJTA, JavaInterceptor, JavaAnnotation, JavaJAXRPC</_contract>
                     </instructions>

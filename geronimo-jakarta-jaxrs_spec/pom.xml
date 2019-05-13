@@ -75,7 +75,7 @@
             <Specification-Version>1.1</Specification-Version>
             <Export-Package>jakarta.ws.rs*;version=2.1</Export-Package>
             <Provide-Capability><![CDATA[
-               osgi.contract;osgi.contract=JavaJAXRS;uses:="${packages;NAMED;javax.*}";version:List<Version>='2.1,2.0,1.1'
+               osgi.contract;osgi.contract=JavaJAXRS;uses:="${packages;NAMED;jakarta.*}";version:List<Version>='2.1,2.0,1.1'
             ]]></Provide-Capability>
             <Require-Capability><![CDATA[
               osgi.serviceloader;filter:="(osgi.serviceloader=jakarta.ws.rs.client.ClientBuilder)";cardinality:=multiple,

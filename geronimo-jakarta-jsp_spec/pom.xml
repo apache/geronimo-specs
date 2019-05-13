@@ -80,7 +80,7 @@
                     <instructions>
                         <Export-Package>jakarta.servlet.jsp*;version=2.2</Export-Package>
                         <Provide-Capability><![CDATA[
-                           osgi.contract;osgi.contract=JavaJSP;uses:="${packages;NAMED;javax.*}";version:List<Version>='2.2,2.1,2.0'
+                           osgi.contract;osgi.contract=JavaJSP;uses:="${packages;NAMED;jakartak.*}";version:List<Version>='2.2,2.1,2.0'
                         ]]></Provide-Capability>
                         <_contract>JavaServlet, JavaEL</_contract>
                     </instructions>

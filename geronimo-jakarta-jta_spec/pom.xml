@@ -79,9 +79,9 @@
         <version>3.5.0</version>
         <configuration>
           <instructions>
-            <Export-Package>javax.transaction*;version=1.2</Export-Package>
+            <Export-Package>jakarta.transaction*;version=1.2</Export-Package>
             <Provide-Capability><![CDATA[
-               osgi.contract;osgi.contract=JavaJTA;uses:="${packages;NAMED;javax.*}";version:List<Version>='1.2,1.1'
+               osgi.contract;osgi.contract=JavaJTA;uses:="${packages;NAMED;jakarta.*}";version:List<Version>='1.2,1.1'
             ]]></Provide-Capability>
             <_contract>JavaInterceptor, JavaCDI</_contract>
           </instructions>

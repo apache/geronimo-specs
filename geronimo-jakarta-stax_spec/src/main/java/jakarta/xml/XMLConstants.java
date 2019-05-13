@@ -17,7 +17,7 @@
  ** specific language governing permissions and limitations
  ** under the License.
  */
-package javax.xml;
+package jakarta.xml;
 
 public class XMLConstants {
 	public static final java.lang.String DEFAULT_NS_PREFIX = "";
