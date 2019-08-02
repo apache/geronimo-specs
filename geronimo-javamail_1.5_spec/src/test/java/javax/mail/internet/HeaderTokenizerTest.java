@@ -20,7 +20,6 @@
 package javax.mail.internet;
 
 import javax.mail.internet.HeaderTokenizer.Token;
-
 import junit.framework.TestCase;
 
 /**
@@ -28,10 +27,8 @@ import junit.framework.TestCase;
  */
 public class HeaderTokenizerTest extends TestCase {
     public void testTokenizer() throws ParseException {
-        final Token t;
-        HeaderTokenizer ht;
-        ht =
-            new HeaderTokenizer("To: \"Geronimo List\" <geronimo-dev@apache.org>, \n\r Geronimo User <geronimo-user@apache.org>");
+
+        HeaderTokenizer ht = new HeaderTokenizer("To: \"Geronimo List\" <geronimo-dev@apache.org>, \n\r Geronimo User <geronimo-user@apache.org>");
         validateToken(ht.peek(), Token.ATOM, "To");
         validateToken(ht.next(), Token.ATOM, "To");
         validateToken(ht.peek(), ':', ":");
@@ -57,11 +54,14 @@ public class HeaderTokenizerTest extends TestCase {
         validateToken(ht.next(), Token.ATOM, "org");
         validateToken(ht.next(), '>', ">");
         assertEquals(Token.EOF, ht.next().getType());
+
         ht = new HeaderTokenizer("   ");
         assertEquals(Token.EOF, ht.next().getType());
+
         ht = new HeaderTokenizer("J2EE");
         validateToken(ht.next(), Token.ATOM, "J2EE");
         assertEquals(Token.EOF, ht.next().getType());
+
         // test comments
         doComment(true);
         doComment(false);
@@ -95,23 +95,17 @@ public class HeaderTokenizerTest extends TestCase {
     }
     
     public void testJavaMail15NextMethod() throws ParseException{
-        HeaderTokenizer ht;
-        ht =
-            new HeaderTokenizer("To: \"Geronimo List\\\" <geronimo-dev@apache.org>, \n\r Geronimo User <geronimo-user@apache.org>");
+        HeaderTokenizer ht = new HeaderTokenizer("To: \"Geronimo List\\\" <geronimo-dev@apache.org>, \n\r Geronimo User <geronimo-user@apache.org>");
         validateToken(ht.next('>', false), Token.QUOTEDSTRING, "To: \"Geronimo List\" <geronimo-dev@apache.org");
     }
     
     public void testJavaMail15NextMethodEscapes() throws ParseException{
-        HeaderTokenizer ht;
-        ht =
-            new HeaderTokenizer("To: \"Geronimo List\\\" <geronimo-dev@apache.org>, \n\r Geronimo User <geronimo-user@apache.org>");
+        HeaderTokenizer ht = new HeaderTokenizer("To: \"Geronimo List\\\" <geronimo-dev@apache.org>, \n\r Geronimo User <geronimo-user@apache.org>");
         validateToken(ht.next('<', true), Token.QUOTEDSTRING, "To: \"Geronimo List\\\" ");
     }
     
     public void testJavaMail15NextMethodEscapes2() throws ParseException{
-        HeaderTokenizer ht;
-        ht =
-            new HeaderTokenizer("To: \"Geronimo List\" <geronimo-dev@apac\\he.org>, \n\r Geronimo User <geronimo-user@apache.org>");
+        HeaderTokenizer ht = new HeaderTokenizer("To: \"Geronimo List\" <geronimo-dev@apac\\he.org>, \n\r Geronimo User <geronimo-user@apache.org>");
         ht.next();
         ht.next();
         ht.next();
@@ -119,9 +113,7 @@ public class HeaderTokenizerTest extends TestCase {
     }
     
     public void testJavaMail15NextMethodEscapes3() throws ParseException{
-        HeaderTokenizer ht;
-        ht =
-            new HeaderTokenizer("To: \"Geronimo List\" <geronimo-dev@apac\\he.org>, \n\r Geronimo User <geronimo-user@apache.org>");
+        HeaderTokenizer ht = new HeaderTokenizer("To: \"Geronimo List\" <geronimo-dev@apac\\he.org>, \n\r Geronimo User <geronimo-user@apache.org>");
         ht.next();
         ht.next();
         ht.next();
@@ -129,18 +121,15 @@ public class HeaderTokenizerTest extends TestCase {
     }
 
     public void checkTokenParse(final String text, final int type, final String value) throws ParseException {
-        HeaderTokenizer ht;
-        ht = new HeaderTokenizer(text, HeaderTokenizer.RFC822, false);
+        HeaderTokenizer ht = new HeaderTokenizer(text, HeaderTokenizer.RFC822, false);
         validateToken(ht.next(), type, value);
     }
 
 
     public void checkParseError(final String text) throws ParseException {
-        final Token t;
-        HeaderTokenizer ht;
-
-        ht = new HeaderTokenizer(text);
+        HeaderTokenizer ht = new HeaderTokenizer(text);
         doNextError(ht);
+
         ht = new HeaderTokenizer(text);
         doPeekError(ht);
     }
@@ -164,13 +153,12 @@ public class HeaderTokenizerTest extends TestCase {
 
     public void doComment(final boolean ignore) throws ParseException {
         HeaderTokenizer ht;
-        final Token t;
-        ht =
-            new HeaderTokenizer(
+        ht = new HeaderTokenizer(
                 "Apache(Geronimo)J2EE",
                 HeaderTokenizer.RFC822,
                 ignore);
         validateToken(ht.next(), Token.ATOM, "Apache");
+
         if (!ignore) {
             validateToken(ht.next(), Token.COMMENT, "Geronimo");
         }
@@ -182,6 +170,8 @@ public class HeaderTokenizerTest extends TestCase {
                 "Apache(Geronimo (Project))J2EE",
                 HeaderTokenizer.RFC822,
                 ignore);
+
+
         validateToken(ht.next(), Token.ATOM, "Apache");
         if (!ignore) {
             validateToken(ht.next(), Token.COMMENT, "Geronimo (Project)");
@@ -194,4 +184,122 @@ public class HeaderTokenizerTest extends TestCase {
         assertEquals(type, token.getType());
         assertEquals(value, token.getValue());
     }
+
+    private transient TestCase[] testCases = { new TestCase(';', "a=b c", "b c"),
+            new TestCase(';', "a=b c; d=e f", "b c"),
+            new TestCase(';', "a=\"b c\"; d=e f", "b c") };
+
+    private transient TestCase[] testCasesEsc = {
+            new TestCase(';', "a=b \\c", "b \\c"),
+            new TestCase(';', "a=b c; d=e f", "b c"),
+            new TestCase(';', "a=\"b \\c\"; d=e f", "b \\c") };
+
+    public void testNext() throws Exception {
+
+        final String value = "ggere, /tmp/mail.out, +mailbox, ~user/mailbox, ~/mailbox, /PN=x400.address/PRMD=ibmmail/ADMD=ibmx400/C=us/@mhs-mci.ebay, " +
+                "C'est bien moche <paris@france>, Mad Genius <george@boole>, two@weeks (It Will Take), /tmp/mail.out, laborious (But Bug Free), " +
+                "cannot@waste (My, Intellectual, Cycles), users:get,what,they,deserve;, it (takes, no (time, at) all), " +
+                "if@you (could, see (almost, as, (badly, you) would) agree), famous <French@physicists>, " +
+                "it@is (brilliant (genius, and) superb), confused (about, being, french)";
+
+        // Create HeaderTokenizer object
+        HeaderTokenizer ht = new HeaderTokenizer(value,
+                HeaderTokenizer.RFC822,
+                true);
+
+        HeaderTokenizer.Token token;
+
+        while ((token = ht.next()).getType() != HeaderTokenizer.Token.EOF) { // API
+            if (token.getType() == 0 || token.getValue() == null) {
+                fail(type(token.getType()) + "\t" + token.getValue());
+            }
+        }
+    }
+
+    public void testNext2() throws Exception {
+
+        // Create HeaderTokenizer object
+        HeaderTokenizer ht;
+        HeaderTokenizer.Token token;
+
+        for (TestCase tc : testCases) {
+            ht = new HeaderTokenizer(tc.test, HeaderTokenizer.MIME, true);
+            token = ht.next();
+            if (token.getType() != HeaderTokenizer.Token.ATOM || !token.getValue().equals("a")) {
+                System.out.println("\t" + type(token.getType()) + "\t" + token.getValue());
+                fail();
+
+            } else {
+                token = ht.next();
+                if (token.getType() != '=') {
+                    System.out.println("\t" + type(token.getType()) + "\t" + token.getValue());
+                    fail();
+                } else {
+                    token = ht.next(tc.endOfAtom);
+                    if (token.getType() != HeaderTokenizer.Token.QUOTEDSTRING
+                            || !token.getValue().equals(tc.expected)) {
+                        fail(type(token.getType()) + "\t" + token.getValue());
+                    }
+                }
+            }
+        }
+    }
+
+    public void testNext3() throws Exception {
+
+        // Create HeaderTokenizer object
+        HeaderTokenizer ht;
+        HeaderTokenizer.Token token;
+
+        for (TestCase tc : testCasesEsc) {
+            ht = new HeaderTokenizer(tc.test, HeaderTokenizer.MIME, true);
+            token = ht.next();
+            if (token.getType() != HeaderTokenizer.Token.ATOM || !token.getValue().equals("a")) {
+                System.out.println("\t" + type(token.getType()) + "\t" + token.getValue());
+                fail();
+            } else {
+                token = ht.next();
+                if (token.getType() != '=') {
+                    System.out.println("\t" + type(token.getType()) + "\t" + token.getValue());
+                    fail();
+                } else {
+                    token = ht.next(tc.endOfAtom, true);
+                    if (token.getType() != HeaderTokenizer.Token.QUOTEDSTRING
+                            || !token.getValue().equals(tc.expected)) {
+                        fail(type(token.getType()) + "\t" + token.getValue());
+                    }
+                }
+            }
+        }
+
+    }
+
+    private static String type(int t) {
+        if (t == HeaderTokenizer.Token.ATOM)
+            return "ATOM";
+        else if (t == HeaderTokenizer.Token.QUOTEDSTRING)
+            return "QUOTEDSTRING";
+        else if (t == HeaderTokenizer.Token.COMMENT)
+            return "COMMENT";
+        else if (t == HeaderTokenizer.Token.EOF)
+            return "EOF";
+        else if (t < 0)
+            return "UNKNOWN";
+        else
+            return "SPECIAL";
+    }
+
+    static class TestCase {
+
+        public TestCase(final char endOfAtom, final String test, String expected) {
+            this.endOfAtom = endOfAtom;
+            this.test = test;
+            this.expected = expected;
+        }
+
+        public char endOfAtom;
+        public String test;
+        public String expected;
+    };
+    
 }

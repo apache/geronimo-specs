@@ -79,18 +79,18 @@ public class HeaderTokenizer {
     //Return the rest of the Header.
     //null is returned if we are already at end of header
     public String getRemainder() {
-        
+
         if(pos > _headerLength) {
             return null;
         }
-        
+
         return _header.substring(pos);
     }
 
     public Token next() throws ParseException {
         return readToken(NUL, false);
     }
-    
+
     /**
      * Parses the next token from this String.
      * If endOfAtom is not NUL, the token extends until the
@@ -123,10 +123,10 @@ public class HeaderTokenizer {
      * @since       JavaMail 1.5
      */
     public Token next(final char endOfAtom, final boolean keepEscapes)
-                throws ParseException {        
+                throws ParseException {
         return readToken(endOfAtom, keepEscapes);
     }
-                
+
 
     public Token peek() throws ParseException {
         final int start = pos;
@@ -150,7 +150,7 @@ public class HeaderTokenizer {
         while (++pos < _headerLength) {
             // break on the first non-atom character.
             final char ch = _header.charAt(pos);
-         
+
             if ((_delimiters.indexOf(_header.charAt(pos)) != -1 || ch < 32 || ch >= 127)) {
                 break;
             }
@@ -179,29 +179,33 @@ public class HeaderTokenizer {
                 } else {
                     return comment;
                 }
-                // quoted literal
+
+            // quoted literal
             } else if (c == '\"') {
                 return readQuotedString('"', keepEscapes, 1);
+
             // white space, eat this and find a real token.
             } else if (WHITE.indexOf(c) != -1) {
                 eatWhiteSpace();
                 return readToken(endOfAtom, keepEscapes);
+
             // either a CTL or special.  These characters have a self-defining token type.
             } else if (c < 32 || c >= 127 || _delimiters.indexOf(c) != -1) {
-                
+
                 if (endOfAtom != NUL && c != endOfAtom) {
                     return readQuotedString(endOfAtom, keepEscapes, 0);
                 }
-                
-                
+
+
                 pos++;
                 return new Token(c, String.valueOf(c));
+
             } else {
                 // start of an atom, parse it off.
                 if (endOfAtom != NUL && c != endOfAtom) {
                     return readQuotedString(endOfAtom, keepEscapes, 0);
                 }
-                
+
                 return readAtomicToken();
             }
         }
@@ -228,11 +232,11 @@ public class HeaderTokenizer {
                 if (i == end) {
                     throw new ParseException("Invalid escape character");
                 }
-                
+
                 if(keepEscapes) {
                     value.append("\\");
                 }
-                
+
                 value.append(_header.charAt(i));
             }
             // line breaks are ignored, except for naked '\n' characters, which are consider
@@ -244,7 +248,7 @@ public class HeaderTokenizer {
                 }
             }
             else {
-                 
+
                  // just append the ch value.
                 value.append(ch);
             }
@@ -336,7 +340,21 @@ public class HeaderTokenizer {
             }
         }
 
-        throw new ParseException("Missing '\"'");
+        // we ran out of chars in the string. If the end char is a quote, then there
+        // is a missing quote somewhere
+        if (endChar == '"') {
+            throw new ParseException("Missing '\"'");
+        }
+
+        // otherwise, we can just return whatever is left
+        String value;
+        if (requiresEscaping) {
+            value = getEscapedValue(start, pos, keepEscapes);
+
+        } else {
+            value = _header.substring(start, pos);
+        }
+        return new Token(Token.QUOTEDSTRING, trimWhiteSpace(value));
     }
 
     /**
@@ -346,7 +364,54 @@ public class HeaderTokenizer {
         // skip to end of whitespace
         while (++pos < _headerLength
                 && WHITE.indexOf(_header.charAt(pos)) != -1) {
-			;
-		}
+            ;
+        }
     }
+
+    /**
+     * linear white spaces must be removed from quoted text or text
+     *
+     LWSP-char   =  SPACE / HTAB                 ; semantics = SPACE
+
+     linear-white-space =  1*([CRLF] LWSP-char)  ; semantics = SPACE
+                                                 ; CRLF => folding
+
+     text        =  <any CHAR, including bare    ; => atoms, specials,
+                     CR & bare LF, but NOT       ;  comments and
+                     including CRLF>             ;  quoted-strings are
+                                                 ;  NOT recognized.
+
+     atom        =  1*<any CHAR except specials, SPACE and CTLs>
+
+     quoted-string = <"> *(qtext/quoted-pair) <">; Regular qtext or
+                                                 ;   quoted chars.
+
+     qtext       =  <any CHAR excepting <">,     ; => may be folded
+                     "\" & CR, and including
+                     linear-white-space>
+
+     domain-literal =  "[" *(dtext / quoted-pair) "]"
+     */
+    private static String trimWhiteSpace(final String s) {
+        char c;
+        int i;
+        for (i = s.length() - 1; i >= 0; i--) {
+            if ((
+                    (c = s.charAt(i)) != ' ') && // space
+                    (c != '\t') &&              // tab
+                    (c != '\r') &&              // CR
+                    (c != '\n')) {              // LF
+
+                break;
+            }
+        }
+
+        if (i <= 0) {
+            return "";
+
+        } else {
+            return s.substring(0, i + 1);
+        }
+    }
+
 }
