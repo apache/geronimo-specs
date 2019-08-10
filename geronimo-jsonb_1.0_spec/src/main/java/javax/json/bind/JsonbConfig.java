@@ -126,7 +126,7 @@ public class JsonbConfig {
             final T[] existing = (T[]) opt.get();
             final T[] aggregated = (T[]) Array.newInstance(componentType, existing.length + values.length);
             System.arraycopy(existing, 0, aggregated, 0, existing.length);
-            System.arraycopy(values, 0, aggregated, existing.length + 1, values.length);
+            System.arraycopy(values, 0, aggregated, existing.length, values.length);
             return setProperty(key, aggregated);
         }
         return setProperty(key, values);
