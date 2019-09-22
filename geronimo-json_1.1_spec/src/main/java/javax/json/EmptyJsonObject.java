@@ -49,12 +49,12 @@ class EmptyJsonObject extends AbstractMap<String, JsonValue> implements JsonObje
 
     @Override
     public String getString(String name) {
-        return null;
+        throw new NullPointerException("Calling getString on EmptyJsonObject");
     }
 
     @Override
     public String getString(String name, String defaultValue) {
-        return null;
+        return defaultValue;
     }
 
     @Override
@@ -79,7 +79,7 @@ class EmptyJsonObject extends AbstractMap<String, JsonValue> implements JsonObje
 
     @Override
     public boolean isNull(String name) {
-        return true;
+        throw new NullPointerException("Calling isNull on EmptyJsonObject");
     }
 
     @Override
