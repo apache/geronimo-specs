@@ -23,6 +23,8 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.ParseException;
+import java.util.Date;
 import java.util.Properties;
 
 import javax.activation.CommandMap;
@@ -456,6 +458,20 @@ public class MimeMessageTest extends TestCase {
         assertEquals(type.getParameter("charset"), "UTF-8");
     }
 
+    public void testAddDateinUpdateHeaders() throws MessagingException, ParseException {
+        final MimeMessage msg = new MimeMessage(session);
+        msg.updateHeaders();
+
+        final String[] dateHeader = msg.getHeader("Date");
+        assertNotNull(dateHeader);
+        assertEquals(1, dateHeader.length);
+
+        final Date date = new MailDateFormat().parse(dateHeader[0]);
+        final Date now = new Date();
+
+        // this should be within 5 seconds
+        assertTrue((now.getTime() - date.getTime()) < 5000);
+    }
 
 
     @Override

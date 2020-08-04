@@ -1507,6 +1507,12 @@ public class MimeMessage extends Message implements MimePart {
         final DataHandler handler = getDataHandler();
 
         try {
+            //RFC 2822 requires a Date header.  The MimeMessage.updateHeaders method
+            //now sets the Date header if it's not already set
+            if (getSentDate() == null) {
+                setSentDate(new Date());
+            }
+
             // figure out the content type.  If not set, we'll need to figure this out.
             String type = dh.getContentType();
             // we might need to reconcile the content type and our explicitly set type
