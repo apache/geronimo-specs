@@ -19,8 +19,10 @@
 
 package javax.mail.internet;
 
+import java.text.DateFormatSymbols;
 import java.text.FieldPosition;
 import java.text.NumberFormat;
+import java.text.ParseException;
 import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
@@ -95,8 +97,89 @@ public class MailDateFormat extends SimpleDateFormat {
     public void setNumberFormat(final NumberFormat format) {
         throw new UnsupportedOperationException();
     }
-    
-    
+
+    /**
+     * This method always throws an UnsupportedOperationException and
+     * should not be used because RFC 2822 mandates a specific pattern.
+     *
+     * @throws UnsupportedOperationException if this method is invoked
+     * @since JavaMail 1.6
+     */
+    @Override
+    public void applyLocalizedPattern(String pattern) {
+        throw new UnsupportedOperationException("Method "
+                + "applyLocalizedPattern() shouldn't be called");
+    }
+
+    /**
+     * This method always throws an UnsupportedOperationException and
+     * should not be used because RFC 2822 mandates a specific pattern.
+     *
+     * @throws UnsupportedOperationException if this method is invoked
+     * @since JavaMail 1.6
+     */
+    @Override
+    public void applyPattern(String pattern) {
+        throw new UnsupportedOperationException("Method "
+                + "applyPattern() shouldn't be called");
+    }
+
+    /**
+     * This method always throws an UnsupportedOperationException and
+     * should not be used because RFC 2822 mandates another strategy
+     * for interpreting 2-digits years.
+     *
+     * @return the start of the 100-year period into which two digit
+     * years are parsed
+     * @throws UnsupportedOperationException if this method is invoked
+     * @since JavaMail 1.6
+     */
+    @Override
+    public Date get2DigitYearStart() {
+        throw new UnsupportedOperationException("Method "
+                + "get2DigitYearStart() shouldn't be called");
+    }
+
+    /**
+     * This method always throws an UnsupportedOperationException and
+     * should not be used because RFC 2822 mandates another strategy
+     * for interpreting 2-digits years.
+     *
+     * @throws UnsupportedOperationException if this method is invoked
+     * @since JavaMail 1.6
+     */
+    @Override
+    public void set2DigitYearStart(Date startDate) {
+        throw new UnsupportedOperationException("Method "
+                + "set2DigitYearStart() shouldn't be called");
+    }
+
+    /**
+     * This method always throws an UnsupportedOperationException and
+     * should not be used because RFC 2822 mandates specific date
+     * format symbols.
+     *
+     * @throws UnsupportedOperationException if this method is invoked
+     * @since JavaMail 1.6
+     */
+    @Override
+    public void setDateFormatSymbols(DateFormatSymbols newFormatSymbols) {
+        throw new UnsupportedOperationException("Method "
+                + "setDateFormatSymbols() shouldn't be called");
+    }
+
+    /**
+     * Overrides Cloneable.
+     *
+     * @return a clone of this instance
+     * @since JavaMail 1.6
+     */
+    @Override
+    public MailDateFormat clone() {
+        return (MailDateFormat) super.clone();
+    }
+
+
     // utility class for handling date parsing issues 
     class MailDateParser {
         // our list of defined whitespace characters 
