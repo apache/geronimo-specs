@@ -23,6 +23,8 @@ import javax.mail.MessagingException;
 
 /**
  * @version $Rev$ $Date$
+ * The exception thrown due to an error in parsing RFC822
+ * or MIME headers, including multipart bodies.
  */
 public class ParseException extends MessagingException {
 	
