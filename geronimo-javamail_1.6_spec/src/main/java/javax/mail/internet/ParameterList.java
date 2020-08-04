@@ -397,7 +397,7 @@ public class ParameterList {
         _parameters.remove(name);
     }
 
-    public Enumeration getNames() {
+    public Enumeration<String> getNames() {
         return Collections.enumeration(_parameters.keySet());
     }
 

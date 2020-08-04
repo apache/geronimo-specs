@@ -30,7 +30,7 @@ import javax.mail.Part;
 public interface MimePart extends Part {
     public abstract void addHeaderLine(String line) throws MessagingException;
 
-    public abstract Enumeration getAllHeaderLines() throws MessagingException;
+    public abstract Enumeration<String> getAllHeaderLines() throws MessagingException;
 
     public abstract String getContentID() throws MessagingException;
 
@@ -43,10 +43,10 @@ public interface MimePart extends Part {
     public abstract String getHeader(String header, String delimiter)
             throws MessagingException;
 
-    public abstract Enumeration getMatchingHeaderLines(String[] names)
+    public abstract Enumeration<String> getMatchingHeaderLines(String[] names)
             throws MessagingException;
 
-    public abstract Enumeration getNonMatchingHeaderLines(String[] names)
+    public abstract Enumeration<String> getNonMatchingHeaderLines(String[] names)
             throws MessagingException;
 
     public abstract void setContentLanguage(String[] languages)

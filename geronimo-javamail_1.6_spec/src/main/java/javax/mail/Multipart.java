@@ -32,7 +32,7 @@ public abstract class Multipart {
     /**
      * Vector of sub-parts.
      */
-    protected Vector parts = new Vector();
+    protected Vector<BodyPart> parts = new Vector<>();
 
     /**
      * The content type of this multipart object; defaults to "multipart/mixed"

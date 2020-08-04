@@ -59,7 +59,7 @@ public interface Part {
      * @return An Enumeration containing all of the current Header objects. 
      * @exception MessagingException
      */
-    public abstract Enumeration getAllHeaders() throws MessagingException;
+    public abstract Enumeration<Header> getAllHeaders() throws MessagingException;
 
     /**
      * Return a content object for this Part.  The 
@@ -166,7 +166,7 @@ public interface Part {
      * @return An Enumeration of Header objects containing the matching headers.
      * @exception MessagingException
      */
-    public abstract Enumeration getMatchingHeaders(String[] names) throws MessagingException;
+    public abstract Enumeration<Header> getMatchingHeaders(String[] names) throws MessagingException;
 
     /**
      * Return an Enumeration of all Headers except those that match the names 
@@ -179,11 +179,11 @@ public interface Part {
      *         in the exclusion list.
      * @exception MessagingException
      */
-    public abstract Enumeration getNonMatchingHeaders(String[] names) throws MessagingException;
+    public abstract Enumeration<Header> getNonMatchingHeaders(String[] names) throws MessagingException;
 
     /**
      * Return the size of this part, or -1 if the size
-     * cannot be reliably determined.  
+     * cannot be reliably determined.
      * 
      * Note:  the returned size does not take into account 
      * internal encodings, nor is it an estimate of 

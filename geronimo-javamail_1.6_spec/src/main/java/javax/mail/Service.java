@@ -21,6 +21,7 @@ package javax.mail;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.EventListener;
 import java.util.List;
 import java.util.Vector;
 
@@ -401,7 +402,7 @@ public abstract class Service {
         return url == null ? super.toString() : url.toString();
     }
 
-    protected void queueEvent(final MailEvent event, final Vector listeners) {
+    protected void queueEvent(final MailEvent event, final Vector<? extends EventListener> listeners) {
         // if there are no listeners to dispatch this to, don't put it on the queue.
         // This allows us to delay creating the queue (and its new thread) until
         // we

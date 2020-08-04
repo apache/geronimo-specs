@@ -38,7 +38,7 @@ import javax.mail.MessagingException;
  */
 public class InternetHeaders {
     // the list of headers (to preserve order);
-    protected List headers = new ArrayList();
+    protected List<InternetHeader> headers = new ArrayList();
 
     /**
      * Create an empty InternetHeaders
@@ -425,8 +425,8 @@ public class InternetHeaders {
      *
      * @return an Enumeration<Header> containing all headers
      */
-    public Enumeration getAllHeaders() {
-        final List result = new ArrayList();
+    public Enumeration<Header> getAllHeaders() {
+        final List<Header> result = new ArrayList<>();
 
         for (int i = 0; i < headers.size(); i++) {
             final InternetHeader header = (InternetHeader)headers.get(i);
@@ -469,8 +469,8 @@ public class InternetHeaders {
     /**
      * Return all matching Header objects.
      */
-    public Enumeration getMatchingHeaders(final String[] names) {
-        final List result = new ArrayList();
+    public Enumeration<Header> getMatchingHeaders(final String[] names) {
+        final List<Header> result = new ArrayList<>();
 
         for (int i = 0; i < headers.size(); i++) {
             final InternetHeader header = (InternetHeader)headers.get(i);
@@ -489,8 +489,8 @@ public class InternetHeaders {
     /**
      * Return all non matching Header objects.
      */
-    public Enumeration getNonMatchingHeaders(final String[] names) {
-        final List result = new ArrayList();
+    public Enumeration<Header> getNonMatchingHeaders(final String[] names) {
+        final List<Header> result = new ArrayList<>();
 
         for (int i = 0; i < headers.size(); i++) {
             final InternetHeader header = (InternetHeader)headers.get(i);
@@ -544,21 +544,21 @@ public class InternetHeaders {
     /**
      * Return all the header lines as an Enumeration of Strings.
      */
-    public Enumeration getAllHeaderLines() {
+    public Enumeration<String> getAllHeaderLines() {
         return new HeaderLineEnumeration(getAllHeaders());
     }
 
     /**
      * Return all matching header lines as an Enumeration of Strings.
      */
-    public Enumeration getMatchingHeaderLines(final String[] names) {
+    public Enumeration<String> getMatchingHeaderLines(final String[] names) {
         return new HeaderLineEnumeration(getMatchingHeaders(names));
     }
 
     /**
      * Return all non-matching header lines.
      */
-    public Enumeration getNonMatchingHeaderLines(final String[] names) {
+    public Enumeration<String> getNonMatchingHeaderLines(final String[] names) {
         return new HeaderLineEnumeration(getNonMatchingHeaders(names));
     }
 
@@ -697,10 +697,10 @@ public class InternetHeaders {
         }
     }
 
-    private static class HeaderLineEnumeration implements Enumeration {
-        private final Enumeration headers;
+    private static class HeaderLineEnumeration implements Enumeration<String> {
+        private final Enumeration<Header> headers;
 
-        public HeaderLineEnumeration(final Enumeration headers) {
+        public HeaderLineEnumeration(final Enumeration<Header> headers) {
             this.headers = headers;
         }
 
@@ -708,7 +708,7 @@ public class InternetHeaders {
             return headers.hasMoreElements();
         }
 
-        public Object nextElement() {
+        public String nextElement() {
             final Header h = (Header) headers.nextElement();
             return h.getName() + ": " + h.getValue();
         }

@@ -32,12 +32,7 @@ import java.util.Enumeration;
 
 import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
-import javax.mail.BodyPart;
-import javax.mail.EncodingAware;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Multipart;
-import javax.mail.Part;
+import javax.mail.*;
 import javax.mail.internet.HeaderTokenizer.Token;
 
 import org.apache.geronimo.mail.util.ASCIIUtil;
@@ -529,15 +524,15 @@ public class MimeBodyPart extends BodyPart implements MimePart {
         headers.removeHeader(name);
     }
 
-    public Enumeration getAllHeaders() throws MessagingException {
+    public Enumeration<Header> getAllHeaders() throws MessagingException {
         return headers.getAllHeaders();
     }
 
-    public Enumeration getMatchingHeaders(final String[] name) throws MessagingException {
+    public Enumeration<Header> getMatchingHeaders(final String[] name) throws MessagingException {
         return headers.getMatchingHeaders(name);
     }
 
-    public Enumeration getNonMatchingHeaders(final String[] name) throws MessagingException {
+    public Enumeration<Header> getNonMatchingHeaders(final String[] name) throws MessagingException {
         return headers.getNonMatchingHeaders(name);
     }
 
@@ -545,15 +540,15 @@ public class MimeBodyPart extends BodyPart implements MimePart {
         headers.addHeaderLine(line);
     }
 
-    public Enumeration getAllHeaderLines() throws MessagingException {
+    public Enumeration<String> getAllHeaderLines() throws MessagingException {
         return headers.getAllHeaderLines();
     }
 
-    public Enumeration getMatchingHeaderLines(final String[] names) throws MessagingException {
+    public Enumeration<String> getMatchingHeaderLines(final String[] names) throws MessagingException {
         return headers.getMatchingHeaderLines(names);
     }
 
-    public Enumeration getNonMatchingHeaderLines(final String[] names) throws MessagingException {
+    public Enumeration<String> getNonMatchingHeaderLines(final String[] names) throws MessagingException {
         return headers.getNonMatchingHeaderLines(names);
     }
 
