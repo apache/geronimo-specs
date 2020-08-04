@@ -295,4 +295,36 @@ public class Flags implements Cloneable, Serializable {
     public void remove(final String name) {
         user_flags.remove(name.toLowerCase());
     }
+
+    /**
+     * Remove any flags <strong>not</strong> in the given Flags object.
+     * Useful for clearing flags not supported by a server.  If the
+     * given Flags object includes the Flags.Flag.USER flag, all user
+     * flags in this Flags object are retained.
+     *
+     * @param	f	the flags to keep
+     * @return		true if this Flags object changed
+     * @since		JavaMail 1.6
+     */
+    public boolean retainAll(Flags f) {
+        throw new UnsupportedOperationException("Implement me");
+    }
+
+    /**
+     * Clear all of the system flags.
+     *
+     * @since	JavaMail 1.6
+     */
+    public void clearSystemFlags() {
+        throw new UnsupportedOperationException("Implement me");
+    }
+
+    /**
+     * Clear all of the user flags.
+     *
+     * @since	JavaMail 1.6
+     */
+    public void clearUserFlags() {
+        throw new UnsupportedOperationException("Implement me");
+    }
 }

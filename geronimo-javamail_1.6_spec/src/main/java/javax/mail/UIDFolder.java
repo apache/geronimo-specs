@@ -30,6 +30,23 @@ public interface UIDFolder {
     public static final long LASTUID = -1;
 
     /**
+     * The largest value possible for a UID, a 32-bit unsigned integer.
+     * This can be used to fetch all new messages by keeping track of the
+     * last UID that was seen and using:
+     * <blockquote><pre>
+     *
+     * 	Folder f = store.getFolder("whatever");
+     *	UIDFolder uf = (UIDFolder)f;
+     *	Message[] newMsgs =
+     *		uf.getMessagesByUID(lastSeenUID + 1, UIDFolder.MAXUID);
+     *
+     * </pre></blockquote><p>
+     *
+     * @since JavaMail 1.6
+     */
+    public static final long MAXUID = 0xffffffffL;
+
+    /**
      * Get the UID validity value for this Folder.
      * 
      * @return The current UID validity value, as a long. 
@@ -104,15 +121,15 @@ public interface UIDFolder {
      * This value might only be updated when a folder is first opened.
      * Note that messages may have been appended to the folder
      * while it was open and thus this value may be out of
-     * date.
+     * date. <p>
      *
-     * If the value is unknown, -1 is returned.
+     * If the value is unknown, -1 is returned.  <p>
      *
      * @return  the UIDNEXT value, or -1 if unknown
-     * @exception       MessagingException
+     * @exception       MessagingException for failures
      * @since   JavaMail 1.6
      */
-    public abstract long getUIDNext() throws MessagingException;
+    public long getUIDNext() throws MessagingException;
 
     /**
      * Special profile item used for fetching UID information.

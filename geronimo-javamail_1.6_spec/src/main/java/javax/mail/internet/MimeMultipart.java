@@ -149,6 +149,7 @@ public class MimeMultipart extends Multipart {
      *
      * @param dataSource the DataSource to use
      * @throws MessagingException
+     * @throws ParseException
      */
     public MimeMultipart(final DataSource dataSource) throws MessagingException {
         ds = dataSource;
