@@ -573,4 +573,44 @@ public class InternetAddress extends Address implements Cloneable {
         final AddressParser parser = new AddressParser(formatAddress(address), AddressParser.STRICT);
         parser.validateAddress();
     }
+
+    /**
+     * Convert the given array of InternetAddress objects into
+     * a comma separated sequence of address strings. The
+     * resulting string contains Unicode characters. <p>
+     *
+     * @param addresses	array of InternetAddress objects
+     * @exception 	ClassCastException if any address object in the
+     *			given array is not an InternetAddress object.
+     *			Note that this is a RuntimeException.
+     * @return		comma separated string of addresses
+     * @since		JavaMail 1.6
+     */
+    public static String toUnicodeString(Address[] addresses) {
+        throw new UnsupportedOperationException("Implement me");
+    }
+
+    /**
+     * Convert the given array of InternetAddress objects into
+     * a comma separated sequence of address strings. The
+     * resulting string contains Unicode characters. <p>
+     *
+     * The 'used' parameter specifies the number of character positions
+     * already taken up in the field into which the resulting address
+     * sequence string is to be inserted. It is used to determine the
+     * line-break positions in the resulting address sequence string.
+     *
+     * @param addresses	array of InternetAddress objects
+     * @param used	number of character positions already used, in
+     *			the field into which the address string is to
+     *			be inserted.
+     * @exception 	ClassCastException if any address object in the
+     *			given array is not an InternetAddress object.
+     *			Note that this is a RuntimeException.
+     * @return		comma separated string of addresses
+     * @since		JavaMail 1.6
+     */
+    public static String toUnicodeString(Address[] addresses, int used) {
+        throw new UnsupportedOperationException("Implement me");
+    }
 }

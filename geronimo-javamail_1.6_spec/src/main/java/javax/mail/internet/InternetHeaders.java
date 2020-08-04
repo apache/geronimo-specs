@@ -92,6 +92,49 @@ public class InternetHeaders {
     }
 
     /**
+     * Read and parse the given RFC822 message stream till the
+     * blank line separating the header from the body. The input
+     * stream is left positioned at the start of the body. The
+     * header lines are stored internally. <p>
+     *
+     * For efficiency, wrap a BufferedInputStream around the actual
+     * input stream and pass it as the parameter. <p>
+     *
+     * No placeholder entries are inserted; the original order of
+     * the headers is preserved.
+     *
+     * @param	is 	RFC822 input stream
+     * @param	allowutf8 	if UTF-8 encoded headers are allowed
+     * @exception	MessagingException for any I/O error reading the stream
+     * @since		JavaMail 1.6
+     */
+    public InternetHeaders(InputStream is, boolean allowutf8) throws MessagingException {
+        // Implement me
+    }
+
+
+    /**
+     * Read and parse the given RFC822 message stream till the
+     * blank line separating the header from the body. Store the
+     * header lines inside this InternetHeaders object. The order
+     * of header lines is preserved. <p>
+     *
+     * Note that the header lines are added into this InternetHeaders
+     * object, so any existing headers in this object will not be
+     * affected.  Headers are added to the end of the existing list
+     * of headers, in order.
+     *
+     * @param	is 	RFC822 input stream
+     * @param	allowutf8 	if UTF-8 encoded headers are allowed
+     * @exception	MessagingException for any I/O error reading the stream
+     * @since		JavaMail 1.6
+     */
+    public void load(InputStream is, boolean allowutf8)  throws MessagingException {
+        // Implement me
+    }
+
+
+    /**
      * Read and parse the supplied stream and add all headers to the current
      * set.
      *
