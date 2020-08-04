@@ -22,6 +22,7 @@ package javax.mail.internet;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
@@ -82,73 +83,49 @@ public class InternetHeaders {
      * Create a new InternetHeaders initialized by reading headers from the
      * stream.
      *
-     * @param in
-     *            the RFC822 input stream to load from
-     * @throws MessagingException
-     *             if there is a problem pasring the stream
+     * @param	in 	RFC822 input stream
+     * @param	allowUtf8 	if UTF-8 encoded headers are allowed
+     * @exception	MessagingException if there is a problem parsing the stream
+     * @since		JavaMail 1.6
      */
-    public InternetHeaders(final InputStream in) throws MessagingException {
-        load(in);
+    public InternetHeaders(final InputStream in, boolean allowUtf8) throws MessagingException {
+        load(in, allowUtf8);
     }
 
     /**
-     * Read and parse the given RFC822 message stream till the
-     * blank line separating the header from the body. The input
-     * stream is left positioned at the start of the body. The
-     * header lines are stored internally. <p>
+     * Create a new InternetHeaders initialized by reading headers from the
+     * stream.
      *
-     * For efficiency, wrap a BufferedInputStream around the actual
-     * input stream and pass it as the parameter. <p>
+     * @param in the RFC822 input stream to load from
+     * @throws MessagingException if there is a problem parsing the stream
      *
-     * No placeholder entries are inserted; the original order of
-     * the headers is preserved.
-     *
-     * @param	is 	RFC822 input stream
-     * @param	allowutf8 	if UTF-8 encoded headers are allowed
-     * @exception	MessagingException for any I/O error reading the stream
-     * @since		JavaMail 1.6
      */
-    public InternetHeaders(InputStream is, boolean allowutf8) throws MessagingException {
-        // Implement me
+    public InternetHeaders(final InputStream in) throws MessagingException {
+        load(in, false);
     }
-
 
     /**
      * Read and parse the given RFC822 message stream till the
      * blank line separating the header from the body. Store the
      * header lines inside this InternetHeaders object. The order
-     * of header lines is preserved. <p>
+     * of header lines is preserved.
      *
      * Note that the header lines are added into this InternetHeaders
      * object, so any existing headers in this object will not be
      * affected.  Headers are added to the end of the existing list
      * of headers, in order.
      *
-     * @param	is 	RFC822 input stream
-     * @param	allowutf8 	if UTF-8 encoded headers are allowed
-     * @exception	MessagingException for any I/O error reading the stream
-     * @since		JavaMail 1.6
+     * @param    is RFC822 input stream
+     * @param    allowUtf8 if UTF-8 encoded headers are allowed
+     * @exception MessagingException for any I/O error reading the stream
+     * @since JavaMail 1.6
      */
-    public void load(InputStream is, boolean allowutf8)  throws MessagingException {
-        // Implement me
-    }
-
-
-    /**
-     * Read and parse the supplied stream and add all headers to the current
-     * set.
-     *
-     * @param in
-     *            the RFC822 input stream to load from
-     * @throws MessagingException
-     *             if there is a problem pasring the stream
-     */
-    public void load(final InputStream in) throws MessagingException {
+    public void load(InputStream is, boolean allowUtf8) throws MessagingException {
         try {
             final StringBuffer buffer = new StringBuffer(128);
             String line;
             // loop until we hit the end or a null line
-            while ((line = readLine(in)) != null) {
+            while ((line = readLine(is, allowUtf8)) != null) {
                 // lines beginning with white space get special handling
                 if (line.startsWith(" ") || line.startsWith("\t")) {
                     // this gets handled using the logic defined by
@@ -157,14 +134,12 @@ public class InternetHeaders {
                     // to the last header in the headers list
                     if (buffer.length() == 0) {
                         addHeaderLine(line);
-                    }
-                    else {
+                    } else {
                         // preserve the line break and append the continuation
                         buffer.append("\r\n");
                         buffer.append(line);
                     }
-                }
-                else {
+                } else {
                     // if we have a line pending in the buffer, flush it
                     if (buffer.length() > 0) {
                         addHeaderLine(buffer.toString());
@@ -184,6 +159,17 @@ public class InternetHeaders {
         }
     }
 
+    /**
+     * Read and parse the supplied stream and add all headers to the current
+     * set.
+     *
+     * @param in the RFC822 input stream to load from
+     * @throws MessagingException if there is a problem pasring the stream
+     */
+    public void load(final InputStream in) throws MessagingException {
+        load(in, false);
+    }
+
 
     /**
      * Read a single line from the input stream
@@ -192,7 +178,7 @@ public class InternetHeaders {
      *
      * @return The string value of the line (without line separators)
      */
-    private String readLine(final InputStream in) throws IOException {
+    private String readLine(final InputStream in, boolean allowUtf8) throws IOException {
         final StringBuffer buffer = new StringBuffer(128);
 
         int c;
@@ -218,7 +204,13 @@ public class InternetHeaders {
             return null;
         }
 
-        return buffer.toString();
+        String finalString = buffer.toString();
+
+        if(allowUtf8){
+            return new String(finalString.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
+        }
+
+        return finalString;
     }
 
 

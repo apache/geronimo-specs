@@ -56,6 +56,8 @@ public class MimeMessage extends Message implements MimePart {
     // static used to ensure message ID uniqueness
     private static int messageID = 0;
 
+    // is UTF-8 allowed in headers?
+    private boolean allowUtf8 = false;
 
     /**
      * Extends {@link javax.mail.Message.RecipientType} to support addition recipient types.
@@ -1616,7 +1618,7 @@ public class MimeMessage extends Message implements MimePart {
      */
     protected InternetHeaders createInternetHeaders(final InputStream in) throws MessagingException {
         // internet headers has a constructor for just this purpose
-        return new InternetHeaders(in);
+        return new InternetHeaders(in, allowUtf8);
     }
 
     /**
