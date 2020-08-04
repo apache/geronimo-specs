@@ -32,7 +32,7 @@ import javax.mail.event.MailEvent;
 /**
  * @version $Rev$ $Date$
  */
-public abstract class Service {
+public abstract class Service implements AutoCloseable {
     /**
      * The session from which this service was created.
      */
