@@ -20,7 +20,9 @@
 package javax.mail;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Hashtable;
+import java.util.Set;
 
 /**
  * Representation of flags that may be associated with a message.
@@ -81,13 +83,13 @@ public class Flags implements Cloneable, Serializable {
     // the Serialized form of this class required the following two fields to be persisted
     // this leads to a specific type of implementation
     private int system_flags;
-    private final Hashtable user_flags;
+    private final Hashtable<String, String> user_flags;
 
     /**
      * Construct a Flags instance with no flags set.
      */
     public Flags() {
-        user_flags = new Hashtable();
+        user_flags = new Hashtable<>();
     }
 
     /**
@@ -96,7 +98,7 @@ public class Flags implements Cloneable, Serializable {
      */
     public Flags(final Flag flag) {
         system_flags = flag.mask;
-        user_flags = new Hashtable();
+        user_flags = new Hashtable<>();
     }
 
     /**
@@ -105,7 +107,7 @@ public class Flags implements Cloneable, Serializable {
      */
     public Flags(final Flags flags) {
         system_flags = flags.system_flags;
-        user_flags = new Hashtable(flags.user_flags);
+        user_flags = new Hashtable<>(flags.user_flags);
     }
 
     /**
@@ -114,7 +116,7 @@ public class Flags implements Cloneable, Serializable {
      * @param name the user flag to set
      */
     public Flags(final String name) {
-        user_flags = new Hashtable();
+        user_flags = new Hashtable<>();
         user_flags.put(name.toLowerCase(), name);
     }
 
@@ -307,7 +309,22 @@ public class Flags implements Cloneable, Serializable {
      * @since		JavaMail 1.6
      */
     public boolean retainAll(Flags f) {
-        throw new UnsupportedOperationException("Implement me");
+        boolean changed = false;
+
+        if (this.system_flags != f.system_flags) {
+            this.system_flags = f.system_flags;
+            changed = true;
+        }
+
+        final Set<String> keys = new HashSet<>(this.user_flags.keySet());
+        for (final String user_flag : keys) {
+            if (! f.user_flags.containsKey(user_flag)) {
+                this.user_flags.remove(user_flag);
+                changed = true;
+            }
+        }
+
+        return changed;
     }
 
     /**
@@ -316,7 +333,7 @@ public class Flags implements Cloneable, Serializable {
      * @since	JavaMail 1.6
      */
     public void clearSystemFlags() {
-        throw new UnsupportedOperationException("Implement me");
+        this.system_flags = 0;
     }
 
     /**
@@ -325,6 +342,6 @@ public class Flags implements Cloneable, Serializable {
      * @since	JavaMail 1.6
      */
     public void clearUserFlags() {
-        throw new UnsupportedOperationException("Implement me");
+        this.user_flags.clear();
     }
 }

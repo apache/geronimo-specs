@@ -19,10 +19,7 @@
 
 package javax.mail;
 
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 import junit.framework.TestCase;
 
@@ -152,5 +149,70 @@ public class FlagsTest extends TestCase {
         final Flags other = (Flags) flags.clone();
         assertTrue(other != flags);
         assertEquals(other, flags);
+    }
+
+    public void testClearSystemFlags() {
+        Flags f = new Flags();
+        f.add(Flags.Flag.ANSWERED);
+        f.add(Flags.Flag.DELETED);
+        f.add(Flags.Flag.DRAFT);
+        f.add(Flags.Flag.FLAGGED);
+        f.add(Flags.Flag.RECENT);
+        f.add(Flags.Flag.SEEN);
+        f.add("TEST");
+
+        f.clearSystemFlags();
+
+        assertEquals(0, f.getSystemFlags().length);
+        assertEquals(1, f.getUserFlags().length);
+        assertEquals("TEST", f.getUserFlags()[0]);
+    }
+
+    public void testClearuserFlags() {
+        Flags f = new Flags();
+        f.add(Flags.Flag.ANSWERED);
+        f.add(Flags.Flag.DELETED);
+        f.add(Flags.Flag.DRAFT);
+        f.add(Flags.Flag.FLAGGED);
+        f.add(Flags.Flag.RECENT);
+        f.add(Flags.Flag.SEEN);
+        f.add("TEST");
+
+        f.clearUserFlags();
+
+        assertEquals(6, f.getSystemFlags().length);
+        assertTrue(Arrays.asList(f.getSystemFlags()).contains(Flags.Flag.ANSWERED));
+        assertTrue(Arrays.asList(f.getSystemFlags()).contains(Flags.Flag.DELETED));
+        assertTrue(Arrays.asList(f.getSystemFlags()).contains(Flags.Flag.DRAFT));
+        assertTrue(Arrays.asList(f.getSystemFlags()).contains(Flags.Flag.FLAGGED));
+        assertTrue(Arrays.asList(f.getSystemFlags()).contains(Flags.Flag.RECENT));
+        assertTrue(Arrays.asList(f.getSystemFlags()).contains(Flags.Flag.SEEN));
+        assertEquals(0, f.getUserFlags().length);
+    }
+
+    public void testRetainAllFlags() {
+        Flags f = new Flags();
+        f.add(Flags.Flag.ANSWERED);
+        f.add(Flags.Flag.DELETED);
+        f.add(Flags.Flag.DRAFT);
+        f.add(Flags.Flag.FLAGGED);
+        f.add(Flags.Flag.RECENT);
+        f.add(Flags.Flag.SEEN);
+        f.add("TEST");
+        f.add("FLAG");
+
+        Flags retain = new Flags();
+        retain.add(Flags.Flag.SEEN);
+        retain.add(Flags.Flag.ANSWERED);
+        retain.add("TEST");
+        retain.add("SUPER IMPORTANT");
+
+        f.retainAll(retain);
+
+        assertEquals(2, f.getSystemFlags().length);
+        assertTrue(Arrays.asList(f.getSystemFlags()).contains(Flags.Flag.ANSWERED));
+        assertTrue(Arrays.asList(f.getSystemFlags()).contains(Flags.Flag.SEEN));
+        assertEquals(1, f.getUserFlags().length);
+        assertEquals("TEST", f.getUserFlags()[0]);
     }
 }
