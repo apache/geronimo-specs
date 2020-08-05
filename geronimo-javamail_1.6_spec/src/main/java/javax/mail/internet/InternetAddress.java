@@ -22,6 +22,7 @@ package javax.mail.internet;
 import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.nio.charset.StandardCharsets;
 
 import javax.mail.Address;
 import javax.mail.Session;
@@ -587,7 +588,7 @@ public class InternetAddress extends Address implements Cloneable {
      * @since		JavaMail 1.6
      */
     public static String toUnicodeString(Address[] addresses) {
-        throw new UnsupportedOperationException("Implement me");
+        return toUnicodeString(addresses, 0);
     }
 
     /**
@@ -608,9 +609,70 @@ public class InternetAddress extends Address implements Cloneable {
      *			given array is not an InternetAddress object.
      *			Note that this is a RuntimeException.
      * @return		comma separated string of addresses
-     * @since		JavaMail 1.6
+     * @Since JavaMail 1.6
      */
     public static String toUnicodeString(Address[] addresses, int used) {
-        throw new UnsupportedOperationException("Implement me");
+
+        if (addresses == null || addresses.length == 0) {
+            return null;
+        }
+
+        boolean sawNonAsciiCharacters = false;
+
+        if (addresses.length == 1) {
+
+            String converted = ((InternetAddress)addresses[0]).toUnicodeString();
+            if (MimeUtility.verifyAscii(converted) != MimeUtility.ALL_ASCII){
+                sawNonAsciiCharacters = true;
+                converted = new String(converted.getBytes(StandardCharsets.UTF_8), StandardCharsets.ISO_8859_1);
+
+            }
+
+            if (used + converted.length() > 72) {
+                converted = "\r\n  " + converted;
+            }
+
+            if(sawNonAsciiCharacters){
+                return new String(converted.getBytes(StandardCharsets.ISO_8859_1),StandardCharsets.UTF_8);
+            }
+
+            return converted;
+        } else {
+            final StringBuffer buf = new StringBuffer(addresses.length * 32);
+            for (int i = 0; i < addresses.length; i++) {
+
+                String converted = ((InternetAddress)addresses[0]).toUnicodeString();
+
+                if (MimeUtility.verifyAscii(converted) != MimeUtility.ALL_ASCII){
+                    sawNonAsciiCharacters = true;
+                    converted = new String(converted.getBytes(StandardCharsets.UTF_8), StandardCharsets.ISO_8859_1);
+
+                }
+
+                if (i == 0) {
+                    if (used + converted.length() + 1 > 72) {
+                        buf.append("\r\n  ");
+                        used = 2;
+                    }
+                } else {
+                    if (used + converted.length() + 1 > 72) {
+                        buf.append(",\r\n  ");
+                        used = 2;
+                    } else {
+                        buf.append(", ");
+                        used += 2;
+                    }
+                }
+                buf.append(converted);
+                used += converted.length();
+            }
+
+            String finalString = buf.toString();
+
+            if(sawNonAsciiCharacters){
+                return new String(finalString.getBytes(StandardCharsets.ISO_8859_1),StandardCharsets.UTF_8);
+            }
+            return finalString;
+        }
     }
 }

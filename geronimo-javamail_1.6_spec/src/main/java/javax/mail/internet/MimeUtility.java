@@ -60,6 +60,10 @@ public class MimeUtility {
     private static final String MIME_DECODE_TEXT_STRICT = "mail.mime.decodetext.strict";
     private static final String MIME_FOLDTEXT = "mail.mime.foldtext";
     private static final int FOLD_THRESHOLD = 76;
+    static final int ALL_ASCII = 1;
+    static final int MOSTLY_ASCII = 2;
+    static final int MOSTLY_NONASCII = 3;
+
 
     private MimeUtility() {
     }
@@ -1291,6 +1295,39 @@ public class MimeUtility {
             }
         }
         return newString.toString();
+    }
+
+    /**
+     * Verifies if a given string contains non US-ASCII characters
+     *
+     * @param s The String
+     * @return ALL_ASCII if all characters in the string belong to the US-ASCII
+     * character. MOSTLY_ASCII if more than half of the available characters are
+     * US-ASCII characters. Else MOSTLY_NONASCII.
+     */
+    public static int verifyAscii(String s) {
+        int ascii_characters = 0;
+        int non_ascii_characters = 0;
+
+        for (int i = 0; i < s.length(); i++) {
+            if (nonascii((int) s.charAt(i))) {
+                non_ascii_characters++;
+            } else {
+                ascii_characters++;
+            }
+        }
+
+        if (non_ascii_characters == 0) {
+            return ALL_ASCII;
+        } else if (ascii_characters > non_ascii_characters) {
+            return MOSTLY_ASCII;
+        } else {
+            return MOSTLY_NONASCII;
+        }
+    }
+
+    public static final boolean nonascii (int a){
+        return a >= 0177 || (a < 040 && a != '\r' && a != '\n' && a != '\t');
     }
 }
 
