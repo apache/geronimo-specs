@@ -552,17 +552,25 @@ public final class Session {
     private ProviderInfo loadProviders(final ClassLoader cl) {
         // we create a merged map from reading all of the potential address map entries.  The locations
         // searched are:
-        //   1.   java.home/lib/javamail.address.map
+        //   0. java.home/conf/javamail.address.map
+        //   1. java.home/lib/javamail.address.map
         //   2. META-INF/javamail.address.map
         //   3. META-INF/javamail.default.address.map
         //
+        // JDK 1.9 adds a new <java.home>/conf directory to hold configuration
+        // files that were previously stored in <java.home>/lib.  When using
+        // JavaMail on JDK 1.9, it should look for its (optional) configuration
+        // files in the <java.home>/conf directory.
         final ProviderInfo info = new ProviderInfo();
 
         // NOTE:  Unlike the addressMap, we process these in the defined order.  The loading routine
         // will not overwrite entries if they already exist in the map.
 
         try {
-            final File file = new File(System.getProperty("java.home"), "lib/javamail.providers");
+            File file = new File(System.getProperty("java.home"), "conf/javamail.providers");
+            if (!file.exists()){
+                file = new File(System.getProperty("java.home"), "lib/javamail.providers");
+            }
             final InputStream is = new FileInputStream(file);
             try {
                 loadProviders(info, is);
@@ -732,9 +740,15 @@ public final class Session {
     private static Map loadAddressMap(final ClassLoader cl) {
         // we create a merged map from reading all of the potential address map entries.  The locations
         // searched are:
-        //   1.   java.home/lib/javamail.address.map
+        //   0. java.home/conf/javamail.address.map
+        //   1. java.home/lib/javamail.address.map
         //   2. META-INF/javamail.address.map
         //   3. META-INF/javamail.default.address.map
+        // 
+        // JDK 1.9 adds a new <java.home>/conf directory to hold configuration
+        // files that were previously stored in <java.home>/lib.  When using
+        // JavaMail on JDK 1.9, it should look for its (optional) configuration
+        // files in the <java.home>/conf directory.
         //
         // if all of the above searches fail, we just set up some "default" defaults.
 
@@ -787,7 +801,10 @@ public final class Session {
 
 
         try {
-            final File file = new File(System.getProperty("java.home"), "lib/javamail.address.map");
+            File file = new File(System.getProperty("java.home"), "conf/javamail.address.map");
+            if (!file.exists()) {
+                file = new File(System.getProperty("java.home"), "lib/javamail.address.map");
+            }
             final InputStream is = new FileInputStream(file);
             try {
                 // load as a property file
