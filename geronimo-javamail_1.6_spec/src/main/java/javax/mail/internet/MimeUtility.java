@@ -1305,7 +1305,7 @@ public class MimeUtility {
      * character. MOSTLY_ASCII if more than half of the available characters are
      * US-ASCII characters. Else MOSTLY_NONASCII.
      */
-    public static int verifyAscii(String s) {
+    static int verifyAscii(String s) {
         int ascii_characters = 0;
         int non_ascii_characters = 0;
 
@@ -1326,7 +1326,7 @@ public class MimeUtility {
         }
     }
 
-    public static final boolean nonascii (int a){
+    static final boolean nonascii (int a){
         return a >= 0177 || (a < 040 && a != '\r' && a != '\n' && a != '\t');
     }
 }
