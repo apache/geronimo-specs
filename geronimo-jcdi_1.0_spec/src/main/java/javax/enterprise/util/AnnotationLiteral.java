@@ -282,7 +282,7 @@ public abstract class AnnotationLiteral<T extends Annotation> implements Annotat
                     }
                     else if(Boolean.TYPE == type)
                     {
-                        value = Arrays.hashCode((Long[])object);
+                        value = Arrays.hashCode((Boolean[])object);
                     }
                     else if(Byte.TYPE == type)
                     {
