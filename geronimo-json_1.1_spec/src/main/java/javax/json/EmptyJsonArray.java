@@ -18,6 +18,7 @@ package javax.json;
 
 import java.io.Serializable;
 import java.util.AbstractList;
+import java.util.Collections;
 import java.util.List;
 
 class EmptyJsonArray extends AbstractList<JsonValue> implements JsonArray, Serializable {
@@ -53,7 +54,7 @@ class EmptyJsonArray extends AbstractList<JsonValue> implements JsonArray, Seria
 
     @Override
     public <T extends JsonValue> List<T> getValuesAs(Class<T> clazz) {
-        return null;
+        return Collections.emptyList();
     }
 
     @Override
