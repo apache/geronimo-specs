@@ -189,6 +189,7 @@
         <profile>
             <id>JakartaEE10</id>
             <modules>
+                <module>geronimo-activation_2.0_spec</module>
                 <module>geronimo-jakartamail_2.1_spec</module>
             </modules>
         </profile>
