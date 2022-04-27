@@ -60,10 +60,9 @@
 
     <dependencies>
         <dependency>
-            <!-- XXX: Replace with Geronimo spec -->
-            <groupId>jakarta.activation</groupId>
-            <artifactId>jakarta.activation-api</artifactId>
-            <version>2.0.1</version>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-activation_2.0_spec</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -92,14 +91,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.12</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <!-- FIXME: Not sure about it (but seems to be needed at runtime by the jakarta activation spec -->
-            <groupId>com.sun.activation</groupId>
-            <artifactId>jakarta.activation</artifactId>
-            <version>2.0.1</version>
+            <version>4.13.2</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

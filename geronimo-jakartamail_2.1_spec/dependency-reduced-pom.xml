@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <parent>
-    <artifactId>genesis-java7-flava</artifactId>
+    <artifactId>genesis-java8-flava</artifactId>
     <groupId>org.apache.geronimo.genesis</groupId>
     <version>2.4</version>
   </parent>
@@ -124,9 +124,9 @@
   </profiles>
   <dependencies>
     <dependency>
-      <groupId>jakarta.activation</groupId>
-      <artifactId>jakarta.activation-api</artifactId>
-      <version>2.0.1</version>
+      <groupId>org.apache.geronimo.specs</groupId>
+      <artifactId>geronimo-activation_2.0_spec</artifactId>
+      <version>1.0.0-SNAPSHOT</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
@@ -150,7 +150,7 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.12</version>
+      <version>4.13.2</version>
       <scope>test</scope>
       <exclusions>
         <exclusion>
@@ -158,12 +158,6 @@
           <groupId>org.hamcrest</groupId>
         </exclusion>
       </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>com.sun.activation</groupId>
-      <artifactId>jakarta.activation</artifactId>
-      <version>2.0.1</version>
-      <scope>test</scope>
     </dependency>
   </dependencies>
   <distributionManagement>
