@@ -21,7 +21,7 @@
 ## $Rev: 438769 $ $Date: 2006-08-30 21:03:44 -0700 (Wed, 30 Aug 2006) $
 ##
 
-### Character set mapping table loaded and used by the javax.mail.internet.MimeUtility class.
+### Character set mapping table loaded and used by the MimeUtility class.
 
 ### java character sets to MIME character set map.  This must be the first table.
 

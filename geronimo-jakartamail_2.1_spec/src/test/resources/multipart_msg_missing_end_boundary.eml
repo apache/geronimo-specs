@@ -1,0 +1,10 @@
+From: Nathaniel Borenstein <nsb@bellcore.com>
+To:  Ned Freed <ned@innosoft.com>
+Subject: Sample message
+MIME-Version: 1.0
+Content-type: multipart/mixed;
+              boundary=123456789
+
+--123456789
+
+This is implicitly typed plain ASCII text.

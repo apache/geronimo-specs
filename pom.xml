@@ -187,6 +187,12 @@
             </modules>
         </profile>
         <profile>
+            <id>JakartaEE10</id>
+            <modules>
+                <module>geronimo-jakartamail_2.1_spec</module>
+            </modules>
+        </profile>
+        <profile>
             <id>MicroProfile10</id>
             <modules>
                 <!-- CDI 1.2 -->

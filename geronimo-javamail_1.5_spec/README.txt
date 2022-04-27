@@ -38,7 +38,7 @@ e.g. c:\mymail\META-INF\javamail.providers
 Providers
 ---------
 Provides a protocol, along with its implementation and whether it is a store
-or a transport (subclass of javax.mail.Store or javax.mail.Transport)
+or a transport (subclass of Store or Transport)
 
 protocol=smtp;type=transport;class=org.me.MySMTPTransport;vendor=Me Inc;version=1.0
 protocol=imap;type=store;class=org.me.MyIMAPStore;vendor=Me Inc;version=1.0
