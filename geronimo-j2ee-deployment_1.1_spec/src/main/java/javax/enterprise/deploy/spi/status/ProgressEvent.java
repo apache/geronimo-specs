@@ -45,7 +45,7 @@ public class ProgressEvent extends EventObject {
      *
      * @param source         the object on which the Event initially occurred.
      * @param targetModuleID the combination of target and module for which the
-     *                       event occured.
+     *                       event occurred.
      * @param sCode          the object containing the status information.
      */
     public ProgressEvent(Object source, TargetModuleID targetModuleID, DeploymentStatus sCode) {
